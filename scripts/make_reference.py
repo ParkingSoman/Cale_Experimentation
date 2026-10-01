@@ -10,9 +10,9 @@ from nest.drift import K, _text_positions
 from nest.io import read_jsonl
 from nest.stream import LayerwiseRunner
 
-src = "models/gemma-4-12B-it-bf16"
+src = sys.argv[3] if len(sys.argv) > 3 else "models/gemma-4-12B-it-bf16"
 out = sys.argv[1] if len(sys.argv) > 1 else "results/ref-bf16"
-limit = int(sys.argv[2]) if len(sys.argv) > 2 else None
+limit = int(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[2] != "-" else None
 os.makedirs(out, exist_ok=True)
 
 recs = read_jsonl("data/heldout.jsonl")[:limit]

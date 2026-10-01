@@ -18,9 +18,9 @@ is not listed.
 |---|---|---|---|
 | `models/gemma-4-12B-it-bf16` | 22 GB | Source for every build. Full-precision reference and statistics runs. | End of phase 1, after Shonu agrees |
 | `models/nest8` | 12 GB | 8-bit reordered 12B. Structure experiments without 4-bit noise. | Replaced by a newer 8-bit build |
-| `models/qg4-id` | 7.0 GB | QAT 4-bit, exact-grid encoder, original order: the quality ceiling for 4-bit. | After the nested grid build is compared to it |
-| `models/nest4e8` | 6.8 GB | 4-bit reordered 12B, word table at 8-bit. Current 4-bit baseline. | Replaced by the QAT 4-bit build if that wins |
-| `models/gemma-4-12B-it-qat-bf16` | 24 GB | Google's QAT weights (made for 4-bit). Source for a better 4-bit build. | After the QAT 4-bit build is made and scored, unless it becomes the main source |
+| `models/qg4` | 7.0 GB | Main test model: QAT 4-bit, exact grid, nested neuron order | Replaced by a newer nested build |
+| `models/gemma-4-12B-it-qat-bf16` | 24 GB | Google's QAT weights. Source for all current builds. | End of phase 1, after Shonu agrees |
+| `models/qat-assistant-4bit` | 0.27 GB | Google's QAT drafter for the 12B (exact-output fast tier test) | End of phase 1 |
 | `models/gemma-4-e4b-it-4bit` | 4.8 GB | Baseline: the bar to beat | End of phase 1 |
 | `models/gemma-4-e2b-it-4bit` | 3.3 GB | Baseline | End of phase 1 |
 
@@ -32,4 +32,7 @@ is not listed.
 | `models/gemma-4-12B-it-4bit` | 6.3 GB | 2026-10-01 | Same as our own 4-bit build at full width |
 | `data/cache` + HF dataset entries | 0.14 GB | 2026-10-01 | Samples already saved in `data/` |
 | `models/nest8` | 12 GB | 2026-10-01 | 8-bit tests done; 4-bit QAT is the main test model now |
+| `models/nestq4e8` | 6.8 GB | 2026-10-01 | QAT standard-4-bit test done; exact-grid build is better |
+| `models/qg4-id` | 7.0 GB | 2026-10-01 | Ceiling confirmed equal to the nested build at full width |
+| `models/nest4e8` | 6.8 GB | 2026-10-01 | Superseded by QAT builds |
 | `models/nest4` | 6.3 GB | 2026-10-01 | `nest4e8` scored almost the same (answer drift 0.683 vs 0.704) |

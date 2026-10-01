@@ -88,3 +88,16 @@ QAT weights sit on a 16-level grid per block of 32 input weights. MLX's quantize
 - QAT + exact grid: 4-bit nearly matches the original at 8-bit (49.0 / 54).
 - 75% width on QAT 4-bit ties E4B (29.0 vs 29.5, 41 vs 41) at ~5.6 GB vs 4.8 GB.
 - Drift vs the original bf16 includes the QAT model's own difference (weights differ 16-51% per matrix), so benchmarks matter more than drift for QAT builds.
+
+### Nested exact-grid QAT build (`models/qg4`, 7.0 GB)
+284 tables exact-grid, 48 (reordered down_proj) MLX g32.
+
+| level | MMLU-Pro | MMStar | drift (ans) |
+|---|---|---|---|
+| full | 48.5 | 57 | 0.396 |
+| 90% width | 42.5 | 56 | 0.682 |
+| 75% width | 25.0 | 44 | 1.350 |
+
+- Nesting costs nothing at full width (ceiling, original order: 47.5 / 55).
+- The cliff sits between 90% and 75% width on knowledge (MMLU-Pro); images hold up better.
+- Noise: MMLU-Pro n=200 (±3.4), MMStar n=100 (±5). Final claims need larger sets.
