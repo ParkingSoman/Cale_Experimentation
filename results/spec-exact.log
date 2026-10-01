@@ -1,0 +1,7 @@
+drafter kind: mtp
+round 0 full: plain 10.8 tok/s, drafter 21.3 tok/s
+[full] drafter stats: Speculative decoding: 2.96 accepted tokens/round (1.96 accepted drafts/round, 65.8% of drafted, avg draft 2.98) over 54 rounds
+round 1 full: plain 11.7 tok/s, drafter 21.8 tok/s
+
+level | plain tok/s | with drafter tok/s | speedup (median of per-round ratios) | outputs identical
+full  |   11.2 |   21.6 | x1.93 | 4/6

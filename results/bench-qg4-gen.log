@@ -1,0 +1,14 @@
+[qg4-gen/full] gsm8k: 0.780 (n=50, 1075s)
+Traceback (most recent call last):
+  File "/Users/shonusengupta/Cale_Experimentation/scripts/bench.py", line 82, in <module>
+    res = run_task(task, model, proc, letter_ids)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shonusengupta/Cale_Experimentation/scripts/bench.py", line 52, in run_task
+    from lm_eval.tasks.ifeval.utils import InputExample, test_instruction_following_strict
+  File "/Users/shonusengupta/Cale_Experimentation/.venv/lib/python3.12/site-packages/lm_eval/tasks/ifeval/utils.py", line 4, in <module>
+    from lm_eval.tasks.ifeval import instructions_registry
+  File "/Users/shonusengupta/Cale_Experimentation/.venv/lib/python3.12/site-packages/lm_eval/tasks/ifeval/instructions_registry.py", line 17, in <module>
+    from lm_eval.tasks.ifeval import instructions
+  File "/Users/shonusengupta/Cale_Experimentation/.venv/lib/python3.12/site-packages/lm_eval/tasks/ifeval/instructions.py", line 36, in <module>
+    import langdetect
+ModuleNotFoundError: No module named 'langdetect'

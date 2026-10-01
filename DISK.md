@@ -18,6 +18,7 @@ is not listed.
 |---|---|---|---|
 | `models/gemma-4-12B-it-bf16` | 22 GB | Source for every build. Full-precision reference and statistics runs. | End of phase 1, after Shonu agrees |
 | `models/nest8` | 12 GB | 8-bit reordered 12B. Structure experiments without 4-bit noise. | Replaced by a newer 8-bit build |
+| `models/q4e8` | 6.8 GB | QAT 4-bit, MLX g64, 8-bit word table, nested order. Cheaper encoder; better near E4B's size. | When phase 2 picks one encoder |
 | `models/qg4` | 7.0 GB | Main test model: QAT 4-bit, exact grid, nested neuron order | Replaced by a newer nested build |
 | `models/gemma-4-12B-it-qat-bf16` | 24 GB | Google's QAT weights. Source for all current builds. | End of phase 1, after Shonu agrees |
 | `models/qat-assistant-4bit` | 0.27 GB | Google's QAT drafter for the 12B (exact-output fast tier test) | End of phase 1 |

@@ -166,3 +166,26 @@ All models sometimes open with prose instead of a bare letter (12B most often: ~
 
 - u75 beats E4B on both tests at +1 GB. Crossover ≈ u70 (~5.9 GB). Gap to the equal-RAM bar ≈ 0.7 GB (~15%).
 - QAT reference for clean drift on QAT builds: `results/ref-qat-bf16`.
+
+### Final comparison on larger sets (MMLU-Pro n=1000 ±1.5; MMStar n=300 ±2.9) — supersedes n=200 E4B numbers
+
+| model / level | size (MLX) | MMLU-Pro | MMStar |
+|---|---|---|---|
+| qg4 (exact grid, 5 bit) full | 7.5 GB | 53.0 | 59.7 |
+| qg4 u75 | 6.2 | 31.9 | 54.0 |
+| qg4 u70 | 5.9 | 28.8 | 44.7 |
+| qg4 u65 | 5.7 | 25.0 | 40.7 |
+| q4e8 (MLX g64, 4.5 bit, 8-bit word table) full | 6.8 | 51.3 | 56.7 |
+| q4e8 u75 | 5.6 | 31.5 | 50.0 |
+| q4e8 u70 | 5.4 | 26.6 | 46.0 |
+| q4e8 u65 | 5.1 | 22.0 | 39.7 |
+| E4B 4-bit | 5.2 | 38.6 | 47.0 |
+| E2B 4-bit | 3.6 | 29.9 | 34.3 |
+
+GSM8K (first 50, greedy, 320 tokens): 12B full 78%, E4B 60%.
+
+- E4B was under-rated at n=200 (33.0 → 38.6). Lesson: n=200 is too small for decisions.
+- At E4B's footprint the slice loses clearly on knowledge (22.0 vs 38.6). u75 wins on images (54 vs 47) but loses on knowledge (31.9 vs 38.6).
+- Verdict: phase-1 success bar (≥ E4B at E4B's RAM, no training) is NOT met. Width cuts without training fall off too fast below ~u85.
+- The 0.5-bit exact-grid premium buys ~1-3 points at equal width; near E4B's size the cheaper g64 encoder is the better trade.
+- Exact-verify flag in mlx-vlm applies only to its own verify path, not the MTP drafter path; drafter output stays 4/6 identical (summation order), speedup 1.93x.
