@@ -101,3 +101,25 @@ QAT weights sit on a 16-level grid per block of 32 input weights. MLX's quantize
 - Nesting costs nothing at full width (ceiling, original order: 47.5 / 55).
 - The cliff sits between 90% and 75% width on knowledge (MMLU-Pro); images hold up better.
 - Noise: MMLU-Pro n=200 (±3.4), MMStar n=100 (±5). Final claims need larger sets.
+
+### Width curve, nested exact-grid QAT 4-bit (`qg4`); size = weights the level uses (g32 = 5 bits/weight)
+
+| level | size | MMLU-Pro | MMStar |
+|---|---|---|---|
+| full | 7.5 GB | 48.5 | 57 |
+| u90 | 7.0 | 42.5 | 56 |
+| u85 | 6.7 | 37.0 | 56 |
+| u80 | 6.4 | 32.0 | 47 |
+| u75 | 6.2 | 25.0 | 44 |
+| u70 | 5.9 | 24.5 | 33 |
+| u65 | 5.7 | 18.0 | 28 |
+| u60 | 5.4 | 16.0 | 27 |
+| e90 (equal-loss) | 7.0 | 40.0 | 58 |
+| e75 (equal-loss) | 6.2 | 28.5 | 43 |
+| E4B 4-bit | 5.2 | 29.5 | 41 |
+| E2B 4-bit | 3.6 | 20.0 | 35 |
+
+- Equal-loss allocation ≈ uniform (within noise).
+- At E4B's footprint (~u55) the slice is far below E4B. The slice ties E4B only at ~6.2-6.4 GB (+20-25%).
+- Smooth to ~u85, steep cliff below. Width cuts alone (no training) do not meet the equal-RAM E4B bar.
+- QAT grid is Q4_0-symmetric (zero on grid, levels -8..7): llama.cpp Q4_0 stores it exactly at 4.5 bits/weight; MLX needs 5.

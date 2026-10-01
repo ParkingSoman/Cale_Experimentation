@@ -1,6 +1,0 @@
-[qg4/full] prefill   248.5 tok/s | decode    8.0 tok/s | level weights 7.49 GB
-[qg4/u90] prefill   246.4 tok/s | decode    7.1 tok/s | level weights 11.73 GB
-[qg4/u75] prefill   298.2 tok/s | decode   10.0 tok/s | level weights 10.14 GB
-[qg4/u60] prefill   344.3 tok/s | decode   11.3 tok/s | level weights 8.55 GB
-[qg4/u50] prefill   362.6 tok/s | decode   10.3 tok/s | level weights 7.49 GB
-peak GB 9.752657318
