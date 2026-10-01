@@ -51,5 +51,6 @@ for lname, lv in levels.items():
     print(f"[{args.name}/{lname}] {time.time() - t:.0f}s  {fmt(res)}", flush=True)
     res["_seconds"] = time.time() - t
     out[lname] = res
+    json.dump(out, open(f"results/scores/{args.name}.json", "w"), indent=1)
 json.dump(out, open(f"results/scores/{args.name}.json", "w"), indent=1)
 print("peak GB", mx.get_peak_memory() / 1e9)
