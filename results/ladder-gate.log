@@ -22,3 +22,6 @@
   layer 39 2496s peak 11.1 GB
   layer 47 2678s peak 11.1 GB
 [mmlupro1k] ocean=0.540  r8=0.530  r4=0.536 (n=696) 2715s peak 11.1 GB
+[mmlupro1k] chunk 3: 223 items, 49846 tokens, 2721s
+  layer 7 2901s peak 11.1 GB
+  layer 15 3076s peak 11.1 GB
