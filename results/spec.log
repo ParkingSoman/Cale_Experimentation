@@ -1,1 +1,18 @@
 drafter kind: mtp
+round 0 full: plain 7.7 tok/s, drafter 15.0 tok/s
+round 0 u90: plain 12.1 tok/s, drafter 23.4 tok/s
+round 0 u75: plain 13.4 tok/s, drafter 25.8 tok/s
+round 1 full: plain 12.0 tok/s, drafter 22.5 tok/s
+round 1 u90: plain 12.0 tok/s, drafter 24.4 tok/s
+round 1 u75: plain 14.4 tok/s, drafter 24.7 tok/s
+[full] drafter stats: Speculative decoding: 2.96 accepted tokens/round (1.96 accepted drafts/round, 65.8% of drafted, avg draft 2.98) over 54 rounds
+round 2 full: plain 11.9 tok/s, drafter 23.7 tok/s
+[u90] drafter stats: Speculative decoding: 3.06 accepted tokens/round (2.06 accepted drafts/round, 69.9% of drafted, avg draft 2.94) over 52 rounds
+round 2 u90: plain 12.9 tok/s, drafter 25.2 tok/s
+[u75] drafter stats: Speculative decoding: 2.67 accepted tokens/round (1.67 accepted drafts/round, 56.2% of drafted, avg draft 2.97) over 60 rounds
+round 2 u75: plain 14.3 tok/s, drafter 25.7 tok/s
+
+level | plain tok/s | with drafter tok/s | speedup (median of per-round ratios) | outputs identical
+full  |   11.9 |   22.5 | x1.94 | 4/6
+u90   |   12.1 |   24.4 | x1.96 | 2/6
+u75   |   14.3 |   25.7 | x1.80 | 2/6

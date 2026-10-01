@@ -123,3 +123,31 @@ QAT weights sit on a 16-level grid per block of 32 input weights. MLX's quantize
 - At E4B's footprint (~u55) the slice is far below E4B. The slice ties E4B only at ~6.2-6.4 GB (+20-25%).
 - Smooth to ~u85, steep cliff below. Width cuts alone (no training) do not meet the equal-RAM E4B bar.
 - QAT grid is Q4_0-symmetric (zero on grid, levels -8..7): llama.cpp Q4_0 stores it exactly at 4.5 bits/weight; MLX needs 5.
+
+### Speed per level (round-robin, ratios vs full; other session also used the GPU)
+
+| level | size | decode vs full | prefill vs full |
+|---|---|---|---|
+| full | 7.5 GB | 1.00 (≈8 tok/s under contention) | 1.00 |
+| u90 | 7.0 | 1.07 | 1.05 |
+| u75 | 6.2 | 1.19 | 1.19 |
+| u60 | 5.4 | 1.34 | 1.39 |
+| u50 | 4.8 | 1.48 | 1.49 |
+| E4B (separate run) | 5.2 | ≈2.7 | ≈2.4 |
+| E2B (separate run) | 3.6 | ≈4.5 | ≈4.3 |
+
+Width slicing speed is bandwidth-bound: MLP is ~71% of bytes, so u50 caps at ~1.5x.
+
+### Google's QAT MTP drafter (`mlx-community/gemma-4-12B-it-qat-assistant-4bit`, 270 MB)
+
+| level | plain tok/s | with drafter | speedup | accepted share of drafts | identical output |
+|---|---|---|---|---|---|
+| full | 11.9 | 22.5 | 1.94x | 65.8% | 4/6 |
+| u90 | 12.1 | 24.4 | 1.96x | 69.9% | 2/6 |
+| u75 | 14.3 | 25.7 | 1.80x | 56.2% | 2/6 |
+
+- Full 12B + drafter ≈ plain E4B speed, at full 12B quality, for +270 MB.
+- Not bit-identical (4/6): multi-token verify sums in a different order than single-token decode, which flips near-ties. Same model quality.
+
+### Harness check (first 20 prompts; what models write first)
+All models sometimes open with prose instead of a bare letter (12B most often: ~5/20 MMLU-Pro, 7/20 MMStar). Letter scoring at the first answer position was noisy for all models and slightly unfair to the 12B. Fixed: the answer now starts with "The answer is" and the scorer compares tokens " A".." J". Earlier MMLU-Pro/MMStar numbers above used the old harness; re-run queued.
