@@ -19,3 +19,6 @@
   layer 15 2007s peak 11.0 GB
   layer 23 2162s peak 11.0 GB
   layer 31 2324s peak 11.0 GB
+  layer 39 2496s peak 11.1 GB
+  layer 47 2678s peak 11.1 GB
+[mmlupro1k] ocean=0.540  r8=0.530  r4=0.536 (n=696) 2715s peak 11.1 GB
