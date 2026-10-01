@@ -74,3 +74,17 @@ Relative MLP output error:
 
 - Rank-64 patch (0.5M params/layer, strictly nested) removes 8-27% of the error. Expected drift reduction ~20-45%.
 - Full LS re-solve is no better than a linear patch: math-only repair has a low ceiling here.
+
+### QAT weights (Google's gemma-4-12B-it QAT, MLX copy) — 2026-10-01
+QAT weights sit on a 16-level grid per block of 32 input weights. MLX's quantizer estimates the step from (max-min)/15, which is wrong when blocks leave levels unused (most do: ~12.8 distinct values per block). `nest/gridq.py` detects the step from value gaps: 0.39% error vs 6% for mx.quantize g32. All 332 weight tables matched the grid.
+
+| Model / level | MMLU-Pro | MMStar | drift (ans) |
+|---|---|---|---|
+| QAT, MLX 4-bit g64 (+8-bit word table), full | 45.0 | 53 | 0.488 |
+| same, 90% width | 46.0 | 53 | 0.764 |
+| same, 75% width | 29.0 | 41 | - |
+| QAT, exact-grid 4-bit g32, full (7.0 GB) | 47.5 | 55 | 0.367 |
+
+- QAT + exact grid: 4-bit nearly matches the original at 8-bit (49.0 / 54).
+- 75% width on QAT 4-bit ties E4B (29.0 vs 29.5, 41 vs 41) at ~5.6 GB vs 4.8 GB.
+- Drift vs the original bf16 includes the QAT model's own difference (weights differ 16-51% per matrix), so benchmarks matter more than drift for QAT builds.

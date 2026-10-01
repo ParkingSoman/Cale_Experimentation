@@ -1,2 +1,7 @@
 [q4e8/full] mmlupro: 0.450 (n=200, 227s)
 [q4e8/full] mmstar: 0.530 (n=100, 210s)
+[q4e8/u90] mmlupro: 0.460 (n=200, 190s)
+[q4e8/u90] mmstar: 0.530 (n=100, 126s)
+[q4e8/u75] mmlupro: 0.290 (n=200, 149s)
+[q4e8/u75] mmstar: 0.410 (n=100, 112s)
+peak GB 7.904346352
