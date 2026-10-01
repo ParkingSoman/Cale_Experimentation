@@ -25,3 +25,4 @@
 [mmlupro1k] chunk 3: 223 items, 49846 tokens, 2721s
   layer 7 2901s peak 11.1 GB
   layer 15 3076s peak 11.1 GB
+  layer 23 3240s peak 11.1 GB

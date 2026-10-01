@@ -16,11 +16,8 @@ is not listed.
 
 | Path | Size | Why it exists | Delete when |
 |---|---|---|---|
-| `models/gemma-4-12B-it-bf16` | 22 GB | Source for every build. Full-precision reference and statistics runs. | End of phase 1, after Shonu agrees |
-| `models/nest8` | 12 GB | 8-bit reordered 12B. Structure experiments without 4-bit noise. | Replaced by a newer 8-bit build |
-| `models/q4e8` | 6.8 GB | QAT 4-bit, MLX g64, 8-bit word table, nested order. Cheaper encoder; better near E4B's size. | When phase 2 picks one encoder |
-| `models/qg4` | 7.0 GB | Main test model: QAT 4-bit, exact grid, nested neuron order | Replaced by a newer nested build |
-| `models/gemma-4-12B-it-qat-bf16` | 24 GB | Google's QAT weights. Source for all current builds. | End of phase 1, after Shonu agrees |
+| `models/gemma-4-12B-it-bf16` | 22 GB | The original (the "ocean"). Source of planes B and C; read by the Step 1 gate. | After the nest build is checked, and Shonu agrees |
+| `models/qg4` | 7.0 GB | Main test model: QAT 4-bit, exact grid, nested neuron order. Plane A of the planned nest file. | After `model.nest` is built and checked (plane A = qg4) |
 | `models/qat-assistant-4bit` | 0.27 GB | Google's QAT drafter for the 12B (exact-output fast tier test) | End of phase 1 |
 | `models/gemma-4-e4b-it-4bit` | 4.8 GB | Baseline: the bar to beat | End of phase 1 |
 | `models/gemma-4-e2b-it-4bit` | 3.3 GB | Baseline | End of phase 1 |
@@ -37,3 +34,5 @@ is not listed.
 | `models/qg4-id` | 7.0 GB | 2026-10-01 | Ceiling confirmed equal to the nested build at full width |
 | `models/nest4e8` | 6.8 GB | 2026-10-01 | Superseded by QAT builds |
 | `models/nest4` | 6.3 GB | 2026-10-01 | `nest4e8` scored almost the same (answer drift 0.683 vs 0.704) |
+| `models/gemma-4-12B-it-qat-bf16` | 22 GB | 2026-10-01 | `qg4` holds the QAT weights; not needed by the ladder (plan decision) |
+| `models/q4e8` | 6.8 GB | 2026-10-01 | Encoder comparison done; exact-grid `qg4` is the 4-bit build |
