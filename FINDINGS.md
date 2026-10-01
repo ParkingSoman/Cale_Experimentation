@@ -151,3 +151,18 @@ Width slicing speed is bandwidth-bound: MLP is ~71% of bytes, so u50 caps at ~1.
 
 ### Harness check (first 20 prompts; what models write first)
 All models sometimes open with prose instead of a bare letter (12B most often: ~5/20 MMLU-Pro, 7/20 MMStar). Letter scoring at the first answer position was noisy for all models and slightly unfair to the 12B. Fixed: the answer now starts with "The answer is" and the scorer compares tokens " A".." J". Earlier MMLU-Pro/MMStar numbers above used the old harness; re-run queued.
+
+### Corrected harness ("The answer is" prefix, " A".." J" tokens) — supersedes letter-choice numbers above
+
+| model / level | size (MLX) | MMLU-Pro (n=200) | MMStar (n=100) |
+|---|---|---|---|
+| 12B qg4 full | 7.5 GB | 50.5 | 69 |
+| u90 | 7.0 | 43.5 | 58 |
+| u80 | 6.4 | 39.5 | 50 |
+| u75 | 6.2 | 35.0 | 48 |
+| u60 | 5.4 | 22.5 | 27 |
+| E4B 4-bit | 5.2 | 33.0 | 39 |
+| E2B 4-bit | 3.6 | 24.0 | 32 |
+
+- u75 beats E4B on both tests at +1 GB. Crossover ≈ u70 (~5.9 GB). Gap to the equal-RAM bar ≈ 0.7 GB (~15%).
+- QAT reference for clean drift on QAT builds: `results/ref-qat-bf16`.

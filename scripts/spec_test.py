@@ -23,9 +23,15 @@ MODEL, DRAFTER = "models/qg4", "models/qat-assistant-4bit"
 LEVELS = json.load(open("results/levels/speed1.json"))
 LEVELS = {k: LEVELS[k] for k in ("full", "u90", "u75")}
 REPS = int(sys.argv[1]) if len(sys.argv) > 1 else 3
+EXACT = "--exact" in sys.argv
+if EXACT:
+    # mlx-vlm's exact verifier re-implements the layers with full weights, so test full width only.
+    LEVELS = {"full": None}
 
 model, proc = load(MODEL)
 drafter, kind = load_drafter(DRAFTER)
+if EXACT:
+    model.language_model.config.exact_speculative_verify = True
 print("drafter kind:", kind, flush=True)
 prompts = [r["user"] for r in read_jsonl("data/bench/gsm8k.jsonl")[:3]]
 prompts += [r["user"] for r in read_jsonl("data/heldout.jsonl") if r["source"] in ("chat", "code")][:3]

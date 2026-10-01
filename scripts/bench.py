@@ -37,7 +37,7 @@ def run_task(task, model, proc, letter_ids):
     rows = read_jsonl(f"data/bench/{task}.jsonl")[: args.limit]
     items = []
     for r in rows:
-        if task in ("mmlupro", "mmstar"):
+        if task.startswith(("mmlupro", "mmstar")):
             pred = choose_letter(model, proc, r, letter_ids)
             ok = pred == r["answer"]
         elif task == "gsm8k":
