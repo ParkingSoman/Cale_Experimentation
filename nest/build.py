@@ -29,8 +29,17 @@ def _quantizable(key, w):
     return w.shape[-1] % GROUP == 0
 
 
-def build(src, out, bits=8, perms=None, shard_gb=4.0):
-    """perms: optional {layer_idx: np.ndarray of neuron indices, most important first}."""
+def build(src, out, bits=8, perms=None, shard_gb=4.0, overrides=None):
+    """perms: optional {layer_idx: np.ndarray of neuron indices, most important first}.
+    overrides: optional {module_path_prefix: bits}, e.g. {"language_model.model.embed_tokens": 8}."""
+    overrides = overrides or {}
+
+    def bits_for(key):
+        for pre, b in overrides.items():
+            if key.startswith(pre + "."):
+                return b
+        return bits
+
     os.makedirs(out, exist_ok=True)
     idx = json.load(open(f"{src}/model.safetensors.index.json"))["weight_map"]
     files = sorted(set(idx.values()))
@@ -56,8 +65,9 @@ def build(src, out, bits=8, perms=None, shard_gb=4.0):
                 p = None if perms is None or layer not in perms else mx.array(perms[layer])
                 if p is not None:
                     w = w[:, p] if "down_proj" in key else w[p]   # reorder neurons
-            if bits and _quantizable(key, w):
-                q, s, b = mx.quantize(w, group_size=GROUP, bits=bits)
+            kb = bits_for(key)
+            if kb and _quantizable(key, w):
+                q, s, b = mx.quantize(w, group_size=GROUP, bits=kb)
                 base = key[: -len(".weight")]
                 parts = {key: q, base + ".scales": s, base + ".biases": b}
             else:
@@ -74,6 +84,8 @@ def build(src, out, bits=8, perms=None, shard_gb=4.0):
     cfg = json.load(open(f"{src}/config.json"))
     if bits:
         cfg["quantization"] = {"group_size": GROUP, "bits": bits, "mode": "affine"}
+        for pre, b in overrides.items():
+            cfg["quantization"][pre] = {"group_size": GROUP, "bits": b, "mode": "affine"}
         cfg["quantization_config"] = cfg["quantization"]
     cfg["nest_layout"] = {"down_proj": "standard", "permuted": perms is not None}
     json.dump(cfg, open(f"{out}/config.json", "w"), indent=2)
@@ -89,8 +101,9 @@ if __name__ == "__main__":
     import sys
     src, out, bits = sys.argv[1], sys.argv[2], int(sys.argv[3])
     perms = None
-    if len(sys.argv) > 4:
+    overrides = json.loads(sys.argv[5]) if len(sys.argv) > 5 else None
+    if len(sys.argv) > 4 and sys.argv[4] != "-":
         d = np.load(sys.argv[4])
         perms = {int(k.split("_")[1]): d[k] for k in d.files}
-    build(src, out, bits, perms)
+    build(src, out, bits, perms, overrides=overrides)
     print("built", out)

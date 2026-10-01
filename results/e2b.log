@@ -1,0 +1,4 @@
+/Users/shonusengupta/Cale_Experimentation/.venv/lib/python3.12/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
+  warnings.warn(
+[e2b-4bit/full] 65s  chat kl=5.814 t1=0.440 ans_kl=5.322 ans_t1=0.485 | code kl=3.177 t1=0.652 ans_kl=2.099 ans_t1=0.765 | img_chart kl=5.726 t1=0.241 ans_kl=8.118 ans_t1=0.296 | img_diagram kl=5.845 t1=0.368 ans_kl=7.555 ans_t1=0.320 | img_doc kl=6.108 t1=0.335 ans_kl=6.611 ans_t1=0.603 | img_photo kl=6.251 t1=0.191 ans_kl=10.672 ans_t1=0.190 | img_text kl=5.016 t1=0.373 ans_kl=3.879 ans_t1=0.543 | math kl=2.965 t1=0.633 ans_kl=1.694 ans_t1=0.769 | multilingual kl=8.516 t1=0.261 | all kl=6.287 t1=0.400 ans_kl=4.015 ans_t1=0.595
+peak GB 4.8397299
