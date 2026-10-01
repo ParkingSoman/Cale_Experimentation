@@ -37,9 +37,14 @@ def generate(model, processor, rec, max_tokens=256):
     return processor.tokenizer.decode(out, skip_special_tokens=True)
 
 
+ANSWER_PREFIX = "The answer is"
+
+
 def choose_letter(model, processor, rec, letter_ids):
-    """Pick the answer letter with the highest next-token log-prob."""
-    ids, kw = encode(processor, rec, with_answer=False, max_tokens=4096)
+    """Pick the answer letter with the highest next-token log-prob, after the model's
+    answer is started with "The answer is" (so a letter is the natural next token for
+    every model; letter_ids must be the ids of " A", " B", ...)."""
+    ids, kw = encode(processor, rec, with_answer=False, max_tokens=4096, answer_prefix=ANSWER_PREFIX)
     h = _prefill(model, ids, kw, None)
     lg = model.language_model.logits_from_hidden(h[:, -1])[0]
     scores = lg[mx.array([letter_ids[c] for c in rec["choices"]])]

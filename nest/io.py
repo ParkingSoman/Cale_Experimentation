@@ -27,12 +27,15 @@ def messages(rec, with_answer=True):
     return msgs
 
 
-def encode(processor, rec, with_answer=True, max_tokens=1024):
-    """Return (input_ids, kwargs) for one record. kwargs carries image tensors."""
+def encode(processor, rec, with_answer=True, max_tokens=1024, answer_prefix=None):
+    """Return (input_ids, kwargs) for one record. kwargs carries image tensors.
+    answer_prefix: text appended after the generation prompt (start of the model's answer)."""
     has_answer = with_answer and bool(rec.get("assistant"))
     text = processor.apply_chat_template(
         messages(rec, with_answer), tokenize=False, add_generation_prompt=not has_answer
     )
+    if answer_prefix and not has_answer:
+        text = text + answer_prefix
     images = [Image.open(rec["image"]).convert("RGB")] if rec.get("image") else None
     out = processor(text=text, images=images, return_tensors="np")
     ids = mx.array(out["input_ids"])

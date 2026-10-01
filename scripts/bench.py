@@ -62,7 +62,8 @@ def run_task(task, model, proc, letter_ids):
 mx.set_cache_limit(1024**3)
 model, proc = load(args.model)
 tk = proc.tokenizer
-letter_ids = {c: tk.encode(c, add_special_tokens=False)[0] for c in "ABCDEFGHIJ"}
+letter_ids = {c: tk.encode(" " + c, add_special_tokens=False)[0] for c in "ABCDEFGHIJ"}
+assert all(len(tk.encode(" " + c, add_special_tokens=False)) == 1 for c in "ABCDEFGHIJ")
 levels = json.load(open(args.level)) if args.level else {"full": None}
 if args.only:
     levels = {k: v for k, v in levels.items() if k in args.only.split(",")}
