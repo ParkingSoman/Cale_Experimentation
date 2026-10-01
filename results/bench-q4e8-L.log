@@ -1,0 +1,9 @@
+[q4e8-L/full] mmlupro1k: 0.513 (n=1000, 684s)
+[q4e8-L/full] mmstar300: 0.567 (n=300, 324s)
+[q4e8-L/u75] mmlupro1k: 0.315 (n=1000, 615s)
+[q4e8-L/u75] mmstar300: 0.500 (n=300, 270s)
+[q4e8-L/u70] mmlupro1k: 0.266 (n=1000, 590s)
+[q4e8-L/u70] mmstar300: 0.460 (n=300, 258s)
+[q4e8-L/u65] mmlupro1k: 0.220 (n=1000, 561s)
+[q4e8-L/u65] mmstar300: 0.397 (n=300, 256s)
+peak GB 7.943801794
