@@ -1,0 +1,5 @@
+/Users/shonusengupta/Cale_Experimentation/.venv/lib/python3.12/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
+  warnings.warn(
+[e2b/full] mmlupro: 0.200 (n=200, 56s)
+[e2b/full] mmstar: 0.350 (n=100, 96s)
+peak GB 4.329013972

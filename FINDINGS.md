@@ -43,3 +43,20 @@ held-out samples (10 sources: web, code, math, 8 languages, chat, 5 image types)
 3. Per-layer MLP output error grows from ~5% (90% width) to ~12-25% (50% width), and drift grows roughly with the square of it.
 4. Plain 4-bit (MLX affine, group 64) costs more than a 10% width cut at 8-bit. Precision is a lever worth improving.
 5. Drift to the 12B is not quality. E4B is a different model. Benchmarks decide the E4B bar.
+
+### Benchmarks (letter-choice, no chain-of-thought; MMLU-Pro n=200, MMStar n=100; SE ~3.4 and ~5 points)
+
+| Model / level | approx. weights | MMLU-Pro | MMStar |
+|---|---|---|---|
+| 12B 8-bit full | 12.7 GB | 49.0 | 54 |
+| 12B 8-bit 90% width | ~11.8 GB | 38.5 | 56 |
+| 12B 8-bit 75% width | ~10.4 GB | 24.0 | 41 |
+| 12B 4-bit (8-bit word table) full | 6.8 GB | 35.5 | 54 |
+| 12B 4-bit 90% width | ~6.3 GB | 31.0 | 50 |
+| 12B 4-bit 75% width | ~5.6 GB | 18.0 | 29 |
+| E4B 4-bit | 4.8 GB | 29.5 | 41 |
+| E2B 4-bit | 3.3 GB | 20.0 | 35 |
+
+- 8-bit word table vs plain 4-bit: answer drift 0.704 → 0.683. The 4-bit loss is in the decoder layers.
+- Plain MLX 4-bit costs 13.5 MMLU-Pro points vs 8-bit; images unaffected. Next lever: Google's QAT weights.
+- 12B 4-bit at 90% width beats E4B on both tests but at ~6.3 GB vs 4.8 GB.
