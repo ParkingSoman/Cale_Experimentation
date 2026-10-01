@@ -191,3 +191,27 @@ GSM8K (first 50, greedy, 320 tokens): 12B full 78%, E4B 60%.
 - Exact-verify flag in mlx-vlm applies only to its own verify path, not the MTP drafter path; drafter output stays 4/6 identical (summation order), speedup 1.93x.
 - qg4 MMLU-Pro (n=1000): u85 41.0, u80 37.7 → crossover with E4B (38.6) at ≈u81 (≈6.5 GB exact grid, ≈5.9 GB with g64) vs E4B 5.2 GB.
 - IFEval (first 30, strict prompt-level): 12B full 76.7%, E4B 66.7%.
+
+## 2026-10-01 — Phase 2a: precision ladder built up from QAT (plan: `~/.claude/plans/okay-given-the-current-eventual-quokka.md`)
+
+### QAT is the original, rescaled (found before Step 1)
+
+| Table (examples, layers 5/20/47) | Original size ÷ QAT size | Cosine | Plain difference ÷ original | After per-row scale |
+|---|---|---|---|---|
+| gate_proj, q_proj, k_proj | 1.6–2.2 | 0.995 | 37–54% | ~10% |
+| o_proj | 2.1–2.6 | 0.995 | 52–62% | 10–12% |
+| down_proj | 3.5–3.8 | 0.991 | 71–74% | 12–13% |
+| layer 0 (all tables) | 1.06–1.23 | 0.99 | 13–23% | 11–15% |
+
+- QAT moved most of each weight table's scale into the norm weights. 194 of 292 unquantized tensors (norms, `layer_scalar`) differ, by up to 25%.
+- So "original = QAT4 + Δ" needs one extra number per output row: `original ≈ row_scale · A + B + C`. Code: `nest/planes.py`.
+- Consequence for the nest file: norms need two copies (QAT for the 4-bit tier, original for 8/16). Tiny bytes.
+- Neuron order check: `deq(qg4)` vs QAT bf16 in `perm-wanda` order: 0.35% error on grid tables, 7–8% on `down_proj` (the 48 tables where the grid encoder lost to MLX's).
+
+| Rung | Weight error vs original (all 332 tables, smoke run) | Plain RTN for comparison |
+|---|---|---|
+| 4-bit (A alone) | median 45% (it is QAT, a different fine-tune) | plain 4-bit g64: 9–12% |
+| 8-bit (row_scale·A + B) | median 1.0%, max 1.6% | plain 8-bit g64: 0.55% |
+| 16-bit (+ C) | median 0.01% | — |
+
+Without the row scale, the 8-bit rung error was 4–7%: almost as bad as plain 4-bit.

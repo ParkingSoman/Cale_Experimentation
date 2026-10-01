@@ -1,0 +1,14 @@
+[mmlupro1k] chunk 0: 225 items, 49965 tokens, 8s
+  layer 7 121s peak 10.8 GB
+  layer 15 265s peak 10.8 GB
+  layer 23 414s peak 10.8 GB
+  layer 31 563s peak 10.8 GB
+  layer 39 692s peak 10.8 GB
+  layer 47 820s peak 10.8 GB
+[mmlupro1k] ocean=0.529  r8=0.529  r4=0.551 (n=225) 835s peak 10.8 GB
+[mmlupro1k] chunk 1: 241 items, 49878 tokens, 836s
+  layer 7 951s peak 10.8 GB
+  layer 15 1078s peak 10.8 GB
+  layer 23 1205s peak 10.8 GB
+  layer 31 1356s peak 10.8 GB
+  layer 39 1515s peak 10.8 GB

@@ -1,6 +1,7 @@
 """Run the benchmark subsets on one model and one or more levels.
 
 usage: bench.py MODEL_DIR NAME [--nest] [--level LEVELS_JSON] [--tasks mmlupro,gsm8k,...] [--limit N]
+       bench.py MODEL.nest NAME --tiers 8:1.0,8:0.9 [--ram GB] [--tasks ...]   (nested file, tiers = bits:width)
 Writes results/bench/NAME.json (per level, per task: accuracy and per-item outputs).
 """
 import argparse
@@ -19,6 +20,8 @@ ap.add_argument("--level")
 ap.add_argument("--only", help="comma list of level names to run")
 ap.add_argument("--tasks", default="mmlupro,mmstar,ocrbench,gsm8k,ifeval")
 ap.add_argument("--limit", type=int)
+ap.add_argument("--tiers", help="for a .nest file: comma list of bits:width")
+ap.add_argument("--ram", type=float, default=15.0, help="RAM budget (GB) for a .nest file")
 args = ap.parse_args()
 
 if args.nest:
@@ -60,18 +63,33 @@ def run_task(task, model, proc, letter_ids):
 
 
 mx.set_cache_limit(1024**3)
-model, proc = load(args.model)
+if args.model.endswith(".nest"):
+    from nest.runtime import NestedGemma
+    NG = NestedGemma.load(args.model, ram_budget_gb=args.ram)
+    model, proc = NG.model, NG.processor
+    print(f"loaded {args.model}: {NG.resident_bytes / 1e9:.1f} GB resident, {NG.load_s:.0f}s", flush=True)
+else:
+    NG = None
+    model, proc = load(args.model)
 tk = proc.tokenizer
 letter_ids = {c: tk.encode(" " + c, add_special_tokens=False)[0] for c in "ABCDEFGHIJ"}
 assert all(len(tk.encode(" " + c, add_special_tokens=False)) == 1 for c in "ABCDEFGHIJ")
 levels = json.load(open(args.level)) if args.level else {"full": None}
+if NG is not None:
+    levels = {}
+    for t in args.tiers.split(","):
+        b, w = t.split(":")
+        levels[f"{b}bit-w{round(float(w) * 100)}"] = {"bits": int(b), "width": float(w)}
 if args.only:
     levels = {k: v for k, v in levels.items() if k in args.only.split(",")}
 os.makedirs("results/bench", exist_ok=True)
 path = f"results/bench/{args.name}.json"
 out = json.load(open(path)) if os.path.exists(path) else {}
 for lname, lv in levels.items():
-    if args.nest:
+    if NG is not None:
+        ms = NG.set(lv["bits"], lv["width"])
+        print(f"[{args.name}] tier {lname}: switch {ms:.1f} ms, streamed layers {len(NG.streamed_layers)}", flush=True)
+    elif args.nest:
         if lv is None:
             elastic.set_level(model)
         else:
