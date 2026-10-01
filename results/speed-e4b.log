@@ -1,4 +1,4 @@
 /Users/shonusengupta/Cale_Experimentation/.venv/lib/python3.12/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
   warnings.warn(
-[e4b/full] prefill   399.3 tok/s | decode   14.1 tok/s | level weights 5.15 GB
+[e4b/full] prefill   619.0 tok/s (x1.00) | decode   21.4 tok/s (x1.00) | level weights 5.15 GB
 peak GB 5.741972378
