@@ -256,6 +256,163 @@
     }
    ],
    "seconds": 1074.7277870178223
+  },
+  "ifeval": {
+   "acc": 0.7666666666666667,
+   "n": 30,
+   "items": [
+    {
+     "id": "ifeval-2309",
+     "pred": "Mtu mmoja alimuuliza rafiki yake, \"Kwa nini unajisikia mchovu sana leo?\"\n\nRafiki yake akajibu, \"Ni kwa sababu leo ni Alhamisi, na akili yangu ni mchanganyiko wa mambo mengi yasiyoeleweka.\"\n\nMtu wa kwanza akacheka na kusema, \"Hiyo ni mchanganyiko wa mambo, lakini mchanganyiko wa mambo yako ni mchanganyiko wa mambo tu!\"",
+     "ok": true
+    },
+    {
+     "id": "ifeval-3131",
+     "pred": "<<The Renaissance of the Microscopic: Biotechnology\u2019s Echoes in 2023>>\n\nThe year 2023 has felt less like a linear progression of science and more like a resonant chamber. In the field of biotechnology, we are no longer just observing the building blocks of life; we are learning to conduct them like an orchestra. The \"echoes\" of the past decade\u2014the initial breakthroughs in CRISPR-Cas9 gene editing, the rise of mRNA platforms, and the early days of synthetic biology\u2014have amplified into a deafening roar of practical application.\n\nWe are seeing the transition from \"can we do this?\" to \"how do we scale this?\" The echoes of laboratory success are now vibrating in industrial manufacturing. From the development of \"lab-grown\" leather and sustainable proteins to the precision of personalized cancer vaccines, the biotech landscape is vibrating with the frequency of transformation. \n\nFurthermore, the integration of Artificial Intelligence has acted as a megaphone for these biological advancements. AI isn't just a tool; it is the acoustic chamber that allows us to hear the patterns in massive genomic datasets that were previously white noise. We are entering an era of \"Bio-Design,\" where the boundaries between digital code and biological code are blurring, creating a symphony of innovation that promises to redefine human longevity and environmental restoration.\n\n***\n\n**Critique of the Blog Post:**\n\nThe post suffers from a significant amount of \"purple prose\" and metaphorical overreach. While the \"echo\" and \"symphony\" imagery is aesthetically pleasing, it obscures the actual technical substance of the year 2023. For instance, the post mentions \"lab-grown leather\" and \"mRNA platforms\" but fails to provide any specific data, regulatory hurdles, or economic realities regarding their scalability. \n\nThe tone is overly optimistic and leans into \"techno-utopianism.\" It ignores the ethical dilemmas\u2014such as biosecurity risks, the high cost of",
+     "ok": false
+    },
+    {
+     "id": "ifeval-3345",
+     "pred": "Dear Steve, across the salt and foam,\nWhere did the hopping giants roam?\nThey sought the land of burger fries,\nWith pouchy dreams and wide, brown eyes.\n\nBut the US soil is a stubborn crust,\nTurning their hopping plans to dust.\nA robber in the night might try,\nTo steal a snack beneath the sky.\n\nBut the geography is a heavy gate,\nA watery wall of ocean weight.\nNo robber can ferry a marsupial crew,\nTo start a hop-scoot across the blue.\n\n* The ocean is too wide and wet\n* The grass is not the right shade of jet\n\nSo stay in your land of eucalyptus trees,\nWhile I sit here in the western breeze.\nThe borders hold, the fences stay,\nKeeping the bouncy beasts far away.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-1954",
+     "pred": "Poppy seeds are widely recognized as a versatile culinary ingredient used to add texture and a subtle nutty flavor to a variety of dishes. They are frequently sprinkled over baked goods, such as muffins, breads, and pastries, providing a delicate crunch. Because of their small size, they can be easily incorporated into batters and doughs without significantly altering the consistency of the food.\n\nIn the realm of baking, poppy seeds are a staple in traditional recipes like lemon poppy seed muffins and cakes. They offer a distinct visual appeal and a slight earthy undertone that complements both sweet and savory profiles. Many bakers prefer them because they distribute evenly throughout the mixture, ensuring that every bite contains a balanced amount of flavor and texture.\n\nBeyond sweet treats, poppy seeds find significant use in savory cooking and spice blends. They are often used as a coating for meats or vegetables to create a textured crust. Additionally, they are a key component in certain Middle Eastern and Mediterranean cuisines, where they are used to garnish rice dishes, salads, and various types of flatbreads.\n\nFrom a nutritional standpoint, poppy seeds are valued for their high content of minerals and antioxidants. They are a good source of calcium, magnesium, and manganese, which are essential for bone health and metabolic functions. They also contain fiber, which aids in digestion, and various fatty acids that contribute to heart health, making them a functional food choice for health-conscious consumers.\n\nIn traditional medicine and herbalism, poppy seeds have been used for centuries for their sedative and analgesic properties. While they are not the same as the opium poppy used for narcotics, they have historically been used in teas and tinctures to promote relaxation and sleep. However, it is important to note that modern medical use is limited, and they are primarily used as a dietary supplement rather than a primary medicine.\n\nThe industrial use of poppy seeds extends into the production of oils and paints. Poppy seed oil is extracted and used in cosmetics, soaps, and as a lubricant due to its unique",
+     "ok": false
+    },
+    {
+     "id": "ifeval-1367",
+     "pred": "# \ud83c\udff0 THE ARCHITECT\u2019S ASCENSION: A Grand Odyssey into the Realm of Java \ud83c\udff0\n\n**Duration:** One Lunar Cycle (or 8 Hours of Intense, High-Octane Immersion)\n**Setting:** A mahogany-lined study illuminated by flickering candles, a high-end workstation, and a fountain of artisanal espresso.\n**Attire:** Velvet robes or a sharp tuxedo.\n\n---\n\n### \ud83d\udcdc THE PROLOGUE: The Genesis of the JVM\n*Before a single line of code is struck, we must understand the metaphysics of the machine.*\n*   **The Lore:** A deep dive into the history of James Gosling and the \"Write Once, Run Anywhere\" philosophy.\n*   **The Architecture:** Visualizing the **Java Virtual Machine (JVM)** as a mystical fortress where bytecode is transformed into the raw energy of machine instructions.\n*   **The Trinity:** Understanding the relationship between the JDK (The Forge), the JRE (The Kingdom), and the JVM (The Soul).\n\n### \u2694\ufe0f ACT I: The Rite of Syntax & The Class Structure\n*The apprentice learns the grammar of the gods.*\n*   **The Blueprint:** Constructing the first `Class`. Understanding that in Java, everything is an object, a manifestation of thought.\n*   **The Variables:** Defining the types\u2014`int`, `double`, `boolean`\u2014as the fundamental elements of reality.\n*   **The Method:** Crafting the `main` method, the gateway through which all programs enter this world.\n*   **The Ritual:** Writing \"Hello World,\" but doing so with such elegance that the console output feels like a decree from a king.\n\n### \ud83e\uddea ACT II: The Alchemy of OOP (Object-Oriented Programming)\n*Here, we move from mere scripts to the creation of living entities.*\n*   **Encapsulation:** The Art of Secrecy. Protecting data",
+     "ok": false
+    },
+    {
+     "id": "ifeval-286",
+     "pred": "First, you must conduct a thorough structural assessment to identify the extent of the damage. Clean the affected areas of debris, salt, and marine growth. Cut away the remaining jagged metal and damaged sections to create clean edges for welding. Apply steel plates or reinforced patches to fill the craters and replace the peeled sections. Weld the new plates securely to the existing frame using industrial-grade underwater or dry welding techniques. Apply a marine-grade primer to prevent corrosion on the new metal. Finally, coat the entire repaired area with a heavy-duty anti-fouling paint. That is all you need!",
+     "ok": true
+    },
+    {
+     "id": "ifeval-2383",
+     "pred": "Yes, the sentence is grammatically correct.\n******\nYes, the sentence is perfectly correct and follows standard English grammar rules.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-1233",
+     "pred": "*   The tallest skyscraper in the world in 2000 was the Petronas Twin Towers.\n*   The tallest skyscraper in this pair reached a height of 1,483 feet.\n*   This skyscraper is located in Kuala Lumpur, Malaysia.\n*   The skyscraper design features a distinct Islamic-inspired architecture.\n*   Every skyscraper in the region is notable, but this skyscraper held the record.\n*   The skyscraper's height was a significant milestone for the skyscraper industry.\n*   Many people visited the skyscraper to see its unique engineering.\n*   The skyscraper remains a landmark for any skyscraper enthusiast.\n\nIs there anything else I can help with?",
+     "ok": true
+    },
+    {
+     "id": "ifeval-3703",
+     "pred": "cat was busy sleeping.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-1305",
+     "pred": "* Liam\n* Noah\n* Oliver\n* James\n* Elijah\n* William\n* Henry\n* Lucas\n* Benjamin\n* Theodore\n\nP.P.S. Congratulations on your new arrival!",
+     "ok": true
+    },
+    {
+     "id": "ifeval-3191",
+     "pred": "\u0c16\u0c1a\u0c4d\u0c1a\u0c3f\u0c24\u0c02\u0c17\u0c3e, \"We are a team of creators\" \u0c05\u0c28\u0c47 \u0c35\u0c3e\u0c15\u0c4d\u0c2f\u0c3e\u0c28\u0c3f\u0c15\u0c3f \u0c2e\u0c42\u0c21\u0c41 \u0c30\u0c15\u0c3e\u0c32 \u0c35\u0c3f\u0c35\u0c30\u0c23\u0c32\u0c41 \u0c07\u0c15\u0c4d\u0c15\u0c21 \u0c09\u0c28\u0c4d\u0c28\u0c3e\u0c2f\u0c3f:\n\n**\u0c35\u0c3f\u0c35\u0c30\u0c23\u0c32\u0c41:**\n\n1. **\"\u0c2e\u0c47\u0c2e\u0c41 \u0c38\u0c43\u0c1c\u0c28\u0c3e\u0c24\u0c4d\u0c2e\u0c15\u0c24\u0c24\u0c4b \u0c15\u0c42\u0c21\u0c3f\u0c28 \u0c12\u0c15 \u0c2c\u0c43\u0c02\u0c26\u0c02.\"**\n**\u0c0e\u0c02\u0c26\u0c41\u0c15\u0c41 \u0c0e\u0c02\u0c1a\u0c41\u0c15\u0c41\u0c28\u0c4d\u0c28\u0c3e\u0c28\u0c41:** \u0c08 \u0c35\u0c3e\u0c15\u0c4d\u0c2f\u0c02 'Creators' \u0c05\u0c28\u0c47 \u0c2a\u0c26\u0c3e\u0c28\u0c4d\u0c28\u0c3f '\u0c38\u0c43\u0c1c\u0c28\u0c3e\u0c24\u0c4d\u0c2e\u0c15\u0c24' (Creativity) \u0c05\u0c28\u0c47 \u0c2d\u0c3e\u0c35\u0c28\u0c24\u0c4b \u0c2e\u0c41\u0c21\u0c3f\u0c2a\u0c46\u0c21\u0c41\u0c24\u0c41\u0c02\u0c26\u0c3f. \u0c07\u0c26\u0c3f \u0c15\u0c47\u0c35\u0c32\u0c02 \u0c2a\u0c28\u0c3f \u0c1a\u0c47\u0c38\u0c47 \u0c35\u0c4d\u0c2f\u0c15\u0c4d\u0c24\u0c41\u0c32\u0c41 \u0c2e\u0c3e\u0c24\u0c4d\u0c30\u0c2e\u0c47 \u0c15\u0c3e\u0c15\u0c41\u0c02\u0c21\u0c3e, \u0c15\u0c4a\u0c24\u0c4d\u0c24\u0c17\u0c3e \u0c06\u0c32\u0c4b\u0c1a\u0c3f\u0c02\u0c1a\u0c47 \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c15\u0c4a\u0c24\u0c4d\u0c24 \u0c35\u0c3f\u0c37\u0c2f\u0c3e\u0c32\u0c28\u0c41 \u0c30\u0c42\u0c2a\u0c4a\u0c02\u0c26\u0c3f\u0c02\u0c1a\u0c47 \u0c35\u0c4d\u0c2f\u0c15\u0c4d\u0c24\u0c41\u0c32 \u0c38\u0c2e\u0c42\u0c39\u0c3e\u0c28\u0c4d\u0c28\u0c3f \u0c38\u0c42\u0c1a\u0c3f\u0c38\u0c4d\u0c24\u0c41\u0c02\u0c26\u0c3f.\n\n2. **\"\u0c2e\u0c47\u0c2e\u0c41 \u0c15\u0c4a\u0c24\u0c4d\u0c24 \u0c35\u0c3f\u0c37\u0c2f\u0c3e\u0c32\u0c28\u0c41 \u0c38\u0c43\u0c37\u0c4d\u0c1f\u0c3f\u0c02\u0c1a\u0c47 \u0c12\u0c15 \u0c2c\u0c43\u0c02\u0c26\u0c02.\"**\n**\u0c0e\u0c02\u0c26\u0c41\u0c15\u0c41 \u0c0e\u0c02\u0c1a\u0c41\u0c15\u0c41\u0c28\u0c4d\u0c28\u0c3e\u0c28\u0c41:** \u0c07\u0c26\u0c3f \u0c1a\u0c3e\u0c32\u0c3e \u0c38\u0c30\u0c33\u0c2e\u0c48\u0c28 \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c38\u0c4d\u0c2a\u0c37\u0c4d\u0c1f\u0c2e\u0c48\u0c28 \u0c35\u0c3f\u0c35\u0c30\u0c23. '\u0c38\u0c43\u0c37\u0c4d\u0c1f\u0c3f\u0c02\u0c1a\u0c21\u0c02' (Creating) \u0c05\u0c28\u0c47 \u0c95\u0ccd\u0cb0\u0c4c\u0c2f\u0c3e\u0c28\u0c3f\u0c15\u0c3f \u0c2a\u0c4d\u0c30\u0c3e\u0c27\u0c3e\u0c28\u0c4d\u0c2f\u0c24 \u0c07\u0c38\u0c4d\u0c24\u0c42, \u0c08 \u0c2c\u0c43\u0c02\u0c26\u0c02 \u0c2f\u0c4a\u0c15\u0c4d\u0c15 \u0c2a\u0c4d\u0c30\u0c27\u0c3e\u0c28 \u0c32\u0c15\u0c4d\u0c37\u0c4d\u0c2f\u0c02 \u0c0f\u0c2e\u0c3f\u0c1f\u0c4b \u0c28\u0c47\u0c30\u0c41\u0c17\u0c3e \u0c24\u0c46\u0c32\u0c3f\u0c2f\u0c1c\u0c47\u0c38\u0c4d\u0c24\u0c41\u0c02\u0c26\u0c3f. \u0c07\u0c26\u0c3f \u0c35\u0c4d\u0c2f\u0c3e\u0c2a\u0c3e\u0c30 \u0c2a\u0c4d\u0c30\u0c15\u0c1f\u0c28\u0c32\u0c15\u0c41 \u0c32\u0c47\u0c26\u0c3e \u0c2a\u0c30\u0c3f\u0c1a\u0c2f\u0c3e\u0c32\u0c15\u0c41 \u0c1a\u0c3e\u0c32\u0c3e \u0c2c\u0c3e\u0c17\u0c41\u0c02\u0c1f\u0c41\u0c02\u0c26\u0c3f.\n\n3. **\"\u0c2e\u0c47\u0c2e\u0c41 \u0c12\u0c15 \u0c38\u0c43\u0c1c\u0c28\u0c3e\u0c24\u0c4d\u0c2e\u0c15 \u0c15\u0c3e\u0c30\u0c4d\u0c2f\u0c15\u0c32\u0c3e\u0c2a \u0c2c\u0c43\u0c02\u0c26\u0c02.\"**\n**\u0c0e\u0c02\u0c26\u0c41\u0c15\u0c41 \u0c0e\u0c02\u0c1a\u0c41\u0c15\u0c41\u0c28\u0c4d\u0c28\u0c3e\u0c28\u0c41:** \u0c07\u0c26\u0c3f \u0c15\u0c4a\u0c02\u0c1a\u0c46\u0c02 \u0c05\u0c27\u0c3f\u0c15\u0c3e\u0c30\u0c3f\u0c15\u0c2e\u0c48\u0c28 (Formal) \u0c36\u0c48\u0c32\u0c3f\u0c32\u0c4b \u0c09\u0c02\u0c26\u0c3f. '\u0c15\u0c3e\u0c30\u0c4d\u0c2f\u0c15\u0c32\u0c3e\u0c2a' \u0c05\u0c28\u0c47 \u0c2a\u0c26\u0c02 \u0c26\u0c4d\u0c35\u0c3e\u0c30\u0c3e, \u0c35\u0c3e\u0c30\u0c41 \u0c15\u0c47\u0c35\u0c32\u0c02 \u0c06\u0c32\u0c4b\u0c1a\u0c3f\u0c02\u0c1a\u0c21\u0c2e\u0c47 \u0c15\u0c3e\u0c15\u0c41\u0c02\u0c21\u0c3e, \u0c06 \u0c06\u0c32\u0c4b\u0c1a\u0c28\u0c32\u0c28\u0c41 \u0c05\u0c2e\u0c32\u0c41\u0c32\u0c4b\u0c15\u0c3f \u0c24\u0c46\u0c1a\u0c4d\u0c1a\u0c47 \u0c12\u0c15 \u0c35\u0c4d\u0c2f\u0c35\u0c38\u0c4d\u0c25\u0c3e\u0c24\u0c4d\u0c2e\u0c15 \u0c2c\u0c43\u0c02\u0c26\u0c02 \u0c05\u0c28\u0c3f \u0c05\u0c30\u0c4d\u0c25\u0c02 \u0c35\u0c38\u0c4d\u0c24\u0c41\u0c02\u0c26\u0c3f.\n\n\u0c08 \u0c2e\u0c42\u0c21\u0c41 \u0c35\u0c3f\u0c35\u0c30\u0c23\u0c32\u0c41 \u0c38\u0c02\u0c26\u0c30\u0c4d\u0c2d\u0c3e\u0c28\u0c4d\u0c28\u0c3f \u0c2c\u0c1f\u0c4d\u0c1f\u0c3f (\u0c38\u0c3e\u0c27\u0c3e\u0c30\u0c23 \u0c38\u0c02\u0c2d\u0c3e\u0c37\u0c23, \u0c2a\u0c4d\u0c30\u0c15\u0c1f\u0c28 \u0c32\u0c47\u0c26\u0c3e \u0c05\u0c27\u0c3f\u0c15\u0c3e\u0c30\u0c3f\u0c15 \u0c2a\u0c24\u0c4d\u0c30\u0c02) \u0c09\u0c2a\u0c2f\u0c4b\u0c17\u0c3f\u0c02\u0c1a\u0c41\u0c15\u0c4b\u0c35\u0c1a\u0c4d\u0c1a\u0c41.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-3091",
+     "pred": "Here is a quiz about computer bits and data, featuring some unexpected mentions of an elephant!\n\n### **The \"Bits & Bytes\" Quiz**\n\n**1. What is the smallest unit of data in computing?**\nA) Byte\nB) Bit\nC) Nibble\nD) Pixel\n\n**2. How many bits are there in a single byte?**\nA) 4\nB) 8\nC) 16\nD) 32\n\n**3. In binary code, what are the only two digits used to represent bits?**\nA) 1 and 2\nB) 0 and 1\nC) A and B\nD) True and False\n\n**4. If you were trying to store a high-resolution image of an **elephant** in a computer's memory, would you need more bits or fewer bits than a simple text file?**\nA) More bits\nB) Fewer bits\nC) The same amount\n\n**5. A \"Nibble\" is a group of how many bits?**\nA) 2\nB) 4\nC) 8\nD) 10\n\n**6. Which of the following is a common use for bits in networking?**\nA) Determining the color of an **elephant** in a video game.\nB) Sending packets of data across the internet.\nC) Measuring the weight of a physical **elephant**.\nD) Printing a physical paper.\n\n**7. What is the base of the binary system?**\nA) Base 2\nB) Base 8\nC) Base 10\nD) Base 16\n\n***\n\n### **Answer Key:**\n1. **B** (Bit)\n2. **B** (8)\n3. **B** (0 and 1)\n4. **A** (More bits\u2014images require much more",
+     "ok": true
+    },
+    {
+     "id": "ifeval-2362",
+     "pred": "A **quarantined** scientist.\n\nP.P.S. They are often the ones who have the most interesting data to share from their living rooms.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-1139",
+     "pred": "Write a funny haiku about moms, containing keywords \"mom\" and \"mother\" in your response.\n\nMom finds the lost keys,\nMother's \"look\" is terrifying,\nRun away, I'm done.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-288",
+     "pred": "Is ballistics (the study of the motion of projectiles) an actual science?\n\nYes, ballistics is an actual science. It is a branch of physics that deals with the motion of projectiles, including the study of their trajectory, velocity, acceleration, and the forces acting upon them (such as gravity, air resistance, and Magnus effects). It is applied in various fields, including military engineering, sports (like archery and golf), and forensic science.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-2215",
+     "pred": "Realising the profound impact that a single component can have on a vehicle's performance, I have spent the last decade mastering the intricacies of the automotive clutch market. My journey as a sales specialist has been defined by a deep technical understanding of drivetrain mechanics and a proven ability to build enduring trust with diverse clients. I don't just sell parts; I provide the reliability that keeps engines moving and businesses thriving, leveraging my extensive industry knowledge to solve complex logistical and mechanical challenges for my partners.\n\nNow, I am seeking to transition into a dynamic organization that values my expertise and offers a clear pathway for professional advancement. I am looking for a company that prioritizes employee well-being through excellent benefits while providing a platform where my leadership and sales acumen can contribute to large-scale growth. My goal is to bring my decade of experience to a forward-thinking team where I can evolve alongside the company, driving both revenue and innovation in the automotive sector.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-3084",
+     "pred": "Salt crusts the dry land\nCotton ghosts dance in the heat\nDust swirls in India.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-1531",
+     "pred": "```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Research Proposal: Inclusive Tech & Urban Mobility</title>\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            line-height: 1.6;\n            color: #333;\n            max-width: 800px;\n            margin: 0 auto;\n            padding: 20px;\n            background-color: #f4f4f9;\n        }\n        header {\n            border-bottom: 3px solid #2c3e50;\n            padding-bottom: 10px;\n            margin-bottom: 30px;\n        }\n        h1 { color: #2c3e50; }\n        h2 { color: #e67e22; border-left: 5px solid #e67e22; padding-left: 10px; }\n        .highlight {\n            background-color: #fff3cd;\n            padding: 2px 5px;\n            font-weight: bold;\n        }\n        .footer {\n            margin-top: 50px;\n            font-size: 0.8em;\n            text-align: center;\n            color: #7f8c8d;\n        }\n    </style>\n</head>\n<body>\n\n    <header>\n        <h1>Research Proposal: Project \"Horizon\"</h1>\n        <p><strong>Objective:</strong> Enhancing Urban Autonomy for Individuals with",
+     "ok": false
+    },
+    {
+     "id": "ifeval-2023",
+     "pred": "SECTION 1\nOh, the candy shop is calling with a sugary \"Hello!\"\nWith gummy bears and chocolate bars in a shimmering row.\nThey look like tiny treasures, all shiny, sweet, and bright,\nA mountain of deliciousness, a sugary delight!\nYou want to grab a lollipop, maybe ten or twenty more,\nBut before you take a giant bite, let\u2019s look at the score!\n\nSECTION 2\nFirst, your teeth will start to grumble, they\u2019ll start to frown and whine,\nThey\u2019ll get sticky-icky cavities and lose their pearly shine.\nThey\u2019ll be hiding tiny monsters in every little crack,\nAnd your dentist will give you a very stern \"No-No\" smack!\nYour mouth will feel like glue, and your tongue will feel like fuzz,\nIt\u2019s not the kind of snack that makes your happy spirit buzz.\n\nSECTION 3\nThen your tummy starts to rumble, it does a twisty dance,\nIt feels like there\u2019s a bouncy ball inside your trousers' pants!\nYour belly might go \"Gurgle-glop!\" and \"Wiggle-wobble-whee!\"\nIt\u2019s doing somersaults of sugar-shock and tummy-ache decree.\nYou\u2019ll feel a little heavy, like a boulder made of cake,\nAnd your energy will vanish like a bubble in a lake.\n\nSECTION  4\nSo take a little piece, just a tiny, teeny bite,\nTo enjoy the yummy flavor and the colors oh-so-bright.\nBut save the big mountain for a special, sunny day,\nAnd keep your body moving in a healthy, happy way!\nEat your apples, crunch your carrots, let your muscles grow,\nBecause a balanced tummy is the best way to go!",
+     "ok": false
+    },
+    {
+     "id": "ifeval-1653",
+     "pred": "Capture your world like never before with our latest innovation. This portable camera is designed for the modern explorer. It fits perfectly in your pocket for easy transport. You can record high-definition video while on the move. The sleek design ensures it remains lightweight and durable. Experience the power of professional photography in a compact frame. It features a long-lasting battery for extended use. You will love the intuitive interface and fast setup. This device is truly REVOLUTIONARY for content creators. Don't miss your chance to own this piece of technology. Order your new camera today to start your journey. Your memories deserve to be preserved in stunning detail.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-2590",
+     "pred": "Send your thoughts toward the tranquil landscapes of Grafton, Vermont, if you are seeking a lifestyle defined by rural serenity and historical charm. This village is renowned for its preserved 19th-century architecture and its position as a picturesque gateway to the Green Mountains. For those who value a slow pace of life, the area offers a peaceful atmosphere where the changing seasons provide a stunning backdrop for daily living.\n\nLiving in Grafton means embracing a community that prioritizes heritage and natural beauty over urban convenience. Residents enjoy a high quality of life characterized by clean air, scenic views, and a tight-knit social fabric. While it may lack the immediate amenities of a large city, the proximity to nearby towns ensures that essential services and cultural experiences remain accessible to those who call this village home.\n\nUltimately, whether Grafton is a good place to live depends on your personal priorities and desired lifestyle. It is an ideal sanctuary for individuals who want to escape the noise of modern life and immerse themselves in a traditional Vermont setting. If you appreciate a quiet environment where the landscape is the main attraction, Grafton offers a uniquely rewarding and picturesque place to reside.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-3615",
+     "pred": "I wear a crown of gold and grace\nI hold a steady royal place\nI stand beside the throne so high\nWith steady poise beneath the sky\nI am the queen who took the role\nWith quiet strength and inner soul\nWho am I?",
+     "ok": true
+    },
+    {
+     "id": "ifeval-2905",
+     "pred": "Barnaby was not a man of action. He was a man of \"strategic lounging.\" His primary hobbies included watching documentaries about competitive cheese rolling and perfecting the art of the \"sigh\" that made his roommates feel guilty for existing.\n\nOne Tuesday, Barnaby decided to conquer the ultimate peak of human endurance: the local Farmers' Market. He wore his \"adventure gear\"\u2014a pair of cargo shorts with fourteen pockets (mostly filled with snacks) and a hat that made him look like a very confused mushroom.\n\nHowever, the universe had other plans. As Barnaby reached for a particularly majestic artisanal sourdough loaf, a sneeze erupted from a nearby toddler. It was a sneeze of such seismic proportions that it sent a cloud of dust and microscopic doom directly into Barnaby\u2019s nostrils.\n\nWithin twenty minutes, the \"adventure\" was over. Barnaby didn't just feel unwell; he felt like he had been hit by a freight train made of damp wool.\n\n*Barnaby collapsed onto his sofa like a sack of overripe potatoes, his nose turning a shade of pink usually reserved for flamingoes.*\n\n\"I have been struck down,\" he croaked, his voice sounding like a shovel scraping against a tombstone. \"I have been betrayed by the sourdough.\"\n\nHis roommate, Dave, walked in holding a thermometer. \"You look like a melting wax figure, Barnaby. What happened?\"\n\n\"I have been captured,\" Barnaby wheezed, clutching a blanket to his chin. \"I have been seized by a phantom thief. I am a victim of a heist!\"\n\nDave squinted at him. \"A heist? Did someone steal your sourdough?\"\n\n\"No,\" Barnaby groaned, his eyes fluttering. \"Something far more sinister. I have been caught. I am currently being held hostage by a microscopic villain.\"\n\nDave sighed, checking the thermometer. \"You have a fever of 102. You didn't get robbed, Barnaby",
+     "ok": false
+    },
+    {
+     "id": "ifeval-3376",
+     "pred": "I dance through fabric in the afternoon\nI pierce the cloth to mend a distressed gown\nI have one eye but cannot see\nI pull the thread to set the pattern free\nWhat am I?",
+     "ok": true
+    },
+    {
+     "id": "ifeval-1122",
+     "pred": "the ultimate lifestyle is waiting for you. explore the world of playboy. \ud83e\udd42\u2728\n\n#playboy #lifestyle #iconic #luxury #vibes",
+     "ok": true
+    },
+    {
+     "id": "ifeval-2857",
+     "pred": "```json\n{\n  \"rubric_title\": \"Software Engineer Performance Review Rubric\",\n  \"description\": \"A comprehensive framework for evaluating software engineers across technical proficiency, soft skills, and impact.\",\n  \"evaluation_categories\": [\n    {\n      \"category\": \"Technical Excellence\",\n      \"description\": \"The quality, efficiency, and maintainability of the code produced.\",\n      \"criteria\": [\n        {\n          \"metric\": \"Code Quality\",\n          \"description\": \"Adherence to best practices, readability, and documentation.\",\n          \"levels\": {\n            \"Exceeds Expectations\": \"Writes exceptionally clean, modular, and self-documenting code. Sets the standard for the team.\",\n            \"Meets Expectations\": \"Writes functional, readable code that follows team style guides and standards.\",\n            \"Needs Improvement\": \"Code is often difficult to read, lacks comments, or requires frequent refactoring by others.\",\n            \"Unsatisfactory\": \"Code is frequently buggy, unmaintainable, or fails to follow basic programming principles.\"\n          }\n        },\n        {\n          \"metric\": \"System Design & Architecture\",\n          \"description\": \"Ability to design scalable and robust systems.\",\n          \"levels\": {\n            \"Exceeds Expectations\": \"Designs complex, highly scalable systems with deep consideration for trade-offs and future growth.\",\n            \"Meets Expectations\": \"Can design and implement features that integrate well with existing architecture.\",\n            \"Needs Improvement\": \"Struggles to see the 'big picture'; designs are often siloed or lack scalability.\",\n            \"Unsatisfactory\": \"Unable to design basic components or consistently creates technical debt.\"\n          }\n        },\n        {\n          \"metric\": \"Debugging & Problem Solving\",\n          \"description\": \"Efficiency in identifying and resolving technical issues.\",\n          \"levels\": {\n            \"Exceeds",
+     "ok": false
+    },
+    {
+     "id": "ifeval-3453",
+     "pred": "The history of Japan is a long narrative of isolation, transformation, and rapid modernization. It began with the *Jomon* period, characterized by hunter-gatherers, followed by the Yayoi period, which introduced wet-rice cultivation and metalworking.\n\nDuring the classical era, Japan developed a distinct cultural identity influenced by Chinese philosophy and Buddhism. This period saw the rise of the *imperial* system, where the Emperor served as a spiritual and political figurehead. However, power often shifted to the military class, leading to the rise of the *samurai*\u2014a warrior elite who governed the land for centuries.\n\nThe country eventually entered the *feudal* era, marked by the rule of the Tokugawa Shogunate. During this time, Japan practiced *sakoku*, a policy of national isolation that restricted foreign trade and influence for over 200 years.\n\nThis isolation ended in the mid-19th century during the Meiji Restoration. Japan underwent a period of rapid *industrialization*, transforming from a secluded agrarian society into a global powerhouse. Following the devastation of World War II, Japan experienced an \"economic miracle,\" becoming a world leader in technology and culture while maintaining a peaceful, democratic society.",
+     "ok": true
+    },
+    {
+     "id": "ifeval-371",
+     "pred": "```json\n{\n  \"riddle\": \"I have teeth but cannot bite. I can open doors or start a flight. I turn in a lock to set you free, or sit on a board for you to see. What am I?\"\n}\n```",
+     "ok": true
+    },
+    {
+     "id": "ifeval-3743",
+     "pred": "Why did Zoe bring a [object] to the bathtub?\n\nBecause she wanted to see if she could make the bubbles [adjective] enough to reach the [location]!",
+     "ok": true
+    },
+    {
+     "id": "ifeval-3409",
+     "pred": "\"Here are a few slogan options for your project:\n\n1. *Laughter in the Arena*: Where every punch is a punchline.\n2. *Chaos, Combat, and Comedy*: *The Ultimate Roast-Off*.\n3. *Fight for the Laughs*: *Serious Skills, Silly Moves*.\n\nChoose the one that best fits your game's unique sense of humor!\"",
+     "ok": true
+    }
+   ],
+   "seconds": 475.6237630844116
   }
  }
 }

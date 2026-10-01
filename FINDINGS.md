@@ -189,3 +189,5 @@ GSM8K (first 50, greedy, 320 tokens): 12B full 78%, E4B 60%.
 - Verdict: phase-1 success bar (≥ E4B at E4B's RAM, no training) is NOT met. Width cuts without training fall off too fast below ~u85.
 - The 0.5-bit exact-grid premium buys ~1-3 points at equal width; near E4B's size the cheaper g64 encoder is the better trade.
 - Exact-verify flag in mlx-vlm applies only to its own verify path, not the MTP drafter path; drafter output stays 4/6 identical (summation order), speedup 1.93x.
+- qg4 MMLU-Pro (n=1000): u85 41.0, u80 37.7 → crossover with E4B (38.6) at ≈u81 (≈6.5 GB exact grid, ≈5.9 GB with g64) vs E4B 5.2 GB.
+- IFEval (first 30, strict prompt-level): 12B full 76.7%, E4B 66.7%.
