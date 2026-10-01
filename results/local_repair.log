@@ -1,0 +1,21 @@
+fit pass done on 160 samples
+solved (2, 13824)
+solved (2, 11520)
+solved (11, 13824)
+solved (11, 11520)
+solved (24, 13824)
+solved (24, 11520)
+solved (40, 13824)
+solved (40, 11520)
+eval pass done on 50 samples
+
+Held-out relative MLP output error (50 samples). Lower is better.
+layer  width |  none   lin-r64  lin-full  refit
+    2  13824 | 0.046   0.036    0.031    nan
+    2  11520 | 0.092   0.067    0.057    0.057
+   11  13824 | 0.030   0.023    0.021    nan
+   11  11520 | 0.069   0.053    0.050    0.052
+   24  13824 | 0.086   0.076    0.070    nan
+   24  11520 | 0.152   0.129    0.120    0.126
+   40  13824 | 0.071   0.065    0.058    nan
+   40  11520 | 0.123   0.113    0.105    0.116

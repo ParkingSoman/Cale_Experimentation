@@ -60,3 +60,17 @@ held-out samples (10 sources: web, code, math, 8 languages, chat, 5 image types)
 - 8-bit word table vs plain 4-bit: answer drift 0.704 → 0.683. The 4-bit loss is in the decoder layers.
 - Plain MLX 4-bit costs 13.5 MMLU-Pro points vs 8-bit; images unaffected. Next lever: Google's QAT weights.
 - 12B 4-bit at 90% width beats E4B on both tests but at ~6.3 GB vs 4.8 GB.
+
+### Calibration-only repair (layer-local, bf16, fit on 160 calib samples, eval on 50 held-out)
+Relative MLP output error:
+
+| layer, width | none | rank-64 linear-in-x patch | full linear-in-x | full LS re-solve of kept down_proj |
+|---|---|---|---|---|
+| 2, 13824 | 0.046 | 0.036 | 0.031 | - |
+| 2, 11520 | 0.092 | 0.067 | 0.057 | 0.057 |
+| 11, 11520 | 0.069 | 0.053 | 0.050 | 0.052 |
+| 24, 11520 | 0.152 | 0.129 | 0.120 | 0.126 |
+| 40, 11520 | 0.123 | 0.113 | 0.105 | 0.116 |
+
+- Rank-64 patch (0.5M params/layer, strictly nested) removes 8-27% of the error. Expected drift reduction ~20-45%.
+- Full LS re-solve is no better than a linear patch: math-only repair has a low ceiling here.
