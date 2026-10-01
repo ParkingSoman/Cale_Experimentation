@@ -33,7 +33,7 @@ for r in recs:
     if count[r["source"]] <= args.per_source:
         sel.append(r)
 
-mx.set_cache_limit(2 * 1024**3)
+mx.set_cache_limit(1024**3)
 model, proc = load(args.model)
 levels = {"full": None}
 if args.level:

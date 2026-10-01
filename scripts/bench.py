@@ -59,7 +59,7 @@ def run_task(task, model, proc, letter_ids):
     return {"acc": sum(i["ok"] for i in items) / len(items), "n": len(items), "items": items}
 
 
-mx.set_cache_limit(2 * 1024**3)
+mx.set_cache_limit(1024**3)
 model, proc = load(args.model)
 tk = proc.tokenizer
 letter_ids = {c: tk.encode(c, add_special_tokens=False)[0] for c in "ABCDEFGHIJ"}

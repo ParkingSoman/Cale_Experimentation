@@ -45,16 +45,33 @@ def save_reference(model, processor, recs, out_dir):
         np.savez(path, pos=pos, idx=np.array(top).astype(np.int32), lp=np.array(vals).astype(np.float16))
 
 
+TURN_START = 105  # <|turn>
+
+
+def _answer_mask(ids, pos):
+    """True for positions whose next token belongs to the model's (last) answer turn."""
+    ids_np = np.array(ids[0])
+    starts = np.nonzero(ids_np == TURN_START)[0]
+    if len(starts) < 2:
+        return np.zeros(len(pos), bool)
+    first_answer_token = starts[-1] + 3  # <|turn> model \n
+    return pos + 1 >= first_answer_token
+
+
 def score(model, processor, recs, ref_dir, chunk=256):
-    """Return {source: {"kl": mean KL, "top1": agreement}} plus an "all" row."""
-    acc = defaultdict(lambda: [0.0, 0.0, 0])
+    """Per source: kl / top1 over all scored positions, and kl_ans / top1_ans over
+    answer positions only (what the model itself would write)."""
+    acc = defaultdict(lambda: np.zeros(6))
     for r in recs:
         ref = np.load(f"{ref_dir}/{r['id']}.npz")
         ids, kw = encode(processor, r)
+        pos = ref["pos"]
+        if not np.array_equal(_text_positions(ids, kw), pos):
+            acc["_skipped"] += 1  # token layout differs from the reference (e.g. other image tokenizer)
+            continue
         h = hidden(model, ids, kw)
         mx.eval(h)
-        pos = ref["pos"]
-        kl_sum, agree_sum = 0.0, 0.0
+        kls, agrees = [], []
         for i in range(0, len(pos), chunk):
             hc = h[0][mx.array(pos[i:i + chunk])]
             lg = model.language_model.logits_from_hidden(hc).astype(mx.float32)
@@ -62,19 +79,30 @@ def score(model, processor, recs, ref_dir, chunk=256):
             idx = mx.array(ref["idx"][i:i + chunk])
             p_lp = mx.array(ref["lp"][i:i + chunk].astype(np.float32))
             q_lp = mx.take_along_axis(lp, idx, axis=-1)
-            kl = mx.sum(mx.exp(p_lp) * (p_lp - q_lp), axis=-1).sum()
+            kl = mx.sum(mx.exp(p_lp) * (p_lp - q_lp), axis=-1)
             ref_top = mx.take_along_axis(idx, mx.argmax(p_lp, axis=-1, keepdims=True), axis=-1)[:, 0]
-            agree = (mx.argmax(lp, axis=-1) == ref_top).sum()
+            agree = mx.argmax(lp, axis=-1) == ref_top
             mx.eval(kl, agree)
-            kl_sum += float(kl); agree_sum += float(agree)
+            kls.append(np.array(kl)); agrees.append(np.array(agree))
         del h
         mx.clear_cache()
+        kl, agree = np.concatenate(kls), np.concatenate(agrees).astype(np.float64)
+        ans = _answer_mask(ids, pos)
+        row = np.array([kl.sum(), agree.sum(), len(kl), kl[ans].sum(), agree[ans].sum(), ans.sum()])
         for key in (r["source"], "all"):
-            a = acc[key]
-            a[0] += kl_sum; a[1] += agree_sum; a[2] += len(pos)
-    return {k: {"kl": v[0] / v[2], "top1": v[1] / v[2], "n": v[2]} for k, v in acc.items()}
+            acc[key] += row
+    out = {"_skipped": int(acc.pop("_skipped", np.zeros(6))[0])}
+    for k, v in acc.items():
+        out[k] = {"kl": v[0] / v[2], "top1": v[1] / v[2], "n": int(v[2]),
+                  "kl_ans": v[3] / v[5] if v[5] else None, "top1_ans": v[4] / v[5] if v[5] else None,
+                  "n_ans": int(v[5])}
+    return out
 
 
 def fmt(res):
     keys = sorted(k for k in res if k != "all" and not k.startswith("_")) + ["all"]
-    return " | ".join(f"{k} kl={res[k]['kl']:.3f} t1={res[k]['top1']:.3f}" for k in keys)
+    def one(k):
+        r = res[k]
+        a = f" ans_kl={r['kl_ans']:.3f} ans_t1={r['top1_ans']:.3f}" if r.get("kl_ans") is not None else ""
+        return f"{k} kl={r['kl']:.3f} t1={r['top1']:.3f}{a}"
+    return " | ".join(one(k) for k in keys)

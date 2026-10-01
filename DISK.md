@@ -18,6 +18,7 @@ is not listed.
 |---|---|---|---|
 | `models/gemma-4-12B-it-bf16` | 22 GB | Source for every build. Full-precision reference and statistics runs. | End of phase 1, after Shonu agrees |
 | `models/nest8` | 12 GB | 8-bit reordered 12B. Structure experiments without 4-bit noise. | Replaced by a newer 8-bit build |
+| `models/nest4` | 6.3 GB | 4-bit reordered 12B. Also serves as the plain "12B 4-bit" baseline at full width. | Replaced by a newer 4-bit build |
 | `models/gemma-4-e4b-it-4bit` | 4.8 GB | Baseline: the bar to beat | End of phase 1 |
 | `models/gemma-4-e2b-it-4bit` | 3.3 GB | Baseline | End of phase 1 |
 

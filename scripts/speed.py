@@ -25,6 +25,7 @@ args = ap.parse_args()
 if args.nest:
     from nest import elastic
     elastic.patch()
+    elastic.ElasticMLP.LEAN = False
 from nest.io import load
 
 model, proc = load(args.model)

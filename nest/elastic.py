@@ -20,17 +20,19 @@ def _rows(lin, n):
     return lin.weight[:n], None, None, None, None, None
 
 
-def _cols(lin, n):
+def _cols(lin, n, evaluate=True):
     """First n input columns of a (possibly quantized) Linear, copied into contiguous memory."""
     if isinstance(lin, nn.QuantizedLinear):
         per = 32 // lin.bits
         w = mx.contiguous(lin.weight[:, : n // per])
         s = mx.contiguous(lin.scales[:, : n // lin.group_size])
         b = mx.contiguous(lin.biases[:, : n // lin.group_size])
-        mx.eval(w, s, b)
+        if evaluate:
+            mx.eval(w, s, b)
         return w, s, b, lin.group_size, lin.bits, lin.mode
     w = mx.contiguous(lin.weight[:, :n])
-    mx.eval(w)
+    if evaluate:
+        mx.eval(w)
     return w, None, None, None, None, None
 
 
@@ -65,9 +67,13 @@ class ElasticMLP(nn.Module):
         # Plain-object state, so MLX does not treat it as model parameters.
         self.st = SimpleNamespace(width=I, comp=None, stats=None, down=None)
 
+    # LEAN = True: slice down_proj on the fly in each call (low memory, a bit slower).
+    # LEAN = False: keep one contiguous copy per level (fast; costs memory). Use for speed tests.
+    LEAN = True
+
     def set_width(self, n):
         self.st.width = n
-        self.st.down = None if n >= self.full_width else _cols(self.down_proj, n)
+        self.st.down = None if n >= self.full_width or ElasticMLP.LEAN else _cols(self.down_proj, n)
 
     def __call__(self, x):
         st = self.st
@@ -77,7 +83,7 @@ class ElasticMLP(nn.Module):
             down = _full(self.down_proj)
         else:
             a = g4.geglu(_mm(x, _rows(self.gate_proj, n)), _mm(x, _rows(self.up_proj, n)))
-            down = st.down
+            down = st.down if st.down is not None else _cols(self.down_proj, n, evaluate=False)
         if st.stats is not None:
             st.stats(self.layer_idx, a)
         y = _mm(a, down)
