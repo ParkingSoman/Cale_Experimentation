@@ -49,3 +49,9 @@ def pick(levels, target_pct, cap_pct=100):
 
 def pct_range(levels):
     return min(l["pct"] for l in levels), max(l["pct"] for l in levels)
+
+
+# Facts about Gemma 3n that the runtime may rely on (read from models/gemma-3n-e4b-4bit/config.json).
+MAX_CONTEXT = 32768                  # max_position_embeddings: the longest prompt + answer the model was trained for
+KV_BYTES_PER_TOKEN = 8192            # 4 full-attention layers own a KV cache (layers 4, 9, 14, 19): 4 x 2 x 2 heads x 256 x 2 bytes.
+                                     # The 16 sliding-window layers add a fixed 17 MB. The other 15 layers share these caches.

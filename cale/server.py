@@ -27,17 +27,17 @@ import time
 import uuid
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-from nest.levels3n import load_levels, pct_range, pick
+from nest.levels3n import MAX_CONTEXT, load_levels, pct_range, pick
 
-from . import keys, oslayer, paths, pressure
-from .engine import Engine, GoalMissed
+from . import backends, keys, oslayer, paths, pressure
+from .engine import ContextTooLong, Engine, EngineError, GoalMissed
 from . import choose
 
 BASE = "gemma-3n"
 LEVELS = load_levels()
 MIN_PCT, MAX_PCT = pct_range(LEVELS)
 ALIASES = {"smart": MAX_PCT, "fast": MIN_PCT}
-MAX_TOKENS = 4096
+MAX_TOKENS = MAX_CONTEXT              # the context decides what really fits (the engine checks it)
 DEFAULT_TOKENS = 1024                # when an app sends no limit (Open WebUI does not)
 DEBUG = os.environ.get("CALE_DEBUG") == "1"
 CONNECT_LOCK = threading.Lock()      # one Allow dialog at a time
@@ -47,9 +47,9 @@ OBJECT_FIELDS = {"family", "name", "size", "deadline_s", "max_tokens", "memory_p
 
 
 class ApiError(Exception):
-    def __init__(self, status, code, message, extra=None):
+    def __init__(self, status, code, message, extra=None, param=None):
         super().__init__(message)
-        self.status, self.code, self.extra = status, code, extra
+        self.status, self.code, self.extra, self.param = status, code, extra, param
 
 
 def parse_model(name):
@@ -120,6 +120,50 @@ def on_miss(req, key="cale_on_miss"):
     return v
 
 
+# What /v1/chat/completions accepts. Anything else gets a clear 400. Cale never takes a field and ignores it in silence.
+CHAT_FIELDS = {"model", "messages", "max_tokens", "max_completion_tokens", "temperature", "top_p", "seed", "stop", "stream"}
+NO_EFFECT_FIELDS = {"user", "stream_options", "store", "metadata"}      # accepted: they change nothing Cale does
+ZERO_ONLY_FIELDS = {"frequency_penalty", "presence_penalty"}            # accepted only as 0
+NOT_YET_FIELDS = {"tools", "tool_choice", "functions", "function_call", "response_format", "logprobs", "top_logprobs",
+                  "logit_bias", "parallel_tool_calls", "modalities", "audio", "prediction", "reasoning_effort"}
+
+
+def check_chat_fields(req):
+    """Reject fields Cale does not support. A field set to null counts as absent."""
+    for k, v in req.items():
+        if v is None or k in CHAT_FIELDS or k in NO_EFFECT_FIELDS or k.startswith("cale_"):
+            continue
+        if k in ZERO_ONLY_FIELDS and v == 0:
+            continue
+        if k == "n" and v == 1:
+            continue
+        if k == "response_format" and isinstance(v, dict) and v.get("type") == "text":
+            continue
+        if k in ("logprobs", "parallel_tool_calls") and v is False:
+            continue
+        if k in NOT_YET_FIELDS or k in ZERO_ONLY_FIELDS or k == "n":
+            raise ApiError(400, "unsupported_parameter", f"Cale does not support '{k}' yet. Remove it from the request, or use a supported value.", param=k)
+        raise ApiError(400, "unknown_parameter", f"Cale does not know the field '{k}'. Supported fields: {', '.join(sorted(CHAT_FIELDS))}.", param=k)
+
+
+def chat_sampling(req):
+    """top_p, seed and stop from a chat request, checked. Returns (top_p, seed, stop)."""
+    caps = backends.supports()
+    top_p = number(req, "top_p", 0.0, 1.0, 1.0)
+    if top_p < 1.0 and not caps["top_p"]:
+        raise ApiError(400, "unsupported_parameter", "This engine build does not support 'top_p' yet.", param="top_p")
+    seed = req.get("seed")
+    if seed is not None and (isinstance(seed, bool) or not isinstance(seed, int)):
+        raise ApiError(400, "invalid_seed", "'seed' must be an integer.", param="seed")
+    stop = req.get("stop")
+    if isinstance(stop, str):
+        stop = [stop]
+    if stop is not None:
+        if not isinstance(stop, list) or len(stop) > 4 or not all(isinstance(x, str) and 0 < len(x) <= 100 for x in stop):
+            raise ApiError(400, "invalid_stop", "'stop' must be a string or a list of up to 4 non-empty strings (100 characters at most).", param="stop")
+    return top_p, (None if seed is None else seed % (2 ** 32)), stop
+
+
 def object_spec(req):
     """Check the body of POST /cale/models. A size is exact. Goals (deadline_s, memory_pct) let Cale choose."""
     unknown = sorted(set(req) - OBJECT_FIELDS)
@@ -180,7 +224,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def _error(self, e):
         self.close_connection = True      # the body may be unread: never reuse this connection
-        err = {"message": str(e), "type": "invalid_request_error", "code": e.code}
+        err = {"message": str(e), "type": "invalid_request_error", "code": e.code, "param": e.param}
         if e.extra:
             err["cale"] = e.extra
         self._json(e.status, {"error": err}, {"Connection": "close"})
@@ -245,7 +289,7 @@ class Handler(BaseHTTPRequestHandler):
                                                     "ram_gb": round(choose.model_bytes(prof, choose.need(l)) / 1e9, 2)}
                                           for l in ENGINE.levels}}
                 return self._json(200, {"object": "list", "data": data, "cale": {
-                    "base": BASE, "sizes": {"min": MIN_PCT, "max": MAX_PCT, "aliases": ALIASES,
+                    "base": BASE, "max_context_tokens": ENGINE.known_context(), "sizes": {"min": MIN_PCT, "max": MAX_PCT, "aliases": ALIASES,
                                             "available": sorted({l["pct"] for l in LEVELS}),
                                             "usage": f"{BASE}:<percent> or {BASE}:auto"}, "curve": curve,
                     "this_computer": this_mac, "this_mac": this_mac,       # this_mac: the first name, kept so old apps still work
@@ -258,6 +302,7 @@ class Handler(BaseHTTPRequestHandler):
             self.close_connection = True
 
     def do_POST(self):
+        self.arrived = time.time()                 # time spent waiting in line counts toward an app's deadline
         try:
             self._guard()
             if self.path == "/cale/connect":
@@ -276,6 +321,9 @@ class Handler(BaseHTTPRequestHandler):
             if DEBUG and self.path == "/cale/debug/slow":
                 ENGINE.slow = number(self._body(), "factor", 0.1, 100, 1.0)
                 return self._json(200, {"ok": True, "slow": ENGINE.slow})
+            if DEBUG and self.path == "/cale/debug/fail":
+                ENGINE.debug_fail = True
+                return self._json(200, {"ok": True, "next_call_fails": True})
             if DEBUG and self.path == "/cale/debug/pressure":
                 pressure.set_override(self._body().get("level"))
                 return self._json(200, {"ok": True, "pressure": pressure.name()})
@@ -380,7 +428,9 @@ class Handler(BaseHTTPRequestHandler):
         with OBJ_LOCK:
             if (app, oid) in OBJECTS:                     # the same name is alive already: this one gets a suffix
                 oid = f"{oid}-{uuid.uuid4().hex[:4]}"
-            OBJECTS[(app, oid)] = {"spec": spec, "created": time.time()}
+            OBJECTS[(app, oid)] = {"spec": spec, "created": time.time(),
+                                   "max_pct": info.get("size_pct") if "memory_pct" in (hold_spec or {}) else None,   # a memory goal also caps the size this object's calls run at
+                                   "memory_goal_met": info.get("goal_met") if "memory_pct" in (hold_spec or {}) else None}
         print(f"[model] {app!r} made {oid}: { {k: v for k, v in spec.items() if v is not None} }", flush=True)
         self.send_response(200)
         self.send_header("Content-Type", "application/x-ndjson")
@@ -400,24 +450,27 @@ class Handler(BaseHTTPRequestHandler):
                          **info}, event, cleanup)
 
     def _chat(self, req, app="?"):
+        check_chat_fields(req)
         name = req.get("model", BASE)
         with OBJ_LOCK:
             obj = OBJECTS.get((app, name)) if isinstance(name, str) else None     # only this app's own objects exist for it
         spec = obj["spec"] if obj else None
         pct = ("auto" if "size_pct" not in spec else spec["size_pct"]) if obj else parse_model(name)
         msgs = clean_messages(req.get("messages"))
-        asked = req.get("max_completion_tokens", req.get("max_tokens"))
+        limit_key = "max_completion_tokens" if req.get("max_completion_tokens") is not None else "max_tokens"
+        asked = req.get(limit_key)
         if asked is None and obj and spec.get("max_tokens"):
             asked = spec["max_tokens"]                   # the object's answer length
-        max_tokens = number({"v": asked}, "v", 1, MAX_TOKENS, DEFAULT_TOKENS, True)
+        max_tokens = number({limit_key: asked}, limit_key, 1, MAX_TOKENS, DEFAULT_TOKENS, True)
         temp = number(req, "temperature", 0.0, 2.0, 0.0)
+        top_p, seed, stop = chat_sampling(req)
         stream = bool(req.get("stream"))
         goal = None
         if obj and any(k in req for k in ("cale_deadline_s", "cale_allow_disk", "cale_on_miss")):
             raise ApiError(400, "goal_in_object", "This model object holds its own goals. Do not send cale_* fields with it.")
         if obj and pct == "auto":
             goal = {"deadline_s": spec["deadline_s"], "allow_disk": spec["allow_disk"], "on_miss": spec["on_miss"],
-                    "expect_tokens": spec.get("max_tokens")}
+                    "expect_tokens": spec.get("max_tokens"), "max_pct": obj.get("max_pct") or 100}
         elif pct == "auto":
             deadline = number(req, "cale_deadline_s", 0.1, 3600, None)
             if deadline is not None and asked is None:
@@ -426,33 +479,52 @@ class Handler(BaseHTTPRequestHandler):
         elif any(k in req for k in ("cale_deadline_s", "cale_allow_disk", "cale_on_miss")):
             raise ApiError(400, "goal_needs_auto", f"The cale_* goal fields need model '{BASE}:auto'.")
         cid, created = f"chatcmpl-{uuid.uuid4().hex[:12]}", int(time.time())
-        gen = ENGINE.chat_stream(msgs, max_tokens, temp, app, 100 if pct == "auto" else pct, goal)
+        gen = ENGINE.chat_stream(msgs, max_tokens, temp, app, 100 if pct == "auto" else pct, goal,
+                                 top_p=top_p, seed=seed, stop=stop, arrived=getattr(self, "arrived", None),
+                                 max_tokens_explicit=asked is not None)
         try:
             plan = next(gen)["plan"]
         except GoalMissed as e:
             gen.close()
             raise ApiError(422, "goal_missed", str(e), e.info)
+        except ContextTooLong as e:
+            gen.close()
+            raise ApiError(400, "context_length_exceeded", str(e), e.info, param="messages")
+        except EngineError as e:
+            raise ApiError(500, "engine_error", f"The engine failed and was reset. Try again. ({e})")
         expect = plan["size_pct"]
         if obj:
             with OBJ_LOCK:                               # what this object ran at, for apps that show it
                 if (app, name) in OBJECTS:
                     OBJECTS[(app, name)]["last"] = {"size_pct": expect, "goal_met": plan["goal_met"],
                                                     "predicted_s": plan["predicted_s"], "at": int(time.time())}
-        hdr = {"X-Cale-Requested-Size": str(pct), "X-Cale-Size": str(expect), "X-Cale-Disk-MB": str(plan["disk_mb"])}
+        hdr = {"X-Cale-Requested-Size": str(pct), "X-Cale-Size": str(expect), "X-Cale-Disk-MB": str(plan["disk_mb"]),
+               "X-Cale-Waited-S": str(plan["waited_s"])}
+        mem_met = obj.get("memory_goal_met") if obj else None
+        if mem_met is not None:
+            hdr["X-Cale-Memory-Goal-Met"] = str(mem_met).lower()
         if plan["predicted_s"] is not None:
             hdr["X-Cale-Predicted-S"] = str(plan["predicted_s"])
             hdr["X-Cale-Goal-Met"] = str(plan["goal_met"]).lower()
-        info = {"requested_size": pct, "predicted_s": plan["predicted_s"], "goal_met": plan["goal_met"]}
+        info = {"requested_size": pct, "predicted_s": plan["predicted_s"], "goal_met": plan["goal_met"],
+                "waited_s": plan["waited_s"], "memory_goal_met": mem_met}
         label = (lambda p: name) if obj else model_id          # a model object reports its own id as the model
 
         if not stream:
             text, done = [], {}
-            for ev in gen:
-                if "delta" in ev:
-                    text.append(ev["delta"])
-                else:
-                    done = ev["done"]
+            try:
+                for ev in gen:
+                    if "delta" in ev:
+                        text.append(ev["delta"])
+                    else:
+                        done = ev["done"]
+            except EngineError as e:
+                raise ApiError(500, "engine_error", f"The engine failed and was reset. Try again. ({e})")
             actual = done.get("size_pct") or expect
+            if "goal_met_actual" in done:                      # now the answer is finished: say what really happened
+                hdr["X-Cale-Goal-Met"] = str(done["goal_met_actual"]).lower()
+                info["goal_met_actual"] = done["goal_met_actual"]
+            hdr["X-Cale-Total-S"] = str(done.get("total_s"))
             self._note_done(app, name, obj, done)
             self._log_chat(app, req, actual, done)
             return self._json(200, {
@@ -461,10 +533,13 @@ class Handler(BaseHTTPRequestHandler):
                              "finish_reason": done.get("finish", "stop")}],
                 "usage": {"prompt_tokens": done.get("prompt_tokens", 0), "completion_tokens": done.get("tokens", 0),
                           "total_tokens": done.get("prompt_tokens", 0) + done.get("tokens", 0)},
-                "cale": {**info, "size": actual, **{k: done.get(k) for k in ("seconds", "switch_ms", "drafter", "disk_mb", "disk_s")}},
+                "cale": {**info, "size": actual, **{k: done.get(k) for k in ("seconds", "waited_s", "total_s", "switch_ms", "drafter", "disk_mb", "disk_s")}},
             }, hdr)
 
-        first = next(gen, None)                # a load or input failure here still gets a normal error reply
+        try:
+            first = next(gen, None)            # a load or input failure here still gets a normal error reply
+        except EngineError as e:
+            raise ApiError(500, "engine_error", f"The engine failed and was reset. Try again. ({e})")
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream")
         self.send_header("Cache-Control", "no-cache")
@@ -502,8 +577,9 @@ class Handler(BaseHTTPRequestHandler):
                         "model": label(d["size_pct"]),
                         "usage": {"prompt_tokens": d["prompt_tokens"], "completion_tokens": d["tokens"],
                                   "total_tokens": d["prompt_tokens"] + d["tokens"]},
-                        "cale": {**info, "size": d["size_pct"], "seconds": d["seconds"], "drafter": d["drafter"],
-                                 "disk_mb": d.get("disk_mb"), "disk_s": d.get("disk_s")}})
+                        "cale": {**info, "size": d["size_pct"], "seconds": d["seconds"], "waited_s": d.get("waited_s"),
+                                 "total_s": d.get("total_s"), "goal_met_actual": d.get("goal_met_actual"),
+                                 "drafter": d["drafter"], "disk_mb": d.get("disk_mb"), "disk_s": d.get("disk_s")}})
             send(b"[DONE]")
         except (BrokenPipeError, ConnectionResetError):
             pass

@@ -20,3 +20,20 @@ def load_model(path):
         return NestedGemma3n.load(path, width=1.0, ple_on_disk=True)      # costs under 4% speed, saves 1.3 GB
     from .llama import LlamaNested
     return LlamaNested.load(path)
+
+
+def supports():
+    """Which request options this engine can honour: {"top_p", "seed", "stop"} -> bool. Does not load the model."""
+    if name() == "mlx":
+        return {"top_p": True, "seed": True, "stop": True}
+    from .llama import LlamaNested
+    return dict(LlamaNested.supports)
+
+
+def context_limit():
+    """The longest prompt plus answer, in tokens, before the model is loaded."""
+    if name() == "mlx":
+        from nest.levels3n import MAX_CONTEXT
+        return MAX_CONTEXT
+    from .llama import N_CTX
+    return N_CTX

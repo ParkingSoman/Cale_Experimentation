@@ -38,13 +38,43 @@ Send the key as `Authorization: Bearer KEY` on every other call. Keep the key. D
 |---|---|
 | `model` | `gemma-3n:smart`, `gemma-3n:fast`, `gemma-3n:<48-100>`, `gemma-3n:auto`, or the id of a model object |
 | `messages` | roles `system`, `user`, `assistant`, `developer`. Text only. |
-| `max_tokens`, `max_completion_tokens` | 1 to 4096. Default 1024. |
+| `max_tokens`, `max_completion_tokens` | at least 1. The prompt plus this number must fit the context (see below). Default 1024, or less if the prompt is long. |
 | `temperature` | 0 to 2. Default 0. |
+| `top_p` | 0 to 1. Default 1. |
+| `seed` | an integer. The same seed, prompt and settings give the same answer. Without a seed, each call differs when `temperature` is above 0. |
+| `stop` | a string, or a list of up to 4 strings. The answer ends before the first match. `finish_reason` is `stop`. |
 | `cale_deadline_s`, `cale_allow_disk`, `cale_on_miss` | goals, only with `gemma-3n:auto` |
+| `user`, `stream_options`, `store`, `metadata` | accepted. They change nothing. |
 
-Fields not listed here are not supported.
+Cale never ignores a field in silence.
 
-Reply headers: `X-Cale-Size`, `X-Cale-Predicted-S`, `X-Cale-Goal-Met`, `X-Cale-Disk-MB`.
+| You send | Cale answers |
+|---|---|
+| `tools`, `tool_choice`, `response_format` (other than `text`), `n` above 1, penalties other than 0, images | `400 unsupported_parameter`. The `param` field names it. These are planned, not available yet. |
+| a field Cale has never heard of | `400 unknown_parameter` |
+| a bad value | `400 invalid_...` with the field name in `param` |
+
+### Context limit
+
+Each computer has a limit for prompt tokens plus answer tokens. `GET /v1/models` shows it as `cale.max_context_tokens`.
+It can differ between computers. A request over the limit gets `400 context_length_exceeded`. The reply lists
+`prompt_tokens`, `max_tokens` and `max_context_tokens`. If you send no `max_tokens`, Cale shortens the default to fit.
+
+### What the reply says about speed and goals
+
+| Header or field | Meaning |
+|---|---|
+| `X-Cale-Size` | the size that ran |
+| `X-Cale-Waited-S`, `cale.waited_s` | seconds the request waited for other apps |
+| `X-Cale-Predicted-S` | the prediction, including the wait so far |
+| `X-Cale-Goal-Met` | in a reply that is not streamed: whether the deadline was met in the end, wait included |
+| `cale.goal_met_actual`, `cale.total_s` | the same, in the body (also in the last chunk of a stream) |
+| `X-Cale-Memory-Goal-Met` | a model object with `memory_pct`: whether a size fit the memory goal |
+
+### Engine failure
+
+If the engine fails during a call, you get `500 engine_error`. Cale unloads the model and loads it again on the next call.
+`GET /cale/status` shows `last_error`.
 
 ## 4. Model objects (goals)
 
@@ -76,5 +106,6 @@ Python apps use `cale.client.model(base_url, key, ...)`.
 
 ## Errors
 
-All errors use `{"error": {"message", "type", "code"}}`. Status codes: 400 bad request, 401 bad key,
-403 not allowed, 404 unknown model, 413 too large, 422 goal missed (with `on_miss: "refuse"`), 429 busy.
+All errors use `{"error": {"message", "type", "code", "param"}}`. Status codes: 400 bad request (including
+`context_length_exceeded`), 401 bad key, 403 not allowed, 404 unknown model, 413 body too large, 422 goal missed
+(with `on_miss: "refuse"`), 429 busy, 500 `engine_error`.

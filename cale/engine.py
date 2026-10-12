@@ -27,7 +27,7 @@ import threading
 import time
 import uuid
 
-from nest.levels3n import load_levels, pick
+from nest.levels3n import MAX_CONTEXT, load_levels, pick
 
 from . import backends, choose, pressure
 from . import profile as prof_mod
@@ -46,6 +46,18 @@ class GoalMissed(Exception):
     def __init__(self, message, info):
         super().__init__(message)
         self.info = info
+
+
+class ContextTooLong(Exception):
+    """The prompt (plus the answer length asked for) does not fit this computer's context. `info` has the numbers."""
+
+    def __init__(self, message, info):
+        super().__init__(message)
+        self.info = info
+
+
+class EngineError(Exception):
+    """The engine failed during a call. Cale has unloaded the model and reloads it on the next call."""
 
 
 class Engine:
@@ -71,6 +83,8 @@ class Engine:
         self.load_s = None
         self.loaded_at = 0.0
         self.events = []                       # short log of what the engine did on its own
+        self.last_error = None                 # the last engine failure, for /cale/status
+        self.debug_fail = False                # debug only: make the next call fail inside the engine
         threading.Thread(target=self._monitor, daemon=True).start()
 
     # --- state ------------------------------------------------------------------------
@@ -93,12 +107,20 @@ class Engine:
         return {"loaded": m is not None, "cap_pct": round(self.cap * 100),
                 "resident_gb": resident, "ffn_gb": ffn, "pressure": pressure.name(), "load_s": self.load_s,
                 "idle_s": round(time.time() - self.last_used), "implicit_hold": self.implicit,
-                "holds": holds, "events": self.events}
+                "holds": holds, "events": self.events, "last_error": self.last_error}
 
     def held_ids(self):
         with self.mu:
             ids = [h["level"] for h in self.holds.values()]
         return ids + (["e4b"] if self.implicit else [])
+
+    def max_context(self):
+        """The longest prompt plus answer this computer accepts, in tokens. Needs the model loaded."""
+        return int(getattr(self.m, "max_context", 0) or MAX_CONTEXT)
+
+    def known_context(self):
+        """The context limit in tokens. Exact once the model is loaded, the engine's default before that."""
+        return self.max_context() if self.m is not None else backends.context_limit()
 
     def app_has_hold(self, app):
         with self.mu:
@@ -272,13 +294,18 @@ class Engine:
         return True
 
     # --- requests ---------------------------------------------------------------------
-    def chat_stream(self, messages, max_tokens, temperature, app="?", size_pct=100, goal=None):
+    def chat_stream(self, messages, max_tokens, temperature, app="?", size_pct=100, goal=None,
+                    top_p=1.0, seed=None, stop=None, arrived=None, max_tokens_explicit=True):
         """Generator. First {"plan": ...} (the size chosen), then {"delta"} pieces, then {"done"}.
         Holds the generation lock for the whole answer.
 
         size_pct: the absolute size asked for. goal: None, or {"deadline_s": float|None, "allow_disk": bool,
-        "on_miss": "smallest"|"refuse"} to let Cale choose. Raises GoalMissed before the first event."""
+        "on_miss": "smallest"|"refuse", "max_pct": size cap from the object's memory goal} to let Cale choose.
+        arrived: time.time() when the request came in, so time spent waiting in line counts toward the deadline.
+        max_tokens_explicit: False when the app gave no limit: then the limit shrinks to fit the context instead of failing.
+        Raises GoalMissed, ContextTooLong before the first event, and EngineError if the engine fails."""
         with self.lock:
+            waited = max(0.0, time.time() - arrived) if arrived else 0.0
             self.last_used = time.time()
             try:
                 self._apply_pending()
@@ -289,30 +316,55 @@ class Engine:
                     if not self.implicit:
                         self.implicit = True
                         self._resident_now()
-                cap = round(self.cap * 100)
-                plan = {"goal_met": None, "predicted_s": None}
+                n_prompt = self.m.prompt_len(messages)
+                limit = self.max_context()
+                if n_prompt + 1 > limit or (max_tokens_explicit and n_prompt + max_tokens > limit):
+                    raise ContextTooLong(f"This request needs {n_prompt} prompt tokens plus {max_tokens} answer tokens. "
+                                         f"This computer accepts {limit} in total.",
+                                         {"prompt_tokens": n_prompt, "max_tokens": max_tokens, "max_context_tokens": limit})
+                max_tokens = min(max_tokens, limit - n_prompt)
+                cap = min(round(self.cap * 100), round(goal.get("max_pct", 100))) if goal else round(self.cap * 100)
+                plan = {"goal_met": None, "predicted_s": None, "waited_s": round(waited, 3)}
+                deadline = None
                 if goal is None:
                     lv = pick(self.levels, size_pct, cap)
                 elif goal["deadline_s"] is None:                   # no deadline: the largest size that needs no disk
                     pool = [l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)]
                     lv = max(pool or [min(self.levels, key=lambda l: l["pct"])], key=lambda l: (l["pct"], l["mmlu_pt"]))
                 else:
-                    n = self.m.prompt_len(messages)
-                    r = choose.for_deadline(self.levels, self.profile_view(), list(self.m.resident), n,
+                    deadline = goal["deadline_s"]
+                    r = choose.for_deadline(self.levels, self.profile_view(), list(self.m.resident), n_prompt,
                                             goal.get("expect_tokens") or max_tokens,    # a model object says how long its answers are
-                                            goal["deadline_s"], goal["allow_disk"], cap)
+                                            max(0.1, deadline - waited), goal["allow_disk"], cap)    # the time already spent in line is gone
                     lv = r["level"]
-                    plan.update(goal_met=r["met"], predicted_s=round(r["predicted_s"], 2))
+                    plan.update(goal_met=r["met"], predicted_s=round(r["predicted_s"] + waited, 2))
                     if not r["met"] and goal["on_miss"] == "refuse":
-                        raise GoalMissed(f"No size can finish in {goal['deadline_s']} s on this computer. "
+                        raise GoalMissed(f"No size can finish in {deadline} s on this computer"
+                                         f"{f' (already waited {waited:.1f} s)' if waited >= 0.5 else ''}. "
                                          f"The fastest is predicted at {plan['predicted_s']} s.", plan)
                 disk_mb = round(sum(self.m.layer_read[i] for i, _ in self.m.missing(lv)) / 1e6)
-                plan.update(size_pct=lv["pct"], id=lv["id"], disk_mb=disk_mb)
+                plan.update(size_pct=lv["pct"], id=lv["id"], disk_mb=disk_mb, prompt_tokens=n_prompt, max_tokens=max_tokens)
                 yield {"plan": plan}
-                for ev in self.m.chat_stream(messages, max_tokens=max_tokens, width=lv, temperature=temperature):
+                if self.debug_fail:
+                    self.debug_fail = False
+                    raise RuntimeError("debug: injected engine failure")
+                for ev in self.m.chat_stream(messages, max_tokens=max_tokens, width=lv, temperature=temperature,
+                                             top_p=top_p, seed=seed, stop=stop):
                     if "done" in ev:
-                        self._learn(ev["done"])
+                        d = ev["done"]
+                        d["waited_s"] = round(waited, 3)
+                        d["total_s"] = round(waited + d["seconds"], 3)
+                        if deadline is not None:
+                            d["goal_met_actual"] = d["total_s"] <= deadline
+                        self._learn(d)
                     yield ev
+            except (GoalMissed, ContextTooLong):
+                raise
+            except Exception as e:                                  # the engine may be left half-way: start clean on the next call
+                self.last_error = f"{time.strftime('%H:%M:%S')} {type(e).__name__}: {str(e)[:300]}"
+                self.log(f"engine failed ({self.last_error}); unloading the model")
+                self._unload("engine error")
+                raise EngineError(f"{type(e).__name__}: {str(e)[:300]}") from e
             finally:
                 self.last_used = time.time()
                 if self.implicit:

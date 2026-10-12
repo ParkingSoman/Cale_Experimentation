@@ -8,14 +8,17 @@ llama.cpp (llama/patches). The FFN weights of a layer have three states, like th
 """
 import codecs
 import os
+import secrets
 import time
 from pathlib import Path
 
 from nest.levels3n import BLOCK, load_levels, pick
+from nest.stops import StopFilter
 
 from .. import oslayer
 from .llamalib import Lib
 
+N_CTX = 8192               # context size the library is loaded with (prompt plus answer, in tokens)
 FIRST_SHARED = 20          # layers 20 and up share the KV cache of earlier layers, so they may be skipped
 _FFN = ("gate", "up", "down")
 
@@ -48,7 +51,7 @@ class LlamaNested:
     ple_on_disk = True                     # the per-layer embedding table is mapped: only the rows of the tokens used are read
 
     @classmethod
-    def load(cls, path, width=1.0, ple_on_disk=True, threads=None, n_ctx=8192, lib_path=None, **_):
+    def load(cls, path, width=1.0, ple_on_disk=True, threads=None, n_ctx=N_CTX, lib_path=None, **_):
         self = cls()
         self.path = str(find_gguf(path))
         self.lib = Lib(self.path, n_threads=threads or default_threads(), n_ctx=n_ctx, lib_path=lib_path)
@@ -227,42 +230,59 @@ class LlamaNested:
         return len(self.prompt_ids(messages))
 
     # --- chat --------------------------------------------------------------------------------
-    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0):
+    supports = {"top_p": False, "seed": True, "stop": True}        # top_p needs the rebuilt library (llama/README.md)
+
+    @property
+    def max_context(self):
+        return self.lib.n_ctx
+
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None):
         """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
         If the size needs FFN weights that are not in RAM, they are read first and freed after the call."""
         lv = self.resolve(width) if width is not None else self.level
         read, read_s = self.ensure(lv)
         try:
-            for ev in self._chat_stream(messages, max_tokens, lv, temperature):
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop):
                 if "done" in ev:
                     ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
                 yield ev
         finally:
             self.settle()
 
-    def _chat_stream(self, messages, max_tokens, width, temperature):
+    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None):
+        if top_p < 1.0 and not self.supports["top_p"]:
+            raise ValueError("this engine build does not support top_p")
         sw = self.set(width)
         ids = self.prompt_ids(messages)
         dec = codecs.getincrementaldecoder("utf-8")("replace")
+        stops = StopFilter(stop)
         t0 = time.perf_counter()
-        self.lib.begin(ids, temperature)
-        out, finish = 0, "stop"
+        self.lib.begin(ids, temperature, seed=secrets.randbits(32) if seed is None else int(seed) & 0xFFFFFFFF)
+        out, finish = 0, None
         for _ in range(max_tokens):
             tok = self.lib.next()
             if tok < 0 or self.lib.is_eog(tok):
+                finish = "stop"
                 break
             out += 1
             s = dec.decode(self.lib.piece(tok))
             if s:
-                yield {"delta": s}
+                text, hit = stops.feed(s)
+                if text:
+                    yield {"delta": text}
+                if hit:
+                    finish = "stop"
+                    break
         else:
             finish = "length"
-        tail = dec.decode(b"", final=True)
-        if tail:
-            yield {"delta": tail}
+        if not stops.hit:
+            tail = stops.feed(dec.decode(b"", final=True))
+            tail = tail[0] + (stops.flush() if not tail[1] else "")
+            if tail:
+                yield {"delta": tail}
         yield {"done": {"tier": self.level["id"], "size_pct": self.level["pct"], "switch_ms": round(sw, 1),
                         "seconds": round(time.perf_counter() - t0, 3), "prompt_tokens": len(ids),
-                        "tokens": out, "finish": finish, "drafter": False}}
+                        "tokens": out, "finish": finish or "stop", "drafter": False}}
 
     def generate(self, prompt, max_tokens=256, width=None):
         text, done = "", None

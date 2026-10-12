@@ -9,6 +9,7 @@ Only text is supported. The vision and audio towers are dropped at load to save 
 """
 import gc
 import json
+import secrets
 import struct
 import time
 from pathlib import Path
@@ -21,9 +22,11 @@ import mlx.nn as nn
 from mlx_vlm.models.gemma3n.language import gelu_topk, logit_softcap
 
 from .elastic import _full, _mm, _rows
-from .levels3n import BLOCK, load_levels, pick
+from .levels3n import BLOCK, MAX_CONTEXT, load_levels, pick
+from .stops import StopFilter
 
 EOS = {1, 106}                  # <eos>, <end_of_turn>
+PREFILL_STEP = 2048             # the prompt is read in pieces of this many tokens, so memory grows with the prompt, not with its square
 GROUP, BITS, MODE = 64, 4, "affine"     # how the FFN matrices of models/gemma-3n-e4b-4bit are quantized
 
 
@@ -355,14 +358,17 @@ class NestedGemma3n:
         return logit_softcap(cap, out) if cap is not None else out
 
     # --- chat (used by the Cale server) -----------------------------------------------------
-    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0):
+    max_context = MAX_CONTEXT
+    supports = {"top_p": True, "seed": True, "stop": True}
+
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None):
         """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
         messages: [{"role": "system"|"user"|"assistant", "content": str}].
         If the size needs FFN weights that are not in RAM, they are read from disk first and freed after the call."""
         lv = self.resolve(width) if width is not None else self.level
         read, read_s = self.ensure(lv)
         try:
-            for ev in self._chat_stream(messages, max_tokens, lv, temperature):
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop):
                 if "done" in ev:
                     ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
                 yield ev
@@ -376,40 +382,71 @@ class NestedGemma3n:
         text = self.processor.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
         return mx.array(tok.encode(text, add_special_tokens=False))[None]
 
-    def _chat_stream(self, messages, max_tokens, width, temperature):
+    def _prefill(self, ids, cache):
+        """Read the prompt in pieces. Returns the hidden states of the last piece."""
+        n, h = ids.shape[1], None
+        for i in range(0, n, PREFILL_STEP):
+            h = self.lm.model(ids[:, i:i + PREFILL_STEP], cache=cache)
+            if i + PREFILL_STEP < n:
+                mx.eval([c.state for c in cache])             # finish this piece before the next one starts
+        return h
+
+    def _sample(self, h, temperature, top_p):
+        lg = self.logits(h[:, -1:])
+        if temperature <= 0:
+            return mx.argmax(lg, axis=-1)
+        lg = lg / temperature
+        if top_p >= 1.0:
+            return mx.random.categorical(lg, axis=-1)
+        probs = mx.softmax(lg, axis=-1)
+        order = mx.argsort(-probs, axis=-1)                   # most likely first
+        ps = mx.take_along_axis(probs, order, axis=-1)
+        keep = (mx.cumsum(ps, axis=-1) - ps) < top_p          # the smallest set whose probability reaches top_p (always the first)
+        pick_in_sorted = mx.random.categorical(mx.where(keep, mx.log(ps + 1e-20), -mx.inf), axis=-1)
+        return mx.take_along_axis(order, pick_in_sorted[..., None], axis=-1).squeeze(-1)
+
+    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None):
         sw = self.set(width)
         tok = self.processor.tokenizer
         ids = self.prompt_ids(messages)
         cache = self.lm.make_cache()
+        mx.random.seed(secrets.randbits(32) if seed is None else int(seed))      # the random state is per thread: never rely on it
+        stops = StopFilter(stop)
         t0 = time.perf_counter()
 
-        def pick(h):
-            lg = self.logits(h[:, -1:])
-            if temperature <= 0:
-                return mx.argmax(lg, axis=-1)
-            return mx.random.categorical(lg / temperature, axis=-1)
-
-        nxt = pick(self.lm.model(ids, cache=cache))
+        nxt = self._sample(self._prefill(ids, cache), temperature, top_p)
         mx.eval(nxt)
-        out, sent = [], ""
+        out, sent, finish = [], "", None
         for _ in range(max_tokens):
             v = int(nxt.item())
             if v in EOS:
+                finish = "stop"
                 break
             out.append(v)
-            nxt = pick(self.lm.model(nxt.reshape(1, 1), cache=cache))
+            nxt = self._sample(self.lm.model(nxt.reshape(1, 1), cache=cache), temperature, top_p)
             mx.async_eval(nxt)
             s = tok.decode(out, skip_special_tokens=True)
             if not s.endswith("�") and len(s) > len(sent):
-                yield {"delta": s[len(sent):]}
+                text, hit = stops.feed(s[len(sent):])
                 sent = s
-        s = tok.decode(out, skip_special_tokens=True)
-        if len(s) > len(sent):
-            yield {"delta": s[len(sent):]}
+                if text:
+                    yield {"delta": text}
+                if hit:
+                    finish = "stop"
+                    break
+        else:
+            finish = "length"
+        if not stops.hit:
+            s = tok.decode(out, skip_special_tokens=True)
+            text, hit = stops.feed(s[len(sent):]) if len(s) > len(sent) else ("", False)
+            tail = text + (stops.flush() if not hit else "")
+            if tail:
+                yield {"delta": tail}
+            if hit:
+                finish = "stop"
         yield {"done": {"tier": self.level["id"], "size_pct": self.level["pct"], "switch_ms": round(sw, 1),
                         "seconds": round(time.perf_counter() - t0, 3), "prompt_tokens": int(ids.shape[1]),
-                        "tokens": len(out), "finish": "length" if len(out) >= max_tokens else "stop",
-                        "drafter": False}}
+                        "tokens": len(out), "finish": finish or "stop", "drafter": False}}
 
     def generate(self, prompt, max_tokens=256, width=None):
         """Greedy text for one user prompt (benchmarks). Returns {"text", "stats"}."""
