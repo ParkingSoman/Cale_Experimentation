@@ -57,6 +57,7 @@ check("tool_choice -> 400", err(chat(key, tool_choice="auto"))[:2] == (400, "uns
 check("response_format json_schema -> 400", err(chat(key, response_format={"type": "json_schema", "json_schema": {}})) == (400, "unsupported_parameter", "response_format"))
 check("response_format text is fine", chat(key, max_tokens=8, response_format={"type": "text"})[0] == 200)
 check("unknown field -> 400 unknown_parameter", err(chat(key, banana=1)) == (400, "unknown_parameter", "banana"))
+check("a cale_ field Cale does not have -> 400", err(chat(key, cale_power="battery")) == (400, "unknown_parameter", "cale_power"))
 check("n=2 -> 400", err(chat(key, n=2))[:2] == (400, "unsupported_parameter"))
 check("presence_penalty 0.5 -> 400", err(chat(key, presence_penalty=0.5))[:2] == (400, "unsupported_parameter"))
 check("fields set to null are ignored", chat(key, max_tokens=8, tools=None, response_format=None)[0] == 200)

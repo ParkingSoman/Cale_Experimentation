@@ -122,6 +122,7 @@ def on_miss(req, key="cale_on_miss"):
 
 # What /v1/chat/completions accepts. Anything else gets a clear 400. Cale never takes a field and ignores it in silence.
 CHAT_FIELDS = {"model", "messages", "max_tokens", "max_completion_tokens", "temperature", "top_p", "seed", "stop", "stream"}
+CALE_FIELDS = {"cale_deadline_s", "cale_allow_disk", "cale_on_miss"}    # Cale's own goal fields (with model gemma-3n:auto)
 NO_EFFECT_FIELDS = {"user", "stream_options", "store", "metadata"}      # accepted: they change nothing Cale does
 ZERO_ONLY_FIELDS = {"frequency_penalty", "presence_penalty"}            # accepted only as 0
 NOT_YET_FIELDS = {"tools", "tool_choice", "functions", "function_call", "response_format", "logprobs", "top_logprobs",
@@ -131,7 +132,7 @@ NOT_YET_FIELDS = {"tools", "tool_choice", "functions", "function_call", "respons
 def check_chat_fields(req):
     """Reject fields Cale does not support. A field set to null counts as absent."""
     for k, v in req.items():
-        if v is None or k in CHAT_FIELDS or k in NO_EFFECT_FIELDS or k.startswith("cale_"):
+        if v is None or k in CHAT_FIELDS or k in NO_EFFECT_FIELDS or k in CALE_FIELDS:
             continue
         if k in ZERO_ONLY_FIELDS and v == 0:
             continue
@@ -143,7 +144,7 @@ def check_chat_fields(req):
             continue
         if k in NOT_YET_FIELDS or k in ZERO_ONLY_FIELDS or k == "n":
             raise ApiError(400, "unsupported_parameter", f"Cale does not support '{k}' yet. Remove it from the request, or use a supported value.", param=k)
-        raise ApiError(400, "unknown_parameter", f"Cale does not know the field '{k}'. Supported fields: {', '.join(sorted(CHAT_FIELDS))}.", param=k)
+        raise ApiError(400, "unknown_parameter", f"Cale does not know the field '{k}'. Supported fields: {', '.join(sorted(CHAT_FIELDS | CALE_FIELDS))}.", param=k)
 
 
 def chat_sampling(req):
