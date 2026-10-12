@@ -261,7 +261,14 @@ def ask_allow(app, replacing=False, seconds=120):
                        ("kdialog", ["--title", title, "--yesno", body])):
         exe = shutil.which(tool)
         if exe and (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
-            return subprocess.run([exe, *args], capture_output=True, timeout=seconds + 5).returncode == 0
+            try:
+                return subprocess.run([exe, *args], capture_output=True, timeout=seconds + 5).returncode == 0
+            except subprocess.TimeoutExpired:          # the tool ignored its own timeout: no answer means no
+                print(f"[connect] {tool} did not close after {seconds} s. Counting that as no.", flush=True)
+                return False
+            except OSError as e:
+                print(f"[connect] {tool} failed to start ({e}). Refusing.", flush=True)
+                return False
     print("[connect] no screen to show the Allow question on (no DISPLAY, or no zenity/kdialog). Refusing.", flush=True)
     return False
 
