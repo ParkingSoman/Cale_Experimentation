@@ -109,6 +109,17 @@ def main():
     check("service, pressure, cli, profile import", "IMPORT_OK" in r.stdout and "None" in r.stdout,
           (r.stdout + r.stderr)[-300:])
 
+    # 8. Linux Allow dialog: a dialog tool that never closes counts as "no". It must not crash Cale (it did once, on WSLg).
+    if not oslayer.WIN:
+        with tempfile.TemporaryDirectory() as d:
+            fake = Path(d) / "zenity"
+            fake.write_text("#!/bin/sh\nsleep 30\n")
+            fake.chmod(0o755)
+            r = run_py("from cale import oslayer\noslayer.MAC = oslayer.WIN = False\n"
+                       "print('ANSWER', oslayer.ask_allow('Test App', seconds=1))",
+                       {"PATH": f"{d}{os.pathsep}{os.environ.get('PATH', '')}", "DISPLAY": ":99"}, timeout=40)
+            check("a dialog tool that never closes counts as no", "ANSWER False" in r.stdout, (r.stdout + r.stderr)[-300:])
+
     print("\nALL PASS" if not FAILS else f"\nFAILED: {FAILS}", flush=True)
     return 1 if FAILS else 0
 
