@@ -32,3 +32,16 @@ Score (apps that work well x systems that run them): Mac 5/12, HP Linux 3/12, HP
 6. On the HP, prompt reading is the bottleneck, not answer speed. The deadline-in-seconds goal cannot describe that.
 7. Windows ran 38% slower than Linux on the same CPU (streaming 4.2 vs 6.8 chunks/s).
 8. The Linux Allow dialog tool (zenity) may never close. Cale raised TimeoutExpired and returned a 500. Fixed in `464ceea`.
+
+## After stage 2a (2026-10-12, same 12 apps)
+
+| System | Works well before | Works well after |
+|---|---|---|
+| Mac | 5 | 8 |
+| HP Linux | 3 | 6 |
+| HP Windows | 3 | 6 |
+| **Total (of 36)** | **11** | **20** |
+
+Raw lines: `mac-after-2a.txt`, `hp-linux-after-2a.txt`, `hp-windows-after-2a.txt`.
+What still fails: native tool calls and JSON schema (stage 6, now an honest 400), image input (stage 6), "run gently" jobs (stage 4),
+and on the slow HP: the long document and the summarizer (prompt reading at 15 tok/s: GPU or a smaller context-reading cost).

@@ -1,0 +1,12 @@
+ZOO_RESULT agent-tools FAILS tools rejected with 400; prompt-protocol workaround: calc=ok, file=ok (39.9s)
+ZOO_RESULT battery-background-job FAILS docs offer no battery/busy setting; model object rejects power/priority (HTTP 400); chat accepts guessed fields silently {'chat_cale_power': 400, 'chat_cale_pri
+ZOO_RESULT curl-script WORKS_WELL answer='Tokyo is the capital of Japan.' headers=['X-Cale-Requested-Size: 100', 'X-Cale-Size: 100', 'X-Cale-Disk-MB: 0', 'X-Cale-Waited-S: 0.001', 'X-Cale-Total-S: 2.5
+ZOO_RESULT image-input FAILS image rejected with HTTP 400: Only text content is supported for now. (honest error) (8.1s)
+ZOO_RESULT json-extract FAILS response_format json_schema: HTTP 400; prompt-only bare: not JSON; prompt-only fence-stripped: ok (34.5s)
+ZOO_RESULT long-doc-qa FAILS small(~5k): ERROR None body=TimeoutError('timed out') | big(~10k): ERROR None body=TimeoutError('timed out') (600.4s)
+ZOO_RESULT low-memory-app WORKS_WELL 15%: budget 1.24 GB, goal_met=False, object size_pct=48, call ran at 48%, resident 4.77 GB; 5%: budget 0.41 GB, goal_met=False, object size_pct=48, call ran at 48%
+ZOO_RESULT node-app WORKS_WELL {'key': True, 'object': True, 'chat': True, 'stream': True, 'goal_header': True}; first token 1.169s, stream total 4.009s (9.6s)
+ZOO_RESULT stop-and-sampling WORKS_WELL stop honored=True; seed honored=True (seed1 vs seed2 differ and seed1 repeats); unseeded runs vary=True; top_p=5 status=400; unknown field status=400 (50.5s)
+ZOO_RESULT streaming-backend WORKS_WELL first token 1.44s, last 9.61s, 52 chunks, 6.2 chunks/s, incremental=True (10.2s)
+ZOO_RESULT summarizer FAILS 1/3 key facts kept, 4 map calls, 849s total (849.2s)
+ZOO_RESULT two-apps-at-once WORKS_WELL app-big goal 40s wall 25.6s hdr=true; app-tight goal 4s wall 32.2s hdr=false (32.9s)
