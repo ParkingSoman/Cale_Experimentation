@@ -33,6 +33,9 @@ def main():
     ap.add_argument("lib", nargs="?")
     a = ap.parse_args()
     from cale import backends, oslayer
+    import os
+    if os.environ.get("CALE_BENCH_PERF"):                      # experiment: opt out of Windows efficiency mode
+        print("prefer_performance:", oslayer.prefer_performance(above_normal=os.environ["CALE_BENCH_PERF"] == "2"), flush=True)
     t0 = time.perf_counter()
     if backends.name() == "mlx":
         m = backends.load_model(a.model)

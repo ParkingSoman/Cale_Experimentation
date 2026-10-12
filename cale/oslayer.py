@@ -273,6 +273,29 @@ def ask_allow(app, replacing=False, seconds=120):
     return False
 
 
+# ---- running at full speed -------------------------------------------------------------------------------------------
+
+def prefer_performance(above_normal=False):
+    """Ask the OS to run this process at full speed. Returns True if the OS accepted.
+
+    Windows 10 and 11 may put a process with no window into "efficiency mode" (EcoQoS): lower CPU clock, work moved to
+    slow cores. Cale does heavy math, so it opts out. Other systems have no such default: nothing to do there."""
+    if not WIN:
+        return False
+    k32 = ctypes.windll.kernel32
+
+    class _Throttle(ctypes.Structure):
+        _fields_ = [("Version", ctypes.c_ulong), ("ControlMask", ctypes.c_ulong), ("StateMask", ctypes.c_ulong)]
+
+    k32.GetCurrentProcess.restype = ctypes.c_void_p
+    h = k32.GetCurrentProcess()
+    state = _Throttle(1, 0x1, 0)            # PROCESS_POWER_THROTTLING_EXECUTION_SPEED: controlled by us, and switched off
+    ok = bool(k32.SetProcessInformation(ctypes.c_void_p(h), 4, ctypes.byref(state), ctypes.sizeof(state)))     # 4 = ProcessPowerThrottling
+    if above_normal:
+        k32.SetPriorityClass(ctypes.c_void_p(h), 0x00008000)               # ABOVE_NORMAL_PRIORITY_CLASS
+    return ok
+
+
 # ---- starting and stopping Cale without a service manager ---------------------------------------------------------------
 
 def spawn_detached(argv, log_path, env=None):

@@ -12,13 +12,13 @@ import secrets
 import time
 from pathlib import Path
 
-from nest.levels3n import BLOCK, load_levels, pick
+from nest.levels3n import BLOCK, MAX_CONTEXT, load_levels, pick
 from nest.stops import StopFilter
 
 from .. import oslayer
 from .llamalib import Lib
 
-N_CTX = 8192               # context size the library is loaded with (prompt plus answer, in tokens)
+N_CTX = MAX_CONTEXT        # context size the library is loaded with (prompt plus answer, in tokens). Gemma 3n keeps 8 KB per token, so the full 32k costs 270 MB.
 FIRST_SHARED = 20          # layers 20 and up share the KV cache of earlier layers, so they may be skipped
 _FFN = ("gate", "up", "down")
 
@@ -230,7 +230,7 @@ class LlamaNested:
         return len(self.prompt_ids(messages))
 
     # --- chat --------------------------------------------------------------------------------
-    supports = {"top_p": False, "seed": True, "stop": True}        # top_p needs the rebuilt library (llama/README.md)
+    supports = {"top_p": True, "seed": True, "stop": True}
 
     @property
     def max_context(self):
@@ -250,14 +250,12 @@ class LlamaNested:
             self.settle()
 
     def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None):
-        if top_p < 1.0 and not self.supports["top_p"]:
-            raise ValueError("this engine build does not support top_p")
         sw = self.set(width)
         ids = self.prompt_ids(messages)
         dec = codecs.getincrementaldecoder("utf-8")("replace")
         stops = StopFilter(stop)
         t0 = time.perf_counter()
-        self.lib.begin(ids, temperature, seed=secrets.randbits(32) if seed is None else int(seed) & 0xFFFFFFFF)
+        self.lib.begin(ids, temperature, seed=secrets.randbits(32) if seed is None else int(seed) & 0xFFFFFFFF, top_p=top_p)
         out, finish = 0, None
         for _ in range(max_tokens):
             tok = self.lib.next()

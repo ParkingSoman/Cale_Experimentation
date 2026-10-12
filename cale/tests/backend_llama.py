@@ -31,7 +31,10 @@ def main():
     base = m.active_bytes() - m.resident_now()
     print(f"everything except the FFN weights: {base / 1e9:.2f} GB", flush=True)
     check("all full after load", m.all_full() and m.ffn_bytes() == full)
-    check("the per-layer embedding table is not all in RAM (base under 2.2 GB)", base < 2.2e9, f"{base / 1e9:.2f} GB")
+    from nest.levels3n import KV_BYTES_PER_TOKEN
+    allowance = 2.2e9 + m.max_context * KV_BYTES_PER_TOKEN      # the context (KV cache) is part of the base memory
+    check("the per-layer embedding table is not all in RAM (base under 2.2 GB plus the context)", base < allowance,
+          f"{base / 1e9:.2f} GB, allowed {allowance / 1e9:.2f} GB")
     r = m.resident_now()
     check("OS says the FFN weights are in RAM", r > 0.8 * full, f"{r / 1e9:.2f} of {full / 1e9:.2f} GB")
 

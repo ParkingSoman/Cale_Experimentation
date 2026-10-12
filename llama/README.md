@@ -15,6 +15,8 @@ There is still one model file. There is no second file for the small size.
 | Full width | The same code path as stock llama.cpp. |
 | New call | `llama_model_get_tensor(model, name)`: lets Cale see where a layer's weights live in memory. |
 
+Shim calls added in Phase 6: `cale_begin2(..., top_p, seed)` (top-p sampling). The library is loaded with the model's full 32768-token context (8 KB of KV cache per token: 0.27 GB).
+
 The sizes are the official Gemma 3n sizes (`nest/gemma3n_levels.json`). A size is a list of widths.
 Switching size takes about 0.03 ms.
 

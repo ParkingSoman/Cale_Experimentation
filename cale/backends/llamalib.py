@@ -47,6 +47,7 @@ class Lib:
         c.cale_piece.restype, c.cale_piece.argtypes = i32, [vp, i32, ctypes.c_char_p, i32]
         c.cale_is_eog.restype, c.cale_is_eog.argtypes = i32, [vp, i32]
         c.cale_begin.restype, c.cale_begin.argtypes = i32, [vp, i32p, i32, ctypes.c_float, ctypes.c_uint32]
+        c.cale_begin2.restype, c.cale_begin2.argtypes = i32, [vp, i32p, i32, ctypes.c_float, ctypes.c_float, ctypes.c_uint32]
         c.cale_next.restype, c.cale_next.argtypes = i32, [vp]
         c.cale_nll.restype, c.cale_nll.argtypes = ctypes.c_double, [vp, i32p, i32, i32]
         u64 = ctypes.c_uint64
@@ -111,9 +112,9 @@ class Lib:
     def is_eog(self, tok):
         return bool(self.c.cale_is_eog(self.h, tok))
 
-    def begin(self, tokens, temperature=0.0, seed=1234):
+    def begin(self, tokens, temperature=0.0, seed=1234, top_p=1.0):
         arr = (ctypes.c_int32 * len(tokens))(*tokens)
-        if self.c.cale_begin(self.h, arr, len(tokens), temperature, seed) != 0:
+        if self.c.cale_begin2(self.h, arr, len(tokens), temperature, top_p, seed) != 0:
             raise RuntimeError(self.error())
 
     def next(self):

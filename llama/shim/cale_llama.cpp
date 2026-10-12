@@ -236,7 +236,7 @@ CALE_API int32_t cale_piece(cale_ctx * h, int32_t tok, char * out, int32_t cap) 
 CALE_API int32_t cale_is_eog(cale_ctx * h, int32_t tok) { return llama_vocab_is_eog(h->vocab, tok) ? 1 : 0; }
 
 // Start an answer: clear the memory, read the prompt. Call cale_next() to get tokens one by one.
-CALE_API int32_t cale_begin(cale_ctx * h, const int32_t * tokens, int32_t n, float temperature, uint32_t seed) {
+CALE_API int32_t cale_begin2(cale_ctx * h, const int32_t * tokens, int32_t n, float temperature, float top_p, uint32_t seed) {
     if (n <= 0 || n + 1 > h->n_ctx) { g_err = "prompt does not fit the context"; return -1; }
     llama_memory_clear(llama_get_memory(h->ctx), true);
     h->n_past = 0;
@@ -247,10 +247,16 @@ CALE_API int32_t cale_begin(cale_ctx * h, const int32_t * tokens, int32_t n, flo
         llama_sampler_chain_add(h->smpl, llama_sampler_init_greedy());
     } else {
         llama_sampler_chain_add(h->smpl, llama_sampler_init_temp(temperature));
+        if (top_p < 1.0f) llama_sampler_chain_add(h->smpl, llama_sampler_init_top_p(top_p > 1e-6f ? top_p : 1e-6f, 1));
         llama_sampler_chain_add(h->smpl, llama_sampler_init_dist(seed));
     }
     std::vector<llama_token> t(tokens, tokens + n);
     return decode_tokens(h, t.data(), n) ? 0 : -1;
+}
+
+// The same without top_p (kept so older callers still work).
+CALE_API int32_t cale_begin(cale_ctx * h, const int32_t * tokens, int32_t n, float temperature, uint32_t seed) {
+    return cale_begin2(h, tokens, n, temperature, 1.0f, seed);
 }
 
 // The next token, or -1 on error, -2 if the context is full.

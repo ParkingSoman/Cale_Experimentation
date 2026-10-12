@@ -335,7 +335,7 @@ class Handler(BaseHTTPRequestHandler):
         except Exception as e:                  # keep serving whatever happens
             print(f"[http] error {type(e).__name__}: {e}", flush=True)
             try:
-                self._json(500, {"error": {"message": f"{type(e).__name__}: {e}", "type": "server_error", "code": "internal"}})
+                self._json(500, {"error": {"message": "Internal error. The details are in Cale's log.", "type": "server_error", "code": "internal"}})
             except Exception:
                 pass
 
@@ -491,7 +491,7 @@ class Handler(BaseHTTPRequestHandler):
             gen.close()
             raise ApiError(400, "context_length_exceeded", str(e), e.info, param="messages")
         except EngineError as e:
-            raise ApiError(500, "engine_error", f"The engine failed and was reset. Try again. ({e})")
+            raise ApiError(500, "engine_error", "The engine failed and was reset. Try again. The details are in Cale's log.")
         expect = plan["size_pct"]
         if obj:
             with OBJ_LOCK:                               # what this object ran at, for apps that show it
@@ -519,7 +519,7 @@ class Handler(BaseHTTPRequestHandler):
                     else:
                         done = ev["done"]
             except EngineError as e:
-                raise ApiError(500, "engine_error", f"The engine failed and was reset. Try again. ({e})")
+                raise ApiError(500, "engine_error", "The engine failed and was reset. Try again. The details are in Cale's log.")
             actual = done.get("size_pct") or expect
             if "goal_met_actual" in done:                      # now the answer is finished: say what really happened
                 hdr["X-Cale-Goal-Met"] = str(done["goal_met_actual"]).lower()
@@ -539,7 +539,7 @@ class Handler(BaseHTTPRequestHandler):
         try:
             first = next(gen, None)            # a load or input failure here still gets a normal error reply
         except EngineError as e:
-            raise ApiError(500, "engine_error", f"The engine failed and was reset. Try again. ({e})")
+            raise ApiError(500, "engine_error", "The engine failed and was reset. Try again. The details are in Cale's log.")
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream")
         self.send_header("Cache-Control", "no-cache")
@@ -586,7 +586,7 @@ class Handler(BaseHTTPRequestHandler):
         except Exception as e:                 # headers are sent already: report inside the stream
             print(f"[http] stream error {type(e).__name__}: {e}", flush=True)
             try:
-                send(json.dumps({"error": {"message": f"{type(e).__name__}: {e}", "type": "server_error"}}).encode())
+                send(json.dumps({"error": {"message": "Internal error. The details are in Cale's log.", "type": "server_error"}}).encode())
                 send(b"[DONE]")
             except Exception:
                 pass

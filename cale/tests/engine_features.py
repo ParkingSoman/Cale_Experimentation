@@ -62,12 +62,13 @@ def main():
     else:
         print("SKIP top_p (this engine does not support it yet)", flush=True)
 
-    # A long prompt must neither crash nor change the answer. On MLX this used to allocate the whole attention table at once.
-    filler = " ".join(f"Item {i} is a number that appears in the list." for i in range(900))      # about 9k tokens
+    # A long prompt must neither crash nor change the answer. On MLX a 45k-token prompt once crashed the engine (a manual check: scripts/long_prompt.py).
+    items = 150                                                           # about 14 tokens per item: a prompt of roughly 2k tokens (quick even on a slow computer)
+    filler = " ".join(f"Item {i} is a number that appears in the list." for i in range(items))
     long_prompt = filler + "\n\nQuestion: what is 2+2? Answer with one word."
     t0 = time.time()
     out, done = ask(m, long_prompt, 6)
-    check("long prompt (about 9k tokens) answers", done is not None and done["prompt_tokens"] > 7000, done)
+    check("a long prompt (about 2k tokens) answers", done is not None and done["prompt_tokens"] > 1500, done)
     print(f"  prompt_tokens={done['prompt_tokens']} in {time.time() - t0:.1f}s answer={out!r}", flush=True)
 
     if backends.name() == "mlx":

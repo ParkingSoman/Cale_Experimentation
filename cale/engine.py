@@ -361,10 +361,12 @@ class Engine:
             except (GoalMissed, ContextTooLong):
                 raise
             except Exception as e:                                  # the engine may be left half-way: start clean on the next call
-                self.last_error = f"{time.strftime('%H:%M:%S')} {type(e).__name__}: {str(e)[:300]}"
-                self.log(f"engine failed ({self.last_error}); unloading the model")
+                # The details go to Cale's own log only. /cale/status needs no key, and error text can hold paths and sizes.
+                self.last_error = f"{type(e).__name__} at {time.strftime('%H:%M:%S')}"
+                print(f"[engine] engine failed ({type(e).__name__}: {str(e)[:300]})", flush=True)      # the private log only: self.log() shows in /cale/status
+                self.log(f"engine failed ({type(e).__name__}); unloading the model")
                 self._unload("engine error")
-                raise EngineError(f"{type(e).__name__}: {str(e)[:300]}") from e
+                raise EngineError(type(e).__name__) from e
             finally:
                 self.last_used = time.time()
                 if self.implicit:

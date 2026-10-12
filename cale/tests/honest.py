@@ -86,8 +86,8 @@ long_text = "Item number one two three four five six seven eight nine ten. " * (
 r = chat(key, long_text, max_tokens=10)
 check("prompt longer than the limit -> 400 context_length_exceeded", err(r)[:2] == (400, "context_length_exceeded"), r[2])
 check("...and the reply says the numbers", r[2].get("error", {}).get("cale", {}).get("max_context_tokens") == limit, r[2])
-mid = "Item number one two three four five six seven eight nine ten. " * (limit // 40)             # fits by itself
-r = chat(key, mid, max_tokens=limit)
+mid = "Item number one two three four five six seven eight nine ten. " * 160                  # about 2k tokens: fits by itself, quick even on a slow computer
+r = chat(key, mid, max_tokens=limit - 100)
 check("prompt + a huge max_tokens that cannot fit -> 400", err(r)[:2] == (400, "context_length_exceeded"), r[2])
 check("a prompt that fits is answered", chat(key, mid, max_tokens=5)[0] == 200)
 check("engine still healthy after those refusals", call("/cale/status")[2].get("last_error") is None)
@@ -97,7 +97,8 @@ if call("/cale/debug/fail", {})[0] == 200:
     r = chat(key, max_tokens=5)
     check("engine failure -> 500 engine_error", err(r)[:2] == (500, "engine_error"), r)
     st = call("/cale/status")[2]
-    check("status says what failed", st.get("last_error") and "injected" in st["last_error"], st)
+    check("status says that something failed, without the details", st.get("last_error") and "RuntimeError" in st["last_error"] and "injected" not in st["last_error"], st)
+    check("the error reply gives no details either", "injected" not in json.dumps(r[2]), r)
     r = chat(key, max_tokens=5)
     check("the next call works (model reloads)", r[0] == 200 and r[2]["choices"][0]["message"]["content"], r)
 else:
