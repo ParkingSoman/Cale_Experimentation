@@ -683,3 +683,66 @@ Aider (objects `code` and `commit`) found the running Cale on Linux and Windows 
 | `/mnt/c` in WSL | Copying through it ran at about 2 MB/s. Download inside WSL instead. |
 | Linux memory count | `mincore` reports the shared page cache. Use `/proc/self/pagemap` to count what this process has mapped. |
 | Allow dialog | Cannot show for a process started over SSH on Windows. Tests use `CALE_AUTO_APPROVE`. |
+
+## Phase 6 (2026-10-12): make Cale general (plan: `~/.claude/plans/you-were-finishing-up-splendid-willow.md`)
+
+Goal: success = (app types that work well) x (environments each one runs in). Check with a **hidden app zoo**: 12 probe apps
+written by a reviewer agent that read only `docs/`. Scorecards: `results/zoo/BASELINE.md` (before) and the table below (after stage 2a).
+
+### The app zoo, before and after stage 2a
+
+| App | Mac before | Mac after | HP Linux before | HP Linux after |
+|---|---|---|---|---|
+| agent-tools | FAILS (tools ignored in silence) | FAILS (honest 400) | FAILS | FAILS (honest 400) |
+| json-extract | FAILS | FAILS (honest 400) | FAILS | FAILS (honest 400) |
+| long-doc-qa | WELL | WELL | FAILS | FAILS (a 5k prompt takes about 6 min on this CPU) |
+| summarizer | WELL | WELL | FAILS | FAILS (14 min, prompt reading) |
+| two-apps-at-once | POOR (said "met" when it was not) | WELL (honest) | POOR | WELL (honest: `goal_met=false`, waited 25 s) |
+| node-app, curl-script, streaming-backend | WELL | WELL | WELL | WELL |
+| low-memory-app | POOR | WELL | POOR | WELL |
+| stop-and-sampling | FAILS | WELL | FAILS | WELL |
+| battery-background-job | FAILS | FAILS | FAILS | FAILS (no goal for it yet) |
+| image-input | FAILS | FAILS | FAILS | FAILS (honest 400) |
+| **Works well** | **5 of 12** | **8 of 12** | **3 of 12** | **6 of 12** |
+
+### What changed (all tests pass on Mac, HP Linux, HP Windows)
+
+| Gap the zoo found | Fix |
+|---|---|
+| Unsupported fields got 200 and were ignored | 400 by name (`unsupported_parameter`, `unknown_parameter`) |
+| `stop`, `seed`, `top_p` ignored | Implemented on both engines. Unseeded sampling now differs per call (MLX random state is per thread). |
+| Context limit differed per computer, a 45k prompt broke the Mac | MLX reads the prompt in pieces (33k tokens: 23 s, 6 GB peak). One public limit (32768), shown in `/v1/models`. Clean `context_length_exceeded`. |
+| Engine "wedged" after one bad call | Cause: MLX arrays belong to the thread that made them. A request that stopped early left half-computed arrays, and every later request failed with "no Stream(gpu) in current thread". `materialize()` finishes them. Engine failure now returns 500 `engine_error` and reloads. |
+| `Goal-Met: true` while the app waited in line | Wait time counts (`waited_s`, `total_s`, `goal_met_actual`) |
+| A memory goal said 48% but the call ran at 100% | The object's size caps its calls |
+| An abandoned request kept the engine busy for minutes | A closed connection stops the work, even in the middle of a long prompt (`nest/cancel.py`, shim abort callback) |
+| Windows 40-50% slower than Linux on the same CPU | The mingw OpenMP runtime. Build without it: decode 4.1 -> 7.2 (full), 6.2 -> 12.3 (smallest) tok/s |
+| Error details visible on `/cale/status` (security review) | Details only in the private log |
+
+### Windows speed hunt (HP, i7-8550U, Gemma 3n prepared file, 229-token prompt)
+
+| Tried | Full size decode | Smallest decode |
+|---|---|---|
+| baseline (OpenMP) | 4.1 | 6.2 |
+| efficiency mode off, above-normal priority | same | same |
+| 3 or 8 threads, 4 threads pinned to separate cores | same | same |
+| OMP_WAIT_POLICY / GOMP_SPINCOUNT | same | same |
+| official `llama-bench` (stock model, MSVC build) | 7.7 | - |
+| **our build without OpenMP** | **7.2** | **12.3** |
+| Linux (WSL), OpenMP / without | 6.7 / 6.2 | 10.4 / 10.9 |
+
+### GPU on the HP (official llama.cpp b11558 Vulkan tool, stock model)
+
+| Setup | Prompt (tok/s) | Answer (tok/s) |
+|---|---|---|
+| CPU only | 18 | 7.7 |
+| MX150, 0 layers on GPU (it only does the big prompt matmuls) | 59 (512-token prompt) | 4.4 |
+| MX150, 16 layers | 51 | 4.7 |
+| MX150, all layers | out of memory (1.9 GB free, model 4.1 GB) | - |
+| Intel UHD 620, driver from 2018 | crash at load (access violation) | - |
+
+A weak GPU makes prompt reading 3.3x faster and answers no faster. A strong GPU is untested (the cloud GPU idea).
+
+### Not done yet
+
+Linux Allow dialog click on WSLg (display stopped answering after `wsl --shutdown`; the code path was fixed and unit-tested). Open WebUI and Aider not re-run since strict field checking. GPU support in Cale itself. Stages 3 to 8 of the plan.
