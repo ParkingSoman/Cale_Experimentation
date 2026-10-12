@@ -1,0 +1,12 @@
+ZOO_RESULT agent-tools FAILS tools accepted (200) but ignored, no tool_calls (silent); prompt-protocol workaround: calc=ok, file=ok (45.0s)
+ZOO_RESULT battery-background-job FAILS docs offer no battery/busy setting; model object rejects power/priority (HTTP 400); chat accepts guessed fields silently {'chat_cale_power': 200, 'chat_cale_pri
+ZOO_RESULT curl-script WORKS_WELL answer='Tokyo is the capital of Japan.' headers=['X-Cale-Requested-Size: 100', 'X-Cale-Size: 100', 'X-Cale-Disk-MB: 0'] (2.9s)
+ZOO_RESULT image-input FAILS image rejected with HTTP 400: Only text content is supported for now. (honest error) (7.8s)
+ZOO_RESULT json-extract FAILS response_format json_schema: not JSON; prompt-only bare: not JSON; prompt-only fence-stripped: ok (response_format ignored, silent) (53.1s)
+ZOO_RESULT long-doc-qa FAILS small(~5k): ERROR None body=TimeoutError('timed out') | big(~10k): ERROR 500 body={"error": {"message": "RuntimeError: prompt does not fit the context", "type": "server_er
+ZOO_RESULT low-memory-app WORKS_POOR 15%: budget 1.24 GB, goal_met=False, object size_pct=48, call ran at 100%, resident 3.94 GB; 5%: budget 0.41 GB, goal_met=False, object size_pct=48, call ran at 10
+ZOO_RESULT node-app WORKS_WELL {'key': True, 'object': True, 'chat': True, 'stream': True, 'goal_header': True}; first token 0.95s, stream total 3.798s (9.3s)
+ZOO_RESULT stop-and-sampling FAILS stop honored=False; seed honored=False (seed1 vs seed2 differ and seed1 repeats); unseeded runs vary=False; top_p=5 status=200; unknown field status=200 (56.8s)
+ZOO_RESULT streaming-backend WORKS_WELL first token 1.31s, last 8.76s, 52 chunks, 6.8 chunks/s, incremental=True (9.3s)
+ZOO_RESULT summarizer FAILS 1/3 key facts kept, 4 map calls, 839s total (839.5s)
+ZOO_RESULT two-apps-at-once WORKS_WELL app-big: goal 40.0s, wall 24.9s, first token 1.87s, 6.5 tok/s, header goal_met=true; app-tight: goal 4.0s, wall 30.2s, first token 25.04s, 11.6 tok/s, header goa
