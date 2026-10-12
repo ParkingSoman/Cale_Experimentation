@@ -26,6 +26,20 @@ def timed(m, prompt, n):
     return best
 
 
+def stream_decode(m, runs=3, tokens=48):
+    """Answer speed from the time between the first and the last piece of a short prompt. Median of a few runs. Steadier than a difference of two runs."""
+    speeds = []
+    for _ in range(runs):
+        stamps = []
+        for ev in m.chat_stream([{"role": "user", "content": "Write a long story about a dragon."}], max_tokens=tokens):
+            if "delta" in ev:
+                stamps.append(time.perf_counter())
+        if len(stamps) > 8:
+            speeds.append((len(stamps) - 1) / (stamps[-1] - stamps[0]))
+    speeds.sort()
+    return round(speeds[len(speeds) // 2], 2) if speeds else None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("model")
@@ -36,6 +50,11 @@ def main():
     import os
     if os.environ.get("CALE_BENCH_PERF"):                      # experiment: opt out of Windows efficiency mode
         print("prefer_performance:", oslayer.prefer_performance(above_normal=os.environ["CALE_BENCH_PERF"] == "2"), flush=True)
+    if os.environ.get("CALE_BENCH_AFFINITY") and oslayer.WIN:        # experiment: which logical CPUs the threads may use (a bit mask)
+        import ctypes
+        ctypes.windll.kernel32.GetCurrentProcess.restype = ctypes.c_void_p
+        ok = ctypes.windll.kernel32.SetProcessAffinityMask(ctypes.c_void_p(ctypes.windll.kernel32.GetCurrentProcess()), int(os.environ["CALE_BENCH_AFFINITY"], 16))
+        print("affinity", os.environ["CALE_BENCH_AFFINITY"], "ok" if ok else "FAILED", flush=True)
     t0 = time.perf_counter()
     if backends.name() == "mlx":
         m = backends.load_model(a.model)
@@ -43,7 +62,8 @@ def main():
         from cale.backends.llama import LlamaNested
         m = LlamaNested.load(a.model, lib_path=a.lib)
     load_s = time.perf_counter() - t0
-    long_prompt = FILLER * 20 + ASK
+    import os as _os
+    long_prompt = FILLER * int(_os.environ.get("CALE_BENCH_REPEAT", 20)) + ASK
     m.generate("Say hi.", 4)                                   # warm up
     out = {"os": platform.system(), "machine": platform.machine(), "backend": backends.name(),
            "repacked": getattr(getattr(m, "lib", None), "repacked", None), "load_s": round(load_s, 1),
@@ -60,6 +80,7 @@ def main():
             "prefill_tok_s": round(s1["prompt_tokens"] / s1["seconds"], 1),
             "decode_tok_s": round((s65["tokens"] - s1["tokens"]) / decode_s, 2),
             "memory_gb": round(m.active_bytes() / 1e9, 2)}
+        out["sizes"][name]["stream_decode_tok_s"] = stream_decode(m)
         print(name, out["sizes"][name], flush=True)
     Path(a.out).write_text(json.dumps(out, indent=1))
     print("BENCH_DONE", flush=True)

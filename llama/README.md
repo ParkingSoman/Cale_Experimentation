@@ -41,6 +41,8 @@ uses less memory. Reading them back is "reading from disk" for a call that needs
 | Linux, macOS | `llama/build.sh [OUT_DIR]` | git, cmake, a C++ compiler |
 | Windows | `powershell -ExecutionPolicy Bypass -File llama\build.ps1 -Out C:\cale\lbuild -Python python.exe` | Python. It fetches a portable GCC (w64devkit). No admin rights, no Visual Studio. |
 
+The Windows build turns OpenMP off (`-DGGML_OPENMP=OFF`). With the mingw OpenMP runtime, decoding was 43-50% slower than with llama.cpp's own thread pool, and 40-45% slower than Linux on the same CPU. On Linux the two are equal, so Linux keeps OpenMP.
+
 Built libraries go in `llama/dist/<os>-<arch>/`. The installer copies the one for this computer.
 `STOCK=1 llama/build.sh` builds against unpatched llama.cpp, for the full-size comparison below.
 
