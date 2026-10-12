@@ -10,6 +10,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstring>
+#include <atomic>
 #include <string>
 #include <vector>
 
@@ -39,6 +40,7 @@ struct cale_ctx {
     std::string         path;
     bool                repacked = false;      // weights were repacked into ordinary memory (not mapped from the file)
     bool                split = false;         // the file stores each down matrix as two halves
+    std::atomic<int>    cancel{0};             // set from another thread: stop the work in progress
 };
 
 thread_local std::string g_err;
@@ -53,8 +55,9 @@ void quiet_log(ggml_log_level level, const char * text, void *) {
 bool decode_tokens(cale_ctx * h, llama_token * t, int32_t n) {
     while (n > 0) {
         const int32_t k = n < h->n_batch ? n : h->n_batch;
+        if (h->cancel.load() != 0) { g_err = "cancelled"; return false; }
         if (llama_decode(h->ctx, llama_batch_get_one(t, k)) != 0) {
-            g_err = "llama_decode failed";
+            g_err = h->cancel.load() != 0 ? "cancelled" : "llama_decode failed";
             return false;
         }
         h->n_past += k;
@@ -118,8 +121,12 @@ CALE_API cale_ctx * cale_load(const char * path, int32_t n_threads, int32_t n_ct
     h->vocab = llama_model_get_vocab(model);
     h->n_ctx = (int32_t) llama_n_ctx(ctx);
     h->n_batch = (int32_t) llama_n_batch(ctx);
+    llama_set_abort_callback(ctx, [](void * d) -> bool { return static_cast<cale_ctx *>(d)->cancel.load() != 0; }, h);
     return h;
 }
+
+// Stop the work in progress (called from another thread). The running call returns an error, and cale_error() says "cancelled".
+CALE_API void cale_cancel(cale_ctx * h) { if (h) h->cancel.store(1); }
 
 CALE_API void cale_free(cale_ctx * h) {
     if (!h) return;
@@ -238,6 +245,7 @@ CALE_API int32_t cale_is_eog(cale_ctx * h, int32_t tok) { return llama_vocab_is_
 // Start an answer: clear the memory, read the prompt. Call cale_next() to get tokens one by one.
 CALE_API int32_t cale_begin2(cale_ctx * h, const int32_t * tokens, int32_t n, float temperature, float top_p, uint32_t seed) {
     if (n <= 0 || n + 1 > h->n_ctx) { g_err = "prompt does not fit the context"; return -1; }
+    h->cancel.store(0);
     llama_memory_clear(llama_get_memory(h->ctx), true);
     h->n_past = 0;
     h->pending = -1;

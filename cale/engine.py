@@ -27,6 +27,7 @@ import threading
 import time
 import uuid
 
+from nest.cancel import Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pick
 
 from . import backends, choose, pressure
@@ -85,6 +86,7 @@ class Engine:
         self.events = []                       # short log of what the engine did on its own
         self.last_error = None                 # the last engine failure, for /cale/status
         self.debug_fail = False                # debug only: make the next call fail inside the engine
+        self.running_cancel = None             # the Cancel of the request that is running now
         threading.Thread(target=self._monitor, daemon=True).start()
 
     # --- state ------------------------------------------------------------------------
@@ -295,7 +297,7 @@ class Engine:
 
     # --- requests ---------------------------------------------------------------------
     def chat_stream(self, messages, max_tokens, temperature, app="?", size_pct=100, goal=None,
-                    top_p=1.0, seed=None, stop=None, arrived=None, max_tokens_explicit=True):
+                    top_p=1.0, seed=None, stop=None, arrived=None, max_tokens_explicit=True, cancel=None):
         """Generator. First {"plan": ...} (the size chosen), then {"delta"} pieces, then {"done"}.
         Holds the generation lock for the whole answer.
 
@@ -303,14 +305,20 @@ class Engine:
         "on_miss": "smallest"|"refuse", "max_pct": size cap from the object's memory goal} to let Cale choose.
         arrived: time.time() when the request came in, so time spent waiting in line counts toward the deadline.
         max_tokens_explicit: False when the app gave no limit: then the limit shrinks to fit the context instead of failing.
-        Raises GoalMissed, ContextTooLong before the first event, and EngineError if the engine fails."""
+        cancel: a nest.cancel.Cancel. The server sets it when the client closes its connection. The work then stops.
+        Raises GoalMissed, ContextTooLong before the first event, Cancelled if the client left, and EngineError if the engine fails."""
         with self.lock:
+            if cancel:
+                cancel.check()                                      # the client gave up while waiting in line: do not start
             waited = max(0.0, time.time() - arrived) if arrived else 0.0
             self.last_used = time.time()
             try:
                 self._apply_pending()
                 if self.m is None:
                     self._load()
+                if cancel:
+                    cancel.on_set(lambda: self._interrupt_for(cancel))
+                    self.running_cancel = cancel
                 if not self.app_has_hold(app):
                     self.implicit_last = time.time()
                     if not self.implicit:
@@ -349,7 +357,7 @@ class Engine:
                     self.debug_fail = False
                     raise RuntimeError("debug: injected engine failure")
                 for ev in self.m.chat_stream(messages, max_tokens=max_tokens, width=lv, temperature=temperature,
-                                             top_p=top_p, seed=seed, stop=stop):
+                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel):
                     if "done" in ev:
                         d = ev["done"]
                         d["waited_s"] = round(waited, 3)
@@ -358,7 +366,7 @@ class Engine:
                             d["goal_met_actual"] = d["total_s"] <= deadline
                         self._learn(d)
                     yield ev
-            except (GoalMissed, ContextTooLong):
+            except (GoalMissed, ContextTooLong, Cancelled):
                 raise
             except Exception as e:                                  # the engine may be left half-way: start clean on the next call
                 # The details go to Cale's own log only. /cale/status needs no key, and error text can hold paths and sizes.
@@ -368,10 +376,17 @@ class Engine:
                 self._unload("engine error")
                 raise EngineError(type(e).__name__) from e
             finally:
+                self.running_cancel = None
                 self.last_used = time.time()
                 if self.implicit:
                     self.implicit_last = time.time()
                 self._apply_pending()
+
+    def _interrupt_for(self, cancel):
+        """Stop a long step inside the engine, but only if this request is the one running now."""
+        m = self.m
+        if self.running_cancel is cancel and m is not None and hasattr(m, "interrupt"):
+            m.interrupt()
 
     def _learn(self, d):
         """Fold a real answer into the profile, if there is one."""

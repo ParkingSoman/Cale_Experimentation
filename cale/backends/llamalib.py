@@ -7,6 +7,8 @@ import os
 import sys
 from pathlib import Path
 
+from nest.cancel import Cancelled
+
 NAME = {"win32": "cale_llama.dll", "darwin": "libcale_llama.dylib"}.get(sys.platform, "libcale_llama.so")
 
 
@@ -47,6 +49,7 @@ class Lib:
         c.cale_piece.restype, c.cale_piece.argtypes = i32, [vp, i32, ctypes.c_char_p, i32]
         c.cale_is_eog.restype, c.cale_is_eog.argtypes = i32, [vp, i32]
         c.cale_begin.restype, c.cale_begin.argtypes = i32, [vp, i32p, i32, ctypes.c_float, ctypes.c_uint32]
+        c.cale_cancel.restype, c.cale_cancel.argtypes = None, [vp]
         c.cale_begin2.restype, c.cale_begin2.argtypes = i32, [vp, i32p, i32, ctypes.c_float, ctypes.c_float, ctypes.c_uint32]
         c.cale_next.restype, c.cale_next.argtypes = i32, [vp]
         c.cale_nll.restype, c.cale_nll.argtypes = ctypes.c_double, [vp, i32p, i32, i32]
@@ -115,7 +118,13 @@ class Lib:
     def begin(self, tokens, temperature=0.0, seed=1234, top_p=1.0):
         arr = (ctypes.c_int32 * len(tokens))(*tokens)
         if self.c.cale_begin2(self.h, arr, len(tokens), temperature, top_p, seed) != 0:
+            if self.error() == "cancelled":
+                raise Cancelled()
             raise RuntimeError(self.error())
+
+    def cancel(self):
+        """Stop the work in progress. Safe to call from another thread."""
+        self.c.cale_cancel(self.h)
 
     def next(self):
         return self.c.cale_next(self.h)

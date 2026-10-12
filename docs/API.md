@@ -71,6 +71,11 @@ It can differ between computers. A request over the limit gets `400 context_leng
 | `cale.goal_met_actual`, `cale.total_s` | the same, in the body (also in the last chunk of a stream) |
 | `X-Cale-Memory-Goal-Met` | a model object with `memory_pct`: whether a size fit the memory goal |
 
+### A client that leaves
+
+If your app closes the connection while Cale is working (reading a long prompt, or writing the answer), Cale stops that work
+at once. Other apps do not wait for an answer nobody will read. A request that is still waiting in line is dropped.
+
 ### Engine failure
 
 If the engine fails during a call, you get `500 engine_error`. Cale unloads the model and loads it again on the next call.

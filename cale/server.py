@@ -27,6 +27,7 @@ import time
 import uuid
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+from nest.cancel import Cancel, Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pct_range, pick
 
 from . import backends, keys, oslayer, paths, pressure
@@ -450,7 +451,30 @@ class Handler(BaseHTTPRequestHandler):
         self._stay_open({"id": oid, "object": "cale.model", "family": BASE, "spec": {k: v for k, v in spec.items() if v is not None},
                          **info}, event, cleanup)
 
+    def _watch_client(self, cancel, done):
+        """While an answer is made, notice a client that closed its connection. The work stops (the engine checks `cancel`)."""
+        conn = self.connection
+        while not done.wait(0.5):
+            try:
+                if select.select([conn], [], [], 0)[0] and conn.recv(1, socket.MSG_PEEK) == b"":
+                    cancel.set()
+                    return
+            except (OSError, ValueError):
+                cancel.set()
+                return
+
     def _chat(self, req, app="?"):
+        cancel, done = Cancel(), threading.Event()
+        threading.Thread(target=self._watch_client, args=(cancel, done), daemon=True).start()
+        try:
+            return self._chat_inner(req, app, cancel)
+        except Cancelled:
+            self.close_connection = True                 # the client is gone: there is nobody to answer
+            print(f"[chat] app={app!r} client left: work stopped", flush=True)
+        finally:
+            done.set()
+
+    def _chat_inner(self, req, app, cancel):
         check_chat_fields(req)
         name = req.get("model", BASE)
         with OBJ_LOCK:
@@ -482,7 +506,7 @@ class Handler(BaseHTTPRequestHandler):
         cid, created = f"chatcmpl-{uuid.uuid4().hex[:12]}", int(time.time())
         gen = ENGINE.chat_stream(msgs, max_tokens, temp, app, 100 if pct == "auto" else pct, goal,
                                  top_p=top_p, seed=seed, stop=stop, arrived=getattr(self, "arrived", None),
-                                 max_tokens_explicit=asked is not None)
+                                 max_tokens_explicit=asked is not None, cancel=cancel)
         try:
             plan = next(gen)["plan"]
         except GoalMissed as e:
@@ -582,7 +606,7 @@ class Handler(BaseHTTPRequestHandler):
                                  "total_s": d.get("total_s"), "goal_met_actual": d.get("goal_met_actual"),
                                  "drafter": d["drafter"], "disk_mb": d.get("disk_mb"), "disk_s": d.get("disk_s")}})
             send(b"[DONE]")
-        except (BrokenPipeError, ConnectionResetError):
+        except (BrokenPipeError, ConnectionResetError, Cancelled):
             pass
         except Exception as e:                 # headers are sent already: report inside the stream
             print(f"[http] stream error {type(e).__name__}: {e}", flush=True)

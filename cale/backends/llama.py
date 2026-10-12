@@ -12,6 +12,7 @@ import secrets
 import time
 from pathlib import Path
 
+from nest.cancel import Cancelled
 from nest.levels3n import BLOCK, MAX_CONTEXT, load_levels, pick
 from nest.stops import StopFilter
 
@@ -236,29 +237,39 @@ class LlamaNested:
     def max_context(self):
         return self.lib.n_ctx
 
-    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None):
+    def interrupt(self):
+        """Stop the prompt or answer in progress. Safe to call from another thread."""
+        self.lib.cancel()
+
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None):
         """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
         If the size needs FFN weights that are not in RAM, they are read first and freed after the call."""
         lv = self.resolve(width) if width is not None else self.level
         read, read_s = self.ensure(lv)
         try:
-            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop):
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel):
                 if "done" in ev:
                     ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
                 yield ev
         finally:
             self.settle()
 
-    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None):
+    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None):
         sw = self.set(width)
         ids = self.prompt_ids(messages)
         dec = codecs.getincrementaldecoder("utf-8")("replace")
         stops = StopFilter(stop)
         t0 = time.perf_counter()
+        if cancel:
+            cancel.check()
         self.lib.begin(ids, temperature, seed=secrets.randbits(32) if seed is None else int(seed) & 0xFFFFFFFF, top_p=top_p)
         out, finish = 0, None
         for _ in range(max_tokens):
             tok = self.lib.next()
+            if tok == -1 and self.lib.error() == "cancelled":
+                raise Cancelled()
+            if cancel:
+                cancel.check()
             if tok < 0 or self.lib.is_eog(tok):
                 finish = "stop"
                 break

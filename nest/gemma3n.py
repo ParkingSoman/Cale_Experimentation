@@ -23,6 +23,7 @@ from mlx_vlm.models.gemma3n.language import gelu_topk, logit_softcap
 
 from .elastic import _full, _mm, _rows
 from .levels3n import BLOCK, MAX_CONTEXT, load_levels, pick
+from .cancel import Cancelled
 from .stops import StopFilter
 
 EOS = {1, 106}                  # <eos>, <end_of_turn>
@@ -361,17 +362,23 @@ class NestedGemma3n:
     max_context = MAX_CONTEXT
     supports = {"top_p": True, "seed": True, "stop": True}
 
-    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None):
+    def interrupt(self):
+        pass                                    # the prompt and answer loops check the Cancel object themselves
+
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None):
         """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
         messages: [{"role": "system"|"user"|"assistant", "content": str}].
         If the size needs FFN weights that are not in RAM, they are read from disk first and freed after the call."""
         lv = self.resolve(width) if width is not None else self.level
         read, read_s = self.ensure(lv)
         try:
-            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop):
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel):
                 if "done" in ev:
                     ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
                 yield ev
+        except BaseException:                  # stopped early (client left, error, generator closed): leave nothing half-computed behind
+            self.materialize()
+            raise
         finally:
             self.settle()
 
@@ -382,10 +389,40 @@ class NestedGemma3n:
         text = self.processor.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
         return mx.array(tok.encode(text, add_special_tokens=False))[None]
 
-    def _prefill(self, ids, cache):
+    def materialize(self):
+        """Finish every array the model still holds half-computed. MLX ties a half-computed array to the thread that made it,
+        so a request that stops early (a client that left, an error) must call this before its thread ends. Otherwise the next
+        request, on another thread, fails with "There is no Stream(gpu) in current thread" and the engine looks broken."""
+        seen, arrays = set(), []
+
+        def walk(o, depth=0):
+            if id(o) in seen or depth > 8:
+                return
+            seen.add(id(o))
+            if isinstance(o, mx.array):
+                arrays.append(o)
+            elif isinstance(o, dict):
+                for v in list(o.values()):
+                    walk(v, depth + 1)
+            elif isinstance(o, (list, tuple, set)):
+                for v in list(o):
+                    walk(v, depth + 1)
+            elif hasattr(o, "__dict__") and not isinstance(o, type):
+                for v in list(vars(o).values()):
+                    walk(v, depth + 1)
+
+        walk(self.lm)
+        walk(self)
+        if arrays:
+            mx.eval(arrays)
+        return len(arrays)
+
+    def _prefill(self, ids, cache, cancel=None):
         """Read the prompt in pieces. Returns the hidden states of the last piece."""
         n, h = ids.shape[1], None
         for i in range(0, n, PREFILL_STEP):
+            if cancel:
+                cancel.check()
             h = self.lm.model(ids[:, i:i + PREFILL_STEP], cache=cache)
             if i + PREFILL_STEP < n:
                 mx.eval([c.state for c in cache])             # finish this piece before the next one starts
@@ -405,7 +442,7 @@ class NestedGemma3n:
         pick_in_sorted = mx.random.categorical(mx.where(keep, mx.log(ps + 1e-20), -mx.inf), axis=-1)
         return mx.take_along_axis(order, pick_in_sorted[..., None], axis=-1).squeeze(-1)
 
-    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None):
+    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None):
         sw = self.set(width)
         tok = self.processor.tokenizer
         ids = self.prompt_ids(messages)
@@ -414,10 +451,12 @@ class NestedGemma3n:
         stops = StopFilter(stop)
         t0 = time.perf_counter()
 
-        nxt = self._sample(self._prefill(ids, cache), temperature, top_p)
+        nxt = self._sample(self._prefill(ids, cache, cancel), temperature, top_p)
         mx.eval(nxt)
         out, sent, finish = [], "", None
         for _ in range(max_tokens):
+            if cancel:
+                cancel.check()
             v = int(nxt.item())
             if v in EOS:
                 finish = "stop"

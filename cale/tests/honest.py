@@ -125,5 +125,35 @@ with model(a.base + "/v1", key, name="memcap", memory_pct=1) as m:
     check("memory goal missed: the call runs at the size the object reports", r[1].get("X-Cale-Size") == str(m.info["size_pct"]), (r[1], m.info))
     check("...and says the memory goal was not met", r[1].get("X-Cale-Memory-Goal-Met") == "false", r[1])
 
+# 7. A client that leaves stops its work: the next app is not stuck behind an abandoned request
+import socket
+from urllib.parse import urlparse
+u = urlparse(a.base)
+
+
+def abandon(prompt, max_tokens, after_s):
+    body = json.dumps({"model": "gemma-3n:smart", "messages": [{"role": "user", "content": prompt}], "max_tokens": max_tokens}).encode()
+    s = socket.create_connection((u.hostname, u.port))
+    s.sendall((f"POST /v1/chat/completions HTTP/1.1\r\nHost: {u.hostname}:{u.port}\r\nAuthorization: Bearer {key}\r\n"
+               f"Content-Type: application/json\r\nContent-Length: {len(body)}\r\n\r\n").encode() + body)
+    time.sleep(after_s)
+    s.close()
+
+
+def quick():
+    t0 = time.time()
+    r = chat(key2, "Say hi.", model_name="gemma-3n:fast", max_tokens=8)
+    return r[0], time.time() - t0
+
+
+q0 = quick()[1]
+abandon("Write a very long story about a dragon.", 1000, 1.5)        # about 30 s of work on a fast computer, minutes on a slow one
+st, q1 = quick()
+check("answer phase: the next app is not stuck behind an abandoned answer", st == 200 and q1 < q0 + 8, f"alone {q0:.1f}s, after abandon {q1:.1f}s")
+filler = "Item number one two three four five six seven eight nine ten. " * 220      # about 3k tokens: seconds to minutes of prompt reading
+abandon(filler, 50, 1.0)
+st, q2 = quick()
+check("prompt phase: the next app is not stuck behind an abandoned prompt", st == 200 and q2 < q0 + 8, f"alone {q0:.1f}s, after abandon {q2:.1f}s")
+
 print("\nall passed" if not FAIL else f"\nFAILED: {FAIL}")
 sys.exit(1 if FAIL else 0)
