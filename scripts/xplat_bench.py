@@ -48,13 +48,6 @@ def main():
     a = ap.parse_args()
     from cale import backends, oslayer
     import os
-    if os.environ.get("CALE_BENCH_PERF"):                      # experiment: opt out of Windows efficiency mode
-        print("prefer_performance:", oslayer.prefer_performance(above_normal=os.environ["CALE_BENCH_PERF"] == "2"), flush=True)
-    if os.environ.get("CALE_BENCH_AFFINITY") and oslayer.WIN:        # experiment: which logical CPUs the threads may use (a bit mask)
-        import ctypes
-        ctypes.windll.kernel32.GetCurrentProcess.restype = ctypes.c_void_p
-        ok = ctypes.windll.kernel32.SetProcessAffinityMask(ctypes.c_void_p(ctypes.windll.kernel32.GetCurrentProcess()), int(os.environ["CALE_BENCH_AFFINITY"], 16))
-        print("affinity", os.environ["CALE_BENCH_AFFINITY"], "ok" if ok else "FAILED", flush=True)
     t0 = time.perf_counter()
     if backends.name() == "mlx":
         m = backends.load_model(a.model)

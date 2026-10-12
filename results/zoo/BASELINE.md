@@ -38,9 +38,13 @@ Score (apps that work well x systems that run them): Mac 5/12, HP Linux 3/12, HP
 | System | Works well before | Works well after |
 |---|---|---|
 | Mac | 5 | 8 |
-| HP Linux | 3 | 6 |
-| HP Windows | 3 | 6 |
-| **Total (of 36)** | **11** | **20** |
+| HP Linux | 3 | 5 |
+| HP Windows | 3 | 5 |
+| **Total (of 36)** | **11** | **18** |
+
+Rule: an app "works well" only if it meets the goals it states. Cale now says honestly when it misses a goal, and that is better
+than before, but a 4-second goal that waited 32 seconds is not "well" (the zoo's own check printed WORKS_WELL for
+`two-apps-at-once` on both HP systems because the header said `goal_met=false`: counted here as POOR). The first count of 20 was too generous.
 
 Raw lines: `mac-after-2a.txt`, `hp-linux-after-2a.txt`, `hp-windows-after-2a.txt`.
 What still fails: native tool calls and JSON schema (stage 6, now an honest 400), image input (stage 6), "run gently" jobs (stage 4),

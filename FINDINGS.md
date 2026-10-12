@@ -697,13 +697,13 @@ written by a reviewer agent that read only `docs/`. Scorecards: `results/zoo/BAS
 | json-extract | FAILS | FAILS (honest 400) | FAILS | FAILS (honest 400) |
 | long-doc-qa | WELL | WELL | FAILS | FAILS (a 5k prompt takes about 6 min on this CPU) |
 | summarizer | WELL | WELL | FAILS | FAILS (14 min, prompt reading) |
-| two-apps-at-once | POOR (said "met" when it was not) | WELL (honest) | POOR | WELL (honest: `goal_met=false`, waited 25 s) |
+| two-apps-at-once | POOR (said "met" when it was not) | WELL (both goals met) | POOR | POOR (now honest: `goal_met=false`, but a 4 s goal waited 32 s) |
 | node-app, curl-script, streaming-backend | WELL | WELL | WELL | WELL |
 | low-memory-app | POOR | WELL | POOR | WELL |
 | stop-and-sampling | FAILS | WELL | FAILS | WELL |
 | battery-background-job | FAILS | FAILS | FAILS | FAILS (no goal for it yet) |
 | image-input | FAILS | FAILS | FAILS | FAILS (honest 400) |
-| **Works well** | **5 of 12** | **8 of 12** | **3 of 12** | **6 of 12** |
+| **Works well** | **5 of 12** | **8 of 12** | **3 of 12** | **5 of 12** |
 
 ### What changed (all tests pass on Mac, HP Linux, HP Windows)
 
