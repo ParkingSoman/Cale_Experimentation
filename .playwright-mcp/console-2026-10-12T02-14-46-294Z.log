@@ -1964,3 +1964,20 @@
 [ 1745241ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
 [ 1746245ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
 [ 1747248ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1748251ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1748672ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:8816/ws/socket.io/?EIO=4&transport=websocket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/_app/immutable/chunks/dm1FmSOd.js:0
+[ 1749254ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1750257ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1751260ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1752261ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1753266ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1754269ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1755275ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1755996ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:8816/ws/socket.io/?EIO=4&transport=websocket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/_app/immutable/chunks/dm1FmSOd.js:0
+[ 1756278ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1757283ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1758288ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1759291ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1760294ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1761297ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
+[ 1762300ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:8816/api/cale/status:0
