@@ -1,0 +1,187 @@
+{
+ "measured_total_s": 187.9555879170075,
+ "predicted_total_s": 125.73948417950112,
+ "error": -0.3310149191466345,
+ "calls": [
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 11.25,
+   "predicted_s": 8.327241454050391,
+   "prompt_tokens": 72,
+   "tokens": 179,
+   "switch_ms": 0.261
+  },
+  {
+   "kind": "hard_one",
+   "tier": "w100",
+   "seconds": 0.673,
+   "predicted_s": 0.6808835535039179,
+   "prompt_tokens": 188,
+   "tokens": 0,
+   "switch_ms": 0.002
+  },
+  {
+   "kind": "hard_long",
+   "tier": "w100+draft",
+   "seconds": 10.28,
+   "predicted_s": 12.666932752000886,
+   "prompt_tokens": 113,
+   "tokens": 250,
+   "switch_ms": 0.001
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 0.892,
+   "predicted_s": 0.6188024836293946,
+   "prompt_tokens": 36,
+   "tokens": 11,
+   "switch_ms": 0.591
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 3.438,
+   "predicted_s": 2.4602328253155026,
+   "prompt_tokens": 73,
+   "tokens": 49,
+   "switch_ms": 0.398
+  },
+  {
+   "kind": "hard_long",
+   "tier": "w100+draft",
+   "seconds": 13.366,
+   "predicted_s": 12.546497981591866,
+   "prompt_tokens": 82,
+   "tokens": 250,
+   "switch_ms": 0.001
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 15.379,
+   "predicted_s": 9.241626680211638,
+   "prompt_tokens": 62,
+   "tokens": 200,
+   "switch_ms": 1.18
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 6.797,
+   "predicted_s": 4.2957852976575,
+   "prompt_tokens": 55,
+   "tokens": 91,
+   "switch_ms": 0.256
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 10.533,
+   "predicted_s": 5.908944178519069,
+   "prompt_tokens": 38,
+   "tokens": 128,
+   "switch_ms": 0.226
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 9.805,
+   "predicted_s": 7.449987698500497,
+   "prompt_tokens": 53,
+   "tokens": 161,
+   "switch_ms": 0.247
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 14.227,
+   "predicted_s": 9.29588284036764,
+   "prompt_tokens": 78,
+   "tokens": 200,
+   "switch_ms": 0.29
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 7.185,
+   "predicted_s": 4.448380748096253,
+   "prompt_tokens": 100,
+   "tokens": 91,
+   "switch_ms": 1.08
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 13.541,
+   "predicted_s": 9.177197490026387,
+   "prompt_tokens": 43,
+   "tokens": 200,
+   "switch_ms": 1.107
+  },
+  {
+   "kind": "hard_one",
+   "tier": "w100",
+   "seconds": 1.016,
+   "predicted_s": 0.5251495492450431,
+   "prompt_tokens": 145,
+   "tokens": 0,
+   "switch_ms": 0.003
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 17.529,
+   "predicted_s": 9.33318395047489,
+   "prompt_tokens": 89,
+   "tokens": 200,
+   "switch_ms": 1.894
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 2.994,
+   "predicted_s": 1.554777199516324,
+   "prompt_tokens": 59,
+   "tokens": 30,
+   "switch_ms": 1.336
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 16.958,
+   "predicted_s": 9.173806480016637,
+   "prompt_tokens": 42,
+   "tokens": 200,
+   "switch_ms": 0.619
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 18.711,
+   "predicted_s": 9.282318800328639,
+   "prompt_tokens": 74,
+   "tokens": 200,
+   "switch_ms": 0.885
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 1.064,
+   "predicted_s": 0.4438830322854672,
+   "prompt_tokens": 51,
+   "tokens": 6,
+   "switch_ms": 0.482
+  },
+  {
+   "kind": "easy",
+   "tier": "w85+draft",
+   "seconds": 12.268,
+   "predicted_s": 8.307969184163175,
+   "prompt_tokens": 53,
+   "tokens": 180,
+   "switch_ms": 0.676
+  }
+ ]
+}

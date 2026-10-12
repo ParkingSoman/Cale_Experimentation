@@ -1,0 +1,62 @@
+{
+ "w100": {
+  "easy": {
+   "effective_tps": 10.03226654289437,
+   "median_call_s": 18.929499999999997,
+   "mean_tokens": 149.5
+  },
+  "hard_long": {
+   "effective_tps": 10.516853613214286,
+   "median_call_s": 23.436,
+   "mean_tokens": 246.66666666666666
+  }
+ },
+ "w85": {
+  "easy": {
+   "effective_tps": 11.369994276416907,
+   "median_call_s": 16.7305,
+   "mean_tokens": 147.33333333333334
+  },
+  "hard_long": {
+   "effective_tps": 11.748091801460713,
+   "median_call_s": 20.314999999999998,
+   "mean_tokens": 226
+  }
+ },
+ "w100+draft": {
+  "easy": {
+   "effective_tps": 12.103806205209054,
+   "median_call_s": 14.285,
+   "mean_tokens": 150.66666666666666
+  },
+  "hard_long": {
+   "effective_tps": 21.055323501832753,
+   "median_call_s": 11.786,
+   "mean_tokens": 247
+  }
+ },
+ "w85+draft": {
+  "easy": {
+   "effective_tps": 15.966483726639566,
+   "median_call_s": 11.3125,
+   "mean_tokens": 149.58333333333334
+  },
+  "hard_long": {
+   "effective_tps": 21.1224125044682,
+   "median_call_s": 9.608,
+   "mean_tokens": 216.66666666666666
+  }
+ },
+ "E4B": {
+  "easy": {
+   "effective_tps": 27.895669751980286,
+   "median_call_s": 6.6089386040112,
+   "mean_tokens": 146.5
+  },
+  "hard_long": {
+   "effective_tps": 21.346948604294507,
+   "median_call_s": 9.155885979504092,
+   "mean_tokens": 243.66666666666666
+  }
+ }
+}

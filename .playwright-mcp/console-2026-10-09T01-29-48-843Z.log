@@ -1,0 +1,16 @@
+[      13ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:8802/favicon.ico:0
+[    6180ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://127.0.0.1:8802/api/sort:0
+[    6183ms] TypeError: Cannot read properties of undefined (reading 'replace')
+    at esc (http://127.0.0.1:8802/:74:22)
+    at http://127.0.0.1:8802/:120:31
+    at Array.map (<anonymous>)
+    at renderList (http://127.0.0.1:8802/:115:40)
+    at sortAll (http://127.0.0.1:8802/:132:13)
+[   17449ms] TypeError: Cannot read properties of undefined (reading 'replace')
+    at esc (http://127.0.0.1:8802/:74:22)
+    at http://127.0.0.1:8802/:120:31
+    at Array.map (<anonymous>)
+    at renderList (http://127.0.0.1:8802/:115:40)
+    at select (http://127.0.0.1:8802/:138:19)
+    at el.onclick (http://127.0.0.1:8802/:124:74)
+[   25402ms] [ERROR] Failed to load resource: the server responded with a status of 502 (Bad Gateway) @ http://127.0.0.1:8802/api/thread:0

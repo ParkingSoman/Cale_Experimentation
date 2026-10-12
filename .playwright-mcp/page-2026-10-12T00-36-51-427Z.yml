@@ -1,0 +1,101 @@
+- generic [active] [ref=f6e4]:
+  - generic [ref=f6e5]:
+    - link "Skip to main content" [ref=f6e6] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic [ref=f6e8]:
+      - navigation "Chat history" [ref=f6e9]:
+        - button [ref=f6e10]:
+          - button "Open Sidebar" [ref=f6e13]
+          - generic [ref=f6e15]:
+            - link "New Chat" [ref=f6e18] [cursor=pointer]:
+              - /url: /
+            - button "Search" [ref=f6e24] [cursor=pointer]
+            - link "Notes" [ref=f6e31] [cursor=pointer]:
+              - /url: /notes
+            - link "Workspace" [ref=f6e38] [cursor=pointer]:
+              - /url: /workspace
+        - button [ref=f6e48] [cursor=pointer]:
+          - button "User menu" [ref=f6e49]:
+            - img "Open User Profile Menu" [ref=f6e51]
+      - generic:
+        - generic:
+          - link:
+            - /url: /
+          - link:
+            - /url: /
+            - generic: Open WebUI
+          - generic:
+            - button
+        - generic:
+          - generic:
+            - generic:
+              - link:
+                - /url: /
+                - generic: New Chat
+                - generic: ⌘⇧O
+            - generic:
+              - button:
+                - generic: Search
+                - generic: ⌘K
+            - generic:
+              - generic:
+                - link:
+                  - /url: /notes
+                  - generic: Notes
+              - generic:
+                - link:
+                  - /url: /workspace
+                  - generic: Workspace
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button:
+                        - generic: Folders
+                      - button
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button [expanded]:
+                        - generic: Chats
+                      - generic:
+                        - button:
+                          - generic:
+                            - button
+        - generic:
+          - generic:
+            - button:
+              - button:
+                - generic: User
+      - main [ref=f6e55]:
+        - generic [ref=f6e59]:
+          - navigation [ref=f6e60]:
+            - generic [ref=f6e65]:
+              - button "Temporary Chat" [ref=f6e67] [cursor=pointer]
+              - button "Controls" [ref=f6e71] [cursor=pointer]
+          - generic [ref=f6e76]:
+            - generic [ref=f6e78]:
+              - generic [ref=f6e79]:
+                - button [aria-hidden] [ref=f6e83] [cursor=pointer]
+                - generic [ref=f6e85]: answers
+              - generic [ref=f6e94]:
+                - generic "How can I help you today?" [ref=f6e98]:
+                  - paragraph [ref=f6e99]: In two sentences, why is the sky blue?
+                - generic [ref=f6e100]:
+                  - generic [ref=f6e101]:
+                    - button [ref=f6e102] [cursor=pointer]:
+                      - button "More" [ref=f6e104]
+                    - button [ref=f6e109] [cursor=pointer]:
+                      - button "Integrations" [ref=f6e111]
+                  - generic [ref=f6e117]:
+                    - 'button "Selected model: answers" [ref=f6e124] [cursor=pointer]':
+                      - generic [ref=f6e125]: answers
+                    - button "Voice Input" [ref=f6e130] [cursor=pointer]
+                    - button [ref=f6e6325] [cursor=pointer]
+            - generic [ref=f6e138]: Open WebUI ‧ v0.11.4
+  - generic: "Cale on this computer · answers: ready · tasks: ready"

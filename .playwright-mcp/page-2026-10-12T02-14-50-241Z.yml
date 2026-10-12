@@ -1,0 +1,127 @@
+- generic [active] [ref=f13e7]:
+  - generic [ref=f13e1]:
+    - link "Skip to main content" [ref=f13e8] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic [ref=f13e10]:
+      - navigation "Chat history" [ref=f13e11]:
+        - button [ref=f13e12]:
+          - button "Open Sidebar" [ref=f13e15]
+          - generic [ref=f13e17]:
+            - link "New Chat" [ref=f13e20] [cursor=pointer]:
+              - /url: /
+            - button "Search" [ref=f13e26] [cursor=pointer]
+            - link "Notes" [ref=f13e33] [cursor=pointer]:
+              - /url: /notes
+            - link "Workspace" [ref=f13e40] [cursor=pointer]:
+              - /url: /workspace
+        - button [ref=f13e50] [cursor=pointer]:
+          - button "User menu" [ref=f13e51]:
+            - img "Open User Profile Menu" [ref=f13e53]
+      - generic:
+        - generic:
+          - link:
+            - /url: /
+          - link:
+            - /url: /
+            - generic: Open WebUI
+          - generic:
+            - button
+        - generic:
+          - generic:
+            - generic:
+              - link:
+                - /url: /
+                - generic: New Chat
+                - generic: ⌘⇧O
+            - generic:
+              - button:
+                - generic: Search
+                - generic: ⌘K
+            - generic:
+              - generic:
+                - link:
+                  - /url: /notes
+                  - generic: Notes
+              - generic:
+                - link:
+                  - /url: /workspace
+                  - generic: Workspace
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button:
+                        - generic: Folders
+                      - button
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button [expanded]:
+                        - generic: Chats
+                      - generic:
+                        - button:
+                          - generic:
+                            - button
+        - generic:
+          - generic:
+            - button:
+              - button:
+                - generic: User
+      - main [ref=f13e57]:
+        - generic [ref=f13e61]:
+          - navigation [ref=f13e62]:
+            - generic [ref=f13e67]:
+              - button "Temporary Chat" [ref=f13e69] [cursor=pointer]
+              - button "Controls" [ref=f13e73] [cursor=pointer]
+          - generic [ref=f13e78]:
+            - generic [ref=f13e80]:
+              - generic [ref=f13e81]:
+                - button [aria-hidden] [ref=f13e85] [cursor=pointer]
+                - generic [ref=f13e87]: answers
+              - generic [ref=f13e96]:
+                - generic "How can I help you today?" [ref=f13e100]:
+                  - paragraph [ref=f13e101]: How can I help you today?
+                - generic [ref=f13e102]:
+                  - generic [ref=f13e103]:
+                    - button [ref=f13e104] [cursor=pointer]:
+                      - button "More" [ref=f13e106]
+                    - button [ref=f13e111] [cursor=pointer]:
+                      - button "Integrations" [ref=f13e113]
+                  - generic [ref=f13e119]:
+                    - 'button "Selected model: answers" [ref=f13e126] [cursor=pointer]':
+                      - generic [ref=f13e127]: answers
+                    - button "Voice Input" [ref=f13e132] [cursor=pointer]
+                    - button "Voice mode" [ref=f13e138] [cursor=pointer]
+            - generic [ref=f13e141]:
+              - generic [ref=f13e142]: Suggested
+              - list [ref=f13e146]:
+                - listitem [ref=f13e147] [cursor=pointer]:
+                  - generic [ref=f13e148]:
+                    - generic [ref=f13e149]: Help me study
+                    - generic [ref=f13e150]: vocabulary for a college entrance exam
+                - listitem [ref=f13e151] [cursor=pointer]:
+                  - generic [ref=f13e152]:
+                    - generic [ref=f13e153]: Give me ideas
+                    - generic [ref=f13e154]: for what to do with my kids' art
+                - listitem [ref=f13e155] [cursor=pointer]:
+                  - generic [ref=f13e156]:
+                    - generic [ref=f13e157]: Overcome procrastination
+                    - generic [ref=f13e158]: give me tips
+                - listitem [ref=f13e159] [cursor=pointer]:
+                  - generic [ref=f13e160]:
+                    - generic [ref=f13e161]: Show me a code snippet
+                    - generic [ref=f13e162]: of a website's sticky header
+                - listitem [ref=f13e163] [cursor=pointer]:
+                  - generic [ref=f13e164]:
+                    - generic [ref=f13e165]: Tell me a fun fact
+                    - generic [ref=f13e166]: about the Roman Empire
+                - listitem [ref=f13e167] [cursor=pointer]:
+                  - generic [ref=f13e168]:
+                    - generic [ref=f13e169]: Explain options trading
+                    - generic [ref=f13e170]: if I'm familiar with buying and selling stocks
+  - generic: "Cale on this computer · answers: ready · tasks: ready"

@@ -1,0 +1,71 @@
+{
+ "runs": 3,
+ "active_gb": 4.2,
+ "peak_gb": 6.15,
+ "sizes": {
+  "e4b": {
+   "tok_per_s": 37.2,
+   "switch_ms": 0.043
+  },
+  "e3.79-layer": {
+   "tok_per_s": 38.5,
+   "switch_ms": 0.04
+  },
+  "e3.74-block": {
+   "tok_per_s": 38.6,
+   "switch_ms": 0.04
+  },
+  "e3.59-layer": {
+   "tok_per_s": 40.0,
+   "switch_ms": 0.038
+  },
+  "e3.49-block": {
+   "tok_per_s": 40.9,
+   "switch_ms": 0.04
+  },
+  "e3.39-layer": {
+   "tok_per_s": 41.4,
+   "switch_ms": 0.04
+  },
+  "e3.24-block": {
+   "tok_per_s": 42.9,
+   "switch_ms": 0.037
+  },
+  "e3.18-layer": {
+   "tok_per_s": 43.3,
+   "switch_ms": 0.038
+  },
+  "e2.98-block": {
+   "tok_per_s": 44.4,
+   "switch_ms": 0.04
+  },
+  "e2.98-layer": {
+   "tok_per_s": 43.7,
+   "switch_ms": 0.047
+  },
+  "e2.73-block": {
+   "tok_per_s": 45.4,
+   "switch_ms": 0.043
+  },
+  "e2.69-layer": {
+   "tok_per_s": 46.1,
+   "switch_ms": 0.05
+  },
+  "e2.54-layer": {
+   "tok_per_s": 47.7,
+   "switch_ms": 0.046
+  },
+  "e2.49-block": {
+   "tok_per_s": 48.0,
+   "switch_ms": 0.046
+  },
+  "e1.96-layer": {
+   "tok_per_s": 55.6,
+   "switch_ms": 0.047
+  },
+  "e2b": {
+   "tok_per_s": 56.9,
+   "switch_ms": 0.057
+  }
+ }
+}

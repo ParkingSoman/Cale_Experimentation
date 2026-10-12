@@ -1,0 +1,35 @@
+{
+ "ram": [
+  {
+   "active_gb": 4.203,
+   "tok_per_s": {
+    "e4b": 34.9,
+    "e2b": 57.2
+   }
+  },
+  {
+   "active_gb": 4.203,
+   "tok_per_s": {
+    "e4b": 35.0,
+    "e2b": 57.4
+   }
+  }
+ ],
+ "disk": [
+  {
+   "active_gb": 2.882,
+   "tok_per_s": {
+    "e4b": 33.8,
+    "e2b": 56.2
+   }
+  },
+  {
+   "active_gb": 2.882,
+   "tok_per_s": {
+    "e4b": 33.5,
+    "e2b": 56.0
+   }
+  }
+ ],
+ "identical_text": true
+}

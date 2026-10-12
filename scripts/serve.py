@@ -3,12 +3,12 @@
 | Endpoint | Job |
 |---|---|
 | GET  /v1/tiers            | tiers with size, RAM/stream split, measured scores |
-| POST /v1/chat/completions | OpenAI-style body, plus "bits" (4/8/16) and "width" (1.0/0.9/0.85) |
+| POST /v1/chat/completions | OpenAI-style body, plus "width" (1.0/0.9/0.85) and "draft" (true/false) |
 
 One model in memory, one request at a time. Only the last user message is used
 (no multi-turn history yet). The response carries the tier and timing in "nest".
 
-usage: serve.py [--model models/g12-nest/model.nest] [--port 8765] [--ram 12] [--scores results/tier-scores.json]
+usage: serve.py [--model models/g12-nest/model.nest] [--port 8765] [--ram GB] [--scores results/tier-scores.json]
 """
 import argparse
 import json
@@ -24,7 +24,7 @@ from nest.runtime import NestedGemma
 ap = argparse.ArgumentParser()
 ap.add_argument("--model", default="models/g12-nest/model.nest")
 ap.add_argument("--port", type=int, default=8765)
-ap.add_argument("--ram", type=float, default=12.0)
+ap.add_argument("--ram", type=float, default=None, help="RAM budget in GB (default: all in RAM)")
 ap.add_argument("--scores", default="results/tier-scores.json")
 args = ap.parse_args()
 
@@ -55,7 +55,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == "/v1/tiers":
-            return self._send(200, {"tiers": M.tiers(SCORES), "current": {"bits": M.bits, "width": M.width}})
+            return self._send(200, {"tiers": M.tiers(SCORES), "current": {"width": M.width, "draft": M.draft}})
         self._send(404, {"error": "not found"})
 
     def do_POST(self):
@@ -65,7 +65,7 @@ class Handler(BaseHTTPRequestHandler):
             req = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))))
             text = last_user_text(req["messages"])
             out = M.generate(text, max_tokens=int(req.get("max_tokens", 256)),
-                             bits=req.get("bits"), width=req.get("width"))
+                             width=req.get("width"), draft=req.get("draft"))
         except Exception as e:      # report errors to the client, keep serving
             return self._send(400, {"error": f"{type(e).__name__}: {e}"})
         st = out["stats"]

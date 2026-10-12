@@ -1,0 +1,84 @@
+{'resident_before': 0.0, 'resident_after_read': 0.0, 'first_s': 0.182122458005324, 'second_s': 0.19419970799935982, 'gbps_first': 5.89571344336134, 'ratio_second_first': 1.0663138973979955}
+{'1MB x1': 3.3, '1MB x2': 5.8, '1MB x4': 6.48, '4MB x1': 5.14, '4MB x2': 6.95, '4MB x4': 6.9, '16MB x1': 5.98, '16MB x2': 6.76, '16MB x4': 6.66, '64MB x1': 5.76, '64MB x2': 6.1, '64MB x4': 5.82}
+{'gpu_s': 0.26078166597289965, 'read_s': 0.15750754199689254, 'together_s': 0.33224470901768655, 'max_s': 0.26078166597289965, 'sum_s': 0.4182892079697922}
+{'T=1 one matrix, full width': 755.7, 'T=1 3 blocks, full width': 933.9, 'T=1 1 block, 85% width': 670.5, 'T=512 one matrix, full width': 11061.0, 'T=512 3 blocks, full width': 10742.0, 'T=512 1 block, 85% width': 9297.0}
+round 1 w100: prefill 289 tok/s, decode 10.92 tok/s, answer 1.77s, ssd 0.00 GB, switch 1.15 ms
+round 1 w90: prefill 271 tok/s, decode 10.24 tok/s, answer 1.89s, ssd 0.00 GB, switch 0.81 ms
+round 1 w85: prefill 303 tok/s, decode 10.54 tok/s, answer 1.69s, ssd 0.00 GB, switch 3.23 ms
+round 1 w100+draft: prefill 257 tok/s, decode 19.72 tok/s, answer 1.99s, ssd 0.00 GB, switch 3.30 ms
+round 1 w85+draft: prefill 296 tok/s, decode 22.14 tok/s, answer 1.73s, ssd 0.00 GB, switch 0.78 ms
+round 2 w100: prefill 276 tok/s, decode 10.31 tok/s, answer 1.85s, ssd 0.00 GB, switch 0.89 ms
+round 2 w90: prefill 281 tok/s, decode 11.11 tok/s, answer 1.82s, ssd 0.00 GB, switch 1.52 ms
+round 2 w85: prefill 292 tok/s, decode 11.66 tok/s, answer 1.75s, ssd 0.00 GB, switch 1.07 ms
+round 2 w100+draft: prefill 236 tok/s, decode 20.45 tok/s, answer 2.17s, ssd 0.00 GB, switch 0.71 ms
+round 2 w85+draft: prefill 292 tok/s, decode 22.85 tok/s, answer 1.76s, ssd 0.00 GB, switch 1.31 ms
+round 3 w100: prefill 269 tok/s, decode 10.38 tok/s, answer 1.90s, ssd 0.00 GB, switch 0.74 ms
+round 3 w90: prefill 281 tok/s, decode 11.20 tok/s, answer 1.82s, ssd 0.00 GB, switch 1.18 ms
+round 3 w85: prefill 302 tok/s, decode 12.53 tok/s, answer 1.69s, ssd 0.00 GB, switch 0.32 ms
+round 3 w100+draft: prefill 262 tok/s, decode 21.66 tok/s, answer 1.95s, ssd 0.00 GB, switch 0.34 ms
+round 3 w85+draft: prefill 295 tok/s, decode 21.68 tok/s, answer 1.74s, ssd 0.00 GB, switch 0.43 ms
+w100 {"prefill_tps": 276.112, "time_to_answer_s": 1.854, "ssd_gb": 0.0, "decode_tps": 10.375, "switch_ms_median": 0.891}
+w90 {"prefill_tps": 280.894, "time_to_answer_s": 1.823, "ssd_gb": 0.0, "decode_tps": 11.115, "switch_ms_median": 1.181}
+w85 {"prefill_tps": 302.365, "time_to_answer_s": 1.693, "ssd_gb": 0.0, "decode_tps": 11.655, "switch_ms_median": 1.066}
+w100+draft {"prefill_tps": 257.401, "time_to_answer_s": 1.989, "ssd_gb": 0.0, "decode_tps": 20.445, "switch_ms_median": 0.711}
+w85+draft {"prefill_tps": 294.897, "time_to_answer_s": 1.736, "ssd_gb": 0.0, "decode_tps": 22.145, "switch_ms_median": 0.776}
+Traceback (most recent call last):
+  File "/Users/shonusengupta/Cale_Experimentation/scripts/stream_speed.py", line 102, in <module>
+    ctrl[n]["compute_only"].append(compute_only())
+                                   ^^^^^^^^^^^^^^
+  File "/Users/shonusengupta/Cale_Experimentation/scripts/stream_speed.py", line 72, in compute_only
+    return prefill()
+           ^^^^^^^^^
+  File "/Users/shonusengupta/Cale_Experimentation/scripts/stream_speed.py", line 51, in prefill
+    h = lm.model(prompt, cache=lm.make_cache())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shonusengupta/Cale_Experimentation/.venv/lib/python3.12/site-packages/mlx_vlm/models/gemma4/language.py", line 646, in __call__
+    h, kvs, offset = layer(
+                     ^^^^^^
+  File "/Users/shonusengupta/Cale_Experimentation/nest/runtime.py", line 95, in _layer_call
+    rt._enter(self._nest_idx)
+  File "/Users/shonusengupta/Cale_Experimentation/nest/runtime.py", line 250, in _enter
+    got = self.prefetch.get(i, self.plan[i])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shonusengupta/Cale_Experimentation/scripts/stream_speed.py", line 69, in <lambda>
+    M.prefetch.get = lambda i, wanted: {n: alias[n] for n, _ in wanted}
+                                           ~~~~~^^^
+KeyError: 'language_model.model.layers.46.self_attn.o_proj|A|biases'
+/Users/shonusengupta/Cale_Experimentation/.venv/lib/python3.12/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
+  warnings.warn(
+[e4b-now/full] prefill   750.0 tok/s (x1.00) | decode   17.1 tok/s (x1.00) | level weights 5.15 GB
+peak GB 5.741972378
+[qg4-now/full] prefill   260.8 tok/s (x1.00) | decode   10.7 tok/s (x1.00) | level weights 7.49 GB
+peak GB 8.187657638
+0 nest 12B (one file) cold load 5.0s (first answer 5.8s), warm load 4.9s; resident before cold 0.00
+0 12B qg4 (mlx-vlm) cold load 4.3s (first answer 6.0s), warm load 4.5s; resident before cold 0.00
+0 E4B 4-bit (mlx-vlm) cold load 3.8s (first answer 4.6s), warm load 3.3s; resident before cold 0.00
+1 nest 12B (one file) cold load 6.4s (first answer 8.4s), warm load 5.8s; resident before cold 0.00
+1 12B qg4 (mlx-vlm) cold load 6.6s (first answer 9.1s), warm load 4.3s; resident before cold 0.00
+1 E4B 4-bit (mlx-vlm) cold load 5.6s (first answer 5.9s), warm load 6.5s; resident before cold 0.00
+2 nest 12B (one file) cold load 9.0s (first answer 9.9s), warm load 8.0s; resident before cold 0.00
+2 12B qg4 (mlx-vlm) cold load 6.5s (first answer 8.4s), warm load 5.0s; resident before cold 0.00
+2 E4B 4-bit (mlx-vlm) cold load 4.5s (first answer 4.9s), warm load 3.3s; resident before cold 0.00
+{
+ "nest 12B (one file)": {
+  "cold_load_s": 6.356504749972373,
+  "cold_first_answer_s": 8.3913773749955,
+  "warm_load_s": 5.803393792011775,
+  "warm_first_answer_s": 6.683893125038594,
+  "resident_before_cold_max": 0.0
+ },
+ "12B qg4 (mlx-vlm)": {
+  "cold_load_s": 6.525530041020829,
+  "cold_first_answer_s": 8.410672958008945,
+  "warm_load_s": 4.539176625024993,
+  "warm_first_answer_s": 6.267721749958582,
+  "resident_before_cold_max": 0.0
+ },
+ "E4B 4-bit (mlx-vlm)": {
+  "cold_load_s": 4.510682000021916,
+  "cold_first_answer_s": 4.911737458023708,
+  "warm_load_s": 3.2853335410472937,
+  "warm_first_answer_s": 3.871306208020542,
+  "resident_before_cold_max": 0.0
+ }
+}

@@ -1,0 +1,188 @@
+diff --git a/include/llama.h b/include/llama.h
+index 0d476a2..cca438e 100644
+--- a/include/llama.h
++++ b/include/llama.h
+@@ -1098,6 +1098,14 @@ extern "C" {
+     // n_threads_batch is the number of threads used for prompt and batch processing (multiple tokens)
+     LLAMA_API void llama_set_n_threads(struct llama_context * ctx, int32_t n_threads, int32_t n_threads_batch);
+ 
++    // Cale: choose a matryoshka size for the next calls (Gemma 3n). ffn_width has one entry per layer.
++    // 0 skips the layer, N uses the first N FFN channels, a value >= the full width (or < 0) means the full layer.
++    // Pass n_layers = 0 to go back to the full model. Returns 0, or -1 if the value does not fit the model.
++    LLAMA_API int32_t llama_set_layer_widths(struct llama_context * ctx, const int32_t * ffn_width, int32_t n_layers);
++
++    // Cale: a weight tensor by name (read only), or NULL. Lets the caller see where a layer's weights live.
++    LLAMA_API const struct ggml_tensor * llama_model_get_tensor(const struct llama_model * model, const char * name);
++
+     // Get the number of threads used for generation of a single token.
+     LLAMA_API int32_t llama_n_threads(struct llama_context * ctx);
+ 
+diff --git a/src/llama-context.cpp b/src/llama-context.cpp
+index 58df298..0bc9639 100644
+--- a/src/llama-context.cpp
++++ b/src/llama-context.cpp
+@@ -1295,6 +1295,19 @@ void llama_context::set_n_threads(int32_t n_threads, int32_t n_threads_batch) {
+     cparams.n_threads_batch = n_threads_batch;
+ }
+ 
++int32_t llama_context::set_layer_widths(const int32_t * ffn_width, int32_t n_layers) {
++    if (n_layers == 0 || ffn_width == nullptr) {
++        cparams.ffn_width.clear();
++    } else {
++        if (n_layers != (int32_t) model.hparams.n_layer()) {
++            return -1;
++        }
++        cparams.ffn_width.assign(ffn_width, ffn_width + n_layers);
++    }
++    gf_res_prev_active = nullptr; // the next call builds a new graph
++    return 0;
++}
++
+ void llama_context::set_abort_callback(bool (*abort_callback)(void * data), void * abort_callback_data) {
+     LLAMA_LOG_DEBUG("%s: call\n", __func__);
+ 
+@@ -4147,6 +4160,14 @@ void llama_set_n_threads(llama_context * ctx, int32_t n_threads, int32_t n_threa
+     ctx->set_n_threads(n_threads, n_threads_batch);
+ }
+ 
++int32_t llama_set_layer_widths(llama_context * ctx, const int32_t * ffn_width, int32_t n_layers) {
++    return ctx->set_layer_widths(ffn_width, n_layers);
++}
++
++const ggml_tensor * llama_model_get_tensor(const llama_model * model, const char * name) {
++    return model->get_tensor(name);
++}
++
+ int32_t llama_n_threads(llama_context * ctx) {
+     return ctx->n_threads();
+ }
+diff --git a/src/llama-context.h b/src/llama-context.h
+index cc749e5..88b8c6c 100644
+--- a/src/llama-context.h
++++ b/src/llama-context.h
+@@ -114,6 +114,7 @@ struct llama_context {
+     void detach_threadpool();
+ 
+     void set_n_threads(int32_t n_threads, int32_t n_threads_batch);
++    int32_t set_layer_widths(const int32_t * ffn_width, int32_t n_layers);
+ 
+     void set_abort_callback(bool (*abort_callback)(void * data), void * abort_callback_data);
+ 
+diff --git a/src/llama-cparams.h b/src/llama-cparams.h
+index f4eb181..e2b8e2d 100644
+--- a/src/llama-cparams.h
++++ b/src/llama-cparams.h
+@@ -57,6 +57,10 @@ struct llama_cparams {
+ 
+     size_t moe_cache_size;
+ 
++    // Cale: Gemma 3n matryoshka sizes. One entry per layer, or empty for the full model.
++    // 0 = skip the layer (only layers that own no KV cache), N > 0 = use the first N FFN channels.
++    std::vector<int32_t> ffn_width;
++
+     std::vector<bool> embeddings_layer_inp; // [n_layer()] extract input embeddings for layer
+ 
+     enum llama_context_type ctx_type;
+diff --git a/src/llama-graph.h b/src/llama-graph.h
+index e15d784..69f53b4 100644
+--- a/src/llama-graph.h
++++ b/src/llama-graph.h
+@@ -897,6 +897,7 @@ struct llm_graph_params {
+             cparams.embeddings_nextn        == other.cparams.embeddings_nextn        &&
+             cparams.embeddings_nextn_masked == other.cparams.embeddings_nextn_masked &&
+             cparams.causal_attn             == other.cparams.causal_attn             &&
++            cparams.ffn_width               == other.cparams.ffn_width               &&
+             arch  == other.arch  &&
+             gtype == other.gtype &&
+             cvec  == other.cvec  &&
+diff --git a/src/models/gemma3n.cpp b/src/models/gemma3n.cpp
+index 50d30c6..319d97a 100644
+--- a/src/models/gemma3n.cpp
++++ b/src/models/gemma3n.cpp
+@@ -18,13 +18,18 @@ void llama_model_gemma3n::load_arch_hparams(llama_model_loader & ml) {
+     }
+ }
+ 
+-void llama_model_gemma3n::load_arch_tensors(llama_model_loader &) {
++void llama_model_gemma3n::load_arch_tensors(llama_model_loader & ml) {
+     LLAMA_LOAD_LOCALS;
+ 
+     const int64_t n_altup      = hparams.n_altup;
+     const int64_t laurel_rank  = hparams.laurel_rank;
+     const int64_t n_embd_altup = hparams.n_embd_altup;
+ 
++    // Cale: llama/prepare_gguf.py stores each FFN down matrix as two halves (3-D: first 8192 channels, last 8192).
++    // Then a size is a view of whole, separately repacked blocks, so weight repacking can stay on.
++    uint32_t cale_down_split = 0;
++    ml.get_key(std::string("cale.ffn_down_split"), cale_down_split, false);
++
+     output = create_tensor(tn(LLM_TENSOR_OUTPUT, "weight"), {n_embd, n_vocab}, TENSOR_NOT_REQUIRED);
+     // if output is NULL, init from the input tok embed
+     if (output == NULL) {
+@@ -57,7 +62,8 @@ void llama_model_gemma3n::load_arch_tensors(llama_model_loader &) {
+         layer.ffn_norm = create_tensor(tn(LLM_TENSOR_FFN_NORM, "weight", i), {n_embd}, 0);
+         layer.ffn_gate = create_tensor(tn(LLM_TENSOR_FFN_GATE, "weight", i), {n_embd,   n_ff}, 0);
+         layer.ffn_up   = create_tensor(tn(LLM_TENSOR_FFN_UP,   "weight", i), {n_embd,   n_ff}, 0);
+-        layer.ffn_down = create_tensor(tn(LLM_TENSOR_FFN_DOWN, "weight", i), {  n_ff, n_embd}, 0);
++        layer.ffn_down = cale_down_split ? create_tensor(tn(LLM_TENSOR_FFN_DOWN, "weight", i), {n_ff / 2, n_embd, 2}, 0)
++                                         : create_tensor(tn(LLM_TENSOR_FFN_DOWN, "weight", i), {  n_ff, n_embd}, 0);
+         layer.ffn_post_norm = create_tensor(tn(LLM_TENSOR_FFN_POST_NORM, "weight", i), {n_embd}, 0);
+ 
+         // altup & laurel
+@@ -131,6 +137,12 @@ llama_model_gemma3n::graph::graph(const llama_model & model, const llm_graph_par
+         const float freq_base_l  = model.get_rope_freq_base(cparams, il);
+         const float freq_scale_l = model.get_rope_freq_scale(cparams, il);
+ 
++        // Cale matryoshka: width 0 skips the layer. Only layers without their own KV cache may be skipped.
++        const int32_t ffn_w = (size_t) il < cparams.ffn_width.size() ? cparams.ffn_width[il] : -1;
++        if (ffn_w == 0 && !hparams.has_kv(il)) {
++            continue;
++        }
++
+         ggml_tensor * cur         = inpL;                    // [n_embd, n_tokens, n_altup]
+         ggml_tensor * predictions = altup_predict(cur, il);  // [n_embd, n_tokens, n_altup]
+ 
+@@ -209,8 +221,19 @@ llama_model_gemma3n::graph::graph(const llama_model & model, const llm_graph_par
+ 
+         // feed-forward network
+         {
+-            ggml_tensor * up_proj   = build_lora_mm(model.layers[il].ffn_up, cur);
+-            ggml_tensor * gate_proj = build_lora_mm(model.layers[il].ffn_gate, cur);
++            // Cale matryoshka: use the first ffn_w channels. The views share the weights (no copy).
++            ggml_tensor * w_up = model.layers[il].ffn_up, * w_gate = model.layers[il].ffn_gate, * w_down = model.layers[il].ffn_down;
++            const bool down_split = w_down->ne[2] == 2;      // two halves in the file (see load_arch_tensors)
++            if (ffn_w > 0 && ffn_w < w_up->ne[1]) {
++                GGML_ASSERT(!down_split || ffn_w == w_down->ne[0]);      // with split halves a size is the first half or all
++                w_up   = ggml_view_2d(ctx0, w_up,   w_up->ne[0],   ffn_w,        w_up->nb[1],   0);
++                w_gate = ggml_view_2d(ctx0, w_gate, w_gate->ne[0], ffn_w,        w_gate->nb[1], 0);
++                if (!down_split) {
++                    w_down = ggml_view_2d(ctx0, w_down, ffn_w,         w_down->ne[1], w_down->nb[1], 0);
++                }
++            }
++            ggml_tensor * up_proj   = build_lora_mm(w_up, cur);
++            ggml_tensor * gate_proj = build_lora_mm(w_gate, cur);
+ 
+             if (il < n_layer_sparsity) {
+                 // apply activation sparsity
+@@ -219,7 +242,20 @@ llama_model_gemma3n::graph::graph(const llama_model & model, const llm_graph_par
+             gate_proj = ggml_gelu(ctx0, gate_proj);
+ 
+             cur = ggml_mul(ctx0, up_proj, gate_proj);
+-            cur = build_lora_mm(model.layers[il].ffn_down, cur);
++            if (down_split) {
++                const int64_t half = w_down->ne[0];
++                ggml_tensor * d0 = ggml_view_2d(ctx0, w_down, half, w_down->ne[1], w_down->nb[1], 0);
++                ggml_tensor * c0 = ggml_view_2d(ctx0, cur,    half, cur->ne[1],    cur->nb[1],    0);
++                ggml_tensor * out = build_lora_mm(d0, c0);
++                if (cur->ne[0] > half) {                                 // full width: add the second half
++                    ggml_tensor * d1 = ggml_view_2d(ctx0, w_down, half, w_down->ne[1], w_down->nb[1], w_down->nb[2]);
++                    ggml_tensor * c1 = ggml_view_2d(ctx0, cur,    half, cur->ne[1],    cur->nb[1],    half * ggml_element_size(cur));
++                    out = ggml_add(ctx0, out, build_lora_mm(d1, c1));
++                }
++                cur = out;
++            } else {
++                cur = build_lora_mm(w_down, cur);
++            }
+             cb(cur, "ffn_out", il);
+         }
+         cur = build_norm(cur, model.layers[il].ffn_post_norm, NULL, LLM_NORM_RMS, -1);

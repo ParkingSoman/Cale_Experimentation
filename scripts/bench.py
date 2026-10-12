@@ -1,7 +1,7 @@
 """Run the benchmark subsets on one model and one or more levels.
 
 usage: bench.py MODEL_DIR NAME [--nest] [--level LEVELS_JSON] [--tasks mmlupro,gsm8k,...] [--limit N]
-       bench.py MODEL.nest NAME --tiers 8:1.0,8:0.9 [--ram GB] [--tasks ...]   (nested file, tiers = bits:width)
+       bench.py MODEL.nest NAME --tiers 1.0,0.9,1.0:d [--ram GB] [--tasks ...]   (nested file; tier = width, ':d' = with drafter)
 Writes results/bench/NAME.json (per level, per task: accuracy and per-item outputs).
 """
 import argparse
@@ -20,8 +20,8 @@ ap.add_argument("--level")
 ap.add_argument("--only", help="comma list of level names to run")
 ap.add_argument("--tasks", default="mmlupro,mmstar,ocrbench,gsm8k,ifeval")
 ap.add_argument("--limit", type=int)
-ap.add_argument("--tiers", help="for a .nest file: comma list of bits:width")
-ap.add_argument("--ram", type=float, default=15.0, help="RAM budget (GB) for a .nest file")
+ap.add_argument("--tiers", help="for a .nest file: comma list of widths, ':d' suffix = drafter")
+ap.add_argument("--ram", type=float, default=None, help="RAM budget (GB) for a .nest file; default all in RAM")
 args = ap.parse_args()
 
 if args.nest:
@@ -36,6 +36,12 @@ def num(s):
     return m[-1].replace(",", "").rstrip(".") if m else None
 
 
+def gen(model, proc, r, max_tokens):
+    if NG is not None and NG.draft:
+        return NG.generate(r, max_tokens=max_tokens)["text"]
+    return generate(model, proc, r, max_tokens=max_tokens)
+
+
 def run_task(task, model, proc, letter_ids):
     rows = read_jsonl(f"data/bench/{task}.jsonl")[: args.limit]
     items = []
@@ -44,16 +50,16 @@ def run_task(task, model, proc, letter_ids):
             pred = choose_letter(model, proc, r, letter_ids)
             ok = pred == r["answer"]
         elif task == "gsm8k":
-            pred = generate(model, proc, r, max_tokens=320)
+            pred = gen(model, proc, r, 320)
             m = re.search(r"answer is\s*\$?(-?[\d,]*\.?\d+)", pred)
             got = m.group(1).replace(",", "") if m else num(pred)
             ok = got is not None and abs(float(got) - float(r["answer"])) < 1e-6 if got not in (None, "", "-") else False
         elif task == "ocrbench":
-            pred = generate(model, proc, r, max_tokens=48)
+            pred = gen(model, proc, r, 48)
             ok = any(str(a).strip().lower() in pred.strip().lower() for a in r["answer"])
         elif task == "ifeval":
             from lm_eval.tasks.ifeval.utils import InputExample, test_instruction_following_strict
-            pred = generate(model, proc, r, max_tokens=400)
+            pred = gen(model, proc, r, 400)
             inp = InputExample(key=r["key"], instruction_id_list=r["instruction_id_list"],
                                prompt=r["user"], kwargs=r["kwargs"])
             ok = test_instruction_following_strict(inp, pred).follow_all_instructions
@@ -78,8 +84,8 @@ levels = json.load(open(args.level)) if args.level else {"full": None}
 if NG is not None:
     levels = {}
     for t in args.tiers.split(","):
-        b, w = t.split(":")
-        levels[f"{b}bit-w{round(float(w) * 100)}"] = {"bits": int(b), "width": float(w)}
+        w, _, d = t.partition(":")
+        levels[f"w{round(float(w) * 100)}" + ("+draft" if d == "d" else "")] = {"width": float(w), "draft": d == "d"}
 if args.only:
     levels = {k: v for k, v in levels.items() if k in args.only.split(",")}
 os.makedirs("results/bench", exist_ok=True)
@@ -87,7 +93,7 @@ path = f"results/bench/{args.name}.json"
 out = json.load(open(path)) if os.path.exists(path) else {}
 for lname, lv in levels.items():
     if NG is not None:
-        ms = NG.set(lv["bits"], lv["width"])
+        ms = NG.set(width=lv["width"], draft=lv["draft"])
         print(f"[{args.name}] tier {lname}: switch {ms:.1f} ms, streamed layers {len(NG.streamed_layers)}", flush=True)
     elif args.nest:
         if lv is None:

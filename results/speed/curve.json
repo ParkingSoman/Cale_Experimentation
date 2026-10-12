@@ -1,0 +1,50 @@
+{
+ "100": {
+  "resident_gb": 7.72,
+  "gb_per_pass": 7.47,
+  "chat_tps": 13.13,
+  "math_tps": 13.77,
+  "chat_draft_tps": 18.32,
+  "math_draft_tps": 26.95
+ },
+ "90": {
+  "resident_gb": 7.21,
+  "gb_per_pass": 6.94,
+  "chat_tps": 13.45,
+  "math_tps": 12.59,
+  "chat_draft_tps": 18.05,
+  "math_draft_tps": 25.12
+ },
+ "80": {
+  "resident_gb": 6.67,
+  "gb_per_pass": 6.41,
+  "chat_tps": 13.57,
+  "math_tps": 13.37,
+  "chat_draft_tps": 21.63,
+  "math_draft_tps": 25.88
+ },
+ "70": {
+  "resident_gb": 6.15,
+  "gb_per_pass": 5.87,
+  "chat_tps": 14.93,
+  "math_tps": 14.59,
+  "chat_draft_tps": 22.09,
+  "math_draft_tps": 29.62
+ },
+ "60": {
+  "resident_gb": 5.61,
+  "gb_per_pass": 5.34,
+  "chat_tps": 16.36,
+  "math_tps": 15.55,
+  "chat_draft_tps": 26.9,
+  "math_draft_tps": 27.28
+ },
+ "50": {
+  "resident_gb": 5.08,
+  "gb_per_pass": 4.81,
+  "chat_tps": 18.54,
+  "math_tps": 17.69,
+  "chat_draft_tps": 31.41,
+  "math_draft_tps": 36.03
+ }
+}

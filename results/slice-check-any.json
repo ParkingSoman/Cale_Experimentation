@@ -1,0 +1,119 @@
+{
+ "mem_loaded_gb": 7.49,
+ "w1.0": {
+  "text": [
+   "The sky appears blue because of a phenomenon called Rayleigh scattering, where shorter wavelengths of sunlight (blue and violet) are scattered in all directions by the gases and particles in the atmosphere. Although violet light is",
+   "Here are three primary differences between a list and a tuple in Python:\n\n### 1. Mutability (Changeability)\n*   **List:** Lists are **mutable**. This means you can",
+   "To solve $17 \\times 24$, you can use the distributive property:\n\n**Step 1:** Break 24 into $20 + 4$.\n**Step "
+  ],
+  "tok_per_s": [
+   14.44,
+   14.44,
+   14.43
+  ],
+  "tier": "w100"
+ },
+ "w0.9": {
+  "text": [
+   "The sky is blue because of a phenomenon called Rayleigh scattering, where shorter wavelengths of sunlight (blue and violet) are scattered by gas molecules in the atmosphere more than longer wavelengths. While violet light is actually",
+   "Here are three primary differences between a list and a tuple in Python:\n\n### 1. Mutability (Changeability)\nThe most fundamental difference is that **lists are mutable**, while **tuples",
+   "To find the product of $17 \\times 24$, you can use the following steps:\n\n**Method 1: Long Multiplication**\n1. Multiply $17 \\times "
+  ],
+  "tok_per_s": [
+   15.29,
+   15.48,
+   15.44
+  ],
+  "tier": "w90"
+ },
+ "w0.85": {
+  "text": [
+   "The sky is blue because Earth's atmosphere scatters shorter wavelengths of sunlight, known as blue light, more frequently than longer wavelengths. This phenomenon is called Rayleigh scattering, where the molecules in the air",
+   "In Python, lists and tuples are both used to store collections of data. Here are three key differences between them:\n\n### 1. Mutability (Changeability)\n*   **List:**",
+   "To find the product of $17 \\times 24$, here are the steps:\n\n**Step 1: Multiply 17 by 4 (Units place)**\n$17"
+  ],
+  "tok_per_s": [
+   15.63,
+   13.88,
+   14.27
+  ],
+  "tier": "w85"
+ },
+ "w0.5": {
+  "text": [
+   "The sky is blue, because the sky is blue, because the sky is blue, because the sky is blue, because the sky is blue, because the sky is blue, because the sky is blue",
+   "The `list` and `tuple` (tuple) in Python, a commonly used in the `list` and `tuple` (tuple) in Python, a commonly used in the `",
+   "The calculation of $17 \\times 24$ is the **\"the answer\"**.\n\n**The steps** (the \"the answer\"**.\n\n**The steps** ("
+  ],
+  "tok_per_s": [
+   21.72,
+   21.88,
+   21.72
+  ],
+  "tier": "w50",
+  "set_ms": 262.8
+ },
+ "w0.63": {
+  "text": [
+   "The sky is blue because of the process of **reflection** of sunlight on the atmosphere.\n\nThe sky is blue because of the process of **reflection** of sunlight on the atmosphere.",
+   "In Python, the `list()` and `tuple()` functions are used to create a \"tuple\" (a collection of items) and a \"list\" (a sequence of items).\n\nHere are",
+   "Here are the steps for the calculation:\n\n**Step 1: Multiplication**\n$17 \\times 24 = 408$\n\n**Step 2: Breakdown**\n"
+  ],
+  "tok_per_s": [
+   18.45,
+   19.05,
+   18.92
+  ],
+  "tier": "w63",
+  "set_ms": 526.8
+ },
+ "w0.77": {
+  "text": [
+   "The sky is blue because of a process called Rayleigh scattering, where the atmosphere's molecules and gases scatter sunlight. This happens because blue light waves are shorter and more frequent, scattering in all directions as",
+   "In Python, the primary differences between lists and tuples are their mutability, syntax, and memory management. Here are three key differences:\n\n### 1. Mutability (Changeability)\n*",
+   "To find the product of 17 and 24, here are the steps:\n\n**Step 1: Multiply 17 by 24**\n$17 \\times "
+  ],
+  "tok_per_s": [
+   16.52,
+   16.96,
+   16.88
+  ],
+  "tier": "w77",
+  "set_ms": 467.2
+ },
+ "perlayer": {
+  "text": [
+   "The sky is blue because of the interaction of sunlight with the atmosphere, as molecules of nitrogen and oxygen absorb the blue end of the spectrum. This process is known as Rayleigh scattering, where the blue light",
+   "In Python, lists and tuples are both used to store collections of data. While they share similarities, here are the three primary differences:\n\n### 1. Mutability (Changeability)\n*",
+   "Here are the steps to solve $17 \\times 24$:\n\n**Step 1: Multiplication of the units**\n$7 \\times 4 = 28$\n**"
+  ],
+  "tok_per_s": [
+   14.29,
+   14.52,
+   14.25
+  ],
+  "tier": "wcustom"
+ },
+ "cap_shrink_s": 0.8,
+ "cap_mem_gb": [
+  9.94,
+  5.36
+ ],
+ "cap_req_1.0": {
+  "text": [
+   "The sky is blue because of the atmosphere's composition and the process of reflection, and the process of reflection, and the process of reflection, and the process of reflection, and the process of reflection",
+   "In Python, the `list()` and `tuple()` functions are used to create a \"tuple\" (a set of data) for a \"list\" (a set of data) in a way",
+   "To find the product of $17 \\times 24$, here are the steps:\n\n**Step 1: Multiplication**\n$17 \\times 24 = 40"
+  ],
+  "tok_per_s": [
+   19.4,
+   20.22,
+   20.32
+  ],
+  "tier": "w60"
+ },
+ "cap_same_text_at_0.6": true,
+ "cap_grow_s": 1.41,
+ "cap_mem_after_grow_gb": 7.49,
+ "cap_full_same_text": true
+}

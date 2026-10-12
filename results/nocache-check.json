@@ -1,0 +1,39 @@
+{
+ "uncached": {
+  "resident_before": 0.0,
+  "resident_after_read": 0.0,
+  "first_s": 0.182122458005324,
+  "second_s": 0.19419970799935982,
+  "gbps_first": 5.89571344336134,
+  "ratio_second_first": 1.0663138973979955
+ },
+ "ssd_gbps": {
+  "1MB x1": 3.3,
+  "1MB x2": 5.8,
+  "1MB x4": 6.48,
+  "4MB x1": 5.14,
+  "4MB x2": 6.95,
+  "4MB x4": 6.9,
+  "16MB x1": 5.98,
+  "16MB x2": 6.76,
+  "16MB x4": 6.66,
+  "64MB x1": 5.76,
+  "64MB x2": 6.1,
+  "64MB x4": 5.82
+ },
+ "overlap": {
+  "gpu_s": 0.26078166597289965,
+  "read_s": 0.15750754199689254,
+  "together_s": 0.33224470901768655,
+  "max_s": 0.26078166597289965,
+  "sum_s": 0.4182892079697922
+ },
+ "down_proj_us": {
+  "T=1 one matrix, full width": 755.7,
+  "T=1 3 blocks, full width": 933.9,
+  "T=1 1 block, 85% width": 670.5,
+  "T=512 one matrix, full width": 11061.0,
+  "T=512 3 blocks, full width": 10742.0,
+  "T=512 1 block, 85% width": 9297.0
+ }
+}

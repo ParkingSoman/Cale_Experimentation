@@ -1,4 +1,4 @@
-"""Step 4: check that streamed reads really come from the SSD, and measure the plane overhead.
+"""Step 4: check that streamed reads really come from the SSD, and measure the width-block overhead.
 
 | Check | Pass |
 |---|---|
@@ -6,7 +6,7 @@
 | 2nd uncached read of a region is as slow as the 1st | ratio ~1 |
 | SSD speed by chunk size and thread count | GB/s table |
 | reads overlap GPU work | together ~ max(read, compute), not the sum |
-| summed plane matmuls vs one matmul (decode shape) | overhead stated |
+| down_proj as 3 column blocks vs one matrix (decode and prefill shapes) | overhead stated |
 
 usage: nocache_check.py NEST_FILE   -> results/nocache-check.json
 """
@@ -81,8 +81,8 @@ def nocache_read(off, n, chunk, threads=1):
     return dt
 
 
-C = nf.header["regions"]["C"]
-base = nf.data_start + C[0]
+A = nf.header["regions"]["A"]
+base = nf.data_start + A[0]
 GB = 1 << 30
 
 # 1-2. Uncached reads stay uncached.
@@ -96,15 +96,16 @@ out["uncached"] = {"resident_before": r0, "resident_after_read": r1, "first_s": 
                    "gbps_first": n / t1 / 1e9, "ratio_second_first": t2 / t1}
 print(out["uncached"], flush=True)
 
-# 3. SSD speed by chunk size and threads (fresh 512 MB region per cell).
+# 3. SSD speed by chunk size and threads (fresh 256 MB region per cell; the file is ~7.8 GB).
 speed = {}
-o = base + 2 * GB
+o = base + GB
+CELL = GB // 4
 for chunk in (1 << 20, 4 << 20, 16 << 20, 64 << 20):
     for th in (1, 2, 4):
-        evict(o, GB // 2)
-        dt = nocache_read(o, GB // 2, chunk, th)
-        speed[f"{chunk >> 20}MB x{th}"] = round(GB / 2 / dt / 1e9, 2)
-        o += GB // 2
+        evict(o, CELL)
+        dt = nocache_read(o, CELL, chunk, th)
+        speed[f"{chunk >> 20}MB x{th}"] = round(CELL / dt / 1e9, 2)
+        o += CELL
 out["ssd_gbps"] = speed
 print(speed, flush=True)
 
@@ -130,41 +131,35 @@ t = time.perf_counter(); th.start(); gpu(40); th.join(); both = time.perf_counte
 out["overlap"] = {"gpu_s": g, "read_s": r, "together_s": both, "max_s": max(g, r), "sum_s": g + r}
 print(out["overlap"], flush=True)
 
-# 5. Plane overhead, decode shape (one token), MLP-sized table 15360 x 3840.
-O, I = 15360, 3840
+# 5. Width-block overhead: down_proj (3840 x 15360) as one 4-bit matrix vs 3 column blocks.
+O, I = 3840, 15360
+cuts = [0, 13056, 13824, 15360]
 wf = (mx.random.normal((O, I)) * 0.02).astype(mx.bfloat16)
-xa = mx.random.normal((1, I)).astype(mx.bfloat16)
-qa = mx.quantize(wf, group_size=32, bits=4)
-qb = mx.quantize(wf * 0.1, group_size=64, bits=4)
-qc = mx.quantize(wf * 0.01, group_size=64, bits=8)
-q8 = mx.quantize(wf, group_size=64, bits=8)
-rs = mx.ones((O,), dtype=mx.bfloat16)
-mx.eval(qa, qb, qc, q8, rs)
+q1 = mx.quantize(wf, group_size=32, bits=4)
+blocks = [tuple(mx.contiguous(a[:, c0 // s: c1 // s]) for a, s in zip(q1, (8, 32, 32))) for c0, c1 in zip(cuts, cuts[1:])]
+mx.eval(q1, blocks)
 
 
-def qmm(q, g, b):
-    return mx.quantized_matmul(xa, *q, transpose=True, group_size=g, bits=b)
+def qmm(x, q):
+    return mx.quantized_matmul(x, *q, transpose=True, group_size=32, bits=4)
 
 
-cases = {
-    "A only (4-bit g32)": lambda: qmm(qa, 32, 4),
-    "rs*A + B (8-bit tier)": lambda: qmm(qa, 32, 4) * rs + qmm(qb, 64, 4),
-    "plain 8-bit g64, one matmul": lambda: qmm(q8, 64, 8),
-    "rs*A + B + C (16-bit tier)": lambda: qmm(qa, 32, 4) * rs + qmm(qb, 64, 4) + qmm(qc, 64, 8),
-    "bf16, one matmul": lambda: xa @ wf.T,
-}
 mm = {}
-for name, fn in cases.items():
-    for _ in range(20):
-        mx.eval(fn())
-    ts = []
-    for _ in range(7):
-        t = time.perf_counter()
-        for _ in range(100):
-            y = fn()
-            mx.eval(y)
-        ts.append((time.perf_counter() - t) / 100 * 1e6)
-    mm[name] = round(sorted(ts)[3], 1)
-out["matmul_us_decode"] = mm
+for T in (1, 512):
+    x = mx.random.normal((1, T, I)).astype(mx.bfloat16)
+    cases = {"one matrix, full width": lambda: qmm(x, q1),
+             "3 blocks, full width": lambda: qmm(x[..., :13056], blocks[0]) + qmm(x[..., 13056:13824], blocks[1]) + qmm(x[..., 13824:], blocks[2]),
+             "1 block, 85% width": lambda: qmm(x[..., :13056], blocks[0])}
+    for name, fn in cases.items():
+        for _ in range(10):
+            mx.eval(fn())
+        ts = []
+        for _ in range(7):
+            t = time.perf_counter()
+            for _ in range(50):
+                mx.eval(fn())
+            ts.append((time.perf_counter() - t) / 50 * 1e6)
+        mm[f"T={T} {name}"] = round(sorted(ts)[3], 1)
+out["down_proj_us"] = mm
 print(mm, flush=True)
 json.dump(out, open("results/nocache-check.json", "w"), indent=1)

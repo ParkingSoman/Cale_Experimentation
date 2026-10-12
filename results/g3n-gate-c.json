@@ -1,0 +1,121 @@
+{
+ "identical": 8,
+ "total": 8,
+ "mean_prefix": 1.0,
+ "load_s": 0.1,
+ "active_gb": 4.2,
+ "sizes": [
+  {
+   "id": "e4b",
+   "pct": 100,
+   "switch_ms": 0.02,
+   "tok_per_s": 35.6,
+   "sample": "The capital of Australia is **Canberra**. \n\nIt's not Sydney (or Melbourne) becau"
+  },
+  {
+   "id": "e3.79-layer",
+   "pct": 95,
+   "switch_ms": 0.02,
+   "tok_per_s": 37.1,
+   "sample": "The capital of Australia is **Canberra**. \n\nIt's not Sydney (or Melbourne) becau"
+  },
+  {
+   "id": "e3.74-block",
+   "pct": 94,
+   "switch_ms": 0.02,
+   "tok_per_s": 37.5,
+   "sample": "The capital of Australia is **Canberra**. \n\nIt's not Sydney (or Melbourne) becau"
+  },
+  {
+   "id": "e3.59-layer",
+   "pct": 90,
+   "switch_ms": 0.02,
+   "tok_per_s": 38.5,
+   "sample": "The capital of Australia is **Canberra**. \n\nIt's not Sydney (or Melbourne) becau"
+  },
+  {
+   "id": "e3.49-block",
+   "pct": 88,
+   "switch_ms": 0.02,
+   "tok_per_s": 39.3,
+   "sample": "The capital of Australia is **Canberra**.\n\nIt's not Sydney (or Melbourne) becaus"
+  },
+  {
+   "id": "e3.39-layer",
+   "pct": 85,
+   "switch_ms": 0.02,
+   "tok_per_s": 40.0,
+   "sample": "The capital of Australia is **Canberra**. \n\nIt's not Sydney (or Melbourne) becau"
+  },
+  {
+   "id": "e3.24-block",
+   "pct": 81,
+   "switch_ms": 0.02,
+   "tok_per_s": 40.9,
+   "sample": "The capital of Australia is **Canberra**. \n\nIt's not Sydney (or Melbourne) due t"
+  },
+  {
+   "id": "e3.18-layer",
+   "pct": 80,
+   "switch_ms": 0.02,
+   "tok_per_s": 41.7,
+   "sample": "The capital of Australia is **Canberra**, not Sydney. \n\nHere's why Canberra was "
+  },
+  {
+   "id": "e2.98-block",
+   "pct": 75,
+   "switch_ms": 0.02,
+   "tok_per_s": 43.4,
+   "sample": "The capital of Australia is **Canberra**, not Sydney (or Melbourne). \n\nHere's wh"
+  },
+  {
+   "id": "e2.98-layer",
+   "pct": 75,
+   "switch_ms": 0.02,
+   "tok_per_s": 43.5,
+   "sample": "The capital of Australia is **Canberra**, not Sydney.\n\nHere's why Canberra was c"
+  },
+  {
+   "id": "e2.73-block",
+   "pct": 69,
+   "switch_ms": 0.02,
+   "tok_per_s": 45.7,
+   "sample": "The capital of Australia is **Canberra**, not Sydney.\n\nHere's why:\n\n* **The Conf"
+  },
+  {
+   "id": "e2.69-layer",
+   "pct": 68,
+   "switch_ms": 0.02,
+   "tok_per_s": 46.2,
+   "sample": "The capital of Australia is **Canberra**, not Sydney. \n\nHere's why Canberra was "
+  },
+  {
+   "id": "e2.54-layer",
+   "pct": 64,
+   "switch_ms": 0.02,
+   "tok_per_s": 48.0,
+   "sample": "The capital of Australia is **Canberra**, not Sydney. \n\nHere's why Canberra was "
+  },
+  {
+   "id": "e2.49-block",
+   "pct": 63,
+   "switch_ms": 0.02,
+   "tok_per_s": 48.7,
+   "sample": "The capital of Australia is **Canberra**, not Sydney. \n\nHere's why Canberra was "
+  },
+  {
+   "id": "e1.96-layer",
+   "pct": 49,
+   "switch_ms": 0.03,
+   "tok_per_s": 57.6,
+   "sample": "The capital of Australia is **Canberra**, not Sydney. \n\nHere's why it's not Sydn"
+  },
+  {
+   "id": "e2b",
+   "pct": 48,
+   "switch_ms": 0.03,
+   "tok_per_s": 58.3,
+   "sample": "The capital of Australia is **Canberra**, not Sydney. \n\nHere's why it's not Sydn"
+  }
+ ]
+}

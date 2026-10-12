@@ -1,0 +1,17 @@
+loaded models/g12-nest/model.nest: 7.5 GB resident, 9s
+[any-L] tier w80: switch 147.4 ms, streamed layers 0
+[any-L/w80] mmlupro1k: 0.377 (n=1000, 558s)
+[any-L/w80] mmstar300: 0.560 (n=300, 288s)
+[any-L] tier w70: switch 260.1 ms, streamed layers 0
+[any-L/w70] mmlupro1k: 0.288 (n=1000, 609s)
+[any-L/w70] mmstar300: 0.447 (n=300, 291s)
+[any-L] tier w60: switch 219.4 ms, streamed layers 0
+[any-L/w60] mmlupro1k: 0.221 (n=1000, 527s)
+[any-L/w60] mmstar300: 0.350 (n=300, 233s)
+[any-L] tier w50: switch 214.6 ms, streamed layers 0
+[any-L/w50] mmlupro1k: 0.172 (n=1000, 460s)
+[any-L/w50] mmstar300: 0.297 (n=300, 201s)
+[any-L] tier w100: switch 0.2 ms, streamed layers 0
+[any-L/w100] mmlupro1k: 0.530 (n=1000, 713s)
+[any-L/w100] mmstar300: 0.597 (n=300, 330s)
+peak GB 11.012253762

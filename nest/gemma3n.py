@@ -1,0 +1,420 @@
+"""Nested Gemma 3n: one loaded E4B that also runs as E2B and every official size in between.
+
+Google trained these sizes inside E4B (MatFormer). A size is two choices per layer:
+the FFN is half width (the first 8192 channels) or full width (16384), and layers 20-24 are
+skipped or not. `nest/gemma3n_levels.json` holds Google's 16 official rows.
+
+Switching a size only changes which blocks run. Nothing is copied or reloaded (about 1 ms).
+Only text is supported. The vision and audio towers are dropped at load to save RAM.
+"""
+import gc
+import json
+import struct
+import time
+from pathlib import Path
+
+import numpy as np
+
+import mlx.core as mx
+import mlx.nn as nn
+
+from mlx_vlm.models.gemma3n.language import gelu_topk, logit_softcap
+
+from .elastic import _full, _mm, _rows
+from .levels3n import BLOCK, load_levels, pick
+
+EOS = {1, 106}                  # <eos>, <end_of_turn>
+GROUP, BITS, MODE = 64, 4, "affine"     # how the FFN matrices of models/gemma-3n-e4b-4bit are quantized
+
+
+class _Skipped(nn.Module):
+    """Stands in for a skipped layer. Skipped layers own no KV cache, so passing h through is exact."""
+
+    def __call__(self, x, mask=None, cache=None, per_layer_input=None):
+        return x
+
+
+class _Parts:
+    """Plain holder for one layer's FFN weights. Not a Module, so it never shows up as model parameters."""
+
+    def __init__(self, full, a):
+        self.full, self.a = full, a
+
+
+def _own(parts):
+    """Copy every array in matmul inputs, so the copy does not keep a bigger buffer alive."""
+    return tuple(mx.contiguous(p) if isinstance(p, mx.array) else p for p in parts)
+
+
+class ElasticMLP3n(nn.Module):
+    """GeGLU MLP that runs on the first `blocks` blocks (1 or 2) of 8192 channels.
+
+    The FFN of one layer is in one of three states (`ffn_state`):
+      2  full: the original gate/up/down matrices (bit-identical to plain Gemma 3n E4B) plus a contiguous
+         copy of the first 8192 columns of down. The half width reads the first 8192 rows of gate/up as free views.
+      1  half: only the half-width pieces, as owned copies (about half the bytes of state 2).
+      0  none: nothing. Used by layers that every held size skips.
+    A call may run a layer in a state below the one it needs only after `restore` read the weights back.
+    """
+
+    def __init__(self, mlp):
+        super().__init__()
+        self.activation_sparsity = mlp.activation_sparsity
+        if self.activation_sparsity > 0:
+            self._std_multiplier = mlp._std_multiplier
+        gate, up, down = mlp.gate_proj, mlp.up_proj, mlp.down_proj
+        full = (_full(gate), _full(up), _full(down))
+        half = (_rows(gate, BLOCK), _rows(up, BLOCK), self._first_cols(down, BLOCK))
+        mx.eval([p for parts in half for p in parts if isinstance(p, mx.array)])
+        self._p = _Parts(full, half)
+        self.ffn_state = 2
+        self.blocks = 2
+
+    def set_blocks(self, blocks):
+        if blocks > self.ffn_state:
+            raise RuntimeError(f"FFN is in state {self.ffn_state}, size needs {blocks}")
+        self.blocks = blocks
+
+    @staticmethod
+    def _first_cols(lin, n):
+        """First n input columns of a (possibly quantized) Linear, as contiguous matmul inputs."""
+        if isinstance(lin, nn.QuantizedLinear):
+            per, g = 32 // lin.bits, lin.group_size
+            return (mx.contiguous(lin.weight[:, : n // per]), mx.contiguous(lin.scales[:, : n // g]),
+                    mx.contiguous(lin.biases[:, : n // g]), g, lin.bits, lin.mode)
+        return mx.contiguous(lin.weight[:, :n]), None, None, None, None, None
+
+    # --- residency ---------------------------------------------------------------------------
+    def drop_to(self, state):
+        """Free weights down to `state` (0 or 1). A state-1 layer owns its copies, so the full matrices are freed."""
+        if state >= self.ffn_state:
+            return
+        if state == 1:
+            half = tuple(_own(parts) for parts in self._p.a)
+            mx.eval([p for parts in half for p in parts if isinstance(p, mx.array)])
+            self._p = _Parts(None, half)
+        else:
+            self._p = _Parts(None, None)
+        self.ffn_state = state
+        self.blocks = min(self.blocks, state)
+
+    def restore(self, state, tensors, prefix):
+        """Read the weights back from `tensors` (a lazy dict from mx.load) to reach `state` (1 or 2).
+        Returns the bytes read."""
+        if state <= self.ffn_state:
+            return 0
+        read = 0
+
+        def lin(name, quant_cls=None):
+            nonlocal read
+            w, s, b = (tensors[f"{prefix}.{name}.{k}"] for k in ("weight", "scales", "biases"))
+            mx.eval(w, s, b)
+            read += w.nbytes + s.nbytes + b.nbytes
+            return (w, s, b, GROUP, BITS, MODE)
+
+        if state == 2:
+            gate, up, down = lin("gate_proj"), lin("up_proj"), lin("down_proj")
+            half_down = self._p.a[2] if self.ffn_state == 1 else self._first_cols_parts(down)
+            half = (tuple(p[:BLOCK] if isinstance(p, mx.array) else p for p in gate[:3]) + gate[3:],
+                    tuple(p[:BLOCK] if isinstance(p, mx.array) else p for p in up[:3]) + up[3:], half_down)
+            mx.eval([p for parts in half for p in parts if isinstance(p, mx.array)])
+            self._p = _Parts((gate, up, down), half)
+        else:
+            gate, up = lin("gate_proj"), lin("up_proj")
+            half_gate = _own(tuple(p[:BLOCK] if isinstance(p, mx.array) else p for p in gate[:3]) + gate[3:])
+            half_up = _own(tuple(p[:BLOCK] if isinstance(p, mx.array) else p for p in up[:3]) + up[3:])
+            half_down = self._first_cols_parts(lin("down_proj"))
+            mx.eval([p for parts in (half_gate, half_up, half_down) for p in parts if isinstance(p, mx.array)])
+            self._p = _Parts(None, (half_gate, half_up, half_down))
+        self.ffn_state = state
+        return read
+
+    @staticmethod
+    def _first_cols_parts(parts, n=BLOCK):
+        w, s, b, g, bits, mode = parts
+        per = 32 // bits
+        out = (mx.contiguous(w[:, : n // per]), mx.contiguous(s[:, : n // g]), mx.contiguous(b[:, : n // g]), g, bits, mode)
+        mx.eval(out[:3])
+        return out
+
+    def state_bytes(self):
+        """Bytes this layer's FFN holds in state 0, 1 and 2. Call while the layer is in state 2."""
+        half = sum(p.nbytes for parts in self._p.a for p in parts if isinstance(p, mx.array))
+        return [0, half, self.nbytes()]
+
+    def read_bytes(self):
+        """Bytes read from disk to bring this layer's FFN from state 0 or 1 to state 2 (the three full matrices)."""
+        return sum(p.nbytes for parts in self._p.full for p in parts if isinstance(p, mx.array))
+
+    def nbytes(self):
+        """Real bytes held. With the full matrices in RAM, the half-width gate/up are views of them and cost nothing."""
+        if self._p.a is None:
+            return 0
+        groups = (*self._p.full, self._p.a[2]) if self._p.full is not None else self._p.a
+        return sum(p.nbytes for parts in groups for p in parts if isinstance(p, mx.array))
+
+    def __call__(self, x):
+        parts = self._p.full if self.blocks == 2 else self._p.a
+        gate_p, up_p, down_p = parts
+        gate = _mm(x, gate_p)
+        act = gelu_topk(gate, self._std_multiplier) if self.activation_sparsity > 0 else nn.gelu_approx(gate)
+        return _mm(act * _mm(x, up_p), down_p)
+
+
+class MappedEmbedding(nn.Module):
+    """The per-layer embedding table (1.33 GB at 4 bits), read from the model file instead of held in RAM.
+
+    A token needs only its own row (about 5 KB). The file is memory-mapped, so the Mac keeps recently used rows
+    in its file cache and drops the rest whenever it needs the memory. The numbers are the same as the in-RAM
+    table: the rows are dequantized with the same call.
+    """
+
+    def __init__(self, path, name, group_size, bits):
+        super().__init__()
+        self.group_size, self.bits = group_size, bits
+        self._maps = {}
+        for f in sorted(Path(path).glob("*.safetensors")):
+            with open(f, "rb") as fh:
+                n = struct.unpack("<Q", fh.read(8))[0]
+                header = json.loads(fh.read(n))
+            for part in ("weight", "scales", "biases"):
+                t = header.get(f"{name}.{part}")
+                if t:
+                    dtype = np.uint32 if t["dtype"] == "U32" else np.uint16      # bfloat16 travels as raw 16-bit
+                    self._maps[part] = np.memmap(f, dtype=dtype, mode="r", offset=8 + n + t["data_offsets"][0],
+                                                 shape=tuple(t["shape"]))
+        assert len(self._maps) == 3, f"{name} not found in {path}"
+
+    def __call__(self, x):
+        shape = x.shape
+        ids = np.asarray(x).reshape(-1)
+        w = mx.array(self._maps["weight"][ids])
+        sc = mx.array(self._maps["scales"][ids]).view(mx.bfloat16)
+        bi = mx.array(self._maps["biases"][ids]).view(mx.bfloat16)
+        out = mx.dequantize(w, sc, bi, group_size=self.group_size, bits=self.bits)
+        return out.reshape(*shape, -1)
+
+
+class NestedGemma3n:
+    @classmethod
+    def load(cls, path, width=1.0, draft=False, text_only=True, loaded=None, ple_on_disk=False):
+        from mlx_vlm import load as vlm_load
+        self = cls()
+        self.path = str(path)
+        self.ple_on_disk = ple_on_disk
+        self.model, self.processor = loaded or vlm_load(str(path))
+        lm = self.model.language_model
+        self.lm, self.layers = lm, lm.model.layers
+        cfg = lm.config
+        self.n_layers, self.first_shared = cfg.num_hidden_layers, lm.model.first_kv_shared_layer_idx
+        for layer in self.layers:
+            layer.mlp = ElasticMLP3n(layer.mlp)
+        if text_only:
+            self.model.vision_tower = None
+            self.model.audio_tower = None
+        if ple_on_disk:
+            q = lm.model.embed_tokens_per_layer
+            lm.model.embed_tokens_per_layer = MappedEmbedding(
+                path, "language_model.model.embed_tokens_per_layer", q.group_size, q.bits)
+            del q
+        mx.eval(self.model.parameters())      # MLX arrays that are still lazy belong to the thread that loads them
+        gc.collect()
+        mx.clear_cache()
+        self.orig_layers = list(self.layers)
+        self.resident = [2] * self.n_layers
+        self.layer_bytes = [l.mlp.state_bytes() for l in self.orig_layers]       # bytes in state 0, 1, 2
+        self.layer_read = [l.mlp.read_bytes() for l in self.orig_layers]          # bytes a disk read costs per layer
+        self.levels = [l for l in load_levels(self.n_layers) if min(l["skip"], default=99) >= self.first_shared]
+        self.cap = 1.0
+        self.draft = False                 # no drafter for Gemma 3n yet; kept so the Cale engine interface matches
+        self.level = None
+        self.set(width)
+        self.generate("Hi", 2)                 # evaluates any constant that is still lazy, in this thread: MLX arrays belong to the thread that evaluates them
+        return self
+
+    # --- residency: which FFN weights sit in RAM -------------------------------------------
+    def need(self, lv):
+        """FFN state each layer needs to run size `lv`: 0 skipped, 1 half width, 2 full width."""
+        return [0 if i in lv["skip"] else lv["blocks"][i] for i in range(self.n_layers)]
+
+    def reside(self, levels):
+        """Keep in RAM exactly what the union of `levels` needs. Frees the rest. Returns bytes freed."""
+        return self.reside_states([max(col) for col in zip(*[self.need(self.resolve(l)) for l in levels])],
+                                  first=self.resolve(levels[0]))
+
+    def reside_states(self, states, first=None):
+        """Set the FFN state of every layer (0 none, 1 half, 2 full): free what is above, read back what is below."""
+        before = self.ffn_bytes()
+        self.resident = list(states)
+        for layer, st in zip(self.orig_layers, self.resident):
+            layer.mlp.drop_to(st)
+        self._read_back([(i, st) for i, st in enumerate(self.resident) if st > self.orig_layers[i].mlp.ffn_state])
+        if first is not None:
+            self.set(first)
+        gc.collect()
+        mx.clear_cache()
+        return before - self.ffn_bytes()
+
+    def missing(self, lv):
+        """Layers (index, state needed) whose FFN is below what size `lv` needs."""
+        return [(i, n) for i, n in enumerate(self.need(lv)) if n > self.orig_layers[i].mlp.ffn_state]
+
+    def ensure(self, lv):
+        """Read missing FFN weights from disk so size `lv` can run. Returns (bytes read, seconds)."""
+        return self._read_back(self.missing(lv))
+
+    def _read_back(self, todo):
+        if not todo:
+            return 0, 0.0
+        t, read = time.perf_counter(), 0
+        tensors = {}
+        for f in sorted(Path(self.path).glob("*.safetensors")):
+            tensors.update(mx.load(str(f)))
+        for i, n in todo:
+            read += self.orig_layers[i].mlp.restore(n, tensors, f"language_model.model.layers.{i}.mlp")
+        del tensors
+        return read, time.perf_counter() - t
+
+    def settle(self):
+        """Go back to the resident state after a call that read extra weights."""
+        changed = False
+        for layer, st in zip(self.orig_layers, self.resident):
+            if layer.mlp.ffn_state > st:
+                layer.mlp.drop_to(st)
+                changed = True
+        if changed:
+            gc.collect()
+            mx.clear_cache()
+
+    def ffn_bytes(self):
+        return sum(l.mlp.nbytes() for l in self.orig_layers)
+
+    # --- what the Cale engine asks every backend (the llama.cpp model offers the same, see cale/backends) ---
+    def active_bytes(self):
+        return mx.get_active_memory()
+
+    def clear_cache(self):
+        gc.collect()
+        mx.clear_cache()
+
+    def all_full(self):
+        return all(l.mlp.ffn_state == 2 for l in self.orig_layers)
+
+    def model_files(self):
+        return sorted(Path(self.path).glob("*.safetensors"))
+
+    def prompt_len(self, messages):
+        return int(self.prompt_ids(messages).shape[1])
+
+    def close(self):
+        self.model = self.lm = self.layers = self.orig_layers = None
+        self.clear_cache()
+
+    def size_bytes(self, lv):
+        """FFN bytes held when exactly size `lv` is resident (measured on real arrays, from this model's layers)."""
+        return sum(self.layer_bytes[i][n] for i, n in enumerate(self.need(lv)))
+
+    # --- sizes ---------------------------------------------------------------------------
+    def resolve(self, width):
+        """A size from a level id ('e2b'), a level dict, or a fraction of E4B (0.5 = nearest to 50%)."""
+        if isinstance(width, dict):
+            return pick(self.levels, width["pct"], 100 * self.cap) if width["pct"] > 100 * self.cap + 0.5 else width
+        if isinstance(width, str):
+            return next(l for l in self.levels if l["id"] == width)
+        return pick(self.levels, 100 * float(width), 100 * self.cap)
+
+    def set(self, width=None, draft=None):
+        """Switch size. Returns the switch time in ms."""
+        t = time.perf_counter()
+        if width is not None:
+            lv = self.resolve(width)
+            for i, layer in enumerate(self.orig_layers):
+                self.layers[i] = _Skipped() if i in lv["skip"] else layer
+                layer.mlp.set_blocks(0 if i in lv["skip"] else lv["blocks"][i])
+            self.level = lv
+        return (time.perf_counter() - t) * 1000
+
+    def set_cap(self, width):
+        """Largest size allowed (memory pressure). Lowers compute only: all weights stay in RAM.
+        Only stores the cap. Every call resolves its size under the cap and reads any missing weights first,
+        so nothing here may change the running size (a held size may not hold the weights that size needs)."""
+        self.cap = float(width)
+
+    def tier_name(self, width=None, draft=None):
+        return (self.level if width is None else self.resolve(width))["id"]
+
+    def tiers(self, scores=None):
+        return [{"tier": l["id"], "size_pct": l["pct"], "eff_params_b": l["eff_params_b"], "mmlu_pt": l["mmlu_pt"],
+                 "layers": self.n_layers - len(l["skip"]), "scores": (scores or {}).get(l["id"])}
+                for l in self.levels]
+
+    def logits(self, hidden):
+        """Next-token scores from the last hidden states (the model's own head and soft cap)."""
+        out = self.lm.model.embed_tokens.as_linear(hidden)
+        cap = self.lm.final_logit_softcapping
+        return logit_softcap(cap, out) if cap is not None else out
+
+    # --- chat (used by the Cale server) -----------------------------------------------------
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0):
+        """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
+        messages: [{"role": "system"|"user"|"assistant", "content": str}].
+        If the size needs FFN weights that are not in RAM, they are read from disk first and freed after the call."""
+        lv = self.resolve(width) if width is not None else self.level
+        read, read_s = self.ensure(lv)
+        try:
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature):
+                if "done" in ev:
+                    ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
+                yield ev
+        finally:
+            self.settle()
+
+    def prompt_ids(self, messages):
+        """The prompt as token ids, shape (1, n). The relative-goal chooser needs n before it picks a size."""
+        tok = self.processor.tokenizer
+        msgs = [{"role": m["role"], "content": [{"type": "text", "text": m["content"]}]} for m in messages]
+        text = self.processor.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
+        return mx.array(tok.encode(text, add_special_tokens=False))[None]
+
+    def _chat_stream(self, messages, max_tokens, width, temperature):
+        sw = self.set(width)
+        tok = self.processor.tokenizer
+        ids = self.prompt_ids(messages)
+        cache = self.lm.make_cache()
+        t0 = time.perf_counter()
+
+        def pick(h):
+            lg = self.logits(h[:, -1:])
+            if temperature <= 0:
+                return mx.argmax(lg, axis=-1)
+            return mx.random.categorical(lg / temperature, axis=-1)
+
+        nxt = pick(self.lm.model(ids, cache=cache))
+        mx.eval(nxt)
+        out, sent = [], ""
+        for _ in range(max_tokens):
+            v = int(nxt.item())
+            if v in EOS:
+                break
+            out.append(v)
+            nxt = pick(self.lm.model(nxt.reshape(1, 1), cache=cache))
+            mx.async_eval(nxt)
+            s = tok.decode(out, skip_special_tokens=True)
+            if not s.endswith("�") and len(s) > len(sent):
+                yield {"delta": s[len(sent):]}
+                sent = s
+        s = tok.decode(out, skip_special_tokens=True)
+        if len(s) > len(sent):
+            yield {"delta": s[len(sent):]}
+        yield {"done": {"tier": self.level["id"], "size_pct": self.level["pct"], "switch_ms": round(sw, 1),
+                        "seconds": round(time.perf_counter() - t0, 3), "prompt_tokens": int(ids.shape[1]),
+                        "tokens": len(out), "finish": "length" if len(out) >= max_tokens else "stop",
+                        "drafter": False}}
+
+    def generate(self, prompt, max_tokens=256, width=None):
+        """Greedy text for one user prompt (benchmarks). Returns {"text", "stats"}."""
+        text, done = "", None
+        for ev in self.chat_stream([{"role": "user", "content": prompt}], max_tokens, width):
+            text += ev.get("delta", "")
+            done = ev.get("done", done)
+        return {"text": text, "stats": done}

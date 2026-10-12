@@ -1,0 +1,23 @@
+{
+ "nest 12B (one file)": {
+  "cold_load_s": 6.356504749972373,
+  "cold_first_answer_s": 8.3913773749955,
+  "warm_load_s": 5.803393792011775,
+  "warm_first_answer_s": 6.683893125038594,
+  "resident_before_cold_max": 0.0
+ },
+ "12B qg4 (mlx-vlm)": {
+  "cold_load_s": 6.525530041020829,
+  "cold_first_answer_s": 8.410672958008945,
+  "warm_load_s": 4.539176625024993,
+  "warm_first_answer_s": 6.267721749958582,
+  "resident_before_cold_max": 0.0
+ },
+ "E4B 4-bit (mlx-vlm)": {
+  "cold_load_s": 4.510682000021916,
+  "cold_first_answer_s": 4.911737458023708,
+  "warm_load_s": 3.2853335410472937,
+  "warm_first_answer_s": 3.871306208020542,
+  "resident_before_cold_max": 0.0
+ }
+}

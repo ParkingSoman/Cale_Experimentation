@@ -1,0 +1,7 @@
+- generic [active]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e8]:
+    - heading "Cale is on this Mac" [level=2] [ref=e9]
+    - paragraph [ref=e10]: Let Open WebUI use it. Open WebUI will use the large size for answers and the small size for titles and suggestions.
+    - button "Connect Open WebUI to Cale" [ref=e11] [cursor=pointer]

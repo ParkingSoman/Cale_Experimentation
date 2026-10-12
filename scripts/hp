@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# Run jobs on the HP test laptop (ssh host "hp") so a dropped link never loses work.
+#
+#   hp run win NAME 'powershell commands'    start a detached Windows job, return at once
+#   hp run wsl NAME 'bash commands'          start a detached Linux (WSL) job, return at once
+#   hp wait NAME [SECONDS]                   poll until the job ends, or SECONDS (default 300) pass
+#   hp log NAME [LINES]                      show the end of the job log (default 30)
+#   hp put FILE...                           copy small files to C:\cale\jobs (retries)
+#   hp ping                                  is ssh answering right now?
+#
+# Why it works this way: the command text goes to the laptop as a FILE, never through PowerShell quoting.
+# The job writes its own log and a .done file. The link may drop while it runs. Nothing is lost.
+# Do not move big files from the Mac. Let the laptop download them (it has a fast internet link).
+set -uo pipefail
+J='C:\cale\jobs'          # jobs folder as Windows sees it
+JW=/mnt/c/cale/jobs       # same folder as WSL sees it
+T="${TMPDIR:-/tmp}/hp-jobs"; mkdir -p "$T"
+
+hssh() { ( set -o pipefail; ssh -o ConnectTimeout=10 -o ServerAliveInterval=5 -o ServerAliveCountMax=3 hp "$@" 2>/dev/null | tr -d '\0\r' ); }
+retry() { local n=$1; shift; local i; for ((i=1;i<=n;i++)); do "$@" && return 0; sleep $((i*3)); done; return 1; }
+put_one() { scp -q -o ConnectTimeout=10 -o ServerAliveInterval=5 -o ServerAliveCountMax=3 "$1" "hp:C:/cale/jobs/$(basename "$1")" 2>/dev/null; }
+ready() { retry 6 hssh "New-Item -ItemType Directory -Force $J | Out-Null; 'ok'" | grep -q ok; }
+need_name() { [[ "${1:-}" =~ ^[A-Za-z0-9_-]+$ ]] || { echo "NAME must be letters, digits, - or _" >&2; exit 2; }; }
+
+cmd_ping() { hssh 'hostname' | grep -q . && echo "hp: up" || { echo "hp: down"; return 1; }; }
+
+cmd_put() { ready || { echo "hp: link down"; return 1; }; local f; for f in "$@"; do retry 5 put_one "$f" || { echo "put failed: $f"; return 1; }; done; echo "put ok"; }
+
+cmd_run() {
+  local os="${1:-}" name="${2:-}" body="${3:-}"; need_name "$name"
+  [ -n "$body" ] || { echo "usage: hp run win|wsl NAME 'commands'" >&2; exit 2; }
+  ready || { echo "hp: link down, nothing started"; return 1; }
+  retry 4 hssh "Remove-Item $J\\$name.done,$J\\$name.log -ErrorAction SilentlyContinue; 'ok'" >/dev/null
+  local launcher="$name.ps1"
+  if [ "$os" = win ]; then
+    printf '%s\r\n' "\$ErrorActionPreference='Continue'" "& {" "$body" "} *> $J\\$name.log" \
+      "\"exit=\$LASTEXITCODE\" | Out-File $J\\$name.done -Encoding ascii" > "$T/$name.ps1"
+    retry 5 put_one "$T/$name.ps1" || { echo "could not send job"; return 1; }
+  elif [ "$os" = wsl ]; then
+    { echo "exec > $JW/$name.log 2>&1"; echo "$body"; echo "echo \"exit=\$?\" > $JW/$name.done"; } > "$T/$name.sh"
+    printf '%s\r\n' "wsl.exe -d Ubuntu-24.04 -u cale -- bash $JW/$name.sh" > "$T/$name.ps1"
+    retry 5 put_one "$T/$name.sh" && retry 5 put_one "$T/$name.ps1" || { echo "could not send job"; return 1; }
+  else echo "os must be win or wsl" >&2; exit 2; fi
+  # Start it outside the ssh session (WMI). A plain Start-Process child dies when sshd closes the session.
+  # Starting WSL can drop the link for a minute, so a failed launch call is not an error yet.
+  hssh "\$r = Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine='powershell.exe -NoProfile -ExecutionPolicy Bypass -File $J\\$launcher'}; 'rc=' + \$r.ReturnValue" | grep -q 'rc=0' \
+    && echo "started $os job $name" || echo "start call got no answer (link may be busy). Check with: hp wait $name 60"
+}
+
+cmd_log() { local name="${1:-}" n="${2:-30}"; need_name "$name"
+  hssh "if (Test-Path $J\\$name.log) { Get-Content $J\\$name.log -Tail $n } else { 'NO LOG YET' }" | cut -c1-200; }
+
+cmd_wait() {
+  local name="${1:-}" limit="${2:-300}" t0=$SECONDS state; need_name "$name"
+  while :; do
+    state=$(hssh "if (Test-Path $J\\$name.done) { 'DONE ' + (Get-Content $J\\$name.done) } elseif (Test-Path $J\\$name.log) { 'RUNNING' } else { 'NOLOG' }")
+    case "$state" in
+      DONE*) echo "$(date +%T) $name finished: ${state#DONE }"; cmd_log "$name" 25; return 0 ;;
+    esac
+    if (( SECONDS - t0 >= limit )); then
+      echo "$(date +%T) $name: ${state:-link down} after ${limit}s"; [ -n "$state" ] && cmd_log "$name" 8; return 3
+    fi
+    sleep 10
+  done
+}
+
+sub="${1:-}"; shift || true
+case "$sub" in
+  run) cmd_run "$@" ;; wait) cmd_wait "$@" ;; log) cmd_log "$@" ;; put) cmd_put "$@" ;; ping) cmd_ping ;;
+  *) sed -n '2,12p' "$0"; exit 2 ;;
+esac

@@ -1,0 +1,34 @@
+loaded models/g12-nest/model.nest: 7.5 GB resident, 12s
+[nest-L] tier w100: switch 0.0 ms, streamed layers 0
+[nest-L/w100] mmlupro1k: 0.534 (n=1000, 1083s)
+[nest-L/w100] mmstar300: 0.600 (n=300, 461s)
+[nest-L] tier w90: switch 4.0 ms, streamed layers 0
+[nest-L/w90] mmlupro1k: 0.441 (n=1000, 1064s)
+[nest-L/w90] mmstar300: 0.587 (n=300, 431s)
+peak GB 8.457850276
+loaded models/g12-nest/model.nest: 7.5 GB resident, 12s
+[nest-L] tier w85: switch 1.7 ms, streamed layers 0
+[nest-L/w85] mmstar300: 0.600 (n=300, 424s)
+peak GB 8.364963598
+loaded models/g12-nest/model.nest: 7.5 GB resident, 10s
+[nest-gen] tier w90: switch 0.6 ms, streamed layers 0
+[nest-gen/w90] gsm8k: 0.840 (n=50, 1493s)
+[nest-gen] tier w85: switch 4.6 ms, streamed layers 0
+[nest-gen/w85] gsm8k: 0.860 (n=50, 1318s)
+[nest-gen] tier w100+draft: switch 2.5 ms, streamed layers 0
+[nest-gen/w100+draft] gsm8k: 0.740 (n=50, 828s)
+[nest-gen] tier w85+draft: switch 21.1 ms, streamed layers 0
+loaded models/g12-nest/model.nest: 7.5 GB resident, 21s
+[nest-gen] tier w85+draft: switch 0.8 ms, streamed layers 0
+[nest-gen/w85+draft] gsm8k: 0.860 (n=50, 694s)
+peak GB 8.182039506
+loaded models/g12-nest/model.nest: 7.5 GB resident, 14s
+[nest-gen] tier w90: switch 0.6 ms, streamed layers 0
+[nest-gen/w90] ifeval: 0.800 (n=30, 708s)
+[nest-gen] tier w85: switch 4.0 ms, streamed layers 0
+[nest-gen/w85] ifeval: 0.767 (n=30, 570s)
+[nest-gen] tier w100+draft: switch 2.1 ms, streamed layers 0
+[nest-gen/w100+draft] ifeval: 0.800 (n=30, 384s)
+[nest-gen] tier w85+draft: switch 1.1 ms, streamed layers 0
+[nest-gen/w85+draft] ifeval: 0.767 (n=30, 323s)
+peak GB 8.183663384

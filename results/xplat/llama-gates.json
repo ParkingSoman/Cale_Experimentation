@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-11",
+  "build": "llama.cpp b11558 + llama/patches/0001, shim llama/shim/cale_llama.cpp, no weight repacking, 4 CPU threads, HP i7-8550U (WSL)",
+  "model": "gemma-3n-E4B-it-Q4_0.gguf (unsloth), official file gemma-3n-E2B-it-Q4_0.gguf",
+  "gate_C_full_size_equals_stock": {
+    "samples": "3 greedy answers (24 tokens) and 4 held-out chat samples",
+    "greedy_identical": "3/3",
+    "mean_loss": {"stock_llama_cpp": 1.9384, "patched": 1.9384},
+    "largest_per_sample_difference": 0.0,
+    "verdict": "PASS: at full size the patched build is bit-identical to unpatched llama.cpp"
+  },
+  "gate_A_slice_vs_official_e2b": {
+    "samples": "3 greedy answers and 12 held-out chat samples (answer part, prompt cut to 300 tokens, answer to 64)",
+    "mean_loss": {"e4b_sliced_to_e2b_size": 2.1049, "official_e2b_file": 2.1053, "e4b_full": 2.3239},
+    "greedy_identical_slice_vs_official": "3/3",
+    "largest_per_sample_difference_slice_vs_official": 0.0784,
+    "verdict": "PASS: the sliced E4B behaves like Google's E2B, as on the Mac in phase 3"
+  },
+  "speed_seconds_for_24_token_answer": {"e4b_full": [6.3, 6.2, 6.0], "e4b_sliced_e2b": [3.4, 2.8, 3.3], "official_e2b": [3.5, 3.3, 3.7]},
+  "note": "Repacking off costs about 25-33% speed on this CPU (stock repack: 16.3 prompt / 7.0 answer tok/s, no repack: 11.0 / 5.3). A file layout with the down matrix split in two halves would let repacking stay on."
+}

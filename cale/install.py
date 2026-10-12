@@ -1,0 +1,344 @@
+#!/usr/bin/env python3
+"""Install Cale on this computer: Mac, Windows or Linux. Run once:  python cale/install.py
+
+Standard library only, so any Python 3.9 or newer can run it. Everything goes in one folder.
+Nothing outside it changes, except on a Mac: a LaunchAgent (Cale starts at login) and a `cale` link.
+On Windows and Linux there is no service: apps start Cale when they need it (cale.client.ensure_running).
+
+Settings (all optional, as environment variables):
+  CALE_HOME         install folder (default: the usual place for this OS, see cale/oslayer.py)
+  CALE_MODEL_SRC    a local model (a folder on Mac, a .gguf file on Windows and Linux) to link in, no extra disk
+  CALE_ALLOW_COPY=1 copy the model if a hard link is not possible
+  CALE_MODEL_REPO   Mac: the Hugging Face repo (default mlx-community/gemma-3n-E4B-it-4bit)
+  CALE_MODEL_URL    Windows and Linux: where to download the .gguf (default: unsloth/gemma-3n-E4B-it-GGUF, Q4_0)
+  CALE_MAX_MBPS     limit the download speed (megabytes per second), to keep a shared network usable
+  CALE_LIB_SRC      the cale_llama library file to install (Windows and Linux). Default: llama/dist/<os>-<arch>/
+  CALE_PROGRESS=1   also print  CALE_PROGRESS {"stage": ..., "pct": ...}  lines for an app to show
+  CALE_DEBUG=1      test mode (Mac): CALE_AUTO_APPROVE=1 skips the Allow dialog
+"""
+import hashlib
+import json
+import os
+import platform
+import shutil
+import stat
+import subprocess
+import sys
+import tarfile
+import time
+import urllib.request
+import zipfile
+from pathlib import Path
+
+SRC = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(SRC))
+from cale import oslayer  # noqa: E402
+
+GGUF_URL = "https://huggingface.co/unsloth/gemma-3n-E4B-it-GGUF/resolve/main/gemma-3n-E4B-it-Q4_0.gguf"
+UV_BASE = "https://github.com/astral-sh/uv/releases/latest/download/"
+
+
+def say(msg):
+    print(f"==> {msg}", flush=True)
+
+
+def die(msg):
+    print(f"Cale install stopped: {msg}", file=sys.stderr, flush=True)
+    sys.exit(1)
+
+
+def progress(stage, pct=None, **extra):
+    if os.environ.get("CALE_PROGRESS"):
+        print("CALE_PROGRESS " + json.dumps({"stage": stage, **({"pct": pct} if pct is not None else {}), **extra}), flush=True)
+
+
+def arch():
+    m = platform.machine().lower()
+    return "arm64" if m in ("arm64", "aarch64") else "x86_64" if m in ("x86_64", "amd64") else m
+
+
+def choose_backend():
+    a = arch()
+    if oslayer.MAC:
+        if a != "arm64":
+            die("Cale needs a Mac with Apple silicon.")
+        if int(platform.mac_ver()[0].split(".")[0] or 0) < 14:
+            die("Cale needs macOS 14 or newer.")
+        return "mlx"
+    if a != "x86_64":
+        die(f"Cale does not support {oslayer.NAME} on {a} yet. It needs a 64-bit Intel or AMD computer (with AVX2).")
+    return "llama"
+
+
+def download(url, dest, expect_sha=None):
+    """Download with resume. Prints progress. Keeps `dest`.part until the file is whole."""
+    part = Path(str(dest) + ".part")
+    have = part.stat().st_size if part.exists() else 0
+    cap = float(os.environ.get("CALE_MAX_MBPS") or 0) * 1e6
+    req = urllib.request.Request(url, headers={"Range": f"bytes={have}-"} if have else {})
+    try:
+        r = urllib.request.urlopen(req, timeout=60)
+    except urllib.error.HTTPError as e:
+        if e.code == 416 and have:                       # the part file is already complete
+            r = None
+        else:
+            raise
+    total = None
+    if r is not None:
+        if r.status == 206:
+            total = int(r.headers["Content-Range"].split("/")[1])
+        else:
+            have = 0                                     # the server sent everything again
+            total = int(r.headers.get("Content-Length") or 0) or None
+        expect_sha = expect_sha or r.headers.get("X-Linked-Etag", "").strip('"') or None
+        t0, last, got = time.time(), 0.0, 0
+        with open(part, "ab" if have else "wb") as f:
+            while True:
+                chunk = r.read(1 << 20)
+                if not chunk:
+                    break
+                f.write(chunk)
+                got += len(chunk)
+                now = time.time()
+                if now - last > 0.25:
+                    last = now
+                    progress("model", done=have + got, total=total or 0)
+                if cap and got / max(now - t0, 1e-6) > cap:
+                    time.sleep(len(chunk) / cap)
+        r.close()
+    size = part.stat().st_size
+    if total and size != total:
+        die(f"the model download is incomplete ({size} of {total} bytes). Run the install again to resume.")
+    if expect_sha and len(expect_sha) == 64:
+        h = hashlib.sha256()
+        with open(part, "rb") as f:
+            for blk in iter(lambda: f.read(1 << 22), b""):
+                h.update(blk)
+        if h.hexdigest() != expect_sha:
+            part.unlink()
+            die("the downloaded model is damaged (checksum differs). Run the install again.")
+    os.replace(part, dest)
+    progress("model", done=size, total=size)
+
+
+def find_uv(home):
+    exe = "uv.exe" if oslayer.WIN else "uv"
+    for p in (shutil.which("uv"), home / "bin" / exe):
+        if p and Path(p).exists():
+            return str(p)
+    triple = {("darwin", "arm64"): "aarch64-apple-darwin", ("linux", "x86_64"): "x86_64-unknown-linux-gnu",
+              ("win32", "x86_64"): "x86_64-pc-windows-msvc"}.get((sys.platform if sys.platform != "linux" else "linux", arch()))
+    if not triple:
+        die("uv is missing and has no download for this computer. Install uv from https://docs.astral.sh/uv/ and run again.")
+    say("Getting uv (a small tool that sets up Python)")
+    ext = "zip" if oslayer.WIN else "tar.gz"
+    archive = home / f"uv.{ext}"
+    urllib.request.urlretrieve(f"{UV_BASE}uv-{triple}.{ext}", archive)
+    (home / "bin").mkdir(parents=True, exist_ok=True)
+    if ext == "zip":
+        with zipfile.ZipFile(archive) as z:
+            for n in z.namelist():
+                if Path(n).name in ("uv.exe", "uvx.exe"):
+                    (home / "bin" / Path(n).name).write_bytes(z.read(n))
+    else:
+        with tarfile.open(archive) as t:
+            for m in t.getmembers():
+                if Path(m.name).name in ("uv", "uvx") and m.isfile():
+                    target = home / "bin" / Path(m.name).name
+                    target.write_bytes(t.extractfile(m).read())
+                    target.chmod(target.stat().st_mode | stat.S_IEXEC)
+    archive.unlink()
+    return str(home / "bin" / exe)
+
+
+def link_or_copy(src, dst):
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    if dst.exists():
+        dst.unlink()
+    try:
+        os.link(src, dst)
+    except OSError:
+        if os.environ.get("CALE_ALLOW_COPY") != "1":
+            die(f"cannot link {src.name} (a different disk?). Set CALE_ALLOW_COPY=1 to copy it (about 6 GB).")
+        shutil.copy2(src, dst)
+
+
+def copy_runtime(home):
+    rt = home / "runtime"
+    for sub in ("cale", "nest"):
+        shutil.rmtree(rt / sub, ignore_errors=True)
+    ignore = shutil.ignore_patterns("__pycache__", "tests", "*.sh", "*.ps1", "*.plist", "requirements*.txt", "README.md")
+    shutil.copytree(SRC / "cale", rt / "cale", ignore=ignore)
+    (rt / "llama").mkdir(parents=True, exist_ok=True)
+    shutil.copy2(SRC / "llama" / "prepare_gguf.py", rt / "llama" / "prepare_gguf.py")      # makes the model fast on a CPU
+    (rt / "nest").mkdir(parents=True, exist_ok=True)
+    for f in ("__init__.py", "levels3n.py", "gemma3n_levels.json", "gemma3n.py", "elastic.py"):
+        shutil.copy2(SRC / "nest" / f, rt / "nest" / f)
+
+
+def install_model(home, backend):
+    if backend == "mlx":
+        model = home / "models" / "gemma-3n-e4b"
+        if (model / ".complete").exists():
+            say("Model is already installed")
+        elif os.environ.get("CALE_MODEL_SRC"):
+            srcdir = Path(os.environ["CALE_MODEL_SRC"])
+            if not (srcdir / "config.json").exists():
+                die(f"model folder not found: {srcdir}")
+            say("Linking the model (no extra disk space)")
+            for f in srcdir.iterdir():
+                if f.is_file():
+                    link_or_copy(f, model / f.name)
+            (model / ".complete").write_text("ok\n")
+        else:
+            say("Downloading the model (it resumes if interrupted)")
+            py = str(oslayer.venv_python(home / "venv"))
+            r = subprocess.run([py, str(home / "runtime" / "cale" / "fetch_model.py"),
+                                os.environ.get("CALE_MODEL_REPO", "mlx-community/gemma-3n-E4B-it-4bit"), str(model)])
+            if r.returncode:
+                die("the model download failed. Run the install again to resume.")
+        return model
+    model = home / "models" / "gemma-3n-e4b.gguf"
+    done = Path(str(model) + ".complete")
+    raw = home / "models" / "gemma-3n-e4b.download.gguf"
+    if done.exists() and model.exists():
+        say("Model is already installed")
+        return model
+    if os.environ.get("CALE_MODEL_SRC"):
+        s = Path(os.environ["CALE_MODEL_SRC"])
+        if s.is_dir():
+            s = sorted(s.glob("*.gguf"))[0] if list(s.glob("*.gguf")) else s
+        if not s.is_file():
+            die(f"model file not found: {s}")
+        say("Using the model file you gave (no download)")
+        if is_prepared(s):
+            link_or_copy(s, model)                      # already in Cale's layout: nothing to convert
+            done.write_text("ok\n")
+            return model
+        link_or_copy(s, raw)
+    elif raw.exists() and not (home / "models" / "gemma-3n-e4b.download.complete").exists():
+        say("Finishing the model download (it resumes)")
+        download(os.environ.get("CALE_MODEL_URL", GGUF_URL), raw)
+    elif not raw.exists():
+        say("Downloading the model (about 4.4 GB, it resumes if interrupted)")
+        raw.parent.mkdir(parents=True, exist_ok=True)
+        download(os.environ.get("CALE_MODEL_URL", GGUF_URL), raw)
+    (home / "models" / "gemma-3n-e4b.download.complete").write_text("ok\n")
+    prepare(home, raw, model)
+    done.write_text("ok\n")
+    return model
+
+
+def is_prepared(path):
+    """True if this GGUF already has the key cale.ffn_down_split (the file is in Cale's layout)."""
+    with open(path, "rb") as f:
+        return b"cale.ffn_down_split" in f.read(64 * 1024 * 1024)       # the metadata is at the start of the file
+
+
+def prepare(home, raw, model):
+    """Lay each down matrix out as two halves, so the CPU engine can keep its fast weight repacking on (llama/prepare_gguf.py).
+    If that fails, the downloaded file still works, only slower: use it as it is."""
+    progress("convert", 96)
+    say("Preparing the model for this computer (about a minute)")
+    r = subprocess.run([str(oslayer.venv_python(home / "venv")), str(home / "runtime" / "llama" / "prepare_gguf.py"),
+                        str(raw), str(model)])
+    if r.returncode != 0 or not model.exists():
+        print("(Could not prepare the model. Cale will use it as it is, a little slower.)", flush=True)
+        model.unlink(missing_ok=True)
+        os.replace(raw, model)
+        return
+    raw.unlink()                                          # a copy of the same size: free the disk
+
+
+def install_library(home):
+    name = "cale_llama.dll" if oslayer.WIN else "libcale_llama.so"
+    key = f"{'windows' if oslayer.WIN else 'linux'}-{arch()}"
+    for cand in (os.environ.get("CALE_LIB_SRC"), SRC / "llama" / "dist" / key / name):
+        if cand and Path(cand).is_file():
+            (home / "lib").mkdir(parents=True, exist_ok=True)
+            shutil.copy2(cand, home / "lib" / name)
+            return
+    die(f"the {name} library for {key} was not found. Build it with llama/build.{'ps1' if oslayer.WIN else 'sh'} "
+        "and put it in llama/dist/" + key + "/, or set CALE_LIB_SRC.")
+
+
+def write_command(home, port):
+    (home / "bin").mkdir(parents=True, exist_ok=True)
+    py, rt = oslayer.venv_python(home / "venv"), home / "runtime"
+    if oslayer.WIN:
+        (home / "bin" / "cale.cmd").write_text(
+            f'@echo off\r\nset "CALE_HOME={home}"\r\nset "PYTHONPATH={rt}"\r\n"{py}" -m cale.cli %*\r\n')
+        return home / "bin" / "cale.cmd"
+    exe = home / "bin" / "cale"
+    exe.write_text(f'#!/bin/sh\nexport CALE_HOME="{home}" PYTHONPATH="{rt}"\nexec "{py}" -m cale.cli "$@"\n')
+    exe.chmod(0o755)
+    link = Path.home() / ".local" / "bin"
+    if link.is_dir():
+        (link / "cale").unlink(missing_ok=True)
+        (link / "cale").symlink_to(exe)
+    return exe
+
+
+def install_launch_agent(home, port):
+    plist = Path.home() / "Library" / "LaunchAgents" / "ai.cale.runtime.plist"
+    extra = ""
+    if os.environ.get("CALE_DEBUG") == "1":                     # test mode only: it turns off the Allow dialog on request
+        extra = ("    <key>CALE_DEBUG</key><string>1</string>\n"
+                 f"    <key>CALE_AUTO_APPROVE</key><string>{os.environ.get('CALE_AUTO_APPROVE', '0')}</string>")
+    if port != 47821:
+        extra += f"\n    <key>CALE_PORT</key><string>{port}</string>"
+    from xml.sax.saxutils import escape
+    plist.parent.mkdir(parents=True, exist_ok=True)
+    plist.write_text((SRC / "cale" / "ai.cale.runtime.plist").read_text().replace("__HOME__", escape(str(home))).replace("__EXTRA_ENV__", extra))
+    return plist
+
+
+def main():
+    backend = choose_backend()
+    home = oslayer.home_dir()
+    port = int(os.environ.get("CALE_PORT", "47821"))
+    os.environ["CALE_HOME"] = str(home)
+    for sub in ("runtime", "models", "logs", "bin"):
+        (home / sub).mkdir(parents=True, exist_ok=True)
+    say(f"Installing Cale for {oslayer.NAME} ({backend} engine) in {home}")
+
+    progress("runtime", 2)
+    say("Copying the runtime")
+    copy_runtime(home)
+
+    progress("python", 8)
+    say("Setting up Python (its own copy, nothing shared with other projects)")
+    uv = find_uv(home)
+    if not oslayer.venv_python(home / "venv").exists():
+        subprocess.run([uv, "venv", "--python", "3.12", str(home / "venv")], check=True, stdout=subprocess.DEVNULL)
+    req = SRC / "cale" / f"requirements-{backend}.txt"
+    subprocess.run([uv, "pip", "install", "--quiet", "--python", str(oslayer.venv_python(home / "venv")), "-r", str(req)], check=True)
+
+    progress("model", 25)
+    install_model(home, backend)
+    if backend == "llama":
+        install_library(home)
+    elif (SRC / "results" / "g3n-curve.json").exists():
+        shutil.copy2(SRC / "results" / "g3n-curve.json", home / "curve.json")      # numbers measured on a Mac: only copied to a Mac
+
+    cmd = write_command(home, port)
+    progress("service", 95)
+    if oslayer.MAC:
+        say("Starting Cale at login")
+        install_launch_agent(home, port)
+        from cale import service
+        service.stop()
+        ok, msg = service.start(60)
+    else:
+        say("Checking that Cale starts (apps start it themselves when they need it)")
+        from cale import service
+        ok, msg = service.start(60)
+    if not ok:
+        die(msg)
+    progress("done", 100)
+    print(f"Cale is running at http://127.0.0.1:{port}")
+    print(f"Check it any time with:  {cmd} status")
+
+
+if __name__ == "__main__":
+    main()

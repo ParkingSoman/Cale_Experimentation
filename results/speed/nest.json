@@ -1,0 +1,41 @@
+{
+ "ram_budget_gb": null,
+ "resident_gb": 7.4674176,
+ "load_s": 4.930331832962111,
+ "w100": {
+  "prefill_tps": 276.1118241621887,
+  "time_to_answer_s": 1.8543211669893935,
+  "ssd_gb": 0.0,
+  "decode_tps": 10.375,
+  "switch_ms_median": 0.8909169700928032
+ },
+ "w90": {
+  "prefill_tps": 280.8942981839677,
+  "time_to_answer_s": 1.8227497080224566,
+  "ssd_gb": 0.0,
+  "decode_tps": 11.114999999999998,
+  "switch_ms_median": 1.1808330309577286
+ },
+ "w85": {
+  "prefill_tps": 302.36474179352933,
+  "time_to_answer_s": 1.693319124984555,
+  "ssd_gb": 0.0,
+  "decode_tps": 11.655000000000001,
+  "switch_ms_median": 1.065584016032517
+ },
+ "w100+draft": {
+  "prefill_tps": 257.4007480955711,
+  "time_to_answer_s": 1.9891162080457434,
+  "ssd_gb": 0.0,
+  "decode_tps": 20.445,
+  "switch_ms_median": 0.7112500024959445
+ },
+ "w85+draft": {
+  "prefill_tps": 294.89738960508294,
+  "time_to_answer_s": 1.7361971249920316,
+  "ssd_gb": 0.0,
+  "decode_tps": 22.145,
+  "switch_ms_median": 0.7758749998174608
+ },
+ "_peak_gb": 8.346953032
+}

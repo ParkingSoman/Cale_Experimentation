@@ -1,0 +1,251 @@
+{
+ "quality": {
+  "w100": {
+   "easy": 0.7666666666666667,
+   "hard_long": 0.78,
+   "hard_one": 0.534
+  },
+  "w100+draft": {
+   "easy": 0.8,
+   "hard_long": 0.74,
+   "hard_one": 0.534
+  },
+  "w85+draft": {
+   "easy": 0.7666666666666667,
+   "hard_long": 0.86,
+   "hard_one": 0.41
+  },
+  "E4B": {
+   "easy": 0.6666666666666666,
+   "hard_long": 0.6,
+   "hard_one": 0.386
+  }
+ },
+ "results": {
+  "100% easy": {
+   "always 12B w100": {
+    "total_s": 1993.6,
+    "quality": 76.7,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "always 12B w100+draft": {
+    "total_s": 1652.4,
+    "quality": 80.0,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "always 12B w85+draft": {
+    "total_s": 1252.6,
+    "quality": 76.7,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "nest, developer-routed": {
+    "total_s": 1252.6,
+    "quality": 76.7,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "E4B only": {
+    "total_s": 717.0,
+    "quality": 66.7,
+    "ram_gb": 5.2,
+    "reloads": 0
+   },
+   "12B+E4B stack, both in RAM": {
+    "total_s": 717.0,
+    "quality": 66.7,
+    "ram_gb": 13.0,
+    "reloads": 0
+   },
+   "12B+E4B stack, one at a time": {
+    "total_s": 717.0,
+    "quality": 66.7,
+    "ram_gb": 7.8,
+    "reloads": 0
+   }
+  },
+  "80% easy": {
+   "always 12B w100": {
+    "total_s": 1843.4,
+    "quality": 74.5,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "always 12B w100+draft": {
+    "total_s": 1451.5,
+    "quality": 76.7,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "always 12B w85+draft": {
+    "total_s": 1130.6,
+    "quality": 74.0,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "nest, developer-routed": {
+    "total_s": 1131.7,
+    "quality": 74.1,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "E4B only": {
+    "total_s": 694.7,
+    "quality": 63.2,
+    "ram_gb": 5.2,
+    "reloads": 0
+   },
+   "12B+E4B stack, both in RAM": {
+    "total_s": 703.2,
+    "quality": 66.1,
+    "ram_gb": 13.0,
+    "reloads": 0
+   },
+   "12B+E4B stack, one at a time": {
+    "total_s": 836.2,
+    "quality": 66.1,
+    "ram_gb": 7.8,
+    "reloads": 34
+   }
+  },
+  "50% easy": {
+   "always 12B w100": {
+    "total_s": 1618.2,
+    "quality": 71.2,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "always 12B w100+draft": {
+    "total_s": 1150.2,
+    "quality": 71.8,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "always 12B w85+draft": {
+    "total_s": 947.6,
+    "quality": 70.1,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "nest, developer-routed": {
+    "total_s": 950.3,
+    "quality": 70.2,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "E4B only": {
+    "total_s": 661.3,
+    "quality": 58.0,
+    "ram_gb": 5.2,
+    "reloads": 0
+   },
+   "12B+E4B stack, both in RAM": {
+    "total_s": 682.5,
+    "quality": 65.2,
+    "ram_gb": 13.0,
+    "reloads": 0
+   },
+   "12B+E4B stack, one at a time": {
+    "total_s": 885.9,
+    "quality": 65.2,
+    "ram_gb": 7.8,
+    "reloads": 52
+   }
+  },
+  "20% easy": {
+   "always 12B w100": {
+    "total_s": 1393.0,
+    "quality": 67.9,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "always 12B w100+draft": {
+    "total_s": 848.9,
+    "quality": 67.0,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "always 12B w85+draft": {
+    "total_s": 764.6,
+    "quality": 66.1,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "nest, developer-routed": {
+    "total_s": 768.9,
+    "quality": 66.3,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "E4B only": {
+    "total_s": 627.8,
+    "quality": 52.8,
+    "ram_gb": 5.2,
+    "reloads": 0
+   },
+   "12B+E4B stack, both in RAM": {
+    "total_s": 661.8,
+    "quality": 64.3,
+    "ram_gb": 13.0,
+    "reloads": 0
+   },
+   "12B+E4B stack, one at a time": {
+    "total_s": 787.0,
+    "quality": 64.3,
+    "ram_gb": 7.8,
+    "reloads": 32
+   }
+  },
+  "0% easy": {
+   "always 12B w100": {
+    "total_s": 1242.9,
+    "quality": 65.7,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "always 12B w100+draft": {
+    "total_s": 648.0,
+    "quality": 63.7,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "always 12B w85+draft": {
+    "total_s": 642.7,
+    "quality": 63.5,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "nest, developer-routed": {
+    "total_s": 648.0,
+    "quality": 63.7,
+    "ram_gb": 7.8,
+    "reloads": 0
+   },
+   "E4B only": {
+    "total_s": 605.6,
+    "quality": 49.3,
+    "ram_gb": 5.2,
+    "reloads": 0
+   },
+   "12B+E4B stack, both in RAM": {
+    "total_s": 648.0,
+    "quality": 63.7,
+    "ram_gb": 13.0,
+    "reloads": 0
+   },
+   "12B+E4B stack, one at a time": {
+    "total_s": 648.0,
+    "quality": 63.7,
+    "ram_gb": 7.8,
+    "reloads": 0
+   }
+  }
+ },
+ "direct_check": {
+  "measured_s": 187.9555879170075,
+  "predicted_s": 158.10692312789755,
+  "error": -0.15880700925098193
+ }
+}

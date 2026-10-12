@@ -1,0 +1,136 @@
+{
+ "load_gb": 4.203,
+ "ffn_gb": 2.312,
+ "sizes": {
+  "e4b": {
+   "active_gb": 4.198,
+   "ffn_gb": 2.312,
+   "predicted_ffn_gb": 2.312
+  },
+  "e3.79-layer": {
+   "active_gb": 4.047,
+   "ffn_gb": 2.161,
+   "predicted_ffn_gb": 2.161
+  },
+  "e3.74-block": {
+   "active_gb": 4.009,
+   "ffn_gb": 2.123,
+   "predicted_ffn_gb": 2.123
+  },
+  "e3.59-layer": {
+   "active_gb": 3.896,
+   "ffn_gb": 2.01,
+   "predicted_ffn_gb": 2.01
+  },
+  "e3.49-block": {
+   "active_gb": 3.821,
+   "ffn_gb": 1.935,
+   "predicted_ffn_gb": 1.935
+  },
+  "e3.39-layer": {
+   "active_gb": 3.745,
+   "ffn_gb": 1.859,
+   "predicted_ffn_gb": 1.859
+  },
+  "e3.24-block": {
+   "active_gb": 3.632,
+   "ffn_gb": 1.746,
+   "predicted_ffn_gb": 1.746
+  },
+  "e3.18-layer": {
+   "active_gb": 3.594,
+   "ffn_gb": 1.708,
+   "predicted_ffn_gb": 1.708
+  },
+  "e2.98-block": {
+   "active_gb": 3.443,
+   "ffn_gb": 1.557,
+   "predicted_ffn_gb": 1.557
+  },
+  "e2.98-layer": {
+   "active_gb": 3.443,
+   "ffn_gb": 1.557,
+   "predicted_ffn_gb": 1.557
+  },
+  "e2.73-block": {
+   "active_gb": 3.254,
+   "ffn_gb": 1.368,
+   "predicted_ffn_gb": 1.368
+  },
+  "e2.69-layer": {
+   "active_gb": 3.217,
+   "ffn_gb": 1.331,
+   "predicted_ffn_gb": 1.331
+  },
+  "e2.54-layer": {
+   "active_gb": 3.103,
+   "ffn_gb": 1.217,
+   "predicted_ffn_gb": 1.217
+  },
+  "e2.49-block": {
+   "active_gb": 3.066,
+   "ffn_gb": 1.18,
+   "predicted_ffn_gb": 1.18
+  },
+  "e1.96-layer": {
+   "active_gb": 2.773,
+   "ffn_gb": 0.887,
+   "predicted_ffn_gb": 0.887
+  },
+  "e2b": {
+   "active_gb": 2.735,
+   "ffn_gb": 0.849,
+   "predicted_ffn_gb": 0.849
+  }
+ },
+ "e2b_same_after_hold": 8,
+ "hold_e2b_gb": 2.739,
+ "full_from_e2b": {
+  "per_call_disk_mb_disk_s_total_s": [
+   [
+    1982,
+    0.184,
+    0.354
+   ],
+   [
+    1982,
+    0.185,
+    1.394
+   ],
+   [
+    1982,
+    0.18,
+    1.357
+   ],
+   [
+    1982,
+    0.178,
+    1.224
+   ],
+   [
+    1982,
+    0.183,
+    1.376
+   ],
+   [
+    1982,
+    0.182,
+    1.348
+   ],
+   [
+    1982,
+    0.18,
+    1.368
+   ],
+   [
+    1982,
+    0.184,
+    1.355
+   ]
+  ],
+  "seconds_all": 11.6,
+  "peak_gb": 6.149,
+  "active_after_gb": 2.735,
+  "same_as_resident_full": 8
+ }
+}

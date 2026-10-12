@@ -1,0 +1,66 @@
+{
+ "model": "gemma-12b",
+ "quality_note": "MMLU-Pro n=1000, MMStar n=300, no healing",
+ "rows": [
+  {
+   "size": 100,
+   "mmlu_pro": 53.0,
+   "mmstar": 59.7,
+   "chat_tok_s": 13.13,
+   "chat_tok_s_draft": 18.32,
+   "math_tok_s": 13.77,
+   "math_tok_s_draft": 26.95,
+   "ram_gb": 7.72
+  },
+  {
+   "size": 90,
+   "mmlu_pro": 44.1,
+   "mmstar": 58.7,
+   "chat_tok_s": 13.45,
+   "chat_tok_s_draft": 18.05,
+   "math_tok_s": 12.59,
+   "math_tok_s_draft": 25.12,
+   "ram_gb": 7.21
+  },
+  {
+   "size": 80,
+   "mmlu_pro": 37.7,
+   "mmstar": 56.0,
+   "chat_tok_s": 13.57,
+   "chat_tok_s_draft": 21.63,
+   "math_tok_s": 13.37,
+   "math_tok_s_draft": 25.88,
+   "ram_gb": 6.67
+  },
+  {
+   "size": 70,
+   "mmlu_pro": 28.8,
+   "mmstar": 44.7,
+   "chat_tok_s": 14.93,
+   "chat_tok_s_draft": 22.09,
+   "math_tok_s": 14.59,
+   "math_tok_s_draft": 29.62,
+   "ram_gb": 6.15
+  },
+  {
+   "size": 60,
+   "mmlu_pro": 22.1,
+   "mmstar": 35.0,
+   "chat_tok_s": 16.36,
+   "chat_tok_s_draft": 26.9,
+   "math_tok_s": 15.55,
+   "math_tok_s_draft": 27.28,
+   "ram_gb": 5.61
+  },
+  {
+   "size": 50,
+   "mmlu_pro": 17.2,
+   "mmstar": 29.7,
+   "chat_tok_s": 18.54,
+   "chat_tok_s_draft": 31.41,
+   "math_tok_s": 17.69,
+   "math_tok_s_draft": 36.03,
+   "ram_gb": 5.08
+  }
+ ]
+}

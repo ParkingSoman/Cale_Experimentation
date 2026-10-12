@@ -4,3 +4,9 @@ data/cache/
 results/**/*.npz
 __pycache__/
 *.safetensors
+.aider*
+
+# local keys and app databases: never commit (the database also stores the key)
+apps/open-webui/data/cale-key
+apps/open-webui/data/secrets.json
+apps/open-webui/data/webui.db*

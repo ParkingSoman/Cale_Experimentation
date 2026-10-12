@@ -1,0 +1,74 @@
+/Users/shonusengupta/Cale_Experimentation/.venv/lib/python3.12/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
+  warnings.warn(
+1 w100 {'easy': 9.82, 'hard_long': 10.59}
+1 w85 {'easy': 11.39, 'hard_long': 12.03}
+1 w100+draft {'easy': 12.93, 'hard_long': 22.54}
+1 w85+draft {'easy': 17.34, 'hard_long': 24.65}
+1 E4B {'easy': 29.26, 'hard_long': 29.49}
+2 w100 {'easy': 10.03, 'hard_long': 10.52}
+2 w85 {'easy': 11.37, 'hard_long': 11.75}
+2 w100+draft {'easy': 12.1, 'hard_long': 21.06}
+2 w85+draft {'easy': 15.97, 'hard_long': 21.12}
+2 E4B {'easy': 27.9, 'hard_long': 21.35}
+{
+ "w100": {
+  "easy": {
+   "effective_tps": 10.03226654289437,
+   "median_call_s": 18.929499999999997,
+   "mean_tokens": 149.5
+  },
+  "hard_long": {
+   "effective_tps": 10.516853613214286,
+   "median_call_s": 23.436,
+   "mean_tokens": 246.66666666666666
+  }
+ },
+ "w85": {
+  "easy": {
+   "effective_tps": 11.369994276416907,
+   "median_call_s": 16.7305,
+   "mean_tokens": 147.33333333333334
+  },
+  "hard_long": {
+   "effective_tps": 11.748091801460713,
+   "median_call_s": 20.314999999999998,
+   "mean_tokens": 226
+  }
+ },
+ "w100+draft": {
+  "easy": {
+   "effective_tps": 12.103806205209054,
+   "median_call_s": 14.285,
+   "mean_tokens": 150.66666666666666
+  },
+  "hard_long": {
+   "effective_tps": 21.055323501832753,
+   "median_call_s": 11.786,
+   "mean_tokens": 247
+  }
+ },
+ "w85+draft": {
+  "easy": {
+   "effective_tps": 15.966483726639566,
+   "median_call_s": 11.3125,
+   "mean_tokens": 149.58333333333334
+  },
+  "hard_long": {
+   "effective_tps": 21.1224125044682,
+   "median_call_s": 9.608,
+   "mean_tokens": 216.66666666666666
+  }
+ },
+ "E4B": {
+  "easy": {
+   "effective_tps": 27.895669751980286,
+   "median_call_s": 6.6089386040112,
+   "mean_tokens": 146.5
+  },
+  "hard_long": {
+   "effective_tps": 21.346948604294507,
+   "median_call_s": 9.155885979504092,
+   "mean_tokens": 243.66666666666666
+  }
+ }
+}

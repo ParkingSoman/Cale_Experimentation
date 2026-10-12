@@ -1,0 +1,208 @@
+{
+ "counts": {
+  "different": 646,
+  "identical": 823
+ },
+ "first_problems": [
+  [
+   "language_model.model.per_layer_model_projection.weight",
+   "max abs diff 5.726e+08"
+  ],
+  [
+   "language_model.model.per_layer_model_projection.scales",
+   "max abs diff 0.001526"
+  ],
+  [
+   "language_model.model.layers.9.self_attn.v_proj.weight",
+   "max abs diff 5.716e+08"
+  ],
+  [
+   "language_model.model.layers.9.self_attn.q_proj.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.9.self_attn.q_proj.scales",
+   "max abs diff 0.00116"
+  ],
+  [
+   "language_model.model.layers.9.self_attn.o_proj.scales",
+   "max abs diff 0.001282"
+  ],
+  [
+   "language_model.model.layers.9.self_attn.k_proj.scales",
+   "max abs diff 0.002808"
+  ],
+  [
+   "language_model.model.layers.9.per_layer_projection.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.9.per_layer_input_gate.weight",
+   "max abs diff 5.716e+08"
+  ],
+  [
+   "language_model.model.layers.9.mlp.up_proj.weight",
+   "max abs diff 5.726e+08"
+  ],
+  [
+   "language_model.model.layers.9.mlp.up_proj.scales",
+   "max abs diff 0.001526"
+  ],
+  [
+   "language_model.model.layers.9.mlp.down_proj.weight",
+   "max abs diff 5.726e+08"
+  ],
+  [
+   "language_model.model.layers.9.mlp.down_proj.scales",
+   "max abs diff 0.0007324"
+  ],
+  [
+   "language_model.model.layers.9.laurel.linear_right.scales",
+   "max abs diff 0.005127"
+  ],
+  [
+   "language_model.model.layers.9.laurel.linear_left.scales",
+   "max abs diff 0.0008545"
+  ],
+  [
+   "language_model.model.layers.9.altup.modality_router.weight",
+   "max abs diff 2.684e+08"
+  ],
+  [
+   "language_model.model.layers.8.self_attn.v_proj.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.8.self_attn.v_proj.scales",
+   "max abs diff 0.001404"
+  ],
+  [
+   "language_model.model.layers.8.self_attn.q_proj.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.8.self_attn.o_proj.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.8.self_attn.o_proj.scales",
+   "max abs diff 0.0009155"
+  ],
+  [
+   "language_model.model.layers.8.self_attn.k_proj.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.8.self_attn.k_proj.scales",
+   "max abs diff 0.001099"
+  ],
+  [
+   "language_model.model.layers.8.per_layer_projection.weight",
+   "max abs diff 5.38e+08"
+  ],
+  [
+   "language_model.model.layers.8.per_layer_input_gate.weight",
+   "max abs diff 5.558e+08"
+  ],
+  [
+   "language_model.model.layers.8.per_layer_input_gate.scales",
+   "max abs diff 0.00116"
+  ],
+  [
+   "language_model.model.layers.8.mlp.up_proj.weight",
+   "max abs diff 5.727e+08"
+  ],
+  [
+   "language_model.model.layers.8.mlp.gate_proj.weight",
+   "max abs diff 5.726e+08"
+  ],
+  [
+   "language_model.model.layers.8.mlp.gate_proj.scales",
+   "max abs diff 0.001404"
+  ],
+  [
+   "language_model.model.layers.8.mlp.down_proj.weight",
+   "max abs diff 5.726e+08"
+  ],
+  [
+   "language_model.model.layers.8.laurel.linear_right.scales",
+   "max abs diff 0.004639"
+  ],
+  [
+   "language_model.model.layers.8.laurel.linear_left.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.8.laurel.linear_left.scales",
+   "max abs diff 0.001404"
+  ],
+  [
+   "language_model.model.layers.8.altup.modality_router.weight",
+   "max abs diff 2.684e+08"
+  ],
+  [
+   "language_model.model.layers.7.self_attn.v_proj.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.7.self_attn.o_proj.weight",
+   "max abs diff 5.726e+08"
+  ],
+  [
+   "language_model.model.layers.7.self_attn.o_proj.scales",
+   "max abs diff 0.0009155"
+  ],
+  [
+   "language_model.model.layers.7.per_layer_projection.weight",
+   "max abs diff 5.548e+08"
+  ],
+  [
+   "language_model.model.layers.7.per_layer_input_gate.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.7.per_layer_input_gate.scales",
+   "max abs diff 0.001038"
+  ],
+  [
+   "language_model.model.layers.7.mlp.down_proj.weight",
+   "max abs diff 5.726e+08"
+  ],
+  [
+   "language_model.model.layers.7.mlp.down_proj.scales",
+   "max abs diff 0.0005188"
+  ],
+  [
+   "language_model.model.layers.7.laurel.linear_right.weight",
+   "max abs diff 2.684e+08"
+  ],
+  [
+   "language_model.model.layers.7.altup.modality_router.weight",
+   "max abs diff 2.684e+08"
+  ],
+  [
+   "language_model.model.layers.6.self_attn.v_proj.scales",
+   "max abs diff 0.001282"
+  ],
+  [
+   "language_model.model.layers.6.self_attn.o_proj.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.6.self_attn.o_proj.scales",
+   "max abs diff 0.00116"
+  ],
+  [
+   "language_model.model.layers.6.self_attn.k_proj.weight",
+   "max abs diff 5.715e+08"
+  ],
+  [
+   "language_model.model.layers.19.self_attn.o_proj.scales",
+   "max abs diff 0.001282"
+  ],
+  [
+   "language_model.model.layers.21.per_layer_projection.weight",
+   "max abs diff 5.716e+08"
+  ]
+ ]
+}

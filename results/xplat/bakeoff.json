@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-11",
+  "machine": "HP laptop: Intel i7-8550U (4 cores, 8 threads, AVX2), 15.9 GB RAM, Wi-Fi only. WSL sees 7.8 GB. Also NVIDIA MX150 (2 GB) and Intel UHD 620.",
+  "model": "Gemma 3n E4B and E2B, Q4_0 GGUF (unsloth) for llama.cpp. MLX 4-bit (mlx-community) for MLX.",
+  "llama_cpp_build": "b11558",
+  "llama_cpp_cpu_4_threads_tok_per_s": {
+    "windows": {
+      "E4B": {
+        "prompt_512": 18.64,
+        "answer_64": 7.7
+      },
+      "E2B": {
+        "prompt_512": 38.89,
+        "answer_64": 13.65
+      }
+    },
+    "linux_wsl2": {
+      "E4B": {
+        "prompt_512": 16.9,
+        "answer_64": 7.08
+      },
+      "E2B": {
+        "prompt_512": 33.5,
+        "answer_64": 12.25
+      }
+    }
+  },
+  "mlx_cpu_0.32.2_linux_wsl2": {
+    "device": "cpu",
+    "one_matmul_2048x16384_ms": {
+      "4bit_M1": 48.2,
+      "fp32_M1": 50.7,
+      "fp32_M256": 9688.8,
+      "4bit_M256": 8874.2
+    },
+    "note": "About 1.8 GFLOP/s at M=256, one core busy. Model warm-up (16 tokens) did not finish in 7+ minutes. Unusable.",
+    "windows": "import works only after installing mlx-cpu (mlx.dll) next to mlx; speed not measured, same CPU backend"
+  },
+  "vulkan_windows": {
+    "nvidia_mx150": "out of device memory (2 GB)",
+    "intel_uhd620": "crash (access violation) on load"
+  },
+  "decision": "Windows and Linux use llama.cpp on the CPU (patched, prepared file). The Mac keeps MLX: llama.cpp on Metal measured slower or equal.",
+  "size_effect_on_hp": "E2B answers 1.7x (Windows) and 1.7x (Linux) faster than E4B, so the size knob matters on this laptop.",
+  "mac_m5_metal": {
+    "machine": "Apple M5, 24 GB, macOS (GPU)",
+    "llama_cpp_b11558_metal_E4B_Q4_0": {
+      "prompt_512": 744.29,
+      "answer_128": 36.8,
+      "model_memory_gb": 4.09
+    },
+    "cale_mlx_engine_E4B_541_token_prompt": {
+      "full": {
+        "prompt": [
+          872.6,
+          879.7
+        ],
+        "answer": [
+          35.03,
+          37.07
+        ],
+        "memory_gb": 2.88
+      },
+      "smallest_size": {
+        "prompt": 1577.3,
+        "answer": [
+          60.07,
+          60.5
+        ],
+        "memory_gb": 2.88
+      }
+    },
+    "verdict": "MLX is as fast or faster (prompt +17%, answer equal), uses less memory, and has the instant small size. The Mac keeps MLX."
+  }
+}

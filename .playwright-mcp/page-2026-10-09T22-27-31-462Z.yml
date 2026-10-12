@@ -1,0 +1,129 @@
+- generic [ref=f1e2]:
+  - link "Skip to main content" [ref=f1e3] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=f1e5]:
+    - navigation "Chat history" [ref=f1e6]:
+      - button [ref=f1e7]:
+        - button "Open Sidebar" [ref=f1e10]
+        - generic [ref=f1e12]:
+          - link "New Chat" [ref=f1e15] [cursor=pointer]:
+            - /url: /
+          - button "Search" [ref=f1e21] [cursor=pointer]
+          - link "Notes" [ref=f1e28] [cursor=pointer]:
+            - /url: /notes
+          - link "Workspace" [ref=f1e35] [cursor=pointer]:
+            - /url: /workspace
+      - button [ref=f1e45] [cursor=pointer]:
+        - button "User menu" [ref=f1e46]:
+          - img "Open User Profile Menu" [ref=f1e48]
+    - generic:
+      - generic:
+        - link:
+          - /url: /
+        - link:
+          - /url: /
+          - generic: Open WebUI
+        - generic:
+          - button
+      - generic:
+        - generic:
+          - generic:
+            - link:
+              - /url: /
+              - generic: New Chat
+              - generic: ⌘⇧O
+          - generic:
+            - button:
+              - generic: Search
+              - generic: ⌘K
+          - generic:
+            - generic:
+              - link:
+                - /url: /notes
+                - generic: Notes
+            - generic:
+              - link:
+                - /url: /workspace
+                - generic: Workspace
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button:
+                      - generic: Folders
+                    - button
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button [expanded]:
+                      - generic: Chats
+                    - generic:
+                      - button:
+                        - generic:
+                          - button
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Today
+                    - generic:
+                      - button:
+                        - generic: Cooking Tips
+                      - generic:
+                        - generic:
+                          - button:
+                            - generic:
+                              - button
+      - generic:
+        - generic:
+          - button:
+            - button:
+              - generic: User
+    - main [ref=f1e52]:
+      - generic [ref=f1e56]:
+        - navigation [ref=f1e57]:
+          - generic [ref=f1e60]:
+            - generic [ref=f1e6326]:
+              - generic [ref=f1e6327]: Cooking Tips
+              - button [ref=f1e6328] [cursor=pointer]:
+                - button "Chat actions" [ref=f1e6329]
+            - button "Controls" [ref=f1e68] [cursor=pointer]
+        - generic [ref=f1e71]:
+          - region [ref=f1e6336]:
+            - heading "Chat Conversation" [level=2] [ref=f1e6337]
+            - log [ref=f1e6338]:
+              - listitem [ref=f1e6339]:
+                - generic [ref=f1e6342]:
+                  - paragraph [ref=f1e6347]: Give me three tips for learning to cook. Keep it short.
+                  - generic [ref=f1e6348]:
+                    - generic [ref=f1e6349]:
+                      - time: Oct 9, 6:27 PM
+                    - generic [ref=f1e6350]:
+                      - button "Edit"
+                    - generic [ref=f1e6351]:
+                      - button "Copy"
+              - listitem [ref=f1e6352]:
+                - generic [ref=f1e6356]:
+                  - generic [ref=f1e6357]: gemma-3n:smart
+                  - list [ref=f1e6366]:
+                    - listitem [ref=f1e6367]:
+                      - strong [ref=f1e6368]: "Start Simple:"
+                      - text: Master basic recipes first (like scrambled eggs or pasta
+          - generic [ref=f1e6378]:
+            - generic "Send a Message" [active] [ref=f1e6382]:
+              - paragraph [ref=f1e6383]: Send a Message
+            - generic [ref=f1e6384]:
+              - generic [ref=f1e6385]:
+                - button [ref=f1e6386] [cursor=pointer]:
+                  - button "More" [ref=f1e6388]
+                - button [ref=f1e6393] [cursor=pointer]:
+                  - button "Integrations" [ref=f1e6395]
+              - generic [ref=f1e6401]:
+                - 'button "Selected model: gemma-3n:smart" [ref=f1e6408] [cursor=pointer]':
+                  - generic [ref=f1e6409]: gemma-3n:smart
+                - button "Stop" [ref=f1e6415] [cursor=pointer]
