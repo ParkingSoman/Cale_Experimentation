@@ -34,6 +34,7 @@ Kinds:
 | Time one prompt piece may take for an app that leaves to be noticed | 6 s (`CALE_MAX_PIECE_S`) | `batching.MAX_PIECE_S` |
 | Time of a prompt piece next to running answers | 0.75 s (1.5 s alone, on the CPU) | `batching.STEP_SECONDS` |
 | Share of RAM a setup may need before Cale refuses it, and the memory that must stay free now | 85%, 300 MB | `choose.SAFE_FRACTION`, `choose.SAFE_MARGIN` |
+| Answers that run together | 4 (`CALE_SLOTS`) | `backends/llama.py` | A policy, not a machine number: the context memory is one shared pool, so an extra slot costs only a little state, and the benefit (nobody waits for another's whole answer) does not depend on the computer. Whether batching also adds speed is measured (`batch_eps`). |
 | Longest wait, lease, idle time, poll times | `cale/goals.py`, `engine.py`, `server.py` | |
 | Request limits (schema size, pictures, sound) | `constrain.py`, `media.py` | |
 | How far a hold lets the size drop under pressure | `engine.WARN_CAP` | |
@@ -49,7 +50,6 @@ Layer count, the first layer that shares a KV cache, bytes per weight, the conte
 |---|---|---|---|
 | Working memory for reading a prompt | 500 MB | `gemma3n_facts.SCRATCH_BYTES` | **Tried and reverted:** the llama engine reports its compute buffers (shim `cale_compute_bytes`), but that is memory reserved, not memory touched. Using it over-predicted by 0.6 GB on Linux, so memory goals chose smaller sizes than they needed. Next: the peak of the process while the first prompt is read (poll during the warm-up), on both engines. |
 | Speed priors before the model is loaded | `predict.PRIORS` | `cale/predict.py` | Save the speeds in `predict.json` on every computer (done after the first load). Until then a computer that never loaded the model shows the prior as an "estimate". |
-| Number of threads | physical cores | `backends/llama.py` `default_threads` | Probe memory speed at 1, 2, 4 ... threads and stop where it stops growing. Prompts want more threads than answers, so this needs two probes. |
+| Number of threads | physical cores | `backends/llama.py` `default_threads` | Time the real warm-up at a few thread counts. Not done: it only matters on CPUs with fast and slow cores, and none of the three test computers has one, so a change could not be checked. |
 | Memory the MLX engine keeps for activations | 1.5 GB | `nest/runtime.py` `RESERVE_GB` | Read the peak memory of the first prompt. |
-| Number of answers that run together | 4 | `backends/llama.py` `CALE_SLOTS` | From the memory left after the weights and from the measured batch cost. |
-| Memory pressure levels | `cale/pressure.py`, `oslayer.py` | | Calibrate per OS with a stress test. |
+| Memory pressure levels | `cale/pressure.py`, `oslayer.py` | | Calibrate per OS with a stress test. Not done: it needs a computer that can be pushed into swap safely. |
