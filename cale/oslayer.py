@@ -12,6 +12,16 @@ import sys
 import time
 from pathlib import Path
 
+def give_back_heap():
+    """Linux: hand memory that the program freed but its allocator kept (compute buffers of a long prompt) back to the OS.
+    Without it, process memory stays 0.3 GB or more above what the model needs after a big prompt. Other systems do this already."""
+    if sys.platform.startswith("linux"):
+        try:
+            ctypes.CDLL("libc.so.6").malloc_trim(0)
+        except (OSError, AttributeError):
+            pass
+
+
 def is_terminal(stream):
     """True if a person can type at / read from `stream`. On Windows the empty device NUL says isatty() is true, so ask the console."""
     try:

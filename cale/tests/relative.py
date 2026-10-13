@@ -145,8 +145,10 @@ total_gb = oslayer.total_ram() / 1e9
 WORK_GB = (facts.SCRATCH_BYTES + facts.kv_bytes(facts.HOLD_CONTEXT)) / 1e9         # what a memory goal adds to the weights
 want = next(v for v in sizes.values() if v["size_pct"] == 75)       # a goal that fits the 75% size and not the next one up
 pct75 = round((want["ram_gb"] + WORK_GB + 0.02) / total_gb * 100, 2)
-with hold(a.base + "/v1", key, memory_pct=60) as h:
-    check("memory 60%: full size", h.info["size_pct"] == 100 and h.info["goal_met"], h.info)
+full = next(v for v in sizes.values() if v["size_pct"] == MAX_PCT)
+pct_full = round(min(100.0, (full["ram_gb"] + WORK_GB + 0.3) / total_gb * 100), 2)        # a goal that fits the full size, whatever the RAM of this computer
+with hold(a.base + "/v1", key, memory_pct=pct_full) as h:
+    check(f"memory {pct_full}%: full size", h.info["size_pct"] == 100 and h.info["goal_met"], h.info)
 with hold(a.base + "/v1", key, memory_pct=pct75) as h:
     check(f"memory {pct75}%: the 75% size", h.info["size_pct"] == 75 and h.info["goal_met"], h.info)
     check("memory goal: really under budget", h.info["ram_gb"] <= h.info["budget_gb"], h.info)

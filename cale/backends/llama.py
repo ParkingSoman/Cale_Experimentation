@@ -264,6 +264,7 @@ class LlamaNested:
         for i, st in enumerate(self.resident):
             if self.state[i] > st:
                 self._drop(i, st)
+        oslayer.give_back_heap()
 
     def ffn_bytes(self):
         return sum(self.layer_bytes[i][s] for i, s in enumerate(self.state))
