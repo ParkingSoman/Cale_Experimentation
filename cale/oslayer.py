@@ -377,7 +377,7 @@ def has_screen():
 
 
 def ask_allow(app, replacing=False, seconds=120):
-    """Ask the person at the computer: allow this app to use Cale? True only for a clear yes.
+    """Ask the person at the computer: allow this app to use Cale? True only for a clear yes. None if the dialog tool found no screen to show it on.
     The app name travels as data, never inside script text."""
     extra = "This app already has a key. Allowing replaces it." if replacing else ""
     title = "Cale"
@@ -415,7 +415,12 @@ def ask_allow(app, replacing=False, seconds=120):
         exe = shutil.which(tool)
         if exe and (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
             try:
-                return subprocess.run([exe, *args], capture_output=True, timeout=seconds + 5).returncode == 0
+                r = subprocess.run([exe, *args], capture_output=True, timeout=seconds + 5)
+                if r.returncode != 0 and any(w in r.stderr.lower() for w in (b"display", b"x server", b"wayland")):
+                    print(f"[connect] {tool} could not reach the screen ({r.stderr.decode(errors='replace').strip()[:100]}). "
+                          "The question will be answered in a terminal instead.", flush=True)
+                    return None                                  # not a "no" from the person: there was no screen after all
+                return r.returncode == 0
             except subprocess.TimeoutExpired:          # the tool ignored its own timeout: no answer means no
                 print(f"[connect] {tool} did not close after {seconds} s. Counting that as no.", flush=True)
                 return False

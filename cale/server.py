@@ -212,7 +212,9 @@ def ask_user(app, replacing=False):
     if DEBUG and os.environ.get("CALE_AUTO_APPROVE") == "1":
         return True
     if oslayer.has_screen():
-        return oslayer.ask_allow(app, replacing)
+        answer = oslayer.ask_allow(app, replacing)
+        if answer is not None:
+            return answer                                  # a person answered (or the question timed out: that is a no)
     return approval.wait_for_terminal(app, replacing, float(os.environ.get("CALE_APPROVE_WAIT_S", 300)))
 
 

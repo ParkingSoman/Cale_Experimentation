@@ -120,6 +120,16 @@ def main():
                        {"PATH": f"{d}{os.pathsep}{os.environ.get('PATH', '')}", "DISPLAY": ":99"}, timeout=40)
             check("a dialog tool that never closes counts as no", "ANSWER False" in r.stdout, (r.stdout + r.stderr)[-300:])
 
+        # a dialog tool that cannot reach a screen is "no screen", not "no": Cale then asks in a terminal (`cale allow`)
+        with tempfile.TemporaryDirectory() as d:
+            fake = Path(d) / "zenity"
+            fake.write_text("#!/bin/sh\necho '(zenity:19): Gtk-WARNING **: Failed to open display' >&2\nexit 1\n")
+            fake.chmod(0o755)
+            r = run_py("from cale import oslayer\noslayer.MAC = oslayer.WIN = False\n"
+                       "print('ANSWER', oslayer.ask_allow('Test App', seconds=1))",
+                       {"PATH": f"{d}{os.pathsep}{os.environ.get('PATH', '')}", "DISPLAY": ":99"}, timeout=40)
+            check("a dialog tool with no screen to use gives None (so the terminal is used)", "ANSWER None" in r.stdout, (r.stdout + r.stderr)[-300:])
+
     print("\nALL PASS" if not FAILS else f"\nFAILED: {FAILS}", flush=True)
     return 1 if FAILS else 0
 
