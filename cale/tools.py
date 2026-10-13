@@ -16,7 +16,7 @@ import json
 import re
 import uuid
 
-from . import constrain
+from . import constrain, media
 
 NAME = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 MAX_TOOLS = 64
@@ -110,7 +110,7 @@ def call_text(calls):
     return json.dumps({"tool_calls": items}, ensure_ascii=False, separators=(",", ":"))
 
 
-def convert_messages(raw, ApiError):
+def convert_messages(raw, ApiError, images_ok=False):
     """OpenAI messages (with tool_calls and tool roles) -> plain {"role", "content"} messages. `ApiError(status, code, message, param=)` is the server's."""
     if not isinstance(raw, list) or not raw:
         raise ApiError(400, "invalid_messages", "'messages' must be a non-empty list.")
@@ -123,10 +123,31 @@ def convert_messages(raw, ApiError):
             role = "system"
         if role not in ("system", "user", "assistant", "tool"):
             raise ApiError(400, "invalid_messages", f"Role '{role}' is not supported.")
+        parts = None
         if isinstance(c, list):
-            if any(not isinstance(p, dict) or p.get("type") != "text" for p in c):
-                raise ApiError(400, "unsupported_content", "Only text content is supported for now.")
-            c = "\n".join(p.get("text", "") for p in c)
+            parts, texts = [], []
+            for p in c:
+                kind = p.get("type") if isinstance(p, dict) else None
+                if kind == "text":
+                    texts.append(p.get("text", ""))
+                    parts.append(("text", p.get("text", "")))
+                elif kind == "image_url":
+                    if not images_ok:
+                        raise ApiError(400, "unsupported_content", "This computer's engine cannot read pictures yet. "
+                                       "'cale.capabilities.images' in GET /v1/models says whether it can.")
+                    if role != "user":
+                        raise ApiError(400, "unsupported_content", "Pictures are accepted in user messages only.")
+                    try:
+                        parts.append(("image", media.image_from_part(p)))
+                    except media.MediaError as e:
+                        raise ApiError(400, "invalid_image", str(e))
+                elif kind in ("input_audio", "audio_url", "video_url", "file"):
+                    raise ApiError(400, "unsupported_content", f"Content of type '{kind}' is not supported. Supported: text" + (", image_url." if images_ok else "."))
+                else:
+                    raise ApiError(400, "unsupported_content", "Only text content" + (" and pictures are" if images_ok else " is") + " supported.")
+            c = "\n".join(texts)
+            if sum(1 for q in parts if q[0] == "image") == 0:
+                parts = None
         if c is None and role == "assistant" and m.get("tool_calls"):
             c = ""
         if not isinstance(c, str):
@@ -143,7 +164,12 @@ def convert_messages(raw, ApiError):
             out.append({"role": "user", "content": f"Result of {who} (call {m.get('tool_call_id', '?')}):\n{c}\n\n"
                                                     "(That is the tool's result. Use it to answer my question in plain text. Call another tool only if you still need one.)"})
             continue
-        out.append({"role": role, "content": c})
+        msg = {"role": role, "content": c}
+        if parts:
+            msg["parts"] = parts
+        out.append(msg)
+    if sum(1 for m in out for q in m.get("parts", ()) if q[0] == "image") > media.MAX_IMAGES:
+        raise ApiError(400, "invalid_image", f"A request may hold at most {media.MAX_IMAGES} pictures.")
     return out
 
 

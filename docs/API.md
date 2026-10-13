@@ -71,9 +71,33 @@ Cale never ignores a field in silence.
 
 | You send | Cale answers |
 |---|---|
-| `functions`, `function_call`, `logprobs`, `n` above 1, penalties other than 0, images, audio | `400 unsupported_parameter`. The `param` field names it. These are planned, not available yet. |
+| `functions`, `function_call`, `logprobs`, `n` above 1, penalties other than 0 | `400 unsupported_parameter`. The `param` field names it. These are planned, not available yet. |
+| audio input (`input_audio`) | `400 unsupported_content`. Not available yet on any computer. |
+| a picture on a computer whose engine cannot read pictures | `400 unsupported_content`. Ask first: `capabilities.images` in `GET /v1/models` |
 | a field Cale has never heard of | `400 unknown_parameter` |
 | a bad value | `400 invalid_...` with the field name in `param` |
+
+### Pictures
+
+Send a picture in a user message, as in the OpenAI API:
+
+```json
+{"role": "user", "content": [
+  {"type": "text", "text": "What is in this picture?"},
+  {"type": "image_url", "image_url": {"url": "data:image/png;base64,iVBOR..."}}]}
+```
+
+| Rule | Value |
+|---|---|
+| Where | user messages only |
+| How | a `data:image/...;base64,...` URL only. Cale never fetches a web address. |
+| Limits | 8 pictures per request, 10 MB and 40 million pixels each |
+| Cost | each picture is 256 tokens of the prompt. They count toward the context limit. |
+| Errors | `400 invalid_image` (bad data or over a limit), `400 unsupported_content` (this engine cannot read pictures) |
+| Prompt cache | a prompt with a picture is read whole each time |
+| Where it works | Mac now. Windows and Linux: not yet. Check `capabilities.images` in `GET /v1/models` before you send a picture. |
+
+The part of the model that reads pictures loads for the call and is freed after it. A text call never pays for it.
 
 ### Structured output
 
