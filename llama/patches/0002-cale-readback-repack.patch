@@ -1,0 +1,145 @@
+diff --git a/ggml/src/ggml-backend.cpp b/ggml/src/ggml-backend.cpp
+index 9a0c75d..9c62747 100644
+--- a/ggml/src/ggml-backend.cpp
++++ b/ggml/src/ggml-backend.cpp
+@@ -1113,7 +1113,10 @@ static int ggml_backend_sched_backend_id_from_cur(ggml_backend_sched_t sched, st
+             if (src_buf != NULL && src_buf->usage == GGML_BACKEND_BUFFER_USAGE_WEIGHTS) {
+                 int src_backend_id = ggml_backend_sched_backend_from_buffer(sched, src, tensor);
+                 // check if a backend with higher prio wants to offload the op
+-                if (sched->op_offload && src_backend_id == sched->n_backends - 1 && ggml_backend_buffer_is_host(src_buf)) {
++                // Cale: a whole (not a view of a) Q4_0 weight in the CPU repack buffer can be read back plain, so a GPU may take the operation too.
++                const bool readable_repack = src->view_src == NULL && src->type == GGML_TYPE_Q4_0 && src_buf->iface.get_tensor != NULL &&
++                                             strcmp(ggml_backend_buffer_name(src_buf), "CPU_REPACK") == 0;
++                if (sched->op_offload && src_backend_id == sched->n_backends - 1 && (ggml_backend_buffer_is_host(src_buf) || readable_repack)) {
+                     for (int b = 0; b < src_backend_id; b++) {
+                         if (ggml_backend_supports_op(sched->backends[b], tensor) && ggml_backend_offload_op(sched->backends[b], tensor)) {
+                             SET_CAUSE(tensor, "1.off");
+diff --git a/ggml/src/ggml-cpu/repack.cpp b/ggml/src/ggml-cpu/repack.cpp
+index 2632ae3..dda02b1 100644
+--- a/ggml/src/ggml-cpu/repack.cpp
++++ b/ggml/src/ggml-cpu/repack.cpp
+@@ -11,7 +11,11 @@
+ 
+ #include "arch-fallback.h"
+ 
++#include <algorithm>
+ #include <cmath>
++#include <thread>
++#include <type_traits>
++#include <vector>
+ #include <cstring>
+ #include <cassert>
+ #include <cstdio>  // for GGML_ASSERT
+@@ -4550,8 +4554,67 @@ template <> void gemm<block_q2_K, 1, 16, GGML_TYPE_Q8_K>(int n, float * s, size_
+ class tensor_traits_base : public ggml::cpu::tensor_traits {
+   public:
+     virtual int repack(struct ggml_tensor * t, const void * data, size_t data_size) = 0;
++    // Cale: the inverse of repack. Writes the plain block layout of the whole tensor to `out`. Returns 0, or -1 if this layout cannot be read back.
++    virtual int unrepack(const struct ggml_tensor * t, void * out, size_t out_size) const { GGML_UNUSED(t); GGML_UNUSED(out); GGML_UNUSED(out_size); return -1; }
+ };
+ 
++// Cale: undo repack_q4_0_to_q4_0_{4,8}_bl. NB rows are interleaved, INTER bytes at a time. Threads split the row groups.
++template <int NB, int INTER>
++static int unrepack_q4_0(const struct ggml_tensor * t, void * out_v, size_t out_size) {
++    using packed_t = typename std::conditional<NB == 4, block_q4_0x4, block_q4_0x8>::type;
++    const int64_t nblocks = t->ne[0] / QK4_0;
++    const int64_t nrow    = ggml_nrows(t);
++    if (out_size != (size_t) (nrow * nblocks) * sizeof(block_q4_0) || nrow % NB != 0 || t->ne[0] % 8 != 0) {
++        return -1;
++    }
++    const packed_t * src = (const packed_t *) t->data;
++    block_q4_0 *     dst = (block_q4_0 *) out_v;
++    const int64_t groups = nrow / NB;
++    const int     end    = QK4_0 * (NB / 2) / INTER;
++    auto work = [&](int64_t g0, int64_t g1) {
++        for (int64_t g = g0; g < g1; g++) {
++            for (int64_t x = 0; x < nblocks; x++) {
++                const packed_t & p    = src[g * nblocks + x];
++                block_q4_0 *     rows = dst + (g * NB) * nblocks + x;
++                for (int i = 0; i < NB; i++) {
++                    rows[i * nblocks].d = p.d[i];
++                }
++                for (int i = 0; i < end; ++i) {
++                    const int src_id = i % NB;
++                    const int src_offset = (i / NB) * INTER;
++                    const int dst_offset = i * INTER;
++                    if (INTER == 8) {
++                        uint64_t e;
++                        memcpy(&e, &p.qs[dst_offset], sizeof(e));
++                        e ^= 0x8888888888888888ULL;
++                        memcpy(&rows[src_id * nblocks].qs[src_offset], &e, sizeof(e));
++                    } else {
++                        uint32_t e;
++                        memcpy(&e, &p.qs[dst_offset], sizeof(e));
++                        e ^= 0x88888888U;
++                        memcpy(&rows[src_id * nblocks].qs[src_offset], &e, sizeof(e));
++                    }
++                }
++            }
++        }
++    };
++    const int64_t bytes = (int64_t) out_size;
++    int n_threads = bytes < (1 << 20) ? 1 : (int) std::min<int64_t>(4, std::max<int64_t>(1, (int64_t) std::thread::hardware_concurrency()));
++    if (n_threads <= 1 || groups < n_threads) {
++        work(0, groups);
++    } else {
++        std::vector<std::thread> pool;
++        const int64_t per = (groups + n_threads - 1) / n_threads;
++        for (int k = 1; k < n_threads; k++) {
++            const int64_t a = std::min(groups, k * per), b = std::min(groups, (k + 1) * per);
++            if (a < b) pool.emplace_back(work, a, b);
++        }
++        work(0, std::min(groups, per));
++        for (auto & th : pool) th.join();
++    }
++    return 0;
++}
++
+ template <typename BLOC_TYPE, int64_t INTER_SIZE, int64_t NB_COLS, ggml_type PARAM_TYPE> class tensor_traits : public tensor_traits_base {
+ 
+     bool work_size(int /* n_threads */, const struct ggml_tensor * op, size_t & size) override {
+@@ -4913,6 +4976,15 @@ template <typename BLOC_TYPE, int64_t INTER_SIZE, int64_t NB_COLS, ggml_type PAR
+ #undef MMID_MATRIX_ROW
+     }
+ 
++    int unrepack(const struct ggml_tensor * t, void * out, size_t out_size) const override {
++        if constexpr (std::is_same<BLOC_TYPE, block_q4_0>::value && (NB_COLS == 4 || NB_COLS == 8) && (INTER_SIZE == 4 || INTER_SIZE == 8)) {
++            return unrepack_q4_0<(int) NB_COLS, (int) INTER_SIZE>(t, out, out_size);
++        } else {
++            GGML_UNUSED(t); GGML_UNUSED(out); GGML_UNUSED(out_size);
++            return -1;
++        }
++    }
++
+     int repack(struct ggml_tensor * t, const void * data, size_t data_size) override {
+         GGML_LOG_DEBUG("%s: repack tensor %s with %s_%dx%d\n", __func__, t->name, ggml_type_name(t->type),
+                        (int) NB_COLS, (int) INTER_SIZE);
+@@ -5159,6 +5231,19 @@ static void ggml_backend_cpu_repack_buffer_set_tensor(ggml_backend_buffer_t buff
+     GGML_UNUSED(buffer);
+ }
+ 
++// Cale: a repacked weight can be read back in its plain layout. The scheduler uses this to let a GPU read the prompt with weights that stay
++// repacked in RAM for the CPU (which answers fast). Only whole tensors are read.
++static void ggml_backend_cpu_repack_buffer_get_tensor(ggml_backend_buffer_t buffer, const struct ggml_tensor * tensor,
++                                                       void * data, size_t offset, size_t size) {
++    GGML_ASSERT(offset == 0);
++    GGML_ASSERT(size == ggml_nbytes(tensor));
++
++    auto tensor_traits = (ggml::cpu::repack::tensor_traits_base *) tensor->extra;
++    GGML_ASSERT(tensor_traits != nullptr);
++    GGML_ASSERT(tensor_traits->unrepack(tensor, data, size) == 0);
++    GGML_UNUSED(buffer);
++}
++
+ static const char * ggml_backend_cpu_repack_buffer_type_get_name(ggml_backend_buffer_type_t buft) {
+     return "CPU_REPACK";
+ 
+@@ -5175,7 +5260,7 @@ static ggml_backend_buffer_t ggml_backend_cpu_repack_buffer_type_alloc_buffer(gg
+     buffer->buft              = buft;
+     buffer->iface.init_tensor = ggml_backend_cpu_repack_buffer_init_tensor;
+     buffer->iface.set_tensor  = ggml_backend_cpu_repack_buffer_set_tensor;
+-    buffer->iface.get_tensor  = nullptr;
++    buffer->iface.get_tensor  = ggml_backend_cpu_repack_buffer_get_tensor;
+     buffer->iface.cpy_tensor  = nullptr;
+     return buffer;
+ }
