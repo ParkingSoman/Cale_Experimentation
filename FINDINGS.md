@@ -894,3 +894,25 @@ Items 1 to 5 are the ones to fix next. Items 6 to 13 need measurements on other 
 | 5 | An answer no longer ends with `finish_reason: "length"` only because the next prompt piece might not fit. The piece gets shorter instead | `crowd` (small pool) |
 
 A test bug found on the way: `crowd` read the slot count before the model was loaded, so it skipped every check that needs several slots. It now loads the model first (20 checks, was 13).
+
+## Option D: the GPU reads prompts, the CPU answers (2026-10-13)
+
+**What it is.** `llama/patches/0002-cale-readback-repack.patch`. A weight stays repacked in RAM for the CPU (fast answers). When the scheduler gives a long-prompt operation to the GPU, the weight is read back in its plain layout (up to 4 threads) and copied to the GPU. Before, a repacked weight could not be read back, so the GPU could not help unless the weights were stored plain (slow answers).
+
+**Check of the read-back.** `llama/tests/test_unrepack.cpp` repacks random Q4_0 data, reads it back and compares the bytes. Mac (the 4x4 layout): equal for four shapes. On the HP, the full model gives the same quality as the CPU (NLL 0.9150 against 0.9183 on the CPU, limit 0.02), which tests the 8x8 layout that an AVX2 CPU uses.
+
+**Measured on the HP** (MX150 with 2 GB, Intel i7-8550U, 178-token prompt, tokens per second, same session, two runs each):
+
+| Setup | Prompt | Answer |
+|---|---|---|
+| CPU only | 15.6 to 18.0 | 6.5 to 6.8 |
+| B: weights plain in the host buffer, 0 layers on the GPU | 33.1 and 33.3 | 6.1 to 6.4 (a lower answer speed than the CPU; llama-bench had measured 3.9) |
+| A: llama.cpp fit (13 layers on the GPU), CPU weights repacked | 24.2 to 25.0 | 7.1 to 7.2 |
+| **D: 0 layers on the GPU, weights repacked** | **33.1 to 33.4** | **7.5 to 7.7** |
+| D with the fit (13 layers) | 33.7 to 34.3 | 6.8 to 7.0 |
+
+D gives B's prompt speed and A's answer speed at once, with nothing extra in RAM. The plan's gate (prompt at least 50 and answer at least 9.0) was written from a 512-token llama-bench run with different harness numbers. It was not met in absolute terms, because this card limits the prompt speed to about 33 here. The aim of D (both speeds, no extra memory) was met.
+
+**The rule in Cale.** `cale/backends/devices.py`: a discrete GPU too small for the model gets **0 layers** and reads prompts. The fit is not used any more by default, because layers on the GPU made smaller sizes slower than the CPU. Only the full size gets the faster prompt: a smaller size is a view of the weights, and Cale does not offload views. A GPU that shares memory with the CPU is never chosen alone.
+
+**A mistake worth keeping.** The first two runs of D showed no gain. The build had failed on a source-path mismatch (`cmake configure failed`) and my job script hid the error, so the old library was tested. Check the exit code of every build in a job script.
