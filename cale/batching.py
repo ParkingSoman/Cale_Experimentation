@@ -31,6 +31,7 @@ IDLE_POLL_S = 0.05
 # engine says the longest (its batch size), and PieceTuner finds the best length between them by trying. The one number left is a policy:
 # how long a piece may take, because one piece cannot be stopped and an app that leaves holds the next app up for that long.
 MAX_PIECE_S = float(os.environ.get("CALE_MAX_PIECE_S", "6"))
+EXPLORE_SLACK = 1.5          # POLICY: a longer piece may be tried once if it should take at most this many budgets (speed grows with the piece)
 
 
 class PieceTuner:
@@ -41,7 +42,7 @@ class PieceTuner:
     (the CPU does it). Each is tried once, longest first, going down only while a piece takes longer than the budget. Then the candidate
     with the best speed among those that fit the budget is used. If it is the CPU piece, the GPU does not pay on this computer."""
 
-    def __init__(self, shortest, longest, budget_s=MAX_PIECE_S):
+    def __init__(self, shortest, longest, budget_s=MAX_PIECE_S, start_speed=None):
         sizes, n = [], max(longest, 1)
         while n >= max(shortest, 1):
             sizes.append(n)
@@ -50,14 +51,22 @@ class PieceTuner:
         self.cpu_size = max(shortest - 1, 1)               # one token under what the GPU takes
         self.speed = {}                                    # piece length -> tokens per second seen
         self.budget = budget_s
+        self.start_speed = start_speed                     # prompt speed measured at the first load: a size is not tried unless it should fit the budget
 
     def _fits(self, size):
         return size in self.speed and size / max(self.speed[size], 1e-9) <= self.budget
 
+    def _may_try(self, size):
+        """A piece is tried only if, at the best speed known, it should take no longer than the budget: an untried piece cannot be stopped."""
+        known = max(list(self.speed.values()) + ([self.start_speed] if self.start_speed else []), default=None)
+        return known is None or size / known <= self.budget * EXPLORE_SLACK
+
     def next_size(self):
         for size in self.gpu_sizes:
             if size not in self.speed:
-                return size
+                if self._may_try(size):
+                    return size
+                continue
             if self._fits(size):
                 break                                      # a piece within the budget: shorter GPU pieces will not be faster
         if self.cpu_size not in self.speed:
@@ -157,7 +166,7 @@ class BatchMixin:
 
     def piece_tuner(self):
         if getattr(self, "_tuner", None) is None or getattr(self, "_tuner_for", None) is not self.m:
-            self._tuner = PieceTuner(self.m.offload_min, self.m.batch_tokens)
+            self._tuner = PieceTuner(self.m.offload_min, self.m.batch_tokens, start_speed=self.pred.prefill_tps(self.batch_level) if self.pred is not None else None)
             self._tuner_for = self.m
         return self._tuner
 
