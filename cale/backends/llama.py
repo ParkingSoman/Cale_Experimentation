@@ -53,12 +53,79 @@ def find_gguf(path):
     return found[0]
 
 
+class LlamaStream:
+    """One answer running in a slot, next to others. LlamaNested.step() feeds it the tokens the engine produces."""
+
+    def __init__(self, model, slot, ids, max_tokens, temperature, top_p, seed, stop, guide, owner, cached, start_tier):
+        self.model, self.slot, self.ids, self.owner, self.cached = model, slot, ids, owner, cached
+        self.max_tokens, self.temperature, self.top_p = max_tokens, temperature, top_p
+        self.dec = codecs.getincrementaldecoder("utf-8")("replace")
+        self.stops = StopFilter(stop)
+        self.guide, self.rng = guide, random.Random(seed)
+        self.t0 = time.perf_counter()
+        self.t_first = None
+        self.out = 0
+        self.finish = None
+        self.done = False
+        self.deltas = []                      # text produced since the last call to take()
+        self.start_tier, self.switches = start_tier, []
+
+    def take(self):
+        d, self.deltas = self.deltas, []
+        return d
+
+    def choose(self):
+        """A guided answer: the best token the guide accepts. Returns the token (the slot reads it at the next step)."""
+        m = self.model
+        tid, text = constrain.next_token(lambda k: m.lib.slot_topk(self.slot, k), self.guide, m._text, m.lib.is_eog,
+                                         self.temperature, self.top_p, self.rng)
+        if text is not None:
+            self.guide.feed(text)
+            m.lib.slot_accept(self.slot, tid)
+        return tid
+
+    def on_token(self, tok):
+        m = self.model
+        if self.t_first is None:
+            self.t_first = time.perf_counter()
+        if tok < 0 or m.lib.is_eog(tok):
+            self.finish, self.done = "stop", True
+            return
+        self.out += 1
+        s = self.dec.decode(m.lib.piece(tok))
+        if s:
+            text, hit = self.stops.feed(s)
+            if text:
+                self.deltas.append(text)
+            if hit:
+                self.finish, self.done = "stop", True
+        if not self.done and self.guide is not None and self.guide.finished():
+            self.finish, self.done = "stop", True
+        if not self.done and self.out >= self.max_tokens:
+            self.finish, self.done = "length", True
+
+    def finish_up(self, level):
+        """The last text and the `done` record."""
+        if not self.stops.hit:
+            tail = self.stops.feed(self.dec.decode(b"", final=True))
+            tail = tail[0] + (self.stops.flush() if not tail[1] else "")
+            if tail:
+                self.deltas.append(tail)
+        end = time.perf_counter()
+        t_first = self.t_first or end
+        return {"tier": level["id"], "start_tier": self.start_tier, "switches": self.switches, "size_pct": level["pct"],
+                "switch_ms": 0.0, "seconds": round(end - self.t0, 3), "first_token_s": round(t_first - self.t0, 3),
+                "decode_s": round(end - t_first, 3), "prompt_tokens": len(self.ids), "cached_tokens": self.cached,
+                "tokens": self.out, "finish": self.finish or "stop", "drafter": False}
+
+
 class LlamaNested:
     ple_on_disk = True                     # the per-layer embedding table is mapped: only the rows of the tokens used are read
 
     @classmethod
     def load(cls, path, width=1.0, ple_on_disk=True, threads=None, n_ctx=N_CTX, lib_path=None, **_):
         self = cls()
+        os.environ.setdefault("CALE_SLOTS", "4")                    # answers that may run together (llama/shim: slots)
         self.path = str(find_gguf(path))
         self._kv_level = None                  # the size the key/value memory was made at, when it holds a conversation worth reusing
         self._kv_owner = None                  # the app that conversation belongs to: only that app may reuse it
@@ -367,6 +434,73 @@ class LlamaNested:
             g["guide"].feed(text)
             g["pending"] = tid
         return tid
+
+    # --- several answers at once (slots) -----------------------------------------------------------
+    @property
+    def can_batch(self):
+        return self.lib.has_slots and self.lib.n_slots > 1
+
+    @property
+    def n_slots(self):
+        return self.lib.n_slots
+
+    def free_slots(self):
+        busy = self.__dict__.setdefault("_busy_slots", set())
+        return [s for s in range(self.lib.n_slots) if s not in busy]
+
+    def open_stream(self, messages, max_tokens, temperature=0.0, top_p=1.0, seed=None, stop=None, guide=None, owner=None):
+        """Start an answer in a free slot at the current size. Prefers the slot that holds this app's last conversation (prompt cache)."""
+        free = self.free_slots()
+        if not free:
+            raise RuntimeError("no free slot")
+        owners, levels = self.__dict__.setdefault("_slot_owner", {}), self.__dict__.setdefault("_slot_level", {})
+        used = self.__dict__.setdefault("_slot_time", {})
+        ids = self.prompt_ids(messages)
+        # This app's own slot that already holds the start of this prompt (a chat that grew), if it saves reading at least 16 tokens.
+        # Else a slot with nothing worth keeping, else the one used longest ago. A new conversation must not wipe another one of the same app.
+        best, best_n = None, 15
+        if owner is not None:
+            for x in free:
+                if owners.get(x) == owner and levels.get(x) == self.level["id"]:
+                    n = self.lib.slot_common(x, ids)
+                    if n > best_n:
+                        best, best_n = x, n
+        mine = [best] if best is not None else []
+        slot = best if best is not None else min(free, key=lambda x: (owners.get(x) is not None, used.get(x, 0.0)))
+        used[slot] = time.time()
+        seed = secrets.randbits(32) if seed is None else int(seed) & 0xFFFFFFFF
+        kept = self.lib.slot_open(slot, ids, temperature, top_p, seed, guided=guide is not None, reuse=bool(mine))
+        self._busy_slots.add(slot)
+        owners[slot], levels[slot] = owner, self.level["id"]
+        return LlamaStream(self, slot, ids, max_tokens, temperature, top_p, seed, stop, guide, owner, kept, self.level["id"])
+
+    def step(self, streams, prefill_budget=64):
+        """One step for all `streams`. Returns the streams that finished in it (their slots are free again)."""
+        if self.lib.n_slots == 0:
+            return []
+        by_slot = {st.slot: st for st in streams}
+        finished = []
+        for slot, kind, tok in self.lib.batch_step(prefill_budget):
+            st = by_slot.get(slot)
+            if st is None or st.done:
+                continue
+            if kind == 2:
+                tok = st.choose()
+            st.on_token(tok)
+            if st.done:
+                self.close_stream(st)
+                finished.append(st)
+        return finished
+
+    def close_stream(self, st):
+        """The slot is free again. (Call it for a stream that is stopped early too.)"""
+        self.lib.slot_close(st.slot)
+        self._busy_slots.discard(st.slot)
+        if not st.done:                                    # stopped early: the memory of this slot is not a clean conversation
+            self.lib.slot_forget(st.slot)
+            self._slot_owner[st.slot] = None
+        elif st.switches:                                  # the size changed during the answer: the memory is a mix
+            self._slot_owner[st.slot] = None
 
     def generate(self, prompt, max_tokens=256, width=None):
         text, done = "", None

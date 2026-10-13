@@ -1,0 +1,367 @@
+"""Several answers at once. Part of the engine (a mixin), used when the engine can run answers together (llama.cpp with slots).
+
+Decoding one token reads every weight once, whatever the number of answers in the step, so a step with 4 answers costs little more than a
+step with 1. One scheduler thread runs the steps. It holds the generation lock while any answer is running, so holds, unloads and the
+monitor wait for the burst to end, as they did when answers ran one at a time.
+
+| Rule | Why |
+|---|---|
+| One size for all answers in a step | the model runs at one width per step. The size is the smallest any running answer's goals need. |
+| An exact size (`gemma-3n:100`) is kept | an app that names a size gets it. An answer with a different exact size waits until the step is free of other exact sizes. |
+| The prompt of a new answer is read a piece at a time, next to the others' tokens | nobody waits for a whole long prompt |
+| A new answer starts when a slot is free, in the order it arrived | fair order |
+| Each answer's goals are checked as if `n` answers share the step | `BatchPred` below |
+"""
+import queue
+import threading
+import time
+
+from nest.cancel import Cancelled
+
+from . import choose, constrain, goals as goals_mod, oslayer
+from . import gemma3n_facts as facts
+
+PREFILL_MAX = 256           # most prompt tokens read in one step
+PREFILL_MIN = 16
+STEP_SECONDS = 0.75         # a step that reads a prompt piece should take about this long, so the answers next to it keep moving
+CHECK_EVERY = 8             # steps between looks at the speed goals
+IDLE_POLL_S = 0.05
+
+
+class BatchPred:
+    """The predictor as one of `n` answers that share a step sees it: every token takes `cost` times as long."""
+
+    def __init__(self, pred, n):
+        self.pred, self.n = pred, n
+        self.cost = pred.batch_cost(n)
+        self.confidence = pred.confidence
+
+    def decode_tps(self, level):
+        return self.pred.decode_tps(level) / self.cost
+
+    def prefill_tps(self, level):
+        return self.pred.prefill_tps(level)
+
+    def first_token_s(self, level, prompt_tokens, disk_s=0.0):
+        return disk_s + prompt_tokens / self.prefill_tps(level) + 1.0 / self.decode_tps(level)
+
+    def time_factor(self, level):
+        return self.pred.time_factor(level)
+
+
+class Request:
+    """One call waiting for, or in, the scheduler."""
+
+    def __init__(self, messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived, explicit, cancel, guide):
+        self.messages, self.max_tokens, self.temperature, self.app = messages, max_tokens, temperature, app
+        self.size_pct, self.goal, self.top_p, self.seed, self.stop = size_pct, goal, top_p, seed, stop
+        self.arrived = arrived or time.time()
+        self.explicit, self.cancel, self.guide = explicit, cancel, guide
+        self.q = queue.Queue()
+        self.abandoned = False          # the consumer stopped reading (the generator was closed)
+        self.stream = None
+        self.level = None               # the size this answer was planned for
+        self.fixed = False              # an exact size was asked for
+        self.goals = None
+        self.waited = 0.0
+        self.max_pct = 100
+        self.steps = 0                  # steps this answer took part in once it was producing tokens
+        self.share = 0                  # sum of the number of answers in those steps (to know how crowded it was)
+        self.started = None
+
+
+class BatchMixin:
+    """Methods added to Engine. State: self.inbox, self.active, self.cv, self.runner."""
+
+    def _batch_init(self):
+        self.inbox, self.active = [], []
+        self.cv = threading.Condition()
+        self.runner = None
+        self.batch_level = None
+
+    # --- the consumer side: a generator like Engine.chat_stream's ----------------------------------------------------
+    def can_batch(self):
+        m = self.m
+        return m is not None and getattr(m, "can_batch", False)
+
+    def _batched_stream(self, req):
+        """Submit `req` and yield its events: the plan, the deltas, the done record. Exceptions of the scheduler are raised here."""
+        with self.cv:
+            self.inbox.append(req)
+            if self.runner is None or not self.runner.is_alive():
+                self.runner = threading.Thread(target=self._runner_loop, daemon=True, name="cale-batch")
+                self.runner.start()
+            self.cv.notify_all()
+        try:
+            while True:
+                ev = req.q.get()
+                if isinstance(ev, BaseException):
+                    raise ev
+                yield ev
+                if "done" in ev:
+                    return
+        finally:
+            req.abandoned = True                 # a closed generator (the client left) frees the slot at the next step
+            with self.cv:
+                self.cv.notify_all()
+
+    # --- the scheduler thread -----------------------------------------------------------------------------------------
+    def _runner_loop(self):
+        while True:
+            with self.cv:
+                if not self.inbox and not self.active:
+                    self.cv.wait(timeout=30)
+                    if not self.inbox and not self.active:
+                        self.runner = None       # nothing to do for a while: the thread ends, the next request starts a new one
+                        return
+            try:
+                self._serve()
+            except Exception as e:               # the scheduler must never die with requests waiting
+                print(f"[engine] scheduler error {type(e).__name__}: {str(e)[:200]}", flush=True)
+                self._fail_all(e)
+
+    def _serve(self):
+        with self.lock:
+            try:
+                self._apply_pending()
+                if self.m is None:
+                    self._load()
+                while True:
+                    self._admit()
+                    if not self.active:
+                        with self.cv:
+                            if not self.inbox:
+                                break
+                        time.sleep(IDLE_POLL_S)         # waiting requests that cannot start together with the running ones
+                        continue
+                    self._step()
+            except Exception as e:
+                self._engine_failed(e)
+            finally:
+                self.last_used = time.time()
+                if self.implicit:
+                    self.implicit_last = time.time()
+                if self.m is not None and not self.active:
+                    try:
+                        self.m.settle()
+                    except Exception:
+                        pass
+                self.batch_level = None
+                self._apply_pending()
+
+    def _engine_failed(self, e):
+        self.last_error = f"{type(e).__name__} at {time.strftime('%H:%M:%S')}"
+        print(f"[engine] engine failed ({type(e).__name__}: {str(e)[:300]})", flush=True)
+        self.log(f"engine failed ({type(e).__name__}); unloading the model")
+        err = None
+        from .engine import EngineError
+        err = EngineError(type(e).__name__)
+        for r in list(self.active):
+            r.q.put(err)
+        self.active.clear()
+        with self.cv:
+            waiting, self.inbox = self.inbox, []
+        for r in waiting:
+            r.q.put(err)
+        self._unload("engine error")
+
+    def _fail_all(self, e):
+        from .engine import EngineError
+        err = EngineError(type(e).__name__)
+        for r in list(self.active):
+            r.q.put(err)
+        self.active.clear()
+        with self.cv:
+            waiting, self.inbox = self.inbox, []
+        for r in waiting:
+            r.q.put(err)
+
+    # --- admitting new answers ------------------------------------------------------------------------------------------
+    def _admit(self):
+        m = self.m
+        with self.cv:
+            waiting = list(self.inbox)
+        for r in waiting:
+            if r.abandoned or (r.cancel is not None and r.cancel.is_set()):
+                self._drop_waiting(r)
+                if not r.abandoned:
+                    r.q.put(Cancelled())
+                continue
+            if len(self.active) >= m.n_slots or not m.free_slots():
+                break                                    # in order: nobody jumps the queue
+            if not self._compatible(r):
+                break
+            self._drop_waiting(r)
+            try:
+                self._start(r)
+            except Exception as e:
+                from .engine import ContextTooLong, EngineError, GoalMissed, Unsafe
+                if isinstance(e, (GoalMissed, Unsafe, ContextTooLong, Cancelled, constrain.DeadEnd)):
+                    r.q.put(e)                              # the app gets the same error a one-at-a-time answer would give
+                else:
+                    r.q.put(EngineError(type(e).__name__))  # whoever asked must always get an answer, even when the engine fails
+                    raise
+
+    def _drop_waiting(self, r):
+        with self.cv:
+            if r in self.inbox:
+                self.inbox.remove(r)
+
+    def _compatible(self, r):
+        """May this request start next to the running answers? An exact size cannot share a step with a different exact size."""
+        if r.goal is not None or not self.active:
+            return True
+        fixed = {x.level["id"] for x in self.active if x.fixed}
+        want = self._exact_level(r)
+        return not fixed or want["id"] in fixed
+
+    def _exact_level(self, r):
+        from nest.levels3n import pick
+        return pick(self.levels, r.size_pct, round(self.cap * 100))
+
+    def _start(self, r):
+        """Plan the request, set the step's size, open its slot. Raises what chat_stream raises before the first event."""
+        m = self.m
+        r.waited = max(0.0, time.time() - r.arrived)
+        self.last_used = time.time()
+        if not self.app_has_hold(r.app):
+            self.implicit_last = time.time()
+            if not self.implicit:
+                self.implicit = True
+                self._resident_now()
+        n_after = len(self.active) + 1
+        lv, plan, max_tokens, goals, n_prompt, answer_tokens, _ = self._plan_request(
+            r.messages, r.max_tokens, r.explicit, r.size_pct, r.goal, r.waited, r.cancel, n_active=n_after)
+        r.goals, r.max_tokens, r.fixed = goals, max_tokens, r.goal is None
+        r.max_pct = min(round(self.cap * 100), round(r.goal.get("max_pct", 100))) if r.goal else round(self.cap * 100)
+        r.level = lv
+        target = self._batch_target(lv, r)
+        if target["id"] != lv["id"]:                      # the others are running at another size: this answer runs at the step's size
+            plan.update(size_pct=target["pct"], id=target["id"])
+            if plan.get("goal_met") is not None or r.goals is not None:
+                row = choose.row(target, BatchPred(self.pred, n_after), self.machine(), self._ctx(n_prompt, answer_tokens, r.waited),
+                                 r.goals or goals_mod.parse({}), list(m.resident))
+                plan["predicted"] = self._predicted(row)
+                if goals_mod.is_set(r.goals):
+                    plan["unmet"] = [g for g, ok in row["checks"].items() if not ok]
+                    plan["goal_met"] = not plan["unmet"]
+        self._set_level(target)
+        read, read_s = m.ensure(target)
+        plan["disk_mb"] = round(read / 1e6)
+        r.disk_mb, r.disk_s = round(read / 1e6), round(read_s, 3)
+        r.q.put({"plan": plan})
+        if self.debug_fail:
+            self.debug_fail = False
+            raise RuntimeError("debug: injected engine failure")
+        r.stream = m.open_stream(r.messages, max_tokens, r.temperature, r.top_p, r.seed, r.stop, r.guide,
+                                  None if r.seed is not None else r.app)       # a seeded answer must not depend on what an earlier answer left in the cache
+        r.started = time.perf_counter()
+        self.active.append(r)
+
+    def _batch_target(self, lv, r):
+        """The size the step runs at once `r` joins: an exact size wins, else the smallest size any running answer needs."""
+        if r.goal is None:
+            return lv
+        fixed = [x.level for x in self.active if x.fixed]
+        if fixed:
+            return fixed[0]
+        cur = self.batch_level
+        if cur is None or not self.active:
+            return lv
+        return lv if lv["pct"] < cur["pct"] else cur
+
+    def _set_level(self, level):
+        if self.batch_level is None or self.batch_level["id"] != level["id"]:
+            self.m.ensure(level)
+            self.m.set(level)
+            self.batch_level = level
+
+    # --- one step ---------------------------------------------------------------------------------------------------------
+    def _step(self):
+        m = self.m
+        self._reap()
+        if not self.active:
+            return
+        decoding = [r for r in self.active if r.stream.t_first is not None]
+        budget = PREFILL_MAX if not decoding else max(PREFILL_MIN, min(PREFILL_MAX, int(self.pred.prefill_tps(self.batch_level) * STEP_SECONDS)))
+        t = time.perf_counter()
+        finished = m.step([r.stream for r in self.active], budget)
+        dt = time.perf_counter() - t
+        n = len(decoding)
+        for r in decoding:
+            r.steps += 1
+            r.share += n
+        self._flush(finished)
+        if n >= 1 and not any(r.stream.t_first is None for r in self.active):
+            self.pred.observe_step(n, dt, self.batch_level)
+        self.steps_done = getattr(self, "steps_done", 0) + 1
+        if self.steps_done % CHECK_EVERY == 0:
+            self._adjust()
+
+    def _reap(self):
+        """Stop answers whose client left."""
+        for r in list(self.active):
+            if r.abandoned or (r.cancel is not None and r.cancel.is_set()):
+                self.m.close_stream(r.stream)
+                self.active.remove(r)
+                if not r.abandoned:
+                    r.q.put(Cancelled())
+
+    def _flush(self, finished):
+        for r in self.active:
+            for text in r.stream.take():
+                r.q.put({"delta": text})
+        for st in finished:
+            r = next((x for x in self.active if x.stream is st), None)
+            if r is None:
+                continue
+            self.active.remove(r)
+            d = st.finish_up(self.batch_level)
+            for text in st.take():
+                r.q.put({"delta": text})
+            d["waited_s"] = round(r.waited, 3)
+            d["total_s"] = round(r.waited + d["seconds"], 3)
+            d["disk_mb"], d["disk_s"] = r.disk_mb, r.disk_s
+            d["batch_avg"] = round(r.share / r.steps, 2) if r.steps else 1.0
+            if r.goals is not None and goals_mod.is_set(r.goals):
+                self._judge(d, r.goals, r.waited)
+            self._learn(d)
+            r.q.put({"done": d})
+
+    # --- keeping speed goals while answers run ------------------------------------------------------------------------------
+    def _adjust(self):
+        """Every few steps: if a running answer's speed goal is missed, the whole step moves one size down. If everyone has room, one up."""
+        if not self.active or self.batch_level is None or any(r.fixed for r in self.active):
+            return
+        n = len(self.active)
+        goals = [r for r in self.active if r.goals and r.goals.get("min_tokens_per_s") is not None]
+        if not goals:
+            return
+        now = time.perf_counter()
+        last = getattr(self, "_adj", None)
+        self._adj = (now, [r.stream.out for r in goals])
+        if last is None or len(last[1]) != len(goals):
+            return
+        dt = now - last[0]
+        if dt <= 0:
+            return
+        speeds = [(r.stream.out - o) / dt for r, o in zip(goals, last[1])]
+        cap = min(r.max_pct for r in self.active)
+        pool = sorted([l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)], key=lambda l: -l["pct"])
+        i = next((k for k, l in enumerate(pool) if l["id"] == self.batch_level["id"]), None)
+        if i is None:
+            return
+        slow = any(sp < 0.92 * r.goals["min_tokens_per_s"] for r, sp in zip(goals, speeds) if r.stream.t_first is not None)
+        if slow and i + 1 < len(pool):
+            self._record_switch(pool[i + 1])
+        elif i > 0 and all(sp > 1.3 * r.goals["min_tokens_per_s"] for r, sp in zip(goals, speeds)):
+            up = pool[i - 1]
+            ratio = self.pred.time_factor(self.batch_level) / self.pred.time_factor(up)
+            if all(sp * ratio >= 1.1 * r.goals["min_tokens_per_s"] for r, sp in zip(goals, speeds)):
+                self._record_switch(up)
+
+    def _record_switch(self, level):
+        old = self.batch_level
+        for r in self.active:
+            r.stream.switches.append({"at_token": r.stream.out, "from": old["id"], "to": level["id"]})
+        self._set_level(level)

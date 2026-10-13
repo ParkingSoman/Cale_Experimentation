@@ -88,6 +88,17 @@ class Lib:
             c.cale_begin3.restype, c.cale_begin3.argtypes = i32, [vp, i32p, i32, ctypes.c_float, ctypes.c_float, ctypes.c_uint32, i32]
             c.cale_reused.restype, c.cale_reused.argtypes = i32, [vp]
             c.cale_forget.restype, c.cale_forget.argtypes = None, [vp]
+        self.has_slots = hasattr(c, "cale_batch_step")
+        if self.has_slots:
+            c.cale_slots.restype, c.cale_slots.argtypes = i32, [vp]
+            c.cale_slot_open.restype, c.cale_slot_open.argtypes = i32, [vp, i32, i32p, i32, ctypes.c_float, ctypes.c_float, ctypes.c_uint32, i32, i32]
+            c.cale_slot_close.restype, c.cale_slot_close.argtypes = None, [vp, i32]
+            c.cale_slot_forget.restype, c.cale_slot_forget.argtypes = None, [vp, i32]
+            c.cale_batch_step.restype, c.cale_batch_step.argtypes = i32, [vp, i32, i32p, i32p, i32p, i32]
+            c.cale_slot_topk.restype, c.cale_slot_topk.argtypes = i32, [vp, i32, i32, i32p, ctypes.POINTER(ctypes.c_float)]
+            c.cale_slot_accept.restype, c.cale_slot_accept.argtypes = i32, [vp, i32, i32]
+            c.cale_slot_reused.restype, c.cale_slot_reused.argtypes = i32, [vp, i32]
+            c.cale_slot_common.restype, c.cale_slot_common.argtypes = i32, [vp, i32, i32p, i32]
         self.has_guided = hasattr(c, "cale_topk")
         if self.has_guided:
             c.cale_topk.restype, c.cale_topk.argtypes = i32, [vp, i32, i32p, ctypes.POINTER(ctypes.c_float)]
@@ -178,6 +189,55 @@ class Lib:
             if self.error() == "cancelled":
                 raise Cancelled()
             raise RuntimeError(self.error())
+
+    # --- answers that run together (see llama/shim): one slot per answer ---
+    @property
+    def n_slots(self):
+        return self.c.cale_slots(self.h) if self.has_slots else 1
+
+    def slot_open(self, slot, tokens, temperature=0.0, top_p=1.0, seed=1234, guided=False, reuse=False):
+        """Start an answer in a free slot. Returns how many prompt tokens were kept from the slot's memory."""
+        arr = (ctypes.c_int32 * len(tokens))(*tokens)
+        r = self.c.cale_slot_open(self.h, slot, arr, len(tokens), temperature, top_p, seed, 1 if guided else 0, 1 if reuse else 0)
+        if r < 0:
+            raise RuntimeError(self.error())
+        return r
+
+    def slot_common(self, slot, tokens):
+        """How many tokens from the start of `tokens` this slot's memory already holds."""
+        arr = (ctypes.c_int32 * len(tokens))(*tokens)
+        return self.c.cale_slot_common(self.h, slot, arr, len(tokens))
+
+    def slot_close(self, slot):
+        self.c.cale_slot_close(self.h, slot)
+
+    def slot_forget(self, slot):
+        self.c.cale_slot_forget(self.h, slot)
+
+    def batch_step(self, prefill_budget=64):
+        """One step for all running slots. Returns [(slot, kind, token)]: kind 1 = a token was sampled, 2 = a guided slot waits for slot_topk/slot_accept."""
+        n = max(self.n_slots, 1)
+        sl, kd, tk = (ctypes.c_int32 * n)(), (ctypes.c_int32 * n)(), (ctypes.c_int32 * n)()
+        r = self.c.cale_batch_step(self.h, prefill_budget, sl, kd, tk, n)
+        if r < 0:
+            if self.error() == "cancelled":
+                raise Cancelled()
+            raise RuntimeError(self.error())
+        return [(sl[i], kd[i], tk[i]) for i in range(r)]
+
+    def slot_topk(self, slot, k):
+        ids, lp = (ctypes.c_int32 * k)(), (ctypes.c_float * k)()
+        n = self.c.cale_slot_topk(self.h, slot, k, ids, lp)
+        if n < 0:
+            raise RuntimeError(self.error())
+        return [(ids[i], lp[i]) for i in range(n)]
+
+    def slot_accept(self, slot, tok):
+        if self.c.cale_slot_accept(self.h, slot, tok) != 0:
+            raise RuntimeError(self.error())
+
+    def slot_reused(self, slot):
+        return self.c.cale_slot_reused(self.h, slot)
 
     @property
     def reused(self):

@@ -33,6 +33,7 @@ from nest.levels3n import MAX_CONTEXT, load_levels, pick
 from . import backends, choose, constrain, oslayer, paths, pressure
 from . import gemma3n_facts as facts
 from . import goals as goals_mod
+from .batching import BatchMixin, BatchPred, Request
 from .predict import Predictor
 
 IDLE_S = 600
@@ -70,7 +71,7 @@ class EngineError(Exception):
     """The engine failed during a call. Cale has unloaded the model and reloads it on the next call."""
 
 
-class Engine:
+class Engine(BatchMixin):
     def __init__(self, model_path, idle_s=IDLE_S):
         self.path = str(model_path)
         self.idle_s = idle_s
@@ -97,6 +98,7 @@ class Engine:
         self.last_error = None                 # the last engine failure, for /cale/status
         self.debug_fail = False                # debug only: make the next call fail inside the engine
         self.running_cancel = None             # the Cancel of the request that is running now
+        self._batch_init()
         threading.Thread(target=self._monitor, daemon=True).start()
 
     @property
@@ -126,7 +128,8 @@ class Engine:
         with self.mu:
             holds = [{"hold": k, "app": h["app"], "size_pct": h["pct"], "age_s": round(time.time() - h["since"])}
                      for k, h in self.holds.items()]
-        return {"loaded": m is not None, "placement": getattr(m, "placement", None), "cap_pct": round(self.cap * 100),
+        return {"loaded": m is not None, "placement": getattr(m, "placement", None), "slots": getattr(m, "n_slots", 1) if m is not None else None,
+                "cap_pct": round(self.cap * 100),
                 "resident_gb": resident, "ffn_gb": ffn, "pressure": pressure.name(), "load_s": self.load_s,
                 "idle_s": round(time.time() - self.last_used), "implicit_hold": self.implicit,
                 "holds": holds, "events": self.events, "last_error": self.last_error}
@@ -338,6 +341,15 @@ class Engine:
         cancel: a nest.cancel.Cancel. The server sets it when the client closes its connection. The work then stops.
         guide: a cale.constrain.Guide: every token must fit it (JSON mode, JSON schema, tool calls).
         Raises GoalMissed, Unsafe, ContextTooLong before the first event, Cancelled if the client left, and EngineError if the engine fails."""
+        if self.m is None:
+            with self.lock:                                         # to know what the engine can do, it must be loaded
+                self._apply_pending()
+                if self.m is None:
+                    self._load()
+        if self.can_batch():
+            yield from self._batched_chat_stream(messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived,
+                                                 max_tokens_explicit, cancel, guide)
+            return
         with self.lock:
             if cancel:
                 cancel.check()                                      # the client gave up while waiting in line: do not start
@@ -355,42 +367,14 @@ class Engine:
                     if not self.implicit:
                         self.implicit = True
                         self._resident_now()
-                n_prompt = self.m.prompt_len(messages)
-                limit = self.max_context()
-                if n_prompt + 1 > limit or (max_tokens_explicit and n_prompt + max_tokens > limit):
-                    raise ContextTooLong(f"This request needs {n_prompt} prompt tokens plus {max_tokens} answer tokens. "
-                                         f"This computer accepts {limit} in total.",
-                                         {"prompt_tokens": n_prompt, "max_tokens": max_tokens, "max_context_tokens": limit})
-                max_tokens = min(max_tokens, limit - n_prompt)
-                cap = min(round(self.cap * 100), round(goal.get("max_pct", 100))) if goal else round(self.cap * 100)
-                goals = goal["goals"] if goal else None
-                plan = {"goal_met": None, "unmet": [], "predicted": None, "waited_s": round(waited, 3),
-                        "confidence": self.pred.confidence}
-                controller = None
-                answer_tokens = goal.get("expect_tokens") or max_tokens if goal else max_tokens
-                if goal is None:
-                    lv = pick(self.levels, size_pct, cap)
-                elif not goals_mod.is_set(goals):                  # no goals: the largest size that needs no disk
-                    pool = [l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)]
-                    lv = max(pool or [min(self.levels, key=lambda l: l["pct"])], key=lambda l: (l["pct"], l["mmlu_pt"]))
-                else:
-                    res = self._decide(goals, n_prompt, answer_tokens, waited, cap, cancel)
-                    lv = res["row"]["level"]
-                    plan.update(goal_met=res["met"], unmet=res["unmet"], predicted=self._predicted(res["row"]))
-                    if goals["min_tokens_per_s"] is not None:
-                        controller = self._controller(goals, lv, cap)
-                self._check_safe(lv, n_prompt, answer_tokens, waited)
-                disk_mb = round(sum(self.m.layer_read[i] for i, _ in self.m.missing(lv)) / 1e6)
-                plan.update(size_pct=lv["pct"], id=lv["id"], disk_mb=disk_mb, prompt_tokens=n_prompt, max_tokens=max_tokens)
-                if plan["predicted"] is None:
-                    plan["predicted"] = self._predicted(choose.row(lv, self.pred, self.machine(), self._ctx(n_prompt, answer_tokens, waited),
-                                                                   goals or goals_mod.parse({}), list(self.m.resident)))
+                lv, plan, max_tokens, goals, n_prompt, answer_tokens, controller = self._plan_request(
+                    messages, max_tokens, max_tokens_explicit, size_pct, goal, waited, cancel, with_controller=True)
                 yield {"plan": plan}
                 if self.debug_fail:
                     self.debug_fail = False
                     raise RuntimeError("debug: injected engine failure")
                 for ev in self.m.chat_stream(messages, max_tokens=max_tokens, width=lv, temperature=temperature,
-                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel, controller=controller, guide=guide, owner=app):
+                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel, controller=controller, guide=guide, owner=None if seed is not None else app):
                     if "done" in ev:
                         d = ev["done"]
                         d["waited_s"] = round(waited, 3)
@@ -414,6 +398,49 @@ class Engine:
                 if self.implicit:
                     self.implicit_last = time.time()
                 self._apply_pending()
+
+    def _plan_request(self, messages, max_tokens, explicit, size_pct, goal, waited, cancel, n_active=1, with_controller=False):
+        """Everything decided before an answer starts: how long the prompt is, the context check, the size, the safety check.
+        Returns (size, plan, max_tokens, goals, prompt tokens, expected answer tokens, closed-loop controller or None).
+        Raises GoalMissed, Unsafe, ContextTooLong. `n_active`: how many answers share the step (the speed prediction is for that crowd)."""
+        pred = self.pred if n_active <= 1 else BatchPred(self.pred, n_active)
+        n_prompt = self.m.prompt_len(messages)
+        limit = self.max_context()
+        if n_prompt + 1 > limit or (explicit and n_prompt + max_tokens > limit):
+            raise ContextTooLong(f"This request needs {n_prompt} prompt tokens plus {max_tokens} answer tokens. "
+                                 f"This computer accepts {limit} in total.",
+                                 {"prompt_tokens": n_prompt, "max_tokens": max_tokens, "max_context_tokens": limit})
+        max_tokens = min(max_tokens, limit - n_prompt)
+        cap = min(round(self.cap * 100), round(goal.get("max_pct", 100))) if goal else round(self.cap * 100)
+        goals = goal["goals"] if goal else None
+        plan = {"goal_met": None, "unmet": [], "predicted": None, "waited_s": round(waited, 3), "confidence": self.pred.confidence}
+        controller = None
+        answer_tokens = goal.get("expect_tokens") or max_tokens if goal else max_tokens
+        if goal is None:
+            lv = pick(self.levels, size_pct, cap)
+        elif not goals_mod.is_set(goals):                  # no goals: the largest size that needs no disk
+            pool = [l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)]
+            lv = max(pool or [min(self.levels, key=lambda l: l["pct"])], key=lambda l: (l["pct"], l["mmlu_pt"]))
+        else:
+            res = self._decide(goals, n_prompt, answer_tokens, waited, cap, cancel, pred)
+            lv = res["row"]["level"]
+            plan.update(goal_met=res["met"], unmet=res["unmet"], predicted=self._predicted(res["row"]))
+            if with_controller and goals["min_tokens_per_s"] is not None:
+                controller = self._controller(goals, lv, cap)
+        self._check_safe(lv, n_prompt, answer_tokens, waited)
+        disk_mb = round(sum(self.m.layer_read[i] for i, _ in self.m.missing(lv)) / 1e6)
+        plan.update(size_pct=lv["pct"], id=lv["id"], disk_mb=disk_mb, prompt_tokens=n_prompt, max_tokens=max_tokens)
+        if plan["predicted"] is None:
+            plan["predicted"] = self._predicted(choose.row(lv, pred, self.machine(), self._ctx(n_prompt, answer_tokens, waited),
+                                                           goals or goals_mod.parse({}), list(self.m.resident)))
+        return lv, plan, max_tokens, goals, n_prompt, answer_tokens, controller
+
+    def _batched_chat_stream(self, messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived, explicit, cancel, guide):
+        """chat_stream when answers run together: the scheduler does the work, this generator hands out its events."""
+        if cancel:
+            cancel.check()
+        req = Request(messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived, explicit, cancel, guide)
+        yield from self._batched_stream(req)
 
     def _interrupt_for(self, cancel):
         """Stop a long step inside the engine, but only if this request is the one running now."""
@@ -452,7 +479,7 @@ class Engine:
         return {**out, "goal_met": res["met"], "unmet": res["unmet"],
                 "chosen": {"size": res["row"]["level"]["id"], "size_pct": res["row"]["level"]["pct"], **self._predicted(res["row"])}}
 
-    def _decide(self, goals, n_prompt, answer_tokens, waited, cap, cancel=None):
+    def _decide(self, goals, n_prompt, answer_tokens, waited, cap, cancel=None, pred=None):
         """Choose a size for these goals. Applies on_miss: best_effort runs the best size, try also allows disk, refuse and wait raise GoalMissed."""
         power = oslayer.power_state() if goals["power"] == "light" else {}
         light = goals["power"] == "light" and bool(power.get("on_battery") or power.get("hot"))
@@ -460,7 +487,7 @@ class Engine:
         t0 = time.time()
         while True:
             ctx = self._ctx(n_prompt, answer_tokens, waited + (time.time() - t0))
-            res = choose.for_goals(self.levels, self.pred, self.machine(), goals, ctx, list(self.m.resident), cap, light, allow_disk)
+            res = choose.for_goals(self.levels, pred or self.pred, self.machine(), goals, ctx, list(self.m.resident), cap, light, allow_disk)
             if res["unsafe"]:
                 raise Unsafe("No size can run this call safely on this computer.", self._unsafe_info(res["rows"]))
             if res["met"] or goals["on_miss"] != "wait" or time.time() - t0 >= goals["max_wait_s"]:

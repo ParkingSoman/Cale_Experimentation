@@ -108,13 +108,18 @@ else:
     print("SKIP engine failure test (server not in debug mode)")
 
 # 5. Time spent waiting in line counts. The reply says so, and does not claim a goal was met when it was not.
+# Answers run together when the engine has slots, so fill every slot first: then the next call must wait.
+n_slots = call("/cale/status")[2].get("slots") or 1
 done = {}
-def long_call():
-    done["a"] = chat(key2, "Write a long story about a dragon.", max_tokens=250)
-th = threading.Thread(target=long_call); th.start()
-time.sleep(1.0)
+def long_call(i):
+    done[i] = chat(key2, f"Write a long story about a dragon, version {i}.", max_tokens=250)
+threads = [threading.Thread(target=long_call, args=(i,)) for i in range(n_slots)]
+for th in threads:
+    th.start()
+time.sleep(1.5)
 r = chat(key, "Say hi.", model_name="gemma-3n:auto", max_tokens=8, cale_max_first_token_s=0.5)
-th.join()
+for th in threads:
+    th.join()
 cale = r[2]["cale"]
 check("a call that waited reports waited_s", cale.get("waited_s", 0) >= 1.0, cale)
 check("first-token goal missed while waiting in line: goal_met_actual is false", cale.get("goal_met_actual") is False, cale)

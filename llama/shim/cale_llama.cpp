@@ -33,6 +33,18 @@
 #endif
 
 namespace {
+struct cale_slot {
+    int32_t                  state = 0;            // 0 free, 1 reading the prompt, 2 a token is chosen and waits to be read, 3 waiting for the caller to choose
+    std::vector<llama_token> kv;                   // tokens of this answer's sequence in the memory
+    std::vector<llama_token> prompt;               // the whole prompt of the answer in progress
+    size_t                   read = 0;             // how much of the prompt is read
+    llama_token              pending = -1;
+    llama_sampler *          smpl = nullptr;
+    bool                     guided = false;       // the caller chooses the tokens (see cale_slot_topk)
+    int32_t                  last_idx = -1;        // where this slot's logits are in the last batch
+    int32_t                  reused = 0;
+};
+
 struct cale_ctx {
     llama_model *       model  = nullptr;
     llama_context *     ctx    = nullptr;
@@ -48,6 +60,7 @@ struct cale_ctx {
     bool                split = false;         // the file stores each down matrix as two halves
     std::string         placement;             // which device and layers this load used (for status and replies)
     std::vector<llama_token> kv_tokens;        // the tokens the key/value memory holds now, in order (prompt cache)
+    std::vector<cale_slot> slots;              // answers that run together (cale_batch_step). The single-answer calls above use sequence 0 on their own.
     int32_t             reused = 0;            // how many tokens of the last prompt were taken from the memory instead of being read again
     std::atomic<int>    cancel{0};             // set from another thread: stop the work in progress
 };
@@ -196,6 +209,10 @@ CALE_API cale_ctx * cale_load_dev(const char * path, int32_t n_threads, int32_t 
     cp.n_ubatch        = 512;
     cp.n_threads       = n_threads;
     cp.n_threads_batch = n_threads;
+    const char * ns = getenv("CALE_SLOTS");                       // answers that may run together (1 = one at a time)
+    const int32_t n_slots = ns ? std::max(1, std::min(16, atoi(ns))) : 1;
+    cp.n_seq_max = (uint32_t) n_slots;
+    cp.kv_unified = true;                                         // all answers share one memory pool: the context length is not multiplied
     std::string placement = gpu < 0 ? "device=cpu" : "device=" + std::string(ggml_backend_dev_name(g_gpus[gpu]));
 #ifdef CALE_BACKENDS_DL
     std::vector<float> tensor_split(llama_max_devices(), 0.0f);
@@ -237,6 +254,7 @@ CALE_API cale_ctx * cale_load_dev(const char * path, int32_t n_threads, int32_t 
     h->model = model;
     h->ctx = ctx;
     h->placement = placement;
+    h->slots.resize(n_slots);
     h->vocab = llama_model_get_vocab(model);
     h->n_ctx = (int32_t) llama_n_ctx(ctx);
     h->n_batch = (int32_t) llama_n_batch(ctx);
@@ -262,6 +280,7 @@ CALE_API void cale_cancel(cale_ctx * h) { if (h) h->cancel.store(1); }
 CALE_API void cale_free(cale_ctx * h) {
     if (!h) return;
     if (h->smpl) llama_sampler_free(h->smpl);
+    for (auto & sl : h->slots) if (sl.smpl) llama_sampler_free(sl.smpl);
     llama_free(h->ctx);
     llama_model_free(h->model);
     if (h->gguf) gguf_free(h->gguf);
@@ -466,6 +485,185 @@ CALE_API int32_t cale_next(cale_ctx * h) {
     h->pending = tok;
     return tok;
 }
+
+// ---- answers that run together -----------------------------------------------------------------------------------
+// Decoding one token reads every weight once, whatever the number of answers in the step, so a step with several answers costs little
+// more than one. A *slot* is one answer: open it with its prompt, call cale_batch_step again and again, close it when it is done.
+// All slots run at the size set with cale_set_widths. The prompt of a slot is read in pieces, one piece per step, next to the others' tokens.
+CALE_API int32_t cale_slots(cale_ctx * h) { return (int32_t) h->slots.size(); }
+
+static llama_sampler * make_sampler(float temperature, float top_p, uint32_t seed) {
+    llama_sampler * sm = llama_sampler_chain_init(llama_sampler_chain_default_params());
+    if (temperature <= 0.0f) {
+        llama_sampler_chain_add(sm, llama_sampler_init_greedy());
+    } else {
+        llama_sampler_chain_add(sm, llama_sampler_init_temp(temperature));
+        if (top_p < 1.0f) llama_sampler_chain_add(sm, llama_sampler_init_top_p(top_p > 1e-6f ? top_p : 1e-6f, 1));
+        llama_sampler_chain_add(sm, llama_sampler_init_dist(seed));
+    }
+    return sm;
+}
+
+// Start an answer in a free slot. reuse: keep the start of this slot's memory that matches the prompt (the caller says 1 only for the
+// same app and the same size). Returns how many prompt tokens were kept, or -1 (g_err says why).
+CALE_API int32_t cale_slot_open(cale_ctx * h, int32_t slot, const int32_t * tokens, int32_t n, float temperature, float top_p, uint32_t seed,
+                                int32_t guided, int32_t reuse) {
+    if (slot < 0 || slot >= (int32_t) h->slots.size()) { g_err = "no such slot"; return -1; }
+    cale_slot & sl = h->slots[slot];
+    if (sl.state != 0) { g_err = "slot is busy"; return -1; }
+    if (n <= 0 || n + 1 > h->n_ctx) { g_err = "prompt does not fit the context"; return -1; }
+    size_t keep = 0;
+    if (reuse) {
+        const size_t lim = std::min(sl.kv.size(), (size_t) n - 1);
+        while (keep < lim && sl.kv[keep] == tokens[keep]) ++keep;
+    }
+    llama_memory_t mem = llama_get_memory(h->ctx);
+    if (keep == 0 || !llama_memory_seq_rm(mem, slot, (llama_pos) keep, -1)) {
+        llama_memory_seq_rm(mem, slot, 0, -1);
+        keep = 0;
+    }
+    sl.kv.resize(keep);
+    sl.prompt.assign(tokens, tokens + n);
+    sl.read = keep;
+    sl.reused = (int32_t) keep;
+    sl.pending = -1;
+    sl.last_idx = -1;
+    sl.guided = guided != 0;
+    if (sl.smpl) llama_sampler_free(sl.smpl);
+    sl.smpl = make_sampler(temperature, top_p, seed);
+    sl.state = 1;
+    return (int32_t) keep;
+}
+
+// How many tokens of `tokens` this slot's memory already holds from the start (nothing is changed). Used to pick the slot to reuse.
+CALE_API int32_t cale_slot_common(cale_ctx * h, int32_t slot, const int32_t * tokens, int32_t n) {
+    if (slot < 0 || slot >= (int32_t) h->slots.size()) return 0;
+    const cale_slot & sl = h->slots[slot];
+    const size_t lim = std::min(sl.kv.size(), (size_t) std::max(n - 1, 0));
+    size_t k = 0;
+    while (k < lim && sl.kv[k] == tokens[k]) ++k;
+    return (int32_t) k;
+}
+
+// The answer is done (or stopped): the slot can be used again. Its memory stays, so the same app's next turn may reuse it.
+CALE_API void cale_slot_close(cale_ctx * h, int32_t slot) {
+    if (slot < 0 || slot >= (int32_t) h->slots.size()) return;
+    h->slots[slot].state = 0;
+    h->slots[slot].pending = -1;
+    h->slots[slot].last_idx = -1;
+}
+
+// Forget the memory of a slot (the next prompt in it is read from the start).
+CALE_API void cale_slot_forget(cale_ctx * h, int32_t slot) {
+    if (slot < 0 || slot >= (int32_t) h->slots.size()) return;
+    llama_memory_seq_rm(llama_get_memory(h->ctx), slot, 0, -1);
+    h->slots[slot].kv.clear();
+}
+
+// One step for every running slot. Slots with a chosen token read it. One slot that is still reading its prompt reads up to
+// `prefill_budget` more of it. Then the next token of each slot is sampled, or (for a guided slot) left for the caller.
+// Fills out_slot/out_kind/out_tok (up to `cap` entries) and returns how many. kind 1: out_tok is the sampled token.
+// kind 2: the caller chooses: cale_slot_topk, then cale_slot_accept. kind 3: this slot failed. Returns -1 if the whole step failed.
+CALE_API int32_t cale_batch_step(cale_ctx * h, int32_t prefill_budget, int32_t * out_slot, int32_t * out_kind, int32_t * out_tok, int32_t cap) {
+    const int32_t n_slots = (int32_t) h->slots.size();
+    const int32_t max_tokens = h->n_batch;
+    llama_batch b = llama_batch_init(max_tokens, 0, 1);
+    b.n_tokens = 0;
+    std::vector<int32_t> deciding;                                 // slots whose logits this step produces
+    std::vector<int32_t> batch_idx(n_slots, -1);
+    auto add = [&](llama_token t, llama_pos pos, int32_t seq, bool logits) {
+        const int32_t i = b.n_tokens++;
+        b.token[i] = t; b.pos[i] = pos; b.n_seq_id[i] = 1; b.seq_id[i][0] = seq; b.logits[i] = logits ? 1 : 0;
+        return i;
+    };
+    for (int32_t s = 0; s < n_slots && b.n_tokens < max_tokens; ++s) {
+        cale_slot & sl = h->slots[s];
+        if (sl.state == 2) {
+            batch_idx[s] = add(sl.pending, (llama_pos) sl.kv.size(), s, true);
+            deciding.push_back(s);
+        }
+    }
+    int32_t pf_slot = -1, pf_n = 0;
+    for (int32_t s = 0; s < n_slots; ++s) {
+        cale_slot & sl = h->slots[s];
+        if (sl.state != 1) continue;
+        pf_slot = s;
+        const int32_t room = max_tokens - b.n_tokens;
+        pf_n = (int32_t) std::min<size_t>({sl.prompt.size() - sl.read, (size_t) std::max(prefill_budget, 1), (size_t) std::max(room, 0)});
+        for (int32_t i = 0; i < pf_n; ++i) {
+            const bool last = sl.read + i + 1 == sl.prompt.size();
+            const int32_t at = add(sl.prompt[sl.read + i], (llama_pos) (sl.read + i), s, last);
+            if (last) batch_idx[s] = at;
+        }
+        if (batch_idx[s] >= 0) deciding.push_back(s);
+        break;                                                      // one slot reads its prompt per step: the others keep answering
+    }
+    if (b.n_tokens == 0) { llama_batch_free(b); return 0; }
+    const int32_t rc = llama_decode(h->ctx, b);
+    if (rc != 0) {
+        g_err = h->cancel.load() != 0 ? "cancelled" : "llama_decode failed";
+        llama_batch_free(b);
+        return -1;
+    }
+    for (int32_t s = 0; s < n_slots; ++s) {                        // the tokens that were read are in the memory now
+        cale_slot & sl = h->slots[s];
+        if (sl.state == 2) sl.kv.push_back(sl.pending);
+    }
+    if (pf_slot >= 0) {
+        cale_slot & sl = h->slots[pf_slot];
+        sl.kv.insert(sl.kv.end(), sl.prompt.begin() + sl.read, sl.prompt.begin() + sl.read + pf_n);
+        sl.read += pf_n;
+    }
+    int32_t out = 0;
+    for (int32_t s : deciding) {
+        cale_slot & sl = h->slots[s];
+        sl.last_idx = batch_idx[s];
+        if (out >= cap) break;
+        out_slot[out] = s;
+        if (sl.guided) {
+            sl.state = 3;
+            out_kind[out] = 2; out_tok[out] = -1;
+        } else {
+            const llama_token t = llama_sampler_sample(sl.smpl, h->ctx, sl.last_idx);
+            sl.pending = t; sl.state = 2;
+            out_kind[out] = 1; out_tok[out] = t;
+        }
+        ++out;
+    }
+    llama_batch_free(b);
+    return out;
+}
+
+// For a guided slot (kind 2): the k most likely next tokens with their log-probabilities. Valid until the next cale_batch_step.
+CALE_API int32_t cale_slot_topk(cale_ctx * h, int32_t slot, int32_t k, int32_t * ids, float * logprob) {
+    if (slot < 0 || slot >= (int32_t) h->slots.size() || h->slots[slot].last_idx < 0) { g_err = "no logits for this slot"; return -1; }
+    const float * lg = llama_get_logits_ith(h->ctx, h->slots[slot].last_idx);
+    if (!lg) { g_err = "no logits for this slot"; return -1; }
+    const int32_t n = llama_vocab_n_tokens(h->vocab);
+    k = std::min(k, n);
+    std::vector<int32_t> idx(n);
+    for (int32_t i = 0; i < n; ++i) idx[i] = i;
+    std::partial_sort(idx.begin(), idx.begin() + k, idx.end(), [&](int32_t a, int32_t c) { return lg[a] > lg[c]; });
+    const float mx = lg[idx[0]];
+    double sum = 0.0;
+    for (int32_t i = 0; i < n; ++i) sum += std::exp((double) (lg[i] - mx));
+    const float lse = (float) (std::log(sum) + mx);
+    for (int32_t i = 0; i < k; ++i) { ids[i] = idx[i]; logprob[i] = lg[idx[i]] - lse; }
+    return k;
+}
+
+// The caller chose this token for a guided slot: it is read at the next step.
+CALE_API int32_t cale_slot_accept(cale_ctx * h, int32_t slot, int32_t tok) {
+    if (slot < 0 || slot >= (int32_t) h->slots.size()) return -1;
+    cale_slot & sl = h->slots[slot];
+    if ((int32_t) sl.kv.size() + 1 > h->n_ctx) { g_err = "context is full"; return -2; }
+    sl.pending = tok;
+    sl.state = 2;
+    return 0;
+}
+
+CALE_API int32_t cale_slot_reused(cale_ctx * h, int32_t slot) { return h->slots[slot].reused; }
+CALE_API int32_t cale_slot_tokens(cale_ctx * h, int32_t slot) { return (int32_t) h->slots[slot].kv.size(); }
 
 // The k most likely next tokens, best first, for guided decoding: the caller picks one that fits its grammar, then calls cale_accept.
 // ids[i] and logprob[i] get the token and its log-probability (over the whole vocabulary). Returns how many were written, or -1.

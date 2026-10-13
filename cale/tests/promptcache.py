@@ -50,12 +50,20 @@ check("second turn: the history is taken from the cache", s == 200 and u2["promp
 check("second turn: the first token comes sooner", r2["cale"]["first_token_s"] < 0.8 * r1["cale"]["first_token_s"], (r1["cale"]["first_token_s"], r2["cale"]["first_token_s"]))
 a2 = r2["choices"][0]["message"]["content"]
 
-# the answer must be the same as without the cache: break the cache with an unrelated call, then ask the same turn again
-chat(key, [{"role": "user", "content": "Say hi."}])
-s, r3 = chat(key, turn2)
-check("after another conversation: nothing cached", r3["usage"]["prompt_tokens_details"]["cached_tokens"] == 0, r3["usage"])
+# the answer must be the same as without the cache. A seeded call never uses the cache, so it is the "without" run.
+s, r3 = chat(key, turn2, seed=1)
+check("a seeded call does not use the cache", s == 200 and r3["usage"]["prompt_tokens_details"]["cached_tokens"] == 0, r3["usage"])
 a3 = r3["choices"][0]["message"]["content"]
 check("the answer with the cache equals the answer without it", a2.strip()[:40] == a3.strip()[:40], (a2, a3))
+
+# another conversation of the same app: with several slots both stay cached, with one slot the older one is lost
+slots = call("/cale/status")[1].get("slots") or 1
+chat(key, [{"role": "user", "content": "Say hi."}])
+s, r3b = chat(key, turn2 + [{"role": "assistant", "content": a2}, {"role": "user", "content": "And Fact 5?"}])
+if slots > 1:
+    check("another conversation does not push this one out (each has a slot)", r3b["usage"]["prompt_tokens_details"]["cached_tokens"] > 0.5 * u1["prompt_tokens"], r3b["usage"])
+else:
+    check("with one slot another conversation replaces this one", r3b["usage"]["prompt_tokens_details"]["cached_tokens"] <= 8, r3b["usage"])
 
 # the cache is kept per size: another size starts again
 s, r4 = chat(key, turn2, model="gemma-3n:fast")
@@ -68,8 +76,11 @@ key_b = call("/cale/connect", {"app": "Cache Test B"})[1]["api_key"]
 chat(key, [sys_msg, q1])
 s, rb = chat(key_b, [sys_msg, q1, {"role": "assistant", "content": a1}, {"role": "user", "content": "And what is Fact 4?"}])
 check("another app with the same start gets nothing from the cache (and learns nothing)", s == 200 and rb["usage"]["prompt_tokens_details"]["cached_tokens"] == 0, rb["usage"])
-s, ra = chat(key, [sys_msg, q1])
-check("the first app's cache was replaced by the other app's work: it starts again, correctly", s == 200 and ra["usage"]["prompt_tokens_details"]["cached_tokens"] == 0, ra["usage"])
+s, ra = chat(key, [sys_msg, q1, {"role": "assistant", "content": a1}, {"role": "user", "content": "And what is Fact 6?"}])
+if slots > 1:
+    check("with slots the first app's conversation survived the other app's work", s == 200 and ra["usage"]["prompt_tokens_details"]["cached_tokens"] > 0.5 * u1["prompt_tokens"], ra["usage"])
+else:
+    check("with one slot the other app replaced the first app's conversation", s == 200 and ra["usage"]["prompt_tokens_details"]["cached_tokens"] == 0, ra["usage"])
 
 # a changed history is not reused wrongly
 changed = [{"role": "system", "content": "You answer questions about this document. " + DOC.replace("Fact 1:", "Item 1:")}, q1]

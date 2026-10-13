@@ -27,6 +27,7 @@ PRIORS = {
     "llama": {"eff": 0.54, "prefill_ratio": 2.5, "fixed": 0.135},
 }
 KEEP = 9               # answers kept per size for the median
+BATCH_EPS = 0.25       # each extra answer in a step adds this share of the time of one (prior: measured on the HP CPU, see FINDINGS)
 DISK_PRIOR = 1.0e9     # bytes per second until a real read has been seen (a modest SSD)
 FIRST_WEIGHT = 0.8     # the first real answer replaces the prior almost fully
 LATER_WEIGHT = 0.35    # later answers move the number gently
@@ -46,6 +47,7 @@ class Predictor:
         self.fixed = pr["fixed"]
         self.n_dec = self.n_pre = 0
         self.disk_bps, self.disk_samples = DISK_PRIOR, []
+        self.batch_eps, self.batch_n = BATCH_EPS, 0
         self.by_level = {}                                              # level id -> recent decode speeds (tokens/s)
         self.slow = 1.0                                                 # debug only: pretend this computer is this many times slower
         self.busy = lambda: 0.0                                         # share of the CPU other programs use now (set by the engine)
@@ -70,6 +72,20 @@ class Predictor:
         """Seconds from the start of the work to the first token: reading the prompt, then one token."""
         return disk_s + prompt_tokens / self.prefill_tps(level) + 1.0 / self.decode_tps(level)
 
+    def batch_cost(self, n):
+        """Time of one step with n answers, relative to a step with one."""
+        return 1.0 + self.batch_eps * max(n - 1, 0)
+
+    def observe_step(self, n, step_s, level):
+        """A step of n answers took step_s: learn how much each extra answer costs. Needs a settled solo speed to compare with."""
+        if n < 2 or self.n_dec < 2 or step_s <= 0:
+            return
+        solo_s = 1.0 / self.decode_tps(level)
+        eps = max(0.0, min(2.0, (step_s / solo_s - 1.0) / (n - 1)))
+        w = 0.1
+        self.batch_eps = (1 - w) * self.batch_eps + w * eps
+        self.batch_n += 1
+
     @property
     def confidence(self):
         return "estimate" if self.n_dec == 0 or self.n_pre == 0 else "learned"
@@ -88,7 +104,7 @@ class Predictor:
             self.disk_bps = statistics.median(self.disk_samples)
         live = self.live_factor()
         tokens, decode_s = int(done.get("tokens") or 0), float(done.get("decode_s") or 0.0)
-        if tokens >= 9 and decode_s > 0 and not done.get("switches"):
+        if tokens >= 9 and decode_s > 0 and not done.get("switches") and float(done.get("batch_avg") or 1.0) < 1.05:
             tps = (tokens - 1) / decode_s
             hist = self.by_level.setdefault(level["id"], [])
             hist.append(tps)
@@ -100,7 +116,7 @@ class Predictor:
             self._fit_fixed()
         prompt = int(done.get("prompt_tokens") or 0) - int(done.get("cached_tokens") or 0)      # only the tokens that were really read
         first = float(done.get("first_token_s") or 0.0) - float(done.get("disk_s") or 0.0)
-        if prompt >= 32 and first > 0:
+        if prompt >= 32 and first > 0 and float(done.get("batch_avg") or 1.0) < 1.05:
             read_s = first - 1.0 / max(self.decode_tps(level), 1e-6)
             if read_s > 0:
                 implied = prompt / read_s * facts.cost(level, self.full) / live

@@ -682,7 +682,8 @@ class Handler(BaseHTTPRequestHandler):
                 "usage": {"prompt_tokens": done.get("prompt_tokens", 0), "completion_tokens": done.get("tokens", 0),
                           "total_tokens": done.get("prompt_tokens", 0) + done.get("tokens", 0),
                           "prompt_tokens_details": {"cached_tokens": done.get("cached_tokens", 0)}},
-                "cale": {**info, "size": actual, **{k: done.get(k) for k in ("seconds", "first_token_s", "waited_s", "total_s", "switch_ms", "drafter", "disk_mb", "disk_s")}},
+                "cale": {**info, "size": actual, **{k: done.get(k) for k in ("seconds", "first_token_s", "waited_s", "total_s", "switch_ms", "drafter", "disk_mb", "disk_s")},
+                           "answers_sharing_the_step": done.get("batch_avg", 1.0)},
             }, hdr)
 
         if use_tools:

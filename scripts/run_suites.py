@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
 OWN_MODEL = ["oslayer", "choose", "constrain", "engine_features", "backend_llama"]     # these load the model or need no server
-SERVER = ["honest", "relative", "objects", "goals", "structured", "promptcache", "e2e"]
+SERVER = ["honest", "relative", "objects", "goals", "structured", "promptcache", "concurrent", "e2e"]
 PORT = 47899
 
 
@@ -105,7 +105,7 @@ def main():
     ap.add_argument("--only")
     ap.add_argument("--keep-home", action="store_true")
     a = ap.parse_args()
-    mac = sys.platform == "darwin"
+    mac = sys.platform == "darwin" and os.environ.get("CALE_BACKEND") != "llama"          # a Mac normally runs MLX; CALE_BACKEND=llama tests the llama.cpp engine here
     env = dict(os.environ, CALE_MODEL=a.model, PYTHONUNBUFFERED="1", PYTHONPATH=str(ROOT))
     if a.lib:
         env["CALE_LLAMA_LIB"] = a.lib
