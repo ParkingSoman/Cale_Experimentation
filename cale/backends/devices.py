@@ -20,19 +20,24 @@ CALE_GPU (a setting for the person or the app that starts Cale):
 """
 import os
 
-WORKING_BYTES = 800 << 20          # compute buffers, KV cache and room for the OS driver
+WORKING_BYTES = 800 << 20          # only if llama.cpp cannot project the fit (an old library): compute buffers, KV cache and room for the OS driver
 
 
-def choose(devs, model_bytes, mode=None, readback=False):
+def choose(devs, model_bytes, mode=None, readback=False, fits=None):
     """-> (device dict or None, n_gpu_layers, reason). n_gpu_layers: 999 = all, 0 = none (the GPU only reads prompts), -1 = let llama.cpp's fit decide."""
     mode = (mode or os.environ.get("CALE_GPU") or "auto").strip()
     low = mode.lower()
     if low == "off":
         return None, 0, "the CPU (CALE_GPU=off)"
     own = sorted([d for d in devs if d["type"] == "GPU"], key=lambda d: -d["free"])
+    def holds_all(d):
+        """Does the whole model fit in this GPU? llama.cpp's own projection says (`fits`). If it cannot, a rough rule with a margin."""
+        said = fits(d) if fits is not None else None
+        return said if said is not None else d["free"] >= model_bytes + WORKING_BYTES
+
     if low in ("auto", "full"):
         for d in own:
-            if d["free"] >= model_bytes + WORKING_BYTES:
+            if holds_all(d):
                 return d, 999, f"{d['name']} holds the whole model"
         if readback and own:
             return own[0], 0, f"{own[0]['name']} reads prompts, the weights stay in RAM for the CPU (the model does not fit in its memory)"
@@ -44,5 +49,5 @@ def choose(devs, model_bytes, mode=None, readback=False):
     named = [d for d in devs if low in (d["name"] + " " + d["description"]).lower()]
     if named:
         d = max(named, key=lambda d: d["free"])
-        return d, (999 if d["free"] >= model_bytes + WORKING_BYTES else -1), f"{d['name']} (CALE_GPU={mode})"
+        return d, (999 if holds_all(d) else -1), f"{d['name']} (CALE_GPU={mode})"
     return None, 0, f"the CPU (no device matches CALE_GPU={mode})"

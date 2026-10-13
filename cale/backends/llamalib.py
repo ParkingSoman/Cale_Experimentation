@@ -63,6 +63,18 @@ def offload_min_batch(gpu, lib_path=None):
     return int(c.cale_offload_min_batch(gpu))
 
 
+def fit_all(model_path, gpu, n_ctx, n_threads, lib_path=None, fit_margin_mb=300):
+    """Asks llama.cpp whether every layer fits in this GPU's own memory (no weights are loaded). True, False, or None if it cannot tell."""
+    c = ctypes.CDLL(find_library(lib_path))
+    if gpu is None or not hasattr(c, "cale_fit_all"):
+        return None
+    c.cale_fit_all.restype = ctypes.c_int32
+    c.cale_fit_all.argtypes = [ctypes.c_char_p, ctypes.c_int32, ctypes.c_int32, ctypes.c_int32, ctypes.c_int32, ctypes.c_int32, ctypes.POINTER(ctypes.c_int32)]
+    layers = ctypes.c_int32(0)
+    r = c.cale_fit_all(os.fsencode(str(model_path)), gpu, n_ctx, n_threads, 1, fit_margin_mb, ctypes.byref(layers))
+    return None if r < 0 else bool(r)
+
+
 def memory_bandwidth(threads, lib_path=None, mb_per_thread=48):
     """Bytes per second this computer reads from memory with `threads` threads. About 0.15 s. No model needed. 0.0 if unknown."""
     c = ctypes.CDLL(find_library(lib_path))

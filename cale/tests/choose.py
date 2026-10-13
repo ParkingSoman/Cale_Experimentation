@@ -175,6 +175,9 @@ check("devices: a GPU that holds the model gets every layer", dv.choose([small, 
 check("devices: a small GPU gets no layers when the library can read weights back", dv.choose([small], model, "auto", readback=True)[:2] == (small, 0))
 check("devices: a small GPU is not used when the library cannot", dv.choose([small], model, "auto", readback=False)[0] is None)
 check("devices: a GPU that shares memory is never chosen on its own", dv.choose([igpu], model, "auto", readback=True)[0] is None)
+check("devices: llama.cpp says every layer fits -> every layer, even if the rough rule says no", dv.choose([small], model, "auto", readback=True, fits=lambda d: True)[:2] == (small, 999))
+check("devices: llama.cpp says not every layer fits -> reads prompts, even if the rough rule says yes", dv.choose([big], model, "auto", readback=True, fits=lambda d: False)[:2] == (big, 0))
+check("devices: llama.cpp cannot tell -> the rough rule", dv.choose([big], model, "auto", fits=lambda d: None)[:2] == (big, 999))
 check("devices: off means the CPU", dv.choose([big], model, "off", readback=True)[0] is None)
 check("devices: partial asks for llama.cpp's fit", dv.choose([small], model, "partial")[:2] == (small, -1))
 

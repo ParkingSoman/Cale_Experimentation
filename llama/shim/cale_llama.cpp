@@ -215,6 +215,50 @@ CALE_API int32_t cale_offload_min_batch(int32_t gpu) {
     return found;
 }
 
+
+// Would every layer of this model fit in this GPU's own memory, by llama.cpp's own projection? No weights are loaded: the fit reads the
+// file's metadata and projects the memory. Returns 1 = every layer fits, 0 = only some do (*layers says how many), -1 = could not tell
+// or nothing fits. The memory the projection leaves free is fit_margin_mb (a policy: room for the driver and other programs).
+CALE_API int32_t cale_fit_all(const char * path, int32_t gpu, int32_t n_ctx, int32_t n_threads, int32_t no_host, int32_t fit_margin_mb, int32_t * layers) {
+#ifdef CALE_BACKENDS_DL
+    init_backends();
+    if (gpu < 0 || gpu >= (int32_t) g_gpus.size()) return -1;
+    llama_model_params mp = llama_model_default_params();
+    ggml_backend_dev_t devs[2] = {g_gpus[gpu], nullptr};
+    mp.devices = devs;
+    mp.use_extra_bufts = true;
+    mp.no_host = no_host != 0;
+    llama_context_params cp = llama_context_default_params();
+    cp.n_ctx = n_ctx; cp.n_batch = 512; cp.n_ubatch = 512; cp.n_threads = n_threads; cp.n_threads_batch = n_threads;
+    cp.kv_unified = true;
+    std::vector<float> tensor_split(llama_max_devices(), 0.0f);
+    std::vector<llama_model_tensor_buft_override> overrides(llama_max_tensor_buft_overrides());
+    std::vector<size_t> margins(llama_max_devices(), (size_t) (fit_margin_mb < 0 ? 0 : fit_margin_mb) * 1024 * 1024);
+    const int32_t def = mp.n_gpu_layers;
+    const common_params_fit_status st = common_fit_params(path, &mp, &cp, tensor_split.data(), overrides.data(), margins.data(), 512, nullptr, GGML_LOG_LEVEL_ERROR);
+    if (st != COMMON_PARAMS_FIT_STATUS_SUCCESS) return -1;
+    *layers = mp.n_gpu_layers;
+    gguf_init_params gp = {/*no_alloc=*/true, /*ctx=*/nullptr};
+    gguf_context * g = gguf_init_from_file(path, gp);
+    int64_t blocks = -1;
+    if (g) {
+        const int64_t ak = gguf_find_key(g, "general.architecture");
+        if (ak >= 0) {
+            const std::string key = std::string(gguf_get_val_str(g, ak)) + ".block_count";
+            const int64_t bk = gguf_find_key(g, key.c_str());
+            if (bk >= 0) blocks = (int64_t) gguf_get_val_u32(g, bk);
+        }
+        gguf_free(g);
+    }
+    // Left at the default (all) or at every block plus the output layer: all of it fits.
+    if (mp.n_gpu_layers == def || (blocks > 0 && mp.n_gpu_layers >= blocks + 1)) return 1;
+    return 0;
+#else
+    (void) path; (void) gpu; (void) n_ctx; (void) n_threads; (void) no_host; (void) fit_margin_mb; (void) layers;
+    return -1;
+#endif
+}
+
 // Load a GGUF.
 // repack: 0 = repack the weights when the file is in the Cale layout (see llama/prepare_gguf.py), 1 = always, 2 = never.
 // Repacked weights are faster on the CPU but live in ordinary memory. Without repacking the file is memory-mapped,
