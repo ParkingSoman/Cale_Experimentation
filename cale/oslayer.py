@@ -376,6 +376,10 @@ def has_screen():
     return bool((os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")) and (shutil.which("zenity") or shutil.which("kdialog")))
 
 
+NO_SCREEN_MESSAGES = (b"failed to open display", b"cannot open display", b"cannot connect to x server", b"could not connect to display",
+                      b"failed to connect to the wayland display", b"no protocol specified")
+
+
 def ask_allow(app, replacing=False, seconds=120):
     """Ask the person at the computer: allow this app to use Cale? True only for a clear yes. None if the dialog tool found no screen to show it on.
     The app name travels as data, never inside script text."""
@@ -415,11 +419,14 @@ def ask_allow(app, replacing=False, seconds=120):
         exe = shutil.which(tool)
         if exe and (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
             try:
+                t0 = time.time()
                 r = subprocess.run([exe, *args], capture_output=True, timeout=seconds + 5)
-                if r.returncode != 0 and any(w in r.stderr.lower() for w in (b"display", b"x server", b"wayland")):
-                    print(f"[connect] {tool} could not reach the screen ({r.stderr.decode(errors='replace').strip()[:100]}). "
-                          "The question will be answered in a terminal instead.", flush=True)
-                    return None                                  # not a "no" from the person: there was no screen after all
+                err = r.stderr.lower()
+                # Only a tool that gives up at once with a known "no screen" message is "no screen". A person needs seconds to answer, so
+                # a click on Don't Allow is never read this way, and nothing here can turn a "no" into a "yes".
+                if r.returncode != 0 and time.time() - t0 < 2.0 and any(m in err for m in NO_SCREEN_MESSAGES):
+                    print(f"[connect] {tool} could not reach the screen. The question will be answered in a terminal instead.", flush=True)
+                    return None
                 return r.returncode == 0
             except subprocess.TimeoutExpired:          # the tool ignored its own timeout: no answer means no
                 print(f"[connect] {tool} did not close after {seconds} s. Counting that as no.", flush=True)

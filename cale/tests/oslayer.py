@@ -130,6 +130,16 @@ def main():
                        {"PATH": f"{d}{os.pathsep}{os.environ.get('PATH', '')}", "DISPLAY": ":99"}, timeout=40)
             check("a dialog tool with no screen to use gives None (so the terminal is used)", "ANSWER None" in r.stdout, (r.stdout + r.stderr)[-300:])
 
+        # ...but a person who answers "Don't Allow" is a "no", even if the tool says something about a display; and a slow failure is not "no screen"
+        with tempfile.TemporaryDirectory() as d:
+            fake = Path(d) / "zenity"
+            fake.write_text("#!/bin/sh\nsleep 3\necho 'Gtk-WARNING: Failed to open display' >&2\nexit 1\n")
+            fake.chmod(0o755)
+            r = run_py("from cale import oslayer\noslayer.MAC = oslayer.WIN = False\n"
+                       "print('ANSWER', oslayer.ask_allow('Test App', seconds=10))",
+                       {"PATH": f"{d}{os.pathsep}{os.environ.get('PATH', '')}", "DISPLAY": ":99"}, timeout=40)
+            check("a slow exit 1 is the person saying no, not 'no screen'", "ANSWER False" in r.stdout, (r.stdout + r.stderr)[-300:])
+
     print("\nALL PASS" if not FAILS else f"\nFAILED: {FAILS}", flush=True)
     return 1 if FAILS else 0
 
