@@ -32,7 +32,8 @@ IDLE_POLL_S = 0.05
 # OFFLOAD_MIN_BATCH tokens is not sent to the GPU at all (every ggml GPU backend uses 32). Next to answers that are running, pieces stay
 # short and stay on the CPU, so the answers keep moving. Alone, a piece is long: the app that leaves is then noticed after seconds, not one second.
 OFFLOAD_MIN_BATCH = 32
-GPU_PIECE = int(os.environ.get("CALE_GPU_PIECE", "512"))
+GPU_PIECE_MIN, GPU_PIECE_MAX = 256, 512          # tokens: the GPU needs this many to pay for the copy of the weights, and 512 is the engine's batch
+GPU_PIECE_SECONDS = 6.0                           # a piece should not take much longer than this: that is how long an app that leaves can hold up the next one
 
 
 class BatchPred:
@@ -339,7 +340,7 @@ class BatchMixin:
         secs = STEP_SECONDS if decoding else 2 * STEP_SECONDS
         budget = max(PREFILL_MIN, min(PREFILL_MAX, int(self.pred.prefill_tps(self.batch_level) * secs)))
         if getattr(m, "gpu_reads_prompts", False):
-            budget = min(budget, OFFLOAD_MIN_BATCH - 1) if decoding else max(budget, GPU_PIECE)
+            budget = min(budget, OFFLOAD_MIN_BATCH - 1) if decoding else max(GPU_PIECE_MIN, min(GPU_PIECE_MAX, int(self.pred.prefill_tps(self.batch_level) * GPU_PIECE_SECONDS)))
         t = time.perf_counter()
         finished = m.step([r.stream for r in self.active], budget)
         dt = time.perf_counter() - t

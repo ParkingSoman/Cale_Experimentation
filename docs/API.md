@@ -103,6 +103,7 @@ Send one WAV clip in a user message:
 | On Windows and Linux, an answer may end with `finish_reason: "length"` a little before `max_tokens` when other apps fill the shared context | Treat `length` as "more may exist" and ask again if you need the rest |
 | The memory goal is measured as GPU memory on a Mac and as process memory on Windows and Linux | Read `goals_actual.memory` for what was measured |
 | On Windows and Linux, the first answer to a prompt and a later answer that reuses the prompt cache can differ at `temperature` 0, because the arithmetic is split differently (tiny rounding). The Mac gives the same text | Send a `seed`. A seeded call does not use the prompt cache, so it repeats exactly |
+| On a computer where a GPU reads long prompts, an app that leaves in the middle of a long prompt can hold the next app up for about 6 seconds (one piece of the prompt cannot be stopped). Without that GPU, it is about 1 to 2 seconds | None needed. `GET /cale/status` shows `placement` |
 | Pictures and sound work on a Mac only | Check `capabilities.images` and `capabilities.audio` first |
 
 ### Pictures
