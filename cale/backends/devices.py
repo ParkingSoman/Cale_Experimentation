@@ -23,13 +23,25 @@ import os
 WORKING_BYTES = 800 << 20          # only if llama.cpp cannot project the fit (an old library): compute buffers, KV cache and room for the OS driver
 
 
+def one_per_card(gpus):
+    """A card that two backends see (CUDA and Vulkan on an NVIDIA card) is listed once, with the vendor's own backend: CUDA, Metal or HIP,
+    not the generic Vulkan. Measured on a GeForce MX150 (2026-10-13): prompts 68 tokens/s with CUDA and 26 with Vulkan, answers equal."""
+    best = {}
+    for d in gpus:
+        k = d.get("description") or d["name"]
+        generic = d["name"].lower().startswith("vulkan")
+        if k not in best or (generic < best[k][1]):
+            best[k] = (d, generic)
+    return [d for d, _ in best.values()]
+
+
 def choose(devs, model_bytes, mode=None, readback=False, fits=None):
     """-> (device dict or None, n_gpu_layers, reason). n_gpu_layers: 999 = all, 0 = none (the GPU only reads prompts), -1 = let llama.cpp's fit decide."""
     mode = (mode or os.environ.get("CALE_GPU") or "auto").strip()
     low = mode.lower()
     if low == "off":
         return None, 0, "the CPU (CALE_GPU=off)"
-    own = sorted([d for d in devs if d["type"] == "GPU"], key=lambda d: -d["free"])
+    own = sorted(one_per_card([d for d in devs if d["type"] == "GPU"]), key=lambda d: -d["free"])
     def holds_all(d):
         """Does the whole model fit in this GPU? llama.cpp's own projection says (`fits`). If it cannot, a rough rule with a margin."""
         said = fits(d) if fits is not None else None

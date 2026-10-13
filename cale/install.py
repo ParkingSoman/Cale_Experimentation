@@ -263,6 +263,16 @@ GPU_BACKENDS = {
     ("linux", "arm64"): ("llama-b11558-bin-ubuntu-vulkan-arm64.tar.gz", "dfccb2abdbdf4004227f576d62a7ff08debda00ad6bb4dbb97df7b47d770a59a", "libggml-vulkan.so"),
 }
 
+# NVIDIA: the official CUDA 12.4 backend (it supports cards from the Pascal generation on, which CUDA 13 does not) and its runtime.
+# Measured on a GeForce MX150: prompts 68 tokens/s with CUDA, 26 with Vulkan, 16 on the CPU. Answers the same speed.
+CUDA_NEEDS = 12040                                          # the CUDA version the driver must support (12.4)
+CUDA_BACKEND = {
+    ("windows", "x86_64"): (
+        ("llama-b11558-bin-win-cuda-12.4-x64.zip", "e2fa361bbe42e1a49f5462e2b500c25a6c8b13c29a4005721cf1d98dfe28c845", ("ggml-cuda.dll",)),
+        ("cudart-llama-bin-win-cuda-12.4-x64.zip", "8c79a9b226de4b3cacfd1f83d24f962d0773be79f1e7b75c6af4ded7e32ae1d6",
+         ("cudart64_12.dll", "cublas64_12.dll", "cublasLt64_12.dll"))),
+}
+
 
 def install_library(home):
     """Put Cale's engine libraries (cale_llama and the ggml backends it loads) in home/lib. Then add the GPU backend.
@@ -302,6 +312,41 @@ def install_library(home):
         die(f"the {name} library for {key} was not found. Build it with llama/build.{'ps1' if oslayer.WIN else 'sh'} "
             "(CALE_BACKENDS_DL=1 for the run-time-backend build), pack it with scripts/make_dist.py, or set CALE_LIB_SRC.")
     install_gpu_backend(home)
+    install_cuda_backend(home)
+
+
+def install_cuda_backend(home):
+    """On a computer with an NVIDIA driver that supports CUDA 12.4: add the CUDA backend (about 0.6 GB). Optional: without it Cale uses Vulkan."""
+    entry = CUDA_BACKEND.get(("windows" if oslayer.WIN else "linux", arch()))
+    if entry is None or os.environ.get("CALE_NO_CUDA") == "1" or not (home / "lib" / "ggml-base.dll").exists():
+        return
+    have = oslayer.cuda_driver_version()
+    if have == 0:
+        return                                               # no NVIDIA driver: nothing to add
+    if have < CUDA_NEEDS:
+        print(f"(An NVIDIA GPU is here, but its driver supports CUDA {have // 1000}.{have % 1000 // 10}, and Cale's CUDA backend needs 12.4. "
+              "Update the NVIDIA driver to make prompts faster. Cale uses Vulkan meanwhile.)", flush=True)
+        return
+    if (home / "lib" / "ggml-cuda.dll").exists():
+        return
+    say("An NVIDIA GPU is here. Getting the CUDA backend (optional, about 0.6 GB): prompts run about 2.5 times faster than with Vulkan")
+    done = []
+    try:
+        for asset, sha, members in entry:
+            tmp = home / "models" / asset
+            try:
+                download(f"https://github.com/ggml-org/llama.cpp/releases/download/{LLAMA_TAG}/{asset}", tmp, expect_sha=sha)
+                with zipfile.ZipFile(tmp) as z:
+                    for m in members:
+                        (home / "lib" / m).write_bytes(z.read(next(n for n in z.namelist() if Path(n).name == m)))
+                        done.append(m)
+            finally:
+                tmp.unlink(missing_ok=True)
+                Path(str(tmp) + ".part").unlink(missing_ok=True)
+    except (Exception, SystemExit) as e:                      # optional: Cale runs without it
+        print(f"(No CUDA backend: {e}. Cale will use Vulkan.)", flush=True)
+        for m in done:
+            (home / "lib" / m).unlink(missing_ok=True)
 
 
 def install_gpu_backend(home):

@@ -12,6 +12,18 @@ import sys
 import time
 from pathlib import Path
 
+def cuda_driver_version():
+    """The CUDA version this computer's NVIDIA driver supports, as 12040 for 12.4. 0 if there is no NVIDIA driver (or it cannot be asked)."""
+    try:
+        lib = ctypes.WinDLL("nvcuda.dll") if sys.platform == "win32" else ctypes.CDLL("libcuda.so.1")
+        if lib.cuInit(0) != 0:
+            return 0
+        v = ctypes.c_int(0)
+        return v.value if lib.cuDriverGetVersion(ctypes.byref(v)) == 0 else 0
+    except (OSError, AttributeError):
+        return 0
+
+
 def give_back_heap():
     """Linux: hand memory that the program freed but its allocator kept (compute buffers of a long prompt) back to the OS.
     Without it, process memory stays 0.3 GB or more above what the model needs after a big prompt. Other systems do this already."""

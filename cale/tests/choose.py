@@ -178,6 +178,10 @@ check("devices: a GPU that shares memory is never chosen on its own", dv.choose(
 check("devices: llama.cpp says every layer fits -> every layer, even if the rough rule says no", dv.choose([small], model, "auto", readback=True, fits=lambda d: True)[:2] == (small, 999))
 check("devices: llama.cpp says not every layer fits -> reads prompts, even if the rough rule says yes", dv.choose([big], model, "auto", readback=True, fits=lambda d: False)[:2] == (big, 0))
 check("devices: llama.cpp cannot tell -> the rough rule", dv.choose([big], model, "auto", fits=lambda d: None)[:2] == (big, 999))
+cu = {"handle": 3, "type": "GPU", "name": "CUDA0", "description": "NVIDIA Test", "free": 2 << 30, "total": 2 << 30}
+vk = {"handle": 4, "type": "GPU", "name": "Vulkan1", "description": "NVIDIA Test", "free": 2 << 30, "total": 2 << 30}
+check("devices: a card seen by CUDA and Vulkan is used through CUDA", dv.choose([vk, cu], model, "auto", readback=True)[0] is cu and dv.choose([cu, vk], model, "auto", readback=True)[0] is cu)
+check("devices: Vulkan alone is still used", dv.choose([vk], model, "auto", readback=True)[0] is vk)
 check("devices: off means the CPU", dv.choose([big], model, "off", readback=True)[0] is None)
 check("devices: partial asks for llama.cpp's fit", dv.choose([small], model, "partial")[:2] == (small, -1))
 
