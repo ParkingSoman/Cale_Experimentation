@@ -162,6 +162,11 @@ bool decode_tokens(cale_ctx * h, llama_token * t, int32_t n) {
 
 CALE_API const char * cale_last_error(void) { return g_err.c_str(); }
 
+// How many answers may run together. Set by the caller before loading. (The Windows library has its own copy of the environment, so a
+// variable that the caller sets after the process started is not seen by getenv here. A function argument is.)
+static int32_t g_slots = 0;
+CALE_API void cale_set_slots(int32_t n) { g_slots = n; }
+
 // One line per compute device that is not the CPU: "index|type|name|description|free_bytes|total_bytes".
 // type is GPU (own memory), IGPU (shares the computer's memory) or ACCEL. The index is only a handle for cale_load_dev
 // in this process. Pick a device by its type, name and memory, never by its index: the order changes with drivers.
@@ -215,7 +220,7 @@ CALE_API cale_ctx * cale_load_dev(const char * path, int32_t n_threads, int32_t 
     cp.n_threads       = n_threads;
     cp.n_threads_batch = n_threads;
     const char * ns = getenv("CALE_SLOTS");                       // answers that may run together (1 = one at a time)
-    const int32_t n_slots = ns ? std::max(1, std::min(16, atoi(ns))) : 1;
+    const int32_t n_slots = g_slots > 0 ? std::min<int32_t>(16, g_slots) : (ns ? std::max(1, std::min(16, atoi(ns))) : 1);
     cp.n_seq_max = (uint32_t) n_slots;
     cp.kv_unified = true;                                         // all answers share one memory pool: the context length is not multiplied
     std::string placement = gpu < 0 ? "device=cpu" : "device=" + std::string(ggml_backend_dev_name(g_gpus[gpu]));

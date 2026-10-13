@@ -107,6 +107,9 @@ class Lib:
         u64 = ctypes.c_uint64
         c.cale_tensor_range.restype, c.cale_tensor_range.argtypes = i32, [vp, ctypes.c_char_p, ctypes.POINTER(u64), ctypes.POINTER(u64)]
         c.cale_pages.restype, c.cale_pages.argtypes = u64, [i32, u64, u64]
+        if hasattr(c, "cale_set_slots"):               # not through the environment: a Windows library does not see variables set after the process started
+            c.cale_set_slots.restype, c.cale_set_slots.argtypes = None, [i32]
+            c.cale_set_slots(int(os.environ.get("CALE_SLOTS", "1") or 1))
         if hasattr(c, "cale_load_dev"):
             c.cale_load_dev.restype, c.cale_load_dev.argtypes = vp, [ctypes.c_char_p, i32, i32, i32, i32, i32, i32, i32]
             c.cale_placement.restype, c.cale_placement.argtypes = i32, [vp, ctypes.c_char_p, i32]
