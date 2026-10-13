@@ -26,6 +26,8 @@ Kinds:
 | Which device runs the model | `cale/backends/devices.py` | From device type and free memory, never from a name or index. |
 | Prompt piece next to running answers | `batching._step` | From the measured prompt speed and the policy `STEP_SECONDS`. |
 
+| Time that memory pressure is ignored after a load | `engine._settling` | Ignored only while the process memory is still changing (more than 2% between two looks). `LOAD_GRACE_S` (30 s) is only the upper limit. |
+
 ## Policy
 
 | What | Value | Where |
@@ -51,6 +53,5 @@ Layer count, the first layer that shares a KV cache, bytes per weight, the conte
 | Speed priors before the model is loaded | `predict.PRIORS` | `cale/predict.py` | Save the speeds in `predict.json` on every computer (done after the first load). Until then a computer that never loaded the model shows the prior as an "estimate". |
 | Number of threads | physical cores | `backends/llama.py` `default_threads` | Probe memory speed at 1, 2, 4 ... threads and stop where it stops growing. Prompts want more threads than answers, so this needs two probes. |
 | Memory the MLX engine keeps for activations | 1.5 GB | `nest/runtime.py` `RESERVE_GB` | Read the peak memory of the first prompt. |
-| Time that memory pressure is ignored after a load | 30 s | `engine.LOAD_GRACE_S` | Use the measured load time. |
 | Number of answers that run together | 4 | `backends/llama.py` `CALE_SLOTS` | From the memory left after the weights and from the measured batch cost. |
 | Memory pressure levels | `cale/pressure.py`, `oslayer.py` | | Calibrate per OS with a stress test. |

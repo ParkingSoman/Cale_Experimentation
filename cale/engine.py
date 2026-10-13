@@ -313,9 +313,24 @@ class Engine(BatchMixin):
             except Exception as e:             # the monitor must never die
                 self.log(f"monitor error: {type(e).__name__}: {e}")
 
+    def _settling(self, now):
+        """Loading the model raises memory pressure by itself. Ignore pressure while the process is still growing (measured: its memory
+        changed by more than 2% since the last look), but never longer than LOAD_GRACE_S after the load, and at least two looks."""
+        since = now - self.loaded_at
+        if since >= LOAD_GRACE_S:
+            return False
+        try:
+            rss = self.m.active_bytes()
+        except Exception:
+            return since < 2 * POLL_S
+        last, self._rss_last = getattr(self, "_rss_last", None), rss
+        if since < 2 * POLL_S or last is None:
+            return True
+        return abs(rss - last) > 0.02 * max(last, 1)
+
     def _tick(self):
         lvl, now = pressure.level(), time.time()
-        if self.m is not None and now - self.loaded_at < LOAD_GRACE_S:
+        if self.m is not None and self._settling(now):
             lvl = 1
         if lvl == 1:
             if self.want_cap is not None and self.want_cap < 1.0:
