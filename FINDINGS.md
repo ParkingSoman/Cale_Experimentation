@@ -925,3 +925,19 @@ D gives B's prompt speed and A's answer speed at once, with nothing extra in RAM
 | Linux Allow dialog | **Not verified with a real dialog.** The WSL on the HP has no `zenity` or `kdialog`, and no way to install them without `sudo`. With a stand-in `zenity` on the path, Cale built the right command, passed the app name as data (an app named `x; rm -rf /` did no harm), counted exit 1 as "no", and counted a hung tool as "no" after the timeout. Without any tool, Cale says "no screen" and uses `cale allow`: that path ran in the zoo and passed. |
 | GPU in use on Windows (rule: `reads prompts`) | All suites pass with the MX150 reading prompts (after two test fixes: GPU driver memory in the base allowance, and "batching is not slower" instead of "20% faster"). A 1064-token prompt: first token in 22.7 s, against 75 s on the CPU alone (3.3 times). |
 | Cost of that speed | An app that leaves in the middle of a long prompt can hold the next app up for about 6 s (one prompt piece cannot be stopped), against 1 to 2 s on the CPU. It is in `docs/API.md`. |
+
+## Measure, do not write (2026-10-13, after Shonu's note on per-machine constants)
+
+`docs/CONSTANTS.md` lists every number in the code and says which are measured, which are policy, and which are still open. Rule 15 in `docs/PRINCIPLES.md`.
+
+| Change | Result |
+|---|---|
+| Speeds are measured once, on the first load on a computer (a short prompt and 16 tokens), and saved | Mac first estimate of answer speed: 0% off (was up to 16%). First-token time: 17% off. Cost: about 0.5 s on a fast Mac and about 7 s on the HP, once. `CALE_NO_MEASURE=1` turns it off. This changes rule 7 ("never time the model at first launch"): the rule now says never time it for an app's call. **Shonu may want to decide this.** |
+| The shortest prompt piece a GPU takes comes from the GPU backend (`cale_offload_min_batch`) | no `32` in Cale |
+| The longest piece comes from the engine (`cale_n_batch`) | no `256` or `512` in Cale |
+| The best piece between them is found by trying (`PieceTuner`) within a time budget | Simulated: finds 256 where the copy costs 3 s, and falls back to CPU pieces where the copy costs 40 s. HP: 1064-token prompt, first token in 22.7 s against 75 s on the CPU. |
+| Memory held besides the weights is sampled, then raised only when an answer shows more in use | replaces the 0.1 GB margin |
+
+**Tried and reverted.** The llama engine reports its compute-buffer sizes. Using them as the working memory of a prompt over-predicted by 0.6 GB on Linux, because they are reserved memory, not touched memory. Memory goals then picked sizes smaller than needed. Next step is to read the peak of the process while the first prompt is read.
+
+**Still open** (`docs/CONSTANTS.md`): working memory for a prompt, memory a GPU needs besides the weights, thread count, the MLX reserve, load grace time, the number of parallel answers, and memory-pressure levels.
