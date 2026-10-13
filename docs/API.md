@@ -62,7 +62,7 @@ Send the key as `Authorization: Bearer KEY` on every other call. Keep the key. D
 | `top_p` | 0 to 1. Default 1. |
 | `seed` | an integer. The same seed, prompt, settings and size give the same answer. A seeded call does not use the prompt cache. If other answers run in the same step, tiny differences in the arithmetic can change a sampled answer in rare cases. Without a seed, each call differs when `temperature` is above 0. |
 | `stop` | a string, or a list of up to 4 strings. The answer ends before the first match. `finish_reason` is `stop`. |
-| `tools`, `tool_choice`, `parallel_tool_calls` | function tools, as in the OpenAI API (see "Tools" below) |
+| `tools`, `tool_choice`, `parallel_tool_calls` | function tools, as in the OpenAI API (see "Tools" below). At most 32 tools. |
 | `response_format` | `text`, `json_object` or `json_schema` (see "Structured output" below) |
 | `cale_min_tokens_per_s`, `cale_max_first_token_s`, `cale_memory_pct`, `cale_min_quality`, `cale_power`, `cale_priority`, `cale_on_miss`, `cale_max_wait_s`, `cale_allow_disk` | goals, only with `gemma-3n:auto` (see section 4) |
 | `user`, `stream_options`, `store`, `metadata` | accepted. They change nothing. |
@@ -76,6 +76,14 @@ Cale never ignores a field in silence.
 | a picture on a computer whose engine cannot read pictures | `400 unsupported_content`. Ask first: `capabilities.images` in `GET /v1/models` |
 | a field Cale has never heard of | `400 unknown_parameter` |
 | a bad value | `400 invalid_...` with the field name in `param` |
+
+### Known differences between computers
+
+| Difference | What to do |
+|---|---|
+| On Windows and Linux, an answer may end with `finish_reason: "length"` a little before `max_tokens` when other apps fill the shared context | Treat `length` as "more may exist" and ask again if you need the rest |
+| The memory goal is measured as GPU memory on a Mac and as process memory on Windows and Linux | Read `goals_actual.memory` for what was measured |
+| Pictures work on a Mac only | Check `capabilities.images` first |
 
 ### Pictures
 

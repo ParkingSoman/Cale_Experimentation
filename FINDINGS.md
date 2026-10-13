@@ -848,3 +848,37 @@ On a weak CPU, batching gives fairness, not speed. The MLX engine stays one answ
 | An unknown size such as `gemma-3n:nope` gave 400, the docs said 404 | zoo `curl` app | now `404 model_not_found` |
 
 Demo apps: Aider and Open WebUI still sent the removed `deadline_s`. Both now use `min_tokens_per_s` and `max_first_token_s`. Aider was run end to end against a test Cale and fixed a bug in a file.
+
+## Review of stages 3 to 8: fixed and not fixed (2026-10-13)
+
+A second reviewer (an agent that read only the diff and `docs/PRINCIPLES.md`) found these.
+
+**Fixed now.**
+
+| Problem | Fix |
+|---|---|
+| A prompt that left no room for an answer made the llama scheduler spin and block every app | alone with no room: `400 context_length_exceeded` |
+| 33 to 64 tools with `tool_choice: "required"` gave a 500 | the limit is 32 tools (the guide takes 32 choices) |
+| A `tool_calls` item that was not an object gave a 500 | `400 invalid_messages` |
+| `choose.need` assumed 35 layers. The implicit hold named `e4b`. The llama engine repeated `FIRST_SHARED` | all read from the model and `gemma3n_facts.py` |
+| A size change made for another app's answer was missing from `size_changes` in a running answer's reply (llama) | `_set_level` records it for every running answer |
+
+**Not fixed. Known limits.** Each one breaks "the same behaviour everywhere" or is tuned to one computer.
+
+| # | Limit | Where | Effect |
+|---|---|---|---|
+| 1 | A goal request that joins a running step takes the step's exact size. `on_miss: "refuse"` is not checked again | `cale/batching.py` `_start` | On Windows and Linux with several apps at once, a memory goal may run at a size it would refuse alone |
+| 2 | `on_miss: "wait"` and a disk read happen on the scheduler thread | `batching.py` `_start`, `engine.py` `_decide` | Every running answer pauses while one app waits |
+| 3 | Memory pressure and holds are applied between bursts, not during | `batching.py` `_serve` | Under steady traffic on llama a critical-pressure unload can be late |
+| 4 | The batch step-down does not check `min_quality` or `memory_pct` | `batching.py` pool filter | On llama, a speed goal can go below a quality goal |
+| 5 | When the shared context fills, the largest answer ends with `finish_reason: "length"` early | `backends/llama.py` | An answer may be cut about 265 tokens before `max_tokens`. The Mac does not do this |
+| 6 | Predicted speed uses the CPU memory probe, and priors come from one Intel CPU. Prompt speed is about 2.5 times answer speed there. A strong CPU or a GPU is about 10 times | `predict.py`, `engine.py` | A strong computer may be predicted too slow. With `on_miss: "refuse"` it can be refused. Real answers teach Cale, but a refused object never runs |
+| 7 | Prompt pieces are capped at 256 tokens (`PREFILL_MAX`) and 0.75 s | `batching.py` | A GPU computer reads long prompts in more steps than it needs |
+| 8 | `SAFE_FRACTION` 0.85, `WORKING_BYTES` 800 MB, `SCRATCH_BYTES` 500 MB, `CALE_SLOTS` 4 | `choose.py`, `devices.py`, `gemma3n_facts.py`, `llama.py` | Tuned on the Mac and the HP. A Mac GPU can address less than 85% of RAM |
+| 9 | The memory goal measures GPU memory on the Mac and process memory on Windows and Linux | `nest/gemma3n.py`, `backends/llama.py` | The same `memory_pct` can give a different `goal_met` per system |
+| 10 | Busy-CPU detection is a load average on the Mac and live counters on Windows and Linux | `oslayer.py` | After an answer, the Mac predicts a slower speed for about a minute |
+| 11 | `power: "light"` checks for heat on the Mac only | `oslayer.py` | Windows and Linux check the battery only |
+| 12 | A call with pictures decodes them twice and holds the generation lock | `engine.py`, `nest/gemma3n.py` | Up to about 1 GB briefly. The safety check does not count it |
+| 13 | Thread count is the number of physical cores | `backends/llama.py` | Wrong on CPUs with performance and efficiency cores |
+
+Items 1 to 5 are the ones to fix next. Items 6 to 13 need measurements on other computers.

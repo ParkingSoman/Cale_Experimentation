@@ -18,6 +18,7 @@ from nest.levels3n import BLOCK, MAX_CONTEXT, load_levels, pick
 from nest.stops import StopFilter
 
 from .. import constrain
+from .. import gemma3n_facts as facts
 
 from .. import oslayer
 from . import devices
@@ -25,7 +26,6 @@ from .llamalib import Lib, devices as list_devices, memory_bandwidth
 
 N_CTX = MAX_CONTEXT        # context size the library is loaded with (prompt plus answer, in tokens). Gemma 3n keeps 8 KB per token, so the full 32k costs 270 MB.
 STEP_TOKENS = 8            # how often a size controller may change the size, in answer tokens
-FIRST_SHARED = 20          # layers 20 and up share the KV cache of earlier layers, so they may be skipped
 _FFN = ("gate", "up", "down")
 
 
@@ -138,7 +138,7 @@ class LlamaNested:
         self.lib_path = lib_path
         self.lib, self.placement = cls._open(self.path, self.threads, n_ctx, lib_path)
         self.n_layers = self.lib.n_layers
-        self.levels = [l for l in load_levels(self.n_layers) if min(l["skip"], default=99) >= FIRST_SHARED]
+        self.levels = [l for l in load_levels(self.n_layers) if min(l["skip"], default=99) >= facts.FIRST_SHARED]
         self.parts, self.layer_bytes, self.layer_read = [], [], []
         for i in range(self.n_layers):
             parts = {}

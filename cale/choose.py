@@ -18,11 +18,12 @@ SAFE_FRACTION = 0.85        # a setup that needs more than this share of the RAM
 SAFE_MARGIN = 300_000_000   # and one that leaves less than this free right now
 
 
-def need(level, n_layers=35):
+def need(level, n_layers=None):
+    n_layers = len(level["blocks"]) if n_layers is None else n_layers
     return [0 if i in level["skip"] else level["blocks"][i] for i in range(n_layers)]
 
 
-def union_need(levels, n_layers=35):
+def union_need(levels, n_layers=None):
     return [max(col) for col in zip(*[need(l, n_layers) for l in levels])]
 
 

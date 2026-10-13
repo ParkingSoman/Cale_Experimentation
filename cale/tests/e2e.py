@@ -82,7 +82,7 @@ def main():
     s, j = http(base, "/v1/chat/completions", {"model": "gpt-4", "messages": [{"role": "user", "content": "hi"}]}, auth)
     check("unknown model -> 404", s == 404 and j["error"]["code"] == "model_not_found", j)
     s, j = http(base, "/v1/chat/completions", {"model": "gemma-3n:abc", "messages": [{"role": "user", "content": "hi"}]}, auth)
-    check("bad size -> 400", s == 400, j)
+    check("bad size -> 404 model_not_found", s == 404 and j["error"]["code"] == "model_not_found", j)
     s, j = http(base, "/v1/chat/completions", {"model": "gemma-3n", "messages": [{"role": "function", "content": "x"}]}, auth)
     check("unsupported role -> 400", s == 400, j)
     ok_msg = [{"role": "user", "content": "hi"}]
@@ -90,7 +90,7 @@ def main():
         s, j = http(base, "/v1/chat/completions", {"model": "gemma-3n", "messages": ok_msg, field: val}, auth)
         check(f"bad {field}={val!r} -> 400", s == 400, j)
     s, j = http(base, "/v1/chat/completions", {"model": "gemma-3n:nan", "messages": ok_msg}, auth)
-    check("size 'nan' -> 400", s == 400, j)
+    check("size nan -> 404 model_not_found", s == 404 and j["error"]["code"] == "model_not_found", j)
     s, j = http(base, "/v1/chat/completions", {"model": "gemma-3n", "messages": ["hi"]}, auth)
     check("message that is not an object -> 400", s == 400, j)
     s, j = http(base, "/v1/chat/completions", {"model": "gemma-3n", "messages": [{"role": "user", "content": [

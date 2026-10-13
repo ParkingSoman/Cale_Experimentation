@@ -251,7 +251,13 @@ class BatchMixin:
                     plan["unmet"] = [g for g, ok in row["checks"].items() if not ok]
                     plan["goal_met"] = not plan["unmet"]
         if not m.make_room(n_prompt + min(max_tokens, 512) + 8 * len(self.active) + 8):
-            raise PoolFull("the shared context is full of running answers")      # before the plan is sent: the request just waits
+            if not self.active and not m.make_room(n_prompt + 8):
+                from .engine import ContextTooLong
+                limit = self.max_context()                     # alone and still no room: waiting would never help
+                raise ContextTooLong(f"The prompt of {n_prompt} tokens leaves no room for an answer in the {limit} tokens this computer accepts.",
+                                     {"prompt_tokens": n_prompt, "max_tokens": max_tokens, "max_context_tokens": limit})
+            if self.active:
+                raise PoolFull("the shared context is full of running answers")      # before the plan is sent: the request just waits
         read, read_s = m.ensure(target)                     # weights that a hold let go of are read back from disk now
         self._set_level(target)
         plan["disk_mb"] = round(read / 1e6)
@@ -280,6 +286,10 @@ class BatchMixin:
     def _set_level(self, level):
         """The step runs at this size from now on. (The weights it needs must be in memory: the caller reads them with m.ensure.)"""
         if self.batch_level is None or self.batch_level["id"] != level["id"]:
+            old = self.batch_level
+            for r in self.active:                          # every running answer sees the change in its reply (`size_changes`), whoever caused it
+                if old is not None and r.stream.t_first is not None:
+                    r.stream.switches.append({"at_token": r.stream.out, "from": old["id"], "to": level["id"]})
             self.m.set(level)
             self.batch_level = level
 
@@ -386,7 +396,4 @@ class BatchMixin:
     def _record_switch(self, level):
         if self.m.missing(level):                          # only sizes whose weights are in memory (a switch must not stall every answer)
             return
-        old = self.batch_level
-        for r in self.active:
-            r.stream.switches.append({"at_token": r.stream.out, "from": old["id"], "to": level["id"]})
         self._set_level(level)

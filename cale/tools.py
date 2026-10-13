@@ -19,7 +19,7 @@ import uuid
 from . import constrain, media
 
 NAME = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
-MAX_TOOLS = 64
+MAX_TOOLS = constrain.MAX_ALTERNATIVES       # a forced tool call is a choice between the tools, and the guide takes this many choices
 
 
 class ToolError(ValueError):
@@ -99,7 +99,8 @@ def call_text(calls):
     """Tool calls (OpenAI shape) written as the text the model is asked to produce."""
     items = []
     for c in calls:
-        f = c.get("function", {})
+        f = c.get("function") if isinstance(c, dict) else None
+        f = f if isinstance(f, dict) else {}
         args = f.get("arguments", {})
         if isinstance(args, str):
             try:
@@ -157,7 +158,10 @@ def convert_messages(raw, ApiError, images_ok=False):
             if not isinstance(calls, list) or any(not isinstance(x, dict) for x in calls):
                 raise ApiError(400, "invalid_messages", "'tool_calls' must be a list of objects.")
             for x in calls:
-                names[x.get("id")] = x.get("function", {}).get("name")
+                fn = x.get("function")
+                if not isinstance(fn, dict):
+                    raise ApiError(400, "invalid_messages", "Each item in 'tool_calls' needs a 'function' object.")
+                names[x.get("id")] = fn.get("name")
             c = (c + "\n" if c else "") + call_text(calls)
         if role == "tool":
             who = names.get(m.get("tool_call_id")) or m.get("name") or "a tool"

@@ -137,7 +137,7 @@ class Engine(BatchMixin):
     def held_ids(self):
         with self.mu:
             ids = [h["level"] for h in self.holds.values()]
-        return ids + (["e4b"] if self.implicit else [])
+        return ids + ([max(self.levels, key=lambda l: l["pct"])["id"]] if self.implicit and self.levels else [])
 
     def max_context(self):
         """The longest prompt plus answer this computer accepts, in tokens. Needs the model loaded."""
