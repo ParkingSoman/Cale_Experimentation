@@ -165,5 +165,18 @@ check("predictor: a busy computer predicts slower", p.decode_tps(FULL) < before)
 p2 = Predictor("mlx", 100e9, levels=LEVELS)
 check("predictor: a faster memory predicts faster", p2.decode_tps(FULL) > Predictor("llama", 28e9, levels=LEVELS).decode_tps(FULL))
 
+# the device rule (cale/backends/devices.py): no device name and no layer count in it
+from cale.backends import devices as dv  # noqa: E402
+big = {"handle": 0, "type": "GPU", "name": "Big", "description": "", "free": 24 << 30, "total": 24 << 30}
+small = {"handle": 1, "type": "GPU", "name": "Small", "description": "", "free": 2 << 30, "total": 2 << 30}
+igpu = {"handle": 2, "type": "IGPU", "name": "Shared", "description": "", "free": 8 << 30, "total": 8 << 30}
+model = 4 << 30
+check("devices: a GPU that holds the model gets every layer", dv.choose([small, big], model, "auto")[:2] == (big, 999))
+check("devices: a small GPU gets no layers when the library can read weights back", dv.choose([small], model, "auto", readback=True)[:2] == (small, 0))
+check("devices: a small GPU is not used when the library cannot", dv.choose([small], model, "auto", readback=False)[0] is None)
+check("devices: a GPU that shares memory is never chosen on its own", dv.choose([igpu], model, "auto", readback=True)[0] is None)
+check("devices: off means the CPU", dv.choose([big], model, "off", readback=True)[0] is None)
+check("devices: partial asks for llama.cpp's fit", dv.choose([small], model, "partial")[:2] == (small, -1))
+
 print("\nFAILED: " + ", ".join(FAIL) if FAIL else "\nall passed")
 sys.exit(1 if FAIL else 0)

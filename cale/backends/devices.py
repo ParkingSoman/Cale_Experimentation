@@ -1,13 +1,19 @@
 """Which compute device runs the model. One rule for every computer. No device name and no layer count is written here.
 
-A GPU helps only when the whole model fits in its own memory. Then every layer runs there, every size is faster, and
-nothing moves between devices. If only part of the model fits, answers can be slower than on the CPU at the smaller
-sizes (measured 2026-10-13: 4.0 and 3.8 against 9.5 and 11.8 tokens/s). So partial use is not automatic: a developer
-asks for it. A GPU that shares memory with the CPU (type IGPU) gains nothing for answers, which are limited by memory
-speed, so it is not chosen on its own either.
+Two ways a GPU helps.
+1. The whole model fits in its own memory. Every layer runs there, every size is faster, and nothing moves between devices.
+2. The model does not fit, but the library can read repacked weights back (llama/patches/0002). The weights stay in RAM,
+   repacked for the CPU, and the CPU answers at its own speed at every size. The GPU takes only the work on long prompts
+   and gets the weights it needs for each pass. Measured 2026-10-13 on a 2 GB card: prompts 33 against 16 tokens/s on the CPU,
+   answers equal (7.0 against 6.8). Nothing gets slower. Only the full size is helped: smaller sizes are views of the weights and stay on the CPU.
+Part of the model on the GPU (llama.cpp's fit) is not automatic: it made answers at smaller sizes slower than on the CPU
+(measured 2026-10-13: 4.0 and 3.8 against 9.5 and 11.8 tokens/s). A developer asks for it with `partial`.
+A GPU that shares memory with the CPU (type IGPU) gains nothing for answers, which are limited by memory speed, so it is
+not chosen on its own either.
 
 CALE_GPU (a setting for the person or the app that starts Cale):
-  auto     (default) a GPU with its own memory, only if the whole model and its working memory fit
+  auto     (default) a GPU with its own memory: all layers if the whole model and its working memory fit, else no layers
+           on it and the GPU reads prompts (way 2 above) when the library can do that
   off      the CPU alone
   partial  a GPU with its own memory, as many layers as llama.cpp's fit finds. Prompts may be faster, answers may be slower.
   <text>   the device whose name contains the text (any type). All layers if they fit, else llama.cpp's fit.
@@ -17,8 +23,8 @@ import os
 WORKING_BYTES = 800 << 20          # compute buffers, KV cache and room for the OS driver
 
 
-def choose(devs, model_bytes, mode=None):
-    """-> (device dict or None, n_gpu_layers, reason). n_gpu_layers: 999 = all, -1 = let llama.cpp's fit decide."""
+def choose(devs, model_bytes, mode=None, readback=False):
+    """-> (device dict or None, n_gpu_layers, reason). n_gpu_layers: 999 = all, 0 = none (the GPU only reads prompts), -1 = let llama.cpp's fit decide."""
     mode = (mode or os.environ.get("CALE_GPU") or "auto").strip()
     low = mode.lower()
     if low == "off":
@@ -28,6 +34,8 @@ def choose(devs, model_bytes, mode=None):
         for d in own:
             if d["free"] >= model_bytes + WORKING_BYTES:
                 return d, 999, f"{d['name']} holds the whole model"
+        if readback and own:
+            return own[0], 0, f"{own[0]['name']} reads prompts, the weights stay in RAM for the CPU (the model does not fit in its memory)"
         return None, 0, "the CPU (no GPU with its own memory holds the whole model)"
     if low == "partial":
         if own:

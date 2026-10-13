@@ -45,6 +45,15 @@ def devices(lib_path=None):
     return out
 
 
+def readback(lib_path=None):
+    """True if this library can let a GPU read prompts while the weights stay repacked in RAM (option D, llama/patches/0002)."""
+    c = ctypes.CDLL(find_library(lib_path))
+    if not hasattr(c, "cale_readback"):
+        return False
+    c.cale_readback.restype, c.cale_readback.argtypes = ctypes.c_int32, []
+    return bool(c.cale_readback())
+
+
 def memory_bandwidth(threads, lib_path=None, mb_per_thread=48):
     """Bytes per second this computer reads from memory with `threads` threads. About 0.15 s. No model needed. 0.0 if unknown."""
     c = ctypes.CDLL(find_library(lib_path))

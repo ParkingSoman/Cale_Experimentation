@@ -396,6 +396,12 @@ CALE_API double cale_membw(int32_t n_threads, int32_t mb_per_thread) {
 
 CALE_API int32_t cale_n_layers(cale_ctx * h) { return llama_model_n_layer(h->model); }
 CALE_API int32_t cale_n_ctx(cale_ctx * h) { return h->n_ctx; }
+// 1 when this build can hand a repacked weight to a GPU (llama/patches/0002): a GPU may then read prompts while the weights stay in RAM for the CPU.
+#ifdef CALE_STOCK
+CALE_API int32_t cale_readback(void) { return 0; }
+#else
+CALE_API int32_t cale_readback(void) { return 1; }
+#endif
 CALE_API void    cale_set_threads(cale_ctx * h, int32_t n) { llama_set_n_threads(h->ctx, n, n); }
 
 // widths: one entry per layer. 0 = skip the layer, N = first N FFN channels, <0 = full. n = 0 = full model.

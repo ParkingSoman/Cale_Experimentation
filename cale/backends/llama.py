@@ -22,7 +22,7 @@ from .. import gemma3n_facts as facts
 
 from .. import oslayer
 from . import devices
-from .llamalib import Lib, devices as list_devices, memory_bandwidth
+from .llamalib import Lib, devices as list_devices, memory_bandwidth, readback as lib_readback
 
 N_CTX = MAX_CONTEXT        # context size the library is loaded with (prompt plus answer, in tokens). Gemma 3n keeps 8 KB per token, so the full 32k costs 270 MB.
 STEP_TOKENS = 8            # how often a size controller may change the size, in answer tokens
@@ -174,7 +174,7 @@ class LlamaNested:
     @staticmethod
     def _open(path, threads, n_ctx, lib_path):
         """Load on the device the rule in devices.py picks. Any GPU problem falls back to the CPU: Cale must still start."""
-        dev, layers, why = devices.choose(list_devices(lib_path), os.path.getsize(path))
+        dev, layers, why = devices.choose(list_devices(lib_path), os.path.getsize(path), readback=lib_readback(lib_path))
         if dev is not None:
             try:
                 lib = Lib(path, n_threads=threads, n_ctx=n_ctx, lib_path=lib_path, gpu=dev["handle"], n_gpu_layers=layers)
