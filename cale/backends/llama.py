@@ -8,6 +8,7 @@ llama.cpp (llama/patches). The FFN weights of a layer have three states, like th
 """
 import codecs
 import os
+import random
 import secrets
 import time
 from pathlib import Path
@@ -15,6 +16,8 @@ from pathlib import Path
 from nest.cancel import Cancelled
 from nest.levels3n import BLOCK, MAX_CONTEXT, load_levels, pick
 from nest.stops import StopFilter
+
+from .. import constrain
 
 from .. import oslayer
 from . import devices
@@ -57,6 +60,7 @@ class LlamaNested:
     def load(cls, path, width=1.0, ple_on_disk=True, threads=None, n_ctx=N_CTX, lib_path=None, **_):
         self = cls()
         self.path = str(find_gguf(path))
+        self._kv_level = None                  # the size the key/value memory was made at, when it holds a conversation worth reusing
         self.threads = threads or default_threads()
         self.lib_path = lib_path
         self.lib, self.placement = cls._open(self.path, self.threads, n_ctx, lib_path)
@@ -238,7 +242,8 @@ class LlamaNested:
         return memory_bandwidth(self.threads, self.lib_path)
 
     def clear_cache(self):
-        pass
+        self._kv_level = None
+        self.lib.forget()
 
     def all_full(self):
         return all(s == 2 for s in self.state)
@@ -253,7 +258,7 @@ class LlamaNested:
         return len(self.prompt_ids(messages))
 
     # --- chat --------------------------------------------------------------------------------
-    supports = {"top_p": True, "seed": True, "stop": True}
+    supports = {"top_p": True, "seed": True, "stop": True, "guided": True}
 
     @property
     def max_context(self):
@@ -263,20 +268,20 @@ class LlamaNested:
         """Stop the prompt or answer in progress. Safe to call from another thread."""
         self.lib.cancel()
 
-    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None, controller=None):
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None):
         """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
         If the size needs FFN weights that are not in RAM, they are read first and freed after the call."""
         lv = self.resolve(width) if width is not None else self.level
         read, read_s = self.ensure(lv)
         try:
-            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel, controller):
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel, controller, guide):
                 if "done" in ev:
                     ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
                 yield ev
         finally:
             self.settle()
 
-    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None, controller=None):
+    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None):
         sw = self.set(width)
         start_tier, switches = self.level["id"], []
         ids = self.prompt_ids(messages)
@@ -285,10 +290,19 @@ class LlamaNested:
         t0 = time.perf_counter()
         if cancel:
             cancel.check()
-        self.lib.begin(ids, temperature, seed=secrets.randbits(32) if seed is None else int(seed) & 0xFFFFFFFF, top_p=top_p)
+        seed = secrets.randbits(32) if seed is None else int(seed) & 0xFFFFFFFF
+        gstate = None
+        if guide is not None:
+            if not self.lib.has_guided:
+                raise RuntimeError("this engine library cannot guide output: rebuild it with llama/build")
+            gstate = {"guide": guide, "pending": None, "t": temperature, "p": top_p, "rng": random.Random(seed)}
+        reuse = self._kv_level == self.level["id"]
+        self._kv_level = None                                       # until this answer ends cleanly, the memory is not known to match
+        self.lib.begin(ids, temperature, seed=seed, top_p=top_p, reuse=reuse)
+        cached = self.lib.reused
         out, finish, t_first = 0, None, None
         for _ in range(max_tokens):
-            tok = self.lib.next()
+            tok = self._guided_next(gstate) if gstate else self.lib.next()
             if t_first is None:
                 t_first = time.perf_counter()                       # the prompt is read and the first token chosen
             if tok == -1 and self.lib.error() == "cancelled":
@@ -312,6 +326,9 @@ class LlamaNested:
                 if hit:
                     finish = "stop"
                     break
+            if gstate and gstate["guide"].finished():              # the answer is a complete document: nothing more to say
+                finish = "stop"
+                break
         else:
             finish = "length"
         if not stops.hit:
@@ -321,10 +338,39 @@ class LlamaNested:
                 yield {"delta": tail}
         end = time.perf_counter()
         t_first = t_first or end
+        if not switches:
+            self._kv_level = self.level["id"]                        # the memory holds this conversation at this size: the next turn can reuse it
         yield {"done": {"tier": self.level["id"], "start_tier": start_tier, "switches": switches, "size_pct": self.level["pct"],
                         "switch_ms": round(sw, 1), "seconds": round(end - t0, 3), "first_token_s": round(t_first - t0, 3),
-                        "decode_s": round(end - t_first, 3), "prompt_tokens": len(ids),
+                        "decode_s": round(end - t_first, 3), "prompt_tokens": len(ids), "cached_tokens": cached,
                         "tokens": out, "finish": finish or "stop", "drafter": False}}
+
+    def _text(self, tok):
+        """The text of a token for the guide, or None if it is a special token or not whole characters (then it is never allowed)."""
+        cache = self.__dict__.setdefault("_texts", {})
+        if tok not in cache:
+            try:
+                cache[tok] = self.lib.piece(tok).decode("utf-8") or None
+            except UnicodeDecodeError:
+                cache[tok] = None
+        return cache[tok]
+
+    def _guided_next(self, g):
+        """The next token of a guided answer: the best of the model's candidates that the guide accepts. Reads the last token in first."""
+        if g["pending"] is not None:
+            self.lib.accept(g["pending"])
+            g["pending"] = None
+        for k in (constrain.K_FIRST, constrain.K_WIDE):
+            pick = constrain.choose_token(self.lib.topk(k), g["guide"], self._text, self.lib.is_eog, g["t"], g["p"], g["rng"])
+            if pick:
+                break
+        else:
+            raise constrain.DeadEnd("no token of this model can continue a valid answer")
+        tid, text = pick
+        if text is not None:
+            g["guide"].feed(text)
+            g["pending"] = tid
+        return tid
 
     def generate(self, prompt, max_tokens=256, width=None):
         text, done = "", None

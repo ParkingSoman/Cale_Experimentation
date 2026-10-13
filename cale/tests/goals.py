@@ -75,33 +75,35 @@ check("/v1/models: this computer, with a floor and a way to ask", m["this_comput
 
 # 2. quality
 q_goal = 0.95
-s, hd, r = chat(key, max_tokens=12, cale_min_quality=q_goal)
+s, hd, r = chat(key, max_tokens=8, cale_min_quality=q_goal)
 chosen = next(v for v in sizes.values() if v["size_pct"] == int(hd["X-Cale-Size"]))
 check("min_quality: the size used repeats at least that share of the full size's choices", s == 200 and chosen["quality"] >= q_goal and hd["X-Cale-Goal-Met"] == "true", (dict(hd), chosen))
 
-# 3. priority when goals conflict: a speed just above the full size's, and a quality only the full size has
+# 3. priority when goals conflict: a speed just above the full size's, and a quality only the full size has.
+# These calls ask for 8 tokens: Cale learns from answers of 9 or more, so its predictions do not move between the question and the call.
+sizes = predict(base, key, min_tokens_per_s=0.1)["sizes"]
 speed = round(sizes[full_id]["tokens_per_s"] * 1.15, 2)
 only_full = max(v["quality"] for k, v in sizes.items() if k != full_id) + 0.001
-s, hd_q, r = chat(key, max_tokens=12, cale_min_tokens_per_s=speed, cale_min_quality=only_full, cale_priority=["quality"])
+s, hd_q, r = chat(key, max_tokens=8, cale_min_tokens_per_s=speed, cale_min_quality=only_full, cale_priority=["quality"])
 check("priority quality: keeps quality (the full size), reports speed unmet", s == 200 and hd_q["X-Cale-Size"] == str(MAX_PCT) and hd_q["X-Cale-Unmet"] == "speed", dict(hd_q))
-s, hd_s, r = chat(key, max_tokens=12, cale_min_tokens_per_s=speed, cale_min_quality=only_full, cale_priority=["speed"])
+s, hd_s, r = chat(key, max_tokens=8, cale_min_tokens_per_s=speed, cale_min_quality=only_full, cale_priority=["speed"])
 check("priority speed: keeps speed (a smaller size), reports quality unmet", s == 200 and int(hd_s["X-Cale-Size"]) < MAX_PCT and hd_s["X-Cale-Unmet"] == "quality", dict(hd_s))
-s, hd, r = chat(key, max_tokens=12, cale_min_tokens_per_s=speed, cale_min_quality=only_full, cale_priority=["speed", "bogus"])
+s, hd, r = chat(key, max_tokens=8, cale_min_tokens_per_s=speed, cale_min_quality=only_full, cale_priority=["speed", "bogus"])
 check("bad priority: 400", s == 400 and r["error"]["code"] == "invalid_priority", r)
 
 # 4. on_miss
-s, hd, r = chat(key, max_tokens=12, cale_min_tokens_per_s=10000, cale_on_miss="try")
+s, hd, r = chat(key, max_tokens=8, cale_min_tokens_per_s=10000, cale_on_miss="try")
 check("on_miss try: runs anyway and says the goal was not met", s == 200 and hd["X-Cale-Goal-Met"] == "false", dict(hd))
-s, hd, r = chat(key, max_tokens=12, cale_min_tokens_per_s=10000, cale_on_miss="refuse")
+s, hd, r = chat(key, max_tokens=8, cale_min_tokens_per_s=10000, cale_on_miss="refuse")
 e = r["error"]["cale"]
 check("on_miss refuse: 422 says what is unmet, what every size would do, and the floor", s == 422 and e["unmet"] == ["speed"] and e["sizes"] and e["floor"], r)
-s, hd, r = chat(key, max_tokens=12, cale_min_tokens_per_s=1, cale_on_miss="never")
+s, hd, r = chat(key, max_tokens=8, cale_min_tokens_per_s=1, cale_on_miss="never")
 check("bad on_miss: 400", s == 400 and r["error"]["code"] == "invalid_on_miss", r)
 
 # 5. the safety limit: no setting overrides it, and it is a documented error
 call("/cale/debug/ram", {"gb": 0.5})
 for om in ("best_effort", "try", "refuse"):
-    s, hd, r = chat(key, max_tokens=12, cale_min_tokens_per_s=1, cale_on_miss=om)
+    s, hd, r = chat(key, max_tokens=8, cale_min_tokens_per_s=1, cale_on_miss=om)
     check(f"unsafe for this computer, on_miss={om}: 507 with the numbers", s == 507 and r["error"]["code"] == "unsafe_for_this_computer" and "needed_gb" in r["error"]["cale"], (s, r))
 s, hd, r = chat(key, model="gemma-3n:smart", max_tokens=12)
 check("unsafe also stops an exact size", s == 507, (s, r))

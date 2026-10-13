@@ -19,8 +19,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
-OWN_MODEL = ["oslayer", "choose", "engine_features", "backend_llama"]     # these load the model or need no server
-SERVER = ["honest", "relative", "objects", "goals", "e2e"]
+OWN_MODEL = ["oslayer", "choose", "constrain", "engine_features", "backend_llama"]     # these load the model or need no server
+SERVER = ["honest", "relative", "objects", "goals", "structured", "promptcache", "e2e"]
 PORT = 47899
 
 
@@ -66,6 +66,20 @@ def wait_closed(timeout):
         time.sleep(0.5)
 
 
+def stop_server(proc):
+    """End a server process and everything it started. On Windows terminate() can leave the real Python behind its launcher."""
+    if proc.poll() is not None:
+        return
+    if sys.platform == "win32":
+        subprocess.run(["taskkill", "/F", "/T", "/PID", str(proc.pid)], capture_output=True)
+    else:
+        proc.terminate()
+    try:
+        proc.wait(15)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+
+
 def run_with_server(name, env, keep_home):
     """One suite against its own fresh server and home: suites leave holds and loaded sizes behind, and must not affect each other."""
     home = tempfile.mkdtemp(prefix=f"cale-{name}-")
@@ -77,11 +91,7 @@ def run_with_server(name, env, keep_home):
             return {"name": name, "passed": 0, "failed": [f"FAIL server did not start (see {Path(home) / 'server.log'})"], "code": 1, "seconds": 0, "tail": []}
         return run(name, ["--base", f"http://127.0.0.1:{PORT}"] + (["--model"] if name == "e2e" else []), env, 2400)
     finally:
-        srv.terminate()
-        try:
-            srv.wait(15)
-        except subprocess.TimeoutExpired:
-            srv.kill()
+        stop_server(srv)
         log.close()
         wait_closed(30)
         if not keep_home:
@@ -105,7 +115,7 @@ def main():
         if only and name not in only:
             continue
         extra = [a.model] + ([a.lib] if (a.lib and name == "backend_llama") else [])
-        if name in ("oslayer", "choose"):
+        if name in ("oslayer", "choose", "constrain"):
             extra = []
         if name == "backend_llama" and mac:
             continue                                     # the llama.cpp backend is not used on a Mac

@@ -55,6 +55,20 @@ def wait_ready(timeout=180):
     raise SystemExit("the test server did not start")
 
 
+def stop_server(proc):
+    """End a server process and everything it started. On Windows terminate() can leave the real Python behind its launcher."""
+    if proc.poll() is not None:
+        return
+    if sys.platform == "win32":
+        subprocess.run(["taskkill", "/F", "/T", "/PID", str(proc.pid)], capture_output=True)
+    else:
+        proc.terminate()
+    try:
+        proc.wait(15)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+
+
 def burn(stop):
     x = 0
     while not stop.is_set():
@@ -104,8 +118,7 @@ def main():
         prompt_tokens = warm["prompt_tokens"]
         print(f"prompt {prompt_tokens} tokens, answers of {a.tokens} tokens, load programs: {a.load}")
         print("(the model is loaded now; the predictor has learned from one answer. Restarting it for a clean first estimate.)")
-        srv.terminate()
-        srv.wait(20)
+        stop_server(srv)
         wait_closed()
         shutil.rmtree(home, ignore_errors=True)
         home = tempfile.mkdtemp(prefix="cale-pred-")
@@ -136,7 +149,8 @@ def main():
         stop.set()
         for b in burners:
             b.terminate()
-        srv.terminate()
+        stop_server(srv)
+        wait_closed()
         shutil.rmtree(home, ignore_errors=True)
 
 

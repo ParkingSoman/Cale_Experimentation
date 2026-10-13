@@ -314,6 +314,7 @@ class NestedGemma3n:
         return mx.get_active_memory()
 
     def clear_cache(self):
+        self._pc = None
         gc.collect()
         mx.clear_cache()
 
@@ -376,7 +377,7 @@ class NestedGemma3n:
 
     # --- chat (used by the Cale server) -----------------------------------------------------
     max_context = MAX_CONTEXT
-    supports = {"top_p": True, "seed": True, "stop": True}
+    supports = {"top_p": True, "seed": True, "stop": True, "guided": True}
 
     def memory_bandwidth(self):
         return memory_bandwidth()
@@ -384,14 +385,14 @@ class NestedGemma3n:
     def interrupt(self):
         pass                                    # the prompt and answer loops check the Cancel object themselves
 
-    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None, controller=None):
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None):
         """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
         messages: [{"role": "system"|"user"|"assistant", "content": str}].
         If the size needs FFN weights that are not in RAM, they are read from disk first and freed after the call."""
         lv = self.resolve(width) if width is not None else self.level
         read, read_s = self.ensure(lv)
         try:
-            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel, controller):
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel, controller, guide):
                 if "done" in ev:
                     ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
                 yield ev
@@ -461,17 +462,41 @@ class NestedGemma3n:
         pick_in_sorted = mx.random.categorical(mx.where(keep, mx.log(ps + 1e-20), -mx.inf), axis=-1)
         return mx.take_along_axis(order, pick_in_sorted[..., None], axis=-1).squeeze(-1)
 
-    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None, controller=None):
+    def _start_prompt(self, messages, cancel):
+        """Read the prompt. If it starts with exactly the tokens of the last prompt (a chat that grew by a turn, same size), the memory
+        saved after that prompt is used and only the new tokens are read. Returns (ids, cache, hidden states of the last piece, tokens reused).
+        The memory is saved right after the prompt, before any answer token: the next turn's prompt always starts with this prompt,
+        while the answer may be written back slightly differently (the chat template trims blanks)."""
+        ids = self.prompt_ids(messages)
+        tokens = ids[0].tolist()
+        pc = self.__dict__.get("_pc")
+        cache, n = self.lm.make_cache(), 0
+        if pc and pc["level"] == self.level["id"] and len(pc["tokens"]) < len(tokens) and tokens[:len(pc["tokens"])] == pc["tokens"]:
+            n = len(pc["tokens"])
+            for c, (state, meta) in zip(cache, pc["snap"]):          # arrays are immutable: the saved ones are never changed by what comes next
+                c.state, c.meta_state = state, meta
+        h = self._prefill(ids[:, n:], cache, cancel)
+        states = [c.state for c in cache]                            # each read of .state makes new lazy slices: finish exactly these
+        mx.eval(h, states)                                           # arrays used from another thread next time must be finished
+        self._pc = {"tokens": tokens, "snap": [(st, c.meta_state) for st, c in zip(states, cache)], "level": self.level["id"]}
+        return ids, cache, h, n
+
+    def forget_prompt(self):
+        self._pc = None
+
+    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None):
+        if guide is not None:
+            yield from self._guided_stream(messages, max_tokens, width, temperature, top_p, seed, stop, cancel, controller, guide)
+            return
         sw = self.set(width)
         start_tier, switches = self.level["id"], []
         tok = self.processor.tokenizer
-        ids = self.prompt_ids(messages)
-        cache = self.lm.make_cache()
         mx.random.seed(secrets.randbits(32) if seed is None else int(seed))      # the random state is per thread: never rely on it
         stops = StopFilter(stop)
         t0 = time.perf_counter()
+        ids, cache, h0, cached = self._start_prompt(messages, cancel)
 
-        nxt = self._sample(self._prefill(ids, cache, cancel), temperature, top_p)
+        nxt = self._sample(h0, temperature, top_p)
         mx.eval(nxt)
         t_first = time.perf_counter()
         out, sent, finish = [], "", None
@@ -512,8 +537,95 @@ class NestedGemma3n:
         end = time.perf_counter()
         yield {"done": {"tier": self.level["id"], "start_tier": start_tier, "switches": switches, "size_pct": self.level["pct"],
                         "switch_ms": round(sw, 1), "seconds": round(end - t0, 3), "first_token_s": round(t_first - t0, 3),
-                        "decode_s": round(end - t_first, 3), "prompt_tokens": int(ids.shape[1]),
+                        "decode_s": round(end - t_first, 3), "prompt_tokens": int(ids.shape[1]), "cached_tokens": cached,
                         "tokens": len(out), "finish": finish or "stop", "drafter": False}}
+
+    def _piece_text(self, tid):
+        """The text of a token for the guide, or None if it is special or not whole characters (then it is never allowed)."""
+        import re
+        cache = self.__dict__.setdefault("_pieces", {})
+        if tid not in cache:
+            tok = self.processor.tokenizer
+            special = self.__dict__.setdefault("_special_ids", set(tok.all_special_ids))
+            piece = None
+            if tid not in special:
+                raw = tok.convert_ids_to_tokens(int(tid))
+                m = re.fullmatch(r"<0x([0-9A-Fa-f]{2})>", raw)
+                if m:
+                    b = int(m.group(1), 16)
+                    piece = chr(b) if b < 0x80 else None            # a byte of a longer character: never allowed on its own
+                else:
+                    piece = raw.replace("\u2581", " ")
+            cache[tid] = piece or None
+        return cache[tid]
+
+    def _candidates(self, h, k):
+        """The k most likely next tokens, best first: [(id, log-probability)]."""
+        lg = self.logits(h[:, -1:]).reshape(-1).astype(mx.float32)
+        k = min(k, lg.shape[0] - 1)
+        idx = mx.argpartition(-lg, kth=k, axis=-1)[:k]
+        vals = lg[idx] - mx.logsumexp(lg)
+        mx.eval(idx, vals)
+        return sorted(zip(idx.tolist(), vals.tolist()), key=lambda x: -x[1])
+
+    def _guided_stream(self, messages, max_tokens, width, temperature, top_p, seed, stop, cancel, controller, guide):
+        """Like _chat_stream, but every token must fit `guide` (cale/constrain.py): the answer is valid JSON that fits a schema."""
+        import random
+        from cale import constrain
+        sw = self.set(width)
+        start_tier, switches = self.level["id"], []
+        rng = random.Random(secrets.randbits(32) if seed is None else int(seed))
+        stops = StopFilter(stop)
+        t0 = time.perf_counter()
+        ids, cache, h, cached = self._start_prompt(messages, cancel)
+        mx.eval(h)
+        t_first, n_out, finish = None, 0, None
+        is_eog = lambda t: int(t) in EOS                                          # noqa: E731
+        for _ in range(max_tokens):
+            if cancel:
+                cancel.check()
+            for k in (constrain.K_FIRST, constrain.K_WIDE):
+                pick = constrain.choose_token(self._candidates(h, k), guide, self._piece_text, is_eog, temperature, top_p, rng)
+                if pick:
+                    break
+            else:
+                raise constrain.DeadEnd("no token of this model can continue a valid answer")
+            tid, text = pick
+            if t_first is None:
+                t_first = time.perf_counter()
+            if text is None:
+                finish = "stop"
+                break
+            guide.feed(text)
+            n_out += 1
+            if controller and n_out % STEP_TOKENS == 0:
+                new = controller(n_out, time.perf_counter() - t_first, self.level)
+                if new is not None and new["id"] != self.level["id"]:
+                    switches.append({"at_token": n_out, "from": self.level["id"], "to": new["id"]})
+                    self.set(new)
+            out_text, hit = stops.feed(text)
+            if out_text:
+                yield {"delta": out_text}
+            if hit:
+                finish = "stop"
+                break
+            if guide.finished():
+                finish = "stop"
+                break
+            h = self.lm.model(mx.array([[tid]]), cache=cache)
+        else:
+            finish = "length"
+        mx.eval(h, [c.state for c in cache])                       # leave nothing half-computed: arrays belong to the thread that made them
+        if not stops.hit:
+            tail = stops.flush()
+            if tail:
+                yield {"delta": tail}
+        end = time.perf_counter()
+        t_first = t_first or end
+        yield {"done": {"tier": self.level["id"], "start_tier": start_tier, "switches": switches, "size_pct": self.level["pct"],
+                        "switch_ms": round(sw, 1), "seconds": round(end - t0, 3), "first_token_s": round(t_first - t0, 3),
+                        "decode_s": round(end - t_first, 3), "prompt_tokens": int(ids.shape[1]), "cached_tokens": cached,
+                        "tokens": n_out, "finish": finish or "stop", "drafter": False}}
 
     def generate(self, prompt, max_tokens=256, width=None):
         """Greedy text for one user prompt (benchmarks). Returns {"text", "stats"}."""

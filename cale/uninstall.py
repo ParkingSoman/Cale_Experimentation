@@ -25,7 +25,7 @@ def main():
         link.unlink()
     for sub in ("runtime", "venv", "models", "logs", "bin", "lib"):
         shutil.rmtree(home / sub, ignore_errors=True)
-    for f in ("keys.json", "keys.lock", "keys.tmp", "curve.json", "profile.json", "cale.pid", "uv.tar.gz", "uv.zip"):
+    for f in ("keys.json", "keys.lock", "keys.tmp", "curve.json", "profile.json", "predict.json", "cale.pid", "uv.tar.gz", "uv.zip"):
         (home / f).unlink(missing_ok=True)
     try:
         home.rmdir()

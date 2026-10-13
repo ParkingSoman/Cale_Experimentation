@@ -33,7 +33,7 @@ from nest.levels3n import MAX_CONTEXT, load_levels, pct_range, pick
 
 from . import backends, keys, oslayer, paths, pressure
 from .engine import ContextTooLong, Engine, EngineError, GoalMissed, Unsafe
-from . import choose, goals as goals_mod
+from . import choose, constrain, goals as goals_mod, tools as tools_mod
 
 BASE = "gemma-3n"
 LEVELS = load_levels()
@@ -123,12 +123,12 @@ def goals_from(req, prefix=""):
 
 
 # What /v1/chat/completions accepts. Anything else gets a clear 400. Cale never takes a field and ignores it in silence.
-CHAT_FIELDS = {"model", "messages", "max_tokens", "max_completion_tokens", "temperature", "top_p", "seed", "stop", "stream"}
+CHAT_FIELDS = {"model", "messages", "max_tokens", "max_completion_tokens", "temperature", "top_p", "seed", "stop", "stream",
+               "tools", "tool_choice", "parallel_tool_calls", "response_format"}
 CALE_FIELDS = {"cale_" + f for f in goals_mod.FIELDS} | {"cale_deadline_s"}    # Cale's own goal fields (with model gemma-3n:auto). deadline_s is refused with its own message.
 NO_EFFECT_FIELDS = {"user", "stream_options", "store", "metadata"}      # accepted: they change nothing Cale does
 ZERO_ONLY_FIELDS = {"frequency_penalty", "presence_penalty"}            # accepted only as 0
-NOT_YET_FIELDS = {"tools", "tool_choice", "functions", "function_call", "response_format", "logprobs", "top_logprobs",
-                  "logit_bias", "parallel_tool_calls", "modalities", "audio", "prediction", "reasoning_effort"}
+NOT_YET_FIELDS = {"functions", "function_call", "logprobs", "top_logprobs", "logit_bias", "modalities", "audio", "prediction", "reasoning_effort"}
 
 
 def check_chat_fields(req):
@@ -140,9 +140,7 @@ def check_chat_fields(req):
             continue
         if k == "n" and v == 1:
             continue
-        if k == "response_format" and isinstance(v, dict) and v.get("type") == "text":
-            continue
-        if k in ("logprobs", "parallel_tool_calls") and v is False:
+        if k == "logprobs" and v is False:
             continue
         if k in NOT_YET_FIELDS or k in ZERO_ONLY_FIELDS or k == "n":
             raise ApiError(400, "unsupported_parameter", f"Cale does not support '{k}' yet. Remove it from the request, or use a supported value.", param=k)
@@ -467,6 +465,77 @@ class Handler(BaseHTTPRequestHandler):
         self._stay_open({"id": oid, "object": "cale.model", "family": BASE, "spec": {k: v for k, v in spec.items() if v is not None},
                          **info}, event, cleanup)
 
+    def _tool_message(self, content, finish, done, tools, choice, parallel, start, msgs):
+        """An answer given tools: a message with tool_calls if the model called tools, else the text. If the model tried and got it
+        wrong (auto mode), ask once more with the answer guided to a valid call. Returns (message, finish_reason, done)."""
+        calls, kind = tools_mod.parse_calls(content, tools)
+        if kind == "broken" and choice == "auto" and finish != "length":
+            gen2, _ = start(tools_mod.tool_guide(tools, "required", parallel))
+            text2, done2 = [], {}
+            for ev in gen2:
+                if "delta" in ev:
+                    text2.append(ev["delta"])
+                else:
+                    done2 = ev["done"]
+            done2["tokens"] = done2.get("tokens", 0) + done.get("tokens", 0)
+            done2["seconds"] = round(done2.get("seconds", 0) + done.get("seconds", 0), 3)
+            done2["total_s"] = round(done2.get("total_s", 0) + done.get("total_s", 0), 3)
+            content, finish, done = "".join(text2), done2.get("finish", "stop"), {**done, **done2}
+            calls, kind = tools_mod.parse_calls(content, tools)
+        if kind == "calls":
+            return {"role": "assistant", "content": None, "tool_calls": calls}, "tool_calls", done
+        return {"role": "assistant", "content": content}, finish, done
+
+    def _stream_tools(self, gen, hdr, info, cid, created, label, expect, tools, choice, parallel, start, msgs, app, name, obj, req):
+        """A streamed answer given tools. Cale has to read the whole answer before it knows if it is a tool call, so it streams at the end."""
+        text, done = [], {}
+        try:
+            for ev in gen:
+                if "delta" in ev:
+                    text.append(ev["delta"])
+                else:
+                    done = ev["done"]
+        except EngineError:
+            raise ApiError(500, "engine_error", "The engine failed and was reset. Try again. The details are in Cale's log.")
+        message, finish, done = self._tool_message("".join(text), done.get("finish", "stop"), done, tools, choice, parallel, start, msgs)
+        self._note_done(app, name, obj, done)
+        self._log_chat(app, req, done["size_pct"], done)
+        self.send_response(200)
+        self.send_header("Content-Type", "text/event-stream")
+        self.send_header("Cache-Control", "no-cache")
+        self.send_header("Connection", "close")
+        for k, v in hdr.items():
+            self.send_header(k, v)
+        self.end_headers()
+        self.close_connection = True
+
+        def chunk(delta, fin=None, extra=None):
+            o = {"id": cid, "object": "chat.completion.chunk", "created": created, "model": label(done["size_pct"]),
+                 "choices": [{"index": 0, "delta": delta, "finish_reason": fin}]}
+            o.update(extra or {})
+            self.wfile.write(b"data: " + json.dumps(o).encode() + b"\n\n")
+            self.wfile.flush()
+
+        try:
+            if message.get("tool_calls"):
+                chunk({"role": "assistant", "content": None})
+                for i, c in enumerate(message["tool_calls"]):
+                    chunk({"tool_calls": [{"index": i, "id": c["id"], "type": "function", "function": {"name": c["function"]["name"], "arguments": ""}}]})
+                    chunk({"tool_calls": [{"index": i, "function": {"arguments": c["function"]["arguments"]}}]})
+            else:
+                chunk({"role": "assistant", "content": ""})
+                if message["content"]:
+                    chunk({"content": message["content"]})
+            chunk({}, finish, {"usage": {"prompt_tokens": done["prompt_tokens"], "completion_tokens": done["tokens"],
+                                         "total_tokens": done["prompt_tokens"] + done["tokens"]},
+                               "cale": {**info, "size": done["size_pct"], "seconds": done["seconds"], "waited_s": done.get("waited_s"),
+                                        "total_s": done.get("total_s"), "goal_met_actual": done.get("goal_met_actual"),
+                                        "goals_actual": done.get("goals_actual"), "size_changes": done.get("switches") or None}})
+            self.wfile.write(b"data: [DONE]\n\n")
+            self.wfile.flush()
+        except (BrokenPipeError, ConnectionResetError):
+            pass
+
     def _watch_client(self, cancel, done):
         """While an answer is made, notice a client that closed its connection. The work stops (the engine checks `cancel`)."""
         conn = self.connection
@@ -487,6 +556,8 @@ class Handler(BaseHTTPRequestHandler):
         except Cancelled:
             self.close_connection = True                 # the client is gone: there is nobody to answer
             print(f"[chat] app={app!r} client left: work stopped", flush=True)
+        except constrain.DeadEnd as e:
+            raise ApiError(422, "constraint_dead_end", f"{e}. Try a simpler schema, or relax a limit such as minLength or minItems.")
         finally:
             done.set()
 
@@ -497,7 +568,26 @@ class Handler(BaseHTTPRequestHandler):
             obj = OBJECTS.get((app, name)) if isinstance(name, str) else None     # only this app's own objects exist for it
         spec = obj["spec"] if obj else None
         pct = ("auto" if "size_pct" not in spec else spec["size_pct"]) if obj else parse_model(name)
-        msgs = clean_messages(req.get("messages"))
+        try:
+            tools = tools_mod.parse_tools(req.get("tools"))
+            choice = tools_mod.parse_choice(req.get("tool_choice"), tools)
+            rf_guide, rf_note = tools_mod.response_guide(req.get("response_format"))
+        except tools_mod.ToolError as e:
+            raise ApiError(400, e.code, str(e), param=e.param)
+        parallel = req.get("parallel_tool_calls", True)
+        if not isinstance(parallel, bool):
+            raise ApiError(400, "invalid_parallel_tool_calls", "'parallel_tool_calls' must be true or false.", param="parallel_tool_calls")
+        use_tools = bool(tools) and choice != "none"
+        if use_tools and rf_guide is not None:
+            raise ApiError(400, "unsupported_parameter", "Cale cannot combine 'tools' and 'response_format' in one call yet. Use one of them.", param="response_format")
+        msgs = tools_mod.convert_messages(req.get("messages"), ApiError)
+        guide = None
+        if use_tools:
+            msgs = tools_mod.with_system(msgs, tools_mod.tool_prompt(tools, choice, parallel))
+            if choice != "auto":
+                guide = tools_mod.tool_guide(tools, choice, parallel)
+        elif rf_guide is not None:
+            msgs, guide = tools_mod.with_system(msgs, rf_note), rf_guide
         limit_key = "max_completion_tokens" if req.get("max_completion_tokens") is not None else "max_tokens"
         asked = req.get(limit_key)
         if asked is None and obj and spec.get("max_tokens"):
@@ -519,22 +609,26 @@ class Handler(BaseHTTPRequestHandler):
         elif call_goals:
             raise ApiError(400, "goal_needs_auto", f"The cale_* goal fields need model '{BASE}:auto'.")
         cid, created = f"chatcmpl-{uuid.uuid4().hex[:12]}", int(time.time())
-        gen = ENGINE.chat_stream(msgs, max_tokens, temp, app, 100 if pct == "auto" else pct, goal,
-                                 top_p=top_p, seed=seed, stop=stop, arrived=getattr(self, "arrived", None),
-                                 max_tokens_explicit=asked is not None, cancel=cancel)
-        try:
-            plan = next(gen)["plan"]
-        except GoalMissed as e:
-            gen.close()
-            raise ApiError(422, "goal_missed", str(e), e.info)
-        except Unsafe as e:
-            gen.close()
-            raise ApiError(507, "unsafe_for_this_computer", str(e) + " Cale does not run what would freeze or crash the computer. Use a shorter prompt, or free memory.", e.info)
-        except ContextTooLong as e:
-            gen.close()
-            raise ApiError(400, "context_length_exceeded", str(e), e.info, param="messages")
-        except EngineError as e:
-            raise ApiError(500, "engine_error", "The engine failed and was reset. Try again. The details are in Cale's log.")
+        def start(g):
+            """Begin an answer (with guide g). Returns (generator, plan). Engine problems become API errors."""
+            gen = ENGINE.chat_stream(msgs, max_tokens, temp, app, 100 if pct == "auto" else pct, goal,
+                                     top_p=top_p, seed=seed, stop=stop, arrived=getattr(self, "arrived", None),
+                                     max_tokens_explicit=asked is not None, cancel=cancel, guide=g)
+            try:
+                return gen, next(gen)["plan"]
+            except GoalMissed as e:
+                gen.close()
+                raise ApiError(422, "goal_missed", str(e), e.info)
+            except Unsafe as e:
+                gen.close()
+                raise ApiError(507, "unsafe_for_this_computer", str(e) + " Cale does not run what would freeze or crash the computer. Use a shorter prompt, or free memory.", e.info)
+            except ContextTooLong as e:
+                gen.close()
+                raise ApiError(400, "context_length_exceeded", str(e), e.info, param="messages")
+            except EngineError as e:
+                raise ApiError(500, "engine_error", "The engine failed and was reset. Try again. The details are in Cale's log.")
+
+        gen, plan = start(guide)
         expect = plan["size_pct"]
         if obj:
             with OBJ_LOCK:                               # what this object ran at, for apps that show it
@@ -569,6 +663,9 @@ class Handler(BaseHTTPRequestHandler):
                         done = ev["done"]
             except EngineError as e:
                 raise ApiError(500, "engine_error", "The engine failed and was reset. Try again. The details are in Cale's log.")
+            message, finish = {"role": "assistant", "content": "".join(text)}, done.get("finish", "stop")
+            if use_tools:
+                message, finish, done = self._tool_message(message["content"], finish, done, tools, choice, parallel, start, msgs)
             actual = done.get("size_pct") or expect
             if done.get("goal_met_actual") is not None:          # now the answer is finished: say what really happened
                 hdr["X-Cale-Goal-Met"] = str(done["goal_met_actual"]).lower()
@@ -581,13 +678,15 @@ class Handler(BaseHTTPRequestHandler):
             self._log_chat(app, req, actual, done)
             return self._json(200, {
                 "id": cid, "object": "chat.completion", "created": created, "model": label(actual),
-                "choices": [{"index": 0, "message": {"role": "assistant", "content": "".join(text)},
-                             "finish_reason": done.get("finish", "stop")}],
+                "choices": [{"index": 0, "message": message, "finish_reason": finish}],
                 "usage": {"prompt_tokens": done.get("prompt_tokens", 0), "completion_tokens": done.get("tokens", 0),
-                          "total_tokens": done.get("prompt_tokens", 0) + done.get("tokens", 0)},
+                          "total_tokens": done.get("prompt_tokens", 0) + done.get("tokens", 0),
+                          "prompt_tokens_details": {"cached_tokens": done.get("cached_tokens", 0)}},
                 "cale": {**info, "size": actual, **{k: done.get(k) for k in ("seconds", "first_token_s", "waited_s", "total_s", "switch_ms", "drafter", "disk_mb", "disk_s")}},
             }, hdr)
 
+        if use_tools:
+            return self._stream_tools(gen, hdr, info, cid, created, label, expect, tools, choice, parallel, start, msgs, app, name, obj, req)
         try:
             first = next(gen, None)            # a load or input failure here still gets a normal error reply
         except EngineError as e:

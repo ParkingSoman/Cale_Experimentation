@@ -47,6 +47,8 @@ struct cale_ctx {
     bool                repacked = false;      // weights were repacked into ordinary memory (not mapped from the file)
     bool                split = false;         // the file stores each down matrix as two halves
     std::string         placement;             // which device and layers this load used (for status and replies)
+    std::vector<llama_token> kv_tokens;        // the tokens the key/value memory holds now, in order (prompt cache)
+    int32_t             reused = 0;            // how many tokens of the last prompt were taken from the memory instead of being read again
     std::atomic<int>    cancel{0};             // set from another thread: stop the work in progress
 };
 
@@ -126,8 +128,12 @@ bool decode_tokens(cale_ctx * h, llama_token * t, int32_t n) {
         if (h->cancel.load() != 0) { g_err = "cancelled"; return false; }
         if (llama_decode(h->ctx, llama_batch_get_one(t, k)) != 0) {
             g_err = h->cancel.load() != 0 ? "cancelled" : "llama_decode failed";
+            h->kv_tokens.clear();                                    // the memory may be half written: do not trust it
+            llama_memory_clear(llama_get_memory(h->ctx), true);
+            h->n_past = 0;
             return false;
         }
+        h->kv_tokens.insert(h->kv_tokens.end(), t, t + k);
         h->n_past += k;
         t += k;
         n -= k;
@@ -398,11 +404,24 @@ CALE_API int32_t cale_piece(cale_ctx * h, int32_t tok, char * out, int32_t cap) 
 CALE_API int32_t cale_is_eog(cale_ctx * h, int32_t tok) { return llama_vocab_is_eog(h->vocab, tok) ? 1 : 0; }
 
 // Start an answer: clear the memory, read the prompt. Call cale_next() to get tokens one by one.
-CALE_API int32_t cale_begin2(cale_ctx * h, const int32_t * tokens, int32_t n, float temperature, float top_p, uint32_t seed) {
+// reuse: 1 = keep the start of the memory that matches the new prompt and read only the rest (a chat that grows by a turn).
+// The caller says 1 only if the memory was made at the same size. cale_reused() tells how many tokens were kept.
+CALE_API int32_t cale_begin3(cale_ctx * h, const int32_t * tokens, int32_t n, float temperature, float top_p, uint32_t seed, int32_t reuse) {
     if (n <= 0 || n + 1 > h->n_ctx) { g_err = "prompt does not fit the context"; return -1; }
     h->cancel.store(0);
-    llama_memory_clear(llama_get_memory(h->ctx), true);
-    h->n_past = 0;
+    size_t keep = 0;
+    if (reuse) {
+        const size_t lim = std::min(h->kv_tokens.size(), (size_t) n - 1);        // at least one token is read, to get the first answer's logits
+        while (keep < lim && h->kv_tokens[keep] == tokens[keep]) ++keep;
+    }
+    llama_memory_t mem = llama_get_memory(h->ctx);
+    if (keep == 0 || !llama_memory_seq_rm(mem, 0, (llama_pos) keep, -1)) {       // false: the memory cannot be cut back that far
+        llama_memory_clear(mem, true);
+        keep = 0;
+    }
+    h->kv_tokens.resize(keep);
+    h->reused = (int32_t) keep;
+    h->n_past = (int32_t) keep;
     h->pending = -1;
     if (h->smpl) llama_sampler_free(h->smpl);
     h->smpl = llama_sampler_chain_init(llama_sampler_chain_default_params());
@@ -413,8 +432,22 @@ CALE_API int32_t cale_begin2(cale_ctx * h, const int32_t * tokens, int32_t n, fl
         if (top_p < 1.0f) llama_sampler_chain_add(h->smpl, llama_sampler_init_top_p(top_p > 1e-6f ? top_p : 1e-6f, 1));
         llama_sampler_chain_add(h->smpl, llama_sampler_init_dist(seed));
     }
-    std::vector<llama_token> t(tokens, tokens + n);
-    return decode_tokens(h, t.data(), n) ? 0 : -1;
+    std::vector<llama_token> t(tokens + keep, tokens + n);
+    return decode_tokens(h, t.data(), (int32_t) t.size()) ? 0 : -1;
+}
+
+CALE_API int32_t cale_begin2(cale_ctx * h, const int32_t * tokens, int32_t n, float temperature, float top_p, uint32_t seed) {
+    return cale_begin3(h, tokens, n, temperature, top_p, seed, 0);
+}
+
+CALE_API int32_t cale_reused(cale_ctx * h) { return h->reused; }
+
+// Forget the memory (the next prompt is read from the start).
+CALE_API void cale_forget(cale_ctx * h) {
+    llama_memory_clear(llama_get_memory(h->ctx), true);
+    h->kv_tokens.clear();
+    h->n_past = 0;
+    h->reused = 0;
 }
 
 // The same without top_p (kept so older callers still work).
@@ -434,11 +467,38 @@ CALE_API int32_t cale_next(cale_ctx * h) {
     return tok;
 }
 
+// The k most likely next tokens, best first, for guided decoding: the caller picks one that fits its grammar, then calls cale_accept.
+// ids[i] and logprob[i] get the token and its log-probability (over the whole vocabulary). Returns how many were written, or -1.
+CALE_API int32_t cale_topk(cale_ctx * h, int32_t k, int32_t * ids, float * logprob) {
+    const float * lg = llama_get_logits_ith(h->ctx, -1);
+    if (!lg) { g_err = "no logits yet: call cale_begin first"; return -1; }
+    const int32_t n = llama_vocab_n_tokens(h->vocab);
+    k = std::min(k, n);
+    std::vector<int32_t> idx(n);
+    for (int32_t i = 0; i < n; ++i) idx[i] = i;
+    std::partial_sort(idx.begin(), idx.begin() + k, idx.end(), [&](int32_t a, int32_t b) { return lg[a] > lg[b]; });
+    float mx = lg[idx[0]];
+    double sum = 0.0;
+    for (int32_t i = 0; i < n; ++i) sum += std::exp((double) (lg[i] - mx));
+    const float lse = (float) (std::log(sum) + mx);
+    for (int32_t i = 0; i < k; ++i) { ids[i] = idx[i]; logprob[i] = lg[idx[i]] - lse; }
+    return k;
+}
+
+// Take a token the caller chose: read it into the context, so the next cale_topk is for the position after it. 0 or -1.
+CALE_API int32_t cale_accept(cale_ctx * h, int32_t tok) {
+    if (h->n_past + 1 > h->n_ctx) { g_err = "context is full"; return -2; }
+    h->pending = -1;
+    llama_token t = tok;
+    return decode_tokens(h, &t, 1) ? 0 : -1;
+}
+
 // Mean negative log-likelihood (nats) of tokens[first..n-1] given the text before them. Used to compare sizes.
 CALE_API double cale_nll(cale_ctx * h, const int32_t * tokens, int32_t n, int32_t first) {
     if (first < 1) first = 1;
     if (n < 2) return -1.0;
     llama_memory_clear(llama_get_memory(h->ctx), true);
+    h->kv_tokens.clear();
     h->n_past = 0;
     const int32_t n_vocab = llama_vocab_n_tokens(h->vocab);
     double total = 0.0;

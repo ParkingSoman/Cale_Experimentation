@@ -133,6 +133,27 @@ def cpu_busy():
     return max(0.0, min(1.0, 1.0 - (now[0] - last[0]) / (now[1] - last[1])))
 
 
+_other_last = None
+_other_value = 0.0
+
+
+def cpu_busy_other():
+    """Share (0.0 to 1.0) of the CPU that programs *other than this one* used since the last call. Cale's own work is taken out:
+    otherwise an answer that just ended would look like a busy computer. Calls less than half a second apart return the last value."""
+    global _other_last, _other_value
+    now = time.time()
+    if _other_last is not None and now - _other_last[0] < 0.5:
+        return _other_value
+    total = cpu_busy()
+    cpu_s = time.process_time()
+    last, _other_last = _other_last, (now, cpu_s)
+    if last is None:
+        return 0.0
+    own = (cpu_s - last[1]) / max(now - last[0], 1e-6) / (os.cpu_count() or 1)
+    _other_value = max(0.0, min(1.0, total - own))
+    return _other_value
+
+
 def power_state():
     """{"on_battery": True|False|None, "hot": True|False|None}. None means this computer cannot say. Cached for 5 s."""
     global _power_cache

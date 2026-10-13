@@ -76,7 +76,7 @@ Other settings of an object:
 | `size` | An exact size: `"smart"`, `"fast"` or a percent. Do not combine it with goals. |
 | `max_tokens` | The length limit of your answers. If you set none, only the context limit applies. |
 | `priority` | Which goals to keep when they cannot all be met, most important first. Default: `["memory", "quality", "first_token", "speed"]`. |
-| `on_miss` | What to do when no size meets the goals: `"best_effort"` (default, runs the size that misses least and says what missed), `"refuse"` (422, nothing runs), `"wait"` (try again for `max_wait_s`, default 30, then 422), `"try"` (run anyway: also allows disk reads). |
+| `on_miss` | What to do when no size meets the goals: `"best_effort"` (default, runs the size that misses least and says what missed), `"refuse"` (422, nothing runs), `"wait"` (try again for `max_wait_s`, 0 to 60, default 30, then 422), `"try"` (run anyway: also allows disk reads). |
 | `allow_disk` | Let a call read missing weights from disk. Default `False`. |
 
 `deadline_s` was removed. Cale cannot know how long an answer will be, so it cannot keep a deadline for a whole answer.

@@ -104,7 +104,7 @@ you can send the same goals on one call, with a `cale_` prefix.
 | `power` | `"normal"` or `"light"` (a smaller size on battery or when the computer is hot) |
 | `priority` | list of `"memory"`, `"quality"`, `"first_token"`, `"speed"`: which goal to keep when they conflict, most important first |
 | `on_miss` | when no size meets the goals: `"best_effort"` (default), `"refuse"`, `"wait"` or `"try"`. `"smallest"` is the old name of `"best_effort"`. |
-| `max_wait_s` | with `"wait"`: how long to keep trying. Default 30. |
+| `max_wait_s` | with `"wait"`: how long to keep trying, 0 to 60 s. Default 30. While Cale waits, other apps wait too. |
 | `allow_disk` | allow reading missing weights from disk. Default false. |
 | `max_tokens` | the length limit of this object's answers |
 

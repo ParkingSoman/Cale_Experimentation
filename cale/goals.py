@@ -17,6 +17,7 @@ import math
 
 SPEED, FIRST_TOKEN, MEMORY, QUALITY = "speed", "first_token", "memory", "quality"
 DEFAULT_PRIORITY = (MEMORY, QUALITY, FIRST_TOKEN, SPEED)
+MAX_WAIT_S = 60
 ON_MISS = ("best_effort", "refuse", "wait", "try")
 ON_MISS_ALIASES = {"smallest": "best_effort"}          # the name of the same behavior before Phase 6
 GOAL_FIELDS = ("min_tokens_per_s", "max_first_token_s", "memory_pct", "min_quality")
@@ -59,7 +60,8 @@ def parse(req, prefix=""):
     if om not in ON_MISS:
         raise GoalError("invalid_on_miss", f"'{prefix}on_miss' must be one of: {', '.join(ON_MISS)}.", prefix + "on_miss")
     g["on_miss"] = om
-    g["max_wait_s"] = _num(req, prefix + "max_wait_s", "max_wait_s", 0.0, 3600) if req.get(prefix + "max_wait_s") is not None else 30.0
+    # At most 60 s: while Cale waits it holds the generation lock, so other apps wait too.
+    g["max_wait_s"] = _num(req, prefix + "max_wait_s", "max_wait_s", 0.0, MAX_WAIT_S) if req.get(prefix + "max_wait_s") is not None else 30.0
     allow = req.get(prefix + "allow_disk", False)
     if not isinstance(allow, bool):
         raise GoalError("invalid_allow_disk", f"'{prefix}allow_disk' must be true or false.", prefix + "allow_disk")

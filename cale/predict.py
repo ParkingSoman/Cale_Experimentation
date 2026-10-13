@@ -98,7 +98,8 @@ class Predictor:
             self.dec_full = (1 - w) * self.dec_full + w * implied
             self.n_dec += 1
             self._fit_fixed()
-        prompt, first = int(done.get("prompt_tokens") or 0), float(done.get("first_token_s") or 0.0) - float(done.get("disk_s") or 0.0)
+        prompt = int(done.get("prompt_tokens") or 0) - int(done.get("cached_tokens") or 0)      # only the tokens that were really read
+        first = float(done.get("first_token_s") or 0.0) - float(done.get("disk_s") or 0.0)
         if prompt >= 32 and first > 0:
             read_s = first - 1.0 / max(self.decode_tps(level), 1e-6)
             if read_s > 0:

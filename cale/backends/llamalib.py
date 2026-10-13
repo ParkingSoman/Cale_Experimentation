@@ -83,6 +83,15 @@ class Lib:
         c.cale_begin2.restype, c.cale_begin2.argtypes = i32, [vp, i32p, i32, ctypes.c_float, ctypes.c_float, ctypes.c_uint32]
         c.cale_next.restype, c.cale_next.argtypes = i32, [vp]
         c.cale_nll.restype, c.cale_nll.argtypes = ctypes.c_double, [vp, i32p, i32, i32]
+        self.has_reuse = hasattr(c, "cale_begin3")
+        if self.has_reuse:
+            c.cale_begin3.restype, c.cale_begin3.argtypes = i32, [vp, i32p, i32, ctypes.c_float, ctypes.c_float, ctypes.c_uint32, i32]
+            c.cale_reused.restype, c.cale_reused.argtypes = i32, [vp]
+            c.cale_forget.restype, c.cale_forget.argtypes = None, [vp]
+        self.has_guided = hasattr(c, "cale_topk")
+        if self.has_guided:
+            c.cale_topk.restype, c.cale_topk.argtypes = i32, [vp, i32, i32p, ctypes.POINTER(ctypes.c_float)]
+            c.cale_accept.restype, c.cale_accept.argtypes = i32, [vp, i32]
         u64 = ctypes.c_uint64
         c.cale_tensor_range.restype, c.cale_tensor_range.argtypes = i32, [vp, ctypes.c_char_p, ctypes.POINTER(u64), ctypes.POINTER(u64)]
         c.cale_pages.restype, c.cale_pages.argtypes = u64, [i32, u64, u64]
@@ -158,9 +167,39 @@ class Lib:
     def is_eog(self, tok):
         return bool(self.c.cale_is_eog(self.h, tok))
 
-    def begin(self, tokens, temperature=0.0, seed=1234, top_p=1.0):
+    def begin(self, tokens, temperature=0.0, seed=1234, top_p=1.0, reuse=False):
+        """Read the prompt. reuse=True keeps the start of the memory that matches (only if it was made at the same size)."""
         arr = (ctypes.c_int32 * len(tokens))(*tokens)
-        if self.c.cale_begin2(self.h, arr, len(tokens), temperature, top_p, seed) != 0:
+        if self.has_reuse:
+            r = self.c.cale_begin3(self.h, arr, len(tokens), temperature, top_p, seed, 1 if reuse else 0)
+        else:
+            r = self.c.cale_begin2(self.h, arr, len(tokens), temperature, top_p, seed)
+        if r != 0:
+            if self.error() == "cancelled":
+                raise Cancelled()
+            raise RuntimeError(self.error())
+
+    @property
+    def reused(self):
+        """How many tokens of the last prompt were taken from the memory instead of being read again."""
+        return self.c.cale_reused(self.h) if self.has_reuse else 0
+
+    def forget(self):
+        if self.has_reuse:
+            self.c.cale_forget(self.h)
+
+    def topk(self, k):
+        """The k most likely next tokens, best first: [(token id, log-probability)]. For guided decoding."""
+        ids, lp = (ctypes.c_int32 * k)(), (ctypes.c_float * k)()
+        n = self.c.cale_topk(self.h, k, ids, lp)
+        if n < 0:
+            raise RuntimeError(self.error())
+        return [(ids[i], lp[i]) for i in range(n)]
+
+    def accept(self, tok):
+        """Read a token chosen by the caller into the context."""
+        r = self.c.cale_accept(self.h, tok)
+        if r != 0:
             if self.error() == "cancelled":
                 raise Cancelled()
             raise RuntimeError(self.error())

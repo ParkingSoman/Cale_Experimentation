@@ -30,7 +30,7 @@ import uuid
 from nest.cancel import Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pick
 
-from . import backends, choose, oslayer, paths, pressure
+from . import backends, choose, constrain, oslayer, paths, pressure
 from . import gemma3n_facts as facts
 from . import goals as goals_mod
 from .predict import Predictor
@@ -176,7 +176,7 @@ class Engine:
             self.pred.dec_full, self.pred.pre_full, self.pred.fixed = old.dec_full, old.pre_full, old.fixed     # a reload keeps what was learned
             self.pred.n_dec, self.pred.n_pre, self.pred.disk_bps = old.n_dec, old.n_pre, old.disk_bps
         self.pred.slow = self._slow
-        self.pred.busy = oslayer.cpu_busy
+        self.pred.busy = oslayer.cpu_busy_other
         self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": int(m.active_bytes() - m.ffn_bytes()),
                      "total_ram": key["total_ram"], "disk_bps": self.pred.disk_bps}
 
@@ -327,7 +327,7 @@ class Engine:
 
     # --- requests ---------------------------------------------------------------------
     def chat_stream(self, messages, max_tokens, temperature, app="?", size_pct=100, goal=None,
-                    top_p=1.0, seed=None, stop=None, arrived=None, max_tokens_explicit=True, cancel=None):
+                    top_p=1.0, seed=None, stop=None, arrived=None, max_tokens_explicit=True, cancel=None, guide=None):
         """Generator. First {"plan": ...} (the size chosen), then {"delta"} pieces, then {"done"}.
         Holds the generation lock for the whole answer.
 
@@ -336,6 +336,7 @@ class Engine:
         arrived: time.time() when the request came in, so time spent waiting in line counts toward first_token goals.
         max_tokens_explicit: False when the app gave no limit: then the limit shrinks to fit the context instead of failing.
         cancel: a nest.cancel.Cancel. The server sets it when the client closes its connection. The work then stops.
+        guide: a cale.constrain.Guide: every token must fit it (JSON mode, JSON schema, tool calls).
         Raises GoalMissed, Unsafe, ContextTooLong before the first event, Cancelled if the client left, and EngineError if the engine fails."""
         with self.lock:
             if cancel:
@@ -373,7 +374,7 @@ class Engine:
                     pool = [l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)]
                     lv = max(pool or [min(self.levels, key=lambda l: l["pct"])], key=lambda l: (l["pct"], l["mmlu_pt"]))
                 else:
-                    res = self._decide(goals, n_prompt, answer_tokens, waited, cap)
+                    res = self._decide(goals, n_prompt, answer_tokens, waited, cap, cancel)
                     lv = res["row"]["level"]
                     plan.update(goal_met=res["met"], unmet=res["unmet"], predicted=self._predicted(res["row"]))
                     if goals["min_tokens_per_s"] is not None:
@@ -389,7 +390,7 @@ class Engine:
                     self.debug_fail = False
                     raise RuntimeError("debug: injected engine failure")
                 for ev in self.m.chat_stream(messages, max_tokens=max_tokens, width=lv, temperature=temperature,
-                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel, controller=controller):
+                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel, controller=controller, guide=guide):
                     if "done" in ev:
                         d = ev["done"]
                         d["waited_s"] = round(waited, 3)
@@ -398,7 +399,7 @@ class Engine:
                             self._judge(d, goals, waited)
                         self._learn(d)
                     yield ev
-            except (GoalMissed, Unsafe, ContextTooLong, Cancelled):
+            except (GoalMissed, Unsafe, ContextTooLong, Cancelled, constrain.DeadEnd):
                 raise
             except Exception as e:                                  # the engine may be left half-way: start clean on the next call
                 # The details go to Cale's own log only. /cale/status needs no key, and error text can hold paths and sizes.
@@ -451,7 +452,7 @@ class Engine:
         return {**out, "goal_met": res["met"], "unmet": res["unmet"],
                 "chosen": {"size": res["row"]["level"]["id"], "size_pct": res["row"]["level"]["pct"], **self._predicted(res["row"])}}
 
-    def _decide(self, goals, n_prompt, answer_tokens, waited, cap):
+    def _decide(self, goals, n_prompt, answer_tokens, waited, cap, cancel=None):
         """Choose a size for these goals. Applies on_miss: best_effort runs the best size, try also allows disk, refuse and wait raise GoalMissed."""
         power = oslayer.power_state() if goals["power"] == "light" else {}
         light = goals["power"] == "light" and bool(power.get("on_battery") or power.get("hot"))
@@ -464,6 +465,8 @@ class Engine:
                 raise Unsafe("No size can run this call safely on this computer.", self._unsafe_info(res["rows"]))
             if res["met"] or goals["on_miss"] != "wait" or time.time() - t0 >= goals["max_wait_s"]:
                 break
+            if cancel:
+                cancel.check()                                  # the app left: stop waiting, let the next app have the lock
             time.sleep(0.5)
         if not res["met"] and goals["on_miss"] in ("refuse", "wait"):
             best = self._predicted(res["row"])

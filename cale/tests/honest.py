@@ -52,9 +52,11 @@ key = call("/cale/connect", {"app": "Honest Test"})[2]["api_key"]
 key2 = call("/cale/connect", {"app": "Honest Test Two"})[2]["api_key"]
 
 # 1. A field Cale cannot use is refused by name. It is never ignored in silence.
-check("tools -> 400 unsupported_parameter", err(chat(key, tools=[{"type": "function", "function": {"name": "f"}}])) == (400, "unsupported_parameter", "tools"))
-check("tool_choice -> 400", err(chat(key, tool_choice="auto"))[:2] == (400, "unsupported_parameter"))
-check("response_format json_schema -> 400", err(chat(key, response_format={"type": "json_schema", "json_schema": {}})) == (400, "unsupported_parameter", "response_format"))
+check("legacy functions -> 400 unsupported_parameter", err(chat(key, functions=[{"name": "f"}])) == (400, "unsupported_parameter", "functions"))
+check("logprobs -> 400 unsupported_parameter", err(chat(key, logprobs=True)) == (400, "unsupported_parameter", "logprobs"))
+check("tool_choice without tools -> 400", err(chat(key, tool_choice="auto")) == (400, "invalid_tool_choice", "tool_choice"))
+check("a tool without a name -> 400", err(chat(key, tools=[{"type": "function", "function": {}}]))[:2] == (400, "invalid_tools"))
+check("response_format json_schema without a schema -> 400", err(chat(key, response_format={"type": "json_schema", "json_schema": {}})) == (400, "invalid_response_format", "response_format"))
 check("response_format text is fine", chat(key, max_tokens=8, response_format={"type": "text"})[0] == 200)
 check("unknown field -> 400 unknown_parameter", err(chat(key, banana=1)) == (400, "unknown_parameter", "banana"))
 check("a cale_ field Cale does not have -> 400", err(chat(key, cale_banana=1)) == (400, "unknown_parameter", "cale_banana"))

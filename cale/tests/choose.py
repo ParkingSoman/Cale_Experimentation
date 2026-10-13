@@ -126,8 +126,16 @@ res = choose.for_goals(LEVELS, Pred(), M, goals(), {**CTX, "available_ram": 0.3 
 check("safety: little free memory right now blocks growing", res["unsafe"] or res["row"]["memory_bytes"] <= choose.model_bytes(M, SMALLEST) + 0.3 * GB)
 
 # --- goal parsing
+def _refused(req):
+    try:
+        G.parse(req)
+    except G.GoalError as e:
+        return e.code
+
+
 check("parse: defaults", G.parse({})["on_miss"] == "best_effort" and G.parse({})["priority"] == G.DEFAULT_PRIORITY and not G.is_set(G.parse({})))
 check("parse: old on_miss 'smallest' is best_effort", G.parse({"on_miss": "smallest"})["on_miss"] == "best_effort")
+check("parse: max_wait_s is capped (the generation lock is held while waiting)", _refused({"max_wait_s": 3600}) == "invalid_max_wait_s")
 check("parse: prefix", G.parse({"cale_min_tokens_per_s": 5}, "cale_")["min_tokens_per_s"] == 5.0)
 check("parse: a partial priority list is completed", G.parse({"priority": ["speed"]})["priority"][0] == "speed" and len(G.parse({"priority": ["speed"]})["priority"]) == 4)
 for bad, code in (({"deadline_s": 3}, "unsupported_parameter"), ({"min_tokens_per_s": 0}, "invalid_min_tokens_per_s"), ({"min_tokens_per_s": True}, "invalid_min_tokens_per_s"),
