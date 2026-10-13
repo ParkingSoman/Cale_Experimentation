@@ -668,6 +668,31 @@ CALE_API int32_t cale_slot_topk(cale_ctx * h, int32_t slot, int32_t k, int32_t *
     return k;
 }
 
+
+// For a slot that just got its next token (valid until the next cale_batch_step): the log-probability of `tok` over the whole vocabulary,
+// and the k most likely tokens with theirs (k may be 0). Returns how many tokens were written to ids/logprob, or -1.
+CALE_API int32_t cale_slot_logprobs(cale_ctx * h, int32_t slot, int32_t tok, int32_t k, int32_t * ids, float * logprob, float * chosen) {
+    if (slot < 0 || slot >= (int32_t) h->slots.size() || h->slots[slot].last_idx < 0) { g_err = "no logits for this slot"; return -1; }
+    const float * lg = llama_get_logits_ith(h->ctx, h->slots[slot].last_idx);
+    if (!lg) { g_err = "no logits for this slot"; return -1; }
+    const int32_t n = llama_vocab_n_tokens(h->vocab);
+    if (tok < 0 || tok >= n) { g_err = "token out of range"; return -1; }
+    float mx = lg[0];
+    for (int32_t i = 1; i < n; ++i) mx = std::max(mx, lg[i]);
+    double sum = 0.0;
+    for (int32_t i = 0; i < n; ++i) sum += std::exp((double) (lg[i] - mx));
+    const float lse = (float) (std::log(sum) + mx);
+    *chosen = lg[tok] - lse;
+    k = std::max(0, std::min(k, n));
+    if (k > 0) {
+        std::vector<int32_t> idx(n);
+        for (int32_t i = 0; i < n; ++i) idx[i] = i;
+        std::partial_sort(idx.begin(), idx.begin() + k, idx.end(), [&](int32_t a, int32_t c) { return lg[a] > lg[c]; });
+        for (int32_t i = 0; i < k; ++i) { ids[i] = idx[i]; logprob[i] = lg[idx[i]] - lse; }
+    }
+    return k;
+}
+
 // The caller chose this token for a guided slot: it is read at the next step.
 CALE_API int32_t cale_slot_accept(cale_ctx * h, int32_t slot, int32_t tok) {
     if (slot < 0 || slot >= (int32_t) h->slots.size()) return -1;

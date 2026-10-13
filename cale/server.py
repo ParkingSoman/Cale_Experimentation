@@ -33,7 +33,7 @@ from nest.cancel import Cancel, Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pct_range, pick
 
 from . import approval, backends, keys, oslayer, paths, pressure
-from .engine import ContextTooLong, Engine, EngineError, GoalMissed, Unsafe
+from .engine import ContextTooLong, Engine, EngineError, GoalMissed, Unsafe, Unsupported
 from . import choose, constrain, goals as goals_mod, tools as tools_mod
 
 BASE = "gemma-3n"
@@ -100,6 +100,18 @@ def clean_messages(msgs):
     return out
 
 
+def lp_content(entries):
+    """Engine log-probability entries -> the OpenAI `logprobs.content` list."""
+    def piece(tid):
+        raw = ENGINE.piece_bytes(tid)
+        return {"token": raw.decode("utf-8", "replace"), "bytes": list(raw)}
+    out = []
+    for e in entries:
+        out.append({**piece(e["id"]), "logprob": e["logprob"],
+                    "top_logprobs": [{**piece(t), "logprob": lp} for t, lp in e["top"]]})
+    return out
+
+
 def number(req, key, lo, hi, default, integer=False):
     v = req.get(key)
     if v is None:
@@ -126,11 +138,11 @@ def goals_from(req, prefix=""):
 
 # What /v1/chat/completions accepts. Anything else gets a clear 400. Cale never takes a field and ignores it in silence.
 CHAT_FIELDS = {"model", "messages", "max_tokens", "max_completion_tokens", "temperature", "top_p", "seed", "stop", "stream",
-               "tools", "tool_choice", "parallel_tool_calls", "response_format"}
+               "tools", "tool_choice", "parallel_tool_calls", "response_format", "logprobs", "top_logprobs"}
 CALE_FIELDS = {"cale_" + f for f in goals_mod.FIELDS} | {"cale_deadline_s"}    # Cale's own goal fields (with model gemma-3n:auto). deadline_s is refused with its own message.
 NO_EFFECT_FIELDS = {"user", "stream_options", "store", "metadata"}      # accepted: they change nothing Cale does
 ZERO_ONLY_FIELDS = {"frequency_penalty", "presence_penalty"}            # accepted only as 0
-NOT_YET_FIELDS = {"functions", "function_call", "logprobs", "top_logprobs", "logit_bias", "modalities", "audio", "prediction", "reasoning_effort"}
+NOT_YET_FIELDS = {"functions", "function_call", "logit_bias", "modalities", "audio", "prediction", "reasoning_effort"}
 
 
 def check_chat_fields(req):
@@ -141,8 +153,6 @@ def check_chat_fields(req):
         if k in ZERO_ONLY_FIELDS and v == 0:
             continue
         if k == "n" and v == 1:
-            continue
-        if k == "logprobs" and v is False:
             continue
         if k in NOT_YET_FIELDS or k in ZERO_ONLY_FIELDS or k == "n":
             raise ApiError(400, "unsupported_parameter", f"Cale does not support '{k}' yet. Remove it from the request, or use a supported value.", param=k)
@@ -711,7 +721,17 @@ class Handler(BaseHTTPRequestHandler):
         parallel = req.get("parallel_tool_calls", True)
         if not isinstance(parallel, bool):
             raise ApiError(400, "invalid_parallel_tool_calls", "'parallel_tool_calls' must be true or false.", param="parallel_tool_calls")
+        lp_flag, lp_top = req.get("logprobs"), req.get("top_logprobs")
+        if lp_flag is not None and not isinstance(lp_flag, bool):
+            raise ApiError(400, "invalid_logprobs", "'logprobs' must be true or false.", param="logprobs")
+        if lp_top is not None and (isinstance(lp_top, bool) or not isinstance(lp_top, int) or not 0 <= lp_top <= 20):
+            raise ApiError(400, "invalid_top_logprobs", "'top_logprobs' must be a whole number from 0 to 20.", param="top_logprobs")
+        if lp_top is not None and not lp_flag:
+            raise ApiError(400, "invalid_top_logprobs", "'top_logprobs' needs 'logprobs': true.", param="top_logprobs")
+        logprobs_k = (lp_top or 0) if lp_flag else None
         use_tools = bool(tools) and choice != "none"
+        if logprobs_k is not None and (use_tools or rf_guide is not None):
+            raise ApiError(400, "unsupported_parameter", "Cale cannot report 'logprobs' together with 'tools' or 'response_format' yet. Use one of them.", param="logprobs")
         if use_tools and rf_guide is not None:
             raise ApiError(400, "unsupported_parameter", "Cale cannot combine 'tools' and 'response_format' in one call yet. Use one of them.", param="response_format")
         msgs = tools_mod.convert_messages(req.get("messages"), ApiError, images_ok=bool(backends.supports().get("images")), audio_ok=bool(backends.supports().get("audio")))
@@ -747,12 +767,15 @@ class Handler(BaseHTTPRequestHandler):
             """Begin an answer (with guide g). Returns (generator, plan). Engine problems become API errors."""
             gen = ENGINE.chat_stream(msgs, max_tokens, temp, app, 100 if pct == "auto" else pct, goal,
                                      top_p=top_p, seed=seed, stop=stop, arrived=getattr(self, "arrived", None),
-                                     max_tokens_explicit=asked is not None, cancel=cancel, guide=g)
+                                     max_tokens_explicit=asked is not None, cancel=cancel, guide=g, logprobs=logprobs_k)
             try:
                 return gen, next(gen)["plan"]
             except GoalMissed as e:
                 gen.close()
                 raise ApiError(422, "goal_missed", str(e), e.info)
+            except Unsupported as e:
+                gen.close()
+                raise ApiError(400, "unsupported_parameter", str(e), param="logprobs")
             except Unsafe as e:
                 gen.close()
                 raise ApiError(507, "unsafe_for_this_computer", str(e) + " Cale does not run what would freeze or crash the computer. Use a shorter prompt, or free memory.", e.info)
@@ -788,11 +811,13 @@ class Handler(BaseHTTPRequestHandler):
         label = (lambda p: name) if obj else model_id          # a model object reports its own id as the model
 
         if not stream:
-            text, done = [], {}
+            text, done, lps = [], {}, []
             try:
                 for ev in gen:
                     if "delta" in ev:
                         text.append(ev["delta"])
+                    elif "logprobs" in ev:
+                        lps.extend(ev["logprobs"])
                     else:
                         done = ev["done"]
             except EngineError as e:
@@ -812,7 +837,8 @@ class Handler(BaseHTTPRequestHandler):
             self._log_chat(app, req, actual, done)
             return self._json(200, {
                 "id": cid, "object": "chat.completion", "created": created, "model": label(actual),
-                "choices": [{"index": 0, "message": message, "finish_reason": finish}],
+                "choices": [{"index": 0, "message": message, "finish_reason": finish,
+                             **({"logprobs": {"content": lp_content(lps)}} if logprobs_k is not None else {})}],
                 "usage": {"prompt_tokens": done.get("prompt_tokens", 0), "completion_tokens": done.get("tokens", 0),
                           "total_tokens": done.get("prompt_tokens", 0) + done.get("tokens", 0),
                           "prompt_tokens_details": {"cached_tokens": done.get("cached_tokens", 0)}},
@@ -839,9 +865,9 @@ class Handler(BaseHTTPRequestHandler):
             self.wfile.write(b"data: " + raw + b"\n\n")
             self.wfile.flush()
 
-        def chunk(delta, finish=None, extra=None):
+        def chunk(delta, finish=None, extra=None, lp=None):
             obj = {"id": cid, "object": "chat.completion.chunk", "created": created, "model": label(expect),
-                   "choices": [{"index": 0, "delta": delta, "finish_reason": finish}]}
+                   "choices": [{"index": 0, "delta": delta, "finish_reason": finish, **({"logprobs": {"content": lp_content(lp)}} if lp else {})}]}
             obj.update(extra or {})
             send(json.dumps(obj).encode())
 
@@ -855,6 +881,8 @@ class Handler(BaseHTTPRequestHandler):
             for ev in events():
                 if "delta" in ev:
                     chunk({"content": ev["delta"]})
+                elif "logprobs" in ev:
+                    chunk({}, None, None, ev["logprobs"])
                 else:
                     d = ev["done"]
                     self._note_done(app, name, obj, d)

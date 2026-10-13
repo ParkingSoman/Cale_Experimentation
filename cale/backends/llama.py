@@ -60,8 +60,10 @@ class PoolFull(RuntimeError):
 class LlamaStream:
     """One answer running in a slot, next to others. LlamaNested.step() feeds it the tokens the engine produces."""
 
-    def __init__(self, model, slot, ids, max_tokens, temperature, top_p, seed, stop, guide, owner, cached, start_tier):
+    def __init__(self, model, slot, ids, max_tokens, temperature, top_p, seed, stop, guide, owner, cached, start_tier, logprobs=None):
         self.model, self.slot, self.ids, self.owner, self.cached = model, slot, ids, owner, cached
+        self.logprobs = logprobs              # None, or how many of the most likely tokens to report next to each chosen token
+        self.lp_new = []                      # [{"id", "logprob", "top": [(id, logprob)]}] since the last call to take_logprobs()
         self.max_tokens, self.temperature, self.top_p = max_tokens, temperature, top_p
         self.dec = codecs.getincrementaldecoder("utf-8")("replace")
         self.stops = StopFilter(stop)
@@ -77,6 +79,10 @@ class LlamaStream:
 
     def take(self):
         d, self.deltas = self.deltas, []
+        return d
+
+    def take_logprobs(self):
+        d, self.lp_new = self.lp_new, []
         return d
 
     def choose(self):
@@ -97,6 +103,9 @@ class LlamaStream:
             self.finish, self.done = "stop", True
             return
         self.out += 1
+        if self.logprobs is not None:                   # the logits of this token's position are still in the engine: ask now, before the next step
+            chosen, top = m.lib.slot_logprobs(self.slot, tok, self.logprobs)
+            self.lp_new.append({"id": tok, "logprob": chosen, "top": top})
         s = self.dec.decode(m.lib.piece(tok))
         if s:
             text, hit = self.stops.feed(s)
@@ -333,8 +342,12 @@ class LlamaNested:
     def prompt_len(self, messages):
         return len(self.prompt_ids(messages))
 
+    def piece_bytes(self, tid):
+        """The bytes a token stands for (for `logprobs`)."""
+        return self.lib.piece(int(tid))
+
     # --- chat --------------------------------------------------------------------------------
-    supports = {"top_p": True, "seed": True, "stop": True, "guided": True, "images": False, "audio": False}
+    supports = {"top_p": True, "seed": True, "stop": True, "guided": True, "images": False, "audio": False, "logprobs": True}
 
     @property
     def max_context(self):
@@ -456,7 +469,7 @@ class LlamaNested:
         busy = self.__dict__.setdefault("_busy_slots", set())
         return [s for s in range(self.lib.n_slots) if s not in busy]
 
-    def open_stream(self, messages, max_tokens, temperature=0.0, top_p=1.0, seed=None, stop=None, guide=None, owner=None):
+    def open_stream(self, messages, max_tokens, temperature=0.0, top_p=1.0, seed=None, stop=None, guide=None, owner=None, logprobs=None):
         """Start an answer in a free slot at the current size. Prefers the slot that holds this app's last conversation (prompt cache)."""
         free = self.free_slots()
         if not free:
@@ -482,7 +495,7 @@ class LlamaNested:
         kept = self.lib.slot_open(slot, ids, temperature, top_p, seed, guided=guide is not None, reuse=bool(mine))
         self._busy_slots.add(slot)
         owners[slot], levels[slot] = owner, self.level["id"]
-        return LlamaStream(self, slot, ids, max_tokens, temperature, top_p, seed, stop, guide, owner, kept, self.level["id"])
+        return LlamaStream(self, slot, ids, max_tokens, temperature, top_p, seed, stop, guide, owner, kept, self.level["id"], logprobs)
 
     def pool_total(self):
         """Tokens in the shared memory pool (debug switch: a smaller pool, to test what happens when it is full)."""

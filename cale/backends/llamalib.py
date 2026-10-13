@@ -98,6 +98,7 @@ class Lib:
             c.cale_reused.restype, c.cale_reused.argtypes = i32, [vp]
             c.cale_forget.restype, c.cale_forget.argtypes = None, [vp]
         self.has_slots = hasattr(c, "cale_batch_step")
+        self.has_logprobs = False
         if self.has_slots:
             c.cale_slots.restype, c.cale_slots.argtypes = i32, [vp]
             c.cale_slot_open.restype, c.cale_slot_open.argtypes = i32, [vp, i32, i32p, i32, ctypes.c_float, ctypes.c_float, ctypes.c_uint32, i32, i32]
@@ -106,6 +107,10 @@ class Lib:
             c.cale_batch_step.restype, c.cale_batch_step.argtypes = i32, [vp, i32, i32p, i32p, i32p, i32]
             c.cale_slot_topk.restype, c.cale_slot_topk.argtypes = i32, [vp, i32, i32, i32p, ctypes.POINTER(ctypes.c_float)]
             c.cale_slot_accept.restype, c.cale_slot_accept.argtypes = i32, [vp, i32, i32]
+            self.has_logprobs = hasattr(c, "cale_slot_logprobs")
+            if self.has_logprobs:
+                c.cale_slot_logprobs.restype = i32
+                c.cale_slot_logprobs.argtypes = [vp, i32, i32, i32, i32p, ctypes.POINTER(ctypes.c_float), ctypes.POINTER(ctypes.c_float)]
             c.cale_slot_reused.restype, c.cale_slot_reused.argtypes = i32, [vp, i32]
             c.cale_slot_common.restype, c.cale_slot_common.argtypes = i32, [vp, i32, i32p, i32]
             c.cale_slot_tokens.restype, c.cale_slot_tokens.argtypes = i32, [vp, i32]
@@ -248,6 +253,14 @@ class Lib:
         if n < 0:
             raise RuntimeError(self.error())
         return [(ids[i], lp[i]) for i in range(n)]
+
+    def slot_logprobs(self, slot, tok, k):
+        """For the token a slot just got: (its log-probability, [(token, log-probability) of the k most likely tokens])."""
+        ids, lp, chosen = (ctypes.c_int32 * max(k, 1))(), (ctypes.c_float * max(k, 1))(), ctypes.c_float()
+        n = self.c.cale_slot_logprobs(self.h, slot, tok, k, ids, lp, ctypes.byref(chosen))
+        if n < 0:
+            raise RuntimeError(self.error())
+        return chosen.value, [(ids[i], lp[i]) for i in range(n)]
 
     def slot_accept(self, slot, tok):
         if self.c.cale_slot_accept(self.h, slot, tok) != 0:

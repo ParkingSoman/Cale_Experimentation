@@ -53,7 +53,7 @@ key2 = call("/cale/connect", {"app": "Honest Test Two"})[2]["api_key"]
 
 # 1. A field Cale cannot use is refused by name. It is never ignored in silence.
 check("legacy functions -> 400 unsupported_parameter", err(chat(key, functions=[{"name": "f"}])) == (400, "unsupported_parameter", "functions"))
-check("logprobs -> 400 unsupported_parameter", err(chat(key, logprobs=True)) == (400, "unsupported_parameter", "logprobs"))
+check("logprobs: false is accepted", chat(key, max_tokens=4, logprobs=False)[0] == 200)
 check("tool_choice without tools -> 400", err(chat(key, tool_choice="auto")) == (400, "invalid_tool_choice", "tool_choice"))
 check("a tool without a name -> 400", err(chat(key, tools=[{"type": "function", "function": {}}]))[:2] == (400, "invalid_tools"))
 check("response_format json_schema without a schema -> 400", err(chat(key, response_format={"type": "json_schema", "json_schema": {}})) == (400, "invalid_response_format", "response_format"))

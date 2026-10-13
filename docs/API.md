@@ -71,7 +71,7 @@ Cale never ignores a field in silence.
 
 | You send | Cale answers |
 |---|---|
-| `functions`, `function_call`, `logprobs`, `n` above 1, penalties other than 0 | `400 unsupported_parameter`. The `param` field names it. These are planned, not available yet. |
+| `functions`, `function_call`, `n` above 1, penalties other than 0 | `400 unsupported_parameter`. The `param` field names it. These are planned, not available yet. |
 | sound (`input_audio`) on a computer whose engine cannot read sound | `400 unsupported_content`. Ask first: `capabilities.audio` in `GET /v1/models` |
 | a picture on a computer whose engine cannot read pictures | `400 unsupported_content`. Ask first: `capabilities.images` in `GET /v1/models` |
 | a field Cale has never heard of | `400 unknown_parameter` |
@@ -105,6 +105,24 @@ Send one WAV clip in a user message:
 | On Windows and Linux, the first answer to a prompt and a later answer that reuses the prompt cache can differ at `temperature` 0, because the arithmetic is split differently (tiny rounding). The Mac gives the same text | Send a `seed`. A seeded call does not use the prompt cache, so it repeats exactly |
 | On a computer where a GPU reads long prompts, an app that leaves in the middle of a long prompt can hold the next app up for about 6 seconds (one piece of the prompt cannot be stopped). Without that GPU, it is about 1 to 2 seconds | None needed. `GET /cale/status` shows `placement` |
 | Pictures and sound work on a Mac only | Check `capabilities.images` and `capabilities.audio` first |
+
+### Log-probabilities
+
+Send `"logprobs": true` and, if you want the runners-up, `"top_logprobs": 0 to 20`. Each choice then has
+`logprobs.content`: one entry per answer token, as in the OpenAI API.
+
+```json
+{"token": " red", "logprob": -0.21, "bytes": [32, 114, 101, 100],
+ "top_logprobs": [{"token": " red", "logprob": -0.21, "bytes": [...]}, {"token": " blue", "logprob": -1.9, "bytes": [...]}]}
+```
+
+| Rule | Value |
+|---|---|
+| What the number is | the natural log of the probability the model gave that token, over the whole vocabulary, before `temperature` and `top_p` |
+| Streaming | each chunk carries the entries of the tokens that came with it |
+| Not together with | `tools` or `response_format` (`400 unsupported_parameter`) |
+| Errors | `400 invalid_logprobs`, `400 invalid_top_logprobs` (not 0 to 20, or `logprobs` is not true) |
+| Cost | one more pass over the vocabulary for each token. Only calls that ask for it pay. |
 
 ### Pictures
 

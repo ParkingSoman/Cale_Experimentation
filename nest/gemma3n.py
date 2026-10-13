@@ -325,8 +325,35 @@ class NestedGemma3n:
     def model_files(self):
         return sorted(Path(self.path).glob("*.safetensors"))
 
+    supports_logprobs = True
+
     def prompt_len(self, messages):
         return int(self.prompt_ids(messages).shape[1])
+
+    def piece_bytes(self, tid):
+        """The bytes a token stands for (for `logprobs`)."""
+        import re
+        raw = self.processor.tokenizer.convert_ids_to_tokens(int(tid))
+        m = re.fullmatch(r"<0x([0-9A-Fa-f]{2})>", raw or "")
+        if m:
+            return bytes([int(m.group(1), 16)])
+        return (raw or "").replace("\u2581", " ").encode("utf-8")
+
+    def _logprob_entry(self, lg, tid, k):
+        """For the token just chosen from logits `lg`: its log-probability and the k most likely tokens with theirs."""
+        l = lg.reshape(-1).astype(mx.float32)
+        lse = mx.logsumexp(l)
+        chosen = l[int(tid)] - lse
+        if k > 0:
+            kk = min(k, l.shape[0] - 1)
+            idx = mx.argpartition(-l, kth=kk, axis=-1)[:kk]
+            vals = l[idx] - lse
+            mx.eval(chosen, idx, vals)
+            top = sorted(zip(idx.tolist(), vals.tolist()), key=lambda x: -x[1])
+        else:
+            mx.eval(chosen)
+            top = []
+        return {"id": int(tid), "logprob": float(chosen.item()), "top": top}
 
     def close(self):
         self.model = self.lm = self.layers = self.orig_layers = None
@@ -386,14 +413,14 @@ class NestedGemma3n:
     def interrupt(self):
         pass                                    # the prompt and answer loops check the Cancel object themselves
 
-    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None, owner=None):
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None, owner=None, logprobs=None):
         """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
         messages: [{"role": "system"|"user"|"assistant", "content": str}].
         If the size needs FFN weights that are not in RAM, they are read from disk first and freed after the call."""
         lv = self.resolve(width) if width is not None else self.level
         read, read_s = self.ensure(lv)
         try:
-            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel, controller, guide, owner):
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel, controller, guide, owner, logprobs):
                 if "done" in ev:
                     ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
                 yield ev
@@ -526,6 +553,7 @@ class NestedGemma3n:
 
     def _sample(self, h, temperature, top_p):
         lg = self.logits(h[:, -1:])
+        self._last_logits = lg                                 # for `logprobs`: the logits this token was chosen from
         if temperature <= 0:
             return mx.argmax(lg, axis=-1)
         lg = lg / temperature
@@ -566,7 +594,7 @@ class NestedGemma3n:
     def forget_prompt(self):
         self._pc = None
 
-    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None, owner=None):
+    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None, owner=None, logprobs=None):
         if guide is not None:
             yield from self._guided_stream(messages, max_tokens, width, temperature, top_p, seed, stop, cancel, controller, guide, owner)
             return
@@ -579,6 +607,8 @@ class NestedGemma3n:
         ids, cache, h0, cached = self._start_prompt(messages, cancel, owner)
 
         nxt = self._sample(h0, temperature, top_p)
+        cur_lg = self._last_logits if logprobs is not None else None
+        pending_lp = []
         mx.eval(nxt)
         t_first = time.perf_counter()
         out, sent, finish = [], "", None
@@ -590,12 +620,16 @@ class NestedGemma3n:
                 finish = "stop"
                 break
             out.append(v)
+            if logprobs is not None:
+                pending_lp.append(self._logprob_entry(cur_lg, v, logprobs))
             if controller and len(out) % STEP_TOKENS == 0:         # a size may change between two tokens: the cache stays
                 new = controller(len(out), time.perf_counter() - t_first, self.level)
                 if new is not None and new["id"] != self.level["id"]:
                     switches.append({"at_token": len(out), "from": self.level["id"], "to": new["id"]})
                     self.set(new)
             nxt = self._sample(self.lm.model(nxt.reshape(1, 1), cache=cache), temperature, top_p)
+            if logprobs is not None:
+                cur_lg = self._last_logits
             mx.async_eval(nxt)
             s = tok.decode(out, skip_special_tokens=True)
             if not s.endswith("�") and len(s) > len(sent):
@@ -603,6 +637,9 @@ class NestedGemma3n:
                 sent = s
                 if text:
                     yield {"delta": text}
+                if pending_lp:
+                    yield {"logprobs": pending_lp}
+                    pending_lp = []
                 if hit:
                     finish = "stop"
                     break
@@ -616,6 +653,8 @@ class NestedGemma3n:
                 yield {"delta": tail}
             if hit:
                 finish = "stop"
+        if pending_lp:
+            yield {"logprobs": pending_lp}
         end = time.perf_counter()
         yield {"done": {"tier": self.level["id"], "start_tier": start_tier, "switches": switches, "size_pct": self.level["pct"],
                         "switch_ms": round(sw, 1), "seconds": round(end - t0, 3), "first_token_s": round(t_first - t0, 3),

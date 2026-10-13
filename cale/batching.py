@@ -60,11 +60,12 @@ class BatchPred:
 class Request:
     """One call waiting for, or in, the scheduler."""
 
-    def __init__(self, messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived, explicit, cancel, guide):
+    def __init__(self, messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived, explicit, cancel, guide, logprobs=None):
         self.messages, self.max_tokens, self.temperature, self.app = messages, max_tokens, temperature, app
         self.size_pct, self.goal, self.top_p, self.seed, self.stop = size_pct, goal, top_p, seed, stop
         self.arrived = arrived or time.time()
         self.explicit, self.cancel, self.guide = explicit, cancel, guide
+        self.logprobs = logprobs
         self.q = queue.Queue()
         self.abandoned = False          # the consumer stopped reading (the generator was closed)
         self.stream = None
@@ -302,7 +303,7 @@ class BatchMixin:
             self.debug_fail = False
             raise RuntimeError("debug: injected engine failure")
         r.stream = m.open_stream(r.messages, max_tokens, r.temperature, r.top_p, r.seed, r.stop, r.guide,
-                                  None if r.seed is not None else r.app)       # a seeded answer must not depend on what an earlier answer left in the cache
+                                  None if r.seed is not None else r.app, r.logprobs)       # a seeded answer must not depend on what an earlier answer left in the cache
         r.started = time.perf_counter()
         self.active.append(r)
 
@@ -368,6 +369,10 @@ class BatchMixin:
         for r in self.active:
             for text in r.stream.take():
                 r.q.put({"delta": text})
+            if r.logprobs is not None:
+                lps = r.stream.take_logprobs()
+                if lps:
+                    r.q.put({"logprobs": lps})
         for st in finished:
             r = next((x for x in self.active if x.stream is st), None)
             if r is None:
@@ -389,6 +394,10 @@ class BatchMixin:
             d = st.finish_up(self.batch_level)
             for text in st.take():
                 r.q.put({"delta": text})
+            if r.logprobs is not None:
+                lps = st.take_logprobs()
+                if lps:
+                    r.q.put({"logprobs": lps})
             d["waited_s"] = round(r.waited, 3)
             d["total_s"] = round(r.waited + d["seconds"], 3)
             d["disk_mb"], d["disk_s"] = r.disk_mb, r.disk_s

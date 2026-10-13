@@ -52,6 +52,10 @@ class GoalMissed(Exception):
         self.info = info
 
 
+class Unsupported(Exception):
+    """The request asks for something this engine setting cannot do (the server answers 400)."""
+
+
 class Defer(Exception):
     """Batched path only: the goals cannot be met yet and the app said `wait`. The scheduler tries this request again a little later,
     and the answers that are already running go on meanwhile."""
@@ -144,6 +148,10 @@ class Engine(BatchMixin):
         with self.mu:
             ids = [h["level"] for h in self.holds.values()]
         return ids + ([max(self.levels, key=lambda l: l["pct"])["id"]] if self.implicit and self.levels else [])
+
+    def piece_bytes(self, tid):
+        """The bytes a token stands for (for `logprobs`). The model must be loaded: an answer that reports log-probabilities loaded it."""
+        return self.m.piece_bytes(tid)
 
     def max_context(self):
         """The longest prompt plus answer this computer accepts, in tokens. Needs the model loaded."""
@@ -350,7 +358,7 @@ class Engine(BatchMixin):
 
     # --- requests ---------------------------------------------------------------------
     def chat_stream(self, messages, max_tokens, temperature, app="?", size_pct=100, goal=None,
-                    top_p=1.0, seed=None, stop=None, arrived=None, max_tokens_explicit=True, cancel=None, guide=None):
+                    top_p=1.0, seed=None, stop=None, arrived=None, max_tokens_explicit=True, cancel=None, guide=None, logprobs=None):
         """Generator. First {"plan": ...} (the size chosen), then {"delta"} pieces, then {"done"}.
         Holds the generation lock for the whole answer.
 
@@ -360,6 +368,7 @@ class Engine(BatchMixin):
         max_tokens_explicit: False when the app gave no limit: then the limit shrinks to fit the context instead of failing.
         cancel: a nest.cancel.Cancel. The server sets it when the client closes its connection. The work then stops.
         guide: a cale.constrain.Guide: every token must fit it (JSON mode, JSON schema, tool calls).
+        logprobs: None, or how many of the most likely tokens to report next to each token. Events {"logprobs": [{"id", "logprob", "top": [(id, logprob)]}]} then come with the text.
         Raises GoalMissed, Unsafe, ContextTooLong before the first event, Cancelled if the client left, and EngineError if the engine fails."""
         if self.m is None:
             with self.lock:                                         # to know what the engine can do, it must be loaded
@@ -368,8 +377,10 @@ class Engine(BatchMixin):
                     self._load()
         if self.can_batch():
             yield from self._batched_chat_stream(messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived,
-                                                 max_tokens_explicit, cancel, guide)
+                                                 max_tokens_explicit, cancel, guide, logprobs)
             return
+        if logprobs is not None and not getattr(self.m, "supports_logprobs", False):
+            raise Unsupported("This engine setting runs one answer at a time and cannot report log-probabilities. Start Cale with CALE_SLOTS above 1.")
         with self.lock:
             if cancel:
                 cancel.check()                                      # the client gave up while waiting in line: do not start
@@ -394,7 +405,7 @@ class Engine(BatchMixin):
                     self.debug_fail = False
                     raise RuntimeError("debug: injected engine failure")
                 for ev in self.m.chat_stream(messages, max_tokens=max_tokens, width=lv, temperature=temperature,
-                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel, controller=controller, guide=guide, owner=None if seed is not None else app):
+                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel, controller=controller, guide=guide, owner=None if seed is not None else app, **({} if logprobs is None else {"logprobs": logprobs})):
                     if "done" in ev:
                         d = ev["done"]
                         d["waited_s"] = round(waited, 3)
@@ -455,11 +466,11 @@ class Engine(BatchMixin):
                                                            goals or goals_mod.parse({}), list(self.m.resident)))
         return lv, plan, max_tokens, goals, n_prompt, answer_tokens, controller
 
-    def _batched_chat_stream(self, messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived, explicit, cancel, guide):
+    def _batched_chat_stream(self, messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived, explicit, cancel, guide, logprobs=None):
         """chat_stream when answers run together: the scheduler does the work, this generator hands out its events."""
         if cancel:
             cancel.check()
-        req = Request(messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived, explicit, cancel, guide)
+        req = Request(messages, max_tokens, temperature, app, size_pct, goal, top_p, seed, stop, arrived, explicit, cancel, guide, logprobs)
         yield from self._batched_stream(req)
 
     def _interrupt_for(self, cancel):
