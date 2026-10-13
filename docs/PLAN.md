@@ -1,3 +1,17 @@
+# STATUS (2026-10-13, end of the session that ran this plan)
+
+| Stage | State |
+|---|---|
+| 2b GPU | Done except option D ("both speeds" patch) and per-size GPU placement. GPU is used only when the whole model fits on a discrete GPU. Not done: NVIDIA/CUDA test. |
+| 3 Gemma facts | Done (`cale/gemma3n_facts.py`). The small-drafter idea was rejected by arithmetic. |
+| 4 Goals in tokens/s, floor | Done: no timing run, `on_miss` best_effort/refuse/wait/try, `priority`, 507 safety limit. Prediction accuracy 6-16%. |
+| 5 Several apps at once | Done on llama (slots, scheduler). MLX stays one at a time. Known limits are in `FINDINGS.md` ("Review of stages 3 to 8"). |
+| 6 Cloud-API gap | Done: tools, JSON schema, prompt cache, pictures (Mac only). Not done: audio, `logprobs`, pictures on llama. |
+| 7 Any language, no screen | Done: leases, tickets, `cale allow`, Node client, `cale` command. |
+| 8 More computers | Linux arm64 tested in a container. Windows arm64 builds, not tested. The installer unpacks engine archives for windows-x86_64, linux-x86_64, linux-arm64. |
+
+The stage order changed: stage 6 was built before stage 5.
+
 # Cale master plan (Phase 6 onward), rewritten 2026-10-13
 
 This file replaces `~/.claude/plans/you-were-finishing-up-splendid-willow.md`. It keeps that plan's stages 3-8 and replaces its stage 2b with what the GPU experiments of 2026-10-12/13 measured.
