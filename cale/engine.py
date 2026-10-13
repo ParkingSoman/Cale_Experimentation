@@ -180,7 +180,7 @@ class Engine(BatchMixin):
             self.pred.n_dec, self.pred.n_pre, self.pred.disk_bps = old.n_dec, old.n_pre, old.disk_bps
         self.pred.slow = self._slow
         self.pred.busy = oslayer.cpu_busy_other
-        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": int(m.active_bytes() - m.ffn_bytes()),
+        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": int(m.active_bytes() - m.ffn_bytes()) + facts.RSS_MARGIN_BYTES,
                      "total_ram": key["total_ram"], "disk_bps": self.pred.disk_bps}
 
     def machine(self):
