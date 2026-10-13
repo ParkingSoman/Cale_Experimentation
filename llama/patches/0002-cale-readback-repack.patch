@@ -1,5 +1,5 @@
 diff --git a/ggml/src/ggml-backend.cpp b/ggml/src/ggml-backend.cpp
-index 9a0c75d..9c62747 100644
+index 9a0c75d..d7bb6f9 100644
 --- a/ggml/src/ggml-backend.cpp
 +++ b/ggml/src/ggml-backend.cpp
 @@ -1113,7 +1113,10 @@ static int ggml_backend_sched_backend_id_from_cur(ggml_backend_sched_t sched, st
@@ -9,7 +9,7 @@ index 9a0c75d..9c62747 100644
 -                if (sched->op_offload && src_backend_id == sched->n_backends - 1 && ggml_backend_buffer_is_host(src_buf)) {
 +                // Cale: a whole (not a view of a) Q4_0 weight in the CPU repack buffer can be read back plain, so a GPU may take the operation too.
 +                const bool readable_repack = src->view_src == NULL && src->type == GGML_TYPE_Q4_0 && src_buf->iface.get_tensor != NULL &&
-+                                             strcmp(ggml_backend_buffer_name(src_buf), "CPU_REPACK") == 0;
++                                             strcmp(ggml_backend_buft_name(src_buf->buft), "CPU_REPACK") == 0;
 +                if (sched->op_offload && src_backend_id == sched->n_backends - 1 && (ggml_backend_buffer_is_host(src_buf) || readable_repack)) {
                      for (int b = 0; b < src_backend_id; b++) {
                          if (ggml_backend_supports_op(sched->backends[b], tensor) && ggml_backend_offload_op(sched->backends[b], tensor)) {
