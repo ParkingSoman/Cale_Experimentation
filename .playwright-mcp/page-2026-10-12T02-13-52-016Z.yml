@@ -1,7 +1,0 @@
-- generic [active]:
-  - link [ref=f11e2] [cursor=pointer]:
-    - /url: "#main-content"
-  - generic [ref=f11e8]:
-    - heading "Cale is on this computer" [level=2] [ref=f11e9]
-    - paragraph [ref=f11e10]: "Let Open WebUI use it. Open WebUI says what it needs: answers in a good time, titles and suggestions fast. Cale picks the size that fits this computer."
-    - button "Connect Open WebUI to Cale" [ref=f11e11] [cursor=pointer]

@@ -941,3 +941,12 @@ D gives B's prompt speed and A's answer speed at once, with nothing extra in RAM
 **Tried and reverted.** The llama engine reports its compute-buffer sizes. Using them as the working memory of a prompt over-predicted by 0.6 GB on Linux, because they are reserved memory, not touched memory. Memory goals then picked sizes smaller than needed. Next step is to read the peak of the process while the first prompt is read.
 
 **Still open** (`docs/CONSTANTS.md`): working memory for a prompt, memory a GPU needs besides the weights, thread count, the MLX reserve, load grace time, the number of parallel answers, and memory-pressure levels.
+
+## Last checks (2026-10-13, end)
+
+| Check | Result |
+|---|---|
+| Installer on HP Windows and HP Linux, final code | Installed, started, answered, stopped (`cale stop`, `cale restart`). Test homes removed. Not run on the Mac (it would replace the real Cale). |
+| Real `zenity` on Linux | Fetched with `apt-get download` and `dpkg -x` (no `sudo`). With WSLg's display it opens. It ignored its own `--timeout` (known on WSLg): Cale counts that as "no" after the timeout. It was not **clicked**: nobody is at the HP screen. To click it, run `python cale/tests/allow_dialog.py` at the HP desktop. |
+| A bug that this found | When the display is down, the tool exits at once with "Failed to open display". Cale counted that as the person saying no. Now an immediate exit with a known message sends the question to the terminal (`cale allow`). A slow exit stays a "no", so a person's click can never be turned into something else. |
+| Open WebUI page, in a real browser (Playwright, through an SSH tunnel to the HP) | The page loads and shows the "Cale is on this computer" card with its Connect button. The click did not finish: the link to the HP dropped between the checks (ssh "not responding"), so the connect call never arrived. The same steps through the API did work (card connect, model objects with the new goals, a chat through Open WebUI). |

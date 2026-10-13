@@ -1,1 +1,0 @@
-[     129ms] [WARNING] Manifest: Enctype should be set to either application/x-www-form-urlencoded or multipart/form-data. It currently defaults to application/x-www-form-urlencoded @ http://127.0.0.1:8810/manifest.json:0
