@@ -56,6 +56,12 @@ def start(wait=False):
     return 0 if ok else 1
 
 
+def stop():
+    ok = service.stop()
+    print("Cale is stopped." if ok else "Cale did not stop. Look at the log: " + str(paths.LOGS / "cale.log"))
+    return 0 if ok else 1
+
+
 def computer():
     """What Cale predicts for this computer: the speed and memory of every size. Starts Cale if needed. Loads the model on first use.
     The command uses its own key (named "cale command"), like any app, because loading the model is not free for anyone to ask."""
@@ -144,8 +150,9 @@ def main(argv=None):
     if cmd == "stop":
         return stop()
     if cmd == "restart":
-        stop()
-        return start()
+        if stop() != 0:
+            return 1
+        return start(True)
     if cmd == "logs":
         oslayer.follow(paths.LOGS / "cale.log")
         return 0
