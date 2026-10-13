@@ -8,25 +8,44 @@ Send `Content-Length`. Chunked request bodies are refused.
 
 | Request | Reply |
 |---|---|
-| `GET /cale/status` (no key) | JSON with `ok`, `loaded`, `pressure`, `holds` |
+| `GET /cale/status` (no key) | JSON with `ok`, `loaded`, `slots`, `pressure`, `holds` |
+| `GET /cale/computer` (no key) | what this computer can do, as last learned: predicted speed and memory of every size, the floor, the context limit. It never loads the model. For a full answer ask `POST /cale/predict` (with a key) or run `cale computer`. |
 
-Python apps can start Cale if it is not running:
-
-```python
-from cale.client import ensure_running
-ensure_running()
-```
+Start Cale if it is not running, from any language: run `cale start --wait` (a command installed with Cale). Python apps can also call
+`cale.client.ensure_running()`, Node apps `ensureRunning()` from `cale/client.mjs`.
 
 ## 2. Get a key
 
-`POST /cale/connect` with `{"app": "My App"}`. The computer shows an Allow question to the person.
-The call waits for the answer (up to 2 minutes).
+`POST /cale/connect` with `{"app": "My App"}`. The person at the computer must allow the app. With a screen they see a question.
+Without one (a server, an SSH session), the request waits until the person types `cale allow "My App"` in a terminal on that computer.
+
+| Body field | Meaning |
+|---|---|
+| `app` | the app's name, shown to the person |
+| `wait_s` | how long this call may wait for the answer: 0 to 600, default 120. `0` answers at once with a ticket. |
 
 | Result | Reply |
 |---|---|
 | Allowed | `200 {"app", "api_key", "base_url"}` |
-| Not allowed | `403 {"error": {"code": "denied"}}` |
-| Another app is waiting for the person | `429 busy` |
+| Not allowed, or no answer in time | `403 {"error": {"code": "denied"}}` |
+| Not answered yet | `202 {"status": "pending", "ticket", "poll", "message"}`. The message says what the person must do. |
+| Another app is waiting for the person (screen only) | `429 busy` |
+| An app with the same name is already waiting | `409 already_waiting` (it must not share the other request's ticket) |
+| Too many requests are waiting | `429 busy` |
+
+An app whose HTTP client cannot wait minutes uses `wait_s: 0` and polls `GET /cale/connect/status?ticket=...` every 2 s: `202` while pending,
+`200` with the key once (the key is handed out one time), `403` if denied, `404` for an unknown ticket.
+
+The person's side, without a screen:
+
+| Command | Does |
+|---|---|
+| `cale pending` | lists the apps that wait |
+| `cale allow NAME` | allows one. Must be typed in a terminal. It shows the waiting app (exact name and ticket) and asks "Allow ...? [y/N]". If two requests have the same name, it asks for the ticket. |
+| `cale deny NAME` | says no |
+
+Cale never opens a network door for this: the command and Cale talk through Cale's private folder, as keys do. Anyone who can write there
+can already read the keys.
 
 Send the key as `Authorization: Bearer KEY` on every other call. Keep the key. Do not ask for a new one each time.
 
@@ -175,8 +194,30 @@ The reply is `507 unsafe_for_this_computer`. `error.cale` has `needed_gb`, `ram_
 
 ## 5. Holds
 
-`POST /cale/load` with `{"size": ...}` or `{"memory_pct": n}` keeps a size in RAM while the connection stays open.
-`POST /cale/unload` with `{"hold": id}` ends it early.
+`POST /cale/load` with `{"size": ...}` or `{"memory_pct": n}` keeps a size in RAM. `POST /cale/unload` with `{"hold": id}` ends it early.
+
+## 5b. Leases: model objects and holds over plain HTTP
+
+Model objects and holds can live without an open connection, which suits any language and any HTTP library. Add `"lease_s": 5 to 3600`
+to `POST /cale/models` or `POST /cale/load`. The reply comes at once and carries the id and the lease. The thing lives for `lease_s` seconds after
+its last renewal. If the app dies, it ends by itself. A chat call that uses a model object renews its lease too.
+
+| Request | Does |
+|---|---|
+| `POST /cale/lease {"id": "<model id>"}` | renew a model object's lease |
+| `POST /cale/lease {"hold": "<hold id>"}` | renew a hold's lease |
+| `POST /cale/lease {"id": ..., "end": true}` or `DELETE /cale/models/<id>` | end a model object now |
+| `POST /cale/lease {"hold": ..., "end": true}` | end a hold now |
+
+Without `lease_s` the old form stays: the reply stays open and the object lives while the connection is open.
+
+## 5c. Clients
+
+| Language | How |
+|---|---|
+| any | plain HTTP, with `curl` or any library: this document is the whole interface |
+| Python | `cale/client.py`: `ensure_running`, `model`, `hold`, `predict` |
+| Node 18+ | `cale/client.mjs`: `connect`, `ensureRunning`, `createModel` (on a lease, renewed in the background), `hold`, `chat`, `chatStream`, `predict` |
 
 ## 6. List models
 

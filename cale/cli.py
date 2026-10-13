@@ -57,15 +57,23 @@ def start(wait=False):
 
 
 def computer():
-    """What Cale predicts for this computer: the speed and memory of every size. Starts Cale if needed. Loads the model on first use."""
+    """What Cale predicts for this computer: the speed and memory of every size. Starts Cale if needed. Loads the model on first use.
+    The command uses its own key (named "cale command"), like any app, because loading the model is not free for anyone to ask."""
     import json
     import urllib.request
     ok, msg = service.start(60)
     if not ok:
         print(msg)
         return 1
+    key = keys.create("cale command")
     print("Asking Cale (the model loads first if it is not loaded yet)...", flush=True)
-    d = json.loads(urllib.request.urlopen(f"http://{paths.HOST}:{paths.PORT}/cale/computer", timeout=300).read())
+
+    def call(path, body=None):
+        req = urllib.request.Request(f"http://{paths.HOST}:{paths.PORT}{path}", data=None if body is None else json.dumps(body).encode(),
+                                     headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+        return json.loads(urllib.request.urlopen(req, timeout=600).read())
+    call("/cale/predict", {"prompt_tokens": 200, "max_tokens": 256})          # loads the model
+    d = call("/v1/models")["cale"]
     c = d.get("this_computer")
     if not c:
         print("Cale has nothing to show yet.")
@@ -97,22 +105,23 @@ def answer(name, allow):
     if not (sys.stdin.isatty() and sys.stdout.isatty()) and os.environ.get("CALE_ALLOW_NON_INTERACTIVE") != "1":
         print(f"cale {verb} must be typed in a terminal, so that a person answers. (CALE_ALLOW_NON_INTERACTIVE=1 skips this check, for tests.)")
         return 2
-    if not any(name.lower() in (x["app"].lower(), x["ticket"]) for x in approval.pending()):
+    found = approval.matches(name)
+    if not found:
         print(f"No app named '{name}' is waiting. Type: cale pending")
         return 1
-    if allow and sys.stdin.isatty():
-        if input(f'Allow "{name}" to run the local AI model on this computer? [y/N] ').strip().lower() not in ("y", "yes"):
+    if len(found) > 1:
+        print(f"{len(found)} requests are waiting under the name '{name}'. Use the ticket of the one you mean:")
+        for x in found:
+            print(f"  cale {verb} {x['ticket']}     ({x['app']}, waiting {int(time.time()) - x['since']} s)")
+        return 1
+    x = found[0]
+    if allow and sys.stdin.isatty():                       # the question shows what is waiting, not what was typed
+        if input(f'Allow "{x["app"]}" (ticket {x["ticket"]}) to run the local AI model on this computer? [y/N] ').strip().lower() not in ("y", "yes"):
             print("Not allowed.")
             return 1
-    approval.decide(name, allow)
-    print(f"{'Allowed' if allow else 'Denied'} '{name}'.")
+    approval.decide(x["ticket"], allow)
+    print(f"{'Allowed' if allow else 'Denied'} '{x['app']}'.")
     return 0
-
-
-def stop():
-    ok = service.stop()
-    print("Cale stopped. Type: cale start" if ok else "Cale did not stop.")
-    return 0 if ok else 1
 
 
 def main(argv=None):

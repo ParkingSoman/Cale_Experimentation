@@ -21,6 +21,7 @@ POST /cale/debug/pressure forces a memory pressure level.
 import json
 import math
 import os
+import secrets
 import select
 import socket
 import threading
@@ -305,7 +306,7 @@ class Handler(BaseHTTPRequestHandler):
                 ticket = (parse_qs(urlparse(self.path).query).get("ticket") or [""])[0]
                 return self._connect_reply(ticket, "")
             if self.path == "/cale/computer":                          # like /cale/status: no key. What this computer can do.
-                return self._json(200, {"model": BASE, "max_context_tokens": ENGINE.known_context(), "this_computer": ENGINE.this_computer(True)})
+                return self._json(200, {"model": BASE, "max_context_tokens": ENGINE.known_context(), "this_computer": ENGINE.this_computer()})                  # no key: it never loads the model
             if self.path == "/v1/models":
                 app = self._auth()
                 curve = None
@@ -440,15 +441,13 @@ class Handler(BaseHTTPRequestHandler):
                 raise ApiError(429, "busy", "Too many apps are waiting for the user to answer. Try again later.")
             if oslayer.has_screen() and CONNECT_LOCK.locked():
                 raise ApiError(429, "busy", "Another app is waiting for the user to answer. Try again later.")
-            for t, it in CONNECTS.items():                           # the same app asking again joins its waiting request
-                if it["app"] == app and it["state"] == "pending":
-                    ticket = t
-                    break
-            else:
-                ticket = "t-" + uuid.uuid4().hex[:16]
-                CONNECTS[ticket] = {"app": app, "state": "pending", "key": None, "done": threading.Event(), "since": time.time(),
-                                    "replacing": app in keys.apps()}
-                threading.Thread(target=_decide_connect, args=(ticket,), daemon=True).start()
+            if any(it["app"] == app and it["state"] == "pending" for it in CONNECTS.values()):
+                # Never hand a second asker the first one's ticket: it could collect the first one's key. The first asker polls its own ticket.
+                raise ApiError(409, "already_waiting", f"An app named '{app}' is already waiting for the person's answer. Wait for it, or use another name.")
+            ticket = "t-" + secrets.token_urlsafe(16)
+            CONNECTS[ticket] = {"app": app, "state": "pending", "key": None, "done": threading.Event(), "since": time.time(),
+                                "replacing": app in keys.apps()}
+            threading.Thread(target=_decide_connect, args=(ticket,), daemon=True).start()
         it = CONNECTS[ticket]
         if wait_s > 0:
             it["done"].wait(wait_s)

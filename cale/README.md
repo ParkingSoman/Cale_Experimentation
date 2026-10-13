@@ -43,6 +43,29 @@ Install settings (environment variables, all optional):
 | `CALE_ALLOW_COPY=1` | copy the model if a link is not possible |
 | `CALE_PROGRESS=1` | print `CALE_PROGRESS {...}` lines that an app can show |
 
+## For the developer: any language (curl, Node, Go, Rust, a shell script)
+
+Cale is plain HTTP. `docs/API.md` is the whole interface. A complete session with `curl`:
+
+```sh
+cale start --wait                                            # starts Cale if it is not running
+curl -s -X POST http://127.0.0.1:47821/cale/connect -d '{"app":"My Script","wait_s":0}'
+#   -> {"status":"pending","ticket":"t-...","poll":"/cale/connect/status?ticket=t-...","message":"..."}
+#   the person allows it (a dialog, or `cale allow "My Script"` in a terminal if the computer has no screen)
+curl -s http://127.0.0.1:47821/cale/connect/status?ticket=t-...   # -> {"api_key": "cale-..."}  (once)
+curl -s -X POST http://127.0.0.1:47821/v1/chat/completions -H "Authorization: Bearer cale-..." \
+  -d '{"model":"gemma-3n:auto","cale_min_tokens_per_s":15,"messages":[{"role":"user","content":"Hello"}]}'
+```
+
+| Command | Does |
+|---|---|
+| `cale start --wait` | starts Cale and returns when it answers |
+| `cale status --json` | status for programs |
+| `cale computer` | what Cale predicts for this computer: the speed and memory of every size |
+| `cale pending`, `cale allow NAME`, `cale deny NAME` | approve apps on a computer with no screen |
+
+Node apps copy `cale/client.mjs` (no packages). A model object on a lease lives without an open connection: pass `lease_s` (see `docs/API.md`, section 5b).
+
 ## For the developer: model objects and goals
 
 A model object is the model you want, written as goals. Cale returns a name. You use that name as the

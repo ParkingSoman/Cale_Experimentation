@@ -64,11 +64,14 @@ def pending():
     return sorted(out, key=lambda x: x.get("since", 0))
 
 
-def decide(name, allow):
-    """Answer the waiting request(s) of the app called `name` (or with that ticket). Returns how many were answered."""
-    n = 0
-    for p in pending():
-        if name.lower() in (p["app"].lower(), p["ticket"]):
-            (folder() / f"{p['ticket']}.{'allow' if allow else 'deny'}").write_text("1")
-            n += 1
-    return n
+def matches(name):
+    """The waiting requests that `name` means: its exact app name, or its ticket. Exact: 'foo' does not mean 'Foo'."""
+    return [p for p in pending() if name == p["app"] or name == p["ticket"]]
+
+
+def decide(ticket, allow):
+    """Answer the waiting request with this ticket. Returns True if it was waiting."""
+    if not any(p["ticket"] == ticket for p in pending()):
+        return False
+    (folder() / f"{ticket}.{'allow' if allow else 'deny'}").write_text("1")
+    return True
