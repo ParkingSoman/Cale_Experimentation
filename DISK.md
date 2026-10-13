@@ -68,3 +68,8 @@ is not listed.
 | `/private/tmp/claude-501/llvmmingw` | 0.8 GB | Windows arm64 cross compiler. Delete when done. |
 | `/private/tmp/claude-501/lbuild_mac`, `lbuild_winarm` | about 1 GB | Mac and Windows arm64 builds. Delete when done. |
 | Docker volume `cale-arm64-build` (colima) | about 2 GB | Linux arm64 build. Remove with `docker volume rm cale-arm64-build`, then `colima stop`. |
+
+## Cleaned at the end of the 2026-10-13 session
+
+Removed: `/private/tmp/claude-501/llvmmingw`, `/private/tmp/claude-501/lbuild_winarm`, docker volume `cale-arm64-build`.
+Left alone on purpose: colima (`~/.colima`, 52 GB on disk) holds containers of another project (Supabase `Mapta`), so Cale does not stop or prune it.
