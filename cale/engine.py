@@ -188,7 +188,9 @@ class Engine(BatchMixin):
             bw = 0.0
         key = {"engine": backends.name(), "total_ram": oslayer.total_ram(), "placement": getattr(m, "placement", None),
                "model_bytes": sum(f.stat().st_size for f in m.model_files())}
-        base0 = self._sample_base()                              # before the warm-up: working memory is added separately (scratch_bytes, context)
+        base0 = self._sample_base()
+        self.log(f"base memory {base0 / 1e9:.2f} GB (the process holds {m.active_bytes() / 1e9:.2f} GB, FFN weights {m.ffn_bytes() / 1e9:.2f} GB)")
+                                    # before the warm-up: working memory is added separately (scratch_bytes, context)
         old = self.pred
         self.pred = Predictor(backends.name(), bw, key, paths.HOME / "predict.json", levels=self.levels)
         if old is not None and old.key == key:
