@@ -152,8 +152,8 @@ pct_full = round(min(100.0, (full["ram_gb"] + WORK_GB + 0.3) / total_gb * 100), 
 with hold(a.base + "/v1", key, memory_pct=pct_full) as h:
     check(f"memory {pct_full}%: full size", h.info["size_pct"] == 100 and h.info["goal_met"], h.info)
 with hold(a.base + "/v1", key, memory_pct=pct75) as h:
-    pcts = sorted({v["size_pct"] for v in sizes.values()})
-    near = pcts[max(0, pcts.index(75) - 1):pcts.index(75) + 2]            # the 75% size or its neighbours: the memory of the process is measured, and it moves by about 0.2 GB
+    # Sizes that need about the same memory as the 75% size are as good an answer. The process memory that Cale measures moves by about 0.2 GB.
+    near = {v["size_pct"] for v in sizes.values() if abs(v["ram_gb"] - want["ram_gb"]) <= 0.2}
     check(f"memory {pct75}%: the 75% size (or its neighbour)", h.info["size_pct"] in near and h.info["goal_met"], h.info)
     check("memory goal: really under budget", h.info["ram_gb"] <= h.info["budget_gb"], h.info)
     check("predicted RAM of the 75% size is right (never under, at most 0.3 GB over)", predicted_ok(h.info["ram_gb"], want["ram_gb"]), (h.info["ram_gb"], want["ram_gb"]))
