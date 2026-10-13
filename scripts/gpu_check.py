@@ -28,9 +28,9 @@ def say(text):
     print(text, flush=True)
 
 
-def run(model, lib_path, gpu, sizes, n_tokens, n_gpu_layers):
+def run(model, lib_path, gpu, sizes, n_tokens, n_gpu_layers, no_host=True):
     say(f"  loading (gpu={gpu}, layers={n_gpu_layers})")
-    lib = llamalib.Lib(model, n_threads=4, n_ctx=4096, lib_path=lib_path, gpu=gpu, n_gpu_layers=n_gpu_layers)
+    lib = llamalib.Lib(model, n_threads=4, n_ctx=4096, lib_path=lib_path, gpu=gpu, n_gpu_layers=n_gpu_layers, no_host=no_host)
     rows = []
     try:
         levels = {l["id"]: l for l in load_levels(lib.n_layers)}
@@ -68,6 +68,7 @@ def main():
     ap.add_argument("--tokens", type=int, default=48)
     ap.add_argument("--gpu-layers", type=int, default=-1, help="-1 = llama.cpp's fit")
     ap.add_argument("--only", help="run only the device whose name contains this text (and the CPU baseline)")
+    ap.add_argument("--host-buffer", action="store_true", help="setup B: keep the weights in the host buffer (prompt on the GPU is fast, answers are slow)")
     ap.add_argument("--no-cpu", action="store_true", help="skip the CPU baseline (no comparison)")
     a = ap.parse_args()
     sizes = a.sizes.split(",")
@@ -81,7 +82,7 @@ def main():
         if a.only and a.only.lower() not in (d["name"] + d["description"]).lower():
             continue
         try:
-            place, rows = run(a.model, a.lib, d["handle"], sizes, a.tokens, a.gpu_layers)
+            place, rows = run(a.model, a.lib, d["handle"], sizes, a.tokens, a.gpu_layers, no_host=not a.host_buffer)
         except Exception as e:
             print(f"{d['name']}: FAILED to run: {e}")
             continue
