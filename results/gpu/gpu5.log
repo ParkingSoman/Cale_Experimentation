@@ -1,0 +1,56 @@
+--- devices
+load_backend: loaded RPC backend from C:\cale\xplat\llama-vk\ggml-rpc.dll
+ggml_vulkan: Found 2 Vulkan devices:
+ggml_vulkan: 0 = Intel(R) UHD Graphics 620 (Intel Corporation) | uma: 1 | fp16: 1 | bf16: 0 | fp4: 0 | warp size: 32 | shared memory: 32768 | int dot: 0 | matrix cores: none
+ggml_vulkan: 1 = NVIDIA GeForce MX150 (NVIDIA) | uma: 0 | fp16: 0 | bf16: 0 | fp4: 0 | warp size: 32 | shared memory: 49152 | int dot: 0 | matrix cores: none
+load_backend: loaded Vulkan backend from C:\cale\xplat\llama-vk\ggml-vulkan.dll
+load_backend: loaded CPU backend from C:\cale\xplat\llama-vk\ggml-cpu-haswell.dll
+load_backend: loaded RPC backend from C:\cale\xplat\llama-vk\ggml-rpc.dll
+load_backend: loaded Vulkan backend from C:\cale\xplat\llama-vk\ggml-vulkan.dll
+load_backend: loaded CPU backend from C:\cale\xplat\llama-vk\ggml-cpu-haswell.dll
+Available devices:
+  Vulkan0: Intel(R) UHD Graphics 620 (8133 MiB, 7470 MiB free)
+  Vulkan1: NVIDIA GeForce MX150 (2197 MiB, 1900 MiB free)
+=== M intel ngl0 host-on
+11:32:38 PM
+
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan1      |    
+       pp512 |         58.77 ± 0.03 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan1      |    
+        tg64 |          3.55 ± 0.01 |
+exit code: 0
+=== N intel ngl0 NO-HOST
+11:33:46 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan1      |    
+1 |           pp512 |         15.20 ± 1.85 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan1      |    
+1 |            tg64 |          6.56 ± 0.25 |
+exit code: 0
+=== O intel ngl99 host-on
+11:35:49 PM
+ggml_vulkan: Device memory allocation of size 1064361280 failed.
+ggml_vulkan: vk::Device::allocateMemory: ErrorOutOfDeviceMemory
+ggml_backend_buft_alloc_buffer_n_default: failed to allocate Vulkan1 buffer of size 1064361280
+llama_model_load: error loading model: unable to allocate Vulkan1 buffer
+llama_model_load_from_file_impl: failed to load model
+llama_bench: error: failed to load model 'C:\cale\xplat\gguf\gemma-3n-E4B-it-Q4_0.gguf'
+exit code: 1
+=== P intel ngl99 NO-HOST
+11:35:51 PM
+ggml_vulkan: Device memory allocation of size 1064361280 failed.
+ggml_vulkan: vk::Device::allocateMemory: ErrorOutOfDeviceMemory
+ggml_backend_buft_alloc_buffer_n_default: failed to allocate Vulkan1 buffer of size 1064361280
+llama_model_load: error loading model: unable to allocate Vulkan1 buffer
+llama_model_load_from_file_impl: failed to load model
+llama_bench: error: failed to load model 'C:\cale\xplat\gguf\gemma-3n-E4B-it-Q4_0.gguf'
+exit code: 1
+=== Q nvidia fit300 NO-HOST
+11:35:52 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |  99 | Vulkan0      |    
+1 |        300 |           pp512 |         11.50 ± 0.10 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |  99 | Vulkan0      |    
+1 |        300 |            tg64 |          4.33 ± 0.01 |
+exit code: 0
+GPU5_DONE
+
+

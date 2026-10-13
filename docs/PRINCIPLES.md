@@ -32,6 +32,10 @@ Write once, run everywhere. An app written for Cale runs on every computer. Cale
 | 8 | An unsupported request field returns a clear error. It is never ignored silently. | An app must know what it got. |
 | 9 | Any language can use Cale over plain HTTP. | App types. |
 | 10 | Nothing in `cale/` may exist only because a demo app needed it. | Overfitting lowers the equation. |
+| 11 | No fix is "for one machine". Each fix is either general (Cale decides, same behavior everywhere) or a developer choice (the developer states it, Cale reports what ran). | A stronger future model puts strong computers in the same spot a weak computer is in today. |
+| 12 | A developer must trust that their code behaves as expected on every computer. Cale never makes a behavior-changing trade-off per machine in silence. | Write once, run everywhere. |
+| 13 | Never hard-code a size count, a layer count, or a device name or index. Logic works for any number of sizes, larger and smaller than today's. | Future Matryoshka models will have more sizes. |
+| 14 | When no size can meet the goals, the behavior is defined and chosen by the developer (`on_miss`). One safety limit has no setting: Cale refuses any setup it predicts would crash or freeze the computer, with a documented error. | Weak computers must get a clear answer, not a crash. |
 
 ## How we check
 

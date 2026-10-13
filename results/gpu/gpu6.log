@@ -1,0 +1,32 @@
+=== R intel ngl0 host-on
+11:39:25 PM
+
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan0      |    
+       pp512 |         11.23 ± 0.10 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan0      |    
+        tg64 |          3.72 ± 0.07 |
+exit code: 0
+=== S intel ngl99 host-on
+11:42:20 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |  99 | Vulkan0      |    
+       pp512 |         11.60 ± 0.01 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |  99 | Vulkan0      |    
+        tg64 |          4.36 ± 0.00 |
+exit code: 0
+=== T intel ngl99 NO-HOST
+11:45:08 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |  99 | Vulkan0      |    
+1 |           pp512 |         11.59 ± 0.04 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |  99 | Vulkan0      |    
+1 |            tg64 |          4.36 ± 0.01 |
+exit code: 0
+=== U cpu-only repeat
+11:47:55 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | none         |    
+       pp512 |         19.18 ± 0.12 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | none         |    
+        tg64 |          6.63 ± 1.20 |
+exit code: 0
+GPU6_DONE
+
+

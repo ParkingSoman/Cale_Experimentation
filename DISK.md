@@ -52,3 +52,10 @@ is not listed.
 | `llama/dist/` | 18 MB | Built Windows and Linux libraries. Needed by the installer. Keep. |
 | `/private/tmp/claude-501/xplat/llama.cpp` | 0.2 GB | llama.cpp source clone used to make the patch. Delete when the patch is final. |
 | HP laptop `C:\cale\`, `~/cale-test` (WSL), `~/cale-apps` (WSL) | about 40 GB | Models (two copies per OS), builds, Open WebUI and Aider environments. Test laptop only. |
+
+## Phase 6 stage 2b additions (2026-10-13)
+
+| Path | Size | Reason |
+|---|---|---|
+| HP `C:\cale\xplat\gfx_win_101.2145.exe` | 0.3 GB | Intel driver installer, already installed. Delete when no longer needed. |
+| `results/gpu/` | small | Raw GPU benchmark logs and scripts. Keep. |

@@ -1,0 +1,53 @@
+=== A cpu-build repack1
+11:11:59 PM
+
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | CPU        |       4 |           
+pp512 |         18.82 ± 0.22 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | CPU        |       4 |            
+tg64 |          7.72 ± 0.13 |
+exit code: 0
+=== B cpu-build repack0
+11:13:40 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | CPU        |       4 |   0 |         
+  pp512 |         11.78 ± 0.49 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | CPU        |       4 |   0 |         
+   tg64 |          3.83 ± 0.02 |
+exit code: 0
+=== C vk-build dev-none
+11:16:24 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | none         |    
+       pp512 |         18.96 ± 0.21 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | none         |    
+        tg64 |          7.69 ± 0.03 |
+exit code: 0
+=== D vk ngl0 host-on
+11:18:07 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan0      |    
+       pp512 |         58.71 ± 0.06 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan0      |    
+        tg64 |          3.89 ± 0.37 |
+exit code: 0
+=== E vk ngl0 NO-HOST
+11:19:09 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan0      |    
+1 |           pp512 |         21.12 ± 0.38 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan0      |    
+1 |            tg64 |          7.42 ± 0.12 |
+exit code: 0
+=== F vk ngl16 NO-HOST
+11:20:43 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |  16 | Vulkan0      |    
+1 |           pp512 |         31.13 ± 0.24 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |  16 | Vulkan0      |    
+1 |            tg64 |          8.17 ± 0.38 |
+exit code: 0
+=== G vk ngl0 NO-HOST nopo
+11:21:53 PM
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan0      |    
+1 |    1 |           pp512 |         18.88 ± 0.30 |
+| gemma3n E4B Q4_0               |   4.09 GiB |     6.87 B | Vulkan     |   0 | Vulkan0      |    
+1 |    1 |            tg64 |          7.43 ± 0.22 |
+exit code: 0
+GPU3_DONE
+
+

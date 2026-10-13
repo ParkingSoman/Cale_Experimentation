@@ -746,3 +746,27 @@ A weak GPU makes prompt reading 3.3x faster and answers no faster. A strong GPU 
 ### Not done yet
 
 Linux Allow dialog click on WSLg (display stopped answering after `wsl --shutdown`; the code path was fixed and unit-tested). Open WebUI and Aider not re-run since strict field checking. GPU support in Cale itself. Stages 3 to 8 of the plan.
+
+## Phase 6 stage 2b: the GPU "slowdown" was a setup bug (2026-10-13)
+
+Question (Shonu): a GPU that makes answers slower than the CPU looks like a bug. Is it?
+Answer: yes. Logs and scripts: `results/gpu/` (gpu3 to gpu7). Plan: `docs/PLAN.md`.
+
+HP laptop (i7-8550U, MX150 2 GB, Intel UHD 620). Official llama.cpp b11558 `llama-bench`, stock Gemma 3n E4B Q4_0, 512-token prompt, tokens/s.
+
+| Setup | Prompt | Answer |
+|---|---|---|
+| CPU only, repack on | 19.2 | 7.7 |
+| CPU only, repack off | 11.8 | 3.8 |
+| MX150, 0 layers, host buffer on (the old test) | 58.7 | 3.9 |
+| MX150, 0 layers, `--no-host` | 21.1 | 7.4 |
+| MX150, 16 layers, `--no-host` | 31.1 | 8.2 |
+| MX150, auto-fit (`-fitt 300`), `--no-host` (3 runs, 2 days) | 28.5 | 9.2 |
+| MX150, 24+ layers chosen by hand | out of GPU memory | - |
+| Intel UHD 620, 2018 driver | crash at load | - |
+| Intel UHD 620, driver 31.0.101.2145 (0 layers / all layers) | 11.2 / 11.6 | 3.7 / 4.4 |
+
+Cause: with a GPU backend loaded, CPU weights go in the GPU's host buffer. That buffer is not repacked, so answers run at the "repack off" speed. `no_host` fixes it.
+Still a trade-off: repacked weights cannot be offloaded to the GPU for prompts (`repack.cpp`: `is_host = nullptr`, `get_tensor = nullptr`; scheduler offload rule at `ggml-backend.cpp:1113`).
+Device numbers swapped after the Intel driver update (Vulkan0 was the MX150 before, the Intel after). gpu5 labels "intel"/"nvidia" are reversed for runs M and N. Select devices by properties, never by index.
+The Intel driver changed on the HP: 24.20.100.6344 (2018) to 31.0.101.2145. Installer exit code 1000, then a restart. The NVIDIA driver is still 472.19 (2021), CUDA not tested.
