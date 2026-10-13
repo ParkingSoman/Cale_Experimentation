@@ -23,7 +23,7 @@ Kinds:
 | The shortest prompt piece a GPU takes | shim `cale_offload_min_batch` | Asked of the GPU backend itself. |
 | The longest prompt piece | shim `cale_n_batch` | Asked of the engine. |
 | The best prompt piece for a GPU that reads prompts | `batching.PieceTuner` | Tries the sizes between those two, keeps the fastest within the time budget. If the CPU piece wins, the GPU is not used for prompts. |
-| Which device runs the model | `cale/backends/devices.py` | From device type and free memory, never from a name or index. |
+| Which device runs the model, and whether every layer fits in it | `cale/backends/devices.py`, shim `cale_fit_all` | From device type, and from llama.cpp's own projection of the memory (no weights loaded; about 4 s on a 2 GB card). `WORKING_BYTES` is used only if the library cannot project. The memory left free in the projection is the policy `fit_margin_mb` (300 MB). |
 | Prompt piece next to running answers | `batching._step` | From the measured prompt speed and the policy `STEP_SECONDS`. |
 | Time that memory pressure is ignored after a load | `engine._settling` | Ignored only while the process memory is still changing (more than 2% between two looks). `LOAD_GRACE_S` (30 s) is only the upper limit. |
 
@@ -48,7 +48,6 @@ Layer count, the first layer that shares a KV cache, bytes per weight, the conte
 | What | Value | Where | How to close it |
 |---|---|---|---|
 | Working memory for reading a prompt | 500 MB | `gemma3n_facts.SCRATCH_BYTES` | **Tried and reverted:** the llama engine reports its compute buffers (shim `cale_compute_bytes`), but that is memory reserved, not memory touched. Using it over-predicted by 0.6 GB on Linux, so memory goals chose smaller sizes than they needed. Next: the peak of the process while the first prompt is read (poll during the warm-up), on both engines. |
-| Memory a GPU needs besides the weights | 800 MB | `backends/devices.WORKING_BYTES` | Let llama.cpp's own fit say whether every layer fits, and read the answer. |
 | Speed priors before the model is loaded | `predict.PRIORS` | `cale/predict.py` | Save the speeds in `predict.json` on every computer (done after the first load). Until then a computer that never loaded the model shows the prior as an "estimate". |
 | Number of threads | physical cores | `backends/llama.py` `default_threads` | Probe memory speed at 1, 2, 4 ... threads and stop where it stops growing. Prompts want more threads than answers, so this needs two probes. |
 | Memory the MLX engine keeps for activations | 1.5 GB | `nest/runtime.py` `RESERVE_GB` | Read the peak memory of the first prompt. |
