@@ -142,7 +142,7 @@ check("hold ended after the block", not s["holds"])
 wait_for(lambda st: not st["implicit_hold"], 30)
 sizes = call("/v1/models", key=key)[2]["cale"]["this_mac"]["sizes"]
 total_gb = oslayer.total_ram() / 1e9
-WORK_GB = (facts.SCRATCH_BYTES + facts.kv_bytes(facts.HOLD_CONTEXT)) / 1e9         # what a memory goal adds to the weights
+WORK_GB = call("/v1/models", key=key)[2]["cale"]["this_computer"]["working_gb"]         # what a memory goal adds to the weights: Cale says it
 want = next(v for v in sizes.values() if v["size_pct"] == 75)       # a goal that fits the 75% size and not the next one up
 bigger = [v["ram_gb"] for v in sizes.values() if v["ram_gb"] > want["ram_gb"]]
 gap = (min(bigger) - want["ram_gb"]) if bigger else 0.04

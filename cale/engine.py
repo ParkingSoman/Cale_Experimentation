@@ -22,6 +22,7 @@ The monitor thread never touches the model while a request runs. It records what
 (`want_cap`, `want_unload`, `want_resident`) and the change happens under the generation lock, between requests.
 """
 import contextlib
+import os
 import gc
 import math
 import threading
@@ -196,7 +197,7 @@ class Engine(BatchMixin):
         self.pred.busy = oslayer.cpu_busy_other
         if self.pred.n_dec == 0 and self.pred.n_pre == 0:       # nothing is known about this computer and this model yet: measure, once
             self._measure_speed()
-        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": self._sample_base(),
+        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": self._sample_base(), "scratch_bytes": int(getattr(m, "scratch_bytes", 0) or 0),
                      "total_ram": key["total_ram"], "disk_bps": self.pred.disk_bps}
 
     def _sample_base(self):
@@ -223,6 +224,8 @@ class Engine(BatchMixin):
         what this computer does. The result is saved with the key of this computer and model: it is done once, not at every load.
         A computer where a GPU reads long prompts is measured with a piece as long as the pieces it will read."""
         m = self.m
+        if os.environ.get("CALE_NO_MEASURE") == "1":
+            return
         try:
             piece = getattr(m, "prompt_piece_hint", 0) or 64
             unit = "The sea is wide and deep. "
@@ -339,7 +342,9 @@ class Engine(BatchMixin):
                                "needs_gb": round(choose.memory_needed(m, l, facts.HOLD_CONTEXT) / 1e9, 2), "quality": round(facts.quality(l), 3)}
                      for l in self.levels}
             fast, small = max(sizes.items(), key=lambda kv: kv[1]["decode_tps"]), min(sizes.items(), key=lambda kv: kv[1]["ram_gb"])
+            work = ((self.mach.get("scratch_bytes") or facts.SCRATCH_BYTES) + facts.kv_bytes(facts.HOLD_CONTEXT)) / 1e9
             return {"confidence": p.confidence, "memory_gb_s": round(p.bandwidth / 1e9, 1), "disk_gb_per_s": round(p.disk_bps / 1e9, 2),
+                    "working_gb": round(work, 3),            # what a memory goal adds to the weights: working memory for a prompt and the context of a hold
                     "placement": getattr(self.m, "placement", None), "sizes": sizes,
                     "floor": {"fastest": {"size": fast[0], "tokens_per_s": fast[1]["decode_tps"]},
                               "smallest": {"size": small[0], "needs_gb": small[1]["needs_gb"]}}}

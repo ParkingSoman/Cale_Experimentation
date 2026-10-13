@@ -47,7 +47,7 @@ def _largest_first(levels):
 
 def memory_needed(m, level, context_tokens):
     """RAM this size needs to run a call: weights, the key/value cache of the context, and working memory for the prompt."""
-    return model_bytes(m, need(level)) + facts.kv_bytes(context_tokens) + facts.SCRATCH_BYTES
+    return model_bytes(m, need(level)) + facts.kv_bytes(context_tokens) + (m.get("scratch_bytes") or facts.SCRATCH_BYTES)
 
 
 def row(level, pred, m, ctx, goals, resident):

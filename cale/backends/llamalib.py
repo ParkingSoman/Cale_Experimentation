@@ -264,6 +264,15 @@ class Lib:
             raise RuntimeError(self.error())
         return [(ids[i], lp[i]) for i in range(n)]
 
+    def compute_bytes(self):
+        """(bytes in the computer's memory, bytes on a GPU) of working memory the engine reported keeping for prompts. (0, 0) if the library cannot say."""
+        if not hasattr(self.c, "cale_compute_bytes"):
+            return 0, 0
+        out = (ctypes.c_double * 2)()
+        self.c.cale_compute_bytes.restype, self.c.cale_compute_bytes.argtypes = None, [ctypes.POINTER(ctypes.c_double)]
+        self.c.cale_compute_bytes(out)
+        return int(out[0]), int(out[1])
+
     @property
     def n_batch(self):
         """Most tokens the engine reads in one pass."""

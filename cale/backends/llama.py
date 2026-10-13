@@ -151,6 +151,7 @@ class LlamaNested:
         # the shortest prompt piece the GPU takes over from the CPU: the GPU backend says (llamalib.offload_min_batch), nothing is written here
         self.offload_min = offload_min_batch(self.lib.gpu, lib_path) if self.gpu_reads_prompts else 0
         self.batch_tokens = self.lib.n_batch
+        self.scratch_bytes = self.lib.compute_bytes()[0]          # working memory for prompts, as the engine reported it (0 = it did not say)
         self.prompt_piece_hint = self.batch_tokens // 2 if self.gpu_reads_prompts else 0     # the speed measurement reads a prompt about this long (half a batch)
         self.n_layers = self.lib.n_layers
         self.levels = [l for l in load_levels(self.n_layers) if min(l["skip"], default=99) >= facts.FIRST_SHARED]

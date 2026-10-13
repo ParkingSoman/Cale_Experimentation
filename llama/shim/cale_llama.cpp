@@ -85,9 +85,19 @@ std::string shim_dir() {
     return k == std::string::npos ? "." : p.substr(0, k);
 }
 
+// The engine says how much working memory it keeps for reading prompts ("<backend>: compute buffer size = N MiB") when it makes a context.
+// Cale keeps those numbers (cale_compute_bytes) instead of guessing: they depend on the computer's backends and the engine's batch size.
+static double g_compute_mib_host = 0.0, g_compute_mib_device = 0.0;
+
 void quiet_log(ggml_log_level level, const char * text, void *) {
     if (level >= GGML_LOG_LEVEL_ERROR) {
         fputs(text, stderr);
+    }
+    const char * at = strstr(text, "compute buffer size =");
+    if (at != nullptr) {
+        const double mib = atof(at + strlen("compute buffer size ="));
+        const bool host = strstr(text, "CPU") != nullptr && strstr(text, "CPU") < at;
+        (host ? g_compute_mib_host : g_compute_mib_device) += mib;
     }
 }
 
@@ -416,6 +426,9 @@ CALE_API double cale_membw(int32_t n_threads, int32_t mb_per_thread) {
 
 CALE_API int32_t cale_n_layers(cale_ctx * h) { return llama_model_n_layer(h->model); }
 CALE_API int32_t cale_n_ctx(cale_ctx * h) { return h->n_ctx; }
+// Bytes of working memory the engine keeps for reading prompts, as it reported when this library made its context: [0] in the
+// computer's own memory, [1] on a GPU. The numbers add up over every context made in this process.
+CALE_API void cale_compute_bytes(double * out) { out[0] = g_compute_mib_host * 1048576.0; out[1] = g_compute_mib_device * 1048576.0; }
 CALE_API int32_t cale_n_batch(cale_ctx * h) { return h->n_batch; }
 // 1 when this build can hand a repacked weight to a GPU (llama/patches/0002): a GPU may then read prompts while the weights stay in RAM for the CPU.
 #ifdef CALE_STOCK

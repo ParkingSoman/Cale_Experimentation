@@ -17,6 +17,7 @@ Kinds:
 |---|---|---|
 | Answer and prompt speed of each size | `cale/predict.py`, `cale/engine.py` `_measure_speed` | The first load on a computer reads a short prompt and answers a few tokens, once, and saves the result with the key of the computer and model. Then every real answer corrects it. `PRIORS` is used only before the model is loaded (the `/v1/models` view). Mac: first estimate 0% off. |
 | Memory speed | `cale_membw` in the shim | A 0.15 s probe, no model. |
+| Working memory for reading a prompt (llama engine) | shim `cale_compute_bytes`, `choose.memory_needed` | The engine reports the size of its compute buffers when it makes the context. Cale keeps that number. `/v1/models` shows the result as `working_gb`. |
 | Memory held besides the weights | `engine._sample_base`, `_grow_base` | The largest of five readings of the process, raised whenever an answer finds more in use. A prediction is never under. |
 | Cost of an extra answer in a batch (`batch_eps`) | `predict.observe_step` | Learned from real steps. `BATCH_EPS` is only the start. |
 | Disk speed | `predict.observe` | Learned from real reads. `DISK_PRIOR` is only the start. |
@@ -32,7 +33,7 @@ Kinds:
 |---|---|---|
 | Time one prompt piece may take for an app that leaves to be noticed | 6 s (`CALE_MAX_PIECE_S`) | `batching.MAX_PIECE_S` |
 | Time of a prompt piece next to running answers | 0.75 s (1.5 s alone, on the CPU) | `batching.STEP_SECONDS` |
-| Share of RAM a setup may need before Cale refuses it | 85% | `choose.SAFE_FRACTION` |
+| Share of RAM a setup may need before Cale refuses it, and the memory that must stay free now | 85%, 300 MB | `choose.SAFE_FRACTION`, `choose.SAFE_MARGIN` |
 | Longest wait, lease, idle time, poll times | `cale/goals.py`, `engine.py`, `server.py` | |
 | Request limits (schema size, pictures, sound) | `constrain.py`, `media.py` | |
 | How far a hold lets the size drop under pressure | `engine.WARN_CAP` | |
@@ -46,9 +47,8 @@ Layer count, the first layer that shares a KV cache, bytes per weight, the conte
 
 | What | Value | Where | How to close it |
 |---|---|---|---|
-| Working memory for reading a prompt | 500 MB | `gemma3n_facts.SCRATCH_BYTES` | llama.cpp prints the compute buffer size when it makes the context. Capture that line in the shim. On MLX, read the peak memory of the first prompt. |
+| Working memory for reading a prompt, **on the MLX engine** | 500 MB | `gemma3n_facts.SCRATCH_BYTES` | Read the peak memory of the first prompt (the llama engine already does it). |
 | Memory a GPU needs besides the weights | 800 MB | `backends/devices.WORKING_BYTES` | Let llama.cpp's own fit say whether every layer fits, and read the answer. |
-| The safety margin left free | 300 MB | `choose.SAFE_MARGIN` | The OS reserve: Linux `min_free_kbytes`, macOS page free target, a share of RAM on Windows. |
 | Speed priors before the model is loaded | `predict.PRIORS` | `cale/predict.py` | Save the speeds in `predict.json` on every computer (done after the first load). Until then a computer that never loaded the model shows the prior as an "estimate". |
 | Number of threads | physical cores | `backends/llama.py` `default_threads` | Probe memory speed at 1, 2, 4 ... threads and stop where it stops growing. Prompts want more threads than answers, so this needs two probes. |
 | Memory the MLX engine keeps for activations | 1.5 GB | `nest/runtime.py` `RESERVE_GB` | Read the peak memory of the first prompt. |
