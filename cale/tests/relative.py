@@ -144,7 +144,9 @@ sizes = call("/v1/models", key=key)[2]["cale"]["this_mac"]["sizes"]
 total_gb = oslayer.total_ram() / 1e9
 WORK_GB = (facts.SCRATCH_BYTES + facts.kv_bytes(facts.HOLD_CONTEXT)) / 1e9         # what a memory goal adds to the weights
 want = next(v for v in sizes.values() if v["size_pct"] == 75)       # a goal that fits the 75% size and not the next one up
-pct75 = round((want["ram_gb"] + WORK_GB + 0.02) / total_gb * 100, 2)
+bigger = [v["ram_gb"] for v in sizes.values() if v["ram_gb"] > want["ram_gb"]]
+gap = (min(bigger) - want["ram_gb"]) if bigger else 0.04
+pct75 = round((want["ram_gb"] + WORK_GB + min(0.02, gap / 2)) / total_gb * 100, 2)     # between this size and the next one up, whatever the gap
 full = next(v for v in sizes.values() if v["size_pct"] == MAX_PCT)
 pct_full = round(min(100.0, (full["ram_gb"] + WORK_GB + 0.3) / total_gb * 100), 2)        # a goal that fits the full size, whatever the RAM of this computer
 with hold(a.base + "/v1", key, memory_pct=pct_full) as h:
