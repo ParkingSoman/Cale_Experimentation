@@ -963,3 +963,25 @@ Shonu: the HP is a test bench, so Cale's own dialogs may be clicked there. WSLg'
 | After both | no dialog is left on the screen |
 
 On the Mac and on Windows the dialog was clicked on 2026-10-12 (scripts `click_allow_mac.sh` and `click_allow_win.ps1`).
+
+## NVIDIA/CUDA (2026-10-13, after Shonu approved the driver update)
+
+Driver on the HP: 472.19 (2021) to 576.80 (installed silently on the HP, one restart). Backend: the official `llama-b11558-bin-win-cuda-12.4-x64` (CUDA 12.4 still supports Pascal cards like the MX150, CUDA 13 does not), same tag as our build.
+
+| Setup on the MX150, 178-token prompt, same session | Prompt tokens/s | Answer tokens/s | Quality (NLL, CPU 0.9183) |
+|---|---|---|---|
+| CPU only | 14.6 to 16.1 | 6.7 to 6.9 | 0.9183 |
+| Vulkan, 0 layers (the GPU reads prompts) | 26.3 to 26.4 | 7.5 to 7.7 | 0.9139 |
+| **CUDA, 0 layers (the GPU reads prompts)** | **67.4 to 67.8** | 6.7 to 6.8 | 0.9184 |
+| CUDA, llama.cpp fit (8 layers on the GPU) | 14.1 | 3.3 | 0.9172 |
+
+CUDA reads prompts 2.6 times faster than Vulkan and 4.2 times faster than the CPU, with the same answer speed and quality. Layers on the GPU are bad here too (3.3 tokens/s), which confirms the rule of 0 layers.
+
+What changed in Cale:
+- `cale/backends/devices.py`: a card that CUDA and Vulkan both see is listed once, through CUDA (or Metal, or HIP): the vendor's own backend.
+- `cale/install.py`: on Windows, when the NVIDIA driver supports CUDA 12.4 or newer (`oslayer.cuda_driver_version`), the installer adds `ggml-cuda.dll` and the CUDA runtime (about 0.6 GB, checked with SHA-256). An older driver gets a message that says what to update. `CALE_NO_CUDA=1` skips it.
+- shim: `SetDllDirectory` so a backend finds its runtime libraries next to it (without it CUDA silently did not load).
+
+Tested: installer on the HP (CUDA fetched and used, a chat answered), and all 17 suites on Windows with CUDA and Vulkan both present.
+
+Not done: CUDA on Linux (the HP's WSL has no GPU path), and AMD (HIP) or Intel (SYCL) backends.
