@@ -28,7 +28,8 @@ from .stops import StopFilter
 
 EOS = {1, 106}                  # <eos>, <end_of_turn>
 STEP_TOKENS = 8                 # how often a size controller may change the size, in answer tokens
-PREFILL_STEP = 2048             # the prompt is read in pieces of this many tokens, so memory grows with the prompt, not with its square
+PREFILL_STEP = 2048             # the prompt is read in pieces of at most this many tokens, so memory grows with the prompt, not with its square.
+                                # Never more than the model's local attention window (512): a piece longer than the window made the model lose facts in a long prompt
 GROUP, BITS, MODE = 64, 4, "affine"     # how the FFN matrices of models/gemma-3n-e4b-4bit are quantized
 
 
@@ -454,13 +455,13 @@ class NestedGemma3n:
             mx.eval(emb.inputs_embeds, emb.per_layer_inputs)
         finally:
             self._drop_picture_tower()
-        n, h = ids.shape[1], None
-        for i in range(0, n, PREFILL_STEP):
+        n, h, step = ids.shape[1], None, self.prefill_step()
+        for i in range(0, n, step):
             if cancel:
                 cancel.check()
-            h = self.lm.model(None, inputs_embeds=emb.inputs_embeds[:, i:i + PREFILL_STEP], cache=cache,
-                              per_layer_inputs=emb.per_layer_inputs[:, i:i + PREFILL_STEP])
-            if i + PREFILL_STEP < n:
+            h = self.lm.model(None, inputs_embeds=emb.inputs_embeds[:, i:i + step], cache=cache,
+                              per_layer_inputs=emb.per_layer_inputs[:, i:i + step])
+            if i + step < n:
                 mx.eval([c.state for c in cache])
         return h
 
@@ -492,14 +493,18 @@ class NestedGemma3n:
             mx.eval(arrays)
         return len(arrays)
 
+    def prefill_step(self):
+        window = getattr(self.lm.config, "sliding_window", None) or PREFILL_STEP
+        return max(1, min(PREFILL_STEP, int(window)))
+
     def _prefill(self, ids, cache, cancel=None):
         """Read the prompt in pieces. Returns the hidden states of the last piece."""
-        n, h = ids.shape[1], None
-        for i in range(0, n, PREFILL_STEP):
+        n, h, step = ids.shape[1], None, self.prefill_step()
+        for i in range(0, n, step):
             if cancel:
                 cancel.check()
-            h = self.lm.model(ids[:, i:i + PREFILL_STEP], cache=cache)
-            if i + PREFILL_STEP < n:
+            h = self.lm.model(ids[:, i:i + step], cache=cache)
+            if i + step < n:
                 mx.eval([c.state for c in cache])             # finish this piece before the next one starts
         return h
 

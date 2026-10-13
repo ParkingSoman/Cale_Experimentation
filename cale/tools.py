@@ -168,8 +168,25 @@ def convert_messages(raw, ApiError, images_ok=False):
         if parts:
             msg["parts"] = parts
         out.append(msg)
+    out = merge_same_role(out)
     if sum(1 for m in out for q in m.get("parts", ()) if q[0] == "image") > media.MAX_IMAGES:
         raise ApiError(400, "invalid_image", f"A request may hold at most {media.MAX_IMAGES} pictures.")
+    return out
+
+
+def merge_same_role(msgs):
+    """The model's chat template needs user and assistant turns to alternate. Two turns of the same role in a row (several tool results,
+    or two user messages) become one turn, in order. Apps do this all the time with the OpenAI API, which allows it."""
+    out = []
+    for m in msgs:
+        if out and out[-1]["role"] == m["role"] and m["role"] != "system":
+            prev = out[-1]
+            if prev.get("parts") or m.get("parts"):
+                parts = list(prev.get("parts") or [("text", prev["content"])]) + [("text", "\n\n")] + list(m.get("parts") or [("text", m["content"])])
+                prev["parts"] = parts
+            prev["content"] = (prev["content"] + "\n\n" + m["content"]).strip()
+        else:
+            out.append(dict(m))
     return out
 
 

@@ -127,5 +127,16 @@ check("a tool with a schema Cale cannot use: 400", s == 400 and r["error"]["code
 s, r = chat(key, "x", tools=TOOLS, parallel_tool_calls="yes")
 check("parallel_tool_calls must be true or false", s == 400 and r["error"]["code"] == "invalid_parallel_tool_calls", r)
 
+# turns of the same role in a row (parallel tool results, two user messages) are merged: the model needs alternating turns
+tc = lambda i, n: {"id": f"call_{i}", "type": "function", "function": {"name": n, "arguments": "{}"}}
+r = call("/v1/chat/completions", {"model": "gemma-3n:fast", "max_tokens": 30, "messages": [
+    {"role": "user", "content": "What is the weather and the time?"},
+    {"role": "assistant", "content": None, "tool_calls": [tc(1, "weather"), tc(2, "time")]},
+    {"role": "tool", "tool_call_id": "call_1", "content": "sunny"}, {"role": "tool", "tool_call_id": "call_2", "content": "noon"}]}, key)
+check("two tool results in a row are accepted", r[0] == 200, r[1])
+r = call("/v1/chat/completions", {"model": "gemma-3n:fast", "max_tokens": 10, "messages": [
+    {"role": "user", "content": "Hello."}, {"role": "user", "content": "Say hi."}]}, key)
+check("two user messages in a row are accepted", r[0] == 200, r[1])
+
 print("\nFAILED: " + ", ".join(FAIL) if FAIL else "\nall passed")
 sys.exit(1 if FAIL else 0)

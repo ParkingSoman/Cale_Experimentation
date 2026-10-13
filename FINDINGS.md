@@ -838,3 +838,13 @@ On a weak CPU, batching gives fairness, not speed. The MLX engine stays one answ
 | A package named `concurrent` hid the Python one | test crashed on import | renamed `crowd.py` |
 | The installer left out `cancel.py` and `stops.py` | `install_check` | both added to the file list |
 | Windows arm64 | the library builds (cross compiler) | **built, not tested**: no such computer here |
+
+**Zoo 2 on the Mac found three real bugs (2026-10-13).** The zoo is 14 new probe apps, written by a reviewer who saw only the public docs.
+
+| Bug | Evidence | Fix |
+|---|---|---|
+| Several tool results in a row gave `500 engine_error` | the Gemma chat template needs alternating turns | `tools.merge_same_role` joins same-role turns |
+| A fact in a prompt of about 5000 tokens was missed on the Mac engine only | the llama engine found `7391-LANTERN`. MLX said `8814-MARBLE` with pieces of 2048 tokens, and was right with 512 | the prompt is read in pieces of at most the local window (512). It was also 10% faster |
+| An unknown size such as `gemma-3n:nope` gave 400, the docs said 404 | zoo `curl` app | now `404 model_not_found` |
+
+Demo apps: Aider and Open WebUI still sent the removed `deadline_s`. Both now use `min_tokens_per_s` and `max_first_token_s`. Aider was run end to end against a test Cale and fixed a bug in a file.

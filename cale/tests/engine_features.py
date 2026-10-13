@@ -78,6 +78,21 @@ def main():
         g3.PREFILL_STEP = old
         # Smaller pieces change rounding a little, so a near-tie word may differ ("Four" and "Forty"). The start must agree.
         check("chunked reading gives (nearly) the same answer as large pieces", out_small[:2] == out[:2], (out_small, out))
+        # A fact in the middle of a prompt longer than the model's local window (512) must be found. Reading in pieces longer than
+        # that window once made the model quote another code from the same document.
+        import random
+        r = random.Random(5)
+        adj, noun = "quiet old narrow bright heavy slow green cold wide small hidden broken".split(), "harbor lantern ledger bridge orchard tower market garden engine archive window river".split()
+        verb, place = "watched crossed guarded recorded followed measured hid carried repaired".split(), "Veln Marrow Ostia Quill Dunmere Harrowgate Tessel Brannoch".split()
+        adv = "carefully slowly at dawn every year without complaint during the winter".split()
+        sent = lambda: f"The {r.choice(adj)} {r.choice(noun)} of {r.choice(place)} {r.choice(verb)} the {r.choice(adj)} {r.choice(noun)} {r.choice(adv)}."
+        paras = [" ".join(sent() for _ in range(8)) for _ in range(54)]
+        paras[10] += " The access code for the red vault is 5520-ANCHOR."
+        paras[27] += " The access code for the blue vault is 7391-LANTERN."
+        paras[44] += " The access code for the green vault is 8814-MARBLE."
+        needle = "DOCUMENT:\n" + "\n\n".join(paras) + "\n\nQUESTION: What is the access code for the blue vault? Reply with the code only."
+        out_n, done_n = ask(m, needle, 20)
+        check("a fact in the middle of a long prompt is found", "7391-LANTERN" in out_n and done_n["prompt_tokens"] > 4000, (out_n, done_n["prompt_tokens"]))
 
     print("\nALL PASS" if not FAILS else f"\nFAILED: {FAILS}", flush=True)
     return 1 if FAILS else 0

@@ -71,7 +71,7 @@ def parse_model(name):
             raise ValueError
         return int(min(max(round(pct), MIN_PCT), MAX_PCT))
     except (ValueError, OverflowError):
-        raise ApiError(400, "invalid_model", f"Size '{size}' is not a number.")
+        raise ApiError(404, "model_not_found", f"Unknown model '{name}'. Use '{BASE}:smart', '{BASE}:fast', '{BASE}:auto' or '{BASE}:<{MIN_PCT}-{MAX_PCT}>'.")
 
 
 def model_id(pct):
