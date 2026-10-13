@@ -950,3 +950,16 @@ D gives B's prompt speed and A's answer speed at once, with nothing extra in RAM
 | Real `zenity` on Linux | Fetched with `apt-get download` and `dpkg -x` (no `sudo`). With WSLg's display it opens. It ignored its own `--timeout` (known on WSLg): Cale counts that as "no" after the timeout. It was not **clicked**: nobody is at the HP screen. To click it, run `python cale/tests/allow_dialog.py` at the HP desktop. |
 | A bug that this found | When the display is down, the tool exits at once with "Failed to open display". Cale counted that as the person saying no. Now an immediate exit with a known message sends the question to the terminal (`cale allow`). A slow exit stays a "no", so a person's click can never be turned into something else. |
 | Open WebUI page, in a real browser (Playwright, through an SSH tunnel to the HP) | The page loads and shows the "Cale is on this computer" card with its Connect button. The click did not finish: the link to the HP dropped between the checks (ssh "not responding"), so the connect call never arrived. The same steps through the API did work (card connect, model objects with the new goals, a chat through Open WebUI). |
+
+## The Linux Allow dialog, clicked (2026-10-13, end)
+
+Shonu: the HP is a test bench, so Cale's own dialogs may be clicked there. WSLg's display does not run in an SSH session, so the test uses a virtual screen inside WSL: `scripts/linux_allow_check.py` (needs `apt-get install xvfb zenity xdotool`; on the HP they were installed with `wsl -u root`).
+
+| Step | Result |
+|---|---|
+| An app asks to connect | Cale's real dialog appears (title "Cale", text with the app name, buttons Don't Allow and Allow) |
+| Click Allow | `/cale/connect` returns a key, and the key works for a chat call |
+| Click Don't Allow | `403`, no key |
+| After both | no dialog is left on the screen |
+
+On the Mac and on Windows the dialog was clicked on 2026-10-12 (scripts `click_allow_mac.sh` and `click_allow_win.ps1`).
