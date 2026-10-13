@@ -188,6 +188,7 @@ class Engine(BatchMixin):
             bw = 0.0
         key = {"engine": backends.name(), "total_ram": oslayer.total_ram(), "placement": getattr(m, "placement", None),
                "model_bytes": sum(f.stat().st_size for f in m.model_files())}
+        base0 = self._sample_base()                              # before the warm-up: working memory is added separately (scratch_bytes, context)
         old = self.pred
         self.pred = Predictor(backends.name(), bw, key, paths.HOME / "predict.json", levels=self.levels)
         if old is not None and old.key == key:
@@ -195,10 +196,10 @@ class Engine(BatchMixin):
             self.pred.n_dec, self.pred.n_pre, self.pred.disk_bps = old.n_dec, old.n_pre, old.disk_bps
         self.pred.slow = self._slow
         self.pred.busy = oslayer.cpu_busy_other
+        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": base0, "scratch_bytes": int(getattr(m, "scratch_bytes", 0) or 0),
+                     "total_ram": key["total_ram"], "disk_bps": self.pred.disk_bps}
         if self.pred.n_dec == 0 and self.pred.n_pre == 0:       # nothing is known about this computer and this model yet: measure, once
             self._measure_speed()
-        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": self._sample_base(), "scratch_bytes": int(getattr(m, "scratch_bytes", 0) or 0),
-                     "total_ram": key["total_ram"], "disk_bps": self.pred.disk_bps}
 
     def _sample_base(self):
         """Memory this process holds besides the FFN weights: the largest of a few readings. The OS reports process memory with a little noise,
@@ -209,14 +210,17 @@ class Engine(BatchMixin):
             time.sleep(0.05)
         return max(seen)
 
-    def _grow_base(self):
-        """After an answer: if the process holds more than the prediction assumed, the prediction grows to match."""
+    def _grow_base(self, d=None):
+        """After an answer: if the process holds more than the whole prediction assumed (weights, base, working memory, the context that
+        was used), the base grows by the difference. A prediction is never under what is used, and nothing is counted twice."""
         try:
-            now = int(self.m.active_bytes() - self.m.ffn_bytes())
+            held = int(self.m.active_bytes() - self.m.ffn_bytes())
         except Exception:
             return
-        if now > self.mach["base_bytes"]:
-            self.mach["base_bytes"] = now
+        ctx = int((d or {}).get("prompt_tokens", 0)) + int((d or {}).get("tokens", 0))
+        expected = self.mach["base_bytes"] + (self.mach.get("scratch_bytes") or facts.SCRATCH_BYTES) + facts.kv_bytes(ctx)
+        if held > expected:
+            self.mach["base_bytes"] += held - expected
 
     def _measure_speed(self):
         """The first time Cale loads the model on a computer: read a short prompt and answer a few tokens, and keep the speeds.
@@ -244,6 +248,7 @@ class Engine(BatchMixin):
                 piece *= 4
             if done:
                 self.pred.observe(done)
+                self._grow_base(done)
                 self.log(f"measured this computer in {time.perf_counter() - t0:.1f}s: {self.pred.summary()}")
         except Exception as e:
             self.log(f"speed measurement skipped ({type(e).__name__}: {str(e)[:120]})")
@@ -666,6 +671,6 @@ class Engine(BatchMixin):
 
     def _learn(self, d):
         """Fold a real answer into what Cale knows about this computer's speed."""
-        self._grow_base()
+        self._grow_base(d)
         if self.pred is not None:
             self.pred.observe(d)
