@@ -81,10 +81,24 @@ def stop_server(proc):
         proc.kill()
 
 
+TUNED = {"file": None}
+
+
+def tune_once(env):
+    """What the installer does: measure this computer once. Every test server then starts from that result (a fresh home has none)."""
+    home = tempfile.mkdtemp(prefix="cale-tune-")
+    r = subprocess.run([PY, "-m", "cale.tune"], cwd=ROOT, env=dict(env, CALE_HOME=home), capture_output=True, text=True, timeout=1800)
+    f = Path(home) / "predict.json"
+    print(f"tune: {'done' if f.exists() else 'FAILED'} ({r.returncode})", flush=True)
+    TUNED["file"] = f if f.exists() else None
+
+
 def run_with_server(name, env, keep_home):
     """One suite against its own fresh server and home: suites leave holds and loaded sizes behind, and must not affect each other."""
     wait_closed(30)                                      # the last server must be gone before the next one starts
     home = tempfile.mkdtemp(prefix=f"cale-{name}-")
+    if TUNED["file"] is not None:
+        shutil.copy2(TUNED["file"], Path(home) / "predict.json")      # as if Cale had been installed on this computer
     log = open(Path(home) / "server.log", "w")
     env = dict(env, **SERVER_ENV.get(name, {}), CALE_TEST_HOME=home)
     srv = subprocess.Popen([PY, str(ROOT / "scripts" / "cale_dev_server.py"), home], cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT)
@@ -123,6 +137,8 @@ def main():
             continue                                     # the llama.cpp backend is not used on a Mac
         results.append(run(name, extra, env, 1800))
         print(f"{name}: {results[-1]['passed']} passed, {len(results[-1]['failed'])} failed ({results[-1]['seconds']} s)", flush=True)
+    if [n for n in SERVER if not only or n in only]:
+        tune_once(env)
     for name in [n for n in SERVER if not only or n in only]:
         results.append(run_with_server(name, env, a.keep_home))
         print(f"{name}: {results[-1]['passed']} passed, {len(results[-1]['failed'])} failed ({results[-1]['seconds']} s)", flush=True)

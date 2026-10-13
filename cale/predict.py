@@ -48,6 +48,7 @@ class Predictor:
         self.n_dec = self.n_pre = 0
         self.disk_bps, self.disk_samples = DISK_PRIOR, []
         self.batch_eps, self.batch_n = BATCH_EPS, 0
+        self.extra = {}                                                 # measured at install by `cale tune`: scratch_bytes, threads, piece_speed
         self.by_level = {}                                              # level id -> recent decode speeds (tokens/s)
         self.slow = 1.0                                                 # debug only: pretend this computer is this many times slower
         self.busy = lambda: 0.0                                         # share of the CPU other programs use now (set by the engine)
@@ -152,15 +153,19 @@ class Predictor:
         self.dec_full, self.pre_full, self.fixed = d["dec_full"], d["pre_full"], d["fixed"]
         self.n_dec, self.n_pre = d.get("n_dec", 0), d.get("n_pre", 0)
         self.disk_bps = d.get("disk_bps", self.disk_bps)
+        self.extra = d.get("extra") or {}
 
-    def _save(self):
-        if not self.path or (self.n_dec + self.n_pre) % 3 not in (1, 0):
+    def save(self):
+        self._save(force=True)
+
+    def _save(self, force=False):
+        if not self.path or (not force and (self.n_dec + self.n_pre) % 3 not in (1, 0)):
             return
         try:
             tmp = self.path.with_suffix(".tmp")
             tmp.write_text(json.dumps({"version": 1, "key": self.key, "dec_full": self.dec_full, "pre_full": self.pre_full,
                                        "fixed": self.fixed, "n_dec": self.n_dec, "n_pre": self.n_pre, "disk_bps": self.disk_bps,
-                                       "sizes": self.snapshot(),
+                                       "sizes": self.snapshot(), "extra": self.extra,
                                        "saved_at": time.strftime("%Y-%m-%d %H:%M:%S")}))
             os.replace(tmp, self.path)
         except OSError:

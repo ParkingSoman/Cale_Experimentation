@@ -3,6 +3,7 @@
   cale status         is Cale running, is the model loaded
   cale apps           apps that hold a key
   cale revoke NAME    take a key away
+  cale tune                                measure this computer again (done once when Cale is installed)
   cale start [--wait] | stop | restart     --wait: return when Cale answers
   cale logs           follow the log
   cale computer       what Cale predicts for this computer (speed and memory of every size)
@@ -141,6 +142,9 @@ def main(argv=None):
         return revoke(a[1])
     if cmd == "start":
         return start("--wait" in a)
+    if cmd == "tune":
+        from . import tune
+        return tune.main()
     if cmd == "computer":
         return computer()
     if cmd == "pending":

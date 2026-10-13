@@ -437,6 +437,12 @@ def main():
         shutil.copy2(SRC / "results" / "g3n-curve.json", home / "curve.json")      # numbers measured on a Mac: only copied to a Mac
 
     cmd = write_command(home, port)
+    progress("tune", 80)
+    say("Getting Cale ready for this computer. This takes about a minute and happens once.")
+    tuned = subprocess.run([str(oslayer.venv_python(home / "venv")), "-m", "cale.tune"], env=dict(os.environ, CALE_HOME=str(home), PYTHONPATH=str(home / "runtime")),
+                           stdout=open(home / "logs" / "tune.log", "w"), stderr=subprocess.STDOUT)
+    if tuned.returncode != 0:
+        say("(Cale will finish getting ready the first time an app asks.)")
     progress("service", 95)
     if oslayer.MAC:
         say("Starting Cale at login")

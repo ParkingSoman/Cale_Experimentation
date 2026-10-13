@@ -20,7 +20,7 @@ from nest.stops import StopFilter
 from .. import constrain
 from .. import gemma3n_facts as facts
 
-from .. import oslayer
+from .. import oslayer, paths
 from . import devices
 from .llamalib import Lib, devices as list_devices, memory_bandwidth, offload_min_batch, fit_all, readback as lib_readback
 
@@ -29,9 +29,21 @@ STEP_TOKENS = 8            # how often a size controller may change the size, in
 _FFN = ("gate", "up", "down")
 
 
+def saved_threads():
+    """The thread count that `cale tune` measured to be best on this computer (kept in predict.json), or None."""
+    try:
+        import json
+        n = json.loads((paths.HOME / "predict.json").read_text()).get("extra", {}).get("threads")
+        return int(n) if n and 1 <= int(n) <= (os.cpu_count() or 1) * 2 else None
+    except (OSError, ValueError, TypeError):
+        return None
+
+
 def default_threads():
     if os.environ.get("CALE_THREADS"):
         return int(os.environ["CALE_THREADS"])
+    if saved_threads():
+        return saved_threads()
     try:
         import psutil
         n = psutil.cpu_count(logical=False)
@@ -327,6 +339,11 @@ class LlamaNested:
     # --- what the engine and the profile ask every backend ---------------------------------------------
     def active_bytes(self):
         return oslayer.process_rss()
+
+    def set_threads(self, n):
+        """Use n threads from the next call on."""
+        self.lib.c.cale_set_threads(self.lib.h, int(n))
+        self.threads = int(n)
 
     def memory_bandwidth(self):
         """Bytes per second this computer reads from memory with this engine's threads. About 0.15 s. Answer speed is bound by it."""

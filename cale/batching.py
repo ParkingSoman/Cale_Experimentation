@@ -169,6 +169,10 @@ class BatchMixin:
         if getattr(self, "_tuner", None) is None or getattr(self, "_tuner_for", None) is not self.m:
             self._tuner = PieceTuner(self.m.offload_min, self.m.batch_tokens, start_speed=self.pred.prefill_tps(self.batch_level) if self.pred is not None else None)
             self._tuner_for = self.m
+            saved = (self.pred.extra or {}).get("piece_speed") if self.pred is not None else None
+            for k, v in (saved or {}).items():                  # measured when Cale was installed: nothing is tried while an app waits
+                if int(k) in self._tuner.gpu_sizes + [self._tuner.cpu_size]:
+                    self._tuner.speed[int(k)] = float(v)
         return self._tuner
 
     # --- the scheduler thread -----------------------------------------------------------------------------------------

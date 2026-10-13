@@ -15,7 +15,10 @@ Kinds:
 
 | What | Where | How it is measured |
 |---|---|---|
-| Answer and prompt speed of each size | `cale/predict.py`, `cale/engine.py` `_measure_speed` | The first load on a computer reads a short prompt and answers a few tokens, once, and saves the result with the key of the computer and model. Then every real answer corrects it. `PRIORS` is used only before the model is loaded (the `/v1/models` view). Mac: first estimate 0% off. |
+| Answer and prompt speed of each size | `cale/predict.py`, `cale/engine.py` `tune` | Measured when Cale is installed (`cale tune`), with a full-length prompt piece and a few answer tokens, and saved with the key of the computer and model. Every real answer then corrects it. If nothing was measured, the first load does a short version, once. `PRIORS` is used only before any measurement. Mac: first estimate 0% off. |
+| Working memory of a prompt piece | `engine.tune` | The most memory the process holds while the longest piece is read, minus the weights, the base and the context. Saved. Mac (MLX): 809 MB, against the old 500 MB guess. |
+| Number of threads | `engine.tune` | The thread count that is at least a tenth faster for prompts or answers, and not slower for the other, among half the cores, the cores, and twice the cores. Otherwise the number of cores. |
+| Speed of each prompt piece length (a GPU that reads prompts) | `engine.tune`, `batching.PieceTuner` | Tried at install, saved. No app pays for trying. |
 | Memory speed | `cale_membw` in the shim | A 0.15 s probe, no model. |
 | Memory held besides the weights | `engine._sample_base`, `_grow_base` | The largest of five readings of the process, raised whenever an answer finds more in use. A prediction is never under. |
 | Cost of an extra answer in a batch (`batch_eps`) | `predict.observe_step` | Learned from real steps. `BATCH_EPS` is only the start. |
@@ -48,8 +51,7 @@ Layer count, the first layer that shares a KV cache, bytes per weight, the conte
 
 | What | Value | Where | How to close it |
 |---|---|---|---|
-| Working memory for reading a prompt | 500 MB | `gemma3n_facts.SCRATCH_BYTES` | **Tried and reverted:** the llama engine reports its compute buffers (shim `cale_compute_bytes`), but that is memory reserved, not memory touched. Using it over-predicted by 0.6 GB on Linux, so memory goals chose smaller sizes than they needed. Next: the peak of the process while the first prompt is read (poll during the warm-up), on both engines. |
+| Working memory for reading a prompt, **when `cale tune` has not run** | 500 MB | `gemma3n_facts.SCRATCH_BYTES` | **Tried and reverted:** the llama engine reports its compute buffers (shim `cale_compute_bytes`), but that is memory reserved, not memory touched. Using it over-predicted by 0.6 GB on Linux, so memory goals chose smaller sizes than they needed. Next: the peak of the process while the first prompt is read (poll during the warm-up), on both engines. |
 | Speed priors before the model is loaded | `predict.PRIORS` | `cale/predict.py` | Save the speeds in `predict.json` on every computer (done after the first load). Until then a computer that never loaded the model shows the prior as an "estimate". |
-| Number of threads | physical cores | `backends/llama.py` `default_threads` | Time the real warm-up at a few thread counts. Not done: it only matters on CPUs with fast and slow cores, and none of the three test computers has one, so a change could not be checked. |
 | Memory the MLX engine keeps for activations | 1.5 GB | `nest/runtime.py` `RESERVE_GB` | Read the peak memory of the first prompt. |
 | Memory pressure levels | `cale/pressure.py`, `oslayer.py` | | Calibrate per OS with a stress test. Not done: it needs a computer that can be pushed into swap safely. |
