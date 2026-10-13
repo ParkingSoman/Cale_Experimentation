@@ -59,7 +59,8 @@ class PieceTuner:
     def _may_try(self, size):
         """A piece is tried only if, at the best speed known, it should take no longer than the budget: an untried piece cannot be stopped."""
         known = max(list(self.speed.values()) + ([self.start_speed] if self.start_speed else []), default=None)
-        return known is None or size / known <= self.budget * EXPLORE_SLACK
+        slack = EXPLORE_SLACK if any(self._fits(k) for k in self.speed if k > self.cpu_size) else 1.0     # slack only once a GPU piece has been seen within the budget
+        return known is None or size / known <= self.budget * slack
 
     def next_size(self):
         for size in self.gpu_sizes:
