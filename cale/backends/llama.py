@@ -512,7 +512,14 @@ class LlamaNested:
         # The slots share one pool of n_ctx tokens. If the next step could not fit, the answer holding most ends here ("length") instead of
         # making the step fail for everyone.
         decoding = [st for st in streams if st.t_first is not None and not st.done]
-        while decoding and self.pool_total() - self.pool_used() < len(decoding) + prefill_budget + 8:
+        reading = any(st.t_first is None and not st.done for st in streams)             # only a prompt that is being read needs room for a piece
+        while decoding:
+            free = self.pool_total() - self.pool_used()
+            if free >= len(decoding) + 8 + (prefill_budget if reading else 0):
+                break
+            if reading and prefill_budget > 16 and free >= len(decoding) + 8 + 16:      # a shorter piece fits: no answer has to end for it
+                prefill_budget = max(16, free - len(decoding) - 8)
+                continue
             big = max(decoding, key=lambda st: self.lib.slot_tokens(st.slot))
             big.finish, big.done = "length", True
             self.close_stream(big)

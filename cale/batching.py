@@ -69,6 +69,8 @@ class Request:
         self.steps = 0                  # steps this answer took part in once it was producing tokens
         self.share = 0                  # sum of the number of answers in those steps (to know how crowded it was)
         self.started = None
+        self.defer_since = None         # [time] when an app that said `wait` first could not be served
+        self.retry_at = 0.0
 
 
 class BatchMixin:
@@ -115,6 +117,8 @@ class BatchMixin:
                     if not self.inbox and not self.active:
                         self.runner = None       # nothing to do for a while: the thread ends, the next request starts a new one
                         return
+            if self.draining():
+                time.sleep(0.05)                 # a hold or the monitor is waiting for the lock: let it in first
             try:
                 self._serve()
             except Exception as e:               # the scheduler must never die with requests waiting
@@ -130,6 +134,8 @@ class BatchMixin:
                 while True:
                     self._admit()
                     if not self.active:
+                        if self.draining():
+                            break                       # let the monitor or a hold have the lock; the runner comes back for the waiting requests
                         with self.cv:
                             if not self.inbox:
                                 break
@@ -178,8 +184,15 @@ class BatchMixin:
             r.q.put(err)
 
     # --- admitting new answers ------------------------------------------------------------------------------------------
+    def draining(self):
+        """Something must be applied that cannot happen while answers run (memory pressure, a hold). No new answer starts until it has."""
+        return bool(self.want_unload or self.want_cap is not None or getattr(self, "holds_waiting", 0) > 0)
+
     def _admit(self):
+        from .engine import Defer
         m = self.m
+        if self.draining():
+            return
         with self.cv:
             waiting = list(self.inbox)
         for r in waiting:
@@ -188,6 +201,8 @@ class BatchMixin:
                 if not r.abandoned:
                     r.q.put(Cancelled())
                 continue
+            if r.retry_at > time.time():
+                continue                                 # an app that said `wait`: it is tried again in a moment. Others may start meanwhile.
             if len(self.active) >= m.n_slots or not m.free_slots():
                 break                                    # in order: nobody jumps the queue
             if not self._compatible(r):
@@ -195,6 +210,10 @@ class BatchMixin:
             self._drop_waiting(r)
             try:
                 self._start(r)
+            except Defer:
+                r.retry_at = time.time() + 0.5
+                with self.cv:
+                    self.inbox.insert(0, r)
             except PoolFull:                                # the shared context is full: wait for a running answer to finish
                 with self.cv:
                     self.inbox.insert(0, r)
@@ -235,8 +254,10 @@ class BatchMixin:
                 self.implicit = True
                 self._resident_now()
         n_after = len(self.active) + 1
+        if r.goal is not None and r.defer_since is None:
+            r.defer_since = [time.time()]
         lv, plan, max_tokens, goals, n_prompt, answer_tokens, _ = self._plan_request(
-            r.messages, r.max_tokens, r.explicit, r.size_pct, r.goal, r.waited, r.cancel, n_active=n_after)
+            r.messages, r.max_tokens, r.explicit, r.size_pct, r.goal, r.waited, r.cancel, n_active=n_after, defer_since=r.defer_since)
         r.goals, r.max_tokens, r.fixed = goals, max_tokens, r.goal is None
         r.max_pct = min(round(self.cap * 100), round(r.goal.get("max_pct", 100))) if r.goal else round(self.cap * 100)
         r.level = lv
@@ -250,6 +271,13 @@ class BatchMixin:
                 if goals_mod.is_set(r.goals):
                     plan["unmet"] = [g for g, ok in row["checks"].items() if not ok]
                     plan["goal_met"] = not plan["unmet"]
+                    from .engine import GoalMissed, Unsafe
+                    if not row["safe"]:
+                        raise Unsafe(f"Size {target['pct']}% would not fit safely next to the answers that are running.", self._unsafe_info([row]))
+                    if plan["unmet"] and r.goals["on_miss"] in ("refuse", "wait"):       # joining a step that runs at another size must not break what the app asked for
+                        info = {"goal_met": False, "unmet": plan["unmet"], "predicted": plan["predicted"], "sizes": None, "floor": None}
+                        raise GoalMissed(f"The answers that are running hold this computer at the {target['pct']}% size. "
+                                         f"{', '.join(plan['unmet'])} cannot be met next to them.", info)
         if not m.make_room(n_prompt + min(max_tokens, 512) + 8 * len(self.active) + 8):
             if not self.active and not m.make_room(n_prompt + 8):
                 from .engine import ContextTooLong
@@ -380,7 +408,11 @@ class BatchMixin:
             return
         speeds = [(r.stream.out - o) / dt for r, o in zip(goals, last[1])]
         cap = min(r.max_pct for r in self.active)
-        pool = sorted([l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)], key=lambda l: -l["pct"])
+        floor_q = max((r.goals["min_quality"] for r in self.active if r.goals and r.goals.get("min_quality") is not None), default=None)
+        budgets = [self.mach["total_ram"] * r.goals["memory_pct"] / 100 for r in self.active if r.goals and r.goals.get("memory_pct") is not None]
+        pool = sorted([l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)
+                       and (floor_q is None or facts.quality(l) >= floor_q)
+                       and (not budgets or choose.memory_needed(self.machine(), l, facts.HOLD_CONTEXT) <= min(budgets))], key=lambda l: -l["pct"])
         i = next((k for k, l in enumerate(pool) if l["id"] == self.batch_level["id"]), None)
         if i is None:
             return

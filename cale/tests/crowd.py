@@ -62,6 +62,7 @@ def together(jobs):
 
 
 keys = [call("/cale/connect", {"app": f"Concurrent App {i}"})[2]["api_key"] for i in range(4)]
+chat(keys[0], "Say hi.", max_tokens=4, model="gemma-3n:fast")                  # load the model first: the slot count is known only then
 slots = call("/cale/status")[2].get("slots") or 1
 print(f"slots: {slots}", flush=True)
 PROMPTS = ["Name three planets and one fact about each.", "Write two sentences about the sea.", "List four fruits with their colors.",
@@ -166,6 +167,27 @@ call("/cale/debug/pool", {"tokens": None})
 check("four 600-token prompts in a pool of 1500: all answered, none crashed", all(r[0] == 200 and r[2]["choices"][0]["message"]["content"] for r in res), [(r[0], r[2].get("error")) for r in res])
 s, hd, r = chat(keys[0], "Say hi.", max_tokens=8)
 check("...and the engine still answers", s == 200, (s, r))
+
+# 10. an app that says `wait` does not freeze the answers that are running (they go on while it waits)
+if slots > 1:
+    def stream_gaps(key):
+        body = {"model": "gemma-3n:smart", "messages": [{"role": "user", "content": "Write a long story about a lighthouse."}], "max_tokens": 90, "stream": True}
+        req = urllib.request.Request(a.base + "/v1/chat/completions", data=json.dumps(body).encode(), headers={"Content-Type": "application/json", "Authorization": f"Bearer {key}"})
+        stamps = []
+        with urllib.request.urlopen(req, timeout=900) as r:
+            for line in r:
+                if line.startswith(b"data: ") and b'"content"' in line:
+                    stamps.append(time.time())
+        return [b - a_ for a_, b in zip(stamps, stamps[1:])]
+
+    def waiter():
+        time.sleep(2.0)
+        return chat(keys[1], "Say hi.", model="gemma-3n:auto", max_tokens=8, cale_min_tokens_per_s=10000, cale_on_miss="wait", cale_max_wait_s=5)
+    res, took, total = together([lambda: stream_gaps(keys[0]), waiter])
+    gaps = sorted(res[0])
+    typical = gaps[len(gaps) // 2] if gaps else 0
+    check("a waiting app gets its refusal after the wait", res[1][0] == 422 and took[1] >= 4.0, (res[1][0], took[1]))
+    check("...and the running answer was never frozen by it", gaps and max(gaps) < max(2.0, 10 * typical), (max(gaps) if gaps else None, typical))
 
 print("\nFAILED: " + ", ".join(FAIL) if FAIL else "\nall passed")
 sys.exit(1 if FAIL else 0)

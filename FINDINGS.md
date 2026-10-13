@@ -882,3 +882,15 @@ A second reviewer (an agent that read only the diff and `docs/PRINCIPLES.md`) fo
 | 13 | Thread count is the number of physical cores | `backends/llama.py` | Wrong on CPUs with performance and efficiency cores |
 
 Items 1 to 5 are the ones to fix next. Items 6 to 13 need measurements on other computers.
+
+**Update, same day: limits 1 to 5 of the table above are fixed.**
+
+| # | Fix | Test |
+|---|---|---|
+| 1 | A goal request that joins a running step is checked again at the step's size. `refuse` and `wait` now refuse (`GoalMissed`) and the safety limit applies | `crowd` |
+| 2 | `on_miss: "wait"` no longer sleeps on the scheduler. The request is tried again every 0.5 s and the running answers go on | `crowd` (gap between chunks of the running answer) |
+| 3 | A hold or a memory-pressure change stops new answers from starting. The running ones finish. Then the change is applied | no new test: it needs real memory pressure |
+| 4 | The batch step-down keeps `min_quality` and `memory_pct` | `goals` |
+| 5 | An answer no longer ends with `finish_reason: "length"` only because the next prompt piece might not fit. The piece gets shorter instead | `crowd` (small pool) |
+
+A test bug found on the way: `crowd` read the slot count before the model was loaded, so it skipped every check that needs several slots. It now loads the model first (20 checks, was 13).

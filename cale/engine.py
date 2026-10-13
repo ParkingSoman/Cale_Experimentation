@@ -21,6 +21,7 @@ Nothing else frees an explicit hold. Memory pressure never does.
 The monitor thread never touches the model while a request runs. It records what it wants
 (`want_cap`, `want_unload`, `want_resident`) and the change happens under the generation lock, between requests.
 """
+import contextlib
 import gc
 import math
 import threading
@@ -49,6 +50,11 @@ class GoalMissed(Exception):
     def __init__(self, message, info):
         super().__init__(message)
         self.info = info
+
+
+class Defer(Exception):
+    """Batched path only: the goals cannot be met yet and the app said `wait`. The scheduler tries this request again a little later,
+    and the answers that are already running go on meanwhile."""
 
 
 class Unsafe(Exception):
@@ -292,7 +298,15 @@ class Engine(BatchMixin):
     def hold(self, app, spec):
         """Keep a size in RAM for `app`. spec: {"size_pct": n} or {"memory_pct": n, "on_miss": "smallest"|"refuse"}.
         Returns (hold id, event that is set when the hold ends, info). Raises GoalMissed."""
-        with self.lock:
+        with self.mu:
+            self.holds_waiting = getattr(self, "holds_waiting", 0) + 1       # answers that run in a burst let this hold in first
+        try:
+            self.lock.acquire()
+        finally:
+            with self.mu:
+                self.holds_waiting -= 1
+        with contextlib.ExitStack() as _x:
+            _x.callback(self.lock.release)
             self._apply_pending()
             if self.m is None:
                 self._load()
@@ -405,7 +419,7 @@ class Engine(BatchMixin):
                     self.implicit_last = time.time()
                 self._apply_pending()
 
-    def _plan_request(self, messages, max_tokens, explicit, size_pct, goal, waited, cancel, n_active=1, with_controller=False):
+    def _plan_request(self, messages, max_tokens, explicit, size_pct, goal, waited, cancel, n_active=1, with_controller=False, defer_since=None):
         """Everything decided before an answer starts: how long the prompt is, the context check, the size, the safety check.
         Returns (size, plan, max_tokens, goals, prompt tokens, expected answer tokens, closed-loop controller or None).
         Raises GoalMissed, Unsafe, ContextTooLong. `n_active`: how many answers share the step (the speed prediction is for that crowd)."""
@@ -428,7 +442,7 @@ class Engine(BatchMixin):
             pool = [l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)]
             lv = max(pool or [min(self.levels, key=lambda l: l["pct"])], key=lambda l: (l["pct"], l["mmlu_pt"]))
         else:
-            res = self._decide(goals, n_prompt, answer_tokens, waited, cap, cancel, pred)
+            res = self._decide(goals, n_prompt, answer_tokens, waited, cap, cancel, pred, defer_since)
             lv = res["row"]["level"]
             plan.update(goal_met=res["met"], unmet=res["unmet"], predicted=self._predicted(res["row"]))
             if with_controller and goals["min_tokens_per_s"] is not None:
@@ -485,7 +499,7 @@ class Engine(BatchMixin):
         return {**out, "goal_met": res["met"], "unmet": res["unmet"],
                 "chosen": {"size": res["row"]["level"]["id"], "size_pct": res["row"]["level"]["pct"], **self._predicted(res["row"])}}
 
-    def _decide(self, goals, n_prompt, answer_tokens, waited, cap, cancel=None, pred=None):
+    def _decide(self, goals, n_prompt, answer_tokens, waited, cap, cancel=None, pred=None, defer_since=None):
         """Choose a size for these goals. Applies on_miss: best_effort runs the best size, try also allows disk, refuse and wait raise GoalMissed."""
         power = oslayer.power_state() if goals["power"] == "light" else {}
         light = goals["power"] == "light" and bool(power.get("on_battery") or power.get("hot"))
@@ -498,6 +512,10 @@ class Engine(BatchMixin):
                 raise Unsafe("No size can run this call safely on this computer.", self._unsafe_info(res["rows"]))
             if res["met"] or goals["on_miss"] != "wait" or time.time() - t0 >= goals["max_wait_s"]:
                 break
+            if defer_since is not None:                          # the scheduler is waiting for us: give the lock back instead of sleeping on it
+                if time.time() - defer_since[0] >= goals["max_wait_s"]:
+                    break
+                raise Defer()
             if cancel:
                 cancel.check()                                  # the app left: stop waiting, let the next app have the lock
             time.sleep(0.5)
