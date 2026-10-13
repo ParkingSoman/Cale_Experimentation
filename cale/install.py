@@ -65,8 +65,8 @@ def choose_backend():
         if int(platform.mac_ver()[0].split(".")[0] or 0) < 14:
             die("Cale needs macOS 14 or newer.")
         return "mlx"
-    if a != "x86_64":
-        die(f"Cale does not support {oslayer.NAME} on {a} yet. It needs a 64-bit Intel or AMD computer (with AVX2).")
+    if a not in ("x86_64", "arm64"):
+        die(f"Cale does not support {oslayer.NAME} on {a} yet. It needs a 64-bit Intel, AMD or ARM computer.")
     return "llama"
 
 
@@ -127,7 +127,8 @@ def find_uv(home):
         if p and Path(p).exists():
             return str(p)
     triple = {("darwin", "arm64"): "aarch64-apple-darwin", ("linux", "x86_64"): "x86_64-unknown-linux-gnu",
-              ("win32", "x86_64"): "x86_64-pc-windows-msvc"}.get((sys.platform if sys.platform != "linux" else "linux", arch()))
+              ("linux", "arm64"): "aarch64-unknown-linux-gnu", ("win32", "x86_64"): "x86_64-pc-windows-msvc",
+              ("win32", "arm64"): "aarch64-pc-windows-msvc"}.get((sys.platform if sys.platform != "linux" else "linux", arch()))
     if not triple:
         die("uv is missing and has no download for this computer. Install uv from https://docs.astral.sh/uv/ and run again.")
     say("Getting uv (a small tool that sets up Python)")
@@ -276,7 +277,7 @@ def install_library(home):
             install_gpu_backend(home)
             return
     die(f"the {name} library for {key} was not found. Build it with llama/build.{'ps1' if oslayer.WIN else 'sh'} "
-        "and put it in llama/dist/" + key + "/, or set CALE_LIB_SRC.")
+        "(CALE_BACKENDS_DL=1 for the run-time-backend build) and put it in llama/dist/" + key + "/, or set CALE_LIB_SRC.")
 
 
 def install_gpu_backend(home):

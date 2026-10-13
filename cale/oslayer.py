@@ -57,11 +57,37 @@ def _win_memstatus():
     return s
 
 
+def _cgroup():
+    """(limit, used, reclaimable) in bytes if this Linux process runs under a memory limit (a container, a systemd unit), else None.
+    Cale must see the limit, not the computer's RAM: using memory it does not have means being killed."""
+    if not LINUX:
+        return None
+    for base, lim_f, use_f in (("/sys/fs/cgroup", "memory.max", "memory.current"), ("/sys/fs/cgroup/memory", "memory.limit_in_bytes", "memory.usage_in_bytes")):
+        try:
+            raw = Path(base, lim_f).read_text().strip()
+            if raw == "max":
+                return None
+            limit = int(raw)
+            if limit >= 1 << 60:
+                return None
+            used = int(Path(base, use_f).read_text())
+            reclaim = 0
+            for line in Path(base, "memory.stat").read_text().splitlines():
+                if line.split()[0] in ("inactive_file", "total_inactive_file"):
+                    reclaim = int(line.split()[1])
+            return limit, used, reclaim
+        except (OSError, ValueError, IndexError):
+            continue
+    return None
+
+
 def total_ram():
-    """Physical memory in bytes. On WSL this is what the Linux side can see."""
+    """Physical memory in bytes, or the memory limit of the container Cale runs in. On WSL this is what the Linux side can see."""
     if WIN:
         return int(_win_memstatus().ullTotalPhys)
-    return os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES")
+    total = os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES")
+    cg = _cgroup()
+    return min(total, cg[0]) if cg else total
 
 
 def available_ram():
@@ -69,9 +95,17 @@ def available_ram():
     if WIN:
         return int(_win_memstatus().ullAvailPhys)
     if LINUX:
+        host = None
         for line in Path("/proc/meminfo").read_text().splitlines():
             if line.startswith("MemAvailable:"):
-                return int(line.split()[1]) * 1024
+                host = int(line.split()[1]) * 1024
+        cg = _cgroup()
+        if cg:                                                     # under a limit: what the limit leaves, counting cache that can be given back
+            limit, used, reclaim = cg
+            room = max(0, limit - used + reclaim)
+            return min(host, room) if host is not None else room
+        if host is not None:
+            return host
     out = subprocess.run(["vm_stat"], capture_output=True, text=True).stdout          # macOS
     page = int(out.split("page size of")[1].split()[0])
     pages = 0

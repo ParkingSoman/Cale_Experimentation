@@ -19,7 +19,7 @@ Your app says what it needs. Cale picks the size that fits this computer.
 
 | | Mac | Windows | Linux |
 |---|---|---|---|
-| Needs | Apple silicon, macOS 14 or newer | 64-bit Intel or AMD with AVX2 | 64-bit Intel or AMD with AVX2 |
+| Needs | Apple silicon, macOS 14 or newer | 64-bit Intel or AMD (older ones without AVX2 run slower), or ARM64 | 64-bit Intel or AMD (older ones without AVX2 run slower), or ARM64 |
 | Engine | MLX on the GPU | llama.cpp on the CPU | llama.cpp on the CPU |
 | Model download | about 5.5 GB | about 4.4 GB | about 4.4 GB |
 | Starts | at login (LaunchAgent) | when an app needs it | when an app needs it |
