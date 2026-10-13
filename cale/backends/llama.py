@@ -137,6 +137,8 @@ class LlamaNested:
         self.threads = threads or default_threads()
         self.lib_path = lib_path
         self.lib, self.placement = cls._open(self.path, self.threads, n_ctx, lib_path)
+        # a GPU that holds no layers but reads long prompts (cale/backends/devices.py, way 2): prompt pieces must be big enough to pay for the copy
+        self.gpu_reads_prompts = "device=cpu" not in self.placement and "gpu_layers=0" in self.placement
         self.n_layers = self.lib.n_layers
         self.levels = [l for l in load_levels(self.n_layers) if min(l["skip"], default=99) >= facts.FIRST_SHARED]
         self.parts, self.layer_bytes, self.layer_read = [], [], []

@@ -12,6 +12,7 @@ monitor wait for the burst to end, as they did when answers ran one at a time.
 | A new answer starts when a slot is free, in the order it arrived | fair order |
 | Each answer's goals are checked as if `n` answers share the step | `BatchPred` below |
 """
+import os
 import queue
 import threading
 import time
@@ -27,6 +28,11 @@ PREFILL_MIN = 12
 STEP_SECONDS = 0.75         # a step that reads a prompt piece should take about this long, so the answers next to it keep moving
 CHECK_EVERY = 8             # steps between looks at the speed goals
 IDLE_POLL_S = 0.05
+# A GPU that reads prompts gets the weights of the model again for every piece, so a piece must be long to pay for that, and a piece under
+# OFFLOAD_MIN_BATCH tokens is not sent to the GPU at all (every ggml GPU backend uses 32). Next to answers that are running, pieces stay
+# short and stay on the CPU, so the answers keep moving. Alone, a piece is long: the app that leaves is then noticed after seconds, not one second.
+OFFLOAD_MIN_BATCH = 32
+GPU_PIECE = int(os.environ.get("CALE_GPU_PIECE", "512"))
 
 
 class BatchPred:
@@ -332,6 +338,8 @@ class BatchMixin:
         # alone about twice that. On a slow computer that is a few tokens, so an app that leaves is noticed quickly.
         secs = STEP_SECONDS if decoding else 2 * STEP_SECONDS
         budget = max(PREFILL_MIN, min(PREFILL_MAX, int(self.pred.prefill_tps(self.batch_level) * secs)))
+        if getattr(m, "gpu_reads_prompts", False):
+            budget = min(budget, OFFLOAD_MIN_BATCH - 1) if decoding else max(budget, GPU_PIECE)
         t = time.perf_counter()
         finished = m.step([r.stream for r in self.active], budget)
         dt = time.perf_counter() - t
