@@ -33,6 +33,8 @@ def main():
     check("all full after load", m.all_full() and m.ffn_bytes() == full)
     from nest.levels3n import KV_BYTES_PER_TOKEN
     allowance = 2.2e9 + m.max_context * KV_BYTES_PER_TOKEN      # the context (KV cache) is part of the base memory
+    if "device=cpu" not in str(getattr(m, "placement", "device=cpu")):
+        allowance += 0.6e9                                      # a GPU driver keeps memory of its own in this process (0.4 GB seen)
     check("the per-layer embedding table is not all in RAM (base under 2.2 GB plus the context)", base < allowance,
           f"{base / 1e9:.2f} GB, allowed {allowance / 1e9:.2f} GB")
     r = m.resident_now()
