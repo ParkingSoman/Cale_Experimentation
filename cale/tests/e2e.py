@@ -83,7 +83,7 @@ def main():
     check("unknown model -> 404", s == 404 and j["error"]["code"] == "model_not_found", j)
     s, j = http(base, "/v1/chat/completions", {"model": "gemma-3n:abc", "messages": [{"role": "user", "content": "hi"}]}, auth)
     check("bad size -> 400", s == 400, j)
-    s, j = http(base, "/v1/chat/completions", {"model": "gemma-3n", "messages": [{"role": "tool", "content": "x"}]}, auth)
+    s, j = http(base, "/v1/chat/completions", {"model": "gemma-3n", "messages": [{"role": "function", "content": "x"}]}, auth)
     check("unsupported role -> 400", s == 400, j)
     ok_msg = [{"role": "user", "content": "hi"}]
     for field, val in (("max_tokens", -1), ("max_tokens", "100"), ("max_tokens", 10**9), ("temperature", 5), ("temperature", float("nan"))):

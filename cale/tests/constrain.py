@@ -114,6 +114,28 @@ for bad in ({"type": "frog"}, {"enum": []}, {"anyOf": []}, "x"):
     except C.SchemaError:
         check(f"a bad schema is refused: {bad!r}", True)
 
+# --- limits and enums
+big = {"enum": [f"value-{i}" for i in range(300)]}
+check("an enum with 300 values: every value is possible, nothing else", all(C.check(big, json.dumps(f"value-{i}")) for i in (0, 63, 64, 150, 299)) and not C.check(big, '"value-300"'))
+TOO_BIG = (("an enum of 600 values", {"enum": list(range(600))}), ("33 alternatives", {"anyOf": [{"type": "integer"}] * 33}),
+           ("300 properties", {"type": "object", "properties": {f"p{i}": {} for i in range(300)}}),
+           ("a 70 KB schema", {"enum": ["x" * 100] * 500 + [{"a": "y" * 70000}]}),
+           ("more than 2000 parts", {"anyOf": [{"type": "object", "properties": {f"p{i}": {"type": "string"} for i in range(100)}} for _ in range(30)]}))
+for name, bad in TOO_BIG:
+    try:
+        C.Guide(bad)
+        check(f"too big is refused: {name}", False)
+    except C.SchemaError:
+        check(f"too big is refused: {name}", True)
+g = C.Guide({"type": "object", "properties": {"a": {"const": "zzzz"}}, "required": ["a"]})
+dead = 0
+for _ in range(C.MAX_WIDE + 2):
+    try:
+        C.next_token(lambda k: [(1, -1.0)], g, lambda i: "q", lambda i: False, 0.0, 1.0, random.Random(1))
+    except C.DeadEnd:
+        dead += 1
+check("the wide search runs only a few times per answer, then a dead end", g.wide_uses == C.MAX_WIDE and dead == C.MAX_WIDE + 2)
+
 # --- prefixes of valid documents are accepted at every step, and a token is accepted whole or not at all
 g = C.Guide(S)
 doc = '{"name":"Alice","age":30,"tags":["x"]}'

@@ -15,6 +15,13 @@ import json
 WS = " \n"
 MAX_WS = 2
 MAX_STATES = 64
+# Limits that keep one app's schema from making every token slow for everyone (the model is shared):
+MAX_SCHEMA_BYTES = 64_000       # size of one schema as JSON
+MAX_NODES = 2_000               # parts of one schema (properties, items, alternatives...)
+MAX_ENUM = 512                  # values in one enum
+MAX_ALTERNATIVES = 32           # branches of one anyOf / oneOf / type list
+MAX_PROPERTIES = 256            # properties of one object
+MAX_WIDE = 6                    # times one answer may fall back to the wide candidate search
 ESCAPES = '"\\/bfnrtu'
 
 
@@ -23,8 +30,15 @@ class SchemaError(ValueError):
 
 
 # ---- the schema, as nodes -------------------------------------------------------------------------------------------
-def node(schema, depth=0):
-    """A schema as a tuple. Kinds: any, obj, arr, str, num, int, bool, null, lit, alt."""
+def node(schema, depth=0, budget=None):
+    """A schema as a tuple. Kinds: any, obj, arr, str, num, int, lit, enum, alt. Raises SchemaError for a schema that is too big."""
+    if budget is None:
+        budget = [MAX_NODES]
+        if len(json.dumps(schema, default=str)) > MAX_SCHEMA_BYTES:
+            raise SchemaError(f"the schema is larger than {MAX_SCHEMA_BYTES} bytes")
+    budget[0] -= 1
+    if budget[0] < 0:
+        raise SchemaError(f"the schema has more than {MAX_NODES} parts")
     if depth > 24:
         raise SchemaError("the schema is nested too deeply")
     if schema is True or schema is None or schema == {}:
@@ -36,24 +50,32 @@ def node(schema, depth=0):
     if "enum" in schema:
         if not isinstance(schema["enum"], list) or not schema["enum"]:
             raise SchemaError("enum must be a non-empty list")
-        return ("alt", tuple(("lit", json.dumps(v, ensure_ascii=False, separators=(",", ":"))) for v in schema["enum"]))
+        if len(schema["enum"]) > MAX_ENUM:
+            raise SchemaError(f"an enum may have at most {MAX_ENUM} values")
+        return ("enum", tuple(dict.fromkeys(json.dumps(v, ensure_ascii=False, separators=(",", ":")) for v in schema["enum"])))
     for key in ("anyOf", "oneOf"):
         if key in schema:
             if not isinstance(schema[key], list) or not schema[key]:
                 raise SchemaError(f"{key} must be a non-empty list")
-            return ("alt", tuple(node(s, depth + 1) for s in schema[key]))
+            if len(schema[key]) > MAX_ALTERNATIVES:
+                raise SchemaError(f"{key} may have at most {MAX_ALTERNATIVES} branches")
+            return ("alt", tuple(node(x, depth + 1, budget) for x in schema[key]))
     t = schema.get("type")
     if isinstance(t, list):
-        return ("alt", tuple(node({**schema, "type": x}, depth + 1) for x in t))
+        if len(t) > MAX_ALTERNATIVES:
+            raise SchemaError(f"a type list may have at most {MAX_ALTERNATIVES} types")
+        return ("alt", tuple(node({**schema, "type": x}, depth + 1, budget) for x in t))
     if t == "object" or (t is None and "properties" in schema):
         props = schema.get("properties") or {}
+        if not isinstance(props, dict) or len(props) > MAX_PROPERTIES:
+            raise SchemaError(f"an object may have at most {MAX_PROPERTIES} properties")
         required = tuple(k for k in schema.get("required", []) if k in props)
         if any(k not in props for k in schema.get("required", [])) and schema.get("additionalProperties") is False:
             raise SchemaError("a required property is not in properties")
         extra = schema.get("additionalProperties") is True or (not props and schema.get("additionalProperties") is not False)
-        return ("obj", tuple((k, node(v, depth + 1)) for k, v in props.items()), required, extra)
+        return ("obj", tuple((k, node(v, depth + 1, budget)) for k, v in props.items()), required, extra)
     if t == "array":
-        return ("arr", node(schema.get("items", {}), depth + 1), int(schema.get("minItems", 0)), schema.get("maxItems"))
+        return ("arr", node(schema.get("items", {}), depth + 1, budget), int(schema.get("minItems", 0)), schema.get("maxItems"))
     if t == "string":
         return ("str", int(schema.get("minLength", 0)), schema.get("maxLength"))
     if t == "integer":
@@ -61,7 +83,7 @@ def node(schema, depth=0):
     if t == "number":
         return ("num",)
     if t == "boolean":
-        return ("alt", (("lit", "true"), ("lit", "false")))
+        return ("enum", ("true", "false"))
     if t == "null":
         return ("lit", "null")
     if t is None:
@@ -73,6 +95,7 @@ def node(schema, depth=0):
 # frames:
 #   ("value", node, ws)                      a value of this schema is expected (ws = blanks seen so far in this gap)
 #   ("lit", text, pos)                       inside a literal, `pos` characters matched
+#   ("enumv", texts, pos)                    inside one of several literals: `texts` are those that still match the first `pos` characters
 #   ("str", minlen, maxlen, n, esc)          inside a string: n characters so far, esc = "" | "\\" | "u0".."u3" (hex digits left)
 #   ("key", props, seen, text, extra)        inside an object key
 #   ("num", integer, text)                   inside a number
@@ -81,8 +104,8 @@ def node(schema, depth=0):
 #   ("obj_next", node, seen, ws)             after a value: ',' or '}'
 #   ("arr_open", node, count, ws)            after '[': a value or ']'
 #   ("arr_next", node, count, ws)            after a value: ',' or ']'
-def start(schema=None, object_only=False):
-    n = ("anyobj",) if (object_only and (schema is None or schema == {})) else node(schema)
+def start(schema=None, object_only=False, budget=MAX_NODES):
+    n = ("anyobj",) if (object_only and (schema is None or schema == {})) else node(schema, 0, [budget] if budget != MAX_NODES else None)
     return [(("value", n, 0),)]
 
 
@@ -131,6 +154,16 @@ def step(stack, ch):
         if pos + 1 < len(text):
             return [stack[:-1] + (("lit", text, pos + 1),)]
         return [_complete(stack[:-1])]
+    if kind == "enumv":
+        _, texts, pos = top
+        left = tuple(t for t in texts if len(t) > pos and t[pos] == ch)
+        out = []
+        if any(len(t) == pos + 1 for t in left):                                   # a value ends here
+            out.append(_complete(stack[:-1]))
+        longer = tuple(t for t in left if len(t) > pos + 1)
+        if longer:                                                                  # ... and others go on
+            out.append(stack[:-1] + (("enumv", longer, pos + 1),))
+        return out
     if kind == "str":
         return _step_str(stack, top, ch)
     if kind == "key":
@@ -240,6 +273,8 @@ def _step_value(stack, top, ch):
     if kind in ("num", "int"):
         nxt = _num_step("", ch, kind == "int")
         return [base + (("num", kind == "int", nxt),)] if nxt is not None else []
+    if kind == "enum":
+        return step(base + (("enumv", n[1], 0),), ch)
     if kind == "lit":
         if ch != n[1][0]:
             return []
@@ -291,9 +326,10 @@ def _step_key(stack, top, ch):
 class Guide:
     """The text so far, as the set of states it may be in. `accepts(piece)` tests a token. `feed(piece)` takes it."""
 
-    def __init__(self, schema=None, object_only=False, states=None, text=""):
-        self.states = states if states is not None else start(schema, object_only)
+    def __init__(self, schema=None, object_only=False, states=None, text="", budget=MAX_NODES):
+        self.states = states if states is not None else start(schema, object_only, budget)
         self.text = text
+        self.wide_uses = 0                                                  # how often the expensive wide search was needed
 
     def _run(self, piece):
         states = self.states
@@ -340,6 +376,19 @@ def check(schema, text):
 # ---- choosing a token ---------------------------------------------------------------------------------------------
 K_FIRST = 64        # candidates looked at first. Almost always one of them fits.
 K_WIDE = 4096       # if none fits, look at many more before giving up
+
+
+def next_token(candidates, guide, text_of, is_eog, temperature, top_p, rng):
+    """The next token for a guided answer. `candidates(k)` gives the k most likely [(id, log-probability)].
+    First K_FIRST are tried; if none fits, K_WIDE, but at most MAX_WIDE times per answer (it is slow: a strict schema must not stall everyone).
+    Returns (id, text or None). Raises DeadEnd."""
+    pick = choose_token(candidates(K_FIRST), guide, text_of, is_eog, temperature, top_p, rng)
+    if pick is None and guide.wide_uses < MAX_WIDE:
+        guide.wide_uses += 1
+        pick = choose_token(candidates(K_WIDE), guide, text_of, is_eog, temperature, top_p, rng)
+    if pick is None:
+        raise DeadEnd("no token of this model can continue a valid answer")
+    return pick
 
 
 class DeadEnd(RuntimeError):

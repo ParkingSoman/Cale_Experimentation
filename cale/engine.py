@@ -390,7 +390,7 @@ class Engine:
                     self.debug_fail = False
                     raise RuntimeError("debug: injected engine failure")
                 for ev in self.m.chat_stream(messages, max_tokens=max_tokens, width=lv, temperature=temperature,
-                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel, controller=controller, guide=guide):
+                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel, controller=controller, guide=guide, owner=app):
                     if "done" in ev:
                         d = ev["done"]
                         d["waited_s"] = round(waited, 3)

@@ -43,6 +43,8 @@ Send the key as `Authorization: Bearer KEY` on every other call. Keep the key. D
 | `top_p` | 0 to 1. Default 1. |
 | `seed` | an integer. The same seed, prompt and settings give the same answer. Without a seed, each call differs when `temperature` is above 0. |
 | `stop` | a string, or a list of up to 4 strings. The answer ends before the first match. `finish_reason` is `stop`. |
+| `tools`, `tool_choice`, `parallel_tool_calls` | function tools, as in the OpenAI API (see "Tools" below) |
+| `response_format` | `text`, `json_object` or `json_schema` (see "Structured output" below) |
 | `cale_min_tokens_per_s`, `cale_max_first_token_s`, `cale_memory_pct`, `cale_min_quality`, `cale_power`, `cale_priority`, `cale_on_miss`, `cale_max_wait_s`, `cale_allow_disk` | goals, only with `gemma-3n:auto` (see section 4) |
 | `user`, `stream_options`, `store`, `metadata` | accepted. They change nothing. |
 
@@ -50,9 +52,46 @@ Cale never ignores a field in silence.
 
 | You send | Cale answers |
 |---|---|
-| `tools`, `tool_choice`, `response_format` (other than `text`), `n` above 1, penalties other than 0, images | `400 unsupported_parameter`. The `param` field names it. These are planned, not available yet. |
+| `functions`, `function_call`, `logprobs`, `n` above 1, penalties other than 0, images, audio | `400 unsupported_parameter`. The `param` field names it. These are planned, not available yet. |
 | a field Cale has never heard of | `400 unknown_parameter` |
 | a bad value | `400 invalid_...` with the field name in `param` |
+
+### Structured output
+
+| `response_format` | What you get |
+|---|---|
+| `{"type": "text"}` or none | plain text |
+| `{"type": "json_object"}` | one JSON object |
+| `{"type": "json_schema", "json_schema": {"name": "...", "schema": {...}}}` | one JSON value that fits the schema |
+
+This is not a request to the model. Cale checks every token as it is chosen, so the answer is always valid JSON that fits the schema,
+on every computer and at every size. If `max_tokens` cuts the answer short, `finish_reason` is `length` and the JSON is incomplete.
+Supported schema keywords: `type` (also a list), `properties`, `required`, `additionalProperties`, `items`, `minItems`, `maxItems`,
+`enum`, `const`, `anyOf`, `oneOf`, `minLength`, `maxLength`. An object with `properties` takes only those keys unless
+`additionalProperties` is `true`. At most 2 blank characters between tokens. A schema Cale cannot use gets `400 invalid_schema`.
+A very strict schema that the model's tokens cannot spell gets `422 constraint_dead_end`.
+
+### Tools
+
+`tools` and `tool_choice` work as in the OpenAI API. Gemma 3n has no built-in tool calling: Cale shows the tools to the model in the prompt and
+checks the answer.
+
+| `tool_choice` | What happens |
+|---|---|
+| `"auto"` (default with `tools`) | The model decides. A tool call comes back as `tool_calls` with `finish_reason: "tool_calls"`. If the model tried to call a tool and got it wrong, Cale asks again with the answer guided to a valid call. |
+| `"required"` | Always a valid tool call, whatever the user wrote |
+| `{"type": "function", "function": {"name": "..."}}` | A valid call to that tool |
+| `"none"` | Tools are not shown to the model |
+
+Every `arguments` string fits the tool's `parameters` schema. `parallel_tool_calls: false` allows one call. Send the result back as a
+`tool` message with the `tool_call_id`; an assistant message may carry its `tool_calls`. A streamed answer with tools arrives at the end
+of the work (Cale must read the whole answer to know if it is a tool call), in OpenAI's chunk shape.
+You cannot send `tools` and `response_format` in one call yet.
+
+### Prompt cache
+
+A chat that grows by a turn does not read its history again. `usage.prompt_tokens_details.cached_tokens` says how many prompt tokens were reused.
+It works when the new prompt starts with the previous prompt and the size is the same. One conversation is kept at a time.
 
 ### Context limit
 

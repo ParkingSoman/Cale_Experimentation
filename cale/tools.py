@@ -49,6 +49,8 @@ def parse_tools(tools):
         params = f.get("parameters") or {"type": "object", "properties": {}}
         try:
             constrain.node(params)
+            if len(json.dumps(params, default=str)) > 16_000:
+                raise constrain.SchemaError("the parameters are larger than 16000 bytes")
         except constrain.SchemaError as e:
             raise ToolError("invalid_tools", f"The parameters of '{name}' are not a schema Cale can use: {e}", "tools")
         out.append({"name": name, "description": str(f.get("description") or "")[:600], "parameters": params})
@@ -180,7 +182,7 @@ def tool_guide(tools, choice, parallel=True):
     schema = {"type": "object", "properties": {"tool_calls": {"type": "array", "minItems": 1, **({} if parallel else {"maxItems": 1}),
                                                               "items": items[0] if len(items) == 1 else {"anyOf": items}}},
               "required": ["tool_calls"]}
-    return constrain.Guide(schema)
+    return constrain.Guide(schema, budget=constrain.MAX_NODES * 8)
 
 
 # ---- reading the answer -----------------------------------------------------------------------------------------------

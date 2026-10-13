@@ -41,7 +41,7 @@ q1 = {"role": "user", "content": "What is Fact 3?"}
 
 s, r1 = chat(key, [sys_msg, q1])
 u1 = r1["usage"]
-check("first call: next to nothing cached (only the start every chat shares)", s == 200 and u1["prompt_tokens_details"]["cached_tokens"] <= 8, u1)
+check("first call: nothing cached", s == 200 and u1["prompt_tokens_details"]["cached_tokens"] == 0, u1)
 a1 = r1["choices"][0]["message"]["content"]
 turn2 = [sys_msg, q1, {"role": "assistant", "content": a1}, {"role": "user", "content": "And what is Fact 4?"}]
 s, r2 = chat(key, turn2)
@@ -53,15 +53,23 @@ a2 = r2["choices"][0]["message"]["content"]
 # the answer must be the same as without the cache: break the cache with an unrelated call, then ask the same turn again
 chat(key, [{"role": "user", "content": "Say hi."}])
 s, r3 = chat(key, turn2)
-check("after another conversation: next to nothing cached", r3["usage"]["prompt_tokens_details"]["cached_tokens"] <= 8, r3["usage"])
+check("after another conversation: nothing cached", r3["usage"]["prompt_tokens_details"]["cached_tokens"] == 0, r3["usage"])
 a3 = r3["choices"][0]["message"]["content"]
 check("the answer with the cache equals the answer without it", a2.strip()[:40] == a3.strip()[:40], (a2, a3))
 
 # the cache is kept per size: another size starts again
 s, r4 = chat(key, turn2, model="gemma-3n:fast")
-check("a different size does not use the cache", r4["usage"]["prompt_tokens_details"]["cached_tokens"] <= 8, r4["usage"])
+check("a different size does not use the cache", r4["usage"]["prompt_tokens_details"]["cached_tokens"] == 0, r4["usage"])
 s, r5 = chat(key, turn2 + [{"role": "assistant", "content": "x"}, {"role": "user", "content": "ok"}], model="gemma-3n:fast")
 check("...and builds its own", r5["usage"]["prompt_tokens_details"]["cached_tokens"] > 0, r5["usage"])
+
+# one app never benefits from, or learns about, another app's conversation
+key_b = call("/cale/connect", {"app": "Cache Test B"})[1]["api_key"]
+chat(key, [sys_msg, q1])
+s, rb = chat(key_b, [sys_msg, q1, {"role": "assistant", "content": a1}, {"role": "user", "content": "And what is Fact 4?"}])
+check("another app with the same start gets nothing from the cache (and learns nothing)", s == 200 and rb["usage"]["prompt_tokens_details"]["cached_tokens"] == 0, rb["usage"])
+s, ra = chat(key, [sys_msg, q1])
+check("the first app's cache was replaced by the other app's work: it starts again, correctly", s == 200 and ra["usage"]["prompt_tokens_details"]["cached_tokens"] == 0, ra["usage"])
 
 # a changed history is not reused wrongly
 changed = [{"role": "system", "content": "You answer questions about this document. " + DOC.replace("Fact 1:", "Item 1:")}, q1]

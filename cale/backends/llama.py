@@ -61,6 +61,7 @@ class LlamaNested:
         self = cls()
         self.path = str(find_gguf(path))
         self._kv_level = None                  # the size the key/value memory was made at, when it holds a conversation worth reusing
+        self._kv_owner = None                  # the app that conversation belongs to: only that app may reuse it
         self.threads = threads or default_threads()
         self.lib_path = lib_path
         self.lib, self.placement = cls._open(self.path, self.threads, n_ctx, lib_path)
@@ -268,20 +269,20 @@ class LlamaNested:
         """Stop the prompt or answer in progress. Safe to call from another thread."""
         self.lib.cancel()
 
-    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None):
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None, owner=None):
         """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
         If the size needs FFN weights that are not in RAM, they are read first and freed after the call."""
         lv = self.resolve(width) if width is not None else self.level
         read, read_s = self.ensure(lv)
         try:
-            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel, controller, guide):
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel, controller, guide, owner):
                 if "done" in ev:
                     ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
                 yield ev
         finally:
             self.settle()
 
-    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None):
+    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None, controller=None, guide=None, owner=None):
         sw = self.set(width)
         start_tier, switches = self.level["id"], []
         ids = self.prompt_ids(messages)
@@ -296,7 +297,7 @@ class LlamaNested:
             if not self.lib.has_guided:
                 raise RuntimeError("this engine library cannot guide output: rebuild it with llama/build")
             gstate = {"guide": guide, "pending": None, "t": temperature, "p": top_p, "rng": random.Random(seed)}
-        reuse = self._kv_level == self.level["id"]
+        reuse = owner is not None and self._kv_owner == owner and self._kv_level == self.level["id"]      # never across apps: that would tell one app about another's prompts
         self._kv_level = None                                       # until this answer ends cleanly, the memory is not known to match
         self.lib.begin(ids, temperature, seed=seed, top_p=top_p, reuse=reuse)
         cached = self.lib.reused
@@ -339,7 +340,7 @@ class LlamaNested:
         end = time.perf_counter()
         t_first = t_first or end
         if not switches:
-            self._kv_level = self.level["id"]                        # the memory holds this conversation at this size: the next turn can reuse it
+            self._kv_level, self._kv_owner = self.level["id"], owner  # the memory holds this app's conversation at this size: its next turn can reuse it
         yield {"done": {"tier": self.level["id"], "start_tier": start_tier, "switches": switches, "size_pct": self.level["pct"],
                         "switch_ms": round(sw, 1), "seconds": round(end - t0, 3), "first_token_s": round(t_first - t0, 3),
                         "decode_s": round(end - t_first, 3), "prompt_tokens": len(ids), "cached_tokens": cached,
@@ -360,12 +361,7 @@ class LlamaNested:
         if g["pending"] is not None:
             self.lib.accept(g["pending"])
             g["pending"] = None
-        for k in (constrain.K_FIRST, constrain.K_WIDE):
-            pick = constrain.choose_token(self.lib.topk(k), g["guide"], self._text, self.lib.is_eog, g["t"], g["p"], g["rng"])
-            if pick:
-                break
-        else:
-            raise constrain.DeadEnd("no token of this model can continue a valid answer")
+        pick = constrain.next_token(self.lib.topk, g["guide"], self._text, self.lib.is_eog, g["t"], g["p"], g["rng"])
         tid, text = pick
         if text is not None:
             g["guide"].feed(text)
