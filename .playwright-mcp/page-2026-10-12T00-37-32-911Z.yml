@@ -1,0 +1,126 @@
+- generic [ref=f6e4]:
+  - generic [ref=f6e5]:
+    - link "Skip to main content" [ref=f6e6] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic [ref=f6e8]:
+      - navigation "Chat history" [ref=f6e9]:
+        - button [ref=f6e10]:
+          - button "Open Sidebar" [ref=f6e13]
+          - generic [ref=f6e15]:
+            - link "New Chat" [ref=f6e18] [cursor=pointer]:
+              - /url: /
+            - button "Search" [ref=f6e24] [cursor=pointer]
+            - link "Notes" [ref=f6e31] [cursor=pointer]:
+              - /url: /notes
+            - link "Workspace" [ref=f6e38] [cursor=pointer]:
+              - /url: /workspace
+        - button [ref=f6e48] [cursor=pointer]:
+          - button "User menu" [ref=f6e49]:
+            - img "Open User Profile Menu" [ref=f6e51]
+      - generic:
+        - generic:
+          - link:
+            - /url: /
+          - link:
+            - /url: /
+            - generic: Open WebUI
+          - generic:
+            - button
+        - generic:
+          - generic:
+            - generic:
+              - link:
+                - /url: /
+                - generic: New Chat
+                - generic: ⌘⇧O
+            - generic:
+              - button:
+                - generic: Search
+                - generic: ⌘K
+            - generic:
+              - generic:
+                - link:
+                  - /url: /notes
+                  - generic: Notes
+              - generic:
+                - link:
+                  - /url: /workspace
+                  - generic: Workspace
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button:
+                        - generic: Folders
+                      - button
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button [expanded]:
+                        - generic: Chats
+                      - generic:
+                        - button:
+                          - generic:
+                            - button
+        - generic:
+          - generic:
+            - button:
+              - button:
+                - generic: User
+      - main [ref=f6e55]:
+        - generic [ref=f6e59]:
+          - navigation [ref=f6e60]:
+            - generic [ref=f6e65]:
+              - button "Temporary Chat" [ref=f6e67] [cursor=pointer]
+              - button "Controls" [ref=f6e71] [cursor=pointer]
+          - generic [ref=f6e74]:
+            - region [ref=f6e6333]:
+              - heading "Chat Conversation" [level=2] [ref=f6e6334]
+              - log [ref=f6e6335]:
+                - listitem [ref=f6e6336]:
+                  - generic [ref=f6e6339]:
+                    - paragraph [ref=f6e6344]: In two sentences, why is the sky blue?
+                    - generic [ref=f6e6345]:
+                      - generic [ref=f6e6346]:
+                        - time: Oct 11, 8:36 PM
+                      - generic [ref=f6e6347]:
+                        - button "Edit"
+                      - generic [ref=f6e6348]:
+                        - button "Copy"
+                - listitem [ref=f6e6349]:
+                  - generic [ref=f6e6353]:
+                    - generic [ref=f6e6354]: answers
+                    - generic [ref=f6e6357]:
+                      - generic [ref=f6e6358]: Failed to fetch
+                      - generic [ref=f6e6414]:
+                        - button "Edit" [ref=f6e6416] [cursor=pointer]
+                        - button "Copy" [ref=f6e6420] [cursor=pointer]
+                        - button "Read Aloud" [ref=f6e6424] [cursor=pointer]
+                        - button "Good Response" [ref=f6e6428] [cursor=pointer]
+                        - button "Bad Response" [ref=f6e6432] [cursor=pointer]
+                        - button "Continue Response" [ref=f6e6436] [cursor=pointer]
+                        - button [ref=f6e6440] [cursor=pointer]:
+                          - button "Regenerate" [ref=f6e6442]
+                        - button "Fork chat" [ref=f6e6446] [cursor=pointer]
+                        - generic [ref=f6e6452]:
+                          - time: Oct 11, 8:36 PM
+            - generic [ref=f6e6370]:
+              - generic "Send a Message" [active] [ref=f6e6374]:
+                - paragraph [ref=f6e6375]: Send a Message
+              - generic [ref=f6e6376]:
+                - generic [ref=f6e6377]:
+                  - button [ref=f6e6378] [cursor=pointer]:
+                    - button "More" [ref=f6e6380]
+                  - button [ref=f6e6385] [cursor=pointer]:
+                    - button "Integrations" [ref=f6e6387]
+                - generic [ref=f6e6393]:
+                  - 'button "Selected model: answers" [ref=f6e6400] [cursor=pointer]':
+                    - generic [ref=f6e6401]: answers
+                  - button "Voice Input" [ref=f6e6454] [cursor=pointer]
+                  - button "Voice mode" [ref=f6e6460] [cursor=pointer]
+  - generic: "Cale on this computer · answers: ready · tasks: ready"

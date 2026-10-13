@@ -1,0 +1,177 @@
+- generic [ref=f1e2]:
+  - link "Skip to main content" [ref=f1e3] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=f1e5]:
+    - navigation "Chat history" [ref=f1e6]:
+      - button [ref=f1e7]:
+        - button "Open Sidebar" [ref=f1e10]
+        - generic [ref=f1e12]:
+          - link "New Chat" [ref=f1e15] [cursor=pointer]:
+            - /url: /
+          - button "Search" [ref=f1e21] [cursor=pointer]
+          - link "Notes" [ref=f1e28] [cursor=pointer]:
+            - /url: /notes
+          - link "Workspace" [ref=f1e35] [cursor=pointer]:
+            - /url: /workspace
+      - button [ref=f1e45] [cursor=pointer]:
+        - button "User menu" [ref=f1e46]:
+          - img "Open User Profile Menu" [ref=f1e48]
+    - generic:
+      - generic:
+        - link:
+          - /url: /
+        - link:
+          - /url: /
+          - generic: Open WebUI
+        - generic:
+          - button
+      - generic:
+        - generic:
+          - generic:
+            - link:
+              - /url: /
+              - generic: New Chat
+              - generic: ⌘⇧O
+          - generic:
+            - button:
+              - generic: Search
+              - generic: ⌘K
+          - generic:
+            - generic:
+              - link:
+                - /url: /notes
+                - generic: Notes
+            - generic:
+              - link:
+                - /url: /workspace
+                - generic: Workspace
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button:
+                      - generic: Folders
+                    - button
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button [expanded]:
+                      - generic: Chats
+                    - generic:
+                      - button:
+                        - generic:
+                          - button
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Today
+                    - generic:
+                      - button:
+                        - generic: Cooking Tips
+                      - generic:
+                        - generic:
+                          - button:
+                            - generic:
+                              - button
+      - generic:
+        - generic:
+          - button:
+            - button:
+              - generic: User
+    - main [ref=f1e52]:
+      - generic [ref=f1e56]:
+        - navigation [ref=f1e57]:
+          - generic [ref=f1e60]:
+            - generic [ref=f1e6320]:
+              - generic [ref=f1e6321]: Cooking Tips
+              - button [ref=f1e6322] [cursor=pointer]:
+                - button "Chat actions" [ref=f1e6323]
+            - button "Controls" [ref=f1e68] [cursor=pointer]
+        - generic [ref=f1e71]:
+          - region [ref=f1e6330]:
+            - heading "Chat Conversation" [level=2] [ref=f1e6331]
+            - log [ref=f1e6332]:
+              - listitem [ref=f1e6333]:
+                - generic [ref=f1e6336]:
+                  - paragraph [ref=f1e6341]: Give me three tips for learning to cook.
+                  - generic [ref=f1e6342]:
+                    - generic [ref=f1e6343]:
+                      - time: Oct 9, 2:23 PM
+                    - generic [ref=f1e6344]:
+                      - button "Edit"
+                    - generic [ref=f1e6345]:
+                      - button "Copy"
+              - listitem [ref=f1e6346]:
+                - generic [ref=f1e6350]:
+                  - generic [ref=f1e6351]: gemma-3n:smart
+                  - generic [ref=f1e6354]:
+                    - generic [ref=f1e6408]:
+                      - paragraph [ref=f1e6409]: "Here are three tips for learning to cook, focusing on practical and effective approaches:"
+                      - list [ref=f1e6410]:
+                        - listitem [ref=f1e6411]:
+                          - paragraph [ref=f1e6412]:
+                            - strong [ref=f1e6413]: "Start with a Few Basic Recipes & Master Them:"
+                            - text: Don't try to tackle complicated dishes right away! Pick 2-3 simple recipes (like scrambled eggs, pasta with tomato sauce, or a simple stir-fry) and focus on perfecting them. Repetition builds confidence and helps you understand techniques. Focus on understanding
+                            - emphasis [ref=f1e6414]: why
+                            - text: you're doing each step, not just blindly following instructions.
+                        - listitem [ref=f1e6415]:
+                          - paragraph [ref=f1e6416]:
+                            - strong [ref=f1e6417]:
+                              - text: Read the Recipe
+                              - emphasis [ref=f1e6418]: Before
+                              - text: "You Start:"
+                            - text: This seems obvious, but it's crucial. Read the entire recipe from start to finish
+                            - emphasis [ref=f1e6419]: before
+                            - text: you even get your ingredients out. This helps you understand the process, identify any unfamiliar terms, and ensures you have all the necessary equipment. It prevents mid-cooking surprises and frustration.
+                        - listitem [ref=f1e6420]:
+                          - paragraph [ref=f1e6421]:
+                            - strong [ref=f1e6422]: "Don't Be Afraid to Experiment & Learn from Mistakes:"
+                            - text: Cooking is a learning process! You
+                            - emphasis [ref=f1e6423]: will
+                            - text: make mistakes – it's part of it. Don't be discouraged if something doesn't turn out perfectly the first time. Analyze what went wrong (too salty? not enough heat?) and try again, adjusting your approach. And most importantly
+                    - generic [ref=f1e6424]:
+                      - button "Edit" [ref=f1e6426] [cursor=pointer]
+                      - button "Copy" [ref=f1e6430] [cursor=pointer]
+                      - button "Read Aloud" [ref=f1e6434] [cursor=pointer]
+                      - button [aria-hidden] [ref=f1e6438] [cursor=pointer]
+                      - button "Good Response" [ref=f1e6442] [cursor=pointer]
+                      - button "Bad Response" [ref=f1e6446] [cursor=pointer]
+                      - button "Continue Response" [ref=f1e6450] [cursor=pointer]
+                      - button [ref=f1e6454] [cursor=pointer]:
+                        - button "Regenerate" [ref=f1e6456]
+                      - button "Fork chat" [ref=f1e6460] [cursor=pointer]
+                      - time [ref=f1e6467]: Oct 9, 2:23 PM
+                    - generic [ref=f1e6469]:
+                      - generic [ref=f1e6470]: Follow up
+                      - generic [ref=f1e6471]:
+                        - 'button "Follow up: What are some good resources for finding beginner-friendly recipes?" [ref=f1e6473] [cursor=pointer]':
+                          - generic [ref=f1e6474]: What are some good resources for finding beginner-friendly recipes?
+                        - separator [ref=f1e6475]
+                        - 'button "Follow up: Could you elaborate on how to properly measure ingredients?" [ref=f1e6477] [cursor=pointer]':
+                          - generic [ref=f1e6478]: Could you elaborate on how to properly measure ingredients?
+                        - separator [ref=f1e6479]
+                        - 'button "Follow up: Are there any common cooking mistakes I should be aware of?" [ref=f1e6481] [cursor=pointer]':
+                          - generic [ref=f1e6482]: Are there any common cooking mistakes I should be aware of?
+                        - separator [ref=f1e6483]
+                        - 'button "Follow up: What''s the best way to keep a cooking journal to track my progress?" [ref=f1e6485] [cursor=pointer]':
+                          - generic [ref=f1e6486]: What's the best way to keep a cooking journal to track my progress?
+          - generic [ref=f1e6367]:
+            - generic "Send a Message" [active] [ref=f1e6371]:
+              - paragraph [ref=f1e6487]: What are some good resources for finding beginner-friendly recipes?
+            - generic [ref=f1e6373]:
+              - generic [ref=f1e6374]:
+                - button [ref=f1e6375] [cursor=pointer]:
+                  - button "More" [ref=f1e6377]
+                - button [ref=f1e6382] [cursor=pointer]:
+                  - button "Integrations" [ref=f1e6384]
+              - generic [ref=f1e6390]:
+                - 'button "Selected model: gemma-3n:smart" [ref=f1e6397] [cursor=pointer]':
+                  - generic [ref=f1e6398]: gemma-3n:smart
+                - button "Voice Input" [ref=f1e6489] [cursor=pointer]
+                - button "Voice mode" [ref=f1e6495] [cursor=pointer]

@@ -1,0 +1,4 @@
+- generic [ref=f5e5]:
+  - heading "Use AI that runs on this Mac" [level=2] [ref=f5e6]
+  - paragraph [ref=f5e7]: Cale keeps one AI model on your computer. You download it once. Every app that uses Cale shares it, so the next app needs no download.
+  - button "Get Cale (about 5.5 GB)" [ref=f5e8] [cursor=pointer]
