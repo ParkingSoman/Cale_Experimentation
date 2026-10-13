@@ -770,3 +770,31 @@ Cause: with a GPU backend loaded, CPU weights go in the GPU's host buffer. That 
 Still a trade-off: repacked weights cannot be offloaded to the GPU for prompts (`repack.cpp`: `is_host = nullptr`, `get_tensor = nullptr`; scheduler offload rule at `ggml-backend.cpp:1113`).
 Device numbers swapped after the Intel driver update (Vulkan0 was the MX150 before, the Intel after). gpu5 labels "intel"/"nvidia" are reversed for runs M and N. Select devices by properties, never by index.
 The Intel driver changed on the HP: 24.20.100.6344 (2018) to 31.0.101.2145. Installer exit code 1000, then a restart. The NVIDIA driver is still 472.19 (2021), CUDA not tested.
+
+## Phase 6 stage 2b, part 2: GPU backends load at run time, and the width patch works on a CPU/GPU split (2026-10-13)
+
+What was built: `llama/CMakeLists.txt` option `CALE_BACKENDS_DL=ON` (CPU variants for every instruction set plus GPU backends as separate libraries, found next to `cale_llama`). `llama/shim/cale_llama.cpp`: `cale_devices` (devices listed by type, name, memory), `cale_load_dev` (device, layer count or llama.cpp's own fit, `no_host`), `cale_placement`. `cale/backends/llamalib.py`: `devices()` and the same options on `Lib`. The official Windows `ggml-vulkan.dll` (built with MSVC) loads into our MinGW build: no Vulkan SDK was needed on the HP.
+
+**A bug the GPU exposed in our width patch.** With part of the model on a GPU, every size smaller than full crashed (null function pointer). Cause: a size is a view of a weight, and a view has no memory yet when the scheduler picks a device. So the operation using it was not pinned to the weight's device. The scheduler then copied a view of a *repacked* weight to the GPU, and a repacked weight cannot be read back (`get_tensor` is null). Found with a crash trace in the shim (`CALE_CRASH_TRACE=1`, `scripts/resolve_crash_offsets.py`). Fix: `ggml/src/ggml-backend.cpp` in the patch now looks through a view to the weight it views. A first fix (setting the view's memory by hand) broke the CPU: it skipped the step that prepares a repacked view, and gave `nan`. Kept only as a lesson.
+
+Check: `scripts/gpu_check.py` (HP Windows, `.cale.gguf`, 178-token prompt, 4 threads, tokens/s):
+
+| Setup | Size | Quality (NLL) | Prompt | Answer |
+|---|---|---|---|---|
+| CPU | e4b / e2.49 / e2b | 0.918 / 1.003 / 1.011 | 15.9 / 25.0 / 30.4 | 6.5 / 9.5 / 11.8 |
+| Intel iGPU, everything on it | e4b / e2.49 / e2b | 0.916 / 1.011 / 1.012 | 10.3 / 15.7 / 19.8 | 4.1 / 5.7 / 6.6 |
+| MX150, fit chose 13 layers | e4b / e2.49 / e2b | 0.918 / 0.999 / 1.007 | 21.0 / 20.1 / 28.5 | 6.7 / 4.0 / 3.8 |
+
+Quality matches the CPU within 0.004 everywhere. **But speed is not right yet:** on the MX150 the fit is made for the full size. Smaller sizes skip layers 20-24, which sit on the GPU, so the answer gets 2.5-3x slower than the CPU (4.0 and 3.8 against 9.5 and 11.8). The Intel iGPU is slower than the CPU at every size. So a placement must be chosen per size, by measured or predicted speed, and "GPU used" cannot be a load-time decision alone. This is now a stage 2b item.
+
+**The HP link.** Findings and changes:
+
+| Finding | Evidence | Change |
+|---|---|---|
+| The network path is fine | Tailscale direct, 6 ms | none |
+| The laptop stalls for tens of seconds when a model loads (347,000 page reads per second) | HP monitor log vs ssh log, 39 s hang at 00:49 | jobs run at BelowNormal priority (`scripts/hp`) |
+| A shared ssh connection dies silently and the next call waits 50 s | `read from master failed` | no shared connection. `~/.ssh/config`: probe every 5 s, give up after 20 s. A fresh login is 0.5 s |
+| A failed connection looked like "link down" | `hssh` gave up at once | `hssh` retries 4 times when ssh exits 255 |
+| The Wi-Fi card may be turned off by Windows | `PnPCapabilities` was 16 | set to 24, adapter restarted |
+
+After the changes, ssh calls during a run with three model loads: 30 took 1 s, 9 took under 1 s, 1 took 2 s, none failed.

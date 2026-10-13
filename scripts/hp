@@ -16,9 +16,20 @@ J='C:\cale\jobs'          # jobs folder as Windows sees it
 JW=/mnt/c/cale/jobs       # same folder as WSL sees it
 T="${TMPDIR:-/tmp}/hp-jobs"; mkdir -p "$T"
 
-hssh() { ( set -o pipefail; ssh -o ConnectTimeout=10 -o ServerAliveInterval=5 -o ServerAliveCountMax=3 hp "$@" 2>/dev/null | tr -d '\0\r' ); }
+# The ssh settings (probe every 5 s, no shared connection) live in ~/.ssh/config, Host hp.
+# ssh exits 255 when the connection itself failed (not the command). Then try again: the laptop can stall for
+# several seconds under heavy disk or memory load, and a retry gets through as soon as it answers.
+hssh() {
+  local i out rc
+  for i in 1 2 3 4; do
+    out=$(ssh hp "$@" 2>/dev/null); rc=$?
+    if [ $rc -ne 255 ]; then printf '%s\n' "$out" | tr -d '\0\r'; return $rc; fi
+    sleep 1
+  done
+  return 255
+}
 retry() { local n=$1; shift; local i; for ((i=1;i<=n;i++)); do "$@" && return 0; sleep $((i*3)); done; return 1; }
-put_one() { scp -q -o ConnectTimeout=10 -o ServerAliveInterval=5 -o ServerAliveCountMax=3 "$1" "hp:C:/cale/jobs/$(basename "$1")" 2>/dev/null; }
+put_one() { scp -q "$1" "hp:C:/cale/jobs/$(basename "$1")" 2>/dev/null; }
 ready() { retry 6 hssh "New-Item -ItemType Directory -Force $J | Out-Null; 'ok'" | grep -q ok; }
 need_name() { [[ "${1:-}" =~ ^[A-Za-z0-9_-]+$ ]] || { echo "NAME must be letters, digits, - or _" >&2; exit 2; }; }
 
@@ -33,7 +44,8 @@ cmd_run() {
   retry 4 hssh "Remove-Item $J\\$name.done,$J\\$name.log -ErrorAction SilentlyContinue; 'ok'" >/dev/null
   local launcher="$name.ps1"
   if [ "$os" = win ]; then
-    printf '%s\r\n' "\$ErrorActionPreference='Continue'" "& {" "$body" "} *> $J\\$name.log" \
+    # BelowNormal: a heavy job must never starve sshd or the VPN, or the link looks "down" while the job runs.
+    printf '%s\r\n' "(Get-Process -Id \$PID).PriorityClass = 'BelowNormal'" "\$ErrorActionPreference='Continue'" "& {" "$body" "} *> $J\\$name.log" \
       "\"exit=\$LASTEXITCODE\" | Out-File $J\\$name.done -Encoding ascii" > "$T/$name.ps1"
     retry 5 put_one "$T/$name.ps1" || { echo "could not send job"; return 1; }
   elif [ "$os" = wsl ]; then

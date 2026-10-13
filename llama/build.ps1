@@ -32,6 +32,7 @@ $env:PATH = "$kitDir\bin;$scripts;$env:PATH"
 $b = Join-Path $Out $BuildName
 cmake -S $PSScriptRoot -B $b -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ "-DLLAMA_CPP_DIR=$src" $CmakeExtra.Split(" ", [StringSplitOptions]::RemoveEmptyEntries) | Out-Null
 if ($LASTEXITCODE -ne 0) { throw "cmake configure failed" }
-cmake --build $b --target cale_llama -j 8
+# With -DCALE_BACKENDS_DL=ON the CPU variants are separate libraries that cale_llama does not depend on: build everything.
+if ($CmakeExtra -match "CALE_BACKENDS_DL=ON") { cmake --build $b -j 8 } else { cmake --build $b --target cale_llama -j 8 }
 if ($LASTEXITCODE -ne 0) { throw "build failed" }
 Get-ChildItem $b -Filter cale_llama.dll -Recurse | Select-Object -ExpandProperty FullName

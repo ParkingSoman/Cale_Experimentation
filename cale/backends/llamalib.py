@@ -27,8 +27,29 @@ def find_library(extra=None):
     raise FileNotFoundError(f"{NAME} not found. Build it with llama/build.sh, or set CALE_LLAMA_LIB.")
 
 
+def devices(lib_path=None):
+    """Compute devices other than the CPU, as dicts: handle, type (GPU, IGPU, ACCEL), name, description, free, total (bytes).
+    Empty when the library has no GPU backend. The handle is only valid in this process. Choose a device by its type,
+    name and memory, never by its number: the order changes when a driver changes."""
+    c = ctypes.CDLL(find_library(lib_path))
+    if not hasattr(c, "cale_devices"):
+        return []
+    buf = ctypes.create_string_buffer(8192)
+    c.cale_devices.restype, c.cale_devices.argtypes = ctypes.c_int32, [ctypes.c_char_p, ctypes.c_int32]
+    if c.cale_devices(buf, 8192) < 0:
+        return []
+    out = []
+    for line in buf.value.decode().splitlines():
+        h, kind, name, desc, free, total = line.split("|")
+        out.append({"handle": int(h), "type": kind, "name": name, "description": desc, "free": int(free), "total": int(total)})
+    return out
+
+
 class Lib:
-    def __init__(self, model_path, n_threads=4, n_ctx=8192, lib_path=None, repack=0):
+    def __init__(self, model_path, n_threads=4, n_ctx=8192, lib_path=None, repack=0,
+                 gpu=None, n_gpu_layers=-1, no_host=True, fit_margin_mb=300):
+        """gpu: None = CPU only, else a device handle from devices(). n_gpu_layers -1 = llama.cpp's own fit chooses.
+        no_host: keep the weights that stay on the CPU repackable (see the shim). Always right unless a developer asks otherwise."""
         self.c = ctypes.CDLL(find_library(lib_path))
         c = self.c
         vp, i32, i32p = ctypes.c_void_p, ctypes.c_int32, ctypes.POINTER(ctypes.c_int32)
@@ -56,9 +77,22 @@ class Lib:
         u64 = ctypes.c_uint64
         c.cale_tensor_range.restype, c.cale_tensor_range.argtypes = i32, [vp, ctypes.c_char_p, ctypes.POINTER(u64), ctypes.POINTER(u64)]
         c.cale_pages.restype, c.cale_pages.argtypes = u64, [i32, u64, u64]
-        self.h = c.cale_load(os.fsencode(str(model_path)), n_threads, n_ctx, repack)
+        if hasattr(c, "cale_load_dev"):
+            c.cale_load_dev.restype, c.cale_load_dev.argtypes = vp, [ctypes.c_char_p, i32, i32, i32, i32, i32, i32, i32]
+            c.cale_placement.restype, c.cale_placement.argtypes = i32, [vp, ctypes.c_char_p, i32]
+            self.h = c.cale_load_dev(os.fsencode(str(model_path)), n_threads, n_ctx, repack,
+                                     -1 if gpu is None else gpu, n_gpu_layers, 1 if no_host else 0, fit_margin_mb)
+        else:
+            if gpu is not None:
+                raise RuntimeError("this library has no GPU backend")
+            self.h = c.cale_load(os.fsencode(str(model_path)), n_threads, n_ctx, repack)
         if not self.h:
             raise RuntimeError(c.cale_last_error().decode())
+        self.placement = "device=cpu"
+        if hasattr(c, "cale_placement"):
+            pbuf = ctypes.create_string_buffer(512)
+            if c.cale_placement(self.h, pbuf, 512) >= 0:
+                self.placement = pbuf.value.decode()
         self.repacked = bool(c.cale_repacked(self.h))
         self.split = bool(c.cale_split(self.h))      # the file has each down matrix as two halves (llama/prepare_gguf.py)
         self.n_layers = c.cale_n_layers(self.h)

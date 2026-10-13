@@ -186,3 +186,22 @@ index 50d30c6..319d97a 100644
              cb(cur, "ffn_out", il);
          }
          cur = build_norm(cur, model.layers[il].ffn_post_norm, NULL, LLM_NORM_RMS, -1);
+diff --git a/ggml/src/ggml-backend.cpp b/ggml/src/ggml-backend.cpp
+--- a/ggml/src/ggml-backend.cpp
++++ b/ggml/src/ggml-backend.cpp
+@@ -1107,10 +1107,13 @@
+             if (src == NULL) {
+                 continue;
+             }
+-            if (src->buffer != NULL && src->buffer->usage == GGML_BACKEND_BUFFER_USAGE_WEIGHTS) {
++            // Cale: a view of a weight (a matryoshka size) has no buffer until it is allocated. Look at the weight it views, so the
++            // operation runs where the weight lives. Otherwise the view could be copied to another device, and a repacked weight cannot be read back.
++            ggml_backend_buffer_t src_buf = src->view_src ? src->view_src->buffer : src->buffer;
++            if (src_buf != NULL && src_buf->usage == GGML_BACKEND_BUFFER_USAGE_WEIGHTS) {
+                 int src_backend_id = ggml_backend_sched_backend_from_buffer(sched, src, tensor);
+                 // check if a backend with higher prio wants to offload the op
+-                if (sched->op_offload && src_backend_id == sched->n_backends - 1 && ggml_backend_buffer_is_host(src->buffer)) {
++                if (sched->op_offload && src_backend_id == sched->n_backends - 1 && ggml_backend_buffer_is_host(src_buf)) {
+                     for (int b = 0; b < src_backend_id; b++) {
+                         if (ggml_backend_supports_op(sched->backends[b], tensor) && ggml_backend_offload_op(sched->backends[b], tensor)) {
+                             SET_CAUSE(tensor, "1.off");

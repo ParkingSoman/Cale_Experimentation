@@ -1,0 +1,13 @@
+devices: 0:IGPU:Vulkan0 free=7470MB 1:GPU:Vulkan1 free=1900MB
+device=cpu;gpu_layers=0;no_host=1
+  CPU    e4b nll=0.9183 prompt=15.9 decode=6.5 | 'The sky appears blue because of a phenomenon called Rayleigh scatterin'
+  CPU  e2.49-block nll=1.0029 prompt=25.0 decode=9.5 | "The sky isn't actually blue; it's due to a phenomenon called Rayleigh "
+  CPU    e2b nll=1.0105 prompt=30.4 decode=11.8 | 'The sky appears blue because of a phenomenon called Rayleigh scatterin'
+device=Vulkan0;fit=1;gpu_layers=-1;no_host=1
+  GPU    e4b nll=0.9160 (cpu 0.9183) OK  prompt=10.3 decode=4.1 same-first-tokens=18 | 'The sky appears blue because of a phenomenon called Rayleigh scatterin'
+  GPU  e2.49-block nll=1.0109 (cpu 1.0029) OK  prompt=15.7 decode=5.7 same-first-tokens=32 | "The sky isn't actually blue; it's due to a phenomenon called Rayleigh "
+  GPU    e2b nll=1.0115 (cpu 1.0105) OK  prompt=19.8 decode=6.6 same-first-tokens=32 | 'The sky appears blue because of a phenomenon called Rayleigh scatterin'
+device=Vulkan1;fit=1;gpu_layers=13;no_host=1
+  GPU    e4b nll=0.9175 (cpu 0.9183) OK  prompt=21.0 decode=6.7 same-first-tokens=18 | 'The sky appears blue because of a phenomenon called Rayleigh scatterin'
+  GPU  e2.49-block nll=0.9989 (cpu 1.0029) OK  prompt=20.1 decode=4.0 same-first-tokens=32 | "The sky isn't actually blue; it's due to a phenomenon called Rayleigh "
+  GPU    e2b nll=1.0072 (cpu 1.0105) OK  prompt=28.5 decode=3.8 same-first-tokens=32 | 'The sky appears blue because of a phenomenon called Rayleigh scatterin'

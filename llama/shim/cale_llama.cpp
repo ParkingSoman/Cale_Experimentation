@@ -5,6 +5,9 @@
 #include "ggml.h"
 #include "gguf.h"
 #include "llama.h"
+#ifdef CALE_BACKENDS_DL
+#  include "fit.h"
+#endif
 
 #include <algorithm>
 #include <cmath>
@@ -21,6 +24,7 @@
 #  include <psapi.h>
 #  define CALE_API extern "C" __declspec(dllexport)
 #else
+#  include <dlfcn.h>
 #  include <sys/mman.h>
 #  include <unistd.h>
 #  define CALE_API extern "C" __attribute__((visibility("default")))
@@ -40,16 +44,78 @@ struct cale_ctx {
     std::string         path;
     bool                repacked = false;      // weights were repacked into ordinary memory (not mapped from the file)
     bool                split = false;         // the file stores each down matrix as two halves
+    std::string         placement;             // which device and layers this load used (for status and replies)
     std::atomic<int>    cancel{0};             // set from another thread: stop the work in progress
 };
 
 thread_local std::string g_err;
 bool g_backend_ready = false;
+std::vector<ggml_backend_dev_t> g_gpus;   // compute devices that are not the CPU, in the order cale_devices() lists them
+
+std::string shim_dir() {
+#if defined(_WIN32)
+    HMODULE m = nullptr;
+    GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR) &shim_dir, &m);
+    char buf[4096];
+    const DWORD n = GetModuleFileNameA(m, buf, sizeof(buf));
+    const std::string p(buf, n);
+#else
+    Dl_info info;
+    const std::string p = (dladdr((void *) &shim_dir, &info) && info.dli_fname) ? info.dli_fname : "";
+#endif
+    const size_t k = p.find_last_of("\\/");
+    return k == std::string::npos ? "." : p.substr(0, k);
+}
 
 void quiet_log(ggml_log_level level, const char * text, void *) {
     if (level >= GGML_LOG_LEVEL_ERROR) {
         fputs(text, stderr);
     }
+}
+
+#if defined(_WIN32)
+// Debug aid, off unless CALE_CRASH_TRACE=1: print where an access violation happens (module and offset, then resolve the
+// offset with `nm` or `addr2line` on the unstripped DLL). Windows hides native crashes inside Python's ctypes otherwise.
+LONG WINAPI crash_trace(EXCEPTION_POINTERS * ep) {
+    static std::atomic<int> once{0};
+    if (ep->ExceptionRecord->ExceptionCode != EXCEPTION_ACCESS_VIOLATION || once.exchange(1)) return EXCEPTION_CONTINUE_SEARCH;
+    fprintf(stderr, "CRASH_TRACE access violation: instruction %p, kind %d, address %p\n", ep->ExceptionRecord->ExceptionAddress,
+            (int) ep->ExceptionRecord->ExceptionInformation[0], (void *) ep->ExceptionRecord->ExceptionInformation[1]);
+    // The faulting thread's stack: every value that points into a loaded module's code is a candidate return address.
+    const uintptr_t * sp = (const uintptr_t *) ep->ContextRecord->Rsp;
+    int shown = 0;
+    for (int i = 0; i < 400 && shown < 40; ++i) {
+        HMODULE m = nullptr;
+        if (!GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR) sp[i], &m)) continue;
+        char name[MAX_PATH] = "?";
+        GetModuleFileNameA(m, name, sizeof(name));
+        const char * base = strrchr(name, '\\');
+        fprintf(stderr, "CRASH_TRACE stack[%d] %s +0x%llx\n", i, base ? base + 1 : name, (unsigned long long) (sp[i] - (uintptr_t) m));
+        ++shown;
+    }
+    fflush(stderr);
+    return EXCEPTION_CONTINUE_SEARCH;
+}
+#endif
+
+void init_backends() {
+    if (g_backend_ready) return;
+#if defined(_WIN32)
+    if (getenv("CALE_CRASH_TRACE")) AddVectoredExceptionHandler(1, crash_trace);
+#endif
+    llama_log_set(quiet_log, nullptr);
+#ifdef CALE_BACKENDS_DL
+    // Backends are separate libraries. Look next to this library, or where CALE_BACKEND_DIR says.
+    const char * env = getenv("CALE_BACKEND_DIR");
+    const std::string dir = (env && *env) ? std::string(env) : shim_dir();
+    ggml_backend_load_all_from_path(dir.c_str());
+#endif
+    llama_backend_init();
+    for (size_t i = 0; i < ggml_backend_dev_count(); ++i) {
+        ggml_backend_dev_t d = ggml_backend_dev_get(i);
+        if (ggml_backend_dev_type(d) != GGML_BACKEND_DEVICE_TYPE_CPU) g_gpus.push_back(d);
+    }
+    g_backend_ready = true;
 }
 
 bool decode_tokens(cale_ctx * h, llama_token * t, int32_t n) {
@@ -70,16 +136,36 @@ bool decode_tokens(cale_ctx * h, llama_token * t, int32_t n) {
 
 CALE_API const char * cale_last_error(void) { return g_err.c_str(); }
 
+// One line per compute device that is not the CPU: "index|type|name|description|free_bytes|total_bytes".
+// type is GPU (own memory), IGPU (shares the computer's memory) or ACCEL. The index is only a handle for cale_load_dev
+// in this process. Pick a device by its type, name and memory, never by its index: the order changes with drivers.
+CALE_API int32_t cale_devices(char * out, int32_t cap) {
+    init_backends();
+    std::string text;
+    for (size_t i = 0; i < g_gpus.size(); ++i) {
+        ggml_backend_dev_props pr;
+        ggml_backend_dev_get_props(g_gpus[i], &pr);
+        const char * type = pr.type == GGML_BACKEND_DEVICE_TYPE_IGPU ? "IGPU" : pr.type == GGML_BACKEND_DEVICE_TYPE_GPU ? "GPU" : "ACCEL";
+        text += std::to_string(i) + "|" + type + "|" + pr.name + "|" + pr.description + "|" +
+                std::to_string((unsigned long long) pr.memory_free) + "|" + std::to_string((unsigned long long) pr.memory_total) + "\n";
+    }
+    if ((int32_t) text.size() + 1 > cap) return -1;
+    memcpy(out, text.c_str(), text.size() + 1);
+    return (int32_t) text.size();
+}
+
 // Load a GGUF.
 // repack: 0 = repack the weights when the file is in the Cale layout (see llama/prepare_gguf.py), 1 = always, 2 = never.
 // Repacked weights are faster on the CPU but live in ordinary memory. Without repacking the file is memory-mapped,
 // and only the parts a size touches are read from disk.
-CALE_API cale_ctx * cale_load(const char * path, int32_t n_threads, int32_t n_ctx, int32_t repack) {
-    if (!g_backend_ready) {
-        llama_log_set(quiet_log, nullptr);
-        llama_backend_init();
-        g_backend_ready = true;
-    }
+// gpu: -1 = CPU only, else the handle from cale_devices(). n_gpu_layers: -1 = let llama.cpp's own fit choose how much
+// goes to the device (it leaves fit_margin_mb free), else that many layers.
+// no_host: 1 = keep the weights that stay on the CPU in ordinary memory so they can be repacked. With a GPU loaded
+// the default puts them in a pinned buffer, which is never repacked and made answers 2x slower (measured 2026-10-13).
+CALE_API cale_ctx * cale_load_dev(const char * path, int32_t n_threads, int32_t n_ctx, int32_t repack,
+                                  int32_t gpu, int32_t n_gpu_layers, int32_t no_host, int32_t fit_margin_mb) {
+    init_backends();
+    if (gpu >= (int32_t) g_gpus.size()) { g_err = "no such compute device"; return nullptr; }
     gguf_init_params gp = {/*no_alloc=*/true, /*ctx=*/nullptr};
     gguf_context * g = gguf_init_from_file(path, gp);
     if (!g) {
@@ -90,20 +176,44 @@ CALE_API cale_ctx * cale_load(const char * path, int32_t n_threads, int32_t n_ct
     const bool split = split_key >= 0 && gguf_get_val_u32(g, split_key) == 1;
     const bool want_repack = repack == 1 || (repack == 0 && split);
     llama_model_params mp = llama_model_default_params();
-    mp.n_gpu_layers    = 0;
+    ggml_backend_dev_t devs[2] = {gpu >= 0 ? g_gpus[gpu] : nullptr, nullptr};
+    mp.devices         = devs;            // an empty list means the CPU alone: a GPU that is present must not change a CPU load
     mp.use_extra_bufts = want_repack;     // off: a size is a view of the stock tensors and the file stays memory-mapped
-    llama_model * model = llama_model_load_from_file(path, mp);
-    if (!model) {
-        gguf_free(g);
-        g_err = std::string("could not load model: ") + path;
-        return nullptr;
-    }
+    mp.no_host         = no_host != 0;
+    if (gpu < 0) mp.n_gpu_layers = 0;
+    else if (n_gpu_layers >= 0) mp.n_gpu_layers = n_gpu_layers;
     llama_context_params cp = llama_context_default_params();
     cp.n_ctx           = n_ctx;
     cp.n_batch         = 512;
     cp.n_ubatch        = 512;
     cp.n_threads       = n_threads;
     cp.n_threads_batch = n_threads;
+    std::string placement = gpu < 0 ? "device=cpu" : "device=" + std::string(ggml_backend_dev_name(g_gpus[gpu]));
+#ifdef CALE_BACKENDS_DL
+    std::vector<float> tensor_split(llama_max_devices(), 0.0f);
+    std::vector<llama_model_tensor_buft_override> overrides(llama_max_tensor_buft_overrides());
+    if (gpu >= 0 && n_gpu_layers < 0) {
+        std::vector<size_t> margins(llama_max_devices(), (size_t) (fit_margin_mb < 0 ? 0 : fit_margin_mb) * 1024 * 1024);
+        const common_params_fit_status st = common_fit_params(path, &mp, &cp, tensor_split.data(), overrides.data(),
+                                                              margins.data(), 512, nullptr, GGML_LOG_LEVEL_ERROR);
+        if (st != COMMON_PARAMS_FIT_STATUS_SUCCESS) {
+            gguf_free(g);
+            g_err = "this model does not fit the device";
+            return nullptr;
+        }
+        placement += ";fit=1";
+    }
+#else
+    (void) fit_margin_mb;
+    if (gpu >= 0) { gguf_free(g); g_err = "this build has no GPU backend"; return nullptr; }
+#endif
+    llama_model * model = llama_model_load_from_file(path, mp);
+    if (!model) {
+        gguf_free(g);
+        g_err = std::string("could not load model: ") + path;
+        return nullptr;
+    }
+    placement += ";gpu_layers=" + std::to_string(mp.n_gpu_layers) + ";no_host=" + std::to_string(no_host != 0);
     llama_context * ctx = llama_init_from_model(model, cp);
     if (!ctx) {
         llama_model_free(model);
@@ -118,11 +228,24 @@ CALE_API cale_ctx * cale_load(const char * path, int32_t n_threads, int32_t n_ct
     h->split = split;
     h->model = model;
     h->ctx = ctx;
+    h->placement = placement;
     h->vocab = llama_model_get_vocab(model);
     h->n_ctx = (int32_t) llama_n_ctx(ctx);
     h->n_batch = (int32_t) llama_n_batch(ctx);
     llama_set_abort_callback(ctx, [](void * d) -> bool { return static_cast<cale_ctx *>(d)->cancel.load() != 0; }, h);
     return h;
+}
+
+// The CPU-only load of Phase 5, kept so older callers still work.
+CALE_API cale_ctx * cale_load(const char * path, int32_t n_threads, int32_t n_ctx, int32_t repack) {
+    return cale_load_dev(path, n_threads, n_ctx, repack, -1, 0, 0, 0);
+}
+
+// Which device and how many layers this load used, as text for status and replies. Returns the byte count.
+CALE_API int32_t cale_placement(cale_ctx * h, char * out, int32_t cap) {
+    if ((int32_t) h->placement.size() + 1 > cap) return -1;
+    memcpy(out, h->placement.c_str(), h->placement.size() + 1);
+    return (int32_t) h->placement.size();
 }
 
 // Stop the work in progress (called from another thread). The running call returns an error, and cale_error() says "cancelled".
