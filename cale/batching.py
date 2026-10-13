@@ -23,7 +23,7 @@ from .backends.llama import PoolFull
 from . import gemma3n_facts as facts
 
 PREFILL_MAX = 256           # most prompt tokens read in one step
-PREFILL_MIN = 16
+PREFILL_MIN = 12
 STEP_SECONDS = 0.75         # a step that reads a prompt piece should take about this long, so the answers next to it keep moving
 CHECK_EVERY = 8             # steps between looks at the speed goals
 IDLE_POLL_S = 0.05
@@ -252,8 +252,8 @@ class BatchMixin:
                     plan["goal_met"] = not plan["unmet"]
         if not m.make_room(n_prompt + min(max_tokens, 512) + 8 * len(self.active) + 8):
             raise PoolFull("the shared context is full of running answers")      # before the plan is sent: the request just waits
+        read, read_s = m.ensure(target)                     # weights that a hold let go of are read back from disk now
         self._set_level(target)
-        read, read_s = m.ensure(target)
         plan["disk_mb"] = round(read / 1e6)
         r.disk_mb, r.disk_s = round(read / 1e6), round(read_s, 3)
         r.q.put({"plan": plan})
@@ -278,8 +278,8 @@ class BatchMixin:
         return lv if lv["pct"] < cur["pct"] else cur
 
     def _set_level(self, level):
+        """The step runs at this size from now on. (The weights it needs must be in memory: the caller reads them with m.ensure.)"""
         if self.batch_level is None or self.batch_level["id"] != level["id"]:
-            self.m.ensure(level)
             self.m.set(level)
             self.batch_level = level
 
@@ -290,7 +290,10 @@ class BatchMixin:
         if not self.active:
             return
         decoding = [r for r in self.active if r.stream.t_first is not None]
-        budget = PREFILL_MAX if not decoding else max(PREFILL_MIN, min(PREFILL_MAX, int(self.pred.prefill_tps(self.batch_level) * STEP_SECONDS)))
+        # A piece of prompt cannot be stopped once started, so its length is set by time: next to other answers about STEP_SECONDS,
+        # alone about twice that. On a slow computer that is a few tokens, so an app that leaves is noticed quickly.
+        secs = STEP_SECONDS if decoding else 2 * STEP_SECONDS
+        budget = max(PREFILL_MIN, min(PREFILL_MAX, int(self.pred.prefill_tps(self.batch_level) * secs)))
         t = time.perf_counter()
         finished = m.step([r.stream for r in self.active], budget)
         dt = time.perf_counter() - t
@@ -323,6 +326,14 @@ class BatchMixin:
             if r is None:
                 continue
             self.active.remove(r)
+            if not self.active:                               # the last answer is done: give back what a hold had let go of, before the reply goes out
+                with self.cv:
+                    waiting = bool(self.inbox)
+                if not waiting:
+                    try:
+                        self.m.settle()
+                    except Exception:
+                        pass
             if st.error is not None:                          # this answer failed on its own: only its app hears about it
                 from .engine import EngineError
                 print(f"[engine] one answer failed ({type(st.error).__name__}: {str(st.error)[:200]}); the others go on", flush=True)
@@ -373,6 +384,8 @@ class BatchMixin:
                 self._record_switch(up)
 
     def _record_switch(self, level):
+        if self.m.missing(level):                          # only sizes whose weights are in memory (a switch must not stall every answer)
+            return
         old = self.batch_level
         for r in self.active:
             r.stream.switches.append({"at_token": r.stream.out, "from": old["id"], "to": level["id"]})

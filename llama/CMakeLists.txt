@@ -10,11 +10,17 @@ endif()
 # instruction set, plus GPU backends such as Vulkan found next to cale_llama). One install then runs on any computer.
 # OFF: everything is linked into one library, CPU only (the Phase 5 build).
 option(CALE_BACKENDS_DL "load compute backends (CPU variants, GPU) at run time" OFF)
+option(CALE_CPU_VARIANTS "with CALE_BACKENDS_DL: build a CPU backend for each instruction set (needs llama.cpp support for the target; Windows on ARM has none)" ON)
 if(CALE_BACKENDS_DL)
   set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
   set(GGML_BACKEND_DL ON CACHE BOOL "" FORCE)
-  set(GGML_CPU_ALL_VARIANTS ON CACHE BOOL "" FORCE)
+  if(CALE_CPU_VARIANTS)
+    set(GGML_CPU_ALL_VARIANTS ON CACHE BOOL "" FORCE)
+  elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64|aarch64|arm64")
+    set(GGML_CPU_ARM_ARCH "armv8.2-a+dotprod+fp16" CACHE STRING "" FORCE)          # one backend for every ARM computer Cale supports
+  endif()
   set(LLAMA_BUILD_COMMON ON CACHE BOOL "" FORCE)
+  set(LLAMA_OPENSSL OFF CACHE BOOL "" FORCE)           # the engine never downloads anything: no HTTPS library needed
   # No OpenMP: its runtime is not on every computer, and llama.cpp's own threads are as fast (measured on Linux: equal; on Windows: faster).
   set(GGML_OPENMP OFF CACHE BOOL "" FORCE)
   if(UNIX AND NOT APPLE)
@@ -40,6 +46,9 @@ if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|AMD64")
   set(GGML_FMA ON CACHE BOOL "" FORCE)
   set(GGML_F16C ON CACHE BOOL "" FORCE)
   set(GGML_BMI2 ON CACHE BOOL "" FORCE)
+endif()
+if(WIN32)
+  add_compile_definitions(_WIN32_WINNT=0x0A00 WINVER=0x0A00)       # Windows 10 or newer: some compilers default to an older Windows
 endif()
 if(WIN32 AND CALE_BACKENDS_DL)
   set(CMAKE_SHARED_LIBRARY_PREFIX "")    # file names ggml-base.dll, llama.dll: the official GPU backend DLLs load them by these names

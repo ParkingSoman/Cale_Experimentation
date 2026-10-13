@@ -19,7 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
-OWN_MODEL = ["oslayer", "choose", "constrain", "engine_features", "backend_llama"]     # these load the model or need no server
+OWN_MODEL = ["oslayer", "choose", "constrain", "install_check", "engine_features", "backend_llama"]     # these load the model or need no server
 SERVER = ["honest", "relative", "objects", "goals", "structured", "promptcache", "crowd", "anylang", "e2e"]
 SERVER_ENV = {"anylang": {"CALE_HEADLESS": "1", "CALE_DEV_APPROVE": "0", "CALE_APPROVE_WAIT_S": "8"}}    # a server with no screen: the person answers in a terminal
 PORT = 47899
@@ -117,7 +117,7 @@ def main():
         if only and name not in only:
             continue
         extra = [a.model] + ([a.lib] if (a.lib and name == "backend_llama") else [])
-        if name in ("oslayer", "choose", "constrain"):
+        if name in ("oslayer", "choose", "constrain", "install_check"):
             extra = []
         if name == "backend_llama" and mac:
             continue                                     # the llama.cpp backend is not used on a Mac

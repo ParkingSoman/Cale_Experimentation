@@ -34,6 +34,8 @@ SRC = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(SRC))
 from cale import oslayer  # noqa: E402
 
+# The files of nest/ that the installed Cale imports. cale/tests/install_check.py checks this list against the real imports.
+NEST_FILES = ("__init__.py", "levels3n.py", "gemma3n_levels.json", "gemma3n.py", "elastic.py", "cancel.py", "stops.py")
 GGUF_URL = "https://huggingface.co/unsloth/gemma-3n-E4B-it-GGUF/resolve/main/gemma-3n-E4B-it-Q4_0.gguf"
 UV_BASE = "https://github.com/astral-sh/uv/releases/latest/download/"
 
@@ -173,7 +175,7 @@ def copy_runtime(home):
     (rt / "llama").mkdir(parents=True, exist_ok=True)
     shutil.copy2(SRC / "llama" / "prepare_gguf.py", rt / "llama" / "prepare_gguf.py")      # makes the model fast on a CPU
     (rt / "nest").mkdir(parents=True, exist_ok=True)
-    for f in ("__init__.py", "levels3n.py", "gemma3n_levels.json", "gemma3n.py", "elastic.py"):
+    for f in NEST_FILES:
         shutil.copy2(SRC / "nest" / f, rt / "nest" / f)
 
 
@@ -263,21 +265,43 @@ GPU_BACKENDS = {
 
 
 def install_library(home):
-    """Copy Cale's engine libraries (cale_llama and the ggml backends it loads) into home/lib. Then add the GPU backend."""
+    """Put Cale's engine libraries (cale_llama and the ggml backends it loads) in home/lib. Then add the GPU backend.
+    Source, first found: CALE_LIB_SRC (a library file: its folder is used), llama/dist/<os>-<arch>/ (a folder, for builders),
+    llama/dist/<os>-<arch>.zip or .tar.gz (what ships)."""
     name = "cale_llama.dll" if oslayer.WIN else "libcale_llama.so"
     key = f"{'windows' if oslayer.WIN else 'linux'}-{arch()}"
+    lib = home / "lib"
     src_file = os.environ.get("CALE_LIB_SRC")
-    for cand in (Path(src_file) if src_file else None, SRC / "llama" / "dist" / key / name):
-        if cand and cand.is_file():
-            lib = home / "lib"
-            lib.mkdir(parents=True, exist_ok=True)
-            for f in cand.parent.iterdir():                  # the library and, in a run-time-backend build, its neighbours
-                if f.is_file() and f.suffix.lower() in (".dll", ".so", ".dylib") or f.name.startswith("lib") and ".so." in f.name:
-                    shutil.copy2(f, lib / f.name)
-            install_gpu_backend(home)
-            return
-    die(f"the {name} library for {key} was not found. Build it with llama/build.{'ps1' if oslayer.WIN else 'sh'} "
-        "(CALE_BACKENDS_DL=1 for the run-time-backend build) and put it in llama/dist/" + key + "/, or set CALE_LIB_SRC.")
+    dist = SRC / "llama" / "dist"
+    folder = Path(src_file).parent if src_file and Path(src_file).is_file() else dist / key
+    if (folder / name).is_file():
+        lib.mkdir(parents=True, exist_ok=True)
+        for f in folder.iterdir():                          # the library and, in a run-time-backend build, its neighbours
+            if f.is_file() and (f.suffix.lower() in (".dll", ".so", ".dylib") or ".so." in f.name):
+                shutil.copy2(f, lib / f.name)
+    elif (dist / f"{key}.zip").is_file():
+        lib.mkdir(parents=True, exist_ok=True)
+        with zipfile.ZipFile(dist / f"{key}.zip") as z:
+            for n in z.namelist():                           # flat files only: nothing may land outside the folder
+                if "/" not in n and "\\" not in n and not n.startswith("."):
+                    (lib / n).write_bytes(z.read(n))
+    elif (dist / f"{key}.tar.gz").is_file():
+        lib.mkdir(parents=True, exist_ok=True)
+        with tarfile.open(dist / f"{key}.tar.gz") as t:
+            for m in t.getmembers():
+                if "/" not in m.name and not m.name.startswith(".") and (m.isfile() or m.issym()):
+                    target = lib / m.name
+                    target.unlink(missing_ok=True)
+                    if m.issym():
+                        if "/" not in m.linkname:
+                            target.symlink_to(m.linkname)
+                    else:
+                        target.write_bytes(t.extractfile(m).read())
+                        target.chmod(0o755)
+    else:
+        die(f"the {name} library for {key} was not found. Build it with llama/build.{'ps1' if oslayer.WIN else 'sh'} "
+            "(CALE_BACKENDS_DL=1 for the run-time-backend build), pack it with scripts/make_dist.py, or set CALE_LIB_SRC.")
+    install_gpu_backend(home)
 
 
 def install_gpu_backend(home):

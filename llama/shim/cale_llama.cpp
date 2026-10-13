@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <atomic>
 #include <chrono>
@@ -99,7 +100,11 @@ LONG WINAPI crash_trace(EXCEPTION_POINTERS * ep) {
     fprintf(stderr, "CRASH_TRACE access violation: instruction %p, kind %d, address %p\n", ep->ExceptionRecord->ExceptionAddress,
             (int) ep->ExceptionRecord->ExceptionInformation[0], (void *) ep->ExceptionRecord->ExceptionInformation[1]);
     // The faulting thread's stack: every value that points into a loaded module's code is a candidate return address.
+#if defined(_M_ARM64) || defined(__aarch64__)
+    const uintptr_t * sp = (const uintptr_t *) ep->ContextRecord->Sp;
+#else
     const uintptr_t * sp = (const uintptr_t *) ep->ContextRecord->Rsp;
+#endif
     int shown = 0;
     for (int i = 0; i < 400 && shown < 40; ++i) {
         HMODULE m = nullptr;
