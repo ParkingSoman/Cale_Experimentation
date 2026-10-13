@@ -198,7 +198,7 @@ class Engine(BatchMixin):
             self.pred.n_dec, self.pred.n_pre, self.pred.disk_bps = old.n_dec, old.n_pre, old.disk_bps
         self.pred.slow = self._slow
         self.pred.busy = oslayer.cpu_busy_other
-        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": base0, "scratch_bytes": int(getattr(m, "scratch_bytes", 0) or 0),
+        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": base0, "scratch_bytes": 0,           # the engine reports its compute buffers, but that is a reservation, not memory touched: it over-predicts by 0.6 GB (docs/CONSTANTS.md)
                      "total_ram": key["total_ram"], "disk_bps": self.pred.disk_bps}
         if self.pred.n_dec == 0 and self.pred.n_pre == 0:       # nothing is known about this computer and this model yet: measure, once
             self._measure_speed()

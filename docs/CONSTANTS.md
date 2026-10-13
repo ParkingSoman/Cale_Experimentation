@@ -17,7 +17,6 @@ Kinds:
 |---|---|---|
 | Answer and prompt speed of each size | `cale/predict.py`, `cale/engine.py` `_measure_speed` | The first load on a computer reads a short prompt and answers a few tokens, once, and saves the result with the key of the computer and model. Then every real answer corrects it. `PRIORS` is used only before the model is loaded (the `/v1/models` view). Mac: first estimate 0% off. |
 | Memory speed | `cale_membw` in the shim | A 0.15 s probe, no model. |
-| Working memory for reading a prompt (llama engine) | shim `cale_compute_bytes`, `choose.memory_needed` | The engine reports the size of its compute buffers when it makes the context. Cale keeps that number. `/v1/models` shows the result as `working_gb`. |
 | Memory held besides the weights | `engine._sample_base`, `_grow_base` | The largest of five readings of the process, raised whenever an answer finds more in use. A prediction is never under. |
 | Cost of an extra answer in a batch (`batch_eps`) | `predict.observe_step` | Learned from real steps. `BATCH_EPS` is only the start. |
 | Disk speed | `predict.observe` | Learned from real reads. `DISK_PRIOR` is only the start. |
@@ -47,7 +46,7 @@ Layer count, the first layer that shares a KV cache, bytes per weight, the conte
 
 | What | Value | Where | How to close it |
 |---|---|---|---|
-| Working memory for reading a prompt, **on the MLX engine** | 500 MB | `gemma3n_facts.SCRATCH_BYTES` | Read the peak memory of the first prompt (the llama engine already does it). |
+| Working memory for reading a prompt | 500 MB | `gemma3n_facts.SCRATCH_BYTES` | **Tried and reverted:** the llama engine reports its compute buffers (shim `cale_compute_bytes`), but that is memory reserved, not memory touched. Using it over-predicted by 0.6 GB on Linux, so memory goals chose smaller sizes than they needed. Next: the peak of the process while the first prompt is read (poll during the warm-up), on both engines. |
 | Memory a GPU needs besides the weights | 800 MB | `backends/devices.WORKING_BYTES` | Let llama.cpp's own fit say whether every layer fits, and read the answer. |
 | Speed priors before the model is loaded | `predict.PRIORS` | `cale/predict.py` | Save the speeds in `predict.json` on every computer (done after the first load). Until then a computer that never loaded the model shows the prior as an "estimate". |
 | Number of threads | physical cores | `backends/llama.py` `default_threads` | Probe memory speed at 1, 2, 4 ... threads and stop where it stops growing. Prompts want more threads than answers, so this needs two probes. |
