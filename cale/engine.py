@@ -205,6 +205,7 @@ class Engine(BatchMixin):
         """Memory this process holds besides the FFN weights: the largest of a few readings. The OS reports process memory with a little noise,
         and a prediction must never be under what is used. (It is raised again whenever an answer finds more in use: see _grow_base.)"""
         m, seen = self.m, []
+        oslayer.give_back_heap()                          # memory the loader freed but the allocator kept is not in use
         for _ in range(5):
             seen.append(int(m.active_bytes() - m.ffn_bytes()))
             time.sleep(0.05)
