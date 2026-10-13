@@ -83,6 +83,7 @@ Cale never ignores a field in silence.
 |---|---|
 | On Windows and Linux, an answer may end with `finish_reason: "length"` a little before `max_tokens` when other apps fill the shared context | Treat `length` as "more may exist" and ask again if you need the rest |
 | The memory goal is measured as GPU memory on a Mac and as process memory on Windows and Linux | Read `goals_actual.memory` for what was measured |
+| On Windows and Linux, the first answer to a prompt and a later answer that reuses the prompt cache can differ at `temperature` 0, because the arithmetic is split differently (tiny rounding). The Mac gives the same text | Send a `seed`. A seeded call does not use the prompt cache, so it repeats exactly |
 | Pictures work on a Mac only | Check `capabilities.images` first |
 
 ### Pictures
