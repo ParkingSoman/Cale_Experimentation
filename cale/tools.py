@@ -176,17 +176,28 @@ def convert_messages(raw, ApiError, images_ok=False):
 
 def merge_same_role(msgs):
     """The model's chat template needs user and assistant turns to alternate. Two turns of the same role in a row (several tool results,
-    or two user messages) become one turn, in order. Apps do this all the time with the OpenAI API, which allows it."""
-    out = []
+    or two user messages) become one turn, in order. Apps do this all the time with the OpenAI API, which allows it.
+    One pass: each group is collected first and joined once, so the cost grows with the size of the request, not its square."""
+    groups = []
     for m in msgs:
-        if out and out[-1]["role"] == m["role"] and m["role"] != "system":
-            prev = out[-1]
-            if prev.get("parts") or m.get("parts"):
-                parts = list(prev.get("parts") or [("text", prev["content"])]) + [("text", "\n\n")] + list(m.get("parts") or [("text", m["content"])])
-                prev["parts"] = parts
-            prev["content"] = (prev["content"] + "\n\n" + m["content"]).strip()
+        if groups and groups[-1][0]["role"] == m["role"] and m["role"] != "system":
+            groups[-1].append(m)
         else:
-            out.append(dict(m))
+            groups.append([m])
+    out = []
+    for g in groups:
+        if len(g) == 1:
+            out.append(dict(g[0]))
+            continue
+        merged = {"role": g[0]["role"], "content": "\n\n".join(m["content"] for m in g).strip()}
+        if any(m.get("parts") for m in g):
+            parts = []
+            for k, m in enumerate(g):
+                if k:
+                    parts.append(("text", "\n\n"))
+                parts.extend(m.get("parts") or [("text", m["content"])])
+            merged["parts"] = parts
+        out.append(merged)
     return out
 
 
