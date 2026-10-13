@@ -140,6 +140,9 @@ void init_backends() {
     // Backends are separate libraries. Look next to this library, or where CALE_BACKEND_DIR says.
     const char * env = getenv("CALE_BACKEND_DIR");
     const std::string dir = (env && *env) ? std::string(env) : shim_dir();
+#if defined(_WIN32)
+    SetDllDirectoryA(dir.c_str());     // a backend (CUDA) needs its runtime libraries from the same folder: Windows does not look there on its own
+#endif
     ggml_backend_load_all_from_path(dir.c_str());
 #endif
     llama_backend_init();
