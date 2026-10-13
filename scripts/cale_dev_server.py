@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-os.environ.update(CALE_HOME=sys.argv[1], CALE_PORT="47899", CALE_DEBUG="1", CALE_AUTO_APPROVE="1",
+os.environ.update(CALE_HOME=sys.argv[1], CALE_PORT="47899", CALE_DEBUG="1", CALE_AUTO_APPROVE=os.environ.get("CALE_DEV_APPROVE", "1"),
                   CALE_IDLE_S=os.environ.get("CALE_IDLE_S", "6"), PYTHONUNBUFFERED="1")
 os.environ.setdefault("CALE_MODEL", str(ROOT / "models" / "gemma-3n-e4b-4bit"))
 sys.path.insert(0, str(ROOT))

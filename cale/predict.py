@@ -27,7 +27,7 @@ PRIORS = {
     "llama": {"eff": 0.54, "prefill_ratio": 2.5, "fixed": 0.135},
 }
 KEEP = 9               # answers kept per size for the median
-BATCH_EPS = 0.25       # each extra answer in a step adds this share of the time of one (prior: measured on the HP CPU, see FINDINGS)
+BATCH_EPS = 0.7        # each extra answer in a step adds this share of the time of one. Measured: Mac CPU 0.4-0.6, HP CPU 0.8-0.9 (llama.cpp, 2 and 4 answers). Learned per computer after that.
 DISK_PRIOR = 1.0e9     # bytes per second until a real read has been seen (a modest SSD)
 FIRST_WEIGHT = 0.8     # the first real answer replaces the prior almost fully
 LATER_WEIGHT = 0.35    # later answers move the number gently

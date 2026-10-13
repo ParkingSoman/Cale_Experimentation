@@ -19,6 +19,7 @@ import time
 from nest.cancel import Cancelled
 
 from . import choose, constrain, goals as goals_mod, oslayer
+from .backends.llama import PoolFull
 from . import gemma3n_facts as facts
 
 PREFILL_MAX = 256           # most prompt tokens read in one step
@@ -194,6 +195,10 @@ class BatchMixin:
             self._drop_waiting(r)
             try:
                 self._start(r)
+            except PoolFull:                                # the shared context is full: wait for a running answer to finish
+                with self.cv:
+                    self.inbox.insert(0, r)
+                break
             except Exception as e:
                 from .engine import ContextTooLong, EngineError, GoalMissed, Unsafe
                 if isinstance(e, (GoalMissed, Unsafe, ContextTooLong, Cancelled, constrain.DeadEnd)):
@@ -245,6 +250,8 @@ class BatchMixin:
                 if goals_mod.is_set(r.goals):
                     plan["unmet"] = [g for g, ok in row["checks"].items() if not ok]
                     plan["goal_met"] = not plan["unmet"]
+        if not m.make_room(n_prompt + min(max_tokens, 512) + 8 * len(self.active) + 8):
+            raise PoolFull("the shared context is full of running answers")      # before the plan is sent: the request just waits
         self._set_level(target)
         read, read_s = m.ensure(target)
         plan["disk_mb"] = round(read / 1e6)
@@ -316,6 +323,11 @@ class BatchMixin:
             if r is None:
                 continue
             self.active.remove(r)
+            if st.error is not None:                          # this answer failed on its own: only its app hears about it
+                from .engine import EngineError
+                print(f"[engine] one answer failed ({type(st.error).__name__}: {str(st.error)[:200]}); the others go on", flush=True)
+                r.q.put(st.error if isinstance(st.error, constrain.DeadEnd) else EngineError(type(st.error).__name__))
+                continue
             d = st.finish_up(self.batch_level)
             for text in st.take():
                 r.q.put({"delta": text})

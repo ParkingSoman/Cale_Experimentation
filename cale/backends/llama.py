@@ -53,6 +53,10 @@ def find_gguf(path):
     return found[0]
 
 
+class PoolFull(RuntimeError):
+    """The slots share one pool of context tokens and the running answers fill it: the new answer must wait."""
+
+
 class LlamaStream:
     """One answer running in a slot, next to others. LlamaNested.step() feeds it the tokens the engine produces."""
 
@@ -69,6 +73,7 @@ class LlamaStream:
         self.done = False
         self.deltas = []                      # text produced since the last call to take()
         self.start_tier, self.switches = start_tier, []
+        self.error = None                     # set if this answer failed on its own (the others go on)
 
     def take(self):
         d, self.deltas = self.deltas, []
@@ -456,6 +461,8 @@ class LlamaNested:
         owners, levels = self.__dict__.setdefault("_slot_owner", {}), self.__dict__.setdefault("_slot_level", {})
         used = self.__dict__.setdefault("_slot_time", {})
         ids = self.prompt_ids(messages)
+        if not self.make_room(len(ids) + min(max_tokens, 512) + 8 * len(self.__dict__.get("_busy_slots", ())) + 8):
+            raise PoolFull("the shared context is full of running answers")
         # This app's own slot that already holds the start of this prompt (a chat that grew), if it saves reading at least 16 tokens.
         # Else a slot with nothing worth keeping, else the one used longest ago. A new conversation must not wipe another one of the same app.
         best, best_n = None, 15
@@ -474,19 +481,56 @@ class LlamaNested:
         owners[slot], levels[slot] = owner, self.level["id"]
         return LlamaStream(self, slot, ids, max_tokens, temperature, top_p, seed, stop, guide, owner, kept, self.level["id"])
 
+    def pool_total(self):
+        """Tokens in the shared memory pool (debug switch: a smaller pool, to test what happens when it is full)."""
+        return self.__dict__.get("pool_limit") or self.lib.n_ctx
+
+    def pool_used(self):
+        """Tokens of the shared key/value memory in use, by all slots (running answers and cached conversations)."""
+        return sum(self.lib.slot_tokens(s) for s in range(self.lib.n_slots))
+
+    def make_room(self, tokens):
+        """Make `tokens` of the shared memory free by forgetting cached conversations that nobody is running, oldest first.
+        Returns True if there is room now."""
+        free = lambda: self.pool_total() - self.pool_used()                    # noqa: E731
+        if free() >= tokens:
+            return True
+        busy, used = self.__dict__.setdefault("_busy_slots", set()), self.__dict__.setdefault("_slot_time", {})
+        for s in sorted((x for x in range(self.lib.n_slots) if x not in busy and self.lib.slot_tokens(x) > 0), key=lambda x: used.get(x, 0.0)):
+            self.lib.slot_forget(s)
+            self.__dict__.setdefault("_slot_owner", {})[s] = None
+            if free() >= tokens:
+                return True
+        return free() >= tokens
+
     def step(self, streams, prefill_budget=64):
-        """One step for all `streams`. Returns the streams that finished in it (their slots are free again)."""
-        if self.lib.n_slots == 0:
-            return []
+        """One step for all `streams`. Returns the streams that finished in it (their slots are free again; `st.error` is set for one that failed).
+        A fault in one answer (say, a schema no token can follow) ends that answer only."""
         by_slot = {st.slot: st for st in streams}
         finished = []
+        # The slots share one pool of n_ctx tokens. If the next step could not fit, the answer holding most ends here ("length") instead of
+        # making the step fail for everyone.
+        decoding = [st for st in streams if st.t_first is not None and not st.done]
+        while decoding and self.pool_total() - self.pool_used() < len(decoding) + prefill_budget + 8:
+            big = max(decoding, key=lambda st: self.lib.slot_tokens(st.slot))
+            big.finish, big.done = "length", True
+            self.close_stream(big)
+            finished.append(big)
+            decoding.remove(big)
+            by_slot.pop(big.slot, None)
+            prefill_budget = max(16, prefill_budget // 2)
+        if not by_slot:
+            return finished
         for slot, kind, tok in self.lib.batch_step(prefill_budget):
             st = by_slot.get(slot)
             if st is None or st.done:
                 continue
-            if kind == 2:
-                tok = st.choose()
-            st.on_token(tok)
+            try:
+                if kind == 2:
+                    tok = st.choose()
+                st.on_token(tok)
+            except Exception as e:                       # this answer's problem is this answer's alone
+                st.error, st.done = e, True
             if st.done:
                 self.close_stream(st)
                 finished.append(st)

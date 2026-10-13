@@ -31,7 +31,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from nest.cancel import Cancel, Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pct_range, pick
 
-from . import backends, keys, oslayer, paths, pressure
+from . import approval, backends, keys, oslayer, paths, pressure
 from .engine import ContextTooLong, Engine, EngineError, GoalMissed, Unsafe
 from . import choose, constrain, goals as goals_mod, tools as tools_mod
 
@@ -42,6 +42,7 @@ ALIASES = {"smart": MAX_PCT, "fast": MIN_PCT}
 MAX_TOKENS = MAX_CONTEXT              # the context decides what really fits (the engine checks it)
 DEBUG = os.environ.get("CALE_DEBUG") == "1"
 CONNECT_LOCK = threading.Lock()      # one Allow dialog at a time
+CONNECT_LOCK_META = threading.Lock()  # guards the table of waiting requests
 OBJECTS = {}                         # model objects: (app, id) -> {"spec", "created"}. See _model_object.
 OBJ_LOCK = threading.Lock()
 OBJECT_FIELDS = {"family", "name", "size", "max_tokens"} | set(goals_mod.FIELDS)
@@ -195,10 +196,43 @@ def object_slug(name):
 
 
 def ask_user(app, replacing=False):
-    """Show the Allow dialog (see oslayer.ask_allow)."""
+    """Ask the person: allow this app? With a screen, the Allow dialog (oslayer.ask_allow). Without one, the request waits for
+    `cale allow NAME` typed in a terminal on this computer (cale/approval.py)."""
     if DEBUG and os.environ.get("CALE_AUTO_APPROVE") == "1":
         return True
-    return oslayer.ask_allow(app, replacing)
+    if oslayer.has_screen():
+        return oslayer.ask_allow(app, replacing)
+    return approval.wait_for_terminal(app, replacing, float(os.environ.get("CALE_APPROVE_WAIT_S", 300)))
+
+
+CONNECTS = {}                        # ticket -> {"app", "state": pending|allowed|denied, "key", "done": Event, "since"}
+CONNECT_MAX = 16                     # waiting requests at most: one app cannot fill Cale's memory with them
+LEASES = {}                          # hold id -> {"app", "ttl", "expires"} for holds made with lease_s
+MAX_LEASE_S = 3600
+
+
+def _decide_connect(ticket):
+    """Runs in its own thread: ask the person, then make the key if they allowed."""
+    it = CONNECTS[ticket]
+    allowed = False
+    try:
+        if oslayer.has_screen():
+            with CONNECT_LOCK:                                     # one dialog at a time
+                allowed = ask_user(it["app"], it["replacing"])
+        else:
+            allowed = ask_user(it["app"], it["replacing"])
+    except Exception as e:
+        print(f"[connect] asking failed ({type(e).__name__}); counting that as no", flush=True)
+    if allowed:
+        it["key"] = keys.create(it["app"])
+    it["state"] = "allowed" if allowed else "denied"
+    it["done"].set()
+
+
+def _purge_connects():
+    now = time.time()
+    for t in [t for t, it in CONNECTS.items() if now - it["since"] > 900 or (it["done"].is_set() and now - it["since"] > 300)]:
+        CONNECTS.pop(t, None)
 
 
 ENGINE = None
@@ -266,6 +300,12 @@ class Handler(BaseHTTPRequestHandler):
             self._guard()
             if self.path == "/cale/status":
                 return self._json(200, {"ok": True, "version": "0.1", "model": BASE, **ENGINE.status()})
+            if self.path.startswith("/cale/connect/status"):
+                from urllib.parse import parse_qs, urlparse
+                ticket = (parse_qs(urlparse(self.path).query).get("ticket") or [""])[0]
+                return self._connect_reply(ticket, "")
+            if self.path == "/cale/computer":                          # like /cale/status: no key. What this computer can do.
+                return self._json(200, {"model": BASE, "max_context_tokens": ENGINE.known_context(), "this_computer": ENGINE.this_computer(True)})
             if self.path == "/v1/models":
                 app = self._auth()
                 curve = None
@@ -308,6 +348,8 @@ class Handler(BaseHTTPRequestHandler):
             if self.path == "/cale/predict":
                 self._auth()
                 return self._predict(self._body())
+            if self.path == "/cale/lease":
+                return self._lease(self._auth(), self._body())
             if self.path == "/cale/unload":
                 app = self._auth()
                 ended = ENGINE.release(str(self._body().get("hold", "")), app)
@@ -319,6 +361,12 @@ class Handler(BaseHTTPRequestHandler):
                 gb = self._body().get("gb")
                 ENGINE.debug_ram = None if gb is None else int(number({"gb": gb}, "gb", 0.1, 4096, 1.0) * 1e9)
                 return self._json(200, {"ok": True, "ram_bytes": ENGINE.debug_ram})
+            if DEBUG and self.path == "/cale/debug/pool":
+                m = ENGINE.m
+                n = self._body().get("tokens")
+                if m is not None and hasattr(m, "pool_limit"):
+                    m.pool_limit = None if n is None else int(n)
+                return self._json(200, {"ok": True, "pool_tokens": None if m is None else getattr(m, "pool_limit", None)})
             if DEBUG and self.path == "/cale/debug/fail":
                 ENGINE.debug_fail = True
                 return self._json(200, {"ok": True, "next_call_fails": True})
@@ -337,20 +385,92 @@ class Handler(BaseHTTPRequestHandler):
             except Exception:
                 pass
 
+    def do_DELETE(self):
+        try:
+            self._guard()
+            app = self._auth()
+            if self.path.startswith("/cale/models/"):
+                return self._lease(app, {"id": self.path[len("/cale/models/"):], "end": True})
+            raise ApiError(404, "not_found", "Unknown path.")
+        except ApiError as e:
+            self._error(e)
+
+    def _lease(self, app, req):
+        """Renew or end a lease. {"id": object id} or {"hold": hold id}; "end": true ends it now."""
+        end = flag(req, "end")
+        if "id" in req:
+            oid = str(req["id"])
+            with OBJ_LOCK:
+                obj = OBJECTS.get((app, oid))
+                if obj is None or not obj.get("lease"):
+                    raise ApiError(404, "no_lease", f"No leased model object '{oid}' for this app.")
+                if end:
+                    OBJECTS.pop((app, oid), None)
+                    hid = obj["lease"].get("hid")
+                else:
+                    obj["lease"]["expires"] = time.time() + obj["lease"]["ttl"]
+                    return self._json(200, {"id": oid, "expires_in_s": obj["lease"]["ttl"]})
+            if hid:
+                ENGINE.release(hid)
+            return self._json(200, {"id": oid, "ended": True})
+        if "hold" in req:
+            hid = str(req["hold"])
+            with OBJ_LOCK:
+                lease = LEASES.get(hid)
+                if lease is None or lease["app"] != app:
+                    raise ApiError(404, "no_lease", f"No leased hold '{hid}' for this app.")
+                if not end:
+                    lease["expires"] = time.time() + lease["ttl"]
+                    return self._json(200, {"hold": hid, "expires_in_s": lease["ttl"]})
+                LEASES.pop(hid, None)
+            ENGINE.release(hid, app)
+            return self._json(200, {"hold": hid, "ended": True})
+        raise ApiError(400, "invalid_lease", "Send {\"id\": <model id>} or {\"hold\": <hold id>}, and \"end\": true to end it.")
+
     def _connect(self):
-        app = str(self._body().get("app", "")).strip()
+        body = self._body()
+        app = str(body.get("app", "")).strip()
         app = "".join(ch for ch in app if ch.isprintable() and ch not in '"\\')[:40]
         if not app:
             raise ApiError(400, "invalid_app", "Send {\"app\": \"Your App Name\"}.")
-        if not CONNECT_LOCK.acquire(blocking=False):
-            raise ApiError(429, "busy", "Another app is waiting for the user to answer. Try again later.")
-        try:
-            allowed = ask_user(app, replacing=app in keys.apps())
-        finally:
-            CONNECT_LOCK.release()
-        if not allowed:
+        wait_s = number(body, "wait_s", 0, 600, 120)
+        with CONNECT_LOCK_META:
+            _purge_connects()
+            if sum(1 for it in CONNECTS.values() if it["state"] == "pending") >= CONNECT_MAX:
+                raise ApiError(429, "busy", "Too many apps are waiting for the user to answer. Try again later.")
+            if oslayer.has_screen() and CONNECT_LOCK.locked():
+                raise ApiError(429, "busy", "Another app is waiting for the user to answer. Try again later.")
+            for t, it in CONNECTS.items():                           # the same app asking again joins its waiting request
+                if it["app"] == app and it["state"] == "pending":
+                    ticket = t
+                    break
+            else:
+                ticket = "t-" + uuid.uuid4().hex[:16]
+                CONNECTS[ticket] = {"app": app, "state": "pending", "key": None, "done": threading.Event(), "since": time.time(),
+                                    "replacing": app in keys.apps()}
+                threading.Thread(target=_decide_connect, args=(ticket,), daemon=True).start()
+        it = CONNECTS[ticket]
+        if wait_s > 0:
+            it["done"].wait(wait_s)
+        return self._connect_reply(ticket, app)
+
+    def _connect_reply(self, ticket, app):
+        it = CONNECTS.get(ticket)
+        if it is None:
+            raise ApiError(404, "unknown_ticket", "No such request. Ask again with POST /cale/connect.")
+        if it["state"] == "allowed":
+            key, it["key"] = it["key"], None                       # the key is handed out once
+            if key is None:
+                raise ApiError(410, "already_delivered", "The key was handed out already. Ask again with POST /cale/connect.")
+            CONNECTS.pop(ticket, None)
+            return self._json(200, {"app": it["app"], "api_key": key, "base_url": f"http://{paths.HOST}:{paths.PORT}/v1"})
+        if it["state"] == "denied":
+            CONNECTS.pop(ticket, None)
             raise ApiError(403, "denied", "The user did not allow this app.")
-        self._json(200, {"app": app, "api_key": keys.create(app), "base_url": f"http://{paths.HOST}:{paths.PORT}/v1"})
+        how = (f"Ask the person to type, in a terminal on this computer:  cale allow \"{it['app']}\"" if not oslayer.has_screen()
+               else "The person must answer the question on the screen.")
+        return self._json(202, {"status": "pending", "ticket": ticket, "poll": f"/cale/connect/status?ticket={ticket}", "message": how},
+                          {"Retry-After": "2"})
 
     def _log_chat(self, app, req, ran, done):
         """One line per answer: which app asked for what, and which size ran."""
@@ -376,10 +496,15 @@ class Handler(BaseHTTPRequestHandler):
                 raise ApiError(400, "invalid_hold", "A hold needs a size, not 'auto'. Use memory_pct to let Cale choose.")
         else:
             spec = {"memory_pct": number(req, "memory_pct", 1, 100, 25), "on_miss": goals_from({"on_miss": req.get("on_miss", "best_effort")})["on_miss"]}
+        lease = number(req, "lease_s", 5, MAX_LEASE_S, None)
         try:
             hid, event, info = ENGINE.hold(app, spec)
         except GoalMissed as e:
             raise ApiError(422, "goal_missed", str(e), e.info)
+        if lease is not None:                                       # plain HTTP: no open connection. The hold lasts `lease_s` seconds after its last renewal.
+            with OBJ_LOCK:
+                LEASES[hid] = {"app": app, "ttl": lease, "expires": time.time() + lease}
+            return self._json(200, {**info, "lease": {"expires_in_s": lease, "renew": "POST /cale/lease", "end": "POST /cale/unload"}})
         self.send_response(200)
         self.send_header("Content-Type", "application/x-ndjson")
         self.send_header("Cache-Control", "no-cache")
@@ -421,7 +546,8 @@ class Handler(BaseHTTPRequestHandler):
         """Make a model object: a named set of parameters (a size, or goals) that the app then uses as a model name.
         The reply stays open like a hold. The object ends when the app closes the connection or quits.
         A size or a memory goal also keeps that size in RAM for as long as the object lives."""
-        spec = object_spec(req)
+        lease = number(req, "lease_s", 5, MAX_LEASE_S, None)
+        spec = object_spec({k: v for k, v in req.items() if k != "lease_s"})
         hold_spec, hid, event, info = None, None, threading.Event(), {}
         if "size_pct" in spec:
             hold_spec = {"size_pct": spec["size_pct"]}
@@ -448,6 +574,12 @@ class Handler(BaseHTTPRequestHandler):
                                    "max_pct": info.get("size_pct") if "memory_pct" in (hold_spec or {}) else None,   # a memory goal also caps the size this object's calls run at
                                    "memory_goal_met": info.get("goal_met") if "memory_pct" in (hold_spec or {}) else None}
         print(f"[model] {app!r} made {oid}: { {k: v for k, v in spec.items() if v is not None} }", flush=True)
+        if lease is not None:                                       # plain HTTP: no open connection. The object lasts `lease_s` seconds after its last use or renewal.
+            with OBJ_LOCK:
+                OBJECTS[(app, oid)]["lease"] = {"ttl": lease, "expires": time.time() + lease, "hid": hid}
+            return self._json(200, {"id": oid, "object": "cale.model", "family": BASE, "spec": {k: v for k, v in spec.items() if v is not None},
+                                    **info, "lease": {"expires_in_s": lease, "renew": "POST /cale/lease  (a chat call with this id renews it too)",
+                                                      "end": "POST /cale/lease with \"end\": true, or DELETE /cale/models/" + oid}})
         self.send_response(200)
         self.send_header("Content-Type", "application/x-ndjson")
         self.send_header("Cache-Control", "no-cache")
@@ -567,6 +699,9 @@ class Handler(BaseHTTPRequestHandler):
         with OBJ_LOCK:
             obj = OBJECTS.get((app, name)) if isinstance(name, str) else None     # only this app's own objects exist for it
         spec = obj["spec"] if obj else None
+        if obj and obj.get("lease"):                                 # using an object keeps its lease alive
+            with OBJ_LOCK:
+                obj["lease"]["expires"] = time.time() + obj["lease"]["ttl"]
         pct = ("auto" if "size_pct" not in spec else spec["size_pct"]) if obj else parse_model(name)
         try:
             tools = tools_mod.parse_tools(req.get("tools"))
@@ -753,6 +888,27 @@ class Server(ThreadingHTTPServer):
     allow_reuse_address = not oslayer.WIN
 
 
+def reap_leases():
+    """Every second: end the leased model objects and holds that nobody renewed or used."""
+    while True:
+        time.sleep(1)
+        now = time.time()
+        gone = []
+        with OBJ_LOCK:
+            for key, o in list(OBJECTS.items()):
+                if o.get("lease") and o["lease"]["expires"] < now:
+                    gone.append(o["lease"].get("hid"))
+                    OBJECTS.pop(key, None)
+                    print(f"[model] {key[1]} lease ended", flush=True)
+            for hid, l in list(LEASES.items()):
+                if l["expires"] < now:
+                    gone.append(hid)
+                    LEASES.pop(hid, None)
+        for hid in gone:
+            if hid:
+                ENGINE.release(hid)
+
+
 def exit_when_idle(limit=None):
     """On-demand mode (no service manager restarts Cale): end the process after `limit` seconds with no hold, no
     model object and no answer. The next app that needs Cale starts it again (cale.client.ensure_running)."""
@@ -780,6 +936,7 @@ def main():
     ENGINE = Engine(paths.MODEL, idle_s=float(os.environ.get("CALE_IDLE_S", 600)) if DEBUG else 600)
     srv = Server((paths.HOST, paths.PORT), Handler)
     srv.daemon_threads = True
+    threading.Thread(target=reap_leases, daemon=True).start()
     if os.environ.get("CALE_ON_DEMAND") == "1":
         threading.Thread(target=exit_when_idle, daemon=True).start()
     print(f"[cale] listening on http://{paths.HOST}:{paths.PORT} model={paths.MODEL}", flush=True)

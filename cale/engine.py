@@ -261,8 +261,14 @@ class Engine(BatchMixin):
                 self.lock.release()
 
     # --- what this computer does --------------------------------------------------------
-    def this_computer(self):
-        """Predicted speed and memory of every size, for /v1/models. From the live predictor, else from the file saved last time."""
+    def this_computer(self, load=False):
+        """Predicted speed and memory of every size, for /v1/models. From the live predictor, else from the file saved last time.
+        load=True loads the model first if it is not loaded (so the answer is complete)."""
+        if load and self.m is None:
+            with self.lock:
+                self._apply_pending()
+                if self.m is None:
+                    self._load()
         p = self.pred
         if p is not None and self.mach is not None:
             m = self.machine()

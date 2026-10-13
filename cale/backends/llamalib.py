@@ -99,6 +99,7 @@ class Lib:
             c.cale_slot_accept.restype, c.cale_slot_accept.argtypes = i32, [vp, i32, i32]
             c.cale_slot_reused.restype, c.cale_slot_reused.argtypes = i32, [vp, i32]
             c.cale_slot_common.restype, c.cale_slot_common.argtypes = i32, [vp, i32, i32p, i32]
+            c.cale_slot_tokens.restype, c.cale_slot_tokens.argtypes = i32, [vp, i32]
         self.has_guided = hasattr(c, "cale_topk")
         if self.has_guided:
             c.cale_topk.restype, c.cale_topk.argtypes = i32, [vp, i32, i32p, ctypes.POINTER(ctypes.c_float)]
@@ -207,6 +208,10 @@ class Lib:
         """How many tokens from the start of `tokens` this slot's memory already holds."""
         arr = (ctypes.c_int32 * len(tokens))(*tokens)
         return self.c.cale_slot_common(self.h, slot, arr, len(tokens))
+
+    def slot_tokens(self, slot):
+        """How many tokens of key/value memory this slot holds. All slots share one pool of n_ctx tokens."""
+        return self.c.cale_slot_tokens(self.h, slot)
 
     def slot_close(self, slot):
         self.c.cale_slot_close(self.h, slot)

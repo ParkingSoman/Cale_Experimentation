@@ -20,7 +20,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
 OWN_MODEL = ["oslayer", "choose", "constrain", "engine_features", "backend_llama"]     # these load the model or need no server
-SERVER = ["honest", "relative", "objects", "goals", "structured", "promptcache", "concurrent", "e2e"]
+SERVER = ["honest", "relative", "objects", "goals", "structured", "promptcache", "crowd", "anylang", "e2e"]
+SERVER_ENV = {"anylang": {"CALE_HEADLESS": "1", "CALE_DEV_APPROVE": "0", "CALE_APPROVE_WAIT_S": "8"}}    # a server with no screen: the person answers in a terminal
 PORT = 47899
 
 
@@ -82,11 +83,12 @@ def stop_server(proc):
 
 def run_with_server(name, env, keep_home):
     """One suite against its own fresh server and home: suites leave holds and loaded sizes behind, and must not affect each other."""
+    wait_closed(30)                                      # the last server must be gone before the next one starts
     home = tempfile.mkdtemp(prefix=f"cale-{name}-")
     log = open(Path(home) / "server.log", "w")
+    env = dict(env, **SERVER_ENV.get(name, {}), CALE_TEST_HOME=home)
     srv = subprocess.Popen([PY, str(ROOT / "scripts" / "cale_dev_server.py"), home], cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT)
     try:
-        wait_closed(30)                                  # the last server must be gone, or we would talk to it
         if not wait_ready(180):
             return {"name": name, "passed": 0, "failed": [f"FAIL server did not start (see {Path(home) / 'server.log'})"], "code": 1, "seconds": 0, "tail": []}
         return run(name, ["--base", f"http://127.0.0.1:{PORT}"] + (["--model"] if name == "e2e" else []), env, 2400)

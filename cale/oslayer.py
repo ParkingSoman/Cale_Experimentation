@@ -309,6 +309,15 @@ def private_file(path, text):
 
 # ---- the Allow dialog ---------------------------------------------------------------------------------------------
 
+def has_screen():
+    """True if Cale can show the Allow question on a screen here. CALE_HEADLESS=1 says there is none (for tests and servers)."""
+    if os.environ.get("CALE_HEADLESS") == "1":
+        return False
+    if MAC or WIN:
+        return True
+    return bool((os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")) and (shutil.which("zenity") or shutil.which("kdialog")))
+
+
 def ask_allow(app, replacing=False, seconds=120):
     """Ask the person at the computer: allow this app to use Cale? True only for a clear yes.
     The app name travels as data, never inside script text."""

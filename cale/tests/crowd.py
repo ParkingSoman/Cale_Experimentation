@@ -2,7 +2,7 @@
 When the engine can run answers together (`slots` in /cale/status above 1), they must share the work: nobody waits for another's whole
 answer, and the total speed goes up. When it cannot (a Mac with MLX), answers run in turn and must still all be right.
 
-usage: python cale/tests/concurrent.py [--base http://127.0.0.1:47899]
+usage: python cale/tests/crowd.py [--base http://127.0.0.1:47899]
 """
 import argparse
 import json
@@ -147,6 +147,25 @@ for r in res[:3]:
     except Exception:
         ok = False
 check("three guided answers and one free answer at once: the guided ones are valid", ok and res[3][0] == 200, [r[2]["choices"][0]["message"]["content"][:60] for r in res])
+
+# 8. an answer that cannot be completed fails alone: the app next to it is not hurt
+impossible = {"type": "object", "properties": {"a": {"type": "string", "minLength": 1, "maxLength": 0}}, "required": ["a"]}
+bad_fmt = {"type": "json_schema", "json_schema": {"name": "bad", "schema": impossible}}
+res, took, total = together([lambda: chat(keys[0], "Write two sentences about rivers.", max_tokens=60),
+                             lambda: chat(keys[1], "Give me a value.", max_tokens=30, response_format=bad_fmt)])
+check("an impossible schema: its app gets a clear 422", res[1][0] == 422 and res[1][2]["error"]["code"] == "constraint_dead_end", res[1])
+check("...and the app answering next to it is not hurt", res[0][0] == 200 and res[0][2]["usage"]["completion_tokens"] > 10, res[0])
+s, hd, r = chat(keys[2], "Say hi.", max_tokens=8)
+check("...and the engine still answers", s == 200 and r["choices"][0]["message"]["content"], r)
+
+# 9. answers that together need more than the shared context are not a crash: they wait, or end with finish_reason length
+call("/cale/debug/pool", {"tokens": 1500})                         # a small shared pool (only with a debug server and an engine that has one)
+page = "Fact: the sea is wide and deep. " * 60                      # about 600 tokens
+res, took, total = together([lambda i=i: chat(keys[i], page + f" Question {i}: what is wide?", max_tokens=24) for i in range(4)])
+call("/cale/debug/pool", {"tokens": None})
+check("four 600-token prompts in a pool of 1500: all answered, none crashed", all(r[0] == 200 and r[2]["choices"][0]["message"]["content"] for r in res), [(r[0], r[2].get("error")) for r in res])
+s, hd, r = chat(keys[0], "Say hi.", max_tokens=8)
+check("...and the engine still answers", s == 200, (s, r))
 
 print("\nFAILED: " + ", ".join(FAIL) if FAIL else "\nall passed")
 sys.exit(1 if FAIL else 0)
