@@ -916,3 +916,12 @@ D gives B's prompt speed and A's answer speed at once, with nothing extra in RAM
 **The rule in Cale.** `cale/backends/devices.py`: a discrete GPU too small for the model gets **0 layers** and reads prompts. The fit is not used any more by default, because layers on the GPU made smaller sizes slower than the CPU. Only the full size gets the faster prompt: a smaller size is a view of the weights, and Cale does not offload views. A GPU that shares memory with the CPU is never chosen alone.
 
 **A mistake worth keeping.** The first two runs of D showed no gain. The build had failed on a source-path mismatch (`cmake configure failed`) and my job script hid the error, so the old library was tested. Check the exit code of every build in a job script.
+
+## Checks that were still open (2026-10-13, later)
+
+| Check | Result |
+|---|---|
+| Open WebUI end to end (HP Linux, test Cale) | The "Get Cale" card connected. Cale made the `answers` (2 tokens/s, 40% memory) and `tasks` (first token in 10 s) objects. A chat through Open WebUI's own API got an answer from Cale at the 48% size. No browser was used: the web page itself was not clicked. |
+| Linux Allow dialog | **Not verified with a real dialog.** The WSL on the HP has no `zenity` or `kdialog`, and no way to install them without `sudo`. With a stand-in `zenity` on the path, Cale built the right command, passed the app name as data (an app named `x; rm -rf /` did no harm), counted exit 1 as "no", and counted a hung tool as "no" after the timeout. Without any tool, Cale says "no screen" and uses `cale allow`: that path ran in the zoo and passed. |
+| GPU in use on Windows (rule: `reads prompts`) | All suites pass with the MX150 reading prompts (after two test fixes: GPU driver memory in the base allowance, and "batching is not slower" instead of "20% faster"). A 1064-token prompt: first token in 22.7 s, against 75 s on the CPU alone (3.3 times). |
+| Cost of that speed | An app that leaves in the middle of a long prompt can hold the next app up for about 6 s (one prompt piece cannot be stopped), against 1 to 2 s on the CPU. It is in `docs/API.md`. |

@@ -5,7 +5,7 @@
 | 2b GPU | Done, with option D (the GPU reads prompts, the CPU answers; see FINDINGS). Per-size GPU placement is not needed with D (0 layers on the GPU). Not done: NVIDIA/CUDA test. |
 | 3 Gemma facts | Done (`cale/gemma3n_facts.py`). The small-drafter idea was rejected by arithmetic. |
 | 4 Goals in tokens/s, floor | Done: no timing run, `on_miss` best_effort/refuse/wait/try, `priority`, 507 safety limit. Prediction accuracy 6-16%. |
-| 5 Several apps at once | Done on llama (slots, scheduler). MLX stays one at a time. Known limits are in `FINDINGS.md` ("Review of stages 3 to 8"). |
+| 5 Several apps at once | Done on llama (slots, scheduler). MLX stays one at a time. Known limits 1 to 5 fixed. Limits 6 to 13 are in `FINDINGS.md` ("Review of stages 3 to 8"). |
 | 6 Cloud-API gap | Done: tools, JSON schema, prompt cache, pictures and sound (Mac only). Not done: `logprobs`, pictures and sound on llama. |
 | 7 Any language, no screen | Done: leases, tickets, `cale allow`, Node client, `cale` command. |
 | 8 More computers | Linux arm64 tested in a container. Windows arm64 builds, not tested. The installer unpacks engine archives for windows-x86_64, linux-x86_64, linux-arm64. |
