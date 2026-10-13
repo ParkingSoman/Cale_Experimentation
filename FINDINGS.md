@@ -798,3 +798,43 @@ Quality matches the CPU within 0.004 everywhere. **But speed is not right yet:**
 | The Wi-Fi card may be turned off by Windows | `PnPCapabilities` was 16 | set to 24, adapter restarted |
 
 After the changes, ssh calls during a run with three model loads: 30 took 1 s, 9 took under 1 s, 1 took 2 s, none failed.
+
+## Phase 6 stages 3 to 8 (2026-10-13)
+
+Tests: every suite in `cale/tests/` through `scripts/run_suites.py` (Mac MLX, Mac llama, HP Windows, HP Linux, Linux arm64 in a container).
+
+**Goals in tokens per second, no timing run (stages 3, 4).** Cale predicts speed from memory speed and the bytes one token reads. It corrects the prediction from the first answer.
+
+| Computer | First estimate off by | After the first answer off by |
+|---|---|---|
+| Mac (MLX) | 16% at most | 10% at most |
+| HP Windows | 14% | 6% (loaded computer: 1% first, 10% after) |
+| Linux | 16% | 4% |
+
+The gate was 25% and 10%. A small model that drafts for the big one was rejected before building it. The nested small size is only about 1.8 times faster, so the drafter cannot pay for itself.
+
+**Several answers at once (stage 5).** Cale runs up to 4 answers together on the llama engine. Order is fair and sizes stay exact.
+
+| Computer | One answer | Four answers together |
+|---|---|---|
+| HP CPU | 7.3 tokens/s | 8.6 tokens/s total |
+| Mac CPU | - | 1.8 times the throughput of one |
+
+On a weak CPU, batching gives fairness, not speed. The MLX engine stays one answer at a time.
+
+**Tools, JSON, prompt cache (stage 6).** `tools`, `tool_choice`, `response_format` (`json_object`, `json_schema`) work on both engines. The guide checks every token, so the JSON is always valid. The prompt cache is kept per app after a security review found that one app could learn about another app's prompts through timing.
+
+**Pictures (stage 6).** MLX only. A picture is 256 prompt tokens. A 768 by 768 picture costs about 1.3 s of reading. The tower that reads pictures (about 0.3 GB) loads for the call and is freed after it. The test picture (red circle, the word HELLO) was described correctly. The llama engine answers `400 unsupported_content`. Reason: llama.cpp can read Gemma 3n pictures, but no ready file exists. Making one needs the original 16 GB weights from Hugging Face. Audio input: not done on either engine.
+
+**No screen, any language (stage 7).** `cale allow NAME`, connect tickets, leases and a Node client work. A Windows bug found by the tests: the empty device NUL says it is a terminal. `cale allow` then waited for typing that never came. Fixed with `oslayer.is_terminal` (asks the console).
+
+**More computers (stage 8).**
+
+| Finding | Evidence | Change |
+|---|---|---|
+| Linux arm64 works | All server suites pass in an Ubuntu 24.04 arm64 container | installer accepts arm64 |
+| The Linux library needed `libgomp` | The container had no OpenMP | `GGML_OPENMP=OFF`, static C++ runtime on Linux |
+| A container can hold less memory than the host | `--memory 5g` test | Cale reads the container limit. Full size gives `507 unsafe_for_this_computer`. A goal call works. No out-of-memory kill. |
+| A package named `concurrent` hid the Python one | test crashed on import | renamed `crowd.py` |
+| The installer left out `cancel.py` and `stops.py` | `install_check` | both added to the file list |
+| Windows arm64 | the library builds (cross compiler) | **built, not tested**: no such computer here |

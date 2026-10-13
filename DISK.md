@@ -59,3 +59,12 @@ is not listed.
 |---|---|---|
 | HP `C:\cale\xplat\gfx_win_101.2145.exe` | 0.3 GB | Intel driver installer, already installed. Delete when no longer needed. |
 | `results/gpu/` | small | Raw GPU benchmark logs and scripts. Keep. |
+
+## Phase 6 stages 3 to 8 additions (2026-10-13)
+
+| Path | Size | Reason |
+|---|---|---|
+| `models/gguf/gemma-3n-E4B-it-Q4_0.cale.gguf` | 4.4 GB | Mac copy of the llama engine file, for the llama tests. Keep while testing. |
+| `/private/tmp/claude-501/llvmmingw` | 0.8 GB | Windows arm64 cross compiler. Delete when done. |
+| `/private/tmp/claude-501/lbuild_mac`, `lbuild_winarm` | about 1 GB | Mac and Windows arm64 builds. Delete when done. |
+| Docker volume `cale-arm64-build` (colima) | about 2 GB | Linux arm64 build. Remove with `docker volume rm cale-arm64-build`, then `colima stop`. |

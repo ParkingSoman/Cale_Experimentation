@@ -41,9 +41,17 @@ uses less memory. Reading them back is "reading from disk" for a call that needs
 | Linux, macOS | `llama/build.sh [OUT_DIR]` | git, cmake, a C++ compiler |
 | Windows | `powershell -ExecutionPolicy Bypass -File llama\build.ps1 -Out C:\cale\lbuild -Python python.exe` | Python. It fetches a portable GCC (w64devkit). No admin rights, no Visual Studio. |
 
-The Windows build turns OpenMP off (`-DGGML_OPENMP=OFF`). With the mingw OpenMP runtime, decoding was 43-50% slower than with llama.cpp's own thread pool, and 40-45% slower than Linux on the same CPU. On Linux the two are equal, so Linux keeps OpenMP.
+OpenMP is off on every system (`-DGGML_OPENMP=OFF`). With the mingw OpenMP runtime, Windows decoding was 43-50% slower than with llama.cpp's own thread pool. On Linux the two were equal, and an OpenMP-free library needs no `libgomp`, which a small container may lack. Linux also links the C++ runtime statically.
 
-Built libraries go in `llama/dist/<os>-<arch>/`. The installer copies the one for this computer.
+| Build option | Meaning |
+|---|---|
+| `CALE_BACKENDS_DL=1` | CPU variants for each instruction set (SSE4.2, AVX2, AVX-512 and more) and GPU backends are separate libraries. Cale loads the best one that this computer can run. A computer with an old CPU still works. |
+| `CALE_CPU_VARIANTS=OFF` | One CPU build. Used for Windows arm64, which has no variants. |
+
+`scripts/make_dist.py` packs a build into `llama/dist/<os>-<arch>.zip` (Windows) or `.tar.gz` (Linux). The installer unpacks the archive for this computer. Systems built so far: `windows-x86_64`, `linux-x86_64`, `linux-arm64`. `windows-arm64` builds with a cross compiler and is **not tested**.
+
+Several answers at once: the library holds `CALE_SLOTS` conversations (default 4) in one shared memory pool. `cale/batching.py` runs one scheduler thread over them.
+
 `STOCK=1 llama/build.sh` builds against unpatched llama.cpp, for the full-size comparison below.
 
 ## Checks that were run
