@@ -223,6 +223,7 @@ class Engine(BatchMixin):
         ctx = int((d or {}).get("prompt_tokens", 0)) + int((d or {}).get("tokens", 0))
         expected = self.mach["base_bytes"] + (self.mach.get("scratch_bytes") or facts.SCRATCH_BYTES) + facts.kv_bytes(ctx)
         if held > expected:
+            self.log(f"base memory raised by {(held - expected) / 1e9:.2f} GB (the process holds {held / 1e9:.2f} GB besides the weights, {expected / 1e9:.2f} GB were predicted)")
             self.mach["base_bytes"] += held - expected
 
     def _measure_speed(self):
