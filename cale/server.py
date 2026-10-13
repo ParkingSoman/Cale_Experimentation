@@ -321,7 +321,7 @@ class Handler(BaseHTTPRequestHandler):
                              for (owner, oid), o in OBJECTS.items() if owner == app]
                 this_mac = ENGINE.this_computer()
                 return self._json(200, {"object": "list", "data": data, "cale": {
-                    "base": BASE, "max_context_tokens": ENGINE.known_context(), "capabilities": {"images": bool(backends.supports().get("images")), "audio": False, "tools": True, "json_schema": True}, "sizes": {"min": MIN_PCT, "max": MAX_PCT, "aliases": ALIASES,
+                    "base": BASE, "max_context_tokens": ENGINE.known_context(), "capabilities": {"images": bool(backends.supports().get("images")), "audio": bool(backends.supports().get("audio")), "tools": True, "json_schema": True}, "sizes": {"min": MIN_PCT, "max": MAX_PCT, "aliases": ALIASES,
                                             "available": sorted({l["pct"] for l in LEVELS}),
                                             "usage": f"{BASE}:<percent> or {BASE}:auto", "goals": list(goals_mod.FIELDS)}, "curve": curve,
                     "this_computer": this_mac, "this_mac": this_mac,       # this_mac: the first name, kept so old apps still work
@@ -714,7 +714,7 @@ class Handler(BaseHTTPRequestHandler):
         use_tools = bool(tools) and choice != "none"
         if use_tools and rf_guide is not None:
             raise ApiError(400, "unsupported_parameter", "Cale cannot combine 'tools' and 'response_format' in one call yet. Use one of them.", param="response_format")
-        msgs = tools_mod.convert_messages(req.get("messages"), ApiError, images_ok=bool(backends.supports().get("images")))
+        msgs = tools_mod.convert_messages(req.get("messages"), ApiError, images_ok=bool(backends.supports().get("images")), audio_ok=bool(backends.supports().get("audio")))
         guide = None
         if use_tools:
             msgs = tools_mod.with_system(msgs, tools_mod.tool_prompt(tools, choice, parallel))

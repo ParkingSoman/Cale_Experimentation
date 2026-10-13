@@ -332,7 +332,7 @@ class LlamaNested:
         return len(self.prompt_ids(messages))
 
     # --- chat --------------------------------------------------------------------------------
-    supports = {"top_p": True, "seed": True, "stop": True, "guided": True, "images": False}
+    supports = {"top_p": True, "seed": True, "stop": True, "guided": True, "images": False, "audio": False}
 
     @property
     def max_context(self):

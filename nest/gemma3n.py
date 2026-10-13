@@ -404,10 +404,11 @@ class NestedGemma3n:
             self.settle()
 
     def _encode(self, messages):
-        """The prompt as (token ids of shape (1, n), pixel values or None). A message with "parts" carries pictures: each picture
-        becomes 256 tokens that stand for it. The tower that reads pictures is not loaded for text-only prompts."""
+        """The prompt as (token ids of shape (1, n), media or None). `media` is a dict for the part of the model that reads pictures and
+        sound: {"pixel_values": ..., "input_features": ..., "input_features_mask": ...} with the keys that apply. A picture is 256 tokens,
+        a clip of sound is up to 188 (6.25 tokens a second). The towers that read them are not loaded for text-only prompts."""
         tok = self.processor.tokenizer
-        images, msgs = [], []
+        images, clips, msgs = [], [], []
         for m in messages:
             if m.get("parts"):
                 content = []
@@ -415,46 +416,61 @@ class NestedGemma3n:
                     if kind == "image":
                         content.append({"type": "image"})
                         images.append(v)
+                    elif kind == "audio":
+                        content.append({"type": "audio"})
+                        clips.append(v)
                     else:
                         content.append({"type": "text", "text": v})
             else:
                 content = [{"type": "text", "text": m["content"]}]
             msgs.append({"role": m["role"], "content": content})
         text = self.processor.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
-        if not images:
+        if not images and not clips:
             return mx.array(tok.encode(text, add_special_tokens=False))[None], None
         from cale import media
-        from mlx_vlm.utils import prepare_inputs
-        got = prepare_inputs(self.processor, images=[media.load(b) for b in images], prompts=text)
-        return got["input_ids"], got["pixel_values"]
+        pics = [media.load(b) for b in images] or None
+        sound = [media.load_audio(b) for b in clips] or None
+        got = self.processor(text=text, images=pics, audio=sound, return_tensors="np")
+        extra = {}
+        if "pixel_values" in got and pics:
+            extra["pixel_values"] = mx.array(got["pixel_values"])
+        if "input_features" in got and sound:
+            extra["input_features"] = mx.array(got["input_features"])
+            extra["input_features_mask"] = mx.array(got["input_features_mask"])
+        return mx.array(got["input_ids"]), extra
 
     def prompt_ids(self, messages):
         """The prompt as token ids, shape (1, n). The relative-goal chooser needs n before it picks a size."""
         return self._encode(messages)[0]
 
-    def _picture_tower(self):
-        """Load the part of the model that reads pictures (about 0.3 GB). `_drop_picture_tower` frees it again."""
-        if self.model.vision_tower is None:
+    def _media_towers(self, media):
+        """Load the parts of the model that read pictures and sound (a few hundred MB). `_drop_media_towers` frees them again."""
+        need_v, need_a = "pixel_values" in media, "input_features" in media
+        if (need_v and self.model.vision_tower is None) or (need_a and self.model.audio_tower is None):
             from mlx_vlm import load as vlm_load
             full, _ = vlm_load(self.path, lazy=True)
-            self.model.vision_tower = full.vision_tower
-            mx.eval(self.model.vision_tower.parameters())
+            if need_v:
+                self.model.vision_tower = full.vision_tower
+                mx.eval(self.model.vision_tower.parameters())
+            if need_a:
+                self.model.audio_tower = full.audio_tower
+                mx.eval(self.model.audio_tower.parameters())
             del full
-        return self.model.vision_tower
 
-    def _drop_picture_tower(self):
+    def _drop_media_towers(self):
         self.model.vision_tower = None
+        self.model.audio_tower = None
         gc.collect()
         mx.clear_cache()
 
-    def _prefill_pictures(self, ids, pixels, cache, cancel=None):
-        """Like _prefill for a prompt that holds pictures: the picture tokens are replaced by what the picture tower reads."""
-        self._picture_tower()
+    def _prefill_media(self, ids, media, cache, cancel=None):
+        """Like _prefill for a prompt that holds pictures or sound: their tokens are replaced by what the towers read."""
+        self._media_towers(media)
         try:
-            emb = self.model.get_input_embeddings(input_ids=ids, pixel_values=pixels)
+            emb = self.model.get_input_embeddings(input_ids=ids, **media)
             mx.eval(emb.inputs_embeds, emb.per_layer_inputs)
         finally:
-            self._drop_picture_tower()
+            self._drop_media_towers()
         n, h, step = ids.shape[1], None, self.prefill_step()
         for i in range(0, n, step):
             if cancel:
@@ -527,13 +543,13 @@ class NestedGemma3n:
         saved after that prompt is used and only the new tokens are read. Returns (ids, cache, hidden states of the last piece, tokens reused).
         The memory is saved right after the prompt, before any answer token: the next turn's prompt always starts with this prompt,
         while the answer may be written back slightly differently (the chat template trims blanks)."""
-        ids, pixels = self._encode(messages)
+        ids, media = self._encode(messages)
         tokens = ids[0].tolist()
         pc = self.__dict__.get("_pc")
         cache, n = self.lm.make_cache(), 0
-        if pixels is not None:                                       # a prompt with pictures is read whole and never saved for the next turn
+        if media is not None:                                        # a prompt with pictures or sound is read whole and never saved for the next turn
             self._pc = None
-            h = self._prefill_pictures(ids, pixels, cache, cancel)
+            h = self._prefill_media(ids, media, cache, cancel)
             mx.eval(h, [c.state for c in cache])
             return ids, cache, h, 0
         if (owner is not None and pc and pc["owner"] == owner and pc["level"] == self.level["id"]      # never across apps: that would tell one app about another's prompts

@@ -25,7 +25,7 @@ def load_model(path):
 def supports():
     """Which request options this engine can honour: {"top_p", "seed", "stop"} -> bool. Does not load the model."""
     if name() == "mlx":
-        return {"top_p": True, "seed": True, "stop": True, "guided": True, "images": True}
+        return {"top_p": True, "seed": True, "stop": True, "guided": True, "images": True, "audio": True}
     from .llama import LlamaNested
     return dict(LlamaNested.supports)
 

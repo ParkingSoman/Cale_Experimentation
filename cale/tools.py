@@ -111,7 +111,7 @@ def call_text(calls):
     return json.dumps({"tool_calls": items}, ensure_ascii=False, separators=(",", ":"))
 
 
-def convert_messages(raw, ApiError, images_ok=False):
+def convert_messages(raw, ApiError, images_ok=False, audio_ok=False):
     """OpenAI messages (with tool_calls and tool roles) -> plain {"role", "content"} messages. `ApiError(status, code, message, param=)` is the server's."""
     if not isinstance(raw, list) or not raw:
         raise ApiError(400, "invalid_messages", "'messages' must be a non-empty list.")
@@ -142,12 +142,22 @@ def convert_messages(raw, ApiError, images_ok=False):
                         parts.append(("image", media.image_from_part(p)))
                     except media.MediaError as e:
                         raise ApiError(400, "invalid_image", str(e))
-                elif kind in ("input_audio", "audio_url", "video_url", "file"):
-                    raise ApiError(400, "unsupported_content", f"Content of type '{kind}' is not supported. Supported: text" + (", image_url." if images_ok else "."))
+                elif kind == "input_audio":
+                    if not audio_ok:
+                        raise ApiError(400, "unsupported_content", "This computer's engine cannot read sound yet. "
+                                       "'cale.capabilities.audio' in GET /v1/models says whether it can.")
+                    if role != "user":
+                        raise ApiError(400, "unsupported_content", "Sound is accepted in user messages only.")
+                    try:
+                        parts.append(("audio", media.audio_from_part(p)))
+                    except media.MediaError as e:
+                        raise ApiError(400, "invalid_audio", str(e))
+                elif kind in ("audio_url", "video_url", "file"):
+                    raise ApiError(400, "unsupported_content", f"Content of type '{kind}' is not supported. Supported: text" + (", image_url" if images_ok else "") + (", input_audio." if audio_ok else "."))
                 else:
                     raise ApiError(400, "unsupported_content", "Only text content" + (" and pictures are" if images_ok else " is") + " supported.")
             c = "\n".join(texts)
-            if sum(1 for q in parts if q[0] == "image") == 0:
+            if not any(q[0] in ("image", "audio") for q in parts):
                 parts = None
         if c is None and role == "assistant" and m.get("tool_calls"):
             c = ""
@@ -175,6 +185,8 @@ def convert_messages(raw, ApiError, images_ok=False):
     out = merge_same_role(out)
     if sum(1 for m in out for q in m.get("parts", ()) if q[0] == "image") > media.MAX_IMAGES:
         raise ApiError(400, "invalid_image", f"A request may hold at most {media.MAX_IMAGES} pictures.")
+    if sum(1 for m in out for q in m.get("parts", ()) if q[0] == "audio") > media.MAX_CLIPS:
+        raise ApiError(400, "invalid_audio", f"A request may hold at most {media.MAX_CLIPS} sound clip.")
     return out
 
 

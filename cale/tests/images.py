@@ -1,4 +1,4 @@
-"""Pictures in chat requests. Against a running Cale (scripts/cale_dev_server.py HOME).
+"""Pictures and sound in chat requests. Against a running Cale (scripts/cale_dev_server.py HOME).
 
 usage: python cale/tests/images.py [--base http://127.0.0.1:47899]
 An engine that cannot read pictures must say so with a clear 400. An engine that can must read them.
@@ -60,7 +60,10 @@ def img(url):
 
 
 text = {"type": "text", "text": "What colour is the shape? Answer with one word."}
-check("audio input -> 400 unsupported_content", err(chat([text, {"type": "input_audio", "input_audio": {"data": "AAAA", "format": "wav"}}])) == (400, "unsupported_content"))
+check("/v1/models says whether sound works", isinstance(caps.get("audio"), bool), caps)
+clip = lambda data, fmt="wav": {"type": "input_audio", "input_audio": {"data": data, "format": fmt}}      # noqa: E731
+if not caps.get("audio"):
+    check("no sound support: sound gets 400 unsupported_content", err(chat([text, clip("AAAA")])) == (400, "unsupported_content"))
 if not caps.get("images"):
     check("no picture support: a picture gets 400 unsupported_content", err(chat([text, img("data:image/png;base64,AAAA")])) == (400, "unsupported_content"))
 else:
@@ -82,6 +85,30 @@ else:
     check("a picture in a system message -> 400", err(chat([img(url)], role="system"))[0] == 400)
     st = call("/cale/status")[1]
     check("engine healthy afterwards", st.get("last_error") is None, st.get("last_error"))
+
+if caps.get("audio"):
+    import subprocess, tempfile, os
+    say = subprocess.run(["which", "say"], capture_output=True, text=True).stdout.strip()
+    if say:
+        d = tempfile.mkdtemp()
+        subprocess.run([say, "-o", os.path.join(d, "a.aiff"), "The access code is seven three nine one."], check=True)
+        subprocess.run(["afconvert", "-f", "WAVE", "-d", "LEI16@16000", "-c", "1", os.path.join(d, "a.aiff"), os.path.join(d, "a.wav")], check=True)
+        wav = base64.b64encode(open(os.path.join(d, "a.wav"), "rb").read()).decode()
+        ask = {"type": "text", "text": "Transcribe the audio. Reply with the transcript only."}
+        r = chat([ask, clip(wav)])
+        reply = r[1]["choices"][0]["message"]["content"] if r[0] == 200 else ""
+        check("sound is heard", r[0] == 200 and "7391" in reply.replace(" ", "").replace("seven", "7").replace("three", "3").replace("nine", "9").replace("one", "1"), r[1])
+        check("...and the prompt counts the sound's tokens", r[0] == 200 and r[1]["usage"]["prompt_tokens"] > 100, r[1].get("usage"))
+        check("a text call after a sound call still works", chat("Say hello in three words.")[0] == 200)
+    check("sound that is not WAV -> 400 invalid_audio", err(chat([text, clip("AAAA", "mp3")])) == (400, "invalid_audio"))
+    check("bad base64 sound -> 400 invalid_audio", err(chat([text, clip("@@@@")])) == (400, "invalid_audio"))
+    check("base64 that is not a WAV file -> 400 invalid_audio", err(chat([text, clip(base64.b64encode(b"hello world").decode())])) == (400, "invalid_audio"))
+    import wave
+    longwav = io.BytesIO()
+    with wave.open(longwav, "wb") as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(16000); w.writeframes(b"\x00\x00" * 16000 * 31)
+    check("a 31 second clip -> 400 invalid_audio", err(chat([text, clip(base64.b64encode(longwav.getvalue()).decode())])) == (400, "invalid_audio"))
+    check("sound in a system message -> 400", err(chat([clip("AAAA")], role="system"))[0] == 400)
 
 print("\nall passed" if not FAIL else f"\nFAILED: {FAIL}")
 sys.exit(1 if FAIL else 0)

@@ -72,10 +72,29 @@ Cale never ignores a field in silence.
 | You send | Cale answers |
 |---|---|
 | `functions`, `function_call`, `logprobs`, `n` above 1, penalties other than 0 | `400 unsupported_parameter`. The `param` field names it. These are planned, not available yet. |
-| audio input (`input_audio`) | `400 unsupported_content`. Not available yet on any computer. |
+| sound (`input_audio`) on a computer whose engine cannot read sound | `400 unsupported_content`. Ask first: `capabilities.audio` in `GET /v1/models` |
 | a picture on a computer whose engine cannot read pictures | `400 unsupported_content`. Ask first: `capabilities.images` in `GET /v1/models` |
 | a field Cale has never heard of | `400 unknown_parameter` |
 | a bad value | `400 invalid_...` with the field name in `param` |
+
+### Sound
+
+Send one WAV clip in a user message:
+
+```json
+{"role": "user", "content": [
+  {"type": "text", "text": "Transcribe this. Reply with the transcript only."},
+  {"type": "input_audio", "input_audio": {"data": "UklGR...", "format": "wav"}}]}
+```
+
+| Rule | Value |
+|---|---|
+| Where | user messages only |
+| Format | WAV only, base64 in `data`, `format` is `wav`. Any sample rate (Cale converts to 16 kHz mono). |
+| Limits | 1 clip per request, 30 seconds and 10 MB at most |
+| Cost | about 6 prompt tokens for each second of sound |
+| Errors | `400 invalid_audio` (bad data or over a limit), `400 unsupported_content` (this engine cannot read sound) |
+| Where it works | Mac now. Windows and Linux: not yet. Check `capabilities.audio` in `GET /v1/models`. |
 
 ### Known differences between computers
 
@@ -84,7 +103,7 @@ Cale never ignores a field in silence.
 | On Windows and Linux, an answer may end with `finish_reason: "length"` a little before `max_tokens` when other apps fill the shared context | Treat `length` as "more may exist" and ask again if you need the rest |
 | The memory goal is measured as GPU memory on a Mac and as process memory on Windows and Linux | Read `goals_actual.memory` for what was measured |
 | On Windows and Linux, the first answer to a prompt and a later answer that reuses the prompt cache can differ at `temperature` 0, because the arithmetic is split differently (tiny rounding). The Mac gives the same text | Send a `seed`. A seeded call does not use the prompt cache, so it repeats exactly |
-| Pictures work on a Mac only | Check `capabilities.images` first |
+| Pictures and sound work on a Mac only | Check `capabilities.images` and `capabilities.audio` first |
 
 ### Pictures
 
