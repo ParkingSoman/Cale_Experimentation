@@ -12,6 +12,20 @@ import sys
 import time
 from pathlib import Path
 
+def is_terminal(stream):
+    """True if a person can type at / read from `stream`. On Windows the empty device NUL says isatty() is true, so ask the console."""
+    try:
+        if not stream.isatty():
+            return False
+        if sys.platform == "win32":
+            import msvcrt
+            mode = ctypes.c_uint32()
+            return bool(ctypes.windll.kernel32.GetConsoleMode(msvcrt.get_osfhandle(stream.fileno()), ctypes.byref(mode)))
+        return True
+    except (OSError, ValueError, AttributeError):
+        return False
+
+
 MAC = sys.platform == "darwin"
 WIN = sys.platform == "win32"
 LINUX = sys.platform.startswith("linux")

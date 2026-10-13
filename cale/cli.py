@@ -102,7 +102,7 @@ def pending():
 def answer(name, allow):
     import os
     verb = "allow" if allow else "deny"
-    if not (sys.stdin.isatty() and sys.stdout.isatty()) and os.environ.get("CALE_ALLOW_NON_INTERACTIVE") != "1":
+    if not (oslayer.is_terminal(sys.stdin) and oslayer.is_terminal(sys.stdout)) and os.environ.get("CALE_ALLOW_NON_INTERACTIVE") != "1":
         print(f"cale {verb} must be typed in a terminal, so that a person answers. (CALE_ALLOW_NON_INTERACTIVE=1 skips this check, for tests.)")
         return 2
     found = approval.matches(name)
@@ -115,7 +115,7 @@ def answer(name, allow):
             print(f"  cale {verb} {x['ticket']}     ({x['app']}, waiting {int(time.time()) - x['since']} s)")
         return 1
     x = found[0]
-    if allow and sys.stdin.isatty():                       # the question shows what is waiting, not what was typed
+    if allow and oslayer.is_terminal(sys.stdin):                       # the question shows what is waiting, not what was typed
         if input(f'Allow "{x["app"]}" (ticket {x["ticket"]}) to run the local AI model on this computer? [y/N] ').strip().lower() not in ("y", "yes"):
             print("Not allowed.")
             return 1
