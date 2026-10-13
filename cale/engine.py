@@ -213,7 +213,10 @@ class Engine(BatchMixin):
     def _grow_base(self, d=None):
         """After an answer: if the process holds more than the whole prediction assumed (weights, base, working memory, the context that
         was used), the base grows by the difference. A prediction is never under what is used, and nothing is counted twice."""
+        if getattr(self, "active", None):
+            return                                        # other answers are running: their working memory is not part of the base
         try:
+            oslayer.give_back_heap()                      # working memory that was freed but kept by the allocator is not in use
             held = int(self.m.active_bytes() - self.m.ffn_bytes())
         except Exception:
             return
