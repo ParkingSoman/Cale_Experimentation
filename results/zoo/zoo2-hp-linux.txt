@@ -1,0 +1,27 @@
+hint: See PEP 668 for the detailed specification.
+running stream ...
+running lowmem ...
+running gentle ...
+running sampling ...
+running image ...
+running goals ...
+running headless ...
+
+APP        VERDICT       SEC  REASON
+agent      POOR           72  answer_has_42=True all_tools_right=False; turns=3 time=71s calls=get_temperature,get_temperature,calculate notes=[]; answer='The final number is 42.\n'
+extract    WORKS_WELL    119  valid=10/10 correct=10/10 time=119s bad=[]
+longdoc    POOR          449  chars=26068 ctx_limit=32768 ttft=444.3s total=446s q1=False q2=True followup_s=3.3 cached_tokens=5350 answer='8814-MARBLE'
+summarize  FAILS         600  timeout 600 s
+shared     WORKS_WELL     50  A_ttft=[1.7, 2.0, 2.0, 1.9, 1.9] within8s=5/5 waited_hdr=['0.047', '0.151', '0.18', '0.146', '0.157'] A_errors=[] B_done=1 B_err=None same_key=False
+node       SKIPPED         0  needed program not found (node or bash); not a Cale fault
+curl       WORKS_WELL      2  all 7 checks passed, chat=200 1.675464s
+stream     WORKS_WELL     32  t1 ttft=1.6 tps=6.5 n=65(usage) cached=None cale_total=11.625 mine=11.6; t2 ttft=5.2 tps=8.0 n=63(usage) cached=None cale_total=13.103 mine=13.1; t3 ttft=6.9 tps=10.8 n=7
+lowmem     FAILS           0  Cale refused: HTTP 422 code=goal_missed param=None: No size fits in 30.0% of this computer's memory. The smallest needs 3.88 GB.
+gentle     WORKS_WELL     28  bg=8/8 done=8 sizes=['100'] fg(ttft,waited)=[(2.8, 1.5), (2.0, 0.7)] err=None
+sampling   WORKS_WELL     53  all 7 checks passed; failed=[] other_seed_differs=True unseeded_distinct=3/3
+image      FAILS           0  capabilities.images=false: pictures not supported on this computer (documented: Mac only for now); confirmed HTTP 400 unsupported_content
+goals      WORKS_WELL      9  all 6 honesty checks held; bad=[] rep_met=true measured_tps=7.1 goals_actual_speed={'goal': 2.0, 'actual': 5.78, 'met': True}; wait_422_after=2.0s
+headless   WORKS_WELL      4  approved_after=2s chat_ok=True chat_s=1.6 second_poll=404/unknown_ticket key_again=False
+
+COUNTS WORKS_WELL=8 POOR=2 FAILS=3 SKIPPED=1
+ZOO_LX_DONE

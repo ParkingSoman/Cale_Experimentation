@@ -49,3 +49,15 @@ than before, but a 4-second goal that waited 32 seconds is not "well" (the zoo's
 Raw lines: `mac-after-2a.txt`, `hp-linux-after-2a.txt`, `hp-windows-after-2a.txt`.
 What still fails: native tool calls and JSON schema (stage 6, now an honest 400), image input (stage 6), "run gently" jobs (stage 4),
 and on the slow HP: the long document and the summarizer (prompt reading at 15 tok/s: GPU or a smaller context-reading cost).
+
+## Zoo 2 (2026-10-13): 14 new apps, written from the public docs only (`~/Cale_Zoo2`)
+
+| System | Works well | Poor | Fails | Skipped |
+|---|---|---|---|---|
+| Mac (MLX), after fixes | 13 | 1 | 0 | 0 |
+| HP Windows, first run | 7 | 5 | 2 | 0 |
+| HP Linux (WSL, 7.8 GB), after fixes | 8 | 2 | 3 | 1 |
+
+HP Windows after the fix for the slot count: the shared-model app went from 2 of 5 to 5 of 5 first tokens within the goal (1.2 to 1.6 s). The full Windows table was not re-run after that fix.
+What still fails on the HP is honest: long documents and chunked summaries take 6 to 10 minutes at about 15 prompt tokens per second, a 30% memory goal cannot be met in 7.8 GB, pictures need a Mac, and the same prompt twice at temperature 0 can differ when the second call uses the cache (use `seed`).
+Raw lines: `zoo2-mac.txt`, `zoo2-hp-windows.txt`, `zoo2-hp-linux.txt`.
