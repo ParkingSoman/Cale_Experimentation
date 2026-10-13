@@ -9,6 +9,7 @@ There is still one model file. There is no second file for the small size.
 | Part | Detail |
 |---|---|
 | `patches/0001-cale-matryoshka-widths.patch` | Applied to llama.cpp `b11558`. About 100 lines of C++. |
+| `patches/0002-cale-readback-repack.patch` | A repacked Q4_0 weight can be read back in its plain layout, and the scheduler may give its operations to a GPU. Then a GPU too small for the model can read long prompts while the weights stay repacked in RAM for the CPU. Check: `tests/test_unrepack.cpp` and `scripts/check_unrepack.sh`. Rule: `cale/backends/devices.py`. Numbers: `FINDINGS.md`, "Option D". |
 | New call | `llama_set_layer_widths(ctx, widths, n_layers)`: one number per layer. |
 | Width 0 | The layer is skipped. Only layers 20 to 24 may be skipped: they own no KV cache. |
 | Width N | The layer's feed-forward block uses its first N channels. This is a view of the stock weights. Nothing is copied. |
