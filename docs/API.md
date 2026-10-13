@@ -56,7 +56,7 @@ Send the key as `Authorization: Bearer KEY` on every other call. Keep the key. D
 | Field | Support |
 |---|---|
 | `model` | `gemma-3n:smart`, `gemma-3n:fast`, `gemma-3n:<48-100>`, `gemma-3n:auto`, or the id of a model object |
-| `messages` | roles `system`, `user`, `assistant`, `developer`. Text only. |
+| `messages` | roles `system`, `user`, `assistant`, `developer`, and `tool` (a tool's result, see Tools). Content: text, and pictures where `capabilities.images` is true (see Pictures). |
 | `max_tokens`, `max_completion_tokens` | at least 1. The prompt plus this number must fit the context (see below). With no limit sent, only the context limit applies: an answer ends when the model stops or the context is full. |
 | `temperature` | 0 to 2. Default 0. |
 | `top_p` | 0 to 1. Default 1. |
@@ -134,7 +134,7 @@ You cannot send `tools` and `response_format` in one call yet.
 ### Prompt cache
 
 A chat that grows by a turn does not read its history again. `usage.prompt_tokens_details.cached_tokens` says how many prompt tokens were reused.
-It works when the new prompt starts with the previous prompt and the size is the same. One conversation is kept at a time.
+It works when the new prompt starts with the previous prompt and the size is the same. Cale keeps only a few conversations (one on a Mac), so another call can push yours out. Only the app that made a conversation can reuse it: one app never gains speed from another app's prompt.
 
 ### Context limit
 
@@ -152,7 +152,7 @@ It can differ between computers. A request over the limit gets `400 context_leng
 | `X-Cale-Confidence` | `estimate` (Cale has seen no answer on this computer yet) or `learned` |
 | `X-Cale-Goal-Met` | only when goals were given. In a reply that is not streamed: whether the goals were met in the end, wait included |
 | `X-Cale-Unmet` | the goals that were not met (`speed`, `first_token`, `memory`, `quality`) |
-| `cale.goals_actual` | for each goal: the goal, what really happened, `met` |
+| `cale.goals_actual` | an object keyed `speed`, `first_token`, `memory`, `quality` (only the goals you gave). Each holds the goal, the measured value (`actual`, or `actual_pct` for memory), and `met` (true, false, or null when it could not be measured). `speed` is answer tokens per second after the first token. `first_token` counts the wait in line. |
 | `cale.goal_met_actual`, `cale.total_s` | the same in one value, and the total seconds (also in the last chunk of a stream) |
 | `cale.size_changes` | sizes Cale changed to during the answer to keep a speed goal |
 | `cale.answer_limit` | the limit on answer tokens that applied |
@@ -223,7 +223,7 @@ The reply is `507 unsafe_for_this_computer`. `error.cale` has `needed_gb`, `ram_
 ## 5b. Leases: model objects and holds over plain HTTP
 
 Model objects and holds can live without an open connection, which suits any language and any HTTP library. Add `"lease_s": 5 to 3600`
-to `POST /cale/models` or `POST /cale/load`. The reply comes at once and carries the id and the lease. The thing lives for `lease_s` seconds after
+to `POST /cale/models` or `POST /cale/load`. The reply comes at once. It has the usual object or hold fields and a `lease` field: `{"expires_in_s": N, "renew": ..., "end": ...}`. A `lease_s` outside 5 to 3600 gets `400 invalid_lease_s`. The thing lives for `lease_s` seconds after
 its last renewal. If the app dies, it ends by itself. A chat call that uses a model object renews its lease too.
 
 | Request | Does |

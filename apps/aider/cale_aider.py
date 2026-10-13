@@ -2,14 +2,14 @@
 
 Aider itself is not changed. This launcher checks whether Cale is on this computer. If it is (and you did not pick
 your own model), it asks once, gets a key, and starts Aider with two Cale model objects (ended when Aider quits):
-  code    the main model (writes the code): a deadline for a long answer, and at most 40% of the RAM
-  commit  the weak model (commit messages, summaries): a short deadline for a short answer
+  code    the main model (writes the code): a reading speed for a long answer, and at most 40% of the RAM
+  commit  the weak model (commit messages, summaries): a short wait for the first word
 The launcher says what it needs. Cale picks the size per call, for this computer: the full size on a fast one,
 a smaller size on a weaker one. Nothing is downloaded: Cale already holds the model.
 
 Run:  <venv>/bin/python apps/aider/cale_aider.py [any aider arguments]        (Windows: <venv>/Scripts/python.exe)
-Settings: CALE_URL (default http://127.0.0.1:47821). Goals: CALE_CODE_DEADLINE, CALE_CODE_TOKENS, CALE_MEMORY_PCT,
-          CALE_COMMIT_DEADLINE, CALE_COMMIT_TOKENS
+Settings: CALE_URL (default http://127.0.0.1:47821). Goals: CALE_CODE_TPS, CALE_CODE_TOKENS, CALE_MEMORY_PCT,
+          CALE_COMMIT_FIRST_TOKEN_S, CALE_COMMIT_TOKENS
 """
 import json
 import os
@@ -27,10 +27,10 @@ APP_NAME = os.environ.get("CALE_APP_NAME", "Aider")                           # 
 os.environ.setdefault("CALE_PORT", str(urlparse(CALE_URL).port or 47821))     # the cale package finds Cale at the same address
 sys.path.insert(0, str(Path(os.environ.get("CALE_SRC", Path(__file__).resolve().parents[2]))))
 # What Aider needs from a model, in its own words. Cale turns that into a size, per call, for this computer.
-CODE = dict(name="code", deadline_s=float(os.environ.get("CALE_CODE_DEADLINE", "600")),
+CODE = dict(name="code", min_tokens_per_s=float(os.environ.get("CALE_CODE_TPS", "2")),
             max_tokens=int(os.environ.get("CALE_CODE_TOKENS", "1200")),
             memory_pct=float(os.environ.get("CALE_MEMORY_PCT", "40")))
-COMMIT = dict(name="commit", deadline_s=float(os.environ.get("CALE_COMMIT_DEADLINE", "30")),
+COMMIT = dict(name="commit", max_first_token_s=float(os.environ.get("CALE_COMMIT_FIRST_TOKEN_S", "10")),
               max_tokens=int(os.environ.get("CALE_COMMIT_TOKENS", "60")))
 
 

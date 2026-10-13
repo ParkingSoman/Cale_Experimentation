@@ -6,8 +6,8 @@ Open WebUI itself is not changed. This file starts it and adds:
 
 When Cale is connected, Open WebUI gets this setup (the same split it uses with cloud AI). Each model is a
 Cale "model object": the app says what it needs, Cale picks the size that fits this computer.
-  answers  -> deadline CALE_ANSWER_DEADLINE s for a CALE_ANSWER_TOKENS token answer, and at most CALE_MEMORY_PCT % of the RAM
-  tasks    -> titles, follow-up ideas, tags, autocomplete: deadline CALE_TASK_DEADLINE s for CALE_TASK_TOKENS tokens
+  answers  -> at least CALE_ANSWER_TPS tokens per second for a CALE_ANSWER_TOKENS token answer, and at most CALE_MEMORY_PCT % of the RAM
+  tasks    -> titles, follow-up ideas, tags, autocomplete: first word within CALE_TASK_FIRST_TOKEN_S s, CALE_TASK_TOKENS tokens
 A fast computer runs both at the full size. A weaker one runs smaller sizes. Open WebUI is told nothing about that.
 
 Run:  <venv>/bin/python apps/open-webui/cale_webui.py        (Windows: <venv>/Scripts/python.exe)
@@ -35,10 +35,10 @@ APP_NAME = os.environ.get("CALE_APP_NAME", "Open WebUI")                   # the
 os.environ.setdefault("CALE_PORT", str(urlparse(CALE_URL).port or 47821))   # the cale package finds Cale at the same address
 sys.path.insert(0, str(CALE_SRC))
 # What this app needs from a model, in its own words. Cale turns that into a size, per call, for this computer.
-ANSWERS = dict(name="answers", deadline_s=float(os.environ.get("CALE_ANSWER_DEADLINE", "90")),
+ANSWERS = dict(name="answers", min_tokens_per_s=float(os.environ.get("CALE_ANSWER_TPS", "2")),
                max_tokens=int(os.environ.get("CALE_ANSWER_TOKENS", "600")),
                memory_pct=float(os.environ.get("CALE_MEMORY_PCT", "40")))
-TASKS = dict(name="tasks", deadline_s=float(os.environ.get("CALE_TASK_DEADLINE", "30")),
+TASKS = dict(name="tasks", max_first_token_s=float(os.environ.get("CALE_TASK_FIRST_TOKEN_S", "10")),
              max_tokens=int(os.environ.get("CALE_TASK_TOKENS", "60")))
 
 os.environ.setdefault("DATA_DIR", str(HERE / "data"))

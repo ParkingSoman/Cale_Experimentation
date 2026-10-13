@@ -166,7 +166,7 @@ An app can start Cale itself before it makes objects:
 An absolute size is the same on every computer. A goal adapts. Use a goal or a model object
 when your app runs on computers you do not know.
 
-`temperature` defaults to 0. Text only for now. Cale supports `tools`, `tool_choice` and `response_format` (JSON mode and JSON schema, always valid): see `docs/API.md`. Call Cale from your app's backend: it refuses requests that carry a browser `Origin` header.
+`temperature` defaults to 0. Text, and pictures on a Mac (see `docs/API.md`, Pictures). Cale supports `tools`, `tool_choice` and `response_format` (JSON mode and JSON schema, always valid): see `docs/API.md`. Call Cale from your app's backend: it refuses requests that carry a browser `Origin` header.
 
 ## Holds
 
