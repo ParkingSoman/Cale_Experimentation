@@ -43,29 +43,75 @@ Install settings (environment variables, all optional):
 | `CALE_ALLOW_COPY=1` | copy the model if a link is not possible |
 | `CALE_PROGRESS=1` | print `CALE_PROGRESS {...}` lines that an app can show |
 
-## For the developer: model objects
+## For the developer: model objects and goals
 
-A model object is the model you want, written as parameters. Cale returns a name. You use that name as the
-`model` in normal OpenAI calls.
+A model object is the model you want, written as goals. Cale returns a name. You use that name as the
+`model` in normal OpenAI calls. Cale picks the size for every call, on every computer.
 
 ```python
-from cale.client import model
+from cale.client import model, predict
 from openai import OpenAI
 
-with model(base_url, cale_key, name="answers", deadline_s=90, max_tokens=600, memory_pct=40) as m:
+with model(base_url, cale_key, name="answers", min_tokens_per_s=15, max_first_token_s=3, memory_pct=40) as m:
+    print(m.info["prediction"])                     # can this computer meet the goals? which size? what does every size do?
     client = OpenAI(base_url=base_url, api_key=cale_key)
     client.chat.completions.create(model=m.id, messages=[...])      # m.id is "answers"
 ```
+
+### The goals
+
+| Goal | Meaning |
+|---|---|
+| `min_tokens_per_s` | Answer at least this fast (tokens per second). Kept during the answer: if the live speed falls under it, Cale steps to a smaller size between two tokens, and back up when there is room. |
+| `max_first_token_s` | The first token within this many seconds after the call arrives. Time waiting in line and reading the prompt count. |
+| `memory_pct` | Stay under this share of the computer's RAM. The weights and the context both count. |
+| `min_quality` | Use no size that repeats less than this share (0 to 1) of the full size's next-word choices. `0.95` means "almost the full model". |
+| `power` | `"normal"` (default) or `"light"`: on battery or when the computer is hot, run a smaller size. |
+
+Other settings of an object:
 
 | Parameter | Meaning |
 |---|---|
 | `name` | Becomes the id (`answers`). A second live object with the same name gets a suffix. |
 | `size` | An exact size: `"smart"`, `"fast"` or a percent. Do not combine it with goals. |
-| `deadline_s` | Finish one answer in this many seconds. Needs `max_tokens`. |
-| `max_tokens` | How long your answers are. The deadline is judged against it. It is also the default limit. |
-| `memory_pct` | Keep Cale's memory use under this share of the computer's RAM. |
+| `max_tokens` | The length limit of your answers. If you set none, only the context limit applies. |
+| `priority` | Which goals to keep when they cannot all be met, most important first. Default: `["memory", "quality", "first_token", "speed"]`. |
+| `on_miss` | What to do when no size meets the goals: `"best_effort"` (default, runs the size that misses least and says what missed), `"refuse"` (422, nothing runs), `"wait"` (try again for `max_wait_s`, default 30, then 422), `"try"` (run anyway: also allows disk reads). |
 | `allow_disk` | Let a call read missing weights from disk. Default `False`. |
-| `on_miss` | `"smallest"` (default): run the smallest size and report. `"refuse"`: return 422 with an estimate. |
+
+`deadline_s` was removed. Cale cannot know how long an answer will be, so it cannot keep a deadline for a whole answer.
+
+### Ask before you run
+
+`predict(base_url, key, min_tokens_per_s=15, prompt_tokens=500)` (or `POST /cale/predict`) runs nothing. It says:
+
+| Field | Meaning |
+|---|---|
+| `goal_met`, `unmet` | Whether this computer can meet the goals, and which ones it cannot. |
+| `chosen` | The size Cale would use, with the predicted `tokens_per_s`, `first_token_s`, `memory_gb`, `quality`. |
+| `sizes` | The same numbers for every size. |
+| `floor` | The fastest size and the smallest size on this computer: the most this computer can do. |
+| `confidence` | `estimate` (no answer seen yet) or `learned` (corrected by real answers). |
+| `unsafe` | `true` if no size can run this safely. |
+
+Cale does not time the model on first launch. It predicts from the speed of this computer's memory (a 0.15 s probe), from
+facts about Gemma 3n, and from what the computer is doing now. Every real answer corrects the numbers, and Cale keeps them
+for the next start.
+
+### The safety limit
+
+Cale never runs what it predicts would freeze or crash the computer. This holds for every setting, `on_miss="try"` too,
+and for exact sizes. The reply is `507 unsafe_for_this_computer` with the memory needed and what is free. Handle it like any
+other error: use a shorter prompt, or ask the person to free memory.
+
+### What a reply tells you
+
+| Where | Field |
+|---|---|
+| Headers | `X-Cale-Size`, `X-Cale-Goal-Met`, `X-Cale-Unmet`, `X-Cale-Predicted-Tokens-Per-S`, `X-Cale-Predicted-First-Token-S`, `X-Cale-Confidence`, `X-Cale-Disk-MB`, `X-Cale-Waited-S` |
+| Body `cale.goals_actual` | for each goal: the goal, what really happened, and whether it was met |
+| Body `cale.size_changes` | the size changes made during the answer, if any |
+| Body `cale.answer_limit` | the answer length limit that applied |
 
 How it behaves:
 
@@ -73,7 +119,7 @@ How it behaves:
 |---|---|
 | Life | The object lives while the `with` block runs, or until the app quits. One open connection holds it. |
 | Memory | An object with `size` or `memory_pct` also keeps that size in RAM while it lives. |
-| Per call | With a deadline, Cale picks the largest size predicted to finish in time. The choice is made for every call. |
+| Per call | Cale picks the largest size that meets the goals. The choice is made for every call. |
 | Weak computer | The same object runs a smaller size. Your app does not change. |
 | Visibility | `GET /v1/models` lists your objects, with the size each ran at last (`cale.last`). |
 | Privacy | An app sees only its own objects. |
@@ -92,7 +138,7 @@ An app can start Cale itself before it makes objects:
 | `gemma-3n:smart` (or `gemma-3n`) | the full model, 100% |
 | `gemma-3n:fast` | the smallest trained size, 48% |
 | `gemma-3n:<48-100>` | the trained size nearest to that percent |
-| `gemma-3n:auto` | Cale chooses. Add `cale_deadline_s`, `cale_allow_disk`, `cale_on_miss` in `extra_body`. |
+| `gemma-3n:auto` | Cale chooses. Add the goals with a `cale_` prefix in `extra_body`: `cale_min_tokens_per_s`, `cale_max_first_token_s`, `cale_memory_pct`, `cale_min_quality`, `cale_power`, `cale_priority`, `cale_on_miss`, `cale_max_wait_s`, `cale_allow_disk`. |
 
 An absolute size is the same on every computer. A goal adapts. Use a goal or a model object
 when your app runs on computers you do not know.
@@ -116,13 +162,11 @@ An app with no hold still works. Its first call keeps the full size in memory un
 If a call needs a size larger than what is held, Cale reads the missing weights from disk for that call.
 The header `X-Cale-Disk-MB` says how much. The memory is freed when the call ends. A call never fails for this reason.
 
-## What Cale measures on each computer
+## What Cale knows about each computer
 
-Cale measures a profile of this computer once, when a goal first needs it. It times three sizes and fits the rest.
-It saves the profile and corrects it from real answers. The time prediction has a 25% safety margin.
-Answer headers: `X-Cale-Size`, `X-Cale-Predicted-S`, `X-Cale-Goal-Met`, `X-Cale-Disk-MB`.
-
-`GET /v1/models` shows the profile of this computer (`cale.this_computer` in the JSON; `this_mac` is the old name for it): speed and memory of every size.
+Cale predicts speed and learns from real answers. It never times the model on purpose.
+`GET /v1/models` shows this computer (`cale.this_computer` in the JSON; `this_mac` is the old name for it): the predicted speed of
+every size, the memory each needs, its quality, the `floor`, and how sure Cale is.
 
 ## Where things live
 
@@ -131,7 +175,7 @@ Answer headers: `X-Cale-Size`, `X-Cale-Predicted-S`, `X-Cale-Goal-Met`, `X-Cale-
 | Install folder | see the table above (`CALE_HOME` overrides it) |
 | Runtime, model, library, logs | `runtime/`, `models/`, `lib/`, `logs/cale.log` in the install folder |
 | Keys | `keys.json` (hashes only) |
-| Profile | `profile.json` |
+| What Cale learned about this computer's speed | `predict.json` |
 | Address | `http://127.0.0.1:47821` (`CALE_PORT` changes it) |
 
 ## For people who build Cale

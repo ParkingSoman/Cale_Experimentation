@@ -7,10 +7,11 @@
 | GET  /v1/models | yes | the two named sizes (smart, fast), the size range, the measured quality curve |
 | POST /v1/chat/completions | yes | chat. "model": "gemma-3n:smart", "gemma-3n:fast", "gemma-3n:<percent>" or "gemma-3n:auto". stream supported. |
 | POST /cale/load | yes | keep a size in RAM until this connection closes. {"size": ...} or {"memory_pct": ...} |
-| POST /cale/models | yes | make a model object: {"name", "size" or "deadline_s"+"max_tokens" and/or "memory_pct", "allow_disk", "on_miss"}. Reply stays open. Use the returned id as the model name. |
+| POST /cale/models | yes | make a model object: {"name", "size", or goals: "min_tokens_per_s", "max_first_token_s", "memory_pct", "min_quality", "power", plus "priority", "on_miss", "max_wait_s", "allow_disk", "max_tokens"}. Reply stays open. Use the returned id as the model name. |
+| POST /cale/predict | yes | ask before you run: the same goal fields, plus "prompt_tokens" and "max_tokens". Says whether this computer can meet them, which size Cale would use, and what every size would do. Runs nothing. |
 | POST /cale/unload | yes | end a hold early. {"hold": id} |
 
-"gemma-3n:auto" lets Cale choose the size. Goal fields: "cale_deadline_s" (needs max_tokens), "cale_allow_disk", "cale_on_miss".
+"gemma-3n:auto" lets Cale choose the size. Goal fields: "cale_min_tokens_per_s", "cale_max_first_token_s", "cale_memory_pct", "cale_min_quality", "cale_power", "cale_priority", "cale_on_miss", "cale_max_wait_s", "cale_allow_disk".
 
 No browser access on purpose: there are no CORS headers, requests whose Host is not 127.0.0.1
 are refused, and every route refuses a request that carries an Origin header (so web pages cannot use it).
@@ -31,20 +32,19 @@ from nest.cancel import Cancel, Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pct_range, pick
 
 from . import backends, keys, oslayer, paths, pressure
-from .engine import ContextTooLong, Engine, EngineError, GoalMissed
-from . import choose
+from .engine import ContextTooLong, Engine, EngineError, GoalMissed, Unsafe
+from . import choose, goals as goals_mod
 
 BASE = "gemma-3n"
 LEVELS = load_levels()
 MIN_PCT, MAX_PCT = pct_range(LEVELS)
 ALIASES = {"smart": MAX_PCT, "fast": MIN_PCT}
 MAX_TOKENS = MAX_CONTEXT              # the context decides what really fits (the engine checks it)
-DEFAULT_TOKENS = 1024                # when an app sends no limit (Open WebUI does not)
 DEBUG = os.environ.get("CALE_DEBUG") == "1"
 CONNECT_LOCK = threading.Lock()      # one Allow dialog at a time
 OBJECTS = {}                         # model objects: (app, id) -> {"spec", "created"}. See _model_object.
 OBJ_LOCK = threading.Lock()
-OBJECT_FIELDS = {"family", "name", "size", "deadline_s", "max_tokens", "memory_pct", "allow_disk", "on_miss"}
+OBJECT_FIELDS = {"family", "name", "size", "max_tokens"} | set(goals_mod.FIELDS)
 
 
 class ApiError(Exception):
@@ -114,16 +114,17 @@ def flag(req, key, default=False):
     return v
 
 
-def on_miss(req, key="cale_on_miss"):
-    v = req.get(key, "smallest")
-    if v not in ("smallest", "refuse"):
-        raise ApiError(400, f"invalid_{key}", f"'{key}' must be \"smallest\" or \"refuse\".")
-    return v
+def goals_from(req, prefix=""):
+    """Goals from a request body, checked. Raises ApiError."""
+    try:
+        return goals_mod.parse(req, prefix)
+    except goals_mod.GoalError as e:
+        raise ApiError(400, e.code, str(e), param=e.param)
 
 
 # What /v1/chat/completions accepts. Anything else gets a clear 400. Cale never takes a field and ignores it in silence.
 CHAT_FIELDS = {"model", "messages", "max_tokens", "max_completion_tokens", "temperature", "top_p", "seed", "stop", "stream"}
-CALE_FIELDS = {"cale_deadline_s", "cale_allow_disk", "cale_on_miss"}    # Cale's own goal fields (with model gemma-3n:auto)
+CALE_FIELDS = {"cale_" + f for f in goals_mod.FIELDS} | {"cale_deadline_s"}    # Cale's own goal fields (with model gemma-3n:auto). deadline_s is refused with its own message.
 NO_EFFECT_FIELDS = {"user", "stream_options", "store", "metadata"}      # accepted: they change nothing Cale does
 ZERO_ONLY_FIELDS = {"frequency_penalty", "presence_penalty"}            # accepted only as 0
 NOT_YET_FIELDS = {"tools", "tool_choice", "functions", "function_call", "response_format", "logprobs", "top_logprobs",
@@ -167,7 +168,8 @@ def chat_sampling(req):
 
 
 def object_spec(req):
-    """Check the body of POST /cale/models. A size is exact. Goals (deadline_s, memory_pct) let Cale choose."""
+    """Check the body of POST /cale/models. A size is exact. Goals (see cale/goals.py) let Cale choose."""
+    goals = goals_from(req)                           # first: a removed field gets its own message, not "unknown field"
     unknown = sorted(set(req) - OBJECT_FIELDS)
     if unknown:
         raise ApiError(400, "invalid_model_object", f"Unknown field(s): {', '.join(unknown)}. Allowed: {', '.join(sorted(OBJECT_FIELDS))}.")
@@ -178,19 +180,14 @@ def object_spec(req):
     if "size" in req:
         pct = parse_model(f"{BASE}:{req['size']}")
         if pct == "auto":
-            raise ApiError(400, "invalid_model_object", "A size is a number or smart/fast. To let Cale choose, give deadline_s or memory_pct.")
+            raise ApiError(400, "invalid_model_object", "A size is a number or smart/fast. To let Cale choose, give goals (min_tokens_per_s, max_first_token_s, memory_pct, min_quality, power).")
         spec["size_pct"] = pct
-    deadline = number(req, "deadline_s", 0.1, 3600, None)
-    memory = number(req, "memory_pct", 1, 100, None)
     max_tokens = number(req, "max_tokens", 1, MAX_TOKENS, None, True)
-    if "size_pct" in spec and (deadline is not None or memory is not None):
-        raise ApiError(400, "invalid_model_object", "A size is exact. Do not combine it with deadline_s or memory_pct.")
-    if "size_pct" not in spec and deadline is None and memory is None:
-        raise ApiError(400, "invalid_model_object", "Give a size, or a goal: deadline_s (needs max_tokens) or memory_pct.")
-    if deadline is not None and max_tokens is None:
-        raise ApiError(400, "max_tokens_needed", "A deadline needs 'max_tokens': Cale cannot predict the time of an answer of unknown length.")
-    spec.update(deadline_s=deadline, memory_pct=memory, max_tokens=max_tokens,
-                allow_disk=flag(req, "allow_disk"), on_miss=on_miss(req, "on_miss"))
+    if "size_pct" in spec and (goals_mod.is_set(goals) or any(k in req for k in goals_mod.FIELDS)):
+        raise ApiError(400, "invalid_model_object", "A size is exact. Do not combine it with goals.")
+    if "size_pct" not in spec and not goals_mod.is_set(goals):
+        raise ApiError(400, "invalid_model_object", "Give a size, or at least one goal: min_tokens_per_s, max_first_token_s, memory_pct, min_quality or power=\"light\".")
+    spec.update(goals if "size_pct" not in spec else {}, max_tokens=max_tokens)
     return spec
 
 
@@ -283,17 +280,11 @@ class Handler(BaseHTTPRequestHandler):
                     data += [{"id": oid, "object": "model", "owned_by": app, "size_pct": None,
                               "cale": {"spec": o["spec"], "last": o.get("last")}}
                              for (owner, oid), o in OBJECTS.items() if owner == app]
-                prof = ENGINE.saved_profile()
-                this_mac = None
-                if prof:
-                    this_mac = {"measured_at": prof["measured_at"], "disk_gb_per_s": round(prof["disk_bps"] / 1e9, 2),
-                                "sizes": {l["id"]: {"size_pct": l["pct"], **{k: prof["levels"][l["id"]][k] for k in ("decode_tps", "prefill_tps")},
-                                                    "ram_gb": round(choose.model_bytes(prof, choose.need(l)) / 1e9, 2)}
-                                          for l in ENGINE.levels}}
+                this_mac = ENGINE.this_computer()
                 return self._json(200, {"object": "list", "data": data, "cale": {
                     "base": BASE, "max_context_tokens": ENGINE.known_context(), "sizes": {"min": MIN_PCT, "max": MAX_PCT, "aliases": ALIASES,
                                             "available": sorted({l["pct"] for l in LEVELS}),
-                                            "usage": f"{BASE}:<percent> or {BASE}:auto"}, "curve": curve,
+                                            "usage": f"{BASE}:<percent> or {BASE}:auto", "goals": list(goals_mod.FIELDS)}, "curve": curve,
                     "this_computer": this_mac, "this_mac": this_mac,       # this_mac: the first name, kept so old apps still work
                     "holds": ENGINE.status()["holds"]}})
             raise ApiError(404, "not_found", "Unknown path.")
@@ -304,7 +295,7 @@ class Handler(BaseHTTPRequestHandler):
             self.close_connection = True
 
     def do_POST(self):
-        self.arrived = time.time()                 # time spent waiting in line counts toward an app's deadline
+        self.arrived = time.time()                 # time spent waiting in line counts toward an app's first-token goal
         try:
             self._guard()
             if self.path == "/cale/connect":
@@ -316,6 +307,9 @@ class Handler(BaseHTTPRequestHandler):
                 return self._hold(self._auth(), self._body())
             if self.path == "/cale/models":
                 return self._model_object(self._auth(), self._body())
+            if self.path == "/cale/predict":
+                self._auth()
+                return self._predict(self._body())
             if self.path == "/cale/unload":
                 app = self._auth()
                 ended = ENGINE.release(str(self._body().get("hold", "")), app)
@@ -323,6 +317,10 @@ class Handler(BaseHTTPRequestHandler):
             if DEBUG and self.path == "/cale/debug/slow":
                 ENGINE.slow = number(self._body(), "factor", 0.1, 100, 1.0)
                 return self._json(200, {"ok": True, "slow": ENGINE.slow})
+            if DEBUG and self.path == "/cale/debug/ram":
+                gb = self._body().get("gb")
+                ENGINE.debug_ram = None if gb is None else int(number({"gb": gb}, "gb", 0.1, 4096, 1.0) * 1e9)
+                return self._json(200, {"ok": True, "ram_bytes": ENGINE.debug_ram})
             if DEBUG and self.path == "/cale/debug/fail":
                 ENGINE.debug_fail = True
                 return self._json(200, {"ok": True, "next_call_fails": True})
@@ -379,7 +377,7 @@ class Handler(BaseHTTPRequestHandler):
             if spec["size_pct"] == "auto":
                 raise ApiError(400, "invalid_hold", "A hold needs a size, not 'auto'. Use memory_pct to let Cale choose.")
         else:
-            spec = {"memory_pct": number(req, "memory_pct", 1, 100, 25), "on_miss": on_miss(req, "on_miss")}
+            spec = {"memory_pct": number(req, "memory_pct", 1, 100, 25), "on_miss": goals_from({"on_miss": req.get("on_miss", "best_effort")})["on_miss"]}
         try:
             hid, event, info = ENGINE.hold(app, spec)
         except GoalMissed as e:
@@ -391,6 +389,16 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.close_connection = True
         self._stay_open(info, event, lambda: ENGINE.release(hid))
+
+    def _predict(self, req):
+        """Ask before you run: what would Cale do with these goals on this computer? Nothing is run. Same fields as a model object, plus prompt_tokens."""
+        goals = goals_from(req)
+        extra = sorted(set(req) - set(goals_mod.FIELDS) - {"prompt_tokens", "max_tokens"})
+        if extra:
+            raise ApiError(400, "unknown_parameter", f"Unknown field(s): {', '.join(extra)}. Allowed: {', '.join(sorted(set(goals_mod.FIELDS) | {'prompt_tokens', 'max_tokens'}))}.")
+        prompt = number(req, "prompt_tokens", 0, MAX_CONTEXT, 200, True)
+        answer = number(req, "max_tokens", 1, MAX_TOKENS, 256, True)
+        return self._json(200, ENGINE.predict(goals, prompt, answer))
 
     def _stay_open(self, info, event, cleanup):
         """Send one JSON line, then a blank line every second until `event` is set or the app closes its end."""
@@ -426,6 +434,14 @@ class Handler(BaseHTTPRequestHandler):
                 hid, event, info = ENGINE.hold(app, hold_spec)
             except GoalMissed as e:
                 raise ApiError(422, "goal_missed", str(e), e.info)
+        if "size_pct" not in spec:                              # ask before you run: can this computer meet the goals?
+            expect = spec.get("max_tokens") or 256
+            pr = ENGINE.predict({k: v for k, v in spec.items() if k in goals_mod.FIELDS}, 200, expect)
+            info["prediction"] = pr
+            if not pr["goal_met"] and spec["on_miss"] == "refuse":
+                if hid:
+                    ENGINE.release(hid)
+                raise ApiError(422, "goal_missed", "No size meets these goals on this computer. See error.cale for what Cale predicts.", pr)
         oid = object_slug(req.get("name"))
         with OBJ_LOCK:
             if (app, oid) in OBJECTS:                     # the same name is alive already: this one gets a suffix
@@ -486,22 +502,21 @@ class Handler(BaseHTTPRequestHandler):
         asked = req.get(limit_key)
         if asked is None and obj and spec.get("max_tokens"):
             asked = spec["max_tokens"]                   # the object's answer length
-        max_tokens = number({limit_key: asked}, limit_key, 1, MAX_TOKENS, DEFAULT_TOKENS, True)
+        max_tokens = number({limit_key: asked}, limit_key, 1, MAX_TOKENS, MAX_TOKENS, True)    # no limit given: the context decides
         temp = number(req, "temperature", 0.0, 2.0, 0.0)
         top_p, seed, stop = chat_sampling(req)
         stream = bool(req.get("stream"))
         goal = None
-        if obj and any(k in req for k in ("cale_deadline_s", "cale_allow_disk", "cale_on_miss")):
+        call_goals = any(k.startswith("cale_") for k in req)
+        if call_goals:
+            call = goals_from(req, "cale_")              # also refuses the removed cale_deadline_s with its own message
+        if obj and call_goals:
             raise ApiError(400, "goal_in_object", "This model object holds its own goals. Do not send cale_* fields with it.")
         if obj and pct == "auto":
-            goal = {"deadline_s": spec["deadline_s"], "allow_disk": spec["allow_disk"], "on_miss": spec["on_miss"],
-                    "expect_tokens": spec.get("max_tokens"), "max_pct": obj.get("max_pct") or 100}
+            goal = {"goals": {k: spec.get(k) for k in goals_mod.FIELDS}, "expect_tokens": spec.get("max_tokens"), "max_pct": obj.get("max_pct") or 100}
         elif pct == "auto":
-            deadline = number(req, "cale_deadline_s", 0.1, 3600, None)
-            if deadline is not None and asked is None:
-                raise ApiError(400, "max_tokens_needed", "A deadline needs 'max_tokens': Cale cannot predict the time of an answer of unknown length.")
-            goal = {"deadline_s": deadline, "allow_disk": flag(req, "cale_allow_disk"), "on_miss": on_miss(req)}
-        elif any(k in req for k in ("cale_deadline_s", "cale_allow_disk", "cale_on_miss")):
+            goal = {"goals": call if call_goals else goals_mod.parse({})}
+        elif call_goals:
             raise ApiError(400, "goal_needs_auto", f"The cale_* goal fields need model '{BASE}:auto'.")
         cid, created = f"chatcmpl-{uuid.uuid4().hex[:12]}", int(time.time())
         gen = ENGINE.chat_stream(msgs, max_tokens, temp, app, 100 if pct == "auto" else pct, goal,
@@ -512,6 +527,9 @@ class Handler(BaseHTTPRequestHandler):
         except GoalMissed as e:
             gen.close()
             raise ApiError(422, "goal_missed", str(e), e.info)
+        except Unsafe as e:
+            gen.close()
+            raise ApiError(507, "unsafe_for_this_computer", str(e) + " Cale does not run what would freeze or crash the computer. Use a shorter prompt, or free memory.", e.info)
         except ContextTooLong as e:
             gen.close()
             raise ApiError(400, "context_length_exceeded", str(e), e.info, param="messages")
@@ -522,17 +540,23 @@ class Handler(BaseHTTPRequestHandler):
             with OBJ_LOCK:                               # what this object ran at, for apps that show it
                 if (app, name) in OBJECTS:
                     OBJECTS[(app, name)]["last"] = {"size_pct": expect, "goal_met": plan["goal_met"],
-                                                    "predicted_s": plan["predicted_s"], "at": int(time.time())}
+                                                    "predicted": plan["predicted"], "at": int(time.time())}
         hdr = {"X-Cale-Requested-Size": str(pct), "X-Cale-Size": str(expect), "X-Cale-Disk-MB": str(plan["disk_mb"]),
                "X-Cale-Waited-S": str(plan["waited_s"])}
         mem_met = obj.get("memory_goal_met") if obj else None
         if mem_met is not None:
             hdr["X-Cale-Memory-Goal-Met"] = str(mem_met).lower()
-        if plan["predicted_s"] is not None:
-            hdr["X-Cale-Predicted-S"] = str(plan["predicted_s"])
+        pr = plan["predicted"] or {}
+        hdr["X-Cale-Predicted-Tokens-Per-S"] = str(pr.get("tokens_per_s"))
+        hdr["X-Cale-Predicted-First-Token-S"] = str(pr.get("first_token_s"))
+        hdr["X-Cale-Confidence"] = plan["confidence"]
+        if plan["goal_met"] is not None:
             hdr["X-Cale-Goal-Met"] = str(plan["goal_met"]).lower()
-        info = {"requested_size": pct, "predicted_s": plan["predicted_s"], "goal_met": plan["goal_met"],
-                "waited_s": plan["waited_s"], "memory_goal_met": mem_met}
+            if plan["unmet"]:
+                hdr["X-Cale-Unmet"] = ",".join(plan["unmet"])
+        info = {"requested_size": pct, "predicted": plan["predicted"], "goal_met": plan["goal_met"], "unmet": plan["unmet"],
+                "confidence": plan["confidence"], "waited_s": plan["waited_s"], "memory_goal_met": mem_met,
+                "answer_limit": plan["max_tokens"]}
         label = (lambda p: name) if obj else model_id          # a model object reports its own id as the model
 
         if not stream:
@@ -546,9 +570,12 @@ class Handler(BaseHTTPRequestHandler):
             except EngineError as e:
                 raise ApiError(500, "engine_error", "The engine failed and was reset. Try again. The details are in Cale's log.")
             actual = done.get("size_pct") or expect
-            if "goal_met_actual" in done:                      # now the answer is finished: say what really happened
+            if done.get("goal_met_actual") is not None:          # now the answer is finished: say what really happened
                 hdr["X-Cale-Goal-Met"] = str(done["goal_met_actual"]).lower()
                 info["goal_met_actual"] = done["goal_met_actual"]
+                info["goals_actual"] = done.get("goals_actual")
+            if done.get("switches"):
+                info["size_changes"] = done["switches"]
             hdr["X-Cale-Total-S"] = str(done.get("total_s"))
             self._note_done(app, name, obj, done)
             self._log_chat(app, req, actual, done)
@@ -558,7 +585,7 @@ class Handler(BaseHTTPRequestHandler):
                              "finish_reason": done.get("finish", "stop")}],
                 "usage": {"prompt_tokens": done.get("prompt_tokens", 0), "completion_tokens": done.get("tokens", 0),
                           "total_tokens": done.get("prompt_tokens", 0) + done.get("tokens", 0)},
-                "cale": {**info, "size": actual, **{k: done.get(k) for k in ("seconds", "waited_s", "total_s", "switch_ms", "drafter", "disk_mb", "disk_s")}},
+                "cale": {**info, "size": actual, **{k: done.get(k) for k in ("seconds", "first_token_s", "waited_s", "total_s", "switch_ms", "drafter", "disk_mb", "disk_s")}},
             }, hdr)
 
         try:
@@ -604,6 +631,7 @@ class Handler(BaseHTTPRequestHandler):
                                   "total_tokens": d["prompt_tokens"] + d["tokens"]},
                         "cale": {**info, "size": d["size_pct"], "seconds": d["seconds"], "waited_s": d.get("waited_s"),
                                  "total_s": d.get("total_s"), "goal_met_actual": d.get("goal_met_actual"),
+                                 "goals_actual": d.get("goals_actual"), "size_changes": d.get("switches") or None,
                                  "drafter": d["drafter"], "disk_mb": d.get("disk_mb"), "disk_s": d.get("disk_s")}})
             send(b"[DONE]")
         except (BrokenPipeError, ConnectionResetError, Cancelled):

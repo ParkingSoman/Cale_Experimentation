@@ -36,6 +36,11 @@ endif()
 if(WIN32 AND CALE_BACKENDS_DL)
   set(CMAKE_SHARED_LIBRARY_PREFIX "")    # file names ggml-base.dll, llama.dll: the official GPU backend DLLs load them by these names
 endif()
+if(UNIX AND NOT APPLE AND CALE_BACKENDS_DL)
+  set(CMAKE_BUILD_RPATH "$ORIGIN")       # the libraries sit side by side: each finds the others in its own folder
+  set(CMAKE_INSTALL_RPATH "$ORIGIN")
+  set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+endif()
 add_subdirectory(${LLAMA_CPP_DIR} llama.cpp)
 add_library(cale_llama SHARED shim/cale_llama.cpp)
 target_include_directories(cale_llama PRIVATE ${LLAMA_CPP_DIR}/include ${LLAMA_CPP_DIR}/ggml/include)

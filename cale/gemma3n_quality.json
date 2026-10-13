@@ -1,0 +1,69 @@
+{
+ "note": "Quality of each size against the full size: top1 = share of next-word choices equal to the full size's (held-out text, measured on a Mac with MLX 4-bit). A property of the model, not of the computer.",
+ "sizes": {
+  "e4b": {
+   "top1": 1.0,
+   "kl": 0.0
+  },
+  "e3.79-layer": {
+   "top1": 0.9773,
+   "kl": 0.0086
+  },
+  "e3.74-block": {
+   "top1": 0.9717,
+   "kl": 0.0118
+  },
+  "e3.59-layer": {
+   "top1": 0.9524,
+   "kl": 0.0472
+  },
+  "e3.49-block": {
+   "top1": 0.9459,
+   "kl": 0.0535
+  },
+  "e3.39-layer": {
+   "top1": 0.9393,
+   "kl": 0.0647
+  },
+  "e3.24-block": {
+   "top1": 0.9284,
+   "kl": 0.0757
+  },
+  "e3.18-layer": {
+   "top1": 0.8799,
+   "kl": 0.1961
+  },
+  "e2.98-block": {
+   "top1": 0.8783,
+   "kl": 0.205
+  },
+  "e2.98-layer": {
+   "top1": 0.8649,
+   "kl": 0.2253
+  },
+  "e2.73-block": {
+   "top1": 0.8597,
+   "kl": 0.252
+  },
+  "e2.69-layer": {
+   "top1": 0.8338,
+   "kl": 0.3606
+  },
+  "e2.54-layer": {
+   "top1": 0.8231,
+   "kl": 0.3946
+  },
+  "e2.49-block": {
+   "top1": 0.8242,
+   "kl": 0.3918
+  },
+  "e1.96-layer": {
+   "top1": 0.8087,
+   "kl": 0.48
+  },
+  "e2b": {
+   "top1": 0.8068,
+   "kl": 0.478
+  }
+ }
+}

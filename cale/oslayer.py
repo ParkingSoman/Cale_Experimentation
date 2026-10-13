@@ -103,6 +103,71 @@ def process_rss():
     return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss          # macOS: bytes (peak, not current)
 
 
+# ---- load and power: the live facts the speed prediction and the `power` goal use ---------------------------------------
+_cpu_last = None
+_power_cache = (0.0, {"on_battery": None, "hot": None})
+
+
+def cpu_busy():
+    """Share (0.0 to 1.0) of the CPU that all programs used since the last call. Needs no admin rights. The first call returns 0.0."""
+    global _cpu_last
+    try:
+        if WIN:
+            class _FT(ctypes.Structure):
+                _fields_ = [("lo", ctypes.c_ulong), ("hi", ctypes.c_ulong)]
+            idle, kernel, user = _FT(), _FT(), _FT()
+            ctypes.windll.kernel32.GetSystemTimes(ctypes.byref(idle), ctypes.byref(kernel), ctypes.byref(user))
+            val = lambda t: (t.hi << 32) | t.lo                                   # noqa: E731
+            now = (val(idle), val(kernel) + val(user))                             # kernel time includes idle time
+        elif LINUX:
+            f = Path("/proc/stat").read_text().splitlines()[0].split()[1:]
+            vals = [int(x) for x in f]
+            now = (vals[3] + (vals[4] if len(vals) > 4 else 0), sum(vals[:8]))
+        else:
+            return max(0.0, min(1.0, os.getloadavg()[0] / (os.cpu_count() or 1)))  # macOS: the 1-minute load, a slow but cheap signal
+    except Exception:
+        return 0.0
+    last, _cpu_last = _cpu_last, now
+    if last is None or now[1] <= last[1]:
+        return 0.0
+    return max(0.0, min(1.0, 1.0 - (now[0] - last[0]) / (now[1] - last[1])))
+
+
+def power_state():
+    """{"on_battery": True|False|None, "hot": True|False|None}. None means this computer cannot say. Cached for 5 s."""
+    global _power_cache
+    t, cached = _power_cache
+    if time.time() - t < 5:
+        return cached
+    st = {"on_battery": None, "hot": None}
+    try:
+        if MAC:
+            out = subprocess.run(["pmset", "-g", "batt"], capture_output=True, text=True, timeout=3).stdout
+            if "Battery Power" in out or "AC Power" in out:
+                st["on_battery"] = "Battery Power" in out
+            therm = subprocess.run(["pmset", "-g", "therm"], capture_output=True, text=True, timeout=3).stdout
+            limit = [int(x.split("=")[1]) for x in therm.split() if x.startswith("CPU_Speed_Limit=")]
+            st["hot"] = bool(limit and limit[0] < 100)
+        elif WIN:
+            class _SPS(ctypes.Structure):
+                _fields_ = [("ACLineStatus", ctypes.c_ubyte), ("BatteryFlag", ctypes.c_ubyte), ("BatteryLifePercent", ctypes.c_ubyte),
+                            ("SystemStatusFlag", ctypes.c_ubyte), ("BatteryLifeTime", ctypes.c_ulong), ("BatteryFullLifeTime", ctypes.c_ulong)]
+            sp = _SPS()
+            if ctypes.windll.kernel32.GetSystemPowerStatus(ctypes.byref(sp)) and sp.ACLineStatus in (0, 1):
+                st["on_battery"] = sp.ACLineStatus == 0
+        else:
+            base = Path("/sys/class/power_supply")
+            if base.is_dir():
+                kinds = {d.name: (d / "type").read_text().strip() for d in base.iterdir() if (d / "type").exists()}
+                if "Battery" in kinds.values():
+                    mains = [d for d, k in kinds.items() if k == "Mains" and (base / d / "online").exists()]
+                    st["on_battery"] = bool(mains) and all((base / d / "online").read_text().strip() == "0" for d in mains)
+    except Exception:
+        pass
+    _power_cache = (time.time(), st)
+    return st
+
+
 # ---- memory pressure: 1 normal, 2 warn, 4 critical ------------------------------------------------------------------
 
 def level_from_psi(text):

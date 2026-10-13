@@ -15,8 +15,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from cale import oslayer  # noqa: E402
-from cale.client import CaleError, hold  # noqa: E402
-from cale.profile import WORK_BYTES  # noqa: E402
+from cale import gemma3n_facts as facts  # noqa: E402
+from cale.client import CaleError, hold, predict  # noqa: E402
 from nest.levels3n import load_levels, pct_range  # noqa: E402
 
 MIN_PCT, MAX_PCT = pct_range(load_levels())
@@ -93,41 +93,46 @@ with hold(a.base + "/v1", key, size="fast") as h:
     check("bigger size read from disk", int(hd["X-Cale-Disk-MB"]) > 500, hd.get("X-Cale-Disk-MB"))
     check("memory back at the hold level", abs(status()["resident_gb"] - base_gb) < RAM_TOL, (status()["resident_gb"], base_gb))
 
-    # 4. auto without deadline: largest size that needs no disk
+    # 4. auto without goals: largest size that needs no disk
     s, hd, r = chat("gemma-3n:auto", key, max_tokens=24)
-    check("auto, no deadline: runs from RAM", s == 200 and hd["X-Cale-Disk-MB"] == "0" and int(hd["X-Cale-Size"]) <= MIN_PCT + 2, hd.get("X-Cale-Size"))
+    check("auto, no goals: runs from RAM", s == 200 and hd["X-Cale-Disk-MB"] == "0" and int(hd["X-Cale-Size"]) <= MIN_PCT + 2, hd.get("X-Cale-Size"))
 
-    # 5. auto with deadline and no disk permission stays at the held size; with permission it may go bigger
-    s, hd, r = chat("gemma-3n:auto", key, max_tokens=24, cale_deadline_s=600)
-    check("deadline, no disk allowed: held size", s == 200 and int(hd["X-Cale-Size"]) <= MIN_PCT + 2, hd.get("X-Cale-Size"))
-    s, hd, r = chat("gemma-3n:auto", key, max_tokens=24, cale_deadline_s=600, cale_allow_disk=True)
-    check("deadline, disk allowed: full size", s == 200 and hd["X-Cale-Size"] == "100" and hd["X-Cale-Goal-Met"] == "true", dict(hd))
+    # 5. auto with a goal and no disk permission stays at the held size; with permission it may go bigger
+    s, hd, r = chat("gemma-3n:auto", key, max_tokens=24, cale_min_tokens_per_s=0.2)
+    check("goal, no disk allowed: held size", s == 200 and int(hd["X-Cale-Size"]) <= MIN_PCT + 2, hd.get("X-Cale-Size"))
+    s, hd, r = chat("gemma-3n:auto", key, max_tokens=24, cale_min_tokens_per_s=0.2, cale_allow_disk=True)
+    check("goal, disk allowed: full size", s == 200 and hd["X-Cale-Size"] == "100" and hd["X-Cale-Goal-Met"] == "true", dict(hd))
 
     # 6. errors
-    s, hd, r = chat("gemma-3n:auto", key, cale_deadline_s=5)
-    check("deadline without max_tokens: 400", s == 400 and r["error"]["code"] == "max_tokens_needed", r)
-    s, hd, r = chat("gemma-3n:smart", key, cale_deadline_s=5)
+    s, hd, r = chat("gemma-3n:auto", key, max_tokens=24, cale_deadline_s=5)
+    check("cale_deadline_s was removed: 400 and the message names the new goals", s == 400 and r["error"]["code"] == "unsupported_parameter"
+          and "min_tokens_per_s" in r["error"]["message"], r)
+    s, hd, r = chat("gemma-3n:smart", key, cale_min_tokens_per_s=5)
     check("goal field without auto: 400", s == 400 and r["error"]["code"] == "goal_needs_auto", r)
-    s, hd, r = chat("gemma-3n:auto", key, max_tokens=24, cale_deadline_s=0.2)
-    check("impossible deadline: runs smallest and reports", s == 200 and hd["X-Cale-Goal-Met"] == "false", dict(hd))
-    s, hd, r = chat("gemma-3n:auto", key, max_tokens=24, cale_deadline_s=0.2, cale_on_miss="refuse")
-    check("impossible deadline + refuse: 422 with estimate", s == 422 and "predicted_s" in r["error"]["cale"], r)
+    s, hd, r = chat("gemma-3n:auto", key, max_tokens=24, cale_min_tokens_per_s=10000)
+    check("impossible speed: runs the fastest size and reports", s == 200 and hd["X-Cale-Goal-Met"] == "false" and hd["X-Cale-Unmet"] == "speed", dict(hd))
+    s, hd, r = chat("gemma-3n:auto", key, max_tokens=24, cale_min_tokens_per_s=10000, cale_on_miss="refuse")
+    check("impossible speed + refuse: 422 with what Cale predicts", s == 422 and "predicted" in r["error"]["cale"] and "sizes" in r["error"]["cale"], r)
+    s, hd, r = chat("gemma-3n:auto", key, max_tokens=24, cale_min_tokens_per_s=0.2, cale_on_miss="smallest")
+    check("old on_miss name 'smallest' still accepted (it is best_effort)", s == 200, r)
 
-    # 7. a slower computer (debug switch) picks a smaller size for the same deadline.
-    # The deadline comes from this computer: 1.5 times what the full size is predicted to need.
-    s, hd, r = chat("gemma-3n:auto", other, max_tokens=60, cale_deadline_s=3600, cale_allow_disk=True)
-    deadline = round(float(hd["X-Cale-Predicted-S"]) * 1.5, 1)
-    s, hd, r = chat("gemma-3n:auto", other, max_tokens=60, cale_deadline_s=deadline, cale_allow_disk=True)
+    # 7. a slower computer (debug switch) picks a smaller size for the same goal.
+    # The goal comes from this computer: half the speed predicted for the full size.
+    pr = predict(a.base + "/v1", other, min_tokens_per_s=0.1)
+    full_id = next(k for k, v in pr["sizes"].items() if v["size_pct"] == MAX_PCT)
+    goal = round(pr["sizes"][full_id]["tokens_per_s"] * 0.5, 2)
+    s, hd, r = chat("gemma-3n:auto", other, max_tokens=60, cale_min_tokens_per_s=goal, cale_allow_disk=True)
     fast_pct = int(hd["X-Cale-Size"])
     call("/cale/debug/slow", {"factor": 3.0})
-    s, hd, r = chat("gemma-3n:auto", other, max_tokens=60, cale_deadline_s=deadline, cale_allow_disk=True)
+    s, hd, r = chat("gemma-3n:auto", other, max_tokens=60, cale_min_tokens_per_s=goal, cale_allow_disk=True)
     slow_pct = int(hd["X-Cale-Size"])
     call("/cale/debug/slow", {"factor": 1.0})
-    check(f"slower computer picks a smaller size (deadline {deadline} s)", slow_pct < fast_pct, (fast_pct, slow_pct))
+    check(f"slower computer picks a smaller size (goal {goal} tokens/s)", slow_pct < fast_pct, (fast_pct, slow_pct))
 
     # 8. models endpoint shows this computer
     m = call("/v1/models", key=key)[2]["cale"]
-    check("/v1/models shows this computer", m["this_mac"] is not None and "e2b" in m["this_mac"]["sizes"])
+    check("/v1/models shows this computer", m["this_mac"] is not None and "e2b" in m["this_mac"]["sizes"]
+          and m["this_computer"]["floor"]["fastest"]["tokens_per_s"] > 0, m.get("this_computer"))
 
 # 9. leaving the block ends the hold; with no other hold the implicit hold remains (the chat calls above), then idles out
 s = wait_for(lambda st: not st["holds"])
@@ -137,7 +142,7 @@ check("hold ended after the block", not s["holds"])
 wait_for(lambda st: not st["implicit_hold"], 30)
 sizes = call("/v1/models", key=key)[2]["cale"]["this_mac"]["sizes"]
 total_gb = oslayer.total_ram() / 1e9
-WORK_GB = WORK_BYTES / 1e9
+WORK_GB = (facts.SCRATCH_BYTES + facts.kv_bytes(facts.HOLD_CONTEXT)) / 1e9         # what a memory goal adds to the weights
 want = next(v for v in sizes.values() if v["size_pct"] == 75)       # a goal that fits the 75% size and not the next one up
 pct75 = round((want["ram_gb"] + WORK_GB + 0.02) / total_gb * 100, 2)
 with hold(a.base + "/v1", key, memory_pct=60) as h:

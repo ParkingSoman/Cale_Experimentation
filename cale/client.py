@@ -10,6 +10,7 @@ It uses a plain socket on purpose: http.client hands the socket to the response 
 """
 import json
 import socket
+import urllib.error
 import threading
 from urllib.parse import urlparse
 
@@ -74,26 +75,44 @@ class hold:
 class model(hold):
     """A model object: parameters for the model an app wants, instead of a fixed size.
 
-        with model(base_url, key, name="answers", deadline_s=30, max_tokens=400, memory_pct=40) as m:
+        with model(base_url, key, name="answers", min_tokens_per_s=15, max_first_token_s=3, memory_pct=40) as m:
             client.chat.completions.create(model=m.id, messages=[...])     # Cale picks the size per call
+            print(m.info["prediction"])                                    # what Cale predicts for these goals on this computer
 
-    Give either size= (exact: "smart", "fast" or a percent) or goals: deadline_s (with max_tokens) and/or memory_pct.
-    allow_disk=True lets a call read missing weights from disk. on_miss="refuse" makes a missed goal an error
-    instead of running the smallest size. The object lives while the `with` block runs, or until the app quits.
+    Give either size= (exact: "smart", "fast" or a percent) or goals (see cale/goals.py):
+      min_tokens_per_s, max_first_token_s, memory_pct, min_quality (0 to 1), power ("normal" or "light").
+    priority=["memory", "quality", "first_token", "speed"] says which goal to keep when they conflict (most important first).
+    on_miss says what to do when no size meets the goals: "best_effort" (default), "refuse", "wait" (up to max_wait_s) or "try".
+    allow_disk=True lets a call read missing weights from disk. max_tokens is the length limit of the object's answers.
+    The object lives while the `with` block runs, or until the app quits.
     """
     path = "/cale/models"
 
-    def __init__(self, base_url, api_key, name=None, size=None, deadline_s=None, max_tokens=None, memory_pct=None,
-                 allow_disk=None, on_miss=None):
+    def __init__(self, base_url, api_key, name=None, size=None, max_tokens=None, **goals):
         super().__init__(base_url, api_key)
-        given = {"name": name, "size": size, "deadline_s": deadline_s, "max_tokens": max_tokens,
-                 "memory_pct": memory_pct, "allow_disk": allow_disk, "on_miss": on_miss}
+        given = {"name": name, "size": size, "max_tokens": max_tokens, **goals}
         self.spec = {k: v for k, v in given.items() if v is not None}
 
     def __enter__(self):
         super().__enter__()
         self.id = self.info["id"]
         return self
+
+
+def predict(base_url, api_key, prompt_tokens=200, max_tokens=256, **goals):
+    """Ask before you run: can this computer meet these goals, which size would Cale use, and what would every size do?
+    Nothing runs. Returns the JSON reply of POST /cale/predict (see cale/server.py)."""
+    import json
+    import urllib.request
+    root = base_url.rstrip("/")
+    root = root[:-3] if root.endswith("/v1") else root
+    body = json.dumps({"prompt_tokens": prompt_tokens, "max_tokens": max_tokens, **goals}).encode()
+    req = urllib.request.Request(root + "/cale/predict", data=body, headers={"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"})
+    try:
+        with urllib.request.urlopen(req, timeout=300) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        raise CaleError(e.code, e.read().decode(errors="replace"))
 
 
 def ensure_running(wait=60):

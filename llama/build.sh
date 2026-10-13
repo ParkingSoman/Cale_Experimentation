@@ -11,6 +11,8 @@ if [ ! -d "$SRC" ]; then
   git clone -q --depth 1 --branch "$TAG" https://github.com/ggml-org/llama.cpp.git "$SRC"
   [ -n "${STOCK:-}" ] || git -C "$SRC" apply "$HERE"/patches/*.patch
 fi
-cmake -S "$HERE" -B "$OUT/b" -DLLAMA_CPP_DIR="$SRC" -DCMAKE_BUILD_TYPE=Release ${STOCK:+-DCALE_STOCK=ON} ${CMAKE_EXTRA:-} >/dev/null
-cmake --build "$OUT/b" --config Release -j "$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 4)" --target cale_llama
+cmake -S "$HERE" -B "$OUT/b" -DLLAMA_CPP_DIR="$SRC" -DCMAKE_BUILD_TYPE=Release ${STOCK:+-DCALE_STOCK=ON} ${CALE_BACKENDS_DL:+-DCALE_BACKENDS_DL=ON} ${CMAKE_EXTRA:-} >/dev/null
+# CALE_BACKENDS_DL=1: backends (CPU variants, GPU) are separate libraries loaded at run time. Build every target then.
+TARGET="--target cale_llama"; [ -z "${CALE_BACKENDS_DL:-}" ] || TARGET=""
+cmake --build "$OUT/b" --config Release -j "$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 4)" $TARGET
 find "$OUT/b" -name 'libcale_llama.*' -o -name 'cale_llama.dll' | head -3

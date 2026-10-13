@@ -30,19 +30,28 @@ import uuid
 from nest.cancel import Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pick
 
-from . import backends, choose, pressure
-from . import profile as prof_mod
+from . import backends, choose, oslayer, paths, pressure
+from . import gemma3n_facts as facts
+from . import goals as goals_mod
+from .predict import Predictor
 
 IDLE_S = 600
 WARN_CAP = 0.6
 RECOVER_S = 180                # long, so a cap does not flip back and forth
 LOAD_GRACE_S = 30              # loading the model raises pressure by itself: ignore it at first
 POLL_S = 2
-SAVE_EVERY = 10                # save the profile after this many real answers
 
 
 class GoalMissed(Exception):
-    """The app asked for a goal no size can meet and said to refuse. `info` has what Cale predicts."""
+    """The app asked for goals no size can meet and said to refuse (or to wait, and the wait ran out). `info` has what Cale predicts."""
+
+    def __init__(self, message, info):
+        super().__init__(message)
+        self.info = info
+
+
+class Unsafe(Exception):
+    """Cale predicts this call would freeze or crash the computer, so it does not run it, whatever the app asked. `info` has the numbers."""
 
     def __init__(self, message, info):
         super().__init__(message)
@@ -76,9 +85,10 @@ class Engine:
         self.implicit_last = 0.0
         self.holds = {}                        # id -> {"app", "level", "since", "event"}
         self.levels = load_levels()
-        self.prof = None
-        self.slow = 1.0                        # debug only: pretend this computer is this many times slower
-        self.seen = 0
+        self.pred = None                       # the speed predictor (cale/predict.py), made when the model loads
+        self.mach = None                       # what this computer's copy of the model weighs (see choose.py)
+        self._slow = 1.0                       # debug only: pretend this computer is this many times slower
+        self.debug_ram = None                  # debug only: pretend this computer has this many bytes of RAM
         self.last_used = time.time()
         self.normal_since = time.time()
         self.load_s = None
@@ -88,6 +98,16 @@ class Engine:
         self.debug_fail = False                # debug only: make the next call fail inside the engine
         self.running_cancel = None             # the Cancel of the request that is running now
         threading.Thread(target=self._monitor, daemon=True).start()
+
+    @property
+    def slow(self):
+        return self._slow
+
+    @slow.setter
+    def slow(self, v):
+        self._slow = v
+        if self.pred is not None:
+            self.pred.slow = v
 
     # --- state ------------------------------------------------------------------------
     def log(self, msg):
@@ -106,7 +126,7 @@ class Engine:
         with self.mu:
             holds = [{"hold": k, "app": h["app"], "size_pct": h["pct"], "age_s": round(time.time() - h["since"])}
                      for k, h in self.holds.items()]
-        return {"loaded": m is not None, "cap_pct": round(self.cap * 100),
+        return {"loaded": m is not None, "placement": getattr(m, "placement", None), "cap_pct": round(self.cap * 100),
                 "resident_gb": resident, "ffn_gb": ffn, "pressure": pressure.name(), "load_s": self.load_s,
                 "idle_s": round(time.time() - self.last_used), "implicit_hold": self.implicit,
                 "holds": holds, "events": self.events, "last_error": self.last_error}
@@ -137,7 +157,32 @@ class Engine:
         self.loaded_at = time.time()
         self.normal_since = self.loaded_at
         self.load_s = round(time.perf_counter() - t, 1)
+        self._learn_machine()
         self.log(f"loaded model in {self.load_s}s")
+
+    def _learn_machine(self):
+        """What this computer's copy of the model weighs, and how fast its memory reads. No model timing: the memory probe takes about 0.15 s."""
+        m = self.m
+        try:
+            bw = float(m.memory_bandwidth())
+        except Exception as e:
+            print(f"[engine] memory probe failed ({type(e).__name__})", flush=True)
+            bw = 0.0
+        key = {"engine": backends.name(), "total_ram": oslayer.total_ram(), "placement": getattr(m, "placement", None),
+               "model_bytes": sum(f.stat().st_size for f in m.model_files())}
+        old = self.pred
+        self.pred = Predictor(backends.name(), bw, key, paths.HOME / "predict.json", levels=self.levels)
+        if old is not None and old.key == key:
+            self.pred.dec_full, self.pred.pre_full, self.pred.fixed = old.dec_full, old.pre_full, old.fixed     # a reload keeps what was learned
+            self.pred.n_dec, self.pred.n_pre, self.pred.disk_bps = old.n_dec, old.n_pre, old.disk_bps
+        self.pred.slow = self._slow
+        self.pred.busy = oslayer.cpu_busy
+        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": int(m.active_bytes() - m.ffn_bytes()),
+                     "total_ram": key["total_ram"], "disk_bps": self.pred.disk_bps}
+
+    def machine(self):
+        """The machine record with the disk speed as learned so far."""
+        return {**self.mach, "disk_bps": self.pred.disk_bps}
 
     def _unload(self, why):
         if self.m is None:
@@ -212,39 +257,25 @@ class Engine:
             finally:
                 self.lock.release()
 
-    # --- profile ----------------------------------------------------------------------
-    def _profile(self):
-        """What this computer measured. Measures once (about 20 s) when no saved profile fits. Call with the lock held."""
-        if self.prof is None:
-            self.prof = prof_mod.load(self.m)
-            if self.prof is None:
-                self.log("measuring this computer (about 20 s, once)")
-                saved = list(self.m.resident)
-                self.m.reside_states([2] * self.m.n_layers)
-                self.prof = prof_mod.measure(self.m)
-                prof_mod.save(self.prof)
-                self.m.reside_states(saved)
-                fit = [l for l in self.levels if all(n <= r for n, r in zip(choose.need(l), saved))]
-                self.m.set(max(fit, key=lambda l: l["pct"]))      # a size that still runs from what is in RAM
-                self.log("profile saved")
-        return self.prof
-
-    def profile_view(self):
-        """The profile as the chooser sees it: debug slowdown applied."""
-        p = self._profile()
-        if self.slow == 1.0:
-            return p
-        view = dict(p, levels={k: dict(v, decode_tps=v["decode_tps"] / self.slow, prefill_tps=v["prefill_tps"] / self.slow)
-                               for k, v in p["levels"].items()})
-        return view
-
-    def saved_profile(self):
-        """The profile if it exists already (in memory or on disk). Never measures."""
-        if self.prof is not None:
-            return self.prof
+    # --- what this computer does --------------------------------------------------------
+    def this_computer(self):
+        """Predicted speed and memory of every size, for /v1/models. From the live predictor, else from the file saved last time."""
+        p = self.pred
+        if p is not None and self.mach is not None:
+            m = self.machine()
+            sizes = {l["id"]: {"size_pct": l["pct"], "decode_tps": round(p.decode_tps(l), 2), "prefill_tps": round(p.prefill_tps(l), 1),
+                               "ram_gb": round(choose.model_bytes(m, choose.need(l)) / 1e9, 2),
+                               "needs_gb": round(choose.memory_needed(m, l, facts.HOLD_CONTEXT) / 1e9, 2), "quality": round(facts.quality(l), 3)}
+                     for l in self.levels}
+            fast, small = max(sizes.items(), key=lambda kv: kv[1]["decode_tps"]), min(sizes.items(), key=lambda kv: kv[1]["ram_gb"])
+            return {"confidence": p.confidence, "memory_gb_s": round(p.bandwidth / 1e9, 1), "disk_gb_per_s": round(p.disk_bps / 1e9, 2),
+                    "placement": getattr(self.m, "placement", None), "sizes": sizes,
+                    "floor": {"fastest": {"size": fast[0], "tokens_per_s": fast[1]["decode_tps"]},
+                              "smallest": {"size": small[0], "needs_gb": small[1]["needs_gb"]}}}
         try:
             import json
-            return json.loads(prof_mod.PROFILE.read_text())
+            d = json.loads((paths.HOME / "predict.json").read_text())
+            return {"confidence": "saved", "disk_gb_per_s": round(d.get("disk_bps", 0) / 1e9, 2), "sizes": d.get("sizes") or None}
         except (OSError, ValueError):
             return None
 
@@ -258,11 +289,10 @@ class Engine:
                 self._load()
             info = {}
             if "memory_pct" in spec:
-                prof = self._profile()
-                r = choose.for_memory(self.levels, prof, prof["key"]["total_ram"], spec["memory_pct"])
+                r = choose.for_memory(self.levels, self.machine(), self.mach["total_ram"], spec["memory_pct"])
                 info = {"goal": "memory", "goal_met": r["met"], "budget_gb": round(r["budget"] / 1e9, 2),
                         "needs_gb": round(r["bytes"] / 1e9, 2)}
-                if not r["met"] and spec.get("on_miss") == "refuse":
+                if not r["met"] and spec.get("on_miss") in ("refuse", "wait"):
                     raise GoalMissed(f"No size fits in {spec['memory_pct']}% of this computer's memory. "
                                      f"The smallest needs {info['needs_gb']} GB.", info)
                 level = r["level"]
@@ -301,12 +331,12 @@ class Engine:
         """Generator. First {"plan": ...} (the size chosen), then {"delta"} pieces, then {"done"}.
         Holds the generation lock for the whole answer.
 
-        size_pct: the absolute size asked for. goal: None, or {"deadline_s": float|None, "allow_disk": bool,
-        "on_miss": "smallest"|"refuse", "max_pct": size cap from the object's memory goal} to let Cale choose.
-        arrived: time.time() when the request came in, so time spent waiting in line counts toward the deadline.
+        size_pct: the absolute size asked for. goal: None, or {"goals": cale/goals.py dict, "max_pct": size cap from the object's
+        memory goal, "expect_tokens": how long the object's answers are} to let Cale choose.
+        arrived: time.time() when the request came in, so time spent waiting in line counts toward first_token goals.
         max_tokens_explicit: False when the app gave no limit: then the limit shrinks to fit the context instead of failing.
         cancel: a nest.cancel.Cancel. The server sets it when the client closes its connection. The work then stops.
-        Raises GoalMissed, ContextTooLong before the first event, Cancelled if the client left, and EngineError if the engine fails."""
+        Raises GoalMissed, Unsafe, ContextTooLong before the first event, Cancelled if the client left, and EngineError if the engine fails."""
         with self.lock:
             if cancel:
                 cancel.check()                                      # the client gave up while waiting in line: do not start
@@ -332,41 +362,43 @@ class Engine:
                                          {"prompt_tokens": n_prompt, "max_tokens": max_tokens, "max_context_tokens": limit})
                 max_tokens = min(max_tokens, limit - n_prompt)
                 cap = min(round(self.cap * 100), round(goal.get("max_pct", 100))) if goal else round(self.cap * 100)
-                plan = {"goal_met": None, "predicted_s": None, "waited_s": round(waited, 3)}
-                deadline = None
+                goals = goal["goals"] if goal else None
+                plan = {"goal_met": None, "unmet": [], "predicted": None, "waited_s": round(waited, 3),
+                        "confidence": self.pred.confidence}
+                controller = None
+                answer_tokens = goal.get("expect_tokens") or max_tokens if goal else max_tokens
                 if goal is None:
                     lv = pick(self.levels, size_pct, cap)
-                elif goal["deadline_s"] is None:                   # no deadline: the largest size that needs no disk
+                elif not goals_mod.is_set(goals):                  # no goals: the largest size that needs no disk
                     pool = [l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)]
                     lv = max(pool or [min(self.levels, key=lambda l: l["pct"])], key=lambda l: (l["pct"], l["mmlu_pt"]))
                 else:
-                    deadline = goal["deadline_s"]
-                    r = choose.for_deadline(self.levels, self.profile_view(), list(self.m.resident), n_prompt,
-                                            goal.get("expect_tokens") or max_tokens,    # a model object says how long its answers are
-                                            max(0.1, deadline - waited), goal["allow_disk"], cap)    # the time already spent in line is gone
-                    lv = r["level"]
-                    plan.update(goal_met=r["met"], predicted_s=round(r["predicted_s"] + waited, 2))
-                    if not r["met"] and goal["on_miss"] == "refuse":
-                        raise GoalMissed(f"No size can finish in {deadline} s on this computer"
-                                         f"{f' (already waited {waited:.1f} s)' if waited >= 0.5 else ''}. "
-                                         f"The fastest is predicted at {plan['predicted_s']} s.", plan)
+                    res = self._decide(goals, n_prompt, answer_tokens, waited, cap)
+                    lv = res["row"]["level"]
+                    plan.update(goal_met=res["met"], unmet=res["unmet"], predicted=self._predicted(res["row"]))
+                    if goals["min_tokens_per_s"] is not None:
+                        controller = self._controller(goals, lv, cap)
+                self._check_safe(lv, n_prompt, answer_tokens, waited)
                 disk_mb = round(sum(self.m.layer_read[i] for i, _ in self.m.missing(lv)) / 1e6)
                 plan.update(size_pct=lv["pct"], id=lv["id"], disk_mb=disk_mb, prompt_tokens=n_prompt, max_tokens=max_tokens)
+                if plan["predicted"] is None:
+                    plan["predicted"] = self._predicted(choose.row(lv, self.pred, self.machine(), self._ctx(n_prompt, answer_tokens, waited),
+                                                                   goals or goals_mod.parse({}), list(self.m.resident)))
                 yield {"plan": plan}
                 if self.debug_fail:
                     self.debug_fail = False
                     raise RuntimeError("debug: injected engine failure")
                 for ev in self.m.chat_stream(messages, max_tokens=max_tokens, width=lv, temperature=temperature,
-                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel):
+                                             top_p=top_p, seed=seed, stop=stop, cancel=cancel, controller=controller):
                     if "done" in ev:
                         d = ev["done"]
                         d["waited_s"] = round(waited, 3)
                         d["total_s"] = round(waited + d["seconds"], 3)
-                        if deadline is not None:
-                            d["goal_met_actual"] = d["total_s"] <= deadline
+                        if goals is not None and goals_mod.is_set(goals):
+                            self._judge(d, goals, waited)
                         self._learn(d)
                     yield ev
-            except (GoalMissed, ContextTooLong, Cancelled):
+            except (GoalMissed, Unsafe, ContextTooLong, Cancelled):
                 raise
             except Exception as e:                                  # the engine may be left half-way: start clean on the next call
                 # The details go to Cale's own log only. /cale/status needs no key, and error text can hold paths and sizes.
@@ -388,12 +420,133 @@ class Engine:
         if self.running_cancel is cancel and m is not None and hasattr(m, "interrupt"):
             m.interrupt()
 
+    # --- choosing --------------------------------------------------------------------------
+    def _ctx(self, n_prompt, answer_tokens, waited):
+        return {"prompt_tokens": n_prompt, "answer_tokens": answer_tokens, "waited_s": waited,
+                "total_ram": self.debug_ram or self.mach["total_ram"],
+                "available_ram": None if self.debug_ram else oslayer.available_ram()}
+
+    @staticmethod
+    def _predicted(row):
+        return {"tokens_per_s": round(row["decode_tps"], 2), "first_token_s": round(row["first_token_s"], 2),
+                "memory_gb": round(row["memory_bytes"] / 1e9, 2), "quality": round(row["quality"], 3)}
+
+    def predict(self, goals, prompt_tokens, answer_tokens, cap=100):
+        """Ask before you run: what would Cale do with these goals on this computer? Nothing runs and nothing is refused: the
+        answer says whether the goals can be met, which size Cale would use, and what every size would do. Loads the model if needed."""
+        if self.m is None:
+            with self.lock:
+                self._apply_pending()
+                if self.m is None:
+                    self._load()
+        ctx = self._ctx(prompt_tokens, answer_tokens, 0.0)
+        power = oslayer.power_state() if goals["power"] == "light" else {}
+        light = goals["power"] == "light" and bool(power.get("on_battery") or power.get("hot"))
+        res = choose.for_goals(self.levels, self.pred, self.machine(), goals, ctx, list(self.m.resident), cap, light,
+                               goals["allow_disk"] or goals["on_miss"] == "try")
+        out = {"confidence": self.pred.confidence, "sizes": self._table(res["rows"]), "unsafe": res["unsafe"],
+               "floor": (self.this_computer() or {}).get("floor")}
+        if res["unsafe"]:
+            return {**out, "goal_met": False, "unmet": [], "chosen": None, **self._unsafe_info(res["rows"])}
+        return {**out, "goal_met": res["met"], "unmet": res["unmet"],
+                "chosen": {"size": res["row"]["level"]["id"], "size_pct": res["row"]["level"]["pct"], **self._predicted(res["row"])}}
+
+    def _decide(self, goals, n_prompt, answer_tokens, waited, cap):
+        """Choose a size for these goals. Applies on_miss: best_effort runs the best size, try also allows disk, refuse and wait raise GoalMissed."""
+        power = oslayer.power_state() if goals["power"] == "light" else {}
+        light = goals["power"] == "light" and bool(power.get("on_battery") or power.get("hot"))
+        allow_disk = goals["allow_disk"] or goals["on_miss"] == "try"
+        t0 = time.time()
+        while True:
+            ctx = self._ctx(n_prompt, answer_tokens, waited + (time.time() - t0))
+            res = choose.for_goals(self.levels, self.pred, self.machine(), goals, ctx, list(self.m.resident), cap, light, allow_disk)
+            if res["unsafe"]:
+                raise Unsafe("No size can run this call safely on this computer.", self._unsafe_info(res["rows"]))
+            if res["met"] or goals["on_miss"] != "wait" or time.time() - t0 >= goals["max_wait_s"]:
+                break
+            time.sleep(0.5)
+        if not res["met"] and goals["on_miss"] in ("refuse", "wait"):
+            best = self._predicted(res["row"])
+            info = {"goal_met": False, "unmet": res["unmet"], "predicted": best, "sizes": self._table(res["rows"]),
+                    "floor": self.this_computer().get("floor") if self.this_computer() else None}
+            raise GoalMissed(f"No size meets {', '.join(res['unmet'])} on this computer"
+                             f"{f' (waited {waited:.1f} s in line)' if waited >= 0.5 else ''}. "
+                             f"The best size is predicted at {best['tokens_per_s']} tokens/s, first token in {best['first_token_s']} s, "
+                             f"{best['memory_gb']} GB.", info)
+        return res
+
+    @staticmethod
+    def _table(rows):
+        return {r["level"]["id"]: {"size_pct": r["level"]["pct"], "tokens_per_s": round(r["decode_tps"], 2), "first_token_s": round(r["first_token_s"], 2),
+                                   "memory_gb": round(r["memory_bytes"] / 1e9, 2), "quality": round(r["quality"], 3), "safe": r["safe"]} for r in rows}
+
+    def _unsafe_info(self, rows):
+        small = min(rows, key=lambda r: r["memory_bytes"])
+        return {"needed_gb": round(small["memory_bytes"] / 1e9, 2), "ram_gb": round((self.debug_ram or self.mach["total_ram"]) / 1e9, 1),
+                "available_gb": round(oslayer.available_ram() / 1e9, 2), "smallest_size": small["level"]["id"]}
+
+    def _check_safe(self, lv, n_prompt, answer_tokens, waited):
+        """The safety limit. It holds for every size, whatever the app asked, even with on_miss=try."""
+        r = choose.row(lv, self.pred, self.machine(), self._ctx(n_prompt, answer_tokens, waited), goals_mod.parse({}), list(self.m.resident))
+        if not r["safe"]:
+            raise Unsafe(f"Size {lv['pct']}% would not fit safely on this computer with this prompt.", self._unsafe_info([r]))
+
+    def _controller(self, goals, start, cap):
+        """Between tokens: if the live answer speed falls under the goal, step to the next smaller size, and back up when there is room.
+        Only sizes already in RAM, under the cap, are used. The key/value cache stays valid because a size changes only the FFN width
+        and skipped layers (checked with scripts/switch_check.py)."""
+        target = goals["min_tokens_per_s"]
+        pool = sorted([l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)
+                       and (goals["min_quality"] is None or facts.quality(l) >= goals["min_quality"])], key=lambda l: -l["pct"])
+        mem = goals["memory_pct"]
+        if mem is not None:
+            budget = self.mach["total_ram"] * mem / 100
+            pool = [l for l in pool if choose.memory_needed(self.machine(), l, facts.HOLD_CONTEXT) <= budget] or pool[-1:]
+        state = {"n": 0, "t": 0.0, "switch": 0}
+
+        def control(n, elapsed, level):
+            dn, dt = n - state["n"], elapsed - state["t"]
+            state["n"], state["t"] = n, elapsed
+            if dt <= 0 or n - state["switch"] < 16:
+                return None
+            speed = dn / dt
+            i = next((k for k, l in enumerate(pool) if l["id"] == level["id"]), None)
+            if i is None:
+                return None
+            if speed < 0.92 * target and i + 1 < len(pool):                 # too slow: one size smaller
+                state["switch"] = n
+                return pool[i + 1]
+            if i > 0 and speed > 1.3 * target:                              # room to spare: one size larger, if it would still keep up
+                up = pool[i - 1]
+                if speed * self.pred.time_factor(level) / self.pred.time_factor(up) >= 1.1 * target and n - state["switch"] >= 32:
+                    state["switch"] = n
+                    return up
+            return None
+        return control
+
+    def _judge(self, d, goals, waited):
+        """After the answer: what the goals were, what really happened, and whether each was met."""
+        out = {}
+        tokens, decode_s = int(d.get("tokens") or 0), float(d.get("decode_s") or 0.0)
+        if goals["min_tokens_per_s"] is not None:
+            tps = (tokens - 1) / decode_s if tokens >= 2 and decode_s > 0 else None
+            out["speed"] = {"goal": goals["min_tokens_per_s"], "actual": None if tps is None else round(tps, 2),
+                            "met": None if tps is None else tps >= goals["min_tokens_per_s"]}
+        if goals["max_first_token_s"] is not None:
+            ft = waited + float(d.get("first_token_s") or 0.0)
+            out["first_token"] = {"goal": goals["max_first_token_s"], "actual": round(ft, 2), "met": ft <= goals["max_first_token_s"]}
+        if goals["memory_pct"] is not None:
+            used = self.m.active_bytes()
+            out["memory"] = {"goal_pct": goals["memory_pct"], "actual_pct": round(100 * used / self.mach["total_ram"], 1),
+                             "met": used <= self.mach["total_ram"] * goals["memory_pct"] / 100}
+        if goals["min_quality"] is not None:
+            q = min((facts.quality(l) for l in self.levels if l["id"] in {d.get("start_tier"), d.get("tier")}), default=1.0)
+            out["quality"] = {"goal": goals["min_quality"], "actual": round(q, 3), "met": q >= goals["min_quality"]}
+        d["goals_actual"] = out
+        known = [v["met"] for v in out.values() if v["met"] is not None]
+        d["goal_met_actual"] = all(known) if known else None
+
     def _learn(self, d):
-        """Fold a real answer into the profile, if there is one."""
-        if self.prof is None or self.slow != 1.0:
-            return
-        prof_mod.observe(self.prof, d["tier"], d["tokens"], d["seconds"], d["prompt_tokens"],
-                         d.get("disk_mb", 0) * 1e6, d.get("disk_s", 0.0))
-        self.seen += 1
-        if self.seen % SAVE_EVERY == 0:
-            prof_mod.save(self.prof)
+        """Fold a real answer into what Cale knows about this computer's speed."""
+        if self.pred is not None:
+            self.pred.observe(d)

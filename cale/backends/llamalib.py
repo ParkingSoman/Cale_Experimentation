@@ -45,6 +45,15 @@ def devices(lib_path=None):
     return out
 
 
+def memory_bandwidth(threads, lib_path=None, mb_per_thread=48):
+    """Bytes per second this computer reads from memory with `threads` threads. About 0.15 s. No model needed. 0.0 if unknown."""
+    c = ctypes.CDLL(find_library(lib_path))
+    if not hasattr(c, "cale_membw"):
+        return 0.0
+    c.cale_membw.restype, c.cale_membw.argtypes = ctypes.c_double, [ctypes.c_int32, ctypes.c_int32]
+    return max(c.cale_membw(threads, mb_per_thread), c.cale_membw(threads, mb_per_thread))
+
+
 class Lib:
     def __init__(self, model_path, n_threads=4, n_ctx=8192, lib_path=None, repack=0,
                  gpu=None, n_gpu_layers=-1, no_host=True, fit_margin_mb=300):
@@ -190,14 +199,15 @@ class Lib:
             return None
         return a.value, n.value
 
+    # Address 0 means the weight is on a GPU: there are no pages of ours to move.
     def drop(self, addr, nbytes):
-        return self.c.cale_pages(0, addr, nbytes)
+        return self.c.cale_pages(0, addr, nbytes) if addr else 0
 
     def prefetch(self, addr, nbytes):
-        return self.c.cale_pages(1, addr, nbytes)
+        return self.c.cale_pages(1, addr, nbytes) if addr else 0
 
     def resident_bytes(self, addr, nbytes):
-        return self.c.cale_pages(2, addr, nbytes)
+        return self.c.cale_pages(2, addr, nbytes) if addr else 0
 
     def restore(self, name):
         """Read a weight from the file into memory again. Needed after drop() only for repacked weights.

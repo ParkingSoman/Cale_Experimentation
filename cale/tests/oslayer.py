@@ -103,10 +103,10 @@ def main():
         check("killed process is gone", not oslayer.pid_alive(pid))
 
     # 7. Importing the service and pressure modules works here, and a quiet port answers "not running".
-    r = run_py("from cale import service, pressure, cli, profile\n"
+    r = run_py("from cale import service, pressure, cli, predict, goals\n"
                "print('IMPORT_OK', pressure.name(), service.status(timeout=1))",
                {"CALE_PORT": "47993", "CALE_HOME": tempfile.gettempdir() + "/cale-oslayer-test"})
-    check("service, pressure, cli, profile import", "IMPORT_OK" in r.stdout and "None" in r.stdout,
+    check("service, pressure, cli, predict, goals import", "IMPORT_OK" in r.stdout and "None" in r.stdout,
           (r.stdout + r.stderr)[-300:])
 
     # 8. Linux Allow dialog: a dialog tool that never closes counts as "no". It must not crash Cale (it did once, on WSLg).

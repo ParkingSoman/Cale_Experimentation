@@ -57,7 +57,7 @@ check("tool_choice -> 400", err(chat(key, tool_choice="auto"))[:2] == (400, "uns
 check("response_format json_schema -> 400", err(chat(key, response_format={"type": "json_schema", "json_schema": {}})) == (400, "unsupported_parameter", "response_format"))
 check("response_format text is fine", chat(key, max_tokens=8, response_format={"type": "text"})[0] == 200)
 check("unknown field -> 400 unknown_parameter", err(chat(key, banana=1)) == (400, "unknown_parameter", "banana"))
-check("a cale_ field Cale does not have -> 400", err(chat(key, cale_power="battery")) == (400, "unknown_parameter", "cale_power"))
+check("a cale_ field Cale does not have -> 400", err(chat(key, cale_banana=1)) == (400, "unknown_parameter", "cale_banana"))
 check("n=2 -> 400", err(chat(key, n=2))[:2] == (400, "unsupported_parameter"))
 check("presence_penalty 0.5 -> 400", err(chat(key, presence_penalty=0.5))[:2] == (400, "unsupported_parameter"))
 check("fields set to null are ignored", chat(key, max_tokens=8, tools=None, response_format=None)[0] == 200)
@@ -111,11 +111,11 @@ def long_call():
     done["a"] = chat(key2, "Write a long story about a dragon.", max_tokens=250)
 th = threading.Thread(target=long_call); th.start()
 time.sleep(1.0)
-r = chat(key, "Say hi.", model_name="gemma-3n:auto", max_tokens=8, cale_deadline_s=2.0)
+r = chat(key, "Say hi.", model_name="gemma-3n:auto", max_tokens=8, cale_max_first_token_s=0.5)
 th.join()
 cale = r[2]["cale"]
 check("a call that waited reports waited_s", cale.get("waited_s", 0) >= 1.0, cale)
-check("deadline missed while waiting: goal_met_actual is false", cale.get("goal_met_actual") is False, cale)
+check("first-token goal missed while waiting in line: goal_met_actual is false", cale.get("goal_met_actual") is False, cale)
 check("...and the header agrees", r[1].get("X-Cale-Goal-Met") == "false", r[1])
 check("...and total_s includes the wait", cale.get("total_s", 0) >= cale.get("waited_s", 99), cale)
 

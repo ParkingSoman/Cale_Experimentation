@@ -14,7 +14,9 @@
 #include <cstdio>
 #include <cstring>
 #include <atomic>
+#include <chrono>
 #include <string>
+#include <thread>
 #include <vector>
 
 #if defined(_WIN32)
@@ -327,6 +329,36 @@ CALE_API int32_t cale_restore(cale_ctx * h, const char * name) {
     return 0;
 }
 
+
+// How fast can this computer read memory, in bytes per second, with n threads? Takes about 0.15 s, needs no model.
+// Answer speed is memory-bound (every active weight is read once per token), so this number predicts it.
+CALE_API double cale_membw(int32_t n_threads, int32_t mb_per_thread) {
+    if (n_threads < 1) n_threads = 1;
+    if (mb_per_thread < 8) mb_per_thread = 8;
+    const size_t n = (size_t) mb_per_thread * 1024 * 1024 / sizeof(uint64_t);
+    std::vector<std::vector<uint64_t>> bufs(n_threads, std::vector<uint64_t>(n, 1));
+    std::vector<uint64_t> sums(n_threads, 0);
+    auto pass = [&](int t) {
+        const uint64_t * p = bufs[t].data();
+        uint64_t a0 = 0, a1 = 0, a2 = 0, a3 = 0;
+        for (size_t i = 0; i + 4 <= n; i += 4) { a0 += p[i]; a1 += p[i + 1]; a2 += p[i + 2]; a3 += p[i + 3]; }
+        sums[t] += a0 + a1 + a2 + a3;
+    };
+    auto run = [&](int passes) {
+        std::vector<std::thread> th;
+        for (int t = 0; t < n_threads; ++t) th.emplace_back([&, t] { for (int k = 0; k < passes; ++k) pass(t); });
+        for (auto & x : th) x.join();
+    };
+    run(1);                                                       // touch every page once
+    const auto t0 = std::chrono::steady_clock::now();
+    run(2);
+    const double s = std::chrono::duration<double>(std::chrono::steady_clock::now() - t0).count();
+    uint64_t total = 0;
+    for (auto v : sums) total += v;
+    if (total == 0) return 0.0;                                   // keeps the compiler from removing the loops
+    return (double) n_threads * 2.0 * (double) n * sizeof(uint64_t) / std::max(s, 1e-9);
+}
+
 CALE_API int32_t cale_n_layers(cale_ctx * h) { return llama_model_n_layer(h->model); }
 CALE_API int32_t cale_n_ctx(cale_ctx * h) { return h->n_ctx; }
 CALE_API void    cale_set_threads(cale_ctx * h, int32_t n) { llama_set_n_threads(h->ctx, n, n); }
@@ -459,7 +491,10 @@ uint64_t page_size() {
 CALE_API int32_t cale_tensor_range(cale_ctx * h, const char * name, uint64_t * addr, uint64_t * nbytes) {
     const ggml_tensor * t = llama_model_get_tensor(h->model, name);
     if (!t || !t->data) return -1;
-    *addr = (uint64_t) (uintptr_t) t->data;
+    // A weight on a GPU has no address in this process: report its size and address 0 (the page calls ignore address 0).
+    const char * buf = t->buffer ? ggml_backend_buffer_name(t->buffer) : "";
+    const bool in_ram = strstr(buf, "CPU") || strstr(buf, "Mapped") || strstr(buf, "REPACK");
+    *addr = in_ram ? (uint64_t) (uintptr_t) t->data : 0;
     *nbytes = (uint64_t) ggml_nbytes(t);
     return 0;
 }

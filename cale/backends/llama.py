@@ -17,9 +17,11 @@ from nest.levels3n import BLOCK, MAX_CONTEXT, load_levels, pick
 from nest.stops import StopFilter
 
 from .. import oslayer
-from .llamalib import Lib
+from . import devices
+from .llamalib import Lib, devices as list_devices, memory_bandwidth
 
 N_CTX = MAX_CONTEXT        # context size the library is loaded with (prompt plus answer, in tokens). Gemma 3n keeps 8 KB per token, so the full 32k costs 270 MB.
+STEP_TOKENS = 8            # how often a size controller may change the size, in answer tokens
 FIRST_SHARED = 20          # layers 20 and up share the KV cache of earlier layers, so they may be skipped
 _FFN = ("gate", "up", "down")
 
@@ -55,7 +57,9 @@ class LlamaNested:
     def load(cls, path, width=1.0, ple_on_disk=True, threads=None, n_ctx=N_CTX, lib_path=None, **_):
         self = cls()
         self.path = str(find_gguf(path))
-        self.lib = Lib(self.path, n_threads=threads or default_threads(), n_ctx=n_ctx, lib_path=lib_path)
+        self.threads = threads or default_threads()
+        self.lib_path = lib_path
+        self.lib, self.placement = cls._open(self.path, self.threads, n_ctx, lib_path)
         self.n_layers = self.lib.n_layers
         self.levels = [l for l in load_levels(self.n_layers) if min(l["skip"], default=99) >= FIRST_SHARED]
         self.parts, self.layer_bytes, self.layer_read = [], [], []
@@ -89,6 +93,20 @@ class LlamaNested:
         self.set(width)
         self.generate("Hi", 2)
         return self
+
+    @staticmethod
+    def _open(path, threads, n_ctx, lib_path):
+        """Load on the device the rule in devices.py picks. Any GPU problem falls back to the CPU: Cale must still start."""
+        dev, layers, why = devices.choose(list_devices(lib_path), os.path.getsize(path))
+        if dev is not None:
+            try:
+                lib = Lib(path, n_threads=threads, n_ctx=n_ctx, lib_path=lib_path, gpu=dev["handle"], n_gpu_layers=layers)
+                return lib, f"{lib.placement}; chosen because {why}"
+            except Exception as e:
+                print(f"cale: the GPU did not load ({e}). Using the CPU.", flush=True)
+                why = "the CPU (the GPU did not load)"
+        lib = Lib(path, n_threads=threads, n_ctx=n_ctx, lib_path=lib_path)
+        return lib, f"{lib.placement}; chosen because {why}"
 
     def close(self):
         if getattr(self, "lib", None):
@@ -215,6 +233,10 @@ class LlamaNested:
     def active_bytes(self):
         return oslayer.process_rss()
 
+    def memory_bandwidth(self):
+        """Bytes per second this computer reads from memory with this engine's threads. About 0.15 s. Answer speed is bound by it."""
+        return memory_bandwidth(self.threads, self.lib_path)
+
     def clear_cache(self):
         pass
 
@@ -241,21 +263,22 @@ class LlamaNested:
         """Stop the prompt or answer in progress. Safe to call from another thread."""
         self.lib.cancel()
 
-    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None):
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None, controller=None):
         """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
         If the size needs FFN weights that are not in RAM, they are read first and freed after the call."""
         lv = self.resolve(width) if width is not None else self.level
         read, read_s = self.ensure(lv)
         try:
-            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel):
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel, controller):
                 if "done" in ev:
                     ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
                 yield ev
         finally:
             self.settle()
 
-    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None):
+    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None, controller=None):
         sw = self.set(width)
+        start_tier, switches = self.level["id"], []
         ids = self.prompt_ids(messages)
         dec = codecs.getincrementaldecoder("utf-8")("replace")
         stops = StopFilter(stop)
@@ -263,9 +286,11 @@ class LlamaNested:
         if cancel:
             cancel.check()
         self.lib.begin(ids, temperature, seed=secrets.randbits(32) if seed is None else int(seed) & 0xFFFFFFFF, top_p=top_p)
-        out, finish = 0, None
+        out, finish, t_first = 0, None, None
         for _ in range(max_tokens):
             tok = self.lib.next()
+            if t_first is None:
+                t_first = time.perf_counter()                       # the prompt is read and the first token chosen
             if tok == -1 and self.lib.error() == "cancelled":
                 raise Cancelled()
             if cancel:
@@ -274,6 +299,11 @@ class LlamaNested:
                 finish = "stop"
                 break
             out += 1
+            if controller and out % STEP_TOKENS == 0:               # a size may change between two tokens: the cache stays
+                new = controller(out, time.perf_counter() - t_first, self.level)
+                if new is not None and new["id"] != self.level["id"]:
+                    switches.append({"at_token": out, "from": self.level["id"], "to": new["id"]})
+                    self.set(new)
             s = dec.decode(self.lib.piece(tok))
             if s:
                 text, hit = stops.feed(s)
@@ -289,8 +319,11 @@ class LlamaNested:
             tail = tail[0] + (stops.flush() if not tail[1] else "")
             if tail:
                 yield {"delta": tail}
-        yield {"done": {"tier": self.level["id"], "size_pct": self.level["pct"], "switch_ms": round(sw, 1),
-                        "seconds": round(time.perf_counter() - t0, 3), "prompt_tokens": len(ids),
+        end = time.perf_counter()
+        t_first = t_first or end
+        yield {"done": {"tier": self.level["id"], "start_tier": start_tier, "switches": switches, "size_pct": self.level["pct"],
+                        "switch_ms": round(sw, 1), "seconds": round(end - t0, 3), "first_token_s": round(t_first - t0, 3),
+                        "decode_s": round(end - t_first, 3), "prompt_tokens": len(ids),
                         "tokens": out, "finish": finish or "stop", "drafter": False}}
 
     def generate(self, prompt, max_tokens=256, width=None):

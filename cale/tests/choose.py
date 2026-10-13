@@ -1,76 +1,161 @@
-"""Unit tests for cale/choose.py. Run: .venv/bin/python -m cale.tests.choose"""
-from cale import choose
-from nest.levels3n import load_levels
+"""Unit tests for the goals, the predictor and the size chooser (cale/goals.py, cale/predict.py, cale/choose.py).
+Run: python cale/tests/choose.py   (from the repo folder; no model, no server)
+Every number here is made up: nothing belongs to one computer.
+"""
+import sys
+from pathlib import Path
 
-LEVELS = load_levels()
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from cale import choose, gemma3n_facts as facts, goals as G  # noqa: E402
+from cale.predict import Predictor  # noqa: E402
+
+LEVELS = facts.levels()
 N = 35
 FULL, SMALL = LEVELS[0], LEVELS[-1]
-assert FULL["id"] == "e4b" and SMALL["id"] == "e2b"
-
 GB = 1e9
-PROF = {
-    "margin": 1.0, "work_bytes": 0.4 * GB, "base_bytes": 1.2 * GB, "disk_bps": 2 * GB,
-    "layer_bytes": [[0, 0.028 * GB, 0.066 * GB]] * N, "layer_read": [0.0566 * GB] * N,
-    "levels": {l["id"]: {"decode_tps": 30 + 0.5 * (100 - l["pct"]), "prefill_tps": 600 + 10 * (100 - l["pct"])} for l in LEVELS},
-}
+M = {"base_bytes": 1.2 * GB, "disk_bps": 2 * GB, "total_ram": 24 * GB,
+     "layer_bytes": [[0, 0.028 * GB, 0.066 * GB]] * N, "layer_read": [0.0566 * GB] * N}
 ALL = [2] * N
 SMALLEST = choose.need(SMALL)
+FAIL = []
 
 
-def test_need():
-    assert choose.need(FULL) == [2] * N
-    assert choose.need(SMALL).count(0) == 5
+def check(name, ok, detail=""):
+    print(("PASS " if ok else "FAIL ") + name + (f"  [{detail}]" if detail and not ok else ""), flush=True)
+    if not ok:
+        FAIL.append(name)
 
 
-def test_union():
-    assert choose.union_need([SMALL, FULL]) == [2] * N
-    assert choose.union_need([SMALL]) == SMALLEST
+class Pred:
+    """A computer whose full size answers at 30 tokens/s and reads a prompt at 600 tokens/s. Sizes scale with their cost."""
+    confidence = "learned"
+
+    def __init__(self, slow=1.0):
+        self.slow = slow
+
+    def decode_tps(self, l):
+        return 30 / self.slow / (0.1 + 0.9 * facts.cost(l))
+
+    def prefill_tps(self, l):
+        return 600 / self.slow / facts.cost(l)
+
+    def first_token_s(self, l, prompt_tokens, disk_s=0.0):
+        return disk_s + prompt_tokens / self.prefill_tps(l) + 1 / self.decode_tps(l)
 
 
-def test_disk_bytes():
-    assert choose.disk_bytes(PROF, FULL, ALL) == 0
-    assert choose.disk_bytes(PROF, SMALL, SMALLEST) == 0
-    d = choose.disk_bytes(PROF, FULL, SMALLEST)
-    assert d == PROF["layer_read"][0] * sum(1 for a, b in zip(choose.need(FULL), SMALLEST) if a > b)
+CTX = {"prompt_tokens": 300, "answer_tokens": 100, "waited_s": 0.0, "total_ram": 24 * GB, "available_ram": 20 * GB}
 
 
-def test_deadline_picks_largest_that_fits():
-    loose = choose.for_deadline(LEVELS, PROF, ALL, 100, 100, deadline_s=60)
-    assert loose["level"]["id"] == "e4b" and loose["met"]
-    tight = choose.for_deadline(LEVELS, PROF, ALL, 100, 100, deadline_s=choose.predict_s(PROF, SMALL, 100, 100) + 0.01)
-    assert tight["met"] and tight["level"]["pct"] < 100
+def goals(**kw):
+    return G.parse(kw)
 
 
-def test_deadline_miss_returns_fastest():
-    r = choose.for_deadline(LEVELS, PROF, ALL, 100, 1000, deadline_s=0.01)
-    assert not r["met"] and r["level"]["id"] == "e2b"
+def pick(g, pred=None, ctx=None, resident=ALL, **kw):
+    return choose.for_goals(LEVELS, pred or Pred(), M, g, ctx or CTX, resident, **kw)
 
 
-def test_disk_needs_permission():
-    no = choose.for_deadline(LEVELS, PROF, SMALLEST, 100, 100, deadline_s=60, allow_disk=False)
-    assert no["level"]["id"] == "e2b" and no["disk_bytes"] == 0
-    yes = choose.for_deadline(LEVELS, PROF, SMALLEST, 100, 100, deadline_s=60, allow_disk=True)
-    assert yes["level"]["id"] == "e4b" and yes["disk_bytes"] > 0
+# --- sizes and memory
+check("need: full size needs every layer full", choose.need(FULL) == [2] * N)
+check("need: the smallest size skips 5 layers", choose.need(SMALL).count(0) == 5)
+check("union of sizes", choose.union_need([SMALL, FULL]) == [2] * N and choose.union_need([SMALL]) == SMALLEST)
+check("disk bytes: nothing when resident", choose.disk_bytes(M, FULL, ALL) == 0 and choose.disk_bytes(M, SMALL, SMALLEST) == 0)
+check("disk bytes: counted for layers that grow", choose.disk_bytes(M, FULL, SMALLEST) == M["layer_read"][0] * sum(1 for a, b in zip(choose.need(FULL), SMALLEST) if a > b))
+r = choose.for_memory(LEVELS, M, 24 * GB, 50)
+check("memory goal: roomy goal gives the full size", r["level"]["id"] == FULL["id"] and r["met"])
+small = choose.memory_needed(M, SMALL, facts.HOLD_CONTEXT)
+r = choose.for_memory(LEVELS, M, 24 * GB, 100 * small / (24 * GB))
+check("memory goal: exactly the smallest size's need gives the smallest size", r["met"] and r["level"]["id"] == SMALL["id"])
+r = choose.for_memory(LEVELS, M, 24 * GB, 1)
+check("memory goal: impossible gives the smallest, not met", not r["met"] and r["level"]["id"] == SMALL["id"])
+big_ctx = choose.memory_needed(M, FULL, 32768) - choose.memory_needed(M, FULL, 100)
+check("memory counts the context", abs(big_ctx - 32668 * facts.KV_BYTES_PER_TOKEN) < 1)
 
+# --- the chooser
+res = pick(goals())
+check("no goals: the largest size that needs no disk", res["met"] and res["row"]["level"]["id"] == FULL["id"])
+res = pick(goals(min_tokens_per_s=40))
+check("speed goal: the largest size that keeps up", res["met"] and res["row"]["decode_tps"] >= 40 and res["row"]["level"]["pct"] < 100)
+bigger = [r for r in res["rows"] if r["level"]["pct"] > res["row"]["level"]["pct"]]
+check("...and every larger size is too slow", all(r["decode_tps"] < 40 for r in bigger))
+res = pick(goals(min_tokens_per_s=20), Pred(slow=3.0))
+fast = pick(goals(min_tokens_per_s=20))["row"]["level"]["pct"]
+check("a 3x slower computer picks a smaller size", res["row"]["level"]["pct"] < fast)
+res = pick(goals(min_tokens_per_s=9000))
+check("impossible speed: the fastest size, not met, says speed", not res["met"] and res["unmet"] == ["speed"] and res["row"]["level"]["id"] == SMALL["id"])
+res = pick(goals(max_first_token_s=0.8))
+check("first-token goal is judged on prompt reading", res["met"] and res["row"]["first_token_s"] <= 0.8)
+res = pick(goals(max_first_token_s=0.8), ctx={**CTX, "waited_s": 0.79})
+check("time waited in line counts toward the first token", res["row"]["first_token_s"] > 0.79 and not res["met"] or res["row"]["level"]["pct"] < 100)
+res = pick(goals(min_quality=0.9))
+check("quality floor: no size below it", res["met"] and res["row"]["quality"] >= 0.9)
+res = pick(goals(memory_pct=15))
+check("memory goal on a call: the size fits the share", res["met"] and res["row"]["memory_bytes"] <= 0.15 * 24 * GB and res["row"]["level"]["pct"] < 100, res["row"]["memory_bytes"] / GB)
+res = pick(goals(memory_pct=1))
+check("impossible memory: the smallest, says memory", not res["met"] and res["unmet"] == ["memory"] and res["row"]["level"]["id"] == SMALL["id"])
+res = pick(goals(), cap_pct=75)
+check("cap (memory pressure): never above it", res["row"]["level"]["pct"] <= 75)
+res = pick(goals(power="light"), light=True)
+check("light power on battery: no size above the light ceiling", res["row"]["level"]["pct"] <= facts.LIGHT_MAX_PCT)
+res = pick(goals(power="light"), light=False)
+check("light power on mains: the full size", res["row"]["level"]["id"] == FULL["id"])
 
-def test_disk_time_counts():
-    slow = dict(PROF, disk_bps=0.001 * GB)
-    r = choose.for_deadline(LEVELS, slow, SMALLEST, 100, 100, deadline_s=10, allow_disk=True)
-    assert r["level"]["id"] != "e4b"
+# --- conflicts and priority
+g = goals(min_tokens_per_s=40, min_quality=0.95)
+res = pick(g)
+check("conflicting goals: some goal is reported unmet", not res["met"] and len(res["unmet"]) == 1, res["unmet"])
+res_q = pick(goals(min_tokens_per_s=40, min_quality=0.95, priority=["quality"]))
+res_s = pick(goals(min_tokens_per_s=40, min_quality=0.95, priority=["speed"]))
+check("priority quality: keeps quality, gives up speed", res_q["unmet"] == ["speed"] and res_q["row"]["quality"] >= 0.95)
+check("priority speed: keeps speed, gives up quality", res_s["unmet"] == ["quality"] and res_s["row"]["decode_tps"] >= 40)
 
+# --- disk
+res = pick(goals(min_tokens_per_s=1), resident=SMALLEST)
+check("no disk permission: stays on what is in RAM", res["row"]["level"]["id"] == SMALL["id"] and res["row"]["disk_bytes"] == 0)
+res = pick(goals(min_tokens_per_s=1), resident=SMALLEST, allow_disk=True)
+check("disk permission: the larger size, with the read counted", res["row"]["level"]["id"] == FULL["id"] and res["row"]["disk_bytes"] > 0 and res["row"]["first_token_s"] > res["row"]["disk_s"])
+slow_disk = dict(M, disk_bps=1e6)
+res = choose.for_goals(LEVELS, Pred(), slow_disk, goals(max_first_token_s=5), CTX, SMALLEST, allow_disk=True)
+check("a slow disk makes the read-from-disk size miss a first-token goal", res["row"]["level"]["id"] != FULL["id"])
 
-def test_memory_goal():
-    ram = 24 * GB
-    assert choose.for_memory(LEVELS, PROF, ram, 50)["level"]["id"] == "e4b"
-    small = choose.model_bytes(PROF, SMALLEST) + PROF["work_bytes"]
-    r = choose.for_memory(LEVELS, PROF, ram, 100 * small / ram)
-    assert r["met"] and r["level"]["id"] == "e2b"
-    miss = choose.for_memory(LEVELS, PROF, ram, 1)
-    assert not miss["met"] and miss["level"]["id"] == "e2b"
+# --- the safety limit
+res = choose.for_goals(LEVELS, Pred(), M, goals(), {**CTX, "total_ram": 4 * GB}, ALL)
+check("safety: a size that needs most of the RAM is not chosen", not res["unsafe"] and res["row"]["level"]["id"] != FULL["id"] and all(r["safe"] for r in [res["row"]]))
+res = choose.for_goals(LEVELS, Pred(), M, goals(), {**CTX, "total_ram": 1 * GB}, ALL)
+check("safety: when no size is safe, nothing is chosen", res["unsafe"] and res["row"] is None)
+res = choose.for_goals(LEVELS, Pred(), M, goals(), {**CTX, "available_ram": 0.3 * GB}, SMALLEST)
+check("safety: little free memory right now blocks growing", res["unsafe"] or res["row"]["memory_bytes"] <= choose.model_bytes(M, SMALLEST) + 0.3 * GB)
 
+# --- goal parsing
+check("parse: defaults", G.parse({})["on_miss"] == "best_effort" and G.parse({})["priority"] == G.DEFAULT_PRIORITY and not G.is_set(G.parse({})))
+check("parse: old on_miss 'smallest' is best_effort", G.parse({"on_miss": "smallest"})["on_miss"] == "best_effort")
+check("parse: prefix", G.parse({"cale_min_tokens_per_s": 5}, "cale_")["min_tokens_per_s"] == 5.0)
+check("parse: a partial priority list is completed", G.parse({"priority": ["speed"]})["priority"][0] == "speed" and len(G.parse({"priority": ["speed"]})["priority"]) == 4)
+for bad, code in (({"deadline_s": 3}, "unsupported_parameter"), ({"min_tokens_per_s": 0}, "invalid_min_tokens_per_s"), ({"min_tokens_per_s": True}, "invalid_min_tokens_per_s"),
+                  ({"memory_pct": 101}, "invalid_memory_pct"), ({"min_quality": 1.5}, "invalid_min_quality"), ({"power": "turbo"}, "invalid_power"),
+                  ({"on_miss": "x"}, "invalid_on_miss"), ({"priority": ["speed", "speed"]}, "invalid_priority"), ({"allow_disk": "yes"}, "invalid_allow_disk")):
+    try:
+        G.parse(bad)
+        check(f"parse refuses {bad}", False)
+    except G.GoalError as e:
+        check(f"parse refuses {bad}", e.code == code, e.code)
 
-if __name__ == "__main__":
-    for name, fn in sorted(globals().items()):
-        if name.startswith("test_"):
-            fn()
-            print("ok", name)
+# --- the predictor
+p = Predictor("llama", 28e9, levels=LEVELS)
+check("predictor: starts as an estimate, no model timing", p.confidence == "estimate" and p.decode_tps(FULL) > 0)
+check("predictor: smaller sizes are faster", all(p.decode_tps(a) <= p.decode_tps(b) for a, b in zip(LEVELS, LEVELS[1:])))
+p.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 8.0, "prompt_tokens": 200, "first_token_s": 200 / 20 + 0.125})
+check("predictor: one real answer sets the full size's speed within 15%", abs(p.decode_tps(FULL) - 8.0) / 8.0 < 0.15 and p.confidence == "learned", p.decode_tps(FULL))
+check("predictor: ...and the prompt speed", abs(p.prefill_tps(FULL) - 20) / 20 < 0.2, p.prefill_tps(FULL))
+before = p.decode_tps(FULL)
+p.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 4.0, "prompt_tokens": 200, "first_token_s": 20, "switches": [{"at_token": 16}]})
+check("predictor: an answer that changed size is not used for speed", p.decode_tps(FULL) == before)
+p.slow = 2.0
+check("predictor: debug slowdown halves the speed", abs(p.decode_tps(FULL) - before / 2) < 1e-6)
+p.slow = 1.0
+p.busy = lambda: 1.0
+check("predictor: a busy computer predicts slower", p.decode_tps(FULL) < before)
+p2 = Predictor("mlx", 100e9, levels=LEVELS)
+check("predictor: a faster memory predicts faster", p2.decode_tps(FULL) > Predictor("llama", 28e9, levels=LEVELS).decode_tps(FULL))
+
+print("\nFAILED: " + ", ".join(FAIL) if FAIL else "\nall passed")
+sys.exit(1 if FAIL else 0)

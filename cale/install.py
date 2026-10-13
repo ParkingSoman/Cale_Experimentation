@@ -250,16 +250,61 @@ def prepare(home, raw, model):
     raw.unlink()                                          # a copy of the same size: free the disk
 
 
+# The official llama.cpp GPU backend for the release Cale is built from. Cale's own libraries load it at run time when a
+# GPU is there (cale/backends/devices.py decides whether to use it). The file is checked against the published hash.
+LLAMA_TAG = "b11558"
+GPU_BACKENDS = {
+    ("windows", "x86_64"): ("llama-b11558-bin-win-vulkan-x64.zip", "281886df1e632438266ef35d38ecdfdc21cdced0e1f7331035b87706dc6507f6", "ggml-vulkan.dll"),
+    ("windows", "arm64"): ("llama-b11558-bin-win-vulkan-arm64.zip", "ab9c9d0373ef94cbb334fa227c1b780c7e7e1bf77c4c5b227555fd1b208c4732", "ggml-vulkan.dll"),
+    ("linux", "x86_64"): ("llama-b11558-bin-ubuntu-vulkan-x64.tar.gz", "f9e975512633a6183f58ae5e9afb1870af7c5b1100c6335bc21f88e90bc1c9a5", "libggml-vulkan.so"),
+    ("linux", "arm64"): ("llama-b11558-bin-ubuntu-vulkan-arm64.tar.gz", "dfccb2abdbdf4004227f576d62a7ff08debda00ad6bb4dbb97df7b47d770a59a", "libggml-vulkan.so"),
+}
+
+
 def install_library(home):
+    """Copy Cale's engine libraries (cale_llama and the ggml backends it loads) into home/lib. Then add the GPU backend."""
     name = "cale_llama.dll" if oslayer.WIN else "libcale_llama.so"
     key = f"{'windows' if oslayer.WIN else 'linux'}-{arch()}"
-    for cand in (os.environ.get("CALE_LIB_SRC"), SRC / "llama" / "dist" / key / name):
-        if cand and Path(cand).is_file():
-            (home / "lib").mkdir(parents=True, exist_ok=True)
-            shutil.copy2(cand, home / "lib" / name)
+    src_file = os.environ.get("CALE_LIB_SRC")
+    for cand in (Path(src_file) if src_file else None, SRC / "llama" / "dist" / key / name):
+        if cand and cand.is_file():
+            lib = home / "lib"
+            lib.mkdir(parents=True, exist_ok=True)
+            for f in cand.parent.iterdir():                  # the library and, in a run-time-backend build, its neighbours
+                if f.is_file() and f.suffix.lower() in (".dll", ".so", ".dylib") or f.name.startswith("lib") and ".so." in f.name:
+                    shutil.copy2(f, lib / f.name)
+            install_gpu_backend(home)
             return
     die(f"the {name} library for {key} was not found. Build it with llama/build.{'ps1' if oslayer.WIN else 'sh'} "
         "and put it in llama/dist/" + key + "/, or set CALE_LIB_SRC.")
+
+
+def install_gpu_backend(home):
+    """Add the official Vulkan backend next to the library. A GPU is optional: if this step fails, Cale runs on the CPU."""
+    if os.environ.get("CALE_NO_GPU_BACKEND") == "1" or not (home / "lib" / ("ggml-base.dll" if oslayer.WIN else "libggml-base.so")).exists():
+        return                                               # a build with everything inside one library has no backends to add
+    entry = GPU_BACKENDS.get(("windows" if oslayer.WIN else "linux", arch()))
+    target = home / "lib" / (entry[2] if entry else "")
+    if not entry or target.exists():
+        return
+    asset, sha, member = entry
+    say("Getting the GPU backend (optional, about 30 MB)")
+    tmp = home / "models" / asset
+    try:
+        download(f"https://github.com/ggml-org/llama.cpp/releases/download/{LLAMA_TAG}/{asset}", tmp, expect_sha=sha)
+        if asset.endswith(".zip"):
+            with zipfile.ZipFile(tmp) as z:
+                target.write_bytes(z.read(next(n for n in z.namelist() if Path(n).name == member)))
+        else:
+            with tarfile.open(tmp) as t:
+                m = next(m for m in t.getmembers() if Path(m.name).name == member)
+                target.write_bytes(t.extractfile(m).read())
+    except (Exception, SystemExit) as e:                      # download() exits on a bad download: here that is not fatal
+        print(f"(No GPU backend: {e}. Cale will use the CPU.)", flush=True)
+        target.unlink(missing_ok=True)
+    finally:
+        tmp.unlink(missing_ok=True)
+        Path(str(tmp) + ".part").unlink(missing_ok=True)
 
 
 def write_command(home, port):

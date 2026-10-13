@@ -27,8 +27,24 @@ from .cancel import Cancelled
 from .stops import StopFilter
 
 EOS = {1, 106}                  # <eos>, <end_of_turn>
+STEP_TOKENS = 8                 # how often a size controller may change the size, in answer tokens
 PREFILL_STEP = 2048             # the prompt is read in pieces of this many tokens, so memory grows with the prompt, not with its square
 GROUP, BITS, MODE = 64, 4, "affine"     # how the FFN matrices of models/gemma-3n-e4b-4bit are quantized
+
+
+
+def memory_bandwidth():
+    """Bytes per second this computer reads from memory (the GPU's, for MLX). About 0.1 s, no model needed. Answer speed is bound by it."""
+    a = mx.ones((256 * 1024 * 1024,), dtype=mx.float16)           # 512 MB, bigger than any cache
+    mx.eval(a)
+    best = 0.0
+    for _ in range(4):
+        t = time.perf_counter()
+        mx.eval(mx.sum(a))
+        best = max(best, a.nbytes / (time.perf_counter() - t))
+    del a
+    mx.clear_cache()
+    return best
 
 
 class _Skipped(nn.Module):
@@ -362,17 +378,20 @@ class NestedGemma3n:
     max_context = MAX_CONTEXT
     supports = {"top_p": True, "seed": True, "stop": True}
 
+    def memory_bandwidth(self):
+        return memory_bandwidth()
+
     def interrupt(self):
         pass                                    # the prompt and answer loops check the Cancel object themselves
 
-    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None):
+    def chat_stream(self, messages, max_tokens=256, width=None, draft=None, temperature=0.0, top_p=1.0, seed=None, stop=None, cancel=None, controller=None):
         """Multi-turn text chat. Yields {"delta": str} pieces, then {"done": stats}.
         messages: [{"role": "system"|"user"|"assistant", "content": str}].
         If the size needs FFN weights that are not in RAM, they are read from disk first and freed after the call."""
         lv = self.resolve(width) if width is not None else self.level
         read, read_s = self.ensure(lv)
         try:
-            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel):
+            for ev in self._chat_stream(messages, max_tokens, lv, temperature, top_p, seed, stop, cancel, controller):
                 if "done" in ev:
                     ev["done"].update(disk_mb=round(read / 1e6), disk_s=round(read_s, 3))
                 yield ev
@@ -442,8 +461,9 @@ class NestedGemma3n:
         pick_in_sorted = mx.random.categorical(mx.where(keep, mx.log(ps + 1e-20), -mx.inf), axis=-1)
         return mx.take_along_axis(order, pick_in_sorted[..., None], axis=-1).squeeze(-1)
 
-    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None):
+    def _chat_stream(self, messages, max_tokens, width, temperature, top_p=1.0, seed=None, stop=None, cancel=None, controller=None):
         sw = self.set(width)
+        start_tier, switches = self.level["id"], []
         tok = self.processor.tokenizer
         ids = self.prompt_ids(messages)
         cache = self.lm.make_cache()
@@ -453,6 +473,7 @@ class NestedGemma3n:
 
         nxt = self._sample(self._prefill(ids, cache, cancel), temperature, top_p)
         mx.eval(nxt)
+        t_first = time.perf_counter()
         out, sent, finish = [], "", None
         for _ in range(max_tokens):
             if cancel:
@@ -462,6 +483,11 @@ class NestedGemma3n:
                 finish = "stop"
                 break
             out.append(v)
+            if controller and len(out) % STEP_TOKENS == 0:         # a size may change between two tokens: the cache stays
+                new = controller(len(out), time.perf_counter() - t_first, self.level)
+                if new is not None and new["id"] != self.level["id"]:
+                    switches.append({"at_token": len(out), "from": self.level["id"], "to": new["id"]})
+                    self.set(new)
             nxt = self._sample(self.lm.model(nxt.reshape(1, 1), cache=cache), temperature, top_p)
             mx.async_eval(nxt)
             s = tok.decode(out, skip_special_tokens=True)
@@ -483,8 +509,10 @@ class NestedGemma3n:
                 yield {"delta": tail}
             if hit:
                 finish = "stop"
-        yield {"done": {"tier": self.level["id"], "size_pct": self.level["pct"], "switch_ms": round(sw, 1),
-                        "seconds": round(time.perf_counter() - t0, 3), "prompt_tokens": int(ids.shape[1]),
+        end = time.perf_counter()
+        yield {"done": {"tier": self.level["id"], "start_tier": start_tier, "switches": switches, "size_pct": self.level["pct"],
+                        "switch_ms": round(sw, 1), "seconds": round(end - t0, 3), "first_token_s": round(t_first - t0, 3),
+                        "decode_s": round(end - t_first, 3), "prompt_tokens": int(ids.shape[1]),
                         "tokens": len(out), "finish": finish or "stop", "drafter": False}}
 
     def generate(self, prompt, max_tokens=256, width=None):
