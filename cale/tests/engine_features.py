@@ -51,9 +51,8 @@ def main():
         c, _ = ask(m, "Write one short sentence about the sea.", 30, temperature=1.5, seed=8)
         check("seed: same seed repeats", a == b, (a, b))
         check("seed: different seed differs", a != c, (a, c))
-        u1, _ = ask(m, "Write one short sentence about the sea.", 30, temperature=1.5)
-        u2, _ = ask(m, "Write one short sentence about the sea.", 30, temperature=1.5)
-        check("seed: no seed gives different answers", u1 != u2, (u1, u2))
+        us = [ask(m, "Write one short sentence about the sea.", 30, temperature=1.5)[0] for _ in range(4)]      # a peaked prompt can repeat once by chance
+        check("seed: no seed gives different answers", len(set(us)) >= 2, us)
 
     if sup.get("top_p"):
         g, _ = ask(m, "Name a colour.", 8)
