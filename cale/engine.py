@@ -194,8 +194,56 @@ class Engine(BatchMixin):
             self.pred.n_dec, self.pred.n_pre, self.pred.disk_bps = old.n_dec, old.n_pre, old.disk_bps
         self.pred.slow = self._slow
         self.pred.busy = oslayer.cpu_busy_other
-        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": int(m.active_bytes() - m.ffn_bytes()) + facts.RSS_MARGIN_BYTES,
+        if self.pred.n_dec == 0 and self.pred.n_pre == 0:       # nothing is known about this computer and this model yet: measure, once
+            self._measure_speed()
+        self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": self._sample_base(),
                      "total_ram": key["total_ram"], "disk_bps": self.pred.disk_bps}
+
+    def _sample_base(self):
+        """Memory this process holds besides the FFN weights: the largest of a few readings. The OS reports process memory with a little noise,
+        and a prediction must never be under what is used. (It is raised again whenever an answer finds more in use: see _grow_base.)"""
+        m, seen = self.m, []
+        for _ in range(5):
+            seen.append(int(m.active_bytes() - m.ffn_bytes()))
+            time.sleep(0.05)
+        return max(seen)
+
+    def _grow_base(self):
+        """After an answer: if the process holds more than the prediction assumed, the prediction grows to match."""
+        try:
+            now = int(self.m.active_bytes() - self.m.ffn_bytes())
+        except Exception:
+            return
+        if now > self.mach["base_bytes"]:
+            self.mach["base_bytes"] = now
+
+    def _measure_speed(self):
+        """The first time Cale loads the model on a computer: read a short prompt and answer a few tokens, and keep the speeds.
+        They replace the first guess (PRIORS in predict.py, tuned on three test computers), so a prediction on any computer starts from
+        what this computer does. The result is saved with the key of this computer and model: it is done once, not at every load.
+        A computer where a GPU reads long prompts is measured with a piece as long as the pieces it will read."""
+        m = self.m
+        try:
+            piece = getattr(m, "prompt_piece_hint", 0) or 64
+            unit = "The sea is wide and deep. "
+            n_unit = max(1, int(m.prompt_len([{"role": "user", "content": unit}])) - 0)
+            full = max(self.levels, key=lambda l: l["pct"])
+            t0 = time.perf_counter()
+            done = None
+            while True:                       # a prompt that takes under half a second says little: read a longer one (up to the engine's piece)
+                text = unit * max(1, int(piece / max(n_unit - 8, 1)))
+                msgs = [{"role": "user", "content": text + "Write the whole numbers from 1 to 60, separated by spaces."}]
+                for ev in m.chat_stream(msgs, max_tokens=16, width=full, temperature=0.0):
+                    done = ev.get("done", done)
+                m.clear_cache()
+                if not done or done["first_token_s"] >= 0.5 or piece >= 512:
+                    break
+                piece *= 4
+            if done:
+                self.pred.observe(done)
+                self.log(f"measured this computer in {time.perf_counter() - t0:.1f}s: {self.pred.summary()}")
+        except Exception as e:
+            self.log(f"speed measurement skipped ({type(e).__name__}: {str(e)[:120]})")
 
     def machine(self):
         """The machine record with the disk speed as learned so far."""
@@ -613,5 +661,6 @@ class Engine(BatchMixin):
 
     def _learn(self, d):
         """Fold a real answer into what Cale knows about this computer's speed."""
+        self._grow_base()
         if self.pred is not None:
             self.pred.observe(d)

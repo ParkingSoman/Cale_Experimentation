@@ -28,7 +28,7 @@ Write once, run everywhere. An app written for Cale runs on every computer. Cale
 | 4 | Put shared logic above the engine interface (chat template, grammar, scheduler). | Two engines, one feature set. |
 | 5 | Gemma 3n is the final model for this prototype. Its facts may be hard-coded, in one place. | Tuning for one model is the point. |
 | 6 | Speed goals use tokens per second and first-token time. Never seconds per answer. | Answer length is unknown. |
-| 7 | Cale never times the model at first launch. It predicts from hardware facts and live load, then corrects from real answers. | No wait for the user. |
+| 7 | Cale never times the model for an app's call. It predicts from hardware facts and live load, then corrects from real answers. Once, on the first load on a computer, it reads one short prompt as a warm-up and keeps the speeds (about 0.5 s on a fast Mac, about 7 s on a weak laptop). `CALE_NO_MEASURE=1` turns that off. | No wait for the app. A prediction that starts from this computer, not from three test computers. |
 | 8 | An unsupported request field returns a clear error. It is never ignored silently. | An app must know what it got. |
 | 9 | Any language can use Cale over plain HTTP. | App types. |
 | 10 | Nothing in `cale/` may exist only because a demo app needed it. | Overfitting lowers the equation. |
@@ -36,6 +36,7 @@ Write once, run everywhere. An app written for Cale runs on every computer. Cale
 | 12 | A developer must trust that their code behaves as expected on every computer. Cale never makes a behavior-changing trade-off per machine in silence. | Write once, run everywhere. |
 | 13 | Never hard-code a size count, a layer count, or a device name or index. Logic works for any number of sizes, larger and smaller than today's. | Future Matryoshka models will have more sizes. |
 | 14 | When no size can meet the goals, the behavior is defined and chosen by the developer (`on_miss`). One safety limit has no setting: Cale refuses any setup it predicts would crash or freeze the computer, with a documented error. | Weak computers must get a clear answer, not a crash. |
+| 15 | No number that depends on the computer is written in the code. Ask the computer (the OS, the device, the engine) or measure it, and keep what was measured. A number that is a policy (a limit the developer may want to change) is named as a policy, has one place, and is reported. `docs/CONSTANTS.md` lists every number and which kind it is. | Many environments: a constant tuned on two computers is a guess on the third. |
 
 ## How we check
 

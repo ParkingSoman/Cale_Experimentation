@@ -22,7 +22,7 @@ from .. import gemma3n_facts as facts
 
 from .. import oslayer
 from . import devices
-from .llamalib import Lib, devices as list_devices, memory_bandwidth, readback as lib_readback
+from .llamalib import Lib, devices as list_devices, memory_bandwidth, offload_min_batch, readback as lib_readback
 
 N_CTX = MAX_CONTEXT        # context size the library is loaded with (prompt plus answer, in tokens). Gemma 3n keeps 8 KB per token, so the full 32k costs 270 MB.
 STEP_TOKENS = 8            # how often a size controller may change the size, in answer tokens
@@ -148,6 +148,10 @@ class LlamaNested:
         self.lib, self.placement = cls._open(self.path, self.threads, n_ctx, lib_path)
         # a GPU that holds no layers but reads long prompts (cale/backends/devices.py, way 2): prompt pieces must be big enough to pay for the copy
         self.gpu_reads_prompts = "device=cpu" not in self.placement and "gpu_layers=0" in self.placement
+        # the shortest prompt piece the GPU takes over from the CPU: the GPU backend says (llamalib.offload_min_batch), nothing is written here
+        self.offload_min = offload_min_batch(self.lib.gpu, lib_path) if self.gpu_reads_prompts else 0
+        self.batch_tokens = self.lib.n_batch
+        self.prompt_piece_hint = self.batch_tokens // 2 if self.gpu_reads_prompts else 0     # the speed measurement reads a prompt about this long (half a batch)
         self.n_layers = self.lib.n_layers
         self.levels = [l for l in load_levels(self.n_layers) if min(l["skip"], default=99) >= facts.FIRST_SHARED]
         self.parts, self.layer_bytes, self.layer_read = [], [], []

@@ -23,17 +23,56 @@ from . import choose, constrain, goals as goals_mod, oslayer
 from .backends.llama import PoolFull
 from . import gemma3n_facts as facts
 
-PREFILL_MAX = 256           # most prompt tokens read in one step
-PREFILL_MIN = 12
-STEP_SECONDS = 0.75         # a step that reads a prompt piece should take about this long, so the answers next to it keep moving
+STEP_SECONDS = 0.75         # POLICY, not a measurement: a step that reads a prompt piece should take about this long, so the answers next to it keep moving
 CHECK_EVERY = 8             # steps between looks at the speed goals
 IDLE_POLL_S = 0.05
-# A GPU that reads prompts gets the weights of the model again for every piece, so a piece must be long to pay for that, and a piece under
-# OFFLOAD_MIN_BATCH tokens is not sent to the GPU at all (every ggml GPU backend uses 32). Next to answers that are running, pieces stay
-# short and stay on the CPU, so the answers keep moving. Alone, a piece is long: the app that leaves is then noticed after seconds, not one second.
-OFFLOAD_MIN_BATCH = 32
-GPU_PIECE_MIN, GPU_PIECE_MAX = 256, 512          # tokens: the GPU needs this many to pay for the copy of the weights, and 512 is the engine's batch
-GPU_PIECE_SECONDS = 6.0                           # a piece should not take much longer than this: that is how long an app that leaves can hold up the next one
+# A GPU that reads prompts gets the weights of the model again for every piece, so a piece must be long to pay for that. How long, and from
+# which length the GPU takes the work, depends on the computer: the GPU backend says the shortest piece it takes (lib.offload_min_batch), the
+# engine says the longest (its batch size), and PieceTuner finds the best length between them by trying. The one number left is a policy:
+# how long a piece may take, because one piece cannot be stopped and an app that leaves holds the next app up for that long.
+MAX_PIECE_S = float(os.environ.get("CALE_MAX_PIECE_S", "6"))
+
+
+class PieceTuner:
+    """Picks the length of a prompt piece for a GPU that reads prompts, by trying. Used when a prompt is read alone: next to running
+    answers the pieces stay short (below what the GPU takes) so the answers keep moving.
+
+    Candidates: the engine's batch size and its halves down to the shortest piece the GPU backend takes, and one piece just below that
+    (the CPU does it). Each is tried once, longest first, going down only while a piece takes longer than the budget. Then the candidate
+    with the best speed among those that fit the budget is used. If it is the CPU piece, the GPU does not pay on this computer."""
+
+    def __init__(self, shortest, longest, budget_s=MAX_PIECE_S):
+        sizes, n = [], max(longest, 1)
+        while n >= max(shortest, 1):
+            sizes.append(n)
+            n //= 2
+        self.gpu_sizes = sizes or [max(longest, 1)]
+        self.cpu_size = max(shortest - 1, 1)               # one token under what the GPU takes
+        self.speed = {}                                    # piece length -> tokens per second seen
+        self.budget = budget_s
+
+    def _fits(self, size):
+        return size in self.speed and size / max(self.speed[size], 1e-9) <= self.budget
+
+    def next_size(self):
+        for size in self.gpu_sizes:
+            if size not in self.speed:
+                return size
+            if self._fits(size):
+                break                                      # a piece within the budget: shorter GPU pieces will not be faster
+        if self.cpu_size not in self.speed:
+            return self.cpu_size
+        fits = [s for s in self.speed if self._fits(s)] or [min(self.speed, key=lambda s: s / max(self.speed[s], 1e-9))]
+        return max(fits, key=lambda s: self.speed[s])
+
+    def seen(self, size, tokens, seconds):
+        if seconds > 0 and tokens > 0:
+            v = tokens / seconds
+            old = self.speed.get(size)
+            self.speed[size] = v if old is None else 0.7 * old + 0.3 * v
+
+    def uses_gpu(self):
+        return bool(self.speed) and self.next_size() > self.cpu_size
 
 
 class BatchPred:
@@ -115,6 +154,12 @@ class BatchMixin:
             req.abandoned = True                 # a closed generator (the client left) frees the slot at the next step
             with self.cv:
                 self.cv.notify_all()
+
+    def piece_tuner(self):
+        if getattr(self, "_tuner", None) is None or getattr(self, "_tuner_for", None) is not self.m:
+            self._tuner = PieceTuner(self.m.offload_min, self.m.batch_tokens)
+            self._tuner_for = self.m
+        return self._tuner
 
     # --- the scheduler thread -----------------------------------------------------------------------------------------
     def _runner_loop(self):
@@ -339,12 +384,25 @@ class BatchMixin:
         # A piece of prompt cannot be stopped once started, so its length is set by time: next to other answers about STEP_SECONDS,
         # alone about twice that. On a slow computer that is a few tokens, so an app that leaves is noticed quickly.
         secs = STEP_SECONDS if decoding else 2 * STEP_SECONDS
-        budget = max(PREFILL_MIN, min(PREFILL_MAX, int(self.pred.prefill_tps(self.batch_level) * secs)))
-        if getattr(m, "gpu_reads_prompts", False):
-            budget = min(budget, OFFLOAD_MIN_BATCH - 1) if decoding else max(GPU_PIECE_MIN, min(GPU_PIECE_MAX, int(self.pred.prefill_tps(self.batch_level) * GPU_PIECE_SECONDS)))
+        n_batch = getattr(m, "batch_tokens", 512)                                # the engine's own limit for one pass
+        budget = max(1, min(n_batch, int(self.pred.prefill_tps(self.batch_level) * secs)))
+        tuner = self.piece_tuner() if getattr(m, "gpu_reads_prompts", False) else None
+        piece_n = None
+        if tuner is not None:
+            if decoding:
+                budget = min(budget, max(m.offload_min - 1, 1))         # next to running answers: short pieces, below what the GPU takes, so the answers keep moving
+            else:
+                piece_n = tuner.next_size()
+                budget = piece_n
+        reading = [r for r in self.active if r.stream.t_first is None]
+        before = m.lib.slot_tokens(reading[0].stream.slot) if tuner is not None and not decoding and len(reading) == 1 else None
         t = time.perf_counter()
         finished = m.step([r.stream for r in self.active], budget)
         dt = time.perf_counter() - t
+        if before is not None:                                                    # a piece read alone: what it taught about this computer
+            got = m.lib.slot_tokens(reading[0].stream.slot) - before
+            if got >= max(piece_n // 2, 1):
+                tuner.seen(piece_n, got, dt)
         n = len(decoding)
         for r in decoding:
             r.steps += 1

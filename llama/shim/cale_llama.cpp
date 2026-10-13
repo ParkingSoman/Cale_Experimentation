@@ -185,6 +185,26 @@ CALE_API int32_t cale_devices(char * out, int32_t cap) {
     return (int32_t) text.size();
 }
 
+
+// The fewest prompt tokens in one pass at which this GPU's backend takes a matrix multiplication from the CPU (the backend decides: it asks
+// whether the copy of the weights pays). 0 if the backend never does. Asked of the backend itself, so no number is written in Cale.
+CALE_API int32_t cale_offload_min_batch(int32_t gpu) {
+    init_backends();
+    if (gpu < 0 || gpu >= (int32_t) g_gpus.size()) return 0;
+    ggml_init_params ip = {ggml_tensor_overhead() * 8 + ggml_graph_overhead(), nullptr, true};
+    ggml_context * ctx = ggml_init(ip);
+    if (!ctx) return 0;
+    ggml_tensor * w = ggml_new_tensor_2d(ctx, GGML_TYPE_Q4_0, 256, 256);
+    int32_t found = 0;
+    for (int32_t n = 1; n <= 4096 && !found; n = n < 64 ? n + 1 : n * 2) {
+        ggml_tensor * x = ggml_new_tensor_2d(ctx, GGML_TYPE_F32, 256, n);
+        ggml_tensor * y = ggml_mul_mat(ctx, w, x);
+        if (ggml_backend_dev_supports_op(g_gpus[gpu], y) && ggml_backend_dev_offload_op(g_gpus[gpu], y)) found = n;
+    }
+    ggml_free(ctx);
+    return found;
+}
+
 // Load a GGUF.
 // repack: 0 = repack the weights when the file is in the Cale layout (see llama/prepare_gguf.py), 1 = always, 2 = never.
 // Repacked weights are faster on the CPU but live in ordinary memory. Without repacking the file is memory-mapped,
@@ -396,6 +416,7 @@ CALE_API double cale_membw(int32_t n_threads, int32_t mb_per_thread) {
 
 CALE_API int32_t cale_n_layers(cale_ctx * h) { return llama_model_n_layer(h->model); }
 CALE_API int32_t cale_n_ctx(cale_ctx * h) { return h->n_ctx; }
+CALE_API int32_t cale_n_batch(cale_ctx * h) { return h->n_batch; }
 // 1 when this build can hand a repacked weight to a GPU (llama/patches/0002): a GPU may then read prompts while the weights stay in RAM for the CPU.
 #ifdef CALE_STOCK
 CALE_API int32_t cale_readback(void) { return 0; }

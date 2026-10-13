@@ -54,6 +54,15 @@ def readback(lib_path=None):
     return bool(c.cale_readback())
 
 
+def offload_min_batch(gpu, lib_path=None):
+    """The fewest prompt tokens in one pass at which the GPU backend takes a matrix multiplication from the CPU. 0 = never, or unknown."""
+    c = ctypes.CDLL(find_library(lib_path))
+    if gpu is None or not hasattr(c, "cale_offload_min_batch"):
+        return 0
+    c.cale_offload_min_batch.restype, c.cale_offload_min_batch.argtypes = ctypes.c_int32, [ctypes.c_int32]
+    return int(c.cale_offload_min_batch(gpu))
+
+
 def memory_bandwidth(threads, lib_path=None, mb_per_thread=48):
     """Bytes per second this computer reads from memory with `threads` threads. About 0.15 s. No model needed. 0.0 if unknown."""
     c = ctypes.CDLL(find_library(lib_path))
@@ -70,6 +79,7 @@ class Lib:
         no_host: keep the weights that stay on the CPU repackable (see the shim). Always right unless a developer asks otherwise."""
         self.c = ctypes.CDLL(find_library(lib_path))
         c = self.c
+        self.gpu, self.lib_path = gpu, lib_path
         vp, i32, i32p = ctypes.c_void_p, ctypes.c_int32, ctypes.POINTER(ctypes.c_int32)
         cp = ctypes.POINTER(ctypes.c_char_p)
         c.cale_last_error.restype = ctypes.c_char_p
@@ -253,6 +263,14 @@ class Lib:
         if n < 0:
             raise RuntimeError(self.error())
         return [(ids[i], lp[i]) for i in range(n)]
+
+    @property
+    def n_batch(self):
+        """Most tokens the engine reads in one pass."""
+        if not hasattr(self.c, "cale_n_batch"):
+            return 512
+        self.c.cale_n_batch.restype, self.c.cale_n_batch.argtypes = ctypes.c_int32, [ctypes.c_void_p]
+        return int(self.c.cale_n_batch(self.h))
 
     def slot_logprobs(self, slot, tok, k):
         """For the token a slot just got: (its log-probability, [(token, log-probability) of the k most likely tokens])."""

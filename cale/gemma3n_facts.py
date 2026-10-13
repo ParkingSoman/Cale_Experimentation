@@ -52,6 +52,5 @@ def quality(level):
 
 
 SCRATCH_BYTES = 500_000_000        # working memory for reading a prompt (activations and the engine's own buffers)
-RSS_MARGIN_BYTES = 100_000_000     # process memory is read from the OS and moves by 0.1 to 0.2 GB between loads. Cale may predict a little too much. It must never predict too little.
 HOLD_CONTEXT = 4096                # context assumed when a hold asks for a memory share and no call is known yet
 LIGHT_MAX_PCT = 75                 # `power: "light"` on battery or when hot: no size above this share of the full size
