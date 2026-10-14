@@ -1,8 +1,10 @@
 # STATUS (2026-10-13, end of the session that ran this plan)
 
+Install-time tuning (`cale tune`, see `docs/TUNING.md`) is done and tested on Mac, HP Windows (installer end to end, CUDA chosen), HP Linux (installer end to end) and the arm64 container. All suites pass on all of them. The only failure is a known container artefact (`reside e4b reads everything back`, 7 GB container).
+
 | Stage | State |
 |---|---|
-| 2b GPU | Done, with option D (the GPU reads prompts, the CPU answers; see FINDINGS). Per-size GPU placement is not needed with D (0 layers on the GPU). Not done: NVIDIA/CUDA test. |
+| 2b GPU | Done, with option D (the GPU reads prompts, the CPU answers; see FINDINGS). Per-size GPU placement is not needed with D (0 layers on the GPU). CUDA done (installer adds the CUDA 12.4 backend, driver check, prompts 4.7 times faster than the CPU on the HP). Which way to run is measured at install (`cale tune`), not guessed. |
 | 3 Gemma facts | Done (`cale/gemma3n_facts.py`). The small-drafter idea was rejected by arithmetic. |
 | 4 Goals in tokens/s, floor | Done: no timing run, `on_miss` best_effort/refuse/wait/try, `priority`, 507 safety limit. Prediction accuracy 6-16%. |
 | 5 Several apps at once | Done on llama (slots, scheduler). MLX stays one at a time. Known limits 1 to 5 fixed. Limits 6 to 13 are in `FINDINGS.md` ("Review of stages 3 to 8"). |
@@ -244,10 +246,10 @@ Each stage ends with its gate, the zoo scorecard, a FINDINGS entry, and a commit
 | Item | Status |
 |---|---|
 | Weak-GPU trade-off | Decided: try D (both speeds). If it fails, A default and B as a developer choice. |
-| NVIDIA driver on the HP is 472.19 (2021). CUDA 12 builds need a newer driver. | Shonu: not now, test later. Keep in mind: developers need confidence on every laptop, so CUDA vs Vulkan must be measured before Cale ships a choice for NVIDIA. Old drivers must still work (Vulkan path). |
+| NVIDIA driver on the HP | Updated to 576.80 on Shonu's yes. CUDA versus Vulkan is measured on each computer at install. Old drivers still work (Vulkan or CPU). |
 | Intel driver on the HP | Done: 24.20.100.6344 (2018) -> 31.0.101.2145. Installer exit 1000, HP restarted, ssh returned. |
-| Linux Allow dialog click on WSLg | Not verified |
-| Open WebUI and Aider on the HP since strict fields | Not re-run |
+| Linux Allow dialog click | Verified on a virtual screen (Xvfb, zenity, xdotool): Allow gives a key, Don't Allow gives 403. WSLg itself does not work over ssh. |
+| Open WebUI and Aider on the HP since strict fields | Open WebUI through the API: connect, objects, chat verified. The page click-through did not finish (the ssh link drops). Aider not re-run. |
 | Mac disk | 28 GB free after Shonu deleted stale BlinkFix files (was 15 GB). Check again at the end of each session. |
 
 ## 6. Verification (every stage)
