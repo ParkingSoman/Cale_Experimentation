@@ -1001,6 +1001,6 @@ What the measurements showed:
 - A fanless Mac showed no slowdown for 90 seconds and then lost 11%. The sustained test must run two minutes.
 - CUDA reads prompts 4.7 times faster than the CPU on the HP (82.5 against 17.5 tokens/s) with answers 5 to 15% slower. A rule that looked at answer speed alone threw CUDA out once. The rule now compares the time of a call of 512 prompt and 128 answer tokens.
 - Flash attention and bigger passes made no difference on a CPU. With a card they are judged against two readings of the default, because one low reading made every change look like a win.
-- Installing a graphics driver is not needed for any of this. The NVIDIA driver on the HP was updated (472.19 to 576.80) so CUDA 12.4 could be tested.
+- CUDA 12.4 needs a recent NVIDIA driver. The HP driver was updated (472.19 to 576.80) to test it. With an old driver Cale still works through Vulkan or the CPU, and the placement test picks the fastest.
 
 Not done: speculative decoding, thread pinning on hybrid CPUs (no such test computer), pictures and sound on the llama engine (see below).
