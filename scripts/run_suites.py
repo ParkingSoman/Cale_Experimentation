@@ -87,7 +87,7 @@ TUNED = {"file": None}
 def tune_once(env):
     """What the installer does: measure this computer once. Every test server then starts from that result (a fresh home has none)."""
     home = tempfile.mkdtemp(prefix="cale-tune-")
-    r = subprocess.run([PY, "-m", "cale.tune"], cwd=ROOT, env=dict(env, CALE_HOME=home), capture_output=True, text=True, timeout=1800)
+    r = subprocess.run([PY, "-m", "cale.tune"], cwd=ROOT, env=dict(env, CALE_HOME=home, CALE_TUNE_PROFILE=os.environ.get("CALE_TUNE_PROFILE", "quick")), capture_output=True, text=True, timeout=1800)
     f = Path(home) / "predict.json"
     print(f"tune: {'done' if f.exists() else 'FAILED'} ({r.returncode})", flush=True)
     TUNED["file"] = f if f.exists() else None
