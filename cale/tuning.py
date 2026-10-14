@@ -263,11 +263,11 @@ class Tuner:
         if not t:
             return {}
         out, eps = {}, []
-        for n in (2, 4):
+        for n in (2, 3, 4):
             speeds, lock = [], threading.Lock()
 
             def one(i):
-                for ev in eng.chat_stream([{"role": "user", "content": "Write the whole numbers from 1 to 80, separated by spaces."}], 40, 0.0, app=f"cale tune {i}"):
+                for ev in eng.chat_stream([{"role": "user", "content": "Write the whole numbers from 1 to 120, separated by spaces."}], 72, 0.0, app=f"cale tune {i}"):
                     if "done" in ev:
                         d = ev["done"]
                         if d.get("tokens", 0) >= 9 and d.get("decode_s", 0) > 0:
@@ -449,14 +449,15 @@ def choose_engine_options(decision, home, say=lambda t: None, log=print):
         pre_ok, dec_ok = r["pre"] >= base["pre"] * 0.97, r["dec"] >= base["dec"] * 0.97
         return pre_ok and dec_ok and (r["pre"] >= NOISE * base["pre"] or r["dec"] >= NOISE * base["dec"])
     flash = {}
-    for v in (0, 1):
-        r = probe_one(gpu, log, {"CALE_FLASH": str(v)})
-        if r:
-            flash[v] = r
-            tried[f"flash={v}"] = r
-    cand = [v for v, r in flash.items() if better(r, "flash")]
-    if cand:
-        chosen["flash"] = max(cand, key=lambda v: flash[v]["pre"] * flash[v]["dec"])
+    if gpu != "off":                                   # on a CPU it made no difference (measured on the HP: 15.7 / 6.79 default, 16.0 / 6.74 off, 15.7 / 6.85 on)
+        for v in (0, 1):
+            r = probe_one(gpu, log, {"CALE_FLASH": str(v)})
+            if r:
+                flash[v] = r
+                tried[f"flash={v}"] = r
+        cand = [v for v, r in flash.items() if better(r, "flash")]
+        if cand:
+            chosen["flash"] = max(cand, key=lambda v: flash[v]["pre"] * flash[v]["dec"])
     if gpu != "off":
         sizes = {}
         for n in (1024, 2048):
