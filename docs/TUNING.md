@@ -32,7 +32,7 @@ the same laptop in WSL, CPU only). `full` runs everything in the "full" column; 
 
 | Probe | What it measures | What it decides | Profile | Mac | HP Windows | HP Linux |
 |---|---|---|---|---|---|---|
-| placement | CPU, and each graphics card (CUDA, Vulkan), on a real prompt piece, each in its own process | Which way of running is fastest. A card is used only if prompts are 15% faster and answers are not clearly slower. CUDA versus Vulkan is decided by this, not by a rule. | full (llama) | - | see below | - |
+| placement | CPU, and each graphics card (CUDA, Vulkan), on a real prompt piece, each in its own process | Which way of running is fastest. A card is used only if a reference call (512 prompt tokens, 128 answer tokens) finishes 15% sooner and its answers are at least 80% as fast as the CPU's. CUDA versus Vulkan is decided by this, not by a rule. | full (llama) | - | about 3 min | - |
 | environment | power (plugged or battery), cores, core types, RAM | what the numbers were measured on | quick | 0 s | 0 s | 0 s |
 | disk | cold read of the model file, no OS cache | how long reading weights back takes (size changes under a memory goal) | quick | 0.2 s | 1 s | 1 s |
 | working_memory | the most memory the process holds while the longest prompt piece is read | memory goals and the safety limit (replaces a guess of 500 MB) | quick | 1 s (850 MB) | 6 s | 35 s (200 to 490 MB) |
@@ -45,7 +45,7 @@ the same laptop in WSL, CPU only). `full` runs everything in the "full" column; 
 | drift | the first measurement repeated at the end | how noisy this computer is | quick | 1 s | 7 s | 9 s |
 | batch | speed of 2, 3 and 4 answers at once | the cost of each extra answer (the engine also learns it while running) | max | - | 35 s | 31 s |
 | cooldown | speed after a rest | how fast a hot computer recovers (the time constant of the heat model) | max | - | - | 47 s |
-| engine options | flash attention, and passes of 1024 and 2048 tokens (card only), each in its own process | engine settings; kept only if clearly better | max | - | see below | no effect (CPU) |
+| engine options | flash attention, and passes of 1024 and 2048 tokens (card only), each in its own process, judged against two readings of the default | engine settings; kept only if clearly better | max | - | about 2 min | no effect (CPU) |
 
 Total, with the default profile: about 2 minutes on the Mac, about 4.5 minutes on the HP with the card plus the placement comparison,
 and about 6.5 minutes on the HP without a card (the weakest case).
@@ -91,3 +91,21 @@ the design:
 * llama.cpp's own `--fit` reads free memory and sets layers. It does not time anything. Ollama sizes by free memory too. Neither
   measures speed. (This is where Cale goes further.)
 * Disk speed must be read without the OS cache (Windows `FILE_FLAG_NO_BUFFERING`, Linux `posix_fadvise`, macOS `F_NOCACHE`).
+
+## What the HP showed (2026-10-13, Windows, `max` profile)
+
+| Way of running | Prompt tokens/s | Answer tokens/s | Reference call vs CPU |
+|---|---|---|---|
+| CPU | 17.5 | 7.14 | 1.0 times |
+| CUDA, card reads prompts | 82.5 | 6.09 | 1.73 times sooner (chosen) |
+| Vulkan on the same card | 20.1 | 7.68 | 1.12 times (not clearly better) |
+| Vulkan on the Intel graphics, all layers | 7.3 | 4.4 | dropped after 64 tokens |
+
+Two findings changed the design:
+
+1. The first rule asked that answers be no more than 12% slower. CUDA answers were 15% slower on that run (about 5% on others). A rule built from
+   one speed alone threw out a way that was 1.7 times better for a normal call. The rule now compares the time of a whole reference call.
+2. One reading of the default was low by chance (5.9 against 7.0 answers). Every change then looked like a win. The options probe now
+   reads the default twice and compares against the mean.
+
+With the card reading prompts, the context loses only 2.5% of answer speed per 1000 tokens. The CPU-only plan lost 19 to 24%.
