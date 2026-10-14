@@ -759,4 +759,5 @@ class Engine(BatchMixin):
         """Fold a real answer into what Cale knows about this computer's speed."""
         self._grow_base(d)
         if self.pred is not None:
+            self.pred.note_busy(float(d.get("seconds") or 0.0))
             self.pred.observe(d)

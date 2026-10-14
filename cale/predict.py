@@ -12,6 +12,7 @@ A third, the part of per-token time that does not shrink with the size (`fixed`)
 is fitted once answers at two different sizes have been seen.
 """
 import json
+import math
 import os
 import statistics
 import time
@@ -54,6 +55,7 @@ class Predictor:
         self.dec_ctx = 0.0                                              # measured at install: share of answer speed lost per 1000 tokens of context
         self.sustained = 1.0                                            # measured at install: speed after minutes of work / speed in the first seconds (1 = no throttling)
         self.corr_dec = self.corr_pre = 1.0                             # what real answers say about the measured table (1 = it is right)
+        self.heat, self.heat_at = 0.0, None                             # 0 = cool, 1 = as hot as after the sustained test: recent work heats, idle time cools
         self.by_level = {}                                              # level id -> recent decode speeds (tokens/s)
         self.slow = 1.0                                                 # debug only: pretend this computer is this many times slower
         self.busy = lambda: 0.0                                         # share of the CPU other programs use now (set by the engine)
@@ -64,9 +66,22 @@ class Predictor:
         """Time per answer token at this size, relative to the full size."""
         return self.fixed + (1.0 - self.fixed) * facts.cost(level, self.full)
 
+    def heat_now(self, now=None):
+        now = time.time() if now is None else now
+        if self.heat_at is None:
+            return self.heat
+        return self.heat * math.exp(-max(0.0, now - self.heat_at) / float(self.extra.get("cool_s", 120.0)))
+
+    def note_busy(self, seconds, now=None):
+        """The engine worked for `seconds`: the computer is that much hotter. A laptop slows down once it is hot (`sustained`)."""
+        now = time.time() if now is None else now
+        self.heat = min(1.0, self.heat_now(now) + seconds / max(float(self.extra.get("burst_s", 30.0)), 1.0))
+        self.heat_at = now
+
     def live_factor(self):
-        """Other programs using the computer now slow both memory and arithmetic. 1.0 = idle."""
-        return max(0.35, 1.0 - 0.5 * min(max(self.busy(), 0.0), 1.0)) / self.slow
+        """Other programs using the computer now slow both memory and arithmetic, and a hot laptop is slower than a cool one. 1.0 = idle and cool."""
+        throttle = 1.0 - (1.0 - self.sustained) * self.heat_now() if self.sustained < 0.999 else 1.0
+        return max(0.35, 1.0 - 0.5 * min(max(self.busy(), 0.0), 1.0)) * throttle / self.slow
 
     def _table_value(self, level, key):
         """The measured speed of this size, or between the two nearest measured sizes (by cost), or None if nothing was measured."""

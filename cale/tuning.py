@@ -11,6 +11,7 @@ and discard it, take the median of several runs for the numbers that matter, and
 better (more than the noise).
 """
 import json
+import math
 import statistics
 import threading
 import time
@@ -58,6 +59,7 @@ class Tuner:
             ("batch", 3, self.batch, self.eng.can_batch()),
             ("gpu_pieces", 2, self.gpu_pieces, self.eng.can_batch() and gpu_reads),
             ("sustained", 2, self.sustained, True),
+            ("cooldown", 3, self.cooldown, True),
             ("drift", 1, self.drift, True),
         ]
 
@@ -320,7 +322,22 @@ class Tuner:
                 break
         self.pred.sustained = sustained if sustained < 0.95 else 1.0
         self.pred.extra["burst_s"] = float(burst)
+        self.hot = (first, last)
         return {"seconds": round(end), "first_tps": round(first, 2), "last_tps": round(last, 2), "sustained": round(sustained, 3), "burst_s": burst}
+
+    def cooldown(self, rest=40):
+        """How fast a hot computer recovers: rest for `rest` seconds after the sustained test, then read the answer speed again. Used for the
+        time constant of the heat model (how long recent work keeps slowing the computer down)."""
+        hot = getattr(self, "hot", None)
+        if not hot or hot[1] >= 0.97 * hot[0]:
+            return {"note": "the computer did not slow down: nothing to cool"}
+        time.sleep(rest)
+        r = self.point(self.full_level(), 64, answer=20, repeats=1)
+        if not r:
+            return {}
+        frac = min(0.95, max(0.05, (r[1] - hot[1]) / (hot[0] - hot[1])))
+        self.pred.extra["cool_s"] = round(-rest / math.log(1.0 - frac), 1)
+        return {"recovered": round(frac, 2), "cool_s": self.pred.extra["cool_s"]}
 
     def drift(self):
         """The first measurement again, at the end: a number that moved by more than the noise says the computer was busy or heating up."""
