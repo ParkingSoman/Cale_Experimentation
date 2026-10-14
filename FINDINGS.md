@@ -985,3 +985,22 @@ What changed in Cale:
 Tested: installer on the HP (CUDA fetched and used, a chat answered), and all 17 suites on Windows with CUDA and Vulkan both present.
 
 Not done: CUDA on Linux (the HP's WSL has no GPU path), and AMD (HIP) or Intel (SYCL) backends.
+
+## Install-time tuning (`cale tune`), 2026-10-13
+
+Cale now measures the computer once, when it is installed (rule 7). Details, costs and what was dropped are in `docs/TUNING.md`.
+
+| Computer | Time (default profile) | Prediction check |
+|---|---|---|
+| Mac, fanless, MLX | about 130 s | first estimate 0 to 7% off, after one answer 9% or less (gate 25% and 10%) |
+| HP Windows with CUDA | about 5 min plus placement probes | first estimate 1% off. Later sizes up to 22% off when the laptop was hot, so a heat model was added. |
+| HP Linux, CPU | 6.5 to 7 min | same laptop, noise 10 to 28% between early and late readings |
+
+What the measurements showed:
+- The same computer measured twice differs by 10 to 25%. So a setting changes only for a clear gain, and a way of running is chosen by the time of a whole reference call.
+- A fanless Mac showed no slowdown for 90 seconds and then lost 11%. The sustained test must run two minutes.
+- CUDA reads prompts 4.7 times faster than the CPU on the HP (82.5 against 17.5 tokens/s) with answers 5 to 15% slower. A rule that looked at answer speed alone threw CUDA out once. The rule now compares the time of a call of 512 prompt and 128 answer tokens.
+- Flash attention and bigger passes made no difference on a CPU. With a card they are judged against two readings of the default, because one low reading made every change look like a win.
+- Installing a graphics driver is not needed for any of this. The NVIDIA driver on the HP was updated (472.19 to 576.80) so CUDA 12.4 could be tested.
+
+Not done: speculative decoding, thread pinning on hybrid CPUs (no such test computer), pictures and sound on the llama engine (see below).
