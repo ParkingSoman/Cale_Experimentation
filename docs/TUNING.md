@@ -39,7 +39,7 @@ the same laptop in WSL, CPU only). `full` runs everything in the "full" column; 
 | threads | threads for answers and for prompts, separately, among half the cores, the cores, twice the cores and the fast cores of a hybrid CPU | thread counts; chosen only if clearly better, checked by alternating runs | full (CPU answers) | - | 15 s | 100 s |
 | sizes | prompt and answer speed at five spread-out sizes (median of runs) | the table the predictor reads. Sizes between are read off by cost. | quick | 6 s | 53 s | 41 s |
 | prefill_curve | prompt speed by prompt length | first-token time for long prompts | quick | 2 s | 19 s | 29 s |
-| context | answer speed with a long context | how much answer speed is lost per 1000 tokens of context (Windows with the card: 19 to 24% per 1000) | full | 3 s | 25 s | 34 s |
+| context | answer speed with a long context | how much answer speed is lost per 1000 tokens of context (Windows: between 2.5% and 24% per 1000 on different runs, so noisy) | full | 3 s | 25 s | 34 s |
 | gpu_pieces | speed of each prompt piece length when a card reads prompts | the piece length (no app pays for trying) | full (card) | - | 18 s | - |
 | sustained | speed after two minutes of work against the first seconds | slowdown of hot laptops (Mac fanless: 0.89 after 93 s; Windows with the card: 0.87 after 40 s; Linux: 0.96 to 0.99) | full | 115 s | 120 s | 120 s |
 | drift | the first measurement repeated at the end | how noisy this computer is | quick | 1 s | 7 s | 9 s |
@@ -108,4 +108,4 @@ Two findings changed the design:
 2. One reading of the default was low by chance (5.9 against 7.0 answers). Every change then looked like a win. The options probe now
    reads the default twice and compares against the mean.
 
-With the card reading prompts, the context loses only 2.5% of answer speed per 1000 tokens. The CPU-only plan lost 19 to 24%.
+The context probe gave 2.5% loss per 1000 tokens on this run (2403 tokens of context) and 23% on the Vulkan run (678 tokens). Earlier runs gave 19 to 24%. The probe is noisy at short context, so the predictor keeps the number but the answer correction fixes what it gets wrong.
