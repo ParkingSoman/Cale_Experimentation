@@ -33,10 +33,10 @@ class Pred:
     def __init__(self, slow=1.0):
         self.slow = slow
 
-    def decode_tps(self, l):
+    def decode_tps(self, l, ctx=0, answer_tokens=None):
         return 30 / self.slow / (0.1 + 0.9 * facts.cost(l))
 
-    def prefill_tps(self, l):
+    def prefill_tps(self, l, tokens=None):
         return 600 / self.slow / facts.cost(l)
 
     def first_token_s(self, l, prompt_tokens, disk_s=0.0):

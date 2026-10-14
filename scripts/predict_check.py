@@ -122,6 +122,9 @@ def main():
         wait_closed()
         shutil.rmtree(home, ignore_errors=True)
         home = tempfile.mkdtemp(prefix="cale-pred-")
+        tuned = subprocess.run([sys.executable, "-m", "cale.tune", "--profile", "full"], cwd=ROOT, env=dict(env, CALE_HOME=home, PYTHONPATH=str(ROOT)),
+                               capture_output=True, text=True, timeout=1800)                          # what the installer does
+        print("tune:", (tuned.stdout.strip().splitlines() or ["(no output)"])[-1])
         srv = subprocess.Popen([sys.executable, str(ROOT / "scripts" / "cale_dev_server.py"), home], cwd=ROOT, env=env,
                                stdout=open(Path(home) / "server.log", "w"), stderr=subprocess.STDOUT)
         wait_ready()

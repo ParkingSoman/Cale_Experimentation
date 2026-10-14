@@ -22,12 +22,14 @@ The monitor thread never touches the model while a request runs. It records what
 (`want_cap`, `want_unload`, `want_resident`) and the change happens under the generation lock, between requests.
 """
 import contextlib
-import os
 import gc
+import json
 import math
+import os
 import threading
 import time
 import uuid
+from pathlib import Path
 
 from nest.cancel import Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pick
@@ -200,7 +202,7 @@ class Engine(BatchMixin):
         self.pred.busy = oslayer.cpu_busy_other
         self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": base0, "scratch_bytes": int((self.pred.extra or {}).get("scratch_bytes") or 0),   # measured by `cale tune` (0 = not measured: facts.SCRATCH_BYTES)
                      "total_ram": key["total_ram"], "disk_bps": self.pred.disk_bps}
-        if self.pred.n_dec == 0 and self.pred.n_pre == 0:       # `cale tune` did not run for this computer and model (a test server, new hardware): measure now, once
+        if self.pred.n_dec == 0 and self.pred.n_pre == 0 and not getattr(self, "_tuning", False):       # `cale tune` did not run for this computer and model (a test server, new hardware): measure now, once
             self._measure_speed()
 
     def _sample_base(self):
@@ -242,88 +244,36 @@ class Engine(BatchMixin):
         m.clear_cache()
         return done
 
-    def tune(self, say=lambda text: None):
-        """Measure this computer once, when Cale is installed (`cale tune`), so no app ever waits for it. Saves what it finds in predict.json:
-        the speed of every size, the working memory of the longest prompt piece, the best thread count, and (when a GPU reads prompts) the
-        speed of each piece length. Loading the model measures the speed; the rest is done here with more time than an app would give it."""
+    def tune(self, profile="max", say=lambda text: None, report_path=None):
+        """Measure this computer once, when Cale is installed (`cale tune`), so no app ever waits for it. See cale/tuning.py for what is
+        measured. What the engine needs is saved in predict.json; the full report (every probe, its cost and what it found) in `report_path`."""
+        from .tuning import Tuner
         with self.lock:
             self._apply_pending()
             if self.m is not None:
                 self._unload("tune")
-            if self.pred is not None:
-                self.pred.n_dec = self.pred.n_pre = 0          # measure again, whatever was saved
             self.pred = None
-            self._load()
-        m, extra = self.m, self.pred.extra
-        say("speed")
-        # 1. the longest prompt piece: how much working memory it touches, and a precise prompt speed
-        piece = getattr(m, "batch_tokens", 512)
-        peak, stop, before = [0], threading.Event(), None
-        oslayer.give_back_heap()
-        before = int(m.active_bytes())
-        peak[0] = before
-
-        def watch():
-            while not stop.is_set():
-                try:
-                    peak[0] = max(peak[0], int(m.active_bytes()))
-                except Exception:
-                    return
-                time.sleep(0.02)
-        th = threading.Thread(target=watch, daemon=True)
-        th.start()
+            try:
+                (paths.HOME / "predict.json").unlink()          # measure again, whatever was saved
+            except OSError:
+                pass
+            self._tuning = True                                  # the load must not do its own short measurement
+            try:
+                self._load()
+            finally:
+                self._tuning = False
+        self._tuning = True
         try:
-            done = self._run_prompt(piece)
+            report = Tuner(self, profile, say, self.log).run()
         finally:
-            stop.set()
-            th.join(timeout=2)
-        if done:
-            ctx = int(done.get("prompt_tokens", 0)) + int(done.get("tokens", 0))
-            extra["scratch_bytes"] = max(0, peak[0] - before - facts.kv_bytes(ctx))
-            self.mach["scratch_bytes"] = extra["scratch_bytes"]
-            self.pred.observe(done)
-            self.log(f"tune: a prompt piece of {done.get('prompt_tokens')} tokens used {extra['scratch_bytes'] / 1e6:.0f} MB of working memory")
-        # 2. how many threads: the count that is at least a tenth faster for prompts or answers, and not slower for the other
-        if hasattr(m, "set_threads") and getattr(m, "placement", "").startswith("device=cpu"):
-            say("threads")
-            phys = int(m.threads)
-            cands = sorted({c for c in (max(1, phys // 2), phys, min(os.cpu_count() or phys, phys * 2)) if c >= 1})
-            table = {}
-            if len(cands) > 1:
-                for n in cands:
-                    m.set_threads(n)
-                    d = self._run_prompt(128, max_tokens=14)
-                    if d and d.get("tokens", 0) >= 9 and d.get("decode_s", 0) > 0:
-                        table[n] = (d["prompt_tokens"] / max(d["first_token_s"], 1e-6), (d["tokens"] - 1) / d["decode_s"])
-                m.set_threads(phys)
-                base = table.get(phys)
-                best = phys
-                if base:
-                    for n, (pre, dec) in table.items():
-                        if n != phys and ((pre >= 1.1 * base[0] and dec >= 0.95 * base[1]) or (dec >= 1.1 * base[1] and pre >= 0.95 * base[0])):
-                            best = n if best == phys or (pre + dec) > sum(table[best]) else best
-                extra["thread_table"] = {str(k): [round(v[0], 1), round(v[1], 2)] for k, v in table.items()}
-                if best != phys:
-                    extra["threads"] = best
-                    m.set_threads(best)
-                else:
-                    extra.pop("threads", None)
-                self.log(f"tune: threads {table} -> {best}")
-        # 3. a GPU that reads prompts: the speed of each piece length, tried now so no app pays for trying
-        if self.can_batch() and getattr(m, "gpu_reads_prompts", False):
-            say("pieces")
-            unit = "The sea is wide and deep. "
-            n_unit = max(1, int(m.prompt_len([{"role": "user", "content": unit}])))
-            text = unit * max(1, int(3 * piece / max(n_unit - 8, 1)))
-            for _ in range(4):
-                for ev in self.chat_stream([{"role": "user", "content": text}], 1, 0.0, app="cale tune"):
-                    pass
-            if getattr(self, "_tuner", None) is not None:
-                extra["piece_speed"] = {str(k): round(v, 2) for k, v in self._tuner.speed.items()}
+            self._tuning = False
         self.pred.save()
+        data = report.to_json()
+        if report_path:
+            Path(report_path).write_text(json.dumps(data, indent=1))
         with self.lock:
             self._unload("tuned")
-        return {"speed": self.pred.summary(), "extra": extra}
+        return data
 
     def _measure_speed(self):
         """The first time Cale loads the model on a computer: read a short prompt and answer a few tokens, and keep the speeds.
@@ -425,6 +375,8 @@ class Engine(BatchMixin):
         return abs(rss - last) > 0.02 * max(last, 1)
 
     def _tick(self):
+        if getattr(self, "_tuning", False):
+            return                                     # `cale tune` is measuring: nothing may change the size or unload the model under it
         lvl, now = pressure.level(), time.time()
         if self.m is not None and self._settling(now):
             lvl = 1

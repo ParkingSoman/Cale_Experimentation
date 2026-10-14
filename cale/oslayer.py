@@ -12,6 +12,92 @@ import sys
 import time
 from pathlib import Path
 
+def core_types():
+    """Fast and slow cores on a hybrid CPU: {"fast": n, "slow": n}. None if the computer has one kind or the OS does not say."""
+    try:
+        if sys.platform == "darwin":
+            def sysctl(name):
+                return int(subprocess.run(["sysctl", "-n", name], capture_output=True, text=True, timeout=5).stdout.strip())
+            fast, slow = sysctl("hw.perflevel0.physicalcpu"), sysctl("hw.perflevel1.physicalcpu")
+            return {"fast": fast, "slow": slow} if fast and slow else None
+        if sys.platform.startswith("linux"):
+            caps = {}
+            for d in Path("/sys/devices/system/cpu").glob("cpu[0-9]*"):
+                f = d / "cpu_capacity"
+                if f.exists():
+                    caps[d.name] = int(f.read_text())
+            if len(set(caps.values())) > 1:
+                top = max(caps.values())
+                return {"fast": sum(1 for v in caps.values() if v >= 0.9 * top), "slow": sum(1 for v in caps.values() if v < 0.9 * top)}
+            return None
+        if sys.platform == "win32":
+            from ctypes import wintypes
+            k = ctypes.windll.kernel32
+            size = wintypes.ULONG(0)
+            k.GetSystemCpuSetInformation(None, 0, ctypes.byref(size), None, 0)
+            buf = ctypes.create_string_buffer(size.value)
+            if not k.GetSystemCpuSetInformation(buf, size, ctypes.byref(size), None, 0):
+                return None
+            classes, off = [], 0
+            while off < size.value:
+                rec_size = int.from_bytes(buf[off:off + 4], "little")
+                if int.from_bytes(buf[off + 4:off + 8], "little") == 0:          # type CpuSetInformation
+                    classes.append(buf[off + 18])                                  # EfficiencyClass (higher = faster core)
+                off += rec_size or 1
+            if len(set(classes)) > 1:
+                top = max(classes)
+                return {"fast": sum(1 for c in classes if c == top), "slow": sum(1 for c in classes if c != top)}
+    except Exception:
+        pass
+    return None
+
+
+def read_uncached(path, nbytes):
+    """Read the first `nbytes` of a file straight from the disk, not from the OS file cache. Returns bytes per second, or 0.0 if the OS refuses."""
+    nbytes = min(int(nbytes), os.path.getsize(path))
+    block = 4 << 20
+    try:
+        if sys.platform == "win32":
+            from ctypes import wintypes
+            k = ctypes.windll.kernel32
+            k.CreateFileW.restype = ctypes.c_void_p
+            k.CreateFileW.argtypes = [wintypes.LPCWSTR, wintypes.DWORD, wintypes.DWORD, ctypes.c_void_p, wintypes.DWORD, wintypes.DWORD, ctypes.c_void_p]
+            h = k.CreateFileW(str(path), 0x80000000, 1, None, 3, 0x20000000, None)          # GENERIC_READ, share read, OPEN_EXISTING, NO_BUFFERING
+            if h in (None, ctypes.c_void_p(-1).value):
+                return 0.0
+            k.VirtualAlloc.restype = ctypes.c_void_p
+            k.VirtualAlloc.argtypes = [ctypes.c_void_p, ctypes.c_size_t, wintypes.DWORD, wintypes.DWORD]
+            buf = k.VirtualAlloc(None, block, 0x3000, 0x04)                                  # page aligned, as the unbuffered read needs
+            k.ReadFile.argtypes = [ctypes.c_void_p, ctypes.c_void_p, wintypes.DWORD, ctypes.POINTER(wintypes.DWORD), ctypes.c_void_p]
+            done, got = 0, wintypes.DWORD(0)
+            t = time.perf_counter()
+            while done < nbytes and k.ReadFile(h, buf, block, ctypes.byref(got), None) and got.value:
+                done += got.value
+            dt = time.perf_counter() - t
+            k.CloseHandle.argtypes = [ctypes.c_void_p]
+            k.CloseHandle(h)
+            return done / dt if dt > 0 and done else 0.0
+        fd = os.open(str(path), os.O_RDONLY)
+        try:
+            if sys.platform == "darwin":
+                import fcntl
+                fcntl.fcntl(fd, 48, 1)                                                      # F_NOCACHE
+            elif hasattr(os, "posix_fadvise"):
+                os.posix_fadvise(fd, 0, 0, os.POSIX_FADV_DONTNEED)
+            done, t = 0, time.perf_counter()
+            while done < nbytes:
+                chunk = os.read(fd, block)
+                if not chunk:
+                    break
+                done += len(chunk)
+            dt = time.perf_counter() - t
+            return done / dt if dt > 0 and done else 0.0
+        finally:
+            os.close(fd)
+    except Exception:
+        return 0.0
+
+
 def cuda_driver_version():
     """The CUDA version this computer's NVIDIA driver supports, as 12040 for 12.4. 0 if there is no NVIDIA driver (or it cannot be asked)."""
     try:
@@ -178,6 +264,26 @@ _cpu_last = None
 _power_cache = (0.0, {"on_battery": None, "hot": None})
 
 
+def _mac_ticks():
+    """(idle ticks, all ticks) of every CPU since boot, from the kernel (host_processor_info). None if it cannot be read."""
+    try:
+        libc = ctypes.CDLL("/usr/lib/libSystem.B.dylib")
+        libc.mach_host_self.restype = ctypes.c_uint
+        libc.host_processor_info.argtypes = [ctypes.c_uint, ctypes.c_int, ctypes.POINTER(ctypes.c_uint),
+                                             ctypes.POINTER(ctypes.POINTER(ctypes.c_int)), ctypes.POINTER(ctypes.c_uint)]
+        n, info, cnt = ctypes.c_uint(), ctypes.POINTER(ctypes.c_int)(), ctypes.c_uint()
+        if libc.host_processor_info(libc.mach_host_self(), 2, ctypes.byref(n), ctypes.byref(info), ctypes.byref(cnt)) != 0:
+            return None
+        idle = total = 0
+        for i in range(n.value):
+            user, system, idl, nice = (info[4 * i + k] & 0xFFFFFFFF for k in range(4))
+            idle += idl
+            total += user + system + idl + nice
+        return idle, total
+    except Exception:
+        return None
+
+
 def cpu_busy():
     """Share (0.0 to 1.0) of the CPU that all programs used since the last call. Needs no admin rights. The first call returns 0.0."""
     global _cpu_last
@@ -194,7 +300,9 @@ def cpu_busy():
             vals = [int(x) for x in f]
             now = (vals[3] + (vals[4] if len(vals) > 4 else 0), sum(vals[:8]))
         else:
-            return max(0.0, min(1.0, os.getloadavg()[0] / (os.cpu_count() or 1)))  # macOS: the 1-minute load, a slow but cheap signal
+            now = _mac_ticks()                                                       # macOS: the CPU's own tick counters, as on the other systems
+            if now is None:
+                return max(0.0, min(1.0, os.getloadavg()[0] / (os.cpu_count() or 1)))   # the 1-minute load, slow but always there
     except Exception:
         return 0.0
     last, _cpu_last = _cpu_last, now

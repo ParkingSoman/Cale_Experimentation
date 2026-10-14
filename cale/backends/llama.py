@@ -7,6 +7,7 @@ llama.cpp (llama/patches). The FFN weights of a layer have three states, like th
 "Reading from disk" means the OS reads the pages of the memory-mapped file.
 """
 import codecs
+import ctypes
 import os
 import random
 import secrets
@@ -30,20 +31,21 @@ _FFN = ("gate", "up", "down")
 
 
 def saved_threads():
-    """The thread count that `cale tune` measured to be best on this computer (kept in predict.json), or None."""
+    """(threads for answers, threads for prompts) that `cale tune` measured to be best on this computer (kept in predict.json), or None."""
     try:
         import json
-        n = json.loads((paths.HOME / "predict.json").read_text()).get("extra", {}).get("threads")
-        return int(n) if n and 1 <= int(n) <= (os.cpu_count() or 1) * 2 else None
+        ex = json.loads((paths.HOME / "predict.json").read_text()).get("extra", {})
+        n, nb = int(ex.get("threads") or 0), int(ex.get("threads_batch") or ex.get("threads") or 0)
+        top = (os.cpu_count() or 1) * 2
+        return (n, nb) if 1 <= n <= top and 1 <= nb <= top else None
     except (OSError, ValueError, TypeError):
         return None
 
 
 def default_threads():
+    """The number of cores. (`cale tune` may find better numbers: see saved_threads.)"""
     if os.environ.get("CALE_THREADS"):
         return int(os.environ["CALE_THREADS"])
-    if saved_threads():
-        return saved_threads()
     try:
         import psutil
         n = psutil.cpu_count(logical=False)
@@ -155,9 +157,13 @@ class LlamaNested:
         self.path = str(find_gguf(path))
         self._kv_level = None                  # the size the key/value memory was made at, when it holds a conversation worth reusing
         self._kv_owner = None                  # the app that conversation belongs to: only that app may reuse it
-        self.threads = threads or default_threads()
+        self.threads = self.threads_default = threads or default_threads()
+        self.threads_batch = self.threads
         self.lib_path = lib_path
         self.lib, self.placement = cls._open(self.path, self.threads, n_ctx, lib_path)
+        saved = saved_threads() if not (threads or os.environ.get("CALE_THREADS")) else None
+        if saved:
+            self.set_threads(*saved)                                   # measured when Cale was installed
         # a GPU that holds no layers but reads long prompts (cale/backends/devices.py, way 2): prompt pieces must be big enough to pay for the copy
         self.gpu_reads_prompts = "device=cpu" not in self.placement and "gpu_layers=0" in self.placement
         # the shortest prompt piece the GPU takes over from the CPU: the GPU backend says (llamalib.offload_min_batch), nothing is written here
@@ -340,10 +346,15 @@ class LlamaNested:
     def active_bytes(self):
         return oslayer.process_rss()
 
-    def set_threads(self, n):
-        """Use n threads from the next call on."""
-        self.lib.c.cale_set_threads(self.lib.h, int(n))
-        self.threads = int(n)
+    def set_threads(self, n, n_batch=None):
+        """Use n threads for answers and n_batch (default: the same) for reading prompts, from the next call on."""
+        nb = int(n_batch or n)
+        if hasattr(self.lib.c, "cale_set_threads2"):
+            self.lib.c.cale_set_threads2.argtypes = [ctypes.c_void_p, ctypes.c_int32, ctypes.c_int32]
+            self.lib.c.cale_set_threads2(self.lib.h, int(n), nb)
+        else:
+            self.lib.c.cale_set_threads(self.lib.h, int(n))
+        self.threads, self.threads_batch = int(n), nb
 
     def memory_bandwidth(self):
         """Bytes per second this computer reads from memory with this engine's threads. About 0.15 s. Answer speed is bound by it."""

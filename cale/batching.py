@@ -93,14 +93,14 @@ class BatchPred:
         self.cost = pred.batch_cost(n)
         self.confidence = pred.confidence
 
-    def decode_tps(self, level):
-        return self.pred.decode_tps(level) / self.cost
+    def decode_tps(self, level, ctx=0, answer_tokens=None):
+        return self.pred.decode_tps(level, ctx, answer_tokens) / self.cost
 
-    def prefill_tps(self, level):
-        return self.pred.prefill_tps(level)
+    def prefill_tps(self, level, tokens=None):
+        return self.pred.prefill_tps(level, tokens)
 
     def first_token_s(self, level, prompt_tokens, disk_s=0.0):
-        return disk_s + prompt_tokens / self.prefill_tps(level) + 1.0 / self.decode_tps(level)
+        return disk_s + prompt_tokens / self.prefill_tps(level, prompt_tokens) + 1.0 / self.decode_tps(level, prompt_tokens)
 
     def time_factor(self, level):
         return self.pred.time_factor(level)

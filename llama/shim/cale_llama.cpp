@@ -484,6 +484,8 @@ CALE_API int32_t cale_readback(void) { return 0; }
 CALE_API int32_t cale_readback(void) { return 1; }
 #endif
 CALE_API void    cale_set_threads(cale_ctx * h, int32_t n) { llama_set_n_threads(h->ctx, n, n); }
+// Threads for answers (n) and for reading prompts (n_batch) may differ: answers are limited by memory speed, prompts by arithmetic.
+CALE_API void    cale_set_threads2(cale_ctx * h, int32_t n, int32_t n_batch) { llama_set_n_threads(h->ctx, n, n_batch); }
 
 // widths: one entry per layer. 0 = skip the layer, N = first N FFN channels, <0 = full. n = 0 = full model.
 CALE_API int32_t cale_set_widths(cale_ctx * h, const int32_t * widths, int32_t n) {

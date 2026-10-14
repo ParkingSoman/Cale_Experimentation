@@ -49,6 +49,11 @@ class Predictor:
         self.disk_bps, self.disk_samples = DISK_PRIOR, []
         self.batch_eps, self.batch_n = BATCH_EPS, 0
         self.extra = {}                                                 # measured at install by `cale tune`: scratch_bytes, threads, piece_speed
+        self.table = {}                                                 # measured at install: level id -> {"dec": tokens/s, "pre": tokens/s} for a short prompt
+        self.pre_curve = []                                             # measured at install, full size: [(prompt tokens, prompt tokens/s)] by length
+        self.dec_ctx = 0.0                                              # measured at install: share of answer speed lost per 1000 tokens of context
+        self.sustained = 1.0                                            # measured at install: speed after minutes of work / speed in the first seconds (1 = no throttling)
+        self.corr_dec = self.corr_pre = 1.0                             # what real answers say about the measured table (1 = it is right)
         self.by_level = {}                                              # level id -> recent decode speeds (tokens/s)
         self.slow = 1.0                                                 # debug only: pretend this computer is this many times slower
         self.busy = lambda: 0.0                                         # share of the CPU other programs use now (set by the engine)
@@ -63,15 +68,62 @@ class Predictor:
         """Other programs using the computer now slow both memory and arithmetic. 1.0 = idle."""
         return max(0.35, 1.0 - 0.5 * min(max(self.busy(), 0.0), 1.0)) / self.slow
 
-    def decode_tps(self, level):
-        return self.dec_full / self.time_factor(level) * self.live_factor()
+    def _table_value(self, level, key):
+        """The measured speed of this size, or between the two nearest measured sizes (by cost), or None if nothing was measured."""
+        if not self.table:
+            return None
+        if level["id"] in self.table:
+            return self.table[level["id"]][key]
+        pts = sorted(((facts.cost(l, self.full), self.table[l["id"]][key]) for l in self.levels if l["id"] in self.table))
+        c = facts.cost(level, self.full)
+        lo = [p for p in pts if p[0] <= c]
+        hi = [p for p in pts if p[0] >= c]
+        if lo and hi:
+            (c0, v0), (c1, v1) = lo[-1], hi[0]
+            return v0 if c1 == c0 else v0 + (v1 - v0) * (c - c0) / (c1 - c0)
+        c0, v0 = (lo[-1] if lo else hi[0])
+        return v0 * (c0 / c) if key == "pre" else v0
 
-    def prefill_tps(self, level):
-        return self.pre_full / facts.cost(level, self.full) * self.live_factor()
+    def decode_tps(self, level, ctx=0, answer_tokens=None):
+        """Answer speed at this size, with `ctx` tokens already in the context and (if given) over an answer of that many tokens, which
+        slows to the sustained speed once the burst is over."""
+        t = self._table_value(level, "dec")
+        if t is None:
+            return self.dec_full / self.time_factor(level) * self.live_factor()
+        v = t * self.corr_dec * self.live_factor() / (1.0 + self.dec_ctx * ctx / 1000.0)
+        if answer_tokens and self.sustained < 0.999:
+            burst = float(self.extra.get("burst_s", 20.0)) * v                 # tokens produced before the speed settles
+            n = float(answer_tokens)
+            if n > burst:
+                return n / (burst / v + (n - burst) / (v * self.sustained))
+        return v
+
+    def prefill_tps(self, level, tokens=None):
+        """Prompt speed at this size. With `tokens`, the speed for a prompt of that length (long prompts are a little slower per token)."""
+        t = self._table_value(level, "pre")
+        if t is None:
+            return self.pre_full / facts.cost(level, self.full) * self.live_factor()
+        v = t * self.corr_pre * self.live_factor()
+        if tokens and len(self.pre_curve) >= 2:
+            ref = self._curve(self.table_prompt)
+            v *= self._curve(tokens) / ref if ref else 1.0
+        return v
+
+    table_prompt = 256                                                         # the prompt length the table was measured at
+
+    def _curve(self, n):
+        """Measured prompt speed (full size) at a prompt length: straight lines between the measured points, flat beyond them."""
+        pts = sorted(self.pre_curve)
+        if n <= pts[0][0]:
+            return pts[0][1]
+        for (n0, v0), (n1, v1) in zip(pts, pts[1:]):
+            if n <= n1:
+                return v0 + (v1 - v0) * (n - n0) / (n1 - n0)
+        return pts[-1][1]
 
     def first_token_s(self, level, prompt_tokens, disk_s=0.0):
         """Seconds from the start of the work to the first token: reading the prompt, then one token."""
-        return disk_s + prompt_tokens / self.prefill_tps(level) + 1.0 / self.decode_tps(level)
+        return disk_s + prompt_tokens / self.prefill_tps(level, prompt_tokens) + 1.0 / self.decode_tps(level, prompt_tokens)
 
     def batch_cost(self, n):
         """Time of one step with n answers, relative to a step with one."""
@@ -110,9 +162,14 @@ class Predictor:
             hist = self.by_level.setdefault(level["id"], [])
             hist.append(tps)
             del hist[:-KEEP]
-            implied = tps * self.time_factor(level) / live
             w = FIRST_WEIGHT if self.n_dec == 0 else LATER_WEIGHT
-            self.dec_full = (1 - w) * self.dec_full + w * implied
+            if self.table and self._table_value(level, "dec"):
+                ctx = int(done.get("prompt_tokens") or 0)
+                want = self._table_value(level, "dec") / (1.0 + self.dec_ctx * ctx / 1000.0)
+                self.corr_dec = (1 - LATER_WEIGHT) * self.corr_dec + LATER_WEIGHT * (tps / live / want)    # a measured table moves gently
+            else:
+                implied = tps * self.time_factor(level) / live
+                self.dec_full = (1 - w) * self.dec_full + w * implied
             self.n_dec += 1
             self._fit_fixed()
         prompt = int(done.get("prompt_tokens") or 0) - int(done.get("cached_tokens") or 0)      # only the tokens that were really read
@@ -120,9 +177,15 @@ class Predictor:
         if prompt >= 32 and first > 0 and float(done.get("batch_avg") or 1.0) < 1.05:
             read_s = first - 1.0 / max(self.decode_tps(level), 1e-6)
             if read_s > 0:
-                implied = prompt / read_s * facts.cost(level, self.full) / live
                 w = FIRST_WEIGHT if self.n_pre == 0 else LATER_WEIGHT
-                self.pre_full = (1 - w) * self.pre_full + w * implied
+                if self.table and self._table_value(level, "pre"):
+                    base = self._table_value(level, "pre")
+                    if len(self.pre_curve) >= 2:
+                        base *= self._curve(prompt) / self._curve(self.table_prompt)
+                    self.corr_pre = (1 - LATER_WEIGHT) * self.corr_pre + LATER_WEIGHT * (prompt / read_s / live / base)
+                else:
+                    implied = prompt / read_s * facts.cost(level, self.full) / live
+                    self.pre_full = (1 - w) * self.pre_full + w * implied
                 self.n_pre += 1
         self._save()
 
@@ -154,6 +217,11 @@ class Predictor:
         self.n_dec, self.n_pre = d.get("n_dec", 0), d.get("n_pre", 0)
         self.disk_bps = d.get("disk_bps", self.disk_bps)
         self.extra = d.get("extra") or {}
+        self.table = d.get("table") or {}
+        self.pre_curve = [tuple(p) for p in (d.get("pre_curve") or [])]
+        self.dec_ctx, self.sustained = float(d.get("dec_ctx", 0.0)), float(d.get("sustained", 1.0))
+        self.corr_dec, self.corr_pre = float(d.get("corr_dec", 1.0)), float(d.get("corr_pre", 1.0))
+        self.batch_eps = float(d.get("batch_eps", self.batch_eps))
 
     def save(self):
         self._save(force=True)
@@ -165,7 +233,9 @@ class Predictor:
             tmp = self.path.with_suffix(".tmp")
             tmp.write_text(json.dumps({"version": 1, "key": self.key, "dec_full": self.dec_full, "pre_full": self.pre_full,
                                        "fixed": self.fixed, "n_dec": self.n_dec, "n_pre": self.n_pre, "disk_bps": self.disk_bps,
-                                       "sizes": self.snapshot(), "extra": self.extra,
+                                       "sizes": self.snapshot(), "extra": self.extra, "table": self.table, "pre_curve": self.pre_curve,
+                                       "dec_ctx": self.dec_ctx, "sustained": self.sustained, "corr_dec": self.corr_dec, "corr_pre": self.corr_pre,
+                                       "batch_eps": self.batch_eps,
                                        "saved_at": time.strftime("%Y-%m-%d %H:%M:%S")}))
             os.replace(tmp, self.path)
         except OSError:

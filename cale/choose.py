@@ -56,7 +56,7 @@ def row(level, pred, m, ctx, goals, resident):
     disk_s = d / m["disk_bps"] if d else 0.0
     mem = memory_needed(m, level, ctx["prompt_tokens"] + ctx["answer_tokens"])
     held = max(0, model_bytes(m, resident) - 0) if resident else 0
-    r = {"level": level, "decode_tps": pred.decode_tps(level),
+    r = {"level": level, "decode_tps": pred.decode_tps(level, ctx["prompt_tokens"], ctx.get("answer_tokens")),
          "first_token_s": ctx.get("waited_s", 0.0) + pred.first_token_s(level, ctx["prompt_tokens"], disk_s),
          "memory_bytes": mem, "quality": facts.quality(level), "disk_bytes": d, "disk_s": disk_s}
     avail = ctx.get("available_ram")
