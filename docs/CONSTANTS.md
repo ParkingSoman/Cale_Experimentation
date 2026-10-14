@@ -17,7 +17,7 @@ Kinds:
 |---|---|---|
 | Answer and prompt speed of each size | `cale/predict.py`, `cale/engine.py` `tune` | Measured when Cale is installed (`cale tune`), with a full-length prompt piece and a few answer tokens, and saved with the key of the computer and model. Every real answer then corrects it. If nothing was measured, the first load does a short version, once. `PRIORS` is used only before any measurement. Mac: first estimate 0% off. |
 | Working memory of a prompt piece | `engine.tune` | The most memory the process holds while the longest piece is read, minus the weights, the base and the context. Saved. Mac (MLX): 809 MB, against the old 500 MB guess. |
-| Number of threads | `engine.tune` | The thread count that is at least a tenth faster for prompts or answers, and not slower for the other, among half the cores, the cores, and twice the cores. Otherwise the number of cores. |
+| Number of threads | `cale/tuning.py` | Answers and prompts are measured separately among half the cores, the cores, twice the cores and the fast cores. A different count is chosen only if clearly better (15% once, 8% when alternating runs agree). Otherwise the number of cores. |
 | Speed of each prompt piece length (a GPU that reads prompts) | `engine.tune`, `batching.PieceTuner` | Tried at install, saved. No app pays for trying. |
 | Memory speed | `cale_membw` in the shim | A 0.15 s probe, no model. |
 | Memory held besides the weights | `engine._sample_base`, `_grow_base` | The largest of five readings of the process, raised whenever an answer finds more in use. A prediction is never under. |
@@ -55,3 +55,13 @@ Layer count, the first layer that shares a KV cache, bytes per weight, the conte
 | Speed priors before the model is loaded | `predict.PRIORS` | `cale/predict.py` | Save the speeds in `predict.json` on every computer (done after the first load). Until then a computer that never loaded the model shows the prior as an "estimate". |
 | Memory the MLX engine keeps for activations | 1.5 GB | `nest/runtime.py` `RESERVE_GB` | Read the peak memory of the first prompt. |
 | Memory pressure levels | `cale/pressure.py`, `oslayer.py` | | Calibrate per OS with a stress test. Not done: it needs a computer that can be pushed into swap safely. |
+
+## Rules of choice in `cale tune` (policies, not machine numbers)
+
+| Policy | Value | Where | Why this value |
+|---|---|---|---|
+| A choice needs a clear gain | 1.15 (one reading), 1.08 (alternating runs) | `tuning.GAIN`, `tuning.NOISE` | The same computer measured twice differs by 10 to 25% (the drift probe). |
+| Reference call that picks a way of running | 512 prompt and 128 answer tokens | `tuning.REFERENCE` | A typical app call. Changing it changes only which card wins when prompts and answers disagree. |
+| Answers may be this much slower on a card | 0.8 times the CPU speed | `tuning.ANSWER_FLOOR` | A card must not make answers clearly worse. Reported in `placement.json`. |
+| Sustained test length | 120 s | `tuning.py` | A fanless Mac slowed only after 93 s. |
+| Probe a card with this share of CPU speed | 0.5 | `CALE_PROBE_SKIP_BELOW` | A card under half the CPU on 64 tokens is dropped to save time. |
