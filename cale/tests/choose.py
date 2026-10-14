@@ -185,5 +185,18 @@ check("devices: Vulkan alone is still used", dv.choose([vk], model, "auto", read
 check("devices: off means the CPU", dv.choose([big], model, "off", readback=True)[0] is None)
 check("devices: partial asks for llama.cpp's fit", dv.choose([small], model, "partial")[:2] == (small, -1))
 
+# tuning: a probe runs in a process with a temporary home, so it must be told where the model and the library are
+import subprocess
+from cale import tuning
+seen = {}
+class _R:
+    stdout = 'PLACEMENT_PROBE {"pre": 1.0, "dec": 1.0}'; stderr = ""; returncode = 0
+_real = subprocess.run
+subprocess.run = lambda cmd, **kw: (seen.update(kw["env"]), _R())[1]
+tuning.PROBE_ENV.update({"CALE_MODEL": "/m/model.gguf", "CALE_LLAMA_LIB": "/l/lib.so"})
+tuning.probe_one("off", lambda *a: None)
+subprocess.run = _real
+check("tune: a probe process is told the model and the library", seen.get("CALE_MODEL") == "/m/model.gguf" and seen.get("CALE_LLAMA_LIB") == "/l/lib.so" and seen.get("CALE_GPU") == "off")
+
 print("\nFAILED: " + ", ".join(FAIL) if FAIL else "\nall passed")
 sys.exit(1 if FAIL else 0)
