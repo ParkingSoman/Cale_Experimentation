@@ -36,10 +36,10 @@ the same laptop in WSL, CPU only). `full` runs everything in the "full" column; 
 | environment | power (plugged or battery), cores, core types, RAM | what the numbers were measured on | quick | 0 s | 0 s | 0 s |
 | disk | cold read of the model file, no OS cache | how long reading weights back takes (size changes under a memory goal) | quick | 0.2 s | 1 s | 1 s |
 | working_memory | the most memory the process holds while the longest prompt piece is read | memory goals and the safety limit (replaces a guess of 500 MB) | quick | 1 s (850 MB) | 6 s | 35 s (200 to 490 MB) |
-| threads | threads for answers and for prompts, separately, among half the cores, the cores, twice the cores and the fast cores of a hybrid CPU | thread counts; chosen only if clearly better, checked by alternating runs | full (CPU answers) | - | 15 s | 100 s |
+| threads | threads for answers and for prompts, separately, among half the cores, the cores, twice the cores and the fast cores of a hybrid CPU | thread counts; chosen only if clearly better, always checked by alternating runs (the default count is measured first, after a warm-up at that count) | full (CPU answers) | - | 15 s | 100 s |
 | sizes | prompt and answer speed at five spread-out sizes (median of runs) | the table the predictor reads. Sizes between are read off by cost. | quick | 6 s | 53 s | 41 s |
 | prefill_curve | prompt speed by prompt length | first-token time for long prompts | quick | 2 s | 19 s | 29 s |
-| context | answer speed with a long context | how much answer speed is lost per 1000 tokens of context (Windows: between 2.5% and 24% per 1000 on different runs, so noisy) | full | 3 s | 25 s | 34 s |
+| context | answer speed with a long context | how much answer speed is lost per 1000 tokens of context (two readings; a loss inside the noise is not saved) (Windows: between 2.5% and 24% per 1000 on different runs, so noisy) | full | 3 s | 25 s | 34 s |
 | gpu_pieces | speed of each prompt piece length when a card reads prompts | the piece length (no app pays for trying) | full (card) | - | 18 s | - |
 | sustained | speed after two minutes of work against the first seconds | slowdown of hot laptops (Mac fanless: 0.89 after 93 s; Windows with the card: 0.87 after 40 s; Linux: 0.96 to 0.99) | full | 115 s | 120 s | 120 s |
 | drift | the first measurement repeated at the end | how noisy this computer is | quick | 1 s | 7 s | 9 s |
@@ -109,3 +109,13 @@ Two findings changed the design:
    reads the default twice and compares against the mean.
 
 The context probe gave 2.5% loss per 1000 tokens on this run (2403 tokens of context) and 23% on the Vulkan run (678 tokens). Earlier runs gave 19 to 24%. The probe is noisy at short context, so the predictor keeps the number but the answer correction fixes what it gets wrong.
+
+## Failure handling (from the overfit review, 2026-10-13)
+
+* A card whose probe fails is never called "slower than the CPU". If any probe failed and nothing else won, no `placement.json` is saved. The report lists it under `problems`, and the installer says that some measurements did not finish.
+* A saved "whole model on the card" decision is checked against free card memory at every load. If the memory is not free, Cale uses the card for prompts only, or the CPU, and says so in the reason.
+* A saved device that is not found now is named in the reason.
+* An old `placement.json` is deleted at the start of every `cale tune`.
+* The "full" way is tried first on a card that may hold the model. If it does not win, the prompts-only way is tried too.
+* Engine options (flash attention, pass size) are tried only by the `max` profile. A later `full` run uses the defaults and says so in the report.
+* The sustained test is skipped when the computer was already hot at the start. Working memory is read twice and the larger reading is kept.
