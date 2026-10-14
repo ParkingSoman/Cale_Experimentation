@@ -213,16 +213,25 @@ class Tuner:
                 best_dec = max(table, key=lambda n: table[n][1]) if table[max(table, key=lambda n: table[n][1])][1] >= NOISE * base[1] else phys
                 best_pre = max(table, key=lambda n: table[n][0]) if table[max(table, key=lambda n: table[n][0])][0] >= NOISE * base[0] else phys
             m.set_threads(best_dec, best_pre)
-            # the pair must really be better than the plain default, measured together
+            # the pair must really be better than the plain default, measured together. A big gain (20% or more) needs no check; a small
+            # one is checked by alternating the two three times each, because a warm computer drifts and the order would decide.
             if (best_dec, best_pre) != (phys, phys):
-                chosen = self.point(full, self.pred.table_prompt, answer=12, repeats=2)
-                m.set_threads(phys, phys)
-                default = self.point(full, self.pred.table_prompt, answer=12, repeats=2)
-                if chosen and default and chosen[0] >= default[0] * 0.97 and chosen[1] >= default[1] * 0.97 and \
-                        (chosen[0] >= NOISE * default[0] or chosen[1] >= NOISE * default[1]):
-                    m.set_threads(best_dec, best_pre)
-                else:
-                    best_dec = best_pre = phys
+                gain = max(table[best_dec][1] / base[1], table[best_pre][0] / base[0]) if base else 0
+                if gain < 1.2:
+                    pairs = {"chosen": [], "default": []}
+                    for _ in range(3):
+                        for name, th in (("default", (phys, phys)), ("chosen", (best_dec, best_pre))):
+                            m.set_threads(*th)
+                            r = self.one(full, self.pred.table_prompt, 12)
+                            if r:
+                                pairs[name].append(r)
+                    if pairs["chosen"] and pairs["default"]:
+                        c = (statistics.median(r[0] for r in pairs["chosen"]), statistics.median(r[1] for r in pairs["chosen"]))
+                        d = (statistics.median(r[0] for r in pairs["default"]), statistics.median(r[1] for r in pairs["default"]))
+                        if not (c[0] >= d[0] * 0.97 and c[1] >= d[1] * 0.97 and (c[0] >= NOISE * d[0] or c[1] >= NOISE * d[1])):
+                            best_dec = best_pre = phys
+                    else:
+                        best_dec = best_pre = phys
             self.pred.extra["thread_table"] = {str(k): [round(v[0], 1), round(v[1], 2)] for k, v in table.items()}
         else:
             best_dec = best_pre = phys

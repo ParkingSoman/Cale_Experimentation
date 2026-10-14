@@ -3,6 +3,7 @@
 Nothing here is something an app waits for: the installer does it before Cale starts. It takes about a minute (a few seconds on a fast Mac).
 Apps, and the people who use them, see none of it.
 """
+import json
 import os
 import sys
 
@@ -54,6 +55,10 @@ def main(argv=None):
         return probe()
     eng = Engine(paths.MODEL)
     data = eng.tune(a.profile, lambda step: print(STEPS.get(step, step), flush=True), report_path=paths.HOME / "tune-report.json")
+    if os.environ.get("CALE_TUNE_VERBOSE") == "1":
+        for e in data["probes"]:
+            print(f"  {e['probe']:>14} {e['seconds']:>6} s  {json.dumps(e['result'])[:200]}")
+        print("  engine options:", json.dumps(data.get("engine_options"))[:400])
     print(f"Cale is ready for this computer. ({data['seconds']} s)", flush=True)
     return 0
 
