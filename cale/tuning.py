@@ -44,7 +44,8 @@ class Tuner:
     # --- the probes, in the order they run ----------------------------------------------------------------------------------
     def probes(self):
         m = self.eng.m
-        cpu = str(getattr(m, "placement", "device=cpu")).startswith("device=cpu")
+        place = str(getattr(m, "placement", "device=cpu"))
+        cpu = place.startswith("device=cpu") or "gpu_layers=0" in place          # the CPU answers: weights in RAM, even if a graphics card reads prompts
         gpu_reads = bool(getattr(m, "gpu_reads_prompts", False))
         return [
             ("environment", 1, self.environment, True),
