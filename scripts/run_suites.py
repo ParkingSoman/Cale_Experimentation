@@ -19,7 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
-OWN_MODEL = ["oslayer", "choose", "constrain", "install_check", "engine_features", "backend_llama"]     # these load the model or need no server
+OWN_MODEL = ["oslayer", "choose", "constrain", "install_check", "engine_features", "backend_llama", "prefill_exit"]     # these load the model or need no server
 SERVER = ["honest", "relative", "objects", "goals", "structured", "promptcache", "images", "logprobs", "crowd", "anylang", "e2e"]
 SERVER_ENV = {"anylang": {"CALE_HEADLESS": "1", "CALE_DEV_APPROVE": "0", "CALE_APPROVE_WAIT_S": "8"}}    # a server with no screen: the person answers in a terminal
 PORT = 47899

@@ -1,12 +1,13 @@
 #!/bin/sh
 # Build Cale's llama.cpp engine for Linux arm64 and run the suites on it, in an Ubuntu arm64 container (docker or colima on an Apple silicon Mac).
-# usage: scripts/linux_arm64_check.sh MODEL.cale.gguf [suite,suite,...]
+# usage: [LIB_OUT=DIR] scripts/linux_arm64_check.sh MODEL.cale.gguf [suite,suite,...]
+# LIB_OUT: a folder to keep the built library in (then: python scripts/make_dist.py linux-arm64 DIR)
 # The container reads this repo and the model through mounts. Nothing is installed on the computer.
 set -e
 MODEL="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
-ONLY="${2:-oslayer,choose,constrain,backend_llama,honest,objects,goals,structured,promptcache,crowd,anylang}"
+ONLY="${2:-oslayer,choose,constrain,backend_llama,prefill_exit,honest,objects,goals,structured,promptcache,crowd,anylang}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-docker run --rm --platform linux/arm64 -v "$ROOT":/work:ro -v "$(dirname "$MODEL")":/models:ro -v cale-arm64-build:/build \
+docker run --rm --platform linux/arm64 -v "$ROOT":/work:ro -v "$(dirname "$MODEL")":/models:ro -v cale-arm64-build:/build ${LIB_OUT:+-v "$LIB_OUT":/lib_out} \
   -e ONLY="$ONLY" -e MODEL_FILE="/models/$(basename "$MODEL")" ubuntu:24.04 bash -c '
 set -e
 export DEBIAN_FRONTEND=noninteractive

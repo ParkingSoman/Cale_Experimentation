@@ -1,0 +1,27 @@
+diff --git a/src/models/gemma3n.cpp b/src/models/gemma3n.cpp
+index 319d97a..7a02c56 100644
+--- a/src/models/gemma3n.cpp
++++ b/src/models/gemma3n.cpp
+@@ -1,5 +1,7 @@
+ #include "models.h"
+ 
++#include <cstdlib>
++
+ void llama_model_gemma3n::load_arch_hparams(llama_model_loader & ml) {
+     hparams.swa_type = LLAMA_SWA_TYPE_STANDARD;
+     load_swa_pattern(ml, 5);
+@@ -132,7 +134,13 @@ llama_model_gemma3n::graph::graph(const llama_model & model, const llm_graph_par
+     }
+     // inpL now has shape: [n_embd, n_tokens, n_altup]
+ 
+-    for (int il = 0; il < n_layer; ++il) {
++    // Cale: Gemma 3n only (the point of tuning for one model). The last layers have no key/value memory of their own: they read the memory of
++    // earlier layers. What they compute reaches later tokens only through the tokens whose output is wanted. A piece of a long prompt with
++    // no output token therefore needs the layers with their own memory only. Cale reads the last prompt token in a step of its own.
++    // CALE_NO_KV_EXIT=1 turns this off (a test that the early exit changes no number).
++    static const bool no_kv_exit = getenv("CALE_NO_KV_EXIT") != nullptr;
++    const int n_layer_run = (n_outputs == 0 && !no_kv_exit) ? (int) hparams.n_layer_kv_from_start : n_layer;
++    for (int il = 0; il < n_layer_run; ++il) {
+         // this block is made to be closely resemble Gemma3p5DecoderLayer on python code
+         const float freq_base_l  = model.get_rope_freq_base(cparams, il);
+         const float freq_scale_l = model.get_rope_freq_scale(cparams, il);

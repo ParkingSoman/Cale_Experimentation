@@ -160,7 +160,7 @@ class Lib:
         c.cale_pages.restype, c.cale_pages.argtypes = u64, [i32, u64, u64]
         if hasattr(c, "cale_set_option"):               # chosen by `cale tune` (engine-options.json), or forced by the environment while it tries them
             c.cale_set_option.restype, c.cale_set_option.argtypes = None, [i32, i32]
-            for key, name in ((1, "flash"), (2, "batch"), (3, "ubatch")):
+            for key, name in ((1, "flash"), (2, "batch"), (3, "ubatch"), (4, "hold_last")):
                 v = engine_option(name)
                 if v is not None:
                     c.cale_set_option(key, v)
@@ -205,6 +205,11 @@ class Lib:
         if r != 0:
             raise RuntimeError(self.error())
         return r
+
+    def set_hold_last(self, n):
+        """The last prompt token is read in a step of its own when the last piece has at least n tokens (0 = never). Needs patch 0003."""
+        if hasattr(self.c, "cale_set_option"):
+            self.c.cale_set_option(4, int(n))
 
     def chat_text(self, messages):
         n = len(messages)

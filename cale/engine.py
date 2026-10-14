@@ -189,7 +189,8 @@ class Engine(BatchMixin):
             print(f"[engine] memory probe failed ({type(e).__name__})", flush=True)
             bw = 0.0
         key = {"engine": backends.name(), "total_ram": oslayer.total_ram(), "placement": getattr(m, "placement", None),
-               "model_bytes": sum(f.stat().st_size for f in m.model_files())}
+               "model_bytes": sum(f.stat().st_size for f in m.model_files()),
+               "prompt_path": 2}      # how a prompt is read: 2 = the last token alone, layers without their own memory skipped. Speeds saved for another way are not used.
         base0 = self._sample_base()
         self.log(f"base memory {base0 / 1e9:.2f} GB (the process holds {m.active_bytes() / 1e9:.2f} GB, FFN weights {m.ffn_bytes() / 1e9:.2f} GB)")
                                     # before the warm-up: working memory is added separately (scratch_bytes, context)
@@ -200,6 +201,8 @@ class Engine(BatchMixin):
             self.pred.n_dec, self.pred.n_pre, self.pred.disk_bps = old.n_dec, old.n_pre, old.disk_bps
         self.pred.slow = self._slow
         self.pred.busy = oslayer.cpu_busy_other
+        if hasattr(m, "hold_last_speeds"):                  # the llama engine reads the last prompt token alone when it pays (needs measured speeds)
+            m.hold_last_speeds = lambda lv: (self.pred.prefill_tps(lv), self.pred.decode_tps(lv)) if self.pred is not None and self.pred.table else None
         self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": base0, "scratch_bytes": int((self.pred.extra or {}).get("scratch_bytes") or 0),   # measured by `cale tune` (0 = not measured: facts.SCRATCH_BYTES)
                      "total_ram": key["total_ram"], "disk_bps": self.pred.disk_bps}
         if self.pred.n_dec == 0 and self.pred.n_pre == 0 and not getattr(self, "_tuning", False):       # `cale tune` did not run for this computer and model (a test server, new hardware): measure now, once

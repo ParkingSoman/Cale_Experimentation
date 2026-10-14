@@ -1010,3 +1010,69 @@ Not done: speculative decoding, thread pinning on hybrid CPUs (no such test comp
 - Overfit review of the tuning diff (reader agent): 12 findings. Fixed: a card whose probe fails is no longer called "slower than the CPU" (nothing is saved and the install says so), a saved "whole model on the card" choice is checked against free card memory at every load, warm-up now happens at the default thread count, thread choices are always verified by alternating runs, a context slope inside the noise is not saved, working memory is read twice, a hot computer skips the sustained test, old `placement.json` is deleted at the start of every tune, and failed probes are listed in `tune-report.json` under `problems`. Open and written in `docs/CONSTANTS.md`: predictor priors, and choosing CUDA over Vulkan for one card.
 - Hidden app zoo, third run (12 new probe apps from `docs/API.md` and `docs/PRINCIPLES.md` only, Mac): 11 of 12 work well. The one POOR app found a real gap: four validation errors returned `param: null`. Fixed (`invalid_temperature`, `invalid_top_p`, `invalid_max_tokens`, `invalid_lease_s` now name the field) and tested. Raw table: `results/zoo/zoo3-mac.txt`. The zoo was not re-run on the HP.
 - Not done, and why: memory-pressure calibration (needs a computer that can be pushed into swap safely), hybrid-CPU thread tests (no such computer), Windows arm64 (no such computer), Open WebUI page click-through (not installed on the Mac, disk is tight), pictures and sound on the llama engine (see above).
+
+## Prompt reading: skip the layers that have no memory (2026-10-14)
+
+**The idea (Shonu asked for prompt reading to be scoped in depth; the Cale equation: long-prompt app types fail on CPU-only laptops).** Gemma 3n has 35 layers. Only layers 0 to 19 keep keys and values. Layers 20 to 34 read the memory of earlier layers. So what they compute for a prompt token matters only if that token's output is wanted, and only the last prompt token's output is wanted. Both engines did all 35 layers for every prompt token. llama.cpp even has the note `// TODO: move this to right after the last KV layer`.
+
+**Step 1: the ceiling, measured before any patch** (layers 20 to 34 switched off with the width patch's own skip, answers nonsense, prompt time only):
+
+| Computer | Prompt tokens/s, all layers | Layers 0 to 19 only | Gain |
+|---|---|---|---|
+| HP Windows, CPU (llama.cpp, quiet) | 16.1 | 27.5 | 1.70 |
+| HP Windows, CPU, 541 tokens | 15.3 | 27.6 | 1.80 |
+| Mac CPU (llama.cpp, Arm) | 63.8 | 105.7 | 1.66 |
+| Mac GPU (MLX), one 512-token piece, model only | 628 | 1049 | 1.67 |
+
+On MLX the whole-prompt gain is smaller (1.17 at 2048 tokens) because MLX computes only what is used: the pieces before the last one never ran layers 20 to 34, because nobody reads their output. Only the last piece (up to 512 tokens) paid for them. llama.cpp builds and runs the whole graph for every piece, so it had the full cost in every piece.
+
+**What was built.**
+
+| Part | Change |
+|---|---|
+| `llama/patches/0003-cale-prefill-kv-exit.patch` | A step with no output token stops after layer 19. Three lines in `src/models/gemma3n.cpp`. `CALE_NO_KV_EXIT=1` turns it off (for the test). |
+| `llama/shim/cale_llama.cpp` | `cale_set_option` key 4: the last prompt token is read in a step of its own, so every other piece has no output token. Both prompt paths (one answer, and the slot scheduler `cale_batch_step`). |
+| `cale/gemma3n_facts.py` | `hold_last_min`: the shortest last piece for which this pays. One extra step reads every weight once (1 / answer speed). The rule uses the measured prompt and answer speeds of this computer: `m > (1 - f) / f * (p / a - 1)`, with `f` the share of work in layers 20 to 34 (0.43). HP CPU: 4 tokens. A fast computer: about 40. Before any measurement: the named default 16. |
+| `nest/gemma3n.py` (MLX) | The same rule in `_prefill`: the last token alone, so the piece before it skips layers 20 to 34 too. |
+| `cale/engine.py` | The saved speeds have a new key field `prompt_path: 2`, so speeds measured the old way are not used. The engine gives the backend a function for the measured speeds. |
+
+**Checks.**
+
+| Check | Result |
+|---|---|
+| The early exit changes no number | Bit for bit: scores and 24 greedy tokens equal with and without it, at 3 sizes, on Mac and HP Windows (`cale/tests/prefill_exit.py`) |
+| Reading the last token alone changes the numbers a little | Top-token log-probability moves by 0.005 to 0.06, up to 0.3 on lower choices, and a near tie can flip. **This is the same size as changing the engine's internal batch size with no other change** (0.005 to 0.06, up to 0.27). It is batch-shape noise of the 4-bit model, not an effect of the shortcut. |
+| Prompt speed, llama engine, alternating runs in one process | HP Windows 16.1 to 27.5 (229 tokens) and 15.3 to 27.6 (541 tokens). Mac CPU 63.8 to 105.7, 61.9 to 103.8, 58.2 to 96.8 (229, 541, 1061 tokens). |
+| Prompt time to first token, MLX (Mac GPU) | 73 tokens 1.43 times faster, 125: 1.42, 229: 1.41, 385: 1.68, 541: 1.02, 1061: 1.04 (long prompts gain little: MLX already skipped the work for the earlier pieces) |
+| All suites, HP Windows (CPU library, new build) | 17 suites pass, including `prefill_exit` (11 checks). The `images` suite was not run (no pictures on the llama engine). The CUDA and Vulkan paths were not run with the new engine yet. |
+| All suites, Mac, llama engine | Pass except 7 memory-accounting checks (`backend_llama` 3, `relative` 4). **They fail the same way with the shortcut off**, so they are an old Mac-with-llama-engine issue (the Mac normally runs MLX) |
+
+**More checks, same day.**
+
+| Check | Result |
+|---|---|
+| HP Linux (CPU, WSL), alternating runs | Prompt speed 14.5 to 25.4 tokens/s (229 tokens), 15.4 to 24.9 (541 tokens): 1.74 and 1.62 times |
+| All suites on HP Linux (new library) | 18 of 18 pass (`images` included) |
+| All suites on Linux arm64 (container) | All pass except `reside e4b reads everything back`, the known 7 GB container artefact. `prefill_exit` passes: the early exit is bit exact on arm64 too. |
+| Real installer, HP Windows (new archive, CUDA backend fetched, `cale tune` default profile, 628 s) | Prompts run on the card (`device=CUDA0 ... prompts`). Measured speed table: full size 133 prompt tokens/s and 6.3 answer tokens/s (before this change: 82.5 and 6.1 with CUDA, 17.5 and 7.1 on the CPU) |
+| Real installer, HP Linux (new archive, CPU, 636 s) | Cale starts, answers, and the zoo app below runs against it |
+| Zoo 3 long-document app (3,889-token prompt, one question, one follow-up from the cache, one over-limit call), 280 s limit of the app | HP Linux, before (same laptop, same day): **TIMEOUT**. HP Linux, after: **OK**, 185 s in a test server and 194 s against the installed Cale (first token predicted 179 s). HP Windows with CUDA: **OK in 35 s** (first token predicted 31 s) |
+| Zoo 3 summarizer on both | Same one failing check as before ("shorter than the article": the model's text, not the API). The API checks pass. |
+
+**What this does to the Cale equation.** A long-document app (the type that failed on every CPU-only laptop) now works on a CPU-only laptop within the time an app would wait, and in 35 s on a laptop with a modest NVIDIA card. No setting is needed: Cale chooses the shortcut from the measured speeds. The gain is the same on four CPU/engine combinations (HP Windows, HP Linux, Mac Arm CPU, Linux arm64) and on the Mac's own engine for prompts of a few hundred tokens.
+
+**Known limits.** (1) The answer to a given prompt can differ slightly from the answer before this change (batch-shape noise, shown above). Cale's own prompt cache already behaved this way. (2) In a step that also carries other apps' answer tokens, the shortcut does not apply (those tokens need outputs), so a computer that serves several apps at once gains less while they all answer. (3) The CUDA and Vulkan paths use the same early exit; only the CUDA path was run end to end (installer, tune, zoo).
+
+**A finding for saved prompts (not built yet).** The memory a prompt leaves depends only on layers 0 to 19. Of the 16 sizes, 9 have different widths there. Pairs of sizes (`e2.49-block` and `e2b`, and 6 more pairs) share the memory exactly: a prompt read at one and answered at the other changes nothing (KL 0.0000 to 0.0006). For sizes that differ in layers 0 to 19, reusing a prompt read at the full size and answering at a small size moved the next-word scores by KL 0.10 to 0.23, which is about the size of the gap between those sizes. Reading at `e2b` and answering at the full size moved them by only 0.0001 to 0.033 (3 prompts): a promising result for "read small, answer big", to be measured properly.
+
+**Mac toolchain note.** After a system update `c++` on the Mac no longer found the C++ headers of its own SDK. A build needs `CMAKE_EXTRA="-DCMAKE_CXX_FLAGS=-isystem<SDK>/usr/include/c++/v1"` (SDK: `/Library/Developer/CommandLineTools/SDKs/MacOSX26.4.sdk`).
+
+**Independent review of this change (a reader agent, principles and diff only).** Fixed: (1) the single-answer prompt path gave every chunk an output when the shortcut was off or the prompt short, so it could never skip layers: now every chunk but the last asks for no output; (2) a slot with one prompt token left could wait behind another slot's long prompt: it now rides with the answer tokens; (3) the option is `std::atomic`; (4) the rule is recomputed at most every 5 s (`HOLD_RECHECK_S`) and a forced value is read once at load; (5) `prefill_exit` gained a scheduler check (two prompts, last token held back, nobody stalls). Not done, on purpose:
+
+| Item | Why |
+|---|---|
+| In a step that also carries other apps' answer tokens the early exit does not fire | The reviewer's better idea: gather the output rows right after layer 19 (the upstream TODO), so even mixed steps skip layers 20 to 34 for rows without output. It needs the attention mask rows gathered too: a bigger patch, and it would remove the hold-back rule. Worth trying later. |
+| `ATTENTION_SHARE` is an estimate, not measured | `cale tune` could measure the share directly (prompt speed with and without the exit). Open in `docs/CONSTANTS.md`. |
+| MLX reads the forced value from the environment only, llama also from `engine-options.json` | Test-only knob, left as is |
+
+**Numbers on the Mac engine (MLX) for reading the last token alone.** Scores are not bit equal: bf16 activations make a 1-token step differ from a batch step. Full size: KL 0.0003 to 0.003 against the old way, the same as cutting the prompt into pieces of 200. Small size (`e2b`) and some prompts: KL 0.16 to 4.0, and cutting the prompt into pieces of 200 moves them just as much (0.25 to 0.58). A control that reads the same split with every layer computed gives the same numbers, so the shortcut adds nothing: the difference is the shape of the step. Cale's decode steps are 1-token steps anyway. If this matters to a developer, the Mac engine can keep the old way with `CALE_HOLD_LAST=0`.

@@ -42,10 +42,13 @@ Kinds:
 | Request limits (schema size, pictures, sound) | `constrain.py`, `media.py` | |
 | How far a hold lets the size drop under pressure | `engine.WARN_CAP` | |
 | Largest size for `power: "light"` | 75% | `gemma3n_facts.LIGHT_MAX_PCT` |
+| Last prompt piece (tokens) from which the last token is read alone, when no speeds are measured yet | 16 | `gemma3n_facts.HOLD_LAST_DEFAULT` | Used only until `cale tune` (or the first load) has measured this computer. After that the rule `gemma3n_facts.hold_last_min` reads the measured prompt and answer speeds. A wrong value costs at most one extra pass over the weights per prompt. |
 
 ## Model facts
 
 Layer count, the first layer that shares a KV cache, bytes per weight, the context limit, bytes of KV per token, the size ladder: `cale/gemma3n_facts.py`, `nest/levels3n.py`.
+
+Also a model fact, and an estimate: `gemma3n_facts.ATTENTION_SHARE` (0.25), the work of a layer apart from its feed-forward part, in units of a half-width feed-forward part (about 12M against 50M weights). It gives the share of the prompt work that sits in layers 20 to 34 (0.43 for the full size). Measured against it: layers 20 to 34 took 40% of a 512-token piece on the Mac (MLX), and skipping them made prompts 1.66 to 1.8 times faster on three CPUs. Prompt reading skips those layers when no output is wanted (`llama/patches/0003`).
 
 ## Open: still written in the code, depend on the computer
 

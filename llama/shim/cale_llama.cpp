@@ -182,11 +182,54 @@ CALE_API void cale_set_slots(int32_t n) { g_slots = n; }
 
 // Engine options chosen by `cale tune`, set before a model is loaded. key 1: flash attention (-1 the engine decides, 0 off, 1 on).
 // key 2: tokens read in one pass (n_batch), key 3: tokens in one step of that pass (n_ubatch). 0 = the default (512).
+// key 4: the last prompt token is read in a step of its own when the last piece of a prompt has at least this many tokens (0 = never).
+// Gemma 3n: a piece with no output token skips the layers without their own memory (patch 0003). The caller picks the number from the
+// measured prompt speed and answer speed (one step on its own reads every weight once, as one answer token does).
 static int32_t g_flash = -1, g_batch = 512, g_ubatch = 512;
+static std::atomic<int32_t> g_hold_last{0};       // written by the caller's thread, read by the scheduler thread
 CALE_API void cale_set_option(int32_t key, int32_t value) {
     if (key == 1) g_flash = value;
     else if (key == 2) g_batch = value > 0 ? value : 512;
     else if (key == 3) g_ubatch = value > 0 ? value : 512;
+    else if (key == 4) g_hold_last.store(value > 0 ? value : 0);
+}
+
+// Read a prompt (single answer). With the option above, no chunk asks for an output except the very last token: the pieces before it skip the
+// layers without their own memory. The last chunk keeps its last token for a step of its own when it has at least `hold` tokens.
+static bool read_prompt(cale_ctx * h, llama_token * t, int32_t n) {
+    const int32_t hold = g_hold_last.load();
+    if (hold <= 0 || n < 2) return decode_tokens(h, t, n);
+    const int32_t last_chunk = ((n - 1) % h->n_batch) + 1;                       // tokens in the last chunk
+    const int32_t quiet = (last_chunk >= std::max(hold, 2)) ? n - 1 : n - last_chunk;   // tokens read with no output asked for
+    llama_batch b = llama_batch_init(h->n_batch, 0, 1);
+    int32_t left = quiet;
+    llama_token * p = t;
+    while (left > 0) {
+        const int32_t k = left < h->n_batch ? left : h->n_batch;
+        if (h->cancel.load() != 0) { g_err = "cancelled"; llama_batch_free(b); return false; }
+        b.n_tokens = k;
+        for (int32_t i = 0; i < k; ++i) {
+            b.token[i] = p[i];
+            b.pos[i] = (llama_pos) (h->n_past + i);
+            b.n_seq_id[i] = 1;
+            b.seq_id[i][0] = 0;
+            b.logits[i] = 0;
+        }
+        if (llama_decode(h->ctx, b) != 0) {
+            g_err = h->cancel.load() != 0 ? "cancelled" : "llama_decode failed";
+            h->kv_tokens.clear();
+            llama_memory_clear(llama_get_memory(h->ctx), true);
+            h->n_past = 0;
+            llama_batch_free(b);
+            return false;
+        }
+        h->kv_tokens.insert(h->kv_tokens.end(), p, p + k);
+        h->n_past += k;
+        p += k;
+        left -= k;
+    }
+    llama_batch_free(b);
+    return decode_tokens(h, p, n - quiet);                                       // the rest, with an output at its end
 }
 
 // One line per compute device that is not the CPU: "index|type|name|description|free_bytes|total_bytes".
@@ -561,7 +604,7 @@ CALE_API int32_t cale_begin3(cale_ctx * h, const int32_t * tokens, int32_t n, fl
         llama_sampler_chain_add(h->smpl, llama_sampler_init_dist(seed));
     }
     std::vector<llama_token> t(tokens + keep, tokens + n);
-    return decode_tokens(h, t.data(), (int32_t) t.size()) ? 0 : -1;
+    return read_prompt(h, t.data(), (int32_t) t.size()) ? 0 : -1;
 }
 
 CALE_API int32_t cale_begin2(cale_ctx * h, const int32_t * tokens, int32_t n, float temperature, float top_p, uint32_t seed) {
@@ -685,20 +728,30 @@ CALE_API int32_t cale_batch_step(cale_ctx * h, int32_t prefill_budget, int32_t *
         b.token[i] = t; b.pos[i] = pos; b.n_seq_id[i] = 1; b.seq_id[i][0] = seq; b.logits[i] = logits ? 1 : 0;
         return i;
     };
+    std::vector<char> took_last(n_slots, 0);                       // slots whose single remaining prompt token rides with the answer tokens
     for (int32_t s = 0; s < n_slots && b.n_tokens < max_tokens; ++s) {
         cale_slot & sl = h->slots[s];
         if (sl.state == 2) {
             batch_idx[s] = add(sl.pending, (llama_pos) sl.kv.size(), s, true);
             deciding.push_back(s);
+        } else if (sl.state == 1 && sl.prompt.size() - sl.read == 1) {
+            // The last prompt token (held back, see key 4 of cale_set_option) needs an output: it joins the answer tokens, so it never waits
+            // behind another slot's long prompt.
+            batch_idx[s] = add(sl.prompt[sl.read], (llama_pos) sl.read, s, true);
+            deciding.push_back(s);
+            took_last[s] = 1;
         }
     }
     int32_t pf_slot = -1, pf_n = 0;
     for (int32_t s = 0; s < n_slots; ++s) {
         cale_slot & sl = h->slots[s];
-        if (sl.state != 1) continue;
+        if (sl.state != 1 || took_last[s]) continue;
         pf_slot = s;
         const int32_t room = max_tokens - b.n_tokens;
         pf_n = (int32_t) std::min<size_t>({sl.prompt.size() - sl.read, (size_t) std::max(prefill_budget, 1), (size_t) std::max(room, 0)});
+        // The piece that would end the prompt leaves its last token for the next step (see key 4 of cale_set_option): a step with no
+        // output token skips the layers that have no memory of their own. Only a piece that is long enough gains by it.
+        if (g_hold_last.load() > 0 && pf_n >= std::max(g_hold_last.load(), 2) && sl.read + pf_n == sl.prompt.size()) --pf_n;      // at least 1 token stays in this step
         for (int32_t i = 0; i < pf_n; ++i) {
             const bool last = sl.read + i + 1 == sl.prompt.size();
             const int32_t at = add(sl.prompt[sl.read + i], (llama_pos) (sl.read + i), s, last);
@@ -717,6 +770,7 @@ CALE_API int32_t cale_batch_step(cale_ctx * h, int32_t prefill_budget, int32_t *
     for (int32_t s = 0; s < n_slots; ++s) {                        // the tokens that were read are in the memory now
         cale_slot & sl = h->slots[s];
         if (sl.state == 2) sl.kv.push_back(sl.pending);
+        if (took_last[s]) { sl.kv.push_back(sl.prompt[sl.read]); sl.read += 1; }
     }
     if (pf_slot >= 0) {
         cale_slot & sl = h->slots[pf_slot];

@@ -23,11 +23,12 @@ from .. import gemma3n_facts as facts
 
 from .. import oslayer, paths
 from . import devices
-from .llamalib import Lib, devices as list_devices, memory_bandwidth, offload_min_batch, fit_all, readback as lib_readback
+from .llamalib import Lib, devices as list_devices, engine_option, memory_bandwidth, offload_min_batch, fit_all, readback as lib_readback
 
 N_CTX = MAX_CONTEXT        # context size the library is loaded with (prompt plus answer, in tokens). Gemma 3n keeps 8 KB per token, so the full 32k costs 270 MB.
 STEP_TOKENS = 8            # how often a size controller may change the size, in answer tokens
 _FFN = ("gate", "up", "down")
+HOLD_RECHECK_S = 5.0                    # policy: how long the shortest last piece for holding back the last token stays as computed (the live load moves it a little)
 
 
 def saved_threads():
@@ -200,6 +201,9 @@ class LlamaNested:
         self.cap = 1.0
         self.draft = False
         self.level = None
+        self.hold_last_speeds = None       # set by the engine: a function (level) -> (prompt tokens/s, answer tokens/s), measured or learned
+        self._hold_forced = engine_option("hold_last")      # CALE_HOLD_LAST or engine-options.json: a forced value is set once, when the library loads
+        self._hold_seen = (None, 0.0)      # the size and the time of the last time the rule was asked
         self.reside_states([2] * self.n_layers)
         self.set(width)
         self.generate("Hi", 2)
@@ -330,7 +334,21 @@ class LlamaNested:
                 self.lib.set_widths(None if full else
                                     [0 if i in lv["skip"] else lv["blocks"][i] * BLOCK for i in range(self.n_layers)])
             self.level = lv
+            self._set_hold_last(lv)
         return (time.perf_counter() - t) * 1000
+
+    def _set_hold_last(self, lv):
+        """Read the last prompt token in a step of its own when that pays (llama/patches/0003): the pieces before it then skip the
+        layers without their own key/value memory. Pays when the last piece is long enough: the rule is in gemma3n_facts and reads
+        the speeds of this computer. `CALE_HOLD_LAST` (or engine-options.json) forces a value, for tests."""
+        if self._hold_forced is not None:
+            return
+        now = time.monotonic()
+        if self._hold_seen[0] == lv["id"] and now - self._hold_seen[1] < HOLD_RECHECK_S:
+            return                                          # a size controller calls set() every few tokens: the answer would be the same
+        self._hold_seen = (lv["id"], now)
+        speeds = self.hold_last_speeds(lv) if self.hold_last_speeds else None
+        self.lib.set_hold_last(facts.hold_last_min(lv, *speeds) if speeds else facts.HOLD_LAST_DEFAULT)
 
     def set_cap(self, width):
         self.cap = float(width)

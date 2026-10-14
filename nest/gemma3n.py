@@ -9,6 +9,7 @@ Only text is supported. The vision and audio towers are dropped at load to save 
 """
 import gc
 import json
+import os
 import secrets
 import struct
 import time
@@ -540,14 +541,34 @@ class NestedGemma3n:
         window = getattr(self.lm.config, "sliding_window", None) or PREFILL_STEP
         return max(1, min(PREFILL_STEP, int(window)))
 
+    hold_last_speeds = None        # set by the engine: a function (level) -> (prompt tokens/s, answer tokens/s) of this computer, or None
+
+    def _hold_last(self):
+        """The shortest last prompt piece for which its last token is read alone (0 = never). `CALE_HOLD_LAST` forces a value, for tests."""
+        from cale import gemma3n_facts as facts
+        forced = os.environ.get("CALE_HOLD_LAST")
+        if forced not in (None, ""):
+            return int(forced)
+        speeds = self.hold_last_speeds(self.level) if self.hold_last_speeds else None
+        return facts.hold_last_min(self.level, *speeds) if speeds else facts.HOLD_LAST_DEFAULT
+
     def _prefill(self, ids, cache, cancel=None):
-        """Read the prompt in pieces. Returns the hidden states of the last piece."""
+        """Read the prompt in pieces. Returns the hidden states of the last piece.
+        MLX computes only what is used. A piece whose hidden states nobody asks for (every piece but the last) never runs the layers that
+        have no key/value memory of their own (layers 20 and up). So the last token is read alone when that pays (see
+        gemma3n_facts.hold_last_min): the piece before it is then skipped too, and only one token runs through all layers."""
         n, h, step = ids.shape[1], None, self.prefill_step()
-        for i in range(0, n, step):
+        hold = self._hold_last()
+        last_len = n - ((n - 1) // step) * step                    # tokens in the last piece
+        end = n - 1 if hold > 0 and last_len >= max(hold, 2) else n   # tokens read before the last one alone
+        pieces = [(i, min(i + step, end)) for i in range(0, end, step)]
+        if end < n:
+            pieces.append((n - 1, n))
+        for k, (a, b) in enumerate(pieces):
             if cancel:
                 cancel.check()
-            h = self.lm.model(ids[:, i:i + step], cache=cache)
-            if i + step < n:
+            h = self.lm.model(ids[:, a:b], cache=cache)
+            if k + 1 < len(pieces):
                 mx.eval([c.state for c in cache])             # finish this piece before the next one starts
         return h
 

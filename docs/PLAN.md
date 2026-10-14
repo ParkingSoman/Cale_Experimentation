@@ -1,3 +1,17 @@
+# STATUS (2026-10-14): prompt reading (the next direction, chosen by Shonu after the overview)
+
+Name: the Cale equation = (app types that work well) x (environments each one runs in). The biggest limit on it was slow prompt reading on CPU-only laptops (about 17 tokens/s on the HP), which fails every long-prompt app type.
+
+| Step | State |
+|---|---|
+| 1 Measure the ceiling | Done. Layers 20 to 34 are skipped for every prompt token except the last: 1.66 to 1.80 times faster prompts on HP Windows, Mac CPU. MLX already did it for all pieces but the last. `FINDINGS.md`, "Prompt reading". |
+| 2 llama.cpp patch | Done: `llama/patches/0003-cale-prefill-kv-exit.patch` + shim option key 4 (the last token alone). The early exit changes no number (bit for bit). |
+| 3 MLX | Done: the same rule in `nest/gemma3n.py` `_prefill`. First token 1.4 to 1.7 times sooner for prompts of 70 to 400 tokens. |
+| 4 Gate | Done on Mac, HP Windows, HP Linux, Linux arm64 (container): all suites pass (`prefill_exit` is new), installer end to end with new archives. Zoo long-document app on HP Linux: was TIMEOUT at 280 s, now OK in 185 to 194 s. With CUDA on HP Windows: 35 s. |
+| 5 Saved prompts on disk | Not started. Decision first: reuse a saved prompt across sizes? (Found: sizes that agree in layers 0 to 19 share the memory exactly, 9 groups for 16 sizes. See FINDINGS.) |
+| 6 Read ahead | Not started. |
+| 7 Read at a smaller size, answer at full size | Not started. First result looks promising (KL 0.0001 to 0.033, 3 prompts). Developer choice only. |
+
 # STATUS (2026-10-13, end of the session that ran this plan)
 
 Install-time tuning (`cale tune`, see `docs/TUNING.md`) is done and tested on Mac, HP Windows (installer end to end, CUDA chosen), HP Linux (installer end to end) and the arm64 container. All suites pass on all of them. The only failure is a known container artefact (`reside e4b reads everything back`, 7 GB container).

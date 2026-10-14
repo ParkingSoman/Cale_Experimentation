@@ -10,6 +10,7 @@ There is still one model file. There is no second file for the small size.
 |---|---|
 | `patches/0001-cale-matryoshka-widths.patch` | Applied to llama.cpp `b11558`. About 100 lines of C++. |
 | `patches/0002-cale-readback-repack.patch` | A repacked Q4_0 weight can be read back in its plain layout, and the scheduler may give its operations to a GPU. Then a GPU too small for the model can read long prompts while the weights stay repacked in RAM for the CPU. Check: `tests/test_unrepack.cpp` and `scripts/check_unrepack.sh`. Rule: `cale/backends/devices.py`. Numbers: `FINDINGS.md`, "Option D". |
+| `patches/0003-cale-prefill-kv-exit.patch` | Gemma 3n only. A step with no output token (the middle of a long prompt) stops after layer 19: layers 20 to 34 have no key/value memory of their own, so nothing later reads what they compute. The shim reads the last prompt token in a step of its own (`cale_set_option` key 4), so every other piece skips those layers. About 1.7 times faster prompts on CPUs. The early exit changes no number (`CALE_NO_KV_EXIT=1` turns it off, for the test `cale/tests/prefill_exit.py`). Numbers: `FINDINGS.md`, "Prompt reading". |
 | New call | `llama_set_layer_widths(ctx, widths, n_layers)`: one number per layer. |
 | Width 0 | The layer is skipped. Only layers 20 to 24 may be skipped: they own no KV cache. |
 | Width N | The layer's feed-forward block uses its first N channels. This is a view of the stock weights. Nothing is copied. |
