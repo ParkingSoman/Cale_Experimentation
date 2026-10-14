@@ -73,3 +73,7 @@ is not listed.
 
 Removed: `/private/tmp/claude-501/llvmmingw`, `/private/tmp/claude-501/lbuild_winarm`, docker volume `cale-arm64-build`.
 Left alone on purpose: colima (`~/.colima`, 52 GB on disk) holds containers of another project (Supabase `Mapta`), so Cale does not stop or prune it.
+
+## Cleaned at the end of the later 2026-10-13 session
+
+Removed: docker volume `cale-arm64-build`, scratchpad packages, the HP test homes (`C:\cale\insttest*`, `tunehome*`, WSL `~/insttest4`, `~/hf-gemma3n` 15 GB). Mac free space: about 5 GB (colima, 52 GB, belongs to another project).
