@@ -77,3 +77,8 @@ Left alone on purpose: colima (`~/.colima`, 52 GB on disk) holds containers of a
 ## Cleaned at the end of the later 2026-10-13 session
 
 Removed: docker volume `cale-arm64-build`, scratchpad packages, the HP test homes (`C:\cale\insttest*`, `tunehome*`, WSL `~/insttest4`, `~/hf-gemma3n` 15 GB). Mac free space: about 5 GB (colima, 52 GB, belongs to another project).
+
+## Cleaned at the end of the 2026-10-14 session (prompt reading)
+
+Removed: the Mac llama build folders and the llama.cpp clone in the scratchpad, `~/.cache/cale-arm64-out`, docker volume `cale-arm64-build`; on the HP: `C:\cale\insttest15`, `insttest21`, `zoo15`, `zoo21`, the `flat*` folders, and in WSL `~/insttest15`, `~/zoo15`, `~/zoohome*`, `~/flat*`.
+Left on the HP on purpose (about 15 GB, HP has 235 GB free): `C:\cale\models\raw.gguf` and `gemma-3n-E4B-it-Q4_0.cale.gguf`, the build folders `C:\cale\lbuild2` (b_noomp8, b_dl14), WSL `~/lbuild9`, `~/lbuild_dl`. They save a download and a build next time.
