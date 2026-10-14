@@ -55,9 +55,9 @@ class Tuner:
             ("working_memory", 1, self.working_memory, True),
             ("threads", 2, self.threads, cpu and hasattr(m, "set_threads")),
             ("context", 2, self.context, True),
-            ("batch", 2, self.batch, self.eng.can_batch()),
+            ("batch", 3, self.batch, self.eng.can_batch()),
             ("gpu_pieces", 2, self.gpu_pieces, self.eng.can_batch() and gpu_reads),
-            ("sustained", 3, self.sustained, True),
+            ("sustained", 2, self.sustained, True),
             ("drift", 1, self.drift, True),
         ]
 
@@ -134,7 +134,7 @@ class Tuner:
         picks[self.full_level()["id"]] = self.full_level()
         table, out = {}, {}
         for l in sorted(picks.values(), key=lambda l: -l["pct"]):
-            r = self.point(l, self.pred.table_prompt, repeats=3 if l is self.full_level() else 2)
+            r = self.point(l, self.pred.table_prompt, answer=20, repeats=2 if l is self.full_level() else 1)
             if r:
                 table[l["id"]] = {"pre": r[0], "dec": r[1]}
                 out[l["id"]] = [round(r[0], 1), round(r[1], 2)]
@@ -229,13 +229,17 @@ class Tuner:
         return {"cores": phys, "answers": best_dec, "prompts": best_pre, "table": self.pred.extra.get("thread_table")}
 
     def context(self):
-        """How much answer speed is lost per 1000 tokens of context (more to read from the key and value memory)."""
+        """How much answer speed is lost per 1000 tokens of context (more to read from the key and value memory). The context is as long as
+        about 25 seconds of prompt reading allow, between 1024 and 4096 tokens: a longer test gives a clearer slope."""
         full, t = self.full_level(), self.pred.table.get(self.full_level()["id"])
-        r = self.point(full, 3000, answer=24, repeats=1)
-        if not (r and t):
+        if not t:
             return {}
-        self.pred.dec_ctx = max(0.0, (t["dec"] / r[1] - 1.0) / 3.0)
-        return {"answer_tps_at_3000": round(r[1], 2), "lost_per_1000": round(self.pred.dec_ctx, 4)}
+        n = int(max(1024, min(4096, t["pre"] * 25)))
+        r = self.point(full, n, answer=24, repeats=1)
+        if not r:
+            return {}
+        self.pred.dec_ctx = max(0.0, (t["dec"] / r[1] - 1.0) / ((n - self.pred.table_prompt) / 1000.0))
+        return {"context_tokens": n, "answer_tps_there": round(r[1], 2), "lost_per_1000": round(self.pred.dec_ctx, 4)}
 
     def batch(self):
         """What each extra answer running at the same time costs. Answers share the pass over the weights, so on a computer limited by
@@ -284,36 +288,39 @@ class Tuner:
 
     def sustained(self, seconds=120):
         """Speed after minutes of work against speed in the first seconds. A laptop that heats up slows down: answers that run long
-        are predicted at the sustained speed."""
+        are predicted at the sustained speed. The whole `seconds` are used on purpose: a thin laptop can run at full speed for 90 seconds
+        and then slow down (measured on a fanless Mac), and a test that stopped early would call it steady."""
         eng, full = self.eng, self.full_level()
         t = self.pred.table.get(full["id"])
         if not t:
             return {}
         n = int(min(4000, max(200, t["dec"] * seconds * 1.4)))
         stamps, t0 = [], time.perf_counter()
+
+        def rate(a, b):
+            return sum(1 for s_ in stamps if a <= s_ < b) / (b - a)
         for ev in eng.m.chat_stream([{"role": "user", "content": "Count upward from one, one number on each line, and do not stop."}],
                                     max_tokens=n, width=full, temperature=0.0):
-            if "delta" in ev:
-                stamps.append(time.perf_counter() - t0)
-            if time.perf_counter() - t0 > seconds:
+            if "delta" not in ev:
+                continue
+            now = time.perf_counter() - t0
+            stamps.append(now)
+            if now > seconds:
                 break
         eng.m.clear_cache()
         if len(stamps) < 60 or stamps[-1] < 20:
             return {"note": "the answer ended too early to tell", "tokens": len(stamps)}
-
-        def rate(a, b):
-            k = sum(1 for s in stamps if a <= s < b)
-            return k / (b - a)
-        first, last = rate(3, 13), rate(stamps[-1] - 20, stamps[-1])
+        end = stamps[-1]
+        first, last = rate(3, 13), rate(end - 15, end)
         sustained = min(1.0, last / first) if first > 0 else 1.0
-        burst = stamps[-1]
-        for a in range(3, int(stamps[-1]) - 5, 5):                      # when the speed first falls below 95% of the start
+        burst = end
+        for a in range(3, int(end) - 5, 5):                             # when the speed first falls below 95% of the start
             if rate(a, a + 5) < 0.95 * first:
                 burst = a
                 break
         self.pred.sustained = sustained if sustained < 0.95 else 1.0
         self.pred.extra["burst_s"] = float(burst)
-        return {"seconds": round(stamps[-1]), "first_tps": round(first, 2), "last_tps": round(last, 2), "sustained": round(sustained, 3), "burst_s": burst}
+        return {"seconds": round(end), "first_tps": round(first, 2), "last_tps": round(last, 2), "sustained": round(sustained, 3), "burst_s": burst}
 
     def drift(self):
         """The first measurement again, at the end: a number that moved by more than the noise says the computer was busy or heating up."""
@@ -326,3 +333,62 @@ class Tuner:
         d = {"answers_changed_by": round(r[1] / t["dec"] - 1, 3), "prompts_changed_by": round(r[0] / t["pre"] - 1, 3)}
         self.pred.extra["noise"] = max(abs(d["answers_changed_by"]), abs(d["prompts_changed_by"]))
         return d
+
+
+# --- which way of running is fastest here: the CPU, or each graphics card (before the model is loaded for the rest of the tuning) ----------
+def probe_one(env_gpu, log=print):
+    """Run one way of running (CALE_GPU=env_gpu) in its own process, and return {"pre", "dec", "placement"} or None.
+    A separate process: a graphics driver that fails or hangs must not take the installer with it."""
+    import os
+    import subprocess
+    import sys
+    import tempfile
+    home = tempfile.mkdtemp(prefix="cale-probe-")
+    try:
+        r = subprocess.run([sys.executable, "-m", "cale.tune", "--probe"], capture_output=True, text=True, timeout=900,
+                           env=dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1"))
+        for line in r.stdout.splitlines():
+            if line.startswith("PLACEMENT_PROBE "):
+                return json.loads(line[len("PLACEMENT_PROBE "):])
+        log(f"tune: way of running {env_gpu} gave no result ({r.returncode}) {r.stderr[-200:]}")
+    except Exception as e:
+        log(f"tune: way of running {env_gpu} failed ({type(e).__name__})")
+    finally:
+        import shutil
+        shutil.rmtree(home, ignore_errors=True)
+    return None
+
+
+def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
+    """Time the CPU and every graphics card on a real prompt and a few answer tokens, each in its own process, and keep the fastest way in
+    placement.json. A card is chosen only if prompts are clearly faster (more than the noise) and answers are not slower than on the CPU.
+    So a card can never make things slower, whatever it is. Returns the decision, or None if there is no card."""
+    import os
+    from .backends import devices, llamalib
+    devs = llamalib.devices(lib_path)
+    cards = [d for d in devs if d["type"] in ("GPU", "IGPU")]
+    if not cards:
+        return None
+    say("pieces")
+    results = {"cpu": probe_one("off", log)}
+    for d in cards:
+        fits = llamalib.fit_all(model_path, d["handle"], 32768, os.cpu_count() or 4, lib_path)
+        how = "full" if fits else "prompts"
+        r = probe_one(f"force:{how}:{d['name']}", log)
+        if r:
+            results[f"{d['name']}|{how}"] = r
+    base = results.get("cpu")
+    best, best_score = ("cpu", None), None
+    if base:
+        for key, r in results.items():
+            if key == "cpu":
+                continue
+            if r["pre"] >= NOISE * base["pre"] and r["dec"] >= 0.92 * base["dec"]:
+                score = (r["pre"] * r["dec"]) ** 0.5
+                if best_score is None or score > best_score:
+                    best, best_score = tuple(key.split("|")), score
+    decision = {"signature": json.loads(json.dumps(devices.signature(devs))), "use": best[0], "mode": best[1] if len(best) > 1 else None,
+                "measured": results, "at": time.strftime("%Y-%m-%d %H:%M:%S")}
+    (home / "placement.json").write_text(json.dumps(decision, indent=1))
+    log(f"tune: fastest way of running: {best[0]} {best[1] if len(best) > 1 else ''}")
+    return decision

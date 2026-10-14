@@ -247,7 +247,12 @@ class Engine(BatchMixin):
     def tune(self, profile="max", say=lambda text: None, report_path=None):
         """Measure this computer once, when Cale is installed (`cale tune`), so no app ever waits for it. See cale/tuning.py for what is
         measured. What the engine needs is saved in predict.json; the full report (every probe, its cost and what it found) in `report_path`."""
-        from .tuning import Tuner
+        from .tuning import Tuner, choose_placement
+        if backends.name() == "llama":                           # which way of running is fastest: decided first, in separate processes
+            try:
+                choose_placement(self.path, os.environ.get("CALE_LLAMA_LIB"), paths.HOME, say, self.log)
+            except Exception as e:
+                self.log(f"tune: could not compare the ways of running ({type(e).__name__}: {str(e)[:120]})")
         with self.lock:
             self._apply_pending()
             if self.m is not None:

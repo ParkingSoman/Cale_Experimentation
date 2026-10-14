@@ -208,8 +208,9 @@ class LlamaNested:
     @staticmethod
     def _open(path, threads, n_ctx, lib_path):
         """Load on the device the rule in devices.py picks. Any GPU problem falls back to the CPU: Cale must still start."""
-        dev, layers, why = devices.choose(list_devices(lib_path), os.path.getsize(path), readback=lib_readback(lib_path),
-                                          fits=lambda d: fit_all(path, d["handle"], n_ctx, threads, lib_path))
+        devs = list_devices(lib_path)
+        dev, layers, why = devices.choose(devs, os.path.getsize(path), readback=lib_readback(lib_path),
+                                          fits=lambda d: fit_all(path, d["handle"], n_ctx, threads, lib_path), saved=devices.saved_decision(devs))
         if dev is not None:
             try:
                 lib = Lib(path, n_threads=threads, n_ctx=n_ctx, lib_path=lib_path, gpu=dev["handle"], n_gpu_layers=layers)

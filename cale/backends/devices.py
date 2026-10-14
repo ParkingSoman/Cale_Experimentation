@@ -20,6 +20,8 @@ CALE_GPU (a setting for the person or the app that starts Cale):
 """
 import os
 
+from .. import paths
+
 WORKING_BYTES = 800 << 20          # only if llama.cpp cannot project the fit (an old library): compute buffers, KV cache and room for the OS driver
 
 
@@ -35,18 +37,46 @@ def one_per_card(gpus):
     return [d for d, _ in best.values()]
 
 
-def choose(devs, model_bytes, mode=None, readback=False, fits=None):
+def signature(devs):
+    """What identifies this set of graphics cards: names, descriptions and memory, and the NVIDIA driver's CUDA version. A saved measurement is
+    used only while this is the same."""
+    from .. import oslayer
+    return [sorted((d["name"], d.get("description", ""), d["total"] >> 20) for d in devs if d["type"] == "GPU"), oslayer.cuda_driver_version()]
+
+
+def saved_decision(devs):
+    """What `cale tune` measured to be the fastest way to run on this computer: {"use": "cpu" | device name, "mode": "full" | "prompts"}, or None
+    if nothing was measured, or the cards or the driver changed since."""
+    try:
+        import json
+        d = json.loads((paths.HOME / "placement.json").read_text())
+        return d if d.get("signature") == json.loads(json.dumps(signature(devs))) else None
+    except (OSError, ValueError):
+        return None
+
+
+def choose(devs, model_bytes, mode=None, readback=False, fits=None, saved=None):
     """-> (device dict or None, n_gpu_layers, reason). n_gpu_layers: 999 = all, 0 = none (the GPU only reads prompts), -1 = let llama.cpp's fit decide."""
     mode = (mode or os.environ.get("CALE_GPU") or "auto").strip()
     low = mode.lower()
     if low == "off":
         return None, 0, "the CPU (CALE_GPU=off)"
+    if low.startswith("force:"):                       # for `cale tune`: try one way of running: force:full:NAME or force:prompts:NAME
+        _, how, name = mode.split(":", 2)
+        d = next((d for d in devs if d["name"] == name), None)
+        return (d, 999 if how == "full" else 0, f"{name} ({how}, forced by cale tune)") if d else (None, 0, "the CPU (forced device not found)")
     own = sorted(one_per_card([d for d in devs if d["type"] == "GPU"]), key=lambda d: -d["free"])
     def holds_all(d):
         """Does the whole model fit in this GPU? llama.cpp's own projection says (`fits`). If it cannot, a rough rule with a margin."""
         said = fits(d) if fits is not None else None
         return said if said is not None else d["free"] >= model_bytes + WORKING_BYTES
 
+    if low == "auto" and saved:                         # measured when Cale was installed: the fastest way on this computer
+        if saved["use"] == "cpu":
+            return None, 0, "the CPU (measured faster than the graphics card)"
+        d = next((d for d in devs if d["name"] == saved["use"]), None)
+        if d:
+            return d, (999 if saved["mode"] == "full" else 0), f"{d['name']} ({saved['mode']}, measured fastest when Cale was installed)"
     if low in ("auto", "full"):
         for d in own:
             if holds_all(d):
