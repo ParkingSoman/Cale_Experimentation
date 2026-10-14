@@ -125,6 +125,7 @@ class Tuner:
                 "cores_physical": getattr(self.eng.m, "threads", None), "cores_logical": __import__("os").cpu_count(),
                 "core_types": oslayer.core_types(), "ram_gb": round(oslayer.total_ram() / 1e9, 1), "placement": getattr(self.eng.m, "placement", None)}
         self.pred.extra["tuned_on"] = {"power": info["power"], "core_types": info["core_types"]}
+        self.start_hot = info["hot"]
         return info
 
     def disk(self):
@@ -181,18 +182,23 @@ class Tuner:
                 time.sleep(0.02)
         th = threading.Thread(target=watch, daemon=True)
         th.start()
+        scratches = []
         try:
-            d = self.eng._run_prompt(piece, 4)
+            for _ in range(2):                                          # twice, keep the larger: one reading can be low
+                peak[0] = before
+                d = self.eng._run_prompt(piece, 4)
+                if d:
+                    ctx = int(d.get("prompt_tokens", 0)) + int(d.get("tokens", 0))
+                    scratches.append(max(0, peak[0] - before - facts.kv_bytes(ctx)))
         finally:
             stop.set()
             th.join(timeout=2)
-        if not d:
+        if not scratches:
             return {}
-        ctx = int(d.get("prompt_tokens", 0)) + int(d.get("tokens", 0))
-        scratch = max(0, peak[0] - before - facts.kv_bytes(ctx))
+        scratch = max(scratches)
         self.pred.extra["scratch_bytes"] = scratch
         self.eng.mach["scratch_bytes"] = scratch
-        return {"piece_tokens": d.get("prompt_tokens"), "mb": round(scratch / 1e6)}
+        return {"piece_tokens": d.get("prompt_tokens"), "mb": round(scratch / 1e6), "readings_mb": [round(x / 1e6) for x in scratches]}
 
     def threads(self):
         """Threads for answers and for prompts, separately: a count is chosen only if it is clearly better than the number of cores."""
@@ -206,7 +212,10 @@ class Tuner:
         cands = sorted(c for c in cands if 1 <= c <= logical)
         table = {}
         if len(cands) > 1:
-            for n in cands:
+            m.set_threads(phys, phys)
+            if not self.warmed:                                         # warm up at the default count, not at the smallest candidate
+                self.warm_up()
+            for n in sorted(cands, key=lambda c: (c != phys, c)):       # the default first: heat then works against the candidates, not for them
                 m.set_threads(n, n)
                 r = self.point(full, self.pred.table_prompt, answer=12, repeats=1)
                 if r:
@@ -217,25 +226,23 @@ class Tuner:
                 best_dec = max(table, key=lambda n: table[n][1]) if table[max(table, key=lambda n: table[n][1])][1] >= NOISE * base[1] else phys
                 best_pre = max(table, key=lambda n: table[n][0]) if table[max(table, key=lambda n: table[n][0])][0] >= NOISE * base[0] else phys
             m.set_threads(best_dec, best_pre)
-            # the pair must really be better than the plain default, measured together. A big gain (20% or more) needs no check; a small
-            # one is checked by alternating the two three times each, because a warm computer drifts and the order would decide.
+            # the pair must really be better than the plain default, measured together: always checked by alternating the two three times
+            # each, because one reading can be off by 10 to 25% and a warm computer drifts, so the order would decide.
             if (best_dec, best_pre) != (phys, phys):
-                gain = max(table[best_dec][1] / base[1], table[best_pre][0] / base[0]) if base else 0
-                if gain < 1.2:
-                    pairs = {"chosen": [], "default": []}
-                    for _ in range(3):
-                        for name, th in (("default", (phys, phys)), ("chosen", (best_dec, best_pre))):
-                            m.set_threads(*th)
-                            r = self.one(full, self.pred.table_prompt, 12)
-                            if r:
-                                pairs[name].append(r)
-                    if pairs["chosen"] and pairs["default"]:
-                        c = (statistics.median(r[0] for r in pairs["chosen"]), statistics.median(r[1] for r in pairs["chosen"]))
-                        d = (statistics.median(r[0] for r in pairs["default"]), statistics.median(r[1] for r in pairs["default"]))
-                        if not (c[0] >= d[0] * 0.97 and c[1] >= d[1] * 0.97 and (c[0] >= NOISE * d[0] or c[1] >= NOISE * d[1])):
-                            best_dec = best_pre = phys
-                    else:
+                pairs = {"chosen": [], "default": []}
+                for _ in range(3):
+                    for name, th in (("default", (phys, phys)), ("chosen", (best_dec, best_pre))):
+                        m.set_threads(*th)
+                        r = self.one(full, self.pred.table_prompt, 12)
+                        if r:
+                            pairs[name].append(r)
+                if pairs["chosen"] and pairs["default"]:
+                    c = (statistics.median(r[0] for r in pairs["chosen"]), statistics.median(r[1] for r in pairs["chosen"]))
+                    d = (statistics.median(r[0] for r in pairs["default"]), statistics.median(r[1] for r in pairs["default"]))
+                    if not (c[0] >= d[0] * 0.97 and c[1] >= d[1] * 0.97 and (c[0] >= NOISE * d[0] or c[1] >= NOISE * d[1])):
                         best_dec = best_pre = phys
+                else:
+                    best_dec = best_pre = phys
             self.pred.extra["thread_table"] = {str(k): [round(v[0], 1), round(v[1], 2)] for k, v in table.items()}
         else:
             best_dec = best_pre = phys
@@ -254,10 +261,14 @@ class Tuner:
         if not t:
             return {}
         n = int(max(512, min(4096, t["pre"] * 30)))
-        r = self.point(full, n, answer=24, repeats=1)
+        r = self.point(full, n, answer=24, repeats=2)
         if not r:
             return {}
-        self.pred.dec_ctx = max(0.0, (t["dec"] / r[1] - 1.0) / ((n - self.pred.table_prompt) / 1000.0))
+        lost = (t["dec"] / r[1] - 1.0)
+        slope = lost / ((n - self.pred.table_prompt) / 1000.0)
+        if abs(lost) < NOISE - 1.0:                                     # a loss smaller than the noise cannot be told from nothing: keep what the predictor had
+            return {"context_tokens": n, "answer_tps_there": round(r[1], 2), "note": f"loss {lost:.3f} is inside the noise, not saved"}
+        self.pred.dec_ctx = max(0.0, slope)
         return {"context_tokens": n, "answer_tps_there": round(r[1], 2), "lost_per_1000": round(self.pred.dec_ctx, 4)}
 
     def batch(self):
@@ -313,6 +324,8 @@ class Tuner:
         t = self.pred.table.get(full["id"])
         if not t:
             return {}
+        if getattr(self, "start_hot", False):                           # a computer that is already hot has already slowed: its "first" speed is not a cool speed
+            return {"note": "the computer was already hot at the start: sustained speed not measured"}
         n = int(min(4000, max(200, t["dec"] * seconds * 1.4)))
         stamps, t0 = [], time.perf_counter()
 
@@ -370,6 +383,19 @@ class Tuner:
 
 
 # --- which way of running is fastest here: the CPU, or each graphics card (before the model is loaded for the rest of the tuning) ----------
+PLACEMENT_NOTE = []                   # problems with the placement test, for the report
+SKIP_BELOW = 0.3                      # a way that reads under this share of the CPU's speed on 64 tokens is dropped (policy, docs/CONSTANTS.md)
+
+
+def call_s(x):
+    return REFERENCE[0] / x["pre"] + REFERENCE[1] / x["dec"]
+
+
+def wins(base, r):
+    """Does this way of running finish the reference call clearly sooner than the CPU, with answers not much slower?"""
+    return call_s(base) >= GAIN * call_s(r) and r["dec"] >= ANSWER_FLOOR * base["dec"]
+
+
 PROBE_ENV = {}                        # CALE_MODEL and CALE_LLAMA_LIB for the probe processes: they use a temporary home, so they cannot find the model by themselves
 
 
@@ -402,6 +428,7 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
     So a card can never make things slower, whatever it is. Returns the decision, or None if there is no card."""
     import os
     from .backends import devices, llamalib
+    from .backends.llama import N_CTX, default_threads
     PROBE_ENV.update({"CALE_MODEL": str(model_path), "CALE_LLAMA_LIB": llamalib.find_library(lib_path)})
     devs = llamalib.devices(lib_path)
     cards = [d for d in devs if d["type"] in ("GPU", "IGPU")]
@@ -413,23 +440,33 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
         log("tune: the CPU could not be measured, so no way of running is chosen now")
         return None
     cpu_first = (results["cpu"] or {}).get("first_pre")
+    failed = []
     for d in cards:
-        fits = llamalib.fit_all(model_path, d["handle"], 32768, os.cpu_count() or 4, lib_path)
-        how = "full" if fits else "prompts"
-        r = probe_one(f"force:{how}:{d['name']}", log, {"CALE_PROBE_SKIP_BELOW": str(0.5 * cpu_first)} if cpu_first else None)
-        if r:
-            results[f"{d['name']}|{how}"] = r
+        fits = llamalib.fit_all(model_path, d["handle"], N_CTX, default_threads(), lib_path)
+        hows = ["full", "prompts"] if fits is not False else ["prompts"]   # "full" first when it may fit. If it is not clearly better, the readback way is tried too: it won on the card the design came from
+        for how in hows:
+            r = probe_one(f"force:{how}:{d['name']}", log, {"CALE_PROBE_SKIP_BELOW": str(SKIP_BELOW * cpu_first)} if cpu_first else None)
+            if r:
+                results[f"{d['name']}|{how}"] = r
+            else:
+                failed.append(f"{d['name']}|{how}")
+            if r and wins(results["cpu"], r):
+                break
     base = results.get("cpu")
     best, best_score = ("cpu", None), None
     if base:
         for key, r in results.items():
             if key == "cpu":
                 continue
-            t = lambda x: REFERENCE[0] / x["pre"] + REFERENCE[1] / x["dec"]
-            if t(base) >= GAIN * t(r) and r["dec"] >= ANSWER_FLOOR * base["dec"]:
-                score = 1.0 / t(r)
+            if wins(base, r):
+                score = 1.0 / call_s(r)
                 if best_score is None or score > best_score:
                     best, best_score = tuple(key.split("|")), score
+    if failed and best[0] == "cpu":                       # a card that could not be measured is not "slower than the CPU": say nothing is decided
+        (home / "placement.json").unlink(missing_ok=True)
+        log(f"tune: could not measure {', '.join(failed)}, so no way of running is saved (the usual rule decides until it is measured)")
+        PLACEMENT_NOTE.append(f"not measured: {', '.join(failed)}")
+        return None
     decision = {"signature": json.loads(json.dumps(devices.signature(devs))), "use": best[0], "mode": best[1] if len(best) > 1 else None,
                 "measured": results, "at": time.strftime("%Y-%m-%d %H:%M:%S")}
     (home / "placement.json").write_text(json.dumps(decision, indent=1))

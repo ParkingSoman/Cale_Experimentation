@@ -64,4 +64,12 @@ Layer count, the first layer that shares a KV cache, bytes per weight, the conte
 | Reference call that picks a way of running | 512 prompt and 128 answer tokens | `tuning.REFERENCE` | A typical app call. Changing it changes only which card wins when prompts and answers disagree. |
 | Answers may be this much slower on a card | 0.8 times the CPU speed | `tuning.ANSWER_FLOOR` | A card must not make answers clearly worse. Reported in `placement.json`. |
 | Sustained test length | 120 s | `tuning.py` | A fanless Mac slowed only after 93 s. |
-| Probe a card with this share of CPU speed | 0.5 | `CALE_PROBE_SKIP_BELOW` | A card under half the CPU on 64 tokens is dropped to save time. |
+| Probe a card with this share of CPU speed | 0.3 | `tuning.SKIP_BELOW` | A way under 30% of the CPU's speed on 64 tokens is dropped to save time. A short piece favours the CPU a little, so the line is low. |
+| Verify a thread choice by alternating runs | always, 3 runs each | `tuning.threads` | One reading can be off by 10 to 25%, so no gain skips the check. |
+| A loss smaller than this is "inside the noise" and not saved (context slope) | `NOISE` - 1 = 8% | `tuning.context` | The predictor keeps its prior instead. |
+| Working memory | the larger of two readings | `tuning.working_memory` | One reading can be low. |
+| Sustained speed | not measured if the computer was hot at the start | `tuning.sustained` | A hot computer has slowed already. |
+| Heat model recovery fraction clamp | 0.05 to 0.95 | `tuning.cooldown` | Keeps a bad reading from giving an infinite or zero time constant. |
+| Rest before the cooldown reading | 40 s | `tuning.cooldown` | Long enough to see recovery on a laptop, short enough to run at install. |
+| Predictor weights `BATCH_EPS` 0.7, `FIRST_WEIGHT`, `LATER_WEIGHT`, and `PRIORS` | see `cale/predict.py` | `predict.py` | **Open:** tuned on the Mac and the HP. Used only until `cale tune` has measured. |
+| Card choice when CUDA and Vulkan see the same card | CUDA is listed, Vulkan hidden | `devices.one_per_card` | **Open:** on the HP, Vulkan answered faster (7.7 against 6.1 tokens/s) but CUDA read prompts far faster. A neutral rule would measure both. |

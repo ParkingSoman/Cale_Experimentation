@@ -247,10 +247,12 @@ class Engine(BatchMixin):
     def tune(self, profile="max", say=lambda text: None, report_path=None):
         """Measure this computer once, when Cale is installed (`cale tune`), so no app ever waits for it. See cale/tuning.py for what is
         measured. What the engine needs is saved in predict.json; the full report (every probe, its cost and what it found) in `report_path`."""
-        from .tuning import Tuner, choose_engine_options, choose_placement, probe_cpu
-        self.options_report = {}
+        from .tuning import PLACEMENT_NOTE, Tuner, choose_engine_options, choose_placement, probe_cpu
+        PLACEMENT_NOTE.clear()
+        self.options_report = {"note": "engine options are tried only by the max profile; the defaults are used"} if profile != "max" else {}
         if backends.name() == "llama":                           # which way of running is fastest: decided first, in separate processes
             (paths.HOME / "engine-options.json").unlink(missing_ok=True)
+            (paths.HOME / "placement.json").unlink(missing_ok=True)   # an old decision must not steer a computer whose new measurement failed
             decision = None
             try:
                 decision = choose_placement(self.path, os.environ.get("CALE_LLAMA_LIB"), paths.HOME, say, self.log)
@@ -285,6 +287,7 @@ class Engine(BatchMixin):
         self.pred.save()
         data = report.to_json()
         data["engine_options"] = self.options_report
+        data["problems"] = list(PLACEMENT_NOTE) + [f"{p['probe']}: {str(p.get('result'))[:80]}" for p in data.get("probes", []) if not p.get("ok", True)]
         if report_path:
             Path(report_path).write_text(json.dumps(data, indent=1))
         with self.lock:

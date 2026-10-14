@@ -443,6 +443,13 @@ def main():
                            stdout=open(home / "logs" / "tune.log", "w"), stderr=subprocess.STDOUT)
     if tuned.returncode != 0:
         say("(Cale will finish getting ready the first time an app asks.)")
+    else:
+        try:
+            problems = json.loads((home / "tune-report.json").read_text()).get("problems") or []
+        except Exception:
+            problems = []
+        if problems:
+            say("(Some measurements did not finish. Cale will repeat them the first time an app asks. Details: logs/tune.log)")
     progress("service", 95)
     if oslayer.MAC:
         say("Starting Cale at login")

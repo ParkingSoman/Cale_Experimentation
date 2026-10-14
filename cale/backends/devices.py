@@ -71,19 +71,25 @@ def choose(devs, model_bytes, mode=None, readback=False, fits=None, saved=None):
         said = fits(d) if fits is not None else None
         return said if said is not None else d["free"] >= model_bytes + WORKING_BYTES
 
+    note = ""
     if low == "auto" and saved:                         # measured when Cale was installed: the fastest way on this computer
         if saved["use"] == "cpu":
             return None, 0, "the CPU (measured faster than the graphics card)"
         d = next((d for d in devs if d["name"] == saved["use"]), None)
+        if d and saved["mode"] == "full" and not holds_all(d):          # measured with an idle card: something else may hold its memory now
+            if readback:
+                return d, 0, f"{d['name']} reads prompts (measured fastest with the whole model on it, but its memory is not free now)"
+            return None, 0, f"the CPU ({d['name']} was measured fastest with the whole model on it, but its memory is not free now)"
         if d:
             return d, (999 if saved["mode"] == "full" else 0), f"{d['name']} ({saved['mode']}, measured fastest when Cale was installed)"
+        note = f" ({saved['use']} was measured fastest, but it is not here now)"
     if low in ("auto", "full"):
         for d in own:
             if holds_all(d):
-                return d, 999, f"{d['name']} holds the whole model"
+                return d, 999, f"{d['name']} holds the whole model{note}"
         if readback and own:
-            return own[0], 0, f"{own[0]['name']} reads prompts, the weights stay in RAM for the CPU (the model does not fit in its memory)"
-        return None, 0, "the CPU (no GPU with its own memory holds the whole model)"
+            return own[0], 0, f"{own[0]['name']} reads prompts, the weights stay in RAM for the CPU (the model does not fit in its memory){note}"
+        return None, 0, f"the CPU (no GPU with its own memory holds the whole model){note}"
     if low == "partial":
         if own:
             return own[0], -1, f"{own[0]['name']}, part of the model (CALE_GPU=partial)"

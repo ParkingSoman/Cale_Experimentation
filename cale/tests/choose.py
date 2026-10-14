@@ -185,6 +185,12 @@ check("devices: Vulkan alone is still used", dv.choose([vk], model, "auto", read
 check("devices: off means the CPU", dv.choose([big], model, "off", readback=True)[0] is None)
 check("devices: partial asks for llama.cpp's fit", dv.choose([small], model, "partial")[:2] == (small, -1))
 
+sv = {"use": "Small", "mode": "full"}
+check("devices: a saved 'full' is checked against free memory now", dv.choose([small], model, "auto", readback=True, fits=lambda d: False, saved=sv)[:2] == (small, 0))
+check("devices: a saved 'full' without readback falls to the CPU when memory is not free", dv.choose([small], model, "auto", readback=False, fits=lambda d: False, saved=sv)[0] is None)
+check("devices: a saved 'full' is kept when memory is free", dv.choose([small], model, "auto", readback=True, fits=lambda d: True, saved=sv)[:2] == (small, 999))
+check("devices: a saved device that is gone is said in the reason", "not here now" in dv.choose([big], model, "auto", readback=True, saved={"use": "Gone", "mode": "prompts"})[2])
+
 # tuning: a probe runs in a process with a temporary home, so it must be told where the model and the library are
 import subprocess
 from cale import tuning
