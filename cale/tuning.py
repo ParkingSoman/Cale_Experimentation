@@ -51,9 +51,9 @@ class Tuner:
         return [
             ("environment", 1, self.environment, True),
             ("disk", 1, self.disk, True),
+            ("working_memory", 1, self.working_memory, True),          # first: memory touched by the first long piece is what is measured
             ("sizes", 1, self.sizes, True),
             ("prefill_curve", 1, self.prefill_curve, True),
-            ("working_memory", 1, self.working_memory, True),
             ("threads", 2, self.threads, cpu and hasattr(m, "set_threads")),
             ("context", 2, self.context, True),
             ("batch", 3, self.batch, self.eng.can_batch()),
@@ -101,6 +101,9 @@ class Tuner:
                 break
             last = r or last
         self.warmed = True
+        if last:                                                        # the prompt of the table: about 6 s of reading, between 64 and 256 tokens
+            self.pred.table_prompt = int(min(256, max(64, last[0] * 6)))
+            self.warm_speed = last
 
     def point(self, level, tokens, answer=24, repeats=3):
         """(prompt tokens/s, answer tokens/s) at this size and prompt length: the median of `repeats` runs, after the warm-up."""
@@ -149,8 +152,9 @@ class Tuner:
         """Prompt speed by prompt length at the full size (long prompts are a little slower per token)."""
         full, t = self.full_level(), self.pred.table.get(self.full_level()["id"])
         pts = [(self.pred.table_prompt, t["pre"])] if t else []
-        for n in (64, 1024):
-            r = self.point(full, n, repeats=1)
+        long = int(min(1024, max(0, (t or {}).get("pre", 0) * 20)))     # as long as 20 seconds of reading allow: a slow reader's curve is flat anyway
+        for n in (32 if self.pred.table_prompt > 64 else 0, long if long > self.pred.table_prompt * 1.5 else 0):
+            r = self.point(full, n, repeats=1) if n else None
             if r:
                 pts.append((n, r[0]))
         if len(pts) >= 2:
@@ -232,11 +236,11 @@ class Tuner:
 
     def context(self):
         """How much answer speed is lost per 1000 tokens of context (more to read from the key and value memory). The context is as long as
-        about 25 seconds of prompt reading allow, between 1024 and 4096 tokens: a longer test gives a clearer slope."""
+        about 30 seconds of prompt reading allow, between 512 and 4096 tokens: a longer test gives a clearer slope."""
         full, t = self.full_level(), self.pred.table.get(self.full_level()["id"])
         if not t:
             return {}
-        n = int(max(1024, min(4096, t["pre"] * 25)))
+        n = int(max(512, min(4096, t["pre"] * 30)))
         r = self.point(full, n, answer=24, repeats=1)
         if not r:
             return {}

@@ -31,6 +31,8 @@ def probe():
             return d["prompt_tokens"] / max(d["first_token_s"] - 1.0 / dec, 1e-6), dec
     first = speeds(eng._run_prompt(64, 16))
     out = {"placement": getattr(m, "placement", None)}
+    if first:
+        piece = int(min(piece, max(64, first[0] * 8)))               # about 8 seconds of reading for a slow reader
     skip = float(os.environ.get("CALE_PROBE_SKIP_BELOW") or 0)
     if first and skip and first[0] < skip:
         out.update(pre=first[0], dec=first[1], first_pre=first[0], dropped=True)

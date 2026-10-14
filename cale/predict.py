@@ -233,6 +233,7 @@ class Predictor:
         self.disk_bps = d.get("disk_bps", self.disk_bps)
         self.extra = d.get("extra") or {}
         self.table = d.get("table") or {}
+        self.table_prompt = int(d.get("table_prompt", self.table_prompt))
         self.pre_curve = [tuple(p) for p in (d.get("pre_curve") or [])]
         self.dec_ctx, self.sustained = float(d.get("dec_ctx", 0.0)), float(d.get("sustained", 1.0))
         self.corr_dec, self.corr_pre = float(d.get("corr_dec", 1.0)), float(d.get("corr_pre", 1.0))
@@ -248,7 +249,7 @@ class Predictor:
             tmp = self.path.with_suffix(".tmp")
             tmp.write_text(json.dumps({"version": 1, "key": self.key, "dec_full": self.dec_full, "pre_full": self.pre_full,
                                        "fixed": self.fixed, "n_dec": self.n_dec, "n_pre": self.n_pre, "disk_bps": self.disk_bps,
-                                       "sizes": self.snapshot(), "extra": self.extra, "table": self.table, "pre_curve": self.pre_curve,
+                                       "sizes": self.snapshot(), "extra": self.extra, "table": self.table, "table_prompt": self.table_prompt, "pre_curve": self.pre_curve,
                                        "dec_ctx": self.dec_ctx, "sustained": self.sustained, "corr_dec": self.corr_dec, "corr_pre": self.corr_pre,
                                        "batch_eps": self.batch_eps,
                                        "saved_at": time.strftime("%Y-%m-%d %H:%M:%S")}))
