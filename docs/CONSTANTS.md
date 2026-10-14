@@ -53,7 +53,7 @@ Layer count, the first layer that shares a KV cache, bytes per weight, the conte
 |---|---|---|---|
 | Working memory for reading a prompt, **when `cale tune` has not run** | 500 MB | `gemma3n_facts.SCRATCH_BYTES` | **Tried and reverted:** the llama engine reports its compute buffers (shim `cale_compute_bytes`), but that is memory reserved, not memory touched. Using it over-predicted by 0.6 GB on Linux, so memory goals chose smaller sizes than they needed. Next: the peak of the process while the first prompt is read (poll during the warm-up), on both engines. |
 | Speed priors before the model is loaded | `predict.PRIORS` | `cale/predict.py` | Save the speeds in `predict.json` on every computer (done after the first load). Until then a computer that never loaded the model shows the prior as an "estimate". |
-| Memory the MLX engine keeps for activations | 1.5 GB | `nest/runtime.py` `RESERVE_GB` | Read the peak memory of the first prompt. |
+| Memory the MLX engine keeps for activations | 1.5 GB | `nest/runtime.py` `RESERVE_GB` | **Not used by the product.** Only research scripts (`scripts/bench.py`, `serve.py`, `stream_speed.py`) pass a RAM budget to `NestedGemma.load`. The product loads everything and sizes memory from the measured working memory (`cale tune`: 809 to 946 MB on the Mac). Checked 2026-10-13. |
 | Memory pressure levels | `cale/pressure.py`, `oslayer.py` | | Calibrate per OS with a stress test. Not done: it needs a computer that can be pushed into swap safely. |
 
 ## Rules of choice in `cale tune` (policies, not machine numbers)
