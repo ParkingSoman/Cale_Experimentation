@@ -52,9 +52,9 @@ class Tuner:
             ("environment", 1, self.environment, True),
             ("disk", 1, self.disk, True),
             ("working_memory", 1, self.working_memory, True),          # first: memory touched by the first long piece is what is measured
+            ("threads", 2, self.threads, cpu and hasattr(m, "set_threads")),    # before the speeds: they must be measured with the threads that will be used
             ("sizes", 1, self.sizes, True),
             ("prefill_curve", 1, self.prefill_curve, True),
-            ("threads", 2, self.threads, cpu and hasattr(m, "set_threads")),
             ("context", 2, self.context, True),
             ("batch", 3, self.batch, self.eng.can_batch()),
             ("gpu_pieces", 2, self.gpu_pieces, self.eng.can_batch() and gpu_reads),
@@ -204,7 +204,7 @@ class Tuner:
         if len(cands) > 1:
             for n in cands:
                 m.set_threads(n, n)
-                r = self.point(full, 128, answer=16, repeats=1)
+                r = self.point(full, self.pred.table_prompt, answer=12, repeats=1)
                 if r:
                     table[n] = r
             base = table.get(phys)
@@ -215,9 +215,9 @@ class Tuner:
             m.set_threads(best_dec, best_pre)
             # the pair must really be better than the plain default, measured together
             if (best_dec, best_pre) != (phys, phys):
-                chosen = self.point(full, 128, answer=16, repeats=2)
+                chosen = self.point(full, self.pred.table_prompt, answer=12, repeats=2)
                 m.set_threads(phys, phys)
-                default = self.point(full, 128, answer=16, repeats=2)
+                default = self.point(full, self.pred.table_prompt, answer=12, repeats=2)
                 if chosen and default and chosen[0] >= default[0] * 0.97 and chosen[1] >= default[1] * 0.97 and \
                         (chosen[0] >= NOISE * default[0] or chosen[1] >= NOISE * default[1]):
                     m.set_threads(best_dec, best_pre)
