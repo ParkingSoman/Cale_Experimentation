@@ -3,6 +3,7 @@
 Standard library only. One `Lib` per loaded model. The calls are the C functions in the shim, one to one.
 """
 import ctypes
+import json
 import os
 import sys
 from pathlib import Path
@@ -43,6 +44,20 @@ def devices(lib_path=None):
         h, kind, name, desc, free, total = line.split("|")
         out.append({"handle": int(h), "type": kind, "name": name, "description": desc, "free": int(free), "total": int(total)})
     return out
+
+
+def engine_option(name):
+    """An engine option `cale tune` measured to be best on this computer (engine-options.json in the Cale home), or None.
+    The environment (CALE_FLASH, CALE_BATCH, CALE_UBATCH) overrides it: that is how `cale tune` tries each value."""
+    env = os.environ.get("CALE_" + name.upper())
+    if env not in (None, ""):
+        return int(env)
+    try:
+        from .. import paths
+        v = json.loads((paths.HOME / "engine-options.json").read_text()).get(name)
+        return None if v is None else int(v)
+    except (OSError, ValueError, TypeError):
+        return None
 
 
 def readback(lib_path=None):
@@ -143,6 +158,12 @@ class Lib:
         u64 = ctypes.c_uint64
         c.cale_tensor_range.restype, c.cale_tensor_range.argtypes = i32, [vp, ctypes.c_char_p, ctypes.POINTER(u64), ctypes.POINTER(u64)]
         c.cale_pages.restype, c.cale_pages.argtypes = u64, [i32, u64, u64]
+        if hasattr(c, "cale_set_option"):               # chosen by `cale tune` (engine-options.json), or forced by the environment while it tries them
+            c.cale_set_option.restype, c.cale_set_option.argtypes = None, [i32, i32]
+            for key, name in ((1, "flash"), (2, "batch"), (3, "ubatch")):
+                v = engine_option(name)
+                if v is not None:
+                    c.cale_set_option(key, v)
         if hasattr(c, "cale_set_slots"):               # not through the environment: a Windows library does not see variables set after the process started
             c.cale_set_slots.restype, c.cale_set_slots.argtypes = None, [i32]
             c.cale_set_slots(int(os.environ.get("CALE_SLOTS", "1") or 1))

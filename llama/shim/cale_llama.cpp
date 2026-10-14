@@ -180,6 +180,15 @@ CALE_API const char * cale_last_error(void) { return g_err.c_str(); }
 static int32_t g_slots = 0;
 CALE_API void cale_set_slots(int32_t n) { g_slots = n; }
 
+// Engine options chosen by `cale tune`, set before a model is loaded. key 1: flash attention (-1 the engine decides, 0 off, 1 on).
+// key 2: tokens read in one pass (n_batch), key 3: tokens in one step of that pass (n_ubatch). 0 = the default (512).
+static int32_t g_flash = -1, g_batch = 512, g_ubatch = 512;
+CALE_API void cale_set_option(int32_t key, int32_t value) {
+    if (key == 1) g_flash = value;
+    else if (key == 2) g_batch = value > 0 ? value : 512;
+    else if (key == 3) g_ubatch = value > 0 ? value : 512;
+}
+
 // One line per compute device that is not the CPU: "index|type|name|description|free_bytes|total_bytes".
 // type is GPU (own memory), IGPU (shares the computer's memory) or ACCEL. The index is only a handle for cale_load_dev
 // in this process. Pick a device by its type, name and memory, never by its index: the order changes with drivers.
@@ -232,7 +241,7 @@ CALE_API int32_t cale_fit_all(const char * path, int32_t gpu, int32_t n_ctx, int
     mp.use_extra_bufts = true;
     mp.no_host = no_host != 0;
     llama_context_params cp = llama_context_default_params();
-    cp.n_ctx = n_ctx; cp.n_batch = 512; cp.n_ubatch = 512; cp.n_threads = n_threads; cp.n_threads_batch = n_threads;
+    cp.n_ctx = n_ctx; cp.n_batch = g_batch; cp.n_ubatch = std::min(g_ubatch, g_batch); cp.n_threads = n_threads; cp.n_threads_batch = n_threads;
     cp.kv_unified = true;
     std::vector<float> tensor_split(llama_max_devices(), 0.0f);
     std::vector<llama_model_tensor_buft_override> overrides(llama_max_tensor_buft_overrides());
@@ -292,8 +301,9 @@ CALE_API cale_ctx * cale_load_dev(const char * path, int32_t n_threads, int32_t 
     else if (n_gpu_layers >= 0) mp.n_gpu_layers = n_gpu_layers;
     llama_context_params cp = llama_context_default_params();
     cp.n_ctx           = n_ctx;
-    cp.n_batch         = 512;
-    cp.n_ubatch        = 512;
+    cp.n_batch         = g_batch;
+    cp.n_ubatch        = std::min(g_ubatch, g_batch);
+    cp.flash_attn_type = (llama_flash_attn_type) g_flash;
     cp.n_threads       = n_threads;
     cp.n_threads_batch = n_threads;
     const char * ns = getenv("CALE_SLOTS");                       // answers that may run together (1 = one at a time)

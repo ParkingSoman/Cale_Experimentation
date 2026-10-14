@@ -13,7 +13,8 @@ STEPS = {"speed": "Timing the model", "pieces": "Trying the graphics card", "thr
 
 
 def probe():
-    """One way of running (CALE_GPU says which): load the model, read a prompt piece and answer a few tokens, and print the speeds."""
+    """One way of running (CALE_GPU says which): load the model, read a short prompt, and (unless it is hopelessly slow) a longer piece, answer a few
+    tokens, and print the speeds. CALE_PROBE_SKIP_BELOW: stop after the short prompt if it was read slower than this (tokens/s)."""
     import json
     import statistics
     eng = Engine(paths.MODEL)
@@ -21,17 +22,24 @@ def probe():
     with eng.lock:
         eng._load()
     m = eng.m
-    piece = getattr(m, "batch_tokens", 512)
-    eng._run_prompt(64, 12)                                       # warm-up, thrown away
-    runs = []
-    for _ in range(3):
-        d = eng._run_prompt(piece, 24)
+    piece = min(256, getattr(m, "batch_tokens", 512))
+    eng._run_prompt(48, 8)                                        # warm-up, thrown away
+
+    def speeds(d):
         if d and d.get("tokens", 0) >= 9 and d.get("decode_s", 0) > 0:
             dec = (d["tokens"] - 1) / d["decode_s"]
-            runs.append((d["prompt_tokens"] / max(d["first_token_s"] - 1.0 / dec, 1e-6), dec))
-    print("PLACEMENT_PROBE " + json.dumps({"pre": statistics.median(r[0] for r in runs), "dec": statistics.median(r[1] for r in runs),
-                                           "placement": getattr(m, "placement", None)}) if runs else "PLACEMENT_PROBE failed", flush=True)
-    return 0 if runs else 1
+            return d["prompt_tokens"] / max(d["first_token_s"] - 1.0 / dec, 1e-6), dec
+    first = speeds(eng._run_prompt(64, 16))
+    out = {"placement": getattr(m, "placement", None)}
+    skip = float(os.environ.get("CALE_PROBE_SKIP_BELOW") or 0)
+    if first and skip and first[0] < skip:
+        out.update(pre=first[0], dec=first[1], first_pre=first[0], dropped=True)
+    else:
+        runs = [r for r in (speeds(eng._run_prompt(piece, 20)) for _ in range(2)) if r]
+        if runs:
+            out.update(pre=statistics.median(r[0] for r in runs), dec=statistics.median(r[1] for r in runs), first_pre=first[0] if first else None)
+    print("PLACEMENT_PROBE " + (json.dumps(out) if "pre" in out else "failed"), flush=True)
+    return 0 if "pre" in out else 1
 
 
 def main(argv=None):

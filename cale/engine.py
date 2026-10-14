@@ -247,12 +247,22 @@ class Engine(BatchMixin):
     def tune(self, profile="max", say=lambda text: None, report_path=None):
         """Measure this computer once, when Cale is installed (`cale tune`), so no app ever waits for it. See cale/tuning.py for what is
         measured. What the engine needs is saved in predict.json; the full report (every probe, its cost and what it found) in `report_path`."""
-        from .tuning import Tuner, choose_placement
+        from .tuning import Tuner, choose_engine_options, choose_placement, probe_cpu
+        self.options_report = {}
         if backends.name() == "llama":                           # which way of running is fastest: decided first, in separate processes
+            (paths.HOME / "engine-options.json").unlink(missing_ok=True)
+            decision = None
             try:
-                choose_placement(self.path, os.environ.get("CALE_LLAMA_LIB"), paths.HOME, say, self.log)
+                decision = choose_placement(self.path, os.environ.get("CALE_LLAMA_LIB"), paths.HOME, say, self.log)
             except Exception as e:
                 self.log(f"tune: could not compare the ways of running ({type(e).__name__}: {str(e)[:120]})")
+            if profile == "max":
+                try:
+                    if decision is None:                         # no graphics card: the CPU alone is the way of running
+                        decision = {"use": "cpu", "mode": None, "measured": {"cpu": probe_cpu(self.log)}}
+                    self.options_report = choose_engine_options(decision, paths.HOME, say, self.log)
+                except Exception as e:
+                    self.log(f"tune: could not try the engine options ({type(e).__name__}: {str(e)[:120]})")
         with self.lock:
             self._apply_pending()
             if self.m is not None:
@@ -274,6 +284,7 @@ class Engine(BatchMixin):
             self._tuning = False
         self.pred.save()
         data = report.to_json()
+        data["engine_options"] = self.options_report
         if report_path:
             Path(report_path).write_text(json.dumps(data, indent=1))
         with self.lock:

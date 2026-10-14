@@ -336,7 +336,7 @@ class Tuner:
 
 
 # --- which way of running is fastest here: the CPU, or each graphics card (before the model is loaded for the rest of the tuning) ----------
-def probe_one(env_gpu, log=print):
+def probe_one(env_gpu, log=print, extra_env=None):
     """Run one way of running (CALE_GPU=env_gpu) in its own process, and return {"pre", "dec", "placement"} or None.
     A separate process: a graphics driver that fails or hangs must not take the installer with it."""
     import os
@@ -346,7 +346,7 @@ def probe_one(env_gpu, log=print):
     home = tempfile.mkdtemp(prefix="cale-probe-")
     try:
         r = subprocess.run([sys.executable, "-m", "cale.tune", "--probe"], capture_output=True, text=True, timeout=900,
-                           env=dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1"))
+                           env=dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", **(extra_env or {})))
         for line in r.stdout.splitlines():
             if line.startswith("PLACEMENT_PROBE "):
                 return json.loads(line[len("PLACEMENT_PROBE "):])
@@ -371,10 +371,11 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
         return None
     say("pieces")
     results = {"cpu": probe_one("off", log)}
+    cpu_first = (results["cpu"] or {}).get("first_pre")
     for d in cards:
         fits = llamalib.fit_all(model_path, d["handle"], 32768, os.cpu_count() or 4, lib_path)
         how = "full" if fits else "prompts"
-        r = probe_one(f"force:{how}:{d['name']}", log)
+        r = probe_one(f"force:{how}:{d['name']}", log, {"CALE_PROBE_SKIP_BELOW": str(0.5 * cpu_first)} if cpu_first else None)
         if r:
             results[f"{d['name']}|{how}"] = r
     base = results.get("cpu")
@@ -392,3 +393,54 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
     (home / "placement.json").write_text(json.dumps(decision, indent=1))
     log(f"tune: fastest way of running: {best[0]} {best[1] if len(best) > 1 else ''}")
     return decision
+
+
+def decision_env(decision):
+    """The CALE_GPU value that runs the way the placement decision chose."""
+    if not decision or decision.get("use") in (None, "cpu"):
+        return "off"
+    return f"force:{decision['mode']}:{decision['use']}"
+
+
+def choose_engine_options(decision, home, say=lambda t: None, log=print):
+    """Flash attention on or off, and bigger or smaller passes (n_batch = n_ubatch), each tried in its own process on the way of running
+    that was chosen. An option is kept only if prompts or answers get more than the noise faster and nothing else gets slower.
+    Written to engine-options.json: the engine reads it when it loads the model. Passes bigger than 512 are tried only when a graphics card
+    reads prompts (the weights are copied once per pass, so a longer pass copies less): on a CPU they cost memory and gain nothing."""
+    gpu = decision_env(decision)
+    key = (decision.get("use") or "cpu") + ("|" + decision["mode"] if decision.get("mode") else "")
+    base = (decision.get("measured") or {}).get("cpu" if gpu == "off" else key)
+    if not base:
+        return {}
+    say("settings")
+    chosen, tried = {}, {"default": base}
+
+    def better(r, a_key):
+        pre_ok, dec_ok = r["pre"] >= base["pre"] * 0.97, r["dec"] >= base["dec"] * 0.97
+        return pre_ok and dec_ok and (r["pre"] >= NOISE * base["pre"] or r["dec"] >= NOISE * base["dec"])
+    flash = {}
+    for v in (0, 1):
+        r = probe_one(gpu, log, {"CALE_FLASH": str(v)})
+        if r:
+            flash[v] = r
+            tried[f"flash={v}"] = r
+    cand = [v for v, r in flash.items() if better(r, "flash")]
+    if cand:
+        chosen["flash"] = max(cand, key=lambda v: flash[v]["pre"] * flash[v]["dec"])
+    if gpu != "off":
+        sizes = {}
+        for n in (1024, 2048):
+            r = probe_one(gpu, log, {"CALE_BATCH": str(n), "CALE_UBATCH": str(n), **({"CALE_FLASH": str(chosen["flash"])} if "flash" in chosen else {})})
+            if r:
+                sizes[n] = r
+                tried[f"batch={n}"] = r
+        ok = [n for n, r in sizes.items() if better(r, "batch")]
+        if ok:
+            chosen["batch"] = chosen["ubatch"] = max(ok, key=lambda n: sizes[n]["pre"])
+    (home / "engine-options.json").write_text(json.dumps(chosen))
+    log(f"tune: engine options {chosen or '(the defaults)'}")
+    return {"chosen": chosen, "tried": {k: {"pre": round(v["pre"], 1), "dec": round(v["dec"], 2)} for k, v in tried.items()}}
+
+
+def probe_cpu(log=print):
+    return probe_one("off", log) or {}
