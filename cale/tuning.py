@@ -370,6 +370,9 @@ class Tuner:
 
 
 # --- which way of running is fastest here: the CPU, or each graphics card (before the model is loaded for the rest of the tuning) ----------
+PROBE_ENV = {}                        # CALE_MODEL and CALE_LLAMA_LIB for the probe processes: they use a temporary home, so they cannot find the model by themselves
+
+
 def probe_one(env_gpu, log=print, extra_env=None):
     """Run one way of running (CALE_GPU=env_gpu) in its own process, and return {"pre", "dec", "placement"} or None.
     A separate process: a graphics driver that fails or hangs must not take the installer with it."""
@@ -380,7 +383,7 @@ def probe_one(env_gpu, log=print, extra_env=None):
     home = tempfile.mkdtemp(prefix="cale-probe-")
     try:
         r = subprocess.run([sys.executable, "-m", "cale.tune", "--probe"], capture_output=True, text=True, timeout=900,
-                           env=dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", **(extra_env or {})))
+                           env=dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", **PROBE_ENV, **(extra_env or {})))
         for line in r.stdout.splitlines():
             if line.startswith("PLACEMENT_PROBE "):
                 return json.loads(line[len("PLACEMENT_PROBE "):])
@@ -399,12 +402,16 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
     So a card can never make things slower, whatever it is. Returns the decision, or None if there is no card."""
     import os
     from .backends import devices, llamalib
+    PROBE_ENV.update({"CALE_MODEL": str(model_path), "CALE_LLAMA_LIB": llamalib.find_library(lib_path)})
     devs = llamalib.devices(lib_path)
     cards = [d for d in devs if d["type"] in ("GPU", "IGPU")]
     if not cards:
         return None
     say("pieces")
     results = {"cpu": probe_one("off", log)}
+    if not results["cpu"]:
+        log("tune: the CPU could not be measured, so no way of running is chosen now")
+        return None
     cpu_first = (results["cpu"] or {}).get("first_pre")
     for d in cards:
         fits = llamalib.fit_all(model_path, d["handle"], 32768, os.cpu_count() or 4, lib_path)
