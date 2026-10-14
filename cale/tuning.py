@@ -19,7 +19,9 @@ import time
 from . import gemma3n_facts as facts, oslayer
 
 LEVEL = {"quick": 1, "full": 2, "max": 3}
-NOISE = 1.08                       # a setting must be this much better than the default to be chosen: smaller differences are noise
+NOISE = 1.08                       # a setting must be this much better than the default to be chosen (when checked by alternating runs)
+GAIN = 1.15                        # ...and this much when it was measured once: the same computer measured twice moves by up to 10 to 25% (the drift probe)
+TOLERATE = 0.88                    # the other speed may be this much lower and still count as not worse: that is inside the noise
 
 
 class Report:
@@ -414,7 +416,7 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
         for key, r in results.items():
             if key == "cpu":
                 continue
-            if r["pre"] >= NOISE * base["pre"] and r["dec"] >= 0.92 * base["dec"]:
+            if r["pre"] >= GAIN * base["pre"] and r["dec"] >= TOLERATE * base["dec"]:
                 score = (r["pre"] * r["dec"]) ** 0.5
                 if best_score is None or score > best_score:
                     best, best_score = tuple(key.split("|")), score
@@ -446,8 +448,8 @@ def choose_engine_options(decision, home, say=lambda t: None, log=print):
     chosen, tried = {}, {"default": base}
 
     def better(r, a_key):
-        pre_ok, dec_ok = r["pre"] >= base["pre"] * 0.97, r["dec"] >= base["dec"] * 0.97
-        return pre_ok and dec_ok and (r["pre"] >= NOISE * base["pre"] or r["dec"] >= NOISE * base["dec"])
+        pre_ok, dec_ok = r["pre"] >= base["pre"] * TOLERATE, r["dec"] >= base["dec"] * TOLERATE
+        return pre_ok and dec_ok and (r["pre"] >= GAIN * base["pre"] or r["dec"] >= GAIN * base["dec"])
     flash = {}
     if gpu != "off":                                   # on a CPU it made no difference (measured on the HP: 15.7 / 6.79 default, 16.0 / 6.74 off, 15.7 / 6.85 on)
         for v in (0, 1):
