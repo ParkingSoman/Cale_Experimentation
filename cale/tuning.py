@@ -21,6 +21,8 @@ from . import gemma3n_facts as facts, oslayer
 LEVEL = {"quick": 1, "full": 2, "max": 3}
 NOISE = 1.08                       # a setting must be this much better than the default to be chosen (when checked by alternating runs)
 GAIN = 1.15                        # ...and this much when it was measured once: the same computer measured twice moves by up to 10 to 25% (the drift probe)
+REFERENCE = (512, 128)            # a call of this many prompt and answer tokens decides between ways of running: a way is chosen when it finishes this call GAIN times sooner
+ANSWER_FLOOR = 0.8                # ...and its answers are at least this share of the CPU's speed (a card must not make answers clearly slower)
 TOLERATE = 0.88                    # the other speed may be this much lower and still count as not worse: that is inside the noise
 
 
@@ -393,7 +395,7 @@ def probe_one(env_gpu, log=print, extra_env=None):
 
 def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
     """Time the CPU and every graphics card on a real prompt and a few answer tokens, each in its own process, and keep the fastest way in
-    placement.json. A card is chosen only if prompts are clearly faster (more than the noise) and answers are not slower than on the CPU.
+    placement.json. A card is chosen only if a reference call (REFERENCE tokens) finishes clearly sooner (more than the noise) and its answers are not much slower.
     So a card can never make things slower, whatever it is. Returns the decision, or None if there is no card."""
     import os
     from .backends import devices, llamalib
@@ -416,8 +418,9 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
         for key, r in results.items():
             if key == "cpu":
                 continue
-            if r["pre"] >= GAIN * base["pre"] and r["dec"] >= TOLERATE * base["dec"]:
-                score = (r["pre"] * r["dec"]) ** 0.5
+            t = lambda x: REFERENCE[0] / x["pre"] + REFERENCE[1] / x["dec"]
+            if t(base) >= GAIN * t(r) and r["dec"] >= ANSWER_FLOOR * base["dec"]:
+                score = 1.0 / t(r)
                 if best_score is None or score > best_score:
                     best, best_score = tuple(key.split("|")), score
     decision = {"signature": json.loads(json.dumps(devices.signature(devs))), "use": best[0], "mode": best[1] if len(best) > 1 else None,
