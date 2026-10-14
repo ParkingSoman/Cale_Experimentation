@@ -249,7 +249,7 @@ Each stage ends with its gate, the zoo scorecard, a FINDINGS entry, and a commit
 | NVIDIA driver on the HP | Updated to 576.80 on Shonu's yes. CUDA versus Vulkan is measured on each computer at install. Old drivers still work (Vulkan or CPU). |
 | Intel driver on the HP | Done: 24.20.100.6344 (2018) -> 31.0.101.2145. Installer exit 1000, HP restarted, ssh returned. |
 | Linux Allow dialog click | Verified on a virtual screen (Xvfb, zenity, xdotool): Allow gives a key, Don't Allow gives 403. WSLg itself does not work over ssh. |
-| Open WebUI and Aider on the HP since strict fields | Open WebUI through the API: connect, objects, chat verified. The page click-through did not finish (the ssh link drops). Aider not re-run. |
+| Open WebUI and Aider on the HP since strict fields | Open WebUI through the API: connect, objects, chat verified. The page click-through did not finish (the ssh link drops). Aider re-run on the Mac against a test server: one edit, correct code written. Open WebUI is not installed on the Mac (disk), so its page was not clicked. |
 | Mac disk | 28 GB free after Shonu deleted stale BlinkFix files (was 15 GB). Check again at the end of each session. |
 
 ## 6. Verification (every stage)
