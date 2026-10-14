@@ -117,14 +117,14 @@ def number(req, key, lo, hi, default, integer=False):
     if v is None:
         return default
     if isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) or not lo <= v <= hi:
-        raise ApiError(400, f"invalid_{key}", f"'{key}' must be a number from {lo} to {hi}.")
+        raise ApiError(400, f"invalid_{key}", f"'{key}' must be a number from {lo} to {hi}.", param=key)
     return int(v) if integer else float(v)
 
 
 def flag(req, key, default=False):
     v = req.get(key, default)
     if not isinstance(v, bool):
-        raise ApiError(400, f"invalid_{key}", f"'{key}' must be true or false.")
+        raise ApiError(400, f"invalid_{key}", f"'{key}' must be true or false.", param=key)
     return v
 
 

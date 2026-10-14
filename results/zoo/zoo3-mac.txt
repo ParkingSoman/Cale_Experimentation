@@ -1,0 +1,22 @@
+ZOO 3, Mac (test server, port 47899, gemma-3n-e4b-4bit). Reviewer read only docs/API.md and docs/PRINCIPLES.md.
+Probe apps: /Users/shonusengupta/Cale_Zoo3 (a01..a12 + a08b)
+SCORE: 11 of 12 WORKS_WELL (1 POOR, 0 FAILS)
+
+#   App                         Grade        Evidence
+01  agent with tools            WORKS_WELL   get_weather call arrived as tool_calls/finish_reason tool_calls, args {"city":"Paris"}; tool result fed back, answer said sunny 21 C and reused 240 cached tokens; tool_choice required and forced add gave {"a":17,"b":25}.
+02  JSON extraction             WORKS_WELL   json_schema answer exact (Maria Lopez, 34, Austin, skills, employed true), no extra keys; json_object valid; max_tokens=5 gave finish_reason length; odd schema keyword was accepted, not rejected.
+03  long-document Q&A           WORKS_WELL   3889-token prompt, needle code PELICAN-4471 found; follow-up turn cached_tokens 3889; prompt+32768 gave 400 context_length_exceeded with prompt_tokens/max_tokens/max_context_tokens in error.cale.
+04  summarizer                  WORKS_WELL   Correct 2-sentence summary, no invented numbers, all X-Cale headers. Note: answer ends with trailing whitespace ("\n\n\n\n"), developer must strip().
+05  two apps at once + goals    WORKS_WELL   Two apps in parallel threads with different goals: both 200, X-Cale-Goal-Met true, goals_actual keyed speed/first_token (A) and memory with actual_pct (B), X-Cale-Waited-S present (0.243 / 0.0).
+06  node app (plain fetch)      WORKS_WELL   Node 26 fetch: connect, chat (Paris, X-Cale-Size, X-Cale-Confidence), SSE stream 27 chunks + [DONE], n=2 -> 400 unsupported_parameter param n, /v1/models has max_context_tokens and capabilities.
+07  curl script                 WORKS_WELL   curl connect+chat ("Hola!"), all X-Cale-* headers; no key 401; unknown field 400 unknown_parameter; Origin header 403 browser_not_allowed; /cale/predict and /cale/computer (no key) answer.
+08  streaming backend           WORKS_WELL   text/event-stream, 42 chunks spread over 1.2 s, first at 0.12 s, X-Cale-Size on stream, final chunk has usage + cale.total_s, [DONE]; raw-socket client leave (stream and non-stream) did not hold up the next call (waited 0.18-0.22 s).
+09  low-memory app              WORKS_WELL   predict has goal_met/chosen/sizes/floor/confidence; cale_memory_pct 30 met (actual_pct 11.2); memory 2% + refuse -> 422 goal_missed; best_effort ran size 48 with X-Cale-Goal-Met false, X-Cale-Unmet memory; model object + lease + X-Cale-Memory-Goal-Met true; DELETE ended it.
+10  battery-friendly bg job     WORKS_WELL   Model object power light, on_miss wait, lease_s 30 (lease.expires_in_s/renew/end present); 3 jobs correct; renew 200; hold with lease shown in /cale/status then ended; ended object -> 404; lease_s=1 -> 400 invalid_lease_s.
+11  stop / seed / top_p app     POOR         Works: same seed same text (4 seeds distinct at temp 1.5; repeat identical), seeded cached_tokens 0, stop ["5"] gave "1, 2, 3, 4, " finish stop, 5 stops 400, presence_penalty 400 unsupported_parameter, logprobs ok. Doc breach: bad temperature (3), top_p (1.5) and max_tokens (>32768) return 400 invalid_temperature/invalid_top_p/invalid_max_tokens with "param": null, but API.md says "invalid_... with the field name in param". Same for invalid_lease_s. (stop and unsupported_parameter do set param.)
+12  image input                 WORKS_WELL   capabilities.images true; red 128x128 PNG -> "Red", blue -> "Blue", prompt_tokens 282 (256 per picture counted); http URL -> 400 invalid_image; garbage data -> 400 invalid_image; text call after image fine.
+
+Other notes (not graded):
+- Many answers end with trailing space/newlines ("Hola!\n", "PELICAN-4471\n", ".. \n\n\n\n"); an app that compares the exact string will miss.
+- The test server auto-allowed /cale/connect (no prompt), so the allow flow itself was not exercised.
+- Server was the Mac test server only; installed Cale and port 47821 untouched.

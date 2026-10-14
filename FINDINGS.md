@@ -1004,3 +1004,9 @@ What the measurements showed:
 - CUDA 12.4 needs a recent NVIDIA driver. The HP driver was updated (472.19 to 576.80) to test it. With an old driver Cale still works through Vulkan or the CPU, and the placement test picks the fastest.
 
 Not done: speculative decoding, thread pinning on hybrid CPUs (no such test computer), pictures and sound on the llama engine (see below).
+
+## Verification after install-time tuning (2026-10-13)
+
+- Overfit review of the tuning diff (reader agent): 12 findings. Fixed: a card whose probe fails is no longer called "slower than the CPU" (nothing is saved and the install says so), a saved "whole model on the card" choice is checked against free card memory at every load, warm-up now happens at the default thread count, thread choices are always verified by alternating runs, a context slope inside the noise is not saved, working memory is read twice, a hot computer skips the sustained test, old `placement.json` is deleted at the start of every tune, and failed probes are listed in `tune-report.json` under `problems`. Open and written in `docs/CONSTANTS.md`: predictor priors, and choosing CUDA over Vulkan for one card.
+- Hidden app zoo, third run (12 new probe apps from `docs/API.md` and `docs/PRINCIPLES.md` only, Mac): 11 of 12 work well. The one POOR app found a real gap: four validation errors returned `param: null`. Fixed (`invalid_temperature`, `invalid_top_p`, `invalid_max_tokens`, `invalid_lease_s` now name the field) and tested. Raw table: `results/zoo/zoo3-mac.txt`. The zoo was not re-run on the HP.
+- Not done, and why: memory-pressure calibration (needs a computer that can be pushed into swap safely), hybrid-CPU thread tests (no such computer), Windows arm64 (no such computer), Open WebUI page click-through (not installed on the Mac, disk is tight), pictures and sound on the llama engine (see above).
