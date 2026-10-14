@@ -2,7 +2,7 @@
 measurement can be set against what it is worth. Run when Cale is installed: no app ever waits for any of it.
 
 Profiles say how much to measure:
-  quick   the few measurements everything else depends on (about a minute on a weak laptop, seconds on a fast Mac)
+  quick   the few measurements everything else depends on (a few minutes on a weak laptop, seconds on a fast Mac)
   full    quick, plus the ones that choose settings: threads, long context, several answers at once, graphics card pieces
   max     everything, including the long test of sustained speed (minutes)
 
@@ -449,6 +449,10 @@ def choose_engine_options(decision, home, say=lambda t: None, log=print):
         return {}
     say("settings")
     chosen, tried = {}, {"default": base}
+    again = probe_one(gpu, log)                        # the default once more, in the same conditions: one reading of it can be low by chance, and then every change would look like a win
+    if again:
+        tried["default again"] = again
+        base = {k: (base[k] + again[k]) / 2 for k in ("pre", "dec")}
 
     def better(r, a_key):
         pre_ok, dec_ok = r["pre"] >= base["pre"] * TOLERATE, r["dec"] >= base["dec"] * TOLERATE

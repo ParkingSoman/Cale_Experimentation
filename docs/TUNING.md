@@ -1,7 +1,7 @@
 # Getting Cale ready for a computer (`cale tune`)
 
 Cale measures the computer once, when it is installed. The person sees one line: "Getting Cale ready for this computer. This takes
-about a minute and happens once." No app ever waits for a measurement, and nothing here is written for one computer.
+a few minutes and happens once." No app ever waits for a measurement, and nothing here is written for one computer.
 
 ```
 cale tune                    the default profile (full)

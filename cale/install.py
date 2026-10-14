@@ -438,7 +438,7 @@ def main():
 
     cmd = write_command(home, port)
     progress("tune", 80)
-    say("Getting Cale ready for this computer. This takes about a minute and happens once.")
+    say("Getting Cale ready for this computer. This takes a few minutes and happens once.")
     tuned = subprocess.run([str(oslayer.venv_python(home / "venv")), "-m", "cale.tune"], env=dict(os.environ, CALE_HOME=str(home), PYTHONPATH=str(home / "runtime")),
                            stdout=open(home / "logs" / "tune.log", "w"), stderr=subprocess.STDOUT)
     if tuned.returncode != 0:
