@@ -1,0 +1,12 @@
+Zoo3 on HP Linux (CPU only, i7-8550U), 2026-10-14. Same 11 probe apps as zoo3-mac.txt (node app skipped: no node in WSL).
+a01 agent tools           OK
+a02 JSON extraction       OK
+a03 long document         TIMEOUT at the app's own 280 s limit: a 3900-token prompt on this CPU reads at about 17 tokens/s. Honest hardware limit. (The same app passes on the Mac. With the CUDA card on this laptop, prompts read 4.7 times faster.)
+a04 summarizer            BAD: one check ("shorter than the article") failed. Model output, not an API fault. All other checks passed.
+a05 two apps at once      OK
+a07 curl script           OK
+a08 streaming             5 of 6 checks passed. The "server fine after disconnect" check is a flaw in the app (it closes the connection object while the response still holds the socket). a08b_disconnect.py, which closes the socket properly, passes for stream and non-stream, and the server log says "client left: work stopped".
+a09 low memory            OK
+a10 battery               OK
+a11 stop/seed/top_p       OK (the four validation errors now name the field in `param`)
+a12 image input          Honest 400: "This computer's engine cannot read pictures yet", and `cale.capabilities.images` says so. Pictures on the llama engine are not built.
