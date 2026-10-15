@@ -92,3 +92,7 @@ Left on the HP on purpose (about 15 GB, HP has 235 GB free): `C:\cale\models\raw
 | HP `C:\cale\apptest`, `C:\cale\winpack2`, `winpack3`, WSL `~/cale-apptest` | about 10 GB | throwaway installs made from the one-download files (real model download, Windows and Linux). Delete when the demo scorecard is done. |
 
 Removed: the Mac test install `cale-app-home` (venv only; its model was hard-linked), `/private/tmp/claude-501/standalone`.
+
+## Quant quality test (2026-10-15)
+
+Downloaded one at a time into the scratchpad, measured, deleted: Q8_0 (7.4 GB, twice), Q4_0 (4.4 GB, twice), Q4_K_M (about 5 GB, twice). Free space never went below 17 GB. Nothing of these is kept. Removed: the llama.cpp b11558 clone and build in the scratchpad (0.27 GB, scratchpad only).

@@ -1076,3 +1076,15 @@ On MLX the whole-prompt gain is smaller (1.17 at 2048 tokens) because MLX comput
 | MLX reads the forced value from the environment only, llama also from `engine-options.json` | Test-only knob, left as is |
 
 **Numbers on the Mac engine (MLX) for reading the last token alone.** Scores are not bit equal: bf16 activations make a 1-token step differ from a batch step. Full size: KL 0.0003 to 0.003 against the old way, the same as cutting the prompt into pieces of 200. Small size (`e2b`) and some prompts: KL 0.16 to 4.0, and cutting the prompt into pieces of 200 moves them just as much (0.25 to 0.58). A control that reads the same split with every layer computed gives the same numbers, so the shortcut adds nothing: the difference is the shape of the step. Cale's decode steps are 1-token steps anyway. If this matters to a developer, the Mac engine can keep the old way with `CALE_HOLD_LAST=0`.
+
+## 2026-10-15 — Gemma 3n E4B: does Q4_0 lose quality? (Mac perplexity test)
+
+`llama-perplexity` (llama.cpp b11558, Metal, 512-token chunks) on stock unsloth GGUFs. Two fixed slices of one public-domain book. Data: `results/quant-quality-3n.json`.
+
+| Format | Slice a (200 chunks) | Slice b (116 chunks) | vs Q8_0 |
+|---|---|---|---|
+| Q8_0 | 57.66 ± 1.10 | 56.71 ± 1.41 | reference |
+| Q4_0 (what Cale ships) | 52.69 ± 0.96 | 50.68 ± 1.20 | −8.6% / −10.6% |
+| Q4_K_M | 64.28 ± 1.24 | 64.31 ± 1.63 | +11.5% / +13.4% |
+
+Verdict: perplexity shows no damage from Q4_0 (it is lower than Q8_0 on both slices). But the order (Q4_0 < Q8_0 < Q4_K_M) is not the order of bits. Perplexity of an instruction-tuned model on raw prose is not a reliable quality measure, so this does NOT prove 4-bit equals 8-bit. It only fails to show a loss. Not done: an instruction-task check (scripts/score.py loads only MLX folders) and a KL-divergence run against Q8_0 (its reference logits do not fit the 15 GB disk floor). Next step if it matters: score Q4_0 vs Q8_0 GGUF on MMLU-Pro through a llama.cpp server.

@@ -1,0 +1,53 @@
+{
+ "test": "llama-perplexity, Gemma 3n E4B instruct, stock unsloth GGUFs, llama.cpp b11558, Metal, ctx 512",
+ "date": "2026-10-15",
+ "text": {
+  "a": "Pride and Prejudice (Gutenberg 1342) from 'It is a truth...' for 450,000 chars, 200 chunks",
+  "b": "same book, next 256 KB, 116 chunks"
+ },
+ "ppl": {
+  "Q8_0": {
+   "a": [
+    57.6557,
+    1.096
+   ],
+   "b": [
+    56.7129,
+    1.40898
+   ]
+  },
+  "Q4_0": {
+   "a": [
+    52.6886,
+    0.95857
+   ],
+   "b": [
+    50.6805,
+    1.19792
+   ]
+  },
+  "Q4_K_M": {
+   "a": [
+    64.2768,
+    1.23975
+   ],
+   "b": [
+    64.3108,
+    1.62678
+   ]
+  }
+ },
+ "vs_Q8_0_percent": {
+  "Q4_0": {
+   "a": -8.6,
+   "b": -10.6
+  },
+  "Q4_K_M": {
+   "a": 11.5,
+   "b": 13.4
+  }
+ },
+ "note": "Q4_0 here is the stock file. Cale's models/gguf/*.cale.gguf holds the same numbers with the ffn_down matrices stored as two halves (prepare_gguf.py), so stock llama.cpp cannot load it.",
+ "verdict": "Perplexity shows NO damage from Q4_0 (it is lower than Q8_0 on both texts, outside the error bars). Perplexity is not a trustworthy quality measure for an instruction-tuned model, so this does not prove 4-bit is as good. Instruction check skipped: scripts/score.py only loads MLX folders. A KL-divergence run against Q8_0 needs about 2-5 GB of reference logits and does not fit the 15 GB disk floor.",
+ "files": "results/quant-quality-3n.json"
+}
