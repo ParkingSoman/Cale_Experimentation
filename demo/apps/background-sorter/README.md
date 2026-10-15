@@ -15,3 +15,5 @@ The page opens at http://127.0.0.1:8823. The app's own server calls Cale (a brow
 - Cale settings: model object `sorter`, `power=light`, `memory_pct=28`, `max_tokens=220`, `on_miss=best_effort`
   (never refuses, never waits in line for others). Busy or refused answers (422, 429, 507, 500) mean: wait, retry, show a plain message.
 - `cale_client.py` is Cale's public Python client, unchanged.
+
+Set `CALE_NO_BROWSER=1` to start the app without opening a browser tab (the Cale Hub does this).

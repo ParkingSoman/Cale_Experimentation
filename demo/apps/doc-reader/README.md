@@ -17,3 +17,5 @@ How it works:
 
 If the document is over Cale's context limit, the app says so and offers the first part.
 `cale_client.py` is Cale's public client, copied unchanged. The browser cannot call Cale, so `app.py` does it.
+
+Set `CALE_NO_BROWSER=1` to start the app without opening a browser tab (the Cale Hub does this).

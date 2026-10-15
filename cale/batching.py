@@ -11,6 +11,7 @@ monitor wait for the burst to end, as they did when answers ran one at a time.
 | The prompt of a new answer is read a piece at a time, next to the others' tokens | nobody waits for a whole long prompt |
 | A new answer starts when a slot is free, in the order it arrived | fair order |
 | Each answer's goals are checked as if `n` answers share the step | `BatchPred` below |
+| An app that wants speed goes first | `tier()` below. While an answer with a speed or first-word goal runs, answers of lower tiers are held back (paused), not slowed down. |
 """
 import os
 import queue
@@ -85,6 +86,23 @@ class PieceTuner:
         return bool(self.speed) and self.next_size() > self.cpu_size
 
 
+def tier_of(goal):
+    """The tier of a call, from its `goal` ({"goals": ...} as the engine gets it, or None). See tier()."""
+    g = (goal or {}).get("goals") or {}
+    if g.get("max_first_token_s") is not None or g.get("min_tokens_per_s") is not None:
+        return 0
+    return 2 if g.get("power") == "light" else 1
+
+
+def tier(r):
+    """Who goes first when answers compete for the engine. A rule that is the same on every computer, and a developer can state it:
+    0  the app asked for speed (`min_tokens_per_s` or `max_first_token_s`): someone waits for this answer
+    1  the app set no speed goal
+    2  the app said `power: "light"` and set no speed goal: a background job, it runs when nobody else needs the engine
+    A lower tier is paused only while a higher tier answer is running, and then goes on where it stopped. The reply's `waited_s`/`total_s` show it."""
+    return tier_of(r.goal)
+
+
 class BatchPred:
     """The predictor as one of `n` answers that share a step sees it: every token takes `cost` times as long."""
 
@@ -126,6 +144,7 @@ class Request:
         self.steps = 0                  # steps this answer took part in once it was producing tokens
         self.share = 0                  # sum of the number of answers in those steps (to know how crowded it was)
         self.started = None
+        self.paused = False             # held back for a higher tier answer (see tier())
         self.defer_since = None         # [time] when an app that said `wait` first could not be served
         self.retry_at = 0.0
 
@@ -261,7 +280,7 @@ class BatchMixin:
         if self.draining():
             return
         with self.cv:
-            waiting = list(self.inbox)
+            waiting = sorted(self.inbox, key=lambda x: (tier(x), x.arrived))      # an app that wants speed is not queued behind a background job
         for r in waiting:
             if r.abandoned or (r.cancel is not None and r.cancel.is_set()):
                 self._drop_waiting(r)
@@ -394,7 +413,9 @@ class BatchMixin:
         self._reap()
         if not self.active:
             return
-        decoding = [r for r in self.active if r.stream.t_first is not None]
+        self._apply_priority()
+        stepping = [r for r in self.active if not r.paused]
+        decoding = [r for r in stepping if r.stream.t_first is not None]
         # A piece of prompt cannot be stopped once started, so its length is set by time: next to other answers about STEP_SECONDS,
         # alone about twice that. On a slow computer that is a few tokens, so an app that leaves is noticed quickly.
         secs = STEP_SECONDS if decoding else 2 * STEP_SECONDS
@@ -408,10 +429,10 @@ class BatchMixin:
             else:
                 piece_n = tuner.next_size()
                 budget = piece_n
-        reading = [r for r in self.active if r.stream.t_first is None]
+        reading = [r for r in stepping if r.stream.t_first is None]
         before = m.lib.slot_tokens(reading[0].stream.slot) if tuner is not None and not decoding and len(reading) == 1 else None
         t = time.perf_counter()
-        finished = m.step([r.stream for r in self.active], budget)
+        finished = m.step([r.stream for r in stepping], budget)
         dt = time.perf_counter() - t
         if before is not None:                                                    # a piece read alone: what it taught about this computer
             got = m.lib.slot_tokens(reading[0].stream.slot) - before
@@ -422,11 +443,23 @@ class BatchMixin:
             r.steps += 1
             r.share += n
         self._flush(finished)
-        if n >= 1 and not any(r.stream.t_first is None for r in self.active):
+        if n >= 1 and not any(r.stream.t_first is None for r in stepping):
             self.pred.observe_step(n, dt, self.batch_level)
         self.steps_done = getattr(self, "steps_done", 0) + 1
         if self.steps_done % CHECK_EVERY == 0:
             self._adjust()
+
+    def _apply_priority(self):
+        """Hold back the answers of a lower tier while a higher tier answer runs (see tier()). The top tier always runs."""
+        lib = getattr(self.m, "lib", None)
+        if lib is None or not getattr(lib, "has_pause", False) or not self.active:
+            return
+        top = min(tier(r) for r in self.active)
+        for r in self.active:
+            hold = tier(r) > top
+            if hold != r.paused:
+                lib.slot_pause(r.stream.slot, hold)
+                r.paused = hold
 
     def _reap(self):
         """Stop answers whose client left."""

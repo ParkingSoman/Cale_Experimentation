@@ -268,6 +268,14 @@ def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     if "--setup" in argv and not installed():
         start_setup()
+    if installed():                                              # opening Cale means Cale is on: start it in the background if it is not
+        def wake():
+            try:
+                from cale import service
+                service.start(90)
+            except Exception as e:
+                print(f"Cale did not start: {e}", flush=True)
+        threading.Thread(target=wake, daemon=True).start()
     server = ThreadingHTTPServer((paths.HOST, HUB_PORT), Handler)
     url = f"http://{paths.HOST}:{HUB_PORT}/"
     print(f"Cale Hub: {url}", flush=True)

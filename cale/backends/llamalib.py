@@ -135,12 +135,16 @@ class Lib:
             c.cale_reused.restype, c.cale_reused.argtypes = i32, [vp]
             c.cale_forget.restype, c.cale_forget.argtypes = None, [vp]
         self.has_slots = hasattr(c, "cale_batch_step")
+        self.has_pause = False
         self.has_logprobs = False
         if self.has_slots:
             c.cale_slots.restype, c.cale_slots.argtypes = i32, [vp]
             c.cale_slot_open.restype, c.cale_slot_open.argtypes = i32, [vp, i32, i32p, i32, ctypes.c_float, ctypes.c_float, ctypes.c_uint32, i32, i32]
             c.cale_slot_close.restype, c.cale_slot_close.argtypes = None, [vp, i32]
             c.cale_slot_forget.restype, c.cale_slot_forget.argtypes = None, [vp, i32]
+            self.has_pause = hasattr(c, "cale_slot_pause")                 # a library built before this one cannot hold an answer back
+            if self.has_pause:
+                c.cale_slot_pause.restype, c.cale_slot_pause.argtypes = None, [vp, i32, i32]
             c.cale_batch_step.restype, c.cale_batch_step.argtypes = i32, [vp, i32, i32p, i32p, i32p, i32]
             c.cale_slot_topk.restype, c.cale_slot_topk.argtypes = i32, [vp, i32, i32, i32p, ctypes.POINTER(ctypes.c_float)]
             c.cale_slot_accept.restype, c.cale_slot_accept.argtypes = i32, [vp, i32, i32]
@@ -283,6 +287,11 @@ class Lib:
 
     def slot_forget(self, slot):
         self.c.cale_slot_forget(self.h, slot)
+
+    def slot_pause(self, slot, paused):
+        """Hold an answer back (True) or let it go on (False). Does nothing when the library cannot (has_pause is False)."""
+        if self.has_pause:
+            self.c.cale_slot_pause(self.h, slot, 1 if paused else 0)
 
     def batch_step(self, prefill_budget=64):
         """One step for all running slots. Returns [(slot, kind, token)]: kind 1 = a token was sampled, 2 = a guided slot waits for slot_topk/slot_accept."""

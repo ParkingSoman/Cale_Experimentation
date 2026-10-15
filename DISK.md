@@ -82,3 +82,13 @@ Removed: docker volume `cale-arm64-build`, scratchpad packages, the HP test home
 
 Removed: the Mac llama build folders and the llama.cpp clone in the scratchpad, `~/.cache/cale-arm64-out`, docker volume `cale-arm64-build`; on the HP: `C:\cale\insttest15`, `insttest21`, `zoo15`, `zoo21`, the `flat*` folders, and in WSL `~/insttest15`, `~/zoo15`, `~/zoohome*`, `~/flat*`.
 Left on the HP on purpose (about 15 GB, HP has 235 GB free): `C:\cale\models\raw.gguf` and `gemma-3n-E4B-it-Q4_0.cale.gguf`, the build folders `C:\cale\lbuild2` (b_noomp8, b_dl14), WSL `~/lbuild9`, `~/lbuild_dl`. They save a download and a build next time.
+
+## Consumer demo session (2026-10-14/15)
+
+| Path | Size | Reason |
+|---|---|---|
+| `dist/` (git-ignored) | about 0.6 GB | the one-download installers (`Cale-mac.dmg`, `.zip`, `Cale-linux-x86_64.run`, `win/`) and `dist/cache/` (uv and Node downloads). Rebuild with `scripts/build_installer.py`. Delete when not needed. |
+| `/private/tmp/claude-501/cale-act-home` | tiny | dev server home for the demo tests (its model is a hard link). |
+| HP `C:\cale\apptest`, `C:\cale\winpack2`, `winpack3`, WSL `~/cale-apptest` | about 10 GB | throwaway installs made from the one-download files (real model download, Windows and Linux). Delete when the demo scorecard is done. |
+
+Removed: the Mac test install `cale-app-home` (venv only; its model was hard-linked), `/private/tmp/claude-501/standalone`.

@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
 OWN_MODEL = ["oslayer", "choose", "constrain", "install_check", "engine_features", "backend_llama", "prefill_exit"]     # these load the model or need no server
-SERVER = ["honest", "relative", "objects", "goals", "structured", "promptcache", "images", "logprobs", "crowd", "anylang", "e2e"]
+SERVER = ["honest", "relative", "objects", "goals", "structured", "promptcache", "images", "logprobs", "crowd", "priority", "activity", "anylang", "e2e"]
 SERVER_ENV = {"anylang": {"CALE_HEADLESS": "1", "CALE_DEV_APPROVE": "0", "CALE_APPROVE_WAIT_S": "8"}}    # a server with no screen: the person answers in a terminal
 PORT = 47899
 
@@ -105,7 +105,7 @@ def run_with_server(name, env, keep_home):
     try:
         if not wait_ready(180):
             return {"name": name, "passed": 0, "failed": [f"FAIL server did not start (see {Path(home) / 'server.log'})"], "code": 1, "seconds": 0, "tail": []}
-        return run(name, ["--base", f"http://127.0.0.1:{PORT}"] + (["--model"] if name == "e2e" else []), env, 2400)
+        return run(name, ["--base", f"http://127.0.0.1:{PORT}"] + (["--model"] if name == "e2e" else []) + (["--home", home] if name == "activity" else []), env, 2400)
     finally:
         stop_server(srv)
         log.close()

@@ -16,3 +16,5 @@ Opens http://127.0.0.1:8821. Notes save to `data/notes.txt`; the Cale key to `da
 - `ensure_running()` if Cale is down
 
 The browser cannot call Cale (Origin refused), so `app.py` is a small local server in between.
+
+Set `CALE_NO_BROWSER=1` to start the app without opening a browser tab (the Cale Hub does this).

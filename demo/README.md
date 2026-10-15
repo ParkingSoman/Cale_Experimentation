@@ -74,6 +74,22 @@ It starts each app, does the app's main job through the app's own web calls, and
 Verdicts: WELL (done right, every goal Cale reported was met), POOR (done, but a goal was missed or it was very slow), FAIL.
 Results: see `results/demo/` (to be filled in by the runs on the Mac, HP Windows and HP Linux).
 
+## Who goes first (the part the developer never writes)
+
+Several apps share one Cale. Cale decides who goes first with one rule that is the same on every computer (`docs/API.md`, "Who goes first"):
+an app that asked for speed goes first, an app with no speed goal next, a `power: "light"` background job last.
+On Windows and Linux a running background answer is paused for a foreground one. On the Mac a running answer is not stopped, but the foreground call starts next.
+Test: `cale/tests/priority.py`. Live: start Background Sorter, then type in Quick Notes. The Hub shows the foreground app's first word stay near its goal.
+
+## Mac numbers (M5, 24 GB, measured with `demo/check_apps.py`)
+
+| App | Result |
+|---|---|
+| Quick Notes | first word 0.13 s alone; median 0.77 s while the Sorter runs (goal 1 s) |
+| Private Doc Reader | 5,458 words read in 5.3 s, then first word 0.13 s per question, 7,800 tokens reused. Always the full size. |
+| Meeting Recap | first word 0.7 s, whole recap and action items in under 10 s |
+| Background Sorter | 20 of 20 files, 24 to 35 files per minute, receipts' amounts all correct |
+
 ## Known limits (say them before someone asks)
 
 | Limit | Why |
@@ -83,3 +99,4 @@ Results: see `results/demo/` (to be filled in by the runs on the Mac, HP Windows
 | Doc Reader's time prediction is cautious on the Mac (said 12 s, took 5.6 s). | The prediction counts a cold start. |
 | The model is a prototype (Gemma 3n). Its answers are not as good as the model Cale is meant to have. | The funding is for the Matryoshka model built for this. |
 | The Allow question must be clicked by a person. | That is the point of it. |
+| On the Mac a background answer that is already running is not stopped for a foreground app. | The Mac engine answers one at a time. A foreground call waits for the answer that runs now (a few seconds at most). |

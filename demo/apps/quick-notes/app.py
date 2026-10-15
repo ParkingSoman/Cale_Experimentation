@@ -270,7 +270,7 @@ def main():
     srv.daemon_threads = True
     url = "http://127.0.0.1:%d/" % PORT
     print("Quick Notes is at " + url + "  (Cale: " + CALE_URL + ")")
-    if not os.environ.get("QN_NO_BROWSER"):
+    if not (os.environ.get("QN_NO_BROWSER") or os.environ.get("CALE_NO_BROWSER")):
         threading.Timer(0.5, lambda: webbrowser.open(url)).start()
     try:
         srv.serve_forever()

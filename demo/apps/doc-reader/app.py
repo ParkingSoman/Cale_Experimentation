@@ -30,7 +30,7 @@ SYSTEM = ("You answer questions about the private document below. Use only the d
           "If the document does not say, answer: \"The document does not say.\"\n\n--- DOCUMENT ---\n")
 WARMUP = "Read the document above carefully and wait for my questions. Reply with the single word: Ready."
 
-from cale_client import CaleError, ensure_running, predict as cale_predict   # noqa: E402  (copied, unchanged)
+from cale_client import CaleError, ensure_running, hold as cale_hold, predict as cale_predict   # noqa: E402  (copied, unchanged)
 
 
 # ---------------------------------------------------------------- talking to Cale
@@ -75,10 +75,22 @@ def predict_read(key, prompt_tokens):            # 2. before reading: how long w
     p = cale_predict(CALE_URL, key, prompt_tokens=prompt_tokens, max_tokens=ANSWER_TOKENS)
     return next(s for s in p["sizes"].values() if s["size_pct"] == 100)["first_token_s"]
 
-def read_document(key, doc_text):                # 3. read once (1 token out); Cale keeps the reading in its prompt cache
+HOLD = None
+
+def keep_full_size(key):                         # 3. keep the full size in memory while a document is open: Cale will not shrink it
+    global HOLD                                  #    for this app, even when the computer is busy. (Without it, a memory squeeze can
+    if HOLD is None or HOLD.closed.is_set():     #    make Cale answer with a smaller size.)
+        try:
+            HOLD = cale_hold(CALE_URL + "/v1", key, size="smart")
+            HOLD.__enter__()
+        except CaleError:
+            HOLD = None                          # Cale could not promise it: carry on, the footer shows the size that ran
+
+def read_document(key, doc_text):                # 4. read once (1 token out); Cale keeps the reading in its prompt cache
+    keep_full_size(key)
     return chat(key, [SYSTEM_MSG(doc_text), WARMUP_MSG], max_tokens=3, stream=False)
 
-def ask(key, history):                           # 4. the history only grows, so Cale reuses the reading
+def ask(key, history):                           # 5. the history only grows, so Cale reuses the reading
     return chat(key, history, max_tokens=ANSWER_TOKENS, stream=True)   # model = gemma-3n:smart, never smaller
 # CALE-CODE-END
 
@@ -533,7 +545,8 @@ def main():
     print("Private Doc Reader is running at " + url)
     print("Cale address: " + CALE_URL)
     try:
-        threading.Timer(0.6, lambda: webbrowser.open(url)).start()
+        if not os.environ.get("CALE_NO_BROWSER"):
+            threading.Timer(0.6, lambda: webbrowser.open(url)).start()
         srv.serve_forever()
     except KeyboardInterrupt:
         print("Stopped.")

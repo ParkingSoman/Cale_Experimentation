@@ -225,7 +225,7 @@ server.on("error", (e) => {
 server.listen(PORT, "127.0.0.1", () => {
   const addr = `http://127.0.0.1:${PORT}`;
   console.log(`Meeting Recap is running at ${addr}  (Cale: ${CALE_URL})`);
-  if (process.env.NO_OPEN !== "1") {
+  if (process.env.NO_OPEN !== "1" && !process.env.CALE_NO_BROWSER) {
     const [cmd, args] = process.platform === "darwin" ? ["open", [addr]] : process.platform === "win32" ? ["cmd", ["/c", "start", "", addr]] : ["xdg-open", [addr]];
     try { const c = spawn(cmd, args, { stdio: "ignore", detached: true }); c.on("error", () => {}); c.unref(); } catch { /* fail quietly */ }
   }

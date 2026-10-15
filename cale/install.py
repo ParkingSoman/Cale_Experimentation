@@ -436,7 +436,25 @@ def install_launch_agent(home, port):
     return plist
 
 
+def update():
+    """Bring an installed Cale up to this download's code: runtime, demo apps, tools. No model, no tuning, a few seconds.
+    The running Cale keeps its old code until it restarts (cale restart)."""
+    home = oslayer.home_dir()
+    if not (home / "installed.ok").exists():
+        return 1
+    os.environ["CALE_HOME"] = str(home)
+    copy_runtime(home)
+    try:
+        if choose_backend() == "llama":
+            install_library(home)
+    except (OSError, SystemExit):                            # a library that a running Cale holds open cannot be replaced: keep the old one
+        pass
+    return 0
+
+
 def main():
+    if "--update" in sys.argv:
+        sys.exit(update())
     backend = choose_backend()
     home = oslayer.home_dir()
     port = int(os.environ.get("CALE_PORT", "47821"))

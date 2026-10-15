@@ -125,6 +125,7 @@ port="${CALE_HUB_PORT:-47800}"
 if curl -s -o /dev/null "http://127.0.0.1:$port/api/state"; then open "http://127.0.0.1:$port/"; exit 0; fi   # the Hub already runs
 export PATH="$home/bin:$PATH"
 if [ -x "$home/venv/bin/python" ] && [ -f "$home/runtime/cale/hub/server.py" ]; then
+  CALE_HOME="$home" "$home/venv/bin/python" "$here/cale/install.py" --update >/dev/null 2>&1    # this download's code replaces the installed code
   CALE_HOME="$home" PYTHONPATH="$home/runtime" exec "$home/venv/bin/python" -m cale.hub
 fi
 cd "$here" && exec "$here/bin/uv" run --python 3.12 --no-project python -m cale.hub --setup
@@ -134,6 +135,7 @@ LINUX_LAUNCHER = r'''#!/bin/sh
 here="$(cd "$(dirname "$0")" && pwd)"
 home="${XDG_DATA_HOME:-$HOME/.local/share}/cale"
 if [ -x "$home/venv/bin/python" ] && [ -f "$home/runtime/cale/hub/server.py" ]; then
+  CALE_HOME="$home" "$home/venv/bin/python" "$here/cale/install.py" --update >/dev/null 2>&1
   PATH="$home/bin:$PATH" CALE_HOME="$home" PYTHONPATH="$home/runtime" exec "$home/venv/bin/python" -m cale.hub
 fi
 cd "$here" && PATH="$home/bin:$PATH" exec "$here/bin/uv" run --python 3.12 --no-project python -m cale.hub --setup
@@ -148,6 +150,7 @@ curl.exe -s -o nul http://127.0.0.1:47800/api/state && ( start "" http://127.0.0
 if exist "%HOMEDIR%\venv\Scripts\python.exe" if exist "%HOMEDIR%\runtime\cale\hub\server.py" (
   set "PATH=%HOMEDIR%\bin;%PATH%"
   set "CALE_HOME=%HOMEDIR%"
+  "%HOMEDIR%\venv\Scripts\python.exe" "%HERE%cale\install.py" --update >nul 2>&1
   set "PYTHONPATH=%HOMEDIR%\runtime"
   "%HOMEDIR%\venv\Scripts\python.exe" -m cale.hub
   exit /b

@@ -30,3 +30,5 @@ and calls Cale from Node, then streams the answer to the page (server-sent event
 
 Footer: size Cale chose, seconds to first word, whole time, and whether the goals were met (from `cale.goals_actual`).
 `cale-client.mjs` is Cale's public Node client, unchanged.
+
+Set `CALE_NO_BROWSER=1` to start the app without opening a browser tab (the Cale Hub does this).

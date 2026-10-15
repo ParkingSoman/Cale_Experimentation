@@ -44,6 +44,7 @@ struct cale_slot {
     bool                     guided = false;       // the caller chooses the tokens (see cale_slot_topk)
     int32_t                  last_idx = -1;        // where this slot's logits are in the last batch
     int32_t                  reused = 0;
+    bool                     paused = false;       // cale_slot_pause: the slot keeps its place but takes no part in steps (a lower-priority answer waits)
 };
 
 struct cale_ctx {
@@ -701,8 +702,16 @@ CALE_API int32_t cale_slot_common(cale_ctx * h, int32_t slot, const int32_t * to
 CALE_API void cale_slot_close(cale_ctx * h, int32_t slot) {
     if (slot < 0 || slot >= (int32_t) h->slots.size()) return;
     h->slots[slot].state = 0;
+    h->slots[slot].paused = false;
     h->slots[slot].pending = -1;
     h->slots[slot].last_idx = -1;
+}
+
+// Hold a running answer back (paused 1) or let it go on (paused 0). A paused slot is skipped by cale_batch_step: no token, no prompt piece.
+// Cale uses this so an app with a speed goal is not slowed by a background app. The caller must keep at least one slot unpaused.
+CALE_API void cale_slot_pause(cale_ctx * h, int32_t slot, int32_t paused) {
+    if (slot < 0 || slot >= (int32_t) h->slots.size()) return;
+    h->slots[slot].paused = paused != 0;
 }
 
 // Forget the memory of a slot (the next prompt in it is read from the start).
@@ -731,6 +740,7 @@ CALE_API int32_t cale_batch_step(cale_ctx * h, int32_t prefill_budget, int32_t *
     std::vector<char> took_last(n_slots, 0);                       // slots whose single remaining prompt token rides with the answer tokens
     for (int32_t s = 0; s < n_slots && b.n_tokens < max_tokens; ++s) {
         cale_slot & sl = h->slots[s];
+        if (sl.paused) continue;
         if (sl.state == 2) {
             batch_idx[s] = add(sl.pending, (llama_pos) sl.kv.size(), s, true);
             deciding.push_back(s);
@@ -745,7 +755,7 @@ CALE_API int32_t cale_batch_step(cale_ctx * h, int32_t prefill_budget, int32_t *
     int32_t pf_slot = -1, pf_n = 0;
     for (int32_t s = 0; s < n_slots; ++s) {
         cale_slot & sl = h->slots[s];
-        if (sl.state != 1 || took_last[s]) continue;
+        if (sl.state != 1 || took_last[s] || sl.paused) continue;
         pf_slot = s;
         const int32_t room = max_tokens - b.n_tokens;
         pf_n = (int32_t) std::min<size_t>({sl.prompt.size() - sl.read, (size_t) std::max(prefill_budget, 1), (size_t) std::max(room, 0)});
@@ -769,6 +779,7 @@ CALE_API int32_t cale_batch_step(cale_ctx * h, int32_t prefill_budget, int32_t *
     }
     for (int32_t s = 0; s < n_slots; ++s) {                        // the tokens that were read are in the memory now
         cale_slot & sl = h->slots[s];
+        if (sl.paused) continue;
         if (sl.state == 2) sl.kv.push_back(sl.pending);
         if (took_last[s]) { sl.kv.push_back(sl.prompt[sl.read]); sl.read += 1; }
     }

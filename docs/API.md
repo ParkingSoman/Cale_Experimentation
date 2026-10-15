@@ -269,6 +269,23 @@ has an empty `delta`, the `finish_reason`, `usage` and a `cale` block. All the f
 
 A reply that is not streamed has the same `cale` fields, and also `first_token_s`, `switch_ms` and `answers_sharing_the_step`. A stream has no `first_token_s`.
 
+### Who goes first when several apps ask at once
+
+Cale decides this itself, with one rule that is the same on every computer. A developer does not manage it.
+
+| Tier | Which calls | What happens |
+|---|---|---|
+| 1 (first) | The app asked for speed: `min_tokens_per_s` or `max_first_token_s` | Starts before waiting calls of the lower tiers. Is not held back. |
+| 2 | No speed goal | Waits while a tier 1 answer runs. |
+| 3 (last) | `power: "light"` and no speed goal (a background job) | Runs when no one in a higher tier needs the engine. |
+
+Inside a tier the order of arrival counts. Time spent waiting shows in `waited_s` and `total_s` of the reply, so the app can see it.
+
+| Engine | What a higher tier call gets |
+|---|---|
+| Windows and Linux (answers run together) | Lower tier answers that are running are paused at once and go on afterwards. The first word is not delayed by a background job. A library built before this rule cannot pause: it still orders the calls that wait. |
+| Mac (one answer at a time) | A running answer is never stopped. The higher tier call starts next, ahead of every waiting call of a lower tier. It waits at most for the answer that is running now. |
+
 ### A client that leaves
 
 If your app closes the connection while Cale is working (reading a long prompt, or writing the answer), Cale stops that work

@@ -12,6 +12,7 @@ Exit code is 0 unless this script itself crashes: it reports verdicts, it does n
 """
 import argparse
 import json
+import os
 import re
 import shutil
 import statistics
@@ -26,7 +27,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-APPS = HERE / "apps"
+APPS = Path(os.environ["CALE_DEMO_APPS"]) if os.environ.get("CALE_DEMO_APPS") else HERE / "apps"      # where the apps' sample files are
 
 QN_STARTS = [
     "Dear Maria, I wanted to follow up on",
@@ -37,9 +38,9 @@ QN_SLOW_S = 3.0
 DOC_FACTS = [  # (any-of groups: every group needs one hit)
     [["5%", "five percent"], ["5 days", "five days", "5th day", "fifth day", "5 calendar", "five (5)", "5-day"]],
     [["60", "sixty"]],
-    [["750"], ["30 days", "thirty days", "30th", "30 calendar"]],
+    [["750"], ["30 days", "thirty days", "thirty (30)", "30) days", "30th", "30 calendar"]],
 ]
-SORTER_TIMEOUT_S = 15 * 60
+SORTER_TIMEOUT_S = int(os.environ.get("CALE_CHECK_SORTER_TIMEOUT_S", "900"))      # a slow computer may need longer: set the variable
 
 
 def log(*a):
@@ -215,6 +216,9 @@ def check_quick_notes(hub, url):
     t_begin = time.time()
     mark = hub.mark()
     notes, fails, ms_list = [], [], []
+    st0, b0, secs0 = qn_ghost(url, QN_STARTS[0])             # the first call may have to load the model: it is reported apart, as the cold start
+    cold_ms = round((b0.get("ms") if isinstance(b0, dict) and isinstance(b0.get("ms"), (int, float)) else secs0 * 1000))
+    mark = hub.mark()
     for s in QN_STARTS:
         st, body, secs = qn_ghost(url, s)
         if st != 200 or not isinstance(body, dict):
@@ -249,7 +253,7 @@ def check_quick_notes(hub, url):
     if not why:
         why = ["3 of 3 suggestions non-empty"]
     return result(verdict, "; ".join(why) + " | " + " | ".join(notes), time.time() - t_begin,
-                  first_word_s=[round(v, 3) for v in first_vals], whole_call_ms=[round(m) for m in ms_list],
+                  first_word_s=[round(v, 3) for v in first_vals], whole_call_ms=[round(m) for m in ms_list], cold_start_ms=cold_ms,
                   first_word_source="hub" if firsts else "app (whole call)", hub=num)
 
 
@@ -266,7 +270,8 @@ def check_doc_reader(hub, url):
     if st != 200 or not isinstance(samp, dict) or not samp.get("text"):
         return result("FAIL", "could not get the sample (HTTP %s)" % st, time.time() - t_begin)
     qs = samp.get("questions") or []
-    st, loaded, _ = http("POST", url + "/api/load", {"name": samp.get("name", "lease.md"), "text": samp["text"]}, timeout=120)
+    fresh = samp["text"] + "\n\n(Check run %s.)\n" % datetime.now().strftime("%Y%m%d%H%M%S")      # new text, so the reading is not reused from an earlier run
+    st, loaded, _ = http("POST", url + "/api/load", {"name": samp.get("name", "lease.md"), "text": fresh}, timeout=120)
     if st != 200 or not isinstance(loaded, dict) or not loaded.get("ok"):
         msg = loaded.get("error") if isinstance(loaded, dict) else loaded
         return result("FAIL", "load failed: %s" % str(msg)[:200], time.time() - t_begin)
@@ -331,6 +336,10 @@ def check_doc_reader(hub, url):
         if missed_goals(calls):
             verdict = "POOR"
             why.append("%d call(s) missed Cale's goal" % len(missed_goals(calls)))
+        sizes = (num.get("size_pct") or {}) if isinstance(num, dict) else {}
+        if isinstance(sizes.get("min"), (int, float)) and sizes["min"] < 100:      # this app asks for the full size, and holds it
+            verdict = "POOR"
+            why.append("asked for the full size but Cale ran %s%% for some calls" % sizes["min"])
         if isinstance(read_s, (int, float)) and isinstance(pred, (int, float)) and read_s > 2 * pred + 10:
             verdict = "POOR"
             why.append("reading took %.1f s, far above the predicted %.1f s" % (read_s, pred))
@@ -365,7 +374,7 @@ def expected_amounts(folder):
     return out
 
 
-def sorter_run(base, folder, timeout_s=SORTER_TIMEOUT_S, progress=True):
+def sorter_run(base, folder, timeout_s=SORTER_TIMEOUT_S, progress=True, hub=None):
     """Point the sorter at `folder`, wait until it is done. Returns (state or None, seconds, error)."""
     st, _, _ = http("POST", base + "/api/resume", {}, timeout=15)
     st, body, _ = http("POST", base + "/api/folder", {"path": str(folder)}, timeout=30)
@@ -376,6 +385,8 @@ def sorter_run(base, folder, timeout_s=SORTER_TIMEOUT_S, progress=True):
     n_files = len(list(Path(folder).glob("*.txt")))
     last = None
     while time.time() - t0 < timeout_s:
+        if hub is not None:
+            hub.state()                       # the Hub keeps only the last 50 calls: collect them as we go
         st, s, _ = http("GET", base + "/api/state", timeout=20)
         if st == 200 and isinstance(s, dict):
             last = s
@@ -419,6 +430,10 @@ def judge_sorter(state, folder):
     return problems, checked
 
 
+def pause_sorter(url):
+    http("POST", url + "/api/pause", {}, timeout=15)
+
+
 def check_sorter(hub, url, orig_folder_holder):
     t_begin = time.time()
     mark = hub.mark()
@@ -430,8 +445,15 @@ def check_sorter(hub, url, orig_folder_holder):
         if isinstance(s0, dict):
             orig_folder_holder["folder"] = s0.get("folder")
         log("    sorting a fresh copy of the sample folder (timeout 15 min)")
-        state, secs, err = sorter_run(url, folder)
+        state, secs, err = sorter_run(url, folder, hub=hub)
+        if err:
+            pause_sorter(url)                       # stop its work: it must not slow the next checks
         calls = hub.calls_for("Background Sorter", mark)
+        if err and state and (state.get("rows") or []):          # slow, not wrong: report the part that was done
+            n = len(state.get("rows") or [])
+            return result("POOR", "%d of 20 files in %d s: slow for a background job on this computer" % (n, secs), time.time() - t_begin,
+                          files=n, sort_seconds=round(secs, 1), files_per_min=round(n / secs * 60, 2), size=state.get("size"),
+                          hub=summarize_calls(calls))
         if err or not state:
             return result("FAIL", err or "no state", time.time() - t_begin, hub=summarize_calls(calls))
         problems, checked = judge_sorter(state, folder)
@@ -554,7 +576,9 @@ def together(hub, sorter_url, qn_url, orig_folder_holder):
                "host_cpu_busy": {"samples": [round(c, 3) for c in cpu], "max": round(max(cpu), 3) if cpu else None}}
         # wait for the sorter to finish so the next run starts quiet (but do not wait forever)
         log("    waiting for the sorter to finish the copy")
-        sorter_run(sorter_url, folder, timeout_s=SORTER_TIMEOUT_S, progress=False)
+        _, _, err2 = sorter_run(sorter_url, folder, timeout_s=SORTER_TIMEOUT_S, progress=False, hub=hub)
+        if err2:
+            pause_sorter(sorter_url)
         out["seconds"] = round(time.time() - t_begin, 1)
         return out
     finally:
@@ -569,7 +593,11 @@ def main(argv=None):
     ap.add_argument("--out", default=None, help="JSON file to write (default results/demo/<label>.json)")
     ap.add_argument("--skip", action="append", default=[], help="app id to skip (repeat or use commas)")
     ap.add_argument("--no-together", action="store_true")
+    ap.add_argument("--apps", default=None, help="folder that holds the demo apps (default: apps next to this script, or CALE_DEMO_APPS)")
     args = ap.parse_args(argv)
+    if args.apps:
+        global APPS
+        APPS = Path(args.apps)
     skip = {x.strip() for s in args.skip for x in s.split(",") if x.strip()}
 
     hub = Hub(args.hub)
@@ -580,9 +608,12 @@ def main(argv=None):
     report = {"label": args.label, "when": datetime.now().astimezone().isoformat(timespec="seconds"),
               "hub": args.hub, "host": st0.get("host"), "apps": {}}
     checks = [("chat", None), ("quick-notes", check_quick_notes), ("doc-reader", check_doc_reader),
-              ("background-sorter", None), ("meeting-recap", check_meeting_recap)]
+              ("meeting-recap", check_meeting_recap), ("background-sorter", None)]      # the sorter runs last: a slow one must not disturb the others
     urls = {}
     orig_folder = {}
+    sorter_info = apps.get("background-sorter")
+    if sorter_info and sorter_info.get("up"):       # it sorts by itself whenever it runs: stop it, or it slows every other check
+        pause_sorter("http://127.0.0.1:%s" % sorter_info["port"])
     for app_id, fn in checks:
         t0 = time.time()
         log("== %s" % app_id)

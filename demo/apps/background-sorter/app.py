@@ -496,7 +496,7 @@ def main():
     threading.Thread(target=SORTER.run, daemon=True).start()
     url = f"http://127.0.0.1:{PORT}"
     print(f"Background Sorter is at {url}  (Cale: {CALE_URL})  Press Ctrl+C to stop.")
-    if not os.environ.get("NO_BROWSER"):
+    if not (os.environ.get("NO_BROWSER") or os.environ.get("CALE_NO_BROWSER")):
         threading.Timer(0.5, lambda: webbrowser.open(url)).start()
     try:
         httpd.serve_forever()

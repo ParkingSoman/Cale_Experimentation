@@ -37,7 +37,8 @@ from nest.levels3n import MAX_CONTEXT, load_levels, pick
 from . import backends, choose, constrain, oslayer, paths, pressure
 from . import gemma3n_facts as facts
 from . import goals as goals_mod
-from .batching import BatchMixin, BatchPred, Request
+from .batching import BatchMixin, BatchPred, Request, tier_of
+from .turns import TurnQueue
 from .predict import Predictor
 
 IDLE_S = 600
@@ -89,6 +90,7 @@ class Engine(BatchMixin):
         self.path = str(model_path)
         self.idle_s = idle_s
         self.lock = threading.RLock()          # one generation at a time
+        self.turns = TurnQueue()               # who is next for that lock (see turns.py)
         self.mu = threading.Lock()             # guards the hold table
         self.m = None
         self.cap = 1.0
@@ -531,7 +533,7 @@ class Engine(BatchMixin):
             return
         if logprobs is not None and not getattr(self.m, "supports_logprobs", False):
             raise Unsupported("This engine setting runs one answer at a time and cannot report log-probabilities. Start Cale with CALE_SLOTS above 1.")
-        with self.lock:
+        with self.turns.take(tier_of(goal), cancel), self.lock:
             if cancel:
                 cancel.check()                                      # the client gave up while waiting in line: do not start
             waited = max(0.0, time.time() - arrived) if arrived else 0.0

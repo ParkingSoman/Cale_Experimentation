@@ -1,0 +1,328 @@
+{
+ "label": "mac",
+ "when": "2026-10-15T01:49:40-04:00",
+ "hub": "http://127.0.0.1:47801",
+ "host": {
+  "os": "Mac",
+  "cpus": 10,
+  "ram_total_gb": 25.8,
+  "ram_free_gb": 8.7,
+  "cpu_busy": 0.0,
+  "power": {
+   "on_battery": false,
+   "hot": false
+  }
+ },
+ "apps": {
+  "chat": {
+   "verdict": "SKIPPED",
+   "notes": "skipped by --skip",
+   "seconds": 0.0
+  },
+  "quick-notes": {
+   "verdict": "WELL",
+   "notes": "3 of 3 suggestions non-empty | 'Dear Maria, I wanted to follow up on' -> 'our conversation from last week.' | 'The quarterly numbers look good, but we should' -> 'focus on long-term growth.' | 'Ingredients for the cake: two cups of' -> 'flour, one cup of sugar...'",
+   "seconds": 4.7,
+   "first_word_s": [
+    0.13,
+    0.126,
+    0.128
+   ],
+   "whole_call_ms": [
+    273,
+    326,
+    325
+   ],
+   "cold_start_ms": 342,
+   "first_word_source": "hub",
+   "hub": {
+    "calls": 3,
+    "size_pct": {
+     "min": 100,
+     "median": 100,
+     "max": 100
+    },
+    "tokens_per_s": {
+     "min": 23.08,
+     "median": 25.4,
+     "max": 25.4
+    },
+    "first_token_s": {
+     "min": 0.13,
+     "median": 0.13,
+     "max": 0.13
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 6,
+     "median": 8,
+     "max": 8,
+     "total": 22
+    },
+    "goal_met": {
+     "true": 3,
+     "false": 0,
+     "null": 0
+    },
+    "outcomes": [
+     "ok"
+    ]
+   }
+  },
+  "doc-reader": {
+   "verdict": "WELL",
+   "notes": "3 of 3 answers correct",
+   "seconds": 9.8,
+   "read_s": 5.3,
+   "predicted_s": 9.3,
+   "prompt_tokens": 7824,
+   "first_word_s": [
+    0.13,
+    0.18,
+    0.15
+   ],
+   "reused_tokens": [
+    7824,
+    7849,
+    7933
+   ],
+   "answers": [
+    {
+     "q": "How much is the late fee, and when does it apply?",
+     "ok": true,
+     "first_s": 0.13,
+     "reused_tokens": 7824,
+     "tps": 34.8,
+     "answer": "The late fee is five percent (5%) of the overdue amount, and it applies if payment is not received within five (5) days after it is due. If the payment is more than fifteen (15) days late, interest is charged at one percent (1%) per month on the overdue amount."
+    },
+    {
+     "q": "How much notice must the tenant give before moving out?",
+     "ok": true,
+     "first_s": 0.18,
+     "reused_tokens": 7849,
+     "tps": 33.5,
+     "answer": "If the tenant does not renew, the notice period is at least sixty (60) days before the term ends."
+    },
+    {
+     "q": "What is the pet deposit, and when is it refunded?",
+     "ok": true,
+     "first_s": 0.15,
+     "reused_tokens": 7933,
+     "tps": 34.6,
+     "answer": "The pet deposit is $750.00 per animal. It is refunded within thirty (30) days after the animal leaves, or when the lease ends, whichever is first, provided the tenant has met all obligations and there is no damage."
+    }
+   ],
+   "hub": {
+    "calls": 4,
+    "size_pct": {
+     "min": 100,
+     "median": 100.0,
+     "max": 100
+    },
+    "tokens_per_s": {
+     "min": 0.57,
+     "median": 34.34,
+     "max": 34.92
+    },
+    "first_token_s": {
+     "min": 0.13,
+     "median": 0.17,
+     "max": 5.2
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 3,
+     "median": 38.0,
+     "max": 63,
+     "total": 142
+    },
+    "goal_met": {
+     "true": 0,
+     "false": 0,
+     "null": 4
+    },
+    "outcomes": [
+     "ok"
+    ]
+   }
+  },
+  "meeting-recap": {
+   "verdict": "WELL",
+   "notes": "recap written, 6 action items",
+   "seconds": 9.7,
+   "first_word_s": 0.72,
+   "whole_s": 9.7,
+   "action_items": 6,
+   "recap_chars": 457,
+   "size": 100,
+   "hub": {
+    "calls": 2,
+    "size_pct": {
+     "min": 100,
+     "median": 100.0,
+     "max": 100
+    },
+    "tokens_per_s": {
+     "min": 34.22,
+     "median": 34.59,
+     "max": 34.95
+    },
+    "first_token_s": {
+     "min": 0.69,
+     "median": 0.72,
+     "max": 0.74
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 101,
+     "median": 142.5,
+     "max": 184,
+     "total": 285
+    },
+    "goal_met": {
+     "true": 2,
+     "false": 0,
+     "null": 0
+    },
+    "outcomes": [
+     "ok"
+    ]
+   }
+  },
+  "background-sorter": {
+   "verdict": "WELL",
+   "notes": "20 of 20 files sorted, 6 receipt amounts match",
+   "seconds": 50.6,
+   "files": 20,
+   "sort_seconds": 50.5,
+   "files_per_min": 23.8,
+   "app_files_per_min": 24.1,
+   "size": "100",
+   "memory_pct_actual": 11.3,
+   "receipts_checked": 6,
+   "hub": {
+    "calls": 20,
+    "size_pct": {
+     "min": 100,
+     "median": 100.0,
+     "max": 100
+    },
+    "tokens_per_s": {
+     "min": 34.22,
+     "median": 35.1,
+     "max": 35.66
+    },
+    "first_token_s": {
+     "min": 0.25,
+     "median": 0.28,
+     "max": 0.33
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 38,
+     "median": 61.0,
+     "max": 88,
+     "total": 1203
+    },
+    "goal_met": {
+     "true": 20,
+     "false": 0,
+     "null": 0
+    },
+    "outcomes": [
+     "ok"
+    ]
+   }
+  }
+ },
+ "together": {
+  "quick_notes_first_word_s": [
+   0.263,
+   0.774,
+   0.454,
+   1.03,
+   0.841
+  ],
+  "quick_notes_whole_call_ms": [
+   405,
+   975,
+   652,
+   1173,
+   1040
+  ],
+  "quick_notes_hub": {
+   "calls": 5,
+   "size_pct": {
+    "min": 100,
+    "median": 100,
+    "max": 100
+   },
+   "tokens_per_s": {
+    "min": 23.26,
+    "median": 25.4,
+    "max": 25.56
+   },
+   "first_token_s": {
+    "min": 0.26,
+    "median": 0.77,
+    "max": 1.03
+   },
+   "waited_s": {
+    "min": 0.13,
+    "median": 0.64,
+    "max": 0.9
+   },
+   "tokens": {
+    "min": 6,
+    "median": 8,
+    "max": 8,
+    "total": 36
+   },
+   "goal_met": {
+    "true": 5,
+    "false": 0,
+    "null": 0
+   },
+   "outcomes": [
+    "ok"
+   ]
+  },
+  "sorter_calls_during": 5,
+  "sorter_still_running_after_5": true,
+  "host_cpu_busy": {
+   "samples": [
+    0.074,
+    0.082,
+    0.081,
+    0.07,
+    0.09
+   ],
+   "max": 0.09
+  },
+  "seconds": 51.8,
+  "quiet_first_word_s": [
+   0.13,
+   0.126,
+   0.128
+  ],
+  "median_quiet_s": 0.128,
+  "median_together_s": 0.774,
+  "slowdown_x": 6.05
+ }
+}
