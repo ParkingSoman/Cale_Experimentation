@@ -88,3 +88,6 @@ Also a model fact, and an estimate: `gemma3n_facts.ATTENTION_SHARE` (0.25), the 
 | Speed-goal adjuster: `STALL_S` 3 s, `STALL_RATIO` 0.92, up needs 3x the time (`CALE_ADJUST_MODE`, `CALE_STALL_S`, `CALE_STALL_RATIO`) | `cale/batching.py` | Policy | 0.92 is the old rule's own number. The new rule only changes what is measured: steps in which nobody read a prompt. Compare old and new on a machine before keeping. |
 | Passive samples: `KEEP` 4000 lines, `HOST_SAMPLE_S` 600 | `cale/samples.py`, `cale/engine.py` | Policy | About 1 MB per computer. Numbers only. |
 | Model objects survive a restart: `MAX_AGE_S` 24 h, `REVIVE_LEASE_S` 600 | `cale/objstore.py` | Policy | Documented in `docs/API.md`. |
+| Re-measure when the placement is stale: `REPLACE_IDLE_S` 180 (`CALE_REPLACE_IDLE_S`), `REPLACE_EVERY_S` 1 day | `cale/engine.py` | Policy | Only while nobody uses Cale. An arriving app stops it at once. |
+| Smoothing of other programs' CPU use: `BUSY_TAU_S` 6 s | `cale/engine.py` | Policy | A 2 s reading swung predictions by 25%. |
+| Overshoot: `OVERSHOOT` 1.3 | `cale/engine.py` | Policy | Beating every goal by more than this with a larger size allowed is a calibration error. |

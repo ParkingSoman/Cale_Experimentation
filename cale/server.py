@@ -561,6 +561,7 @@ class Handler(BaseHTTPRequestHandler):
     def _hold(self, app, req):
         """Keep a size in RAM. The reply stays open: one JSON line now, then a blank line every second.
         The hold ends when the app closes the connection, quits, or calls /cale/unload."""
+        ENGINE.replace_stop.set()                      # an app arrived: a measurement in the background must stop at once
         has_size, has_mem = "size" in req, "memory_pct" in req
         if has_size == has_mem:
             raise ApiError(400, "invalid_hold", "Send either {\"size\": \"smart\"|\"fast\"|<percent>} or {\"memory_pct\": <1-100>}.")
@@ -620,6 +621,7 @@ class Handler(BaseHTTPRequestHandler):
         """Make a model object: a named set of parameters (a size, or goals) that the app then uses as a model name.
         The reply stays open like a hold. The object ends when the app closes the connection or quits.
         A size or a memory goal also keeps that size in RAM for as long as the object lives."""
+        ENGINE.replace_stop.set()                      # an app arrived: a measurement in the background must stop at once
         lease = number(req, "lease_s", 5, MAX_LEASE_S, None)
         spec = object_spec({k: v for k, v in req.items() if k != "lease_s"})
         hold_spec, hid, event, info = None, None, threading.Event(), {}
@@ -757,6 +759,7 @@ class Handler(BaseHTTPRequestHandler):
                 return
 
     def _chat(self, req, app="?"):
+        ENGINE.replace_stop.set()                      # an app arrived: a measurement in the background must stop at once
         cancel, done = Cancel(), threading.Event()
         threading.Thread(target=self._watch_client, args=(cancel, done), daemon=True).start()
         activity.begin(app, req.get("model", BASE))

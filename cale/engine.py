@@ -42,6 +42,8 @@ from .turns import TurnQueue
 from .predict import Predictor, Smooth
 
 OVERSHOOT = 1.3             # POLICY: an answer that beats every speed, first-word and memory goal by more than this share, with a larger size allowed, wasted intelligence
+REPLACE_IDLE_S = float(os.environ.get("CALE_REPLACE_IDLE_S", "180"))      # POLICY: an out-of-date way of running is measured again only after nobody used Cale for this long
+REPLACE_EVERY_S = 24 * 3600  # POLICY: and at most once a day (a measurement that cannot finish must not run in a loop)
 BUSY_TAU_S = 6.0            # POLICY: seconds over which other programs' CPU use is smoothed before it enters a prediction
 HOST_SAMPLE_S = 600.0        # POLICY: seconds between passive looks at the computer (cale/samples.py)
 IDLE_S = 600
@@ -84,6 +86,13 @@ class ContextTooLong(Exception):
         self.info = info
 
 
+def replace_due(stale, replacing, idle_s, queued, on_battery, pressure_level, last_attempt, now, tuning=False):
+    """Should Cale measure the ways of running again now? Only when the saved choice does not fit this computer any more (a new card or driver),
+    nobody has used Cale for a while, nothing waits, the computer is plugged in and not short of memory, and not already tried today."""
+    return bool(stale and not replacing and not tuning and not queued and idle_s >= REPLACE_IDLE_S and not on_battery
+                and pressure_level <= 1 and now - last_attempt >= REPLACE_EVERY_S)
+
+
 class EngineError(Exception):
     """The engine failed during a call. Cale has unloaded the model and reloads it on the next call."""
 
@@ -118,6 +127,9 @@ class Engine(BatchMixin):
         from .samples import Samples
         self.samples = Samples(paths.HOME / "samples.jsonl")     # passive numbers about finished calls and the host: see cale/samples.py
         self._host_sampled = 0.0
+        self.replace_stop = threading.Event()        # set when an app arrives: a measurement in progress must stop at once
+        self.replacing = False
+        self.placement_stale_seen = False
         self.busy_smooth = Smooth(BUSY_TAU_S)       # other programs' CPU use, read every POLL_S by the monitor and smoothed (a prediction uses this)
         self.gpu_off_until = 0.0               # after a GPU failure: the CPU runs until this time (batching.GPU_COOLDOWN_S)
         self._gpu_env_was = None               # CALE_GPU as it was before the failure
@@ -197,6 +209,7 @@ class Engine(BatchMixin):
         self.load_s = round(time.perf_counter() - t, 1)
         self._learn_machine()
         self.log(f"loaded model in {self.load_s}s")
+        self.placement_stale_seen = bool(getattr(self.m, "placement_stale", False))
         if getattr(self.m, "placement_stale", False):
             self.log("the graphics card or its driver changed since this computer was measured: the saved way of running is not used. Run `cale tune` to measure again.")
 
@@ -423,6 +436,7 @@ class Engine(BatchMixin):
             self.busy_smooth.update(oslayer.cpu_busy_other(), POLL_S)
         except Exception:
             pass
+        self._maybe_replace(time.time())
         lvl, now = pressure.level(), time.time()
         if now - self._host_sampled >= HOST_SAMPLE_S:                 # a passive look at the computer between answers (monitor thread, not the scheduler)
             self._host_sampled = now
@@ -772,6 +786,45 @@ class Engine(BatchMixin):
                     return up
             return None
         return control
+
+    def _maybe_replace(self, now):
+        """While nobody uses Cale: if the saved way of running no longer fits this computer, measure again in the background (cale/tuning.py
+        choose_placement). It gives way at once when an app arrives (`replace_stop`)."""
+        try:
+            attempt = paths.HOME / "replace-attempt.json"
+            try:
+                last = float(json.loads(attempt.read_text()).get("at", 0))
+            except (OSError, ValueError):
+                last = 0.0
+            power = oslayer.power_state()
+            if not replace_due(self.placement_stale_seen, self.replacing, now - self.last_used, bool(self.inbox or self.active),
+                               bool(power.get("on_battery")), pressure.level(), last, now, getattr(self, "_tuning", False)):
+                return
+            self.replacing = True
+            self.replace_stop.clear()
+            attempt.write_text(json.dumps({"at": now}))
+            threading.Thread(target=self._replace_placement, daemon=True, name="cale-replace").start()
+        except Exception as e:
+            self.log(f"re-measure check failed ({type(e).__name__})")
+
+    def _replace_placement(self):
+        from .tuning import choose_placement
+        try:
+            with self.lock:
+                self._apply_pending()
+                if self.m is not None:
+                    self._unload("measuring the ways of running again")     # the probes load the model themselves: two copies must not sit in memory
+            self.log("the saved way of running does not fit this computer any more: measuring again while nobody uses Cale")
+            decision = choose_placement(self.path, os.environ.get("CALE_LLAMA_LIB"), paths.HOME, lambda t: None, self.log, stop=self.replace_stop.is_set)
+            if decision is not None:
+                self.placement_stale_seen = False
+                self.log(f"measured again: {decision.get('use')} {decision.get('mode') or ''}")
+            elif self.replace_stop.is_set():
+                self.log("measuring again stopped: an app arrived. The old choice stays; it is tried again tomorrow")
+        except Exception as e:
+            self.log(f"measuring again failed ({type(e).__name__}: {str(e)[:100]})")
+        finally:
+            self.replacing = False
 
     def _sample_call(self, d):
         """One passive sample per finished call: what it took and what else was going on. Numbers only (cale/samples.py). Reads cached values only."""

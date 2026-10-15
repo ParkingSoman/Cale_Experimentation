@@ -268,11 +268,11 @@ from cale import tuning
 seen = {}
 class _R:
     stdout = 'PLACEMENT_PROBE {"pre": 1.0, "dec": 1.0}'; stderr = ""; returncode = 0
-_real = subprocess.run
-subprocess.run = lambda cmd, **kw: (seen.update(kw["env"]), _R())[1]
+_real = tuning.run_child
+tuning.run_child = lambda cmd, env, timeout=900, stop=None, poll_s=0.5: (seen.update(env), (0, _R.stdout, ""))[1]
 tuning.PROBE_ENV.update({"CALE_MODEL": "/m/model.gguf", "CALE_LLAMA_LIB": "/l/lib.so"})
 tuning.probe_one("off", lambda *a: None)
-subprocess.run = _real
+tuning.run_child = _real
 check("tune: a probe process is told the model and the library", seen.get("CALE_MODEL") == "/m/model.gguf" and seen.get("CALE_LLAMA_LIB") == "/l/lib.so" and seen.get("CALE_GPU") == "off")
 
 print("\nFAILED: " + ", ".join(FAIL) if FAIL else "\nall passed")

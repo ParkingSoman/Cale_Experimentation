@@ -456,7 +456,28 @@ def canary(env_gpu, model_path, lib_path, log=print, timeout=300):
     return False
 
 
-def probe_one(env_gpu, log=print, extra_env=None):
+def run_child(cmd, env, timeout=900, stop=None, poll_s=0.5):
+    """Run a child process and return (returncode, stdout, stderr), or None if `stop()` turned true (the child is killed at once) or the time ran out.
+    `stop` is how a measurement made while nobody needs the computer gives way to an app that arrives."""
+    import subprocess
+    import time
+    p = subprocess.Popen(cmd, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    t0 = time.time()
+    while True:
+        try:
+            out, err = p.communicate(timeout=poll_s)
+            return p.returncode, out, err
+        except subprocess.TimeoutExpired:
+            if (stop is not None and stop()) or time.time() - t0 > timeout:
+                p.kill()
+                try:
+                    p.communicate(timeout=10)
+                except Exception:
+                    pass
+                return None
+
+
+def probe_one(env_gpu, log=print, extra_env=None, stop=None):
     """Run one way of running (CALE_GPU=env_gpu) in its own process, and return {"pre", "dec", "placement"} or None.
     A separate process: a graphics driver that fails or hangs must not take the installer with it."""
     import os
@@ -465,12 +486,16 @@ def probe_one(env_gpu, log=print, extra_env=None):
     import tempfile
     home = tempfile.mkdtemp(prefix="cale-probe-")
     try:
-        r = subprocess.run([sys.executable, "-m", "cale.tune", "--probe"], capture_output=True, text=True, timeout=900,
-                           env=dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", **PROBE_ENV, **(extra_env or {})))
-        for line in r.stdout.splitlines():
+        r = run_child([sys.executable, "-m", "cale.tune", "--probe"], dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", **PROBE_ENV, **(extra_env or {})),
+                      timeout=900, stop=stop)
+        if r is None:
+            log(f"tune: way of running {env_gpu} stopped")
+            return None
+        rc, out, err = r
+        for line in out.splitlines():
             if line.startswith("PLACEMENT_PROBE "):
                 return json.loads(line[len("PLACEMENT_PROBE "):])
-        log(f"tune: way of running {env_gpu} gave no result ({r.returncode}) {r.stderr[-200:]}")
+        log(f"tune: way of running {env_gpu} gave no result ({rc}) {err[-200:]}")
     except Exception as e:
         log(f"tune: way of running {env_gpu} failed ({type(e).__name__})")
     finally:
@@ -479,7 +504,7 @@ def probe_one(env_gpu, log=print, extra_env=None):
     return None
 
 
-def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
+def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print, stop=None):
     """Time the CPU and every graphics card on a real prompt and a few answer tokens, each in its own process, and keep the fastest way in
     placement.json. A card is chosen only if a reference call (REFERENCE tokens) finishes clearly sooner (more than the noise) and its answers are not much slower.
     So a card can never make things slower, whatever it is. Returns the decision, or None if there is no card."""
@@ -496,7 +521,9 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
     if not cards:
         return None
     say("pieces")
-    results = {"cpu": probe_one("off", log)}
+    results = {"cpu": probe_one("off", log, stop=stop)}
+    if stop is not None and stop():
+        return None                                               # an app arrived: nothing is decided, the old choice stays
     if not results["cpu"]:
         log("tune: the CPU could not be measured, so no way of running is chosen now")
         return None
@@ -506,7 +533,9 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
         fits = llamalib.fit_all_safe(model_path, d["name"], N_CTX, default_threads(), lib_path)       # in a child: a driver that throws must not poison this process
         hows = ["full", "prompts"] if fits is not False else ["prompts"]   # "full" first when it may fit. If it is not clearly better, the readback way is tried too: it won on the card the design came from
         for how in hows:
-            r = probe_one(f"force:{how}:{d['name']}", log, {"CALE_PROBE_SKIP_BELOW": str(SKIP_BELOW * cpu_first)} if cpu_first else None)
+            if stop is not None and stop():
+                return None
+            r = probe_one(f"force:{how}:{d['name']}", log, {"CALE_PROBE_SKIP_BELOW": str(SKIP_BELOW * cpu_first)} if cpu_first else None, stop=stop)
             if r:
                 results[f"{d['name']}|{how}"] = r
             else:
