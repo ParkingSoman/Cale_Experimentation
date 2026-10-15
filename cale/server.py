@@ -32,7 +32,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from nest.cancel import Cancel, Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pct_range, pick
 
-from . import approval, backends, keys, oslayer, paths, pressure
+from . import activity, approval, backends, keys, oslayer, paths, pressure
 from .engine import ContextTooLong, Engine, EngineError, GoalMissed, Unsafe, Unsupported
 from . import choose, constrain, goals as goals_mod, tools as tools_mod
 
@@ -319,6 +319,11 @@ class Handler(BaseHTTPRequestHandler):
                 return self._connect_reply(ticket, "")
             if self.path == "/cale/computer":                          # like /cale/status: no key. What this computer can do.
                 return self._json(200, {"model": BASE, "max_context_tokens": ENGINE.known_context(), "this_computer": ENGINE.this_computer()})                  # no key: it never loads the model
+            if self.path.split("?")[0] == "/cale/activity":           # only the Cale Hub's own key: it shows what every app does
+                app = self._auth()
+                if keys.role(app) != "hub":
+                    raise ApiError(403, "hub_only", "Only the Cale Hub may read this.")
+                return self._json(200, {"now": int(time.time()), **activity.snapshot()})
             if self.path == "/v1/models":
                 app = self._auth()
                 curve = None
@@ -446,6 +451,8 @@ class Handler(BaseHTTPRequestHandler):
         app = "".join(ch for ch in app if ch.isprintable() and ch not in '"\\')[:40]
         if not app:
             raise ApiError(400, "invalid_app", "Send {\"app\": \"Your App Name\"}.")
+        if app.casefold() == keys.HUB_APP.casefold():
+            raise ApiError(400, "reserved_name", f"The name \"{keys.HUB_APP}\" belongs to Cale itself. Pick your own app name.")
         wait_s = number(body, "wait_s", 0, 600, 120)
         with CONNECT_LOCK_META:
             _purge_connects()
@@ -487,6 +494,7 @@ class Handler(BaseHTTPRequestHandler):
         """One line per answer: which app asked for what, and which size ran."""
         print(f"[chat] app={app!r} asked={req.get('model', BASE)} ran={model_id(ran)} "
               f"tokens={done.get('tokens')} seconds={done.get('seconds')} disk_mb={done.get('disk_mb', 0)}", flush=True)
+        activity.finish(ran, done)
 
     def _note_done(self, app, name, obj, done):
         if obj:
@@ -694,15 +702,23 @@ class Handler(BaseHTTPRequestHandler):
     def _chat(self, req, app="?"):
         cancel, done = Cancel(), threading.Event()
         threading.Thread(target=self._watch_client, args=(cancel, done), daemon=True).start()
+        activity.begin(app, req.get("model", BASE))
+        outcome = "ok"
         try:
             return self._chat_inner(req, app, cancel)
         except Cancelled:
+            outcome = "client_left"
             self.close_connection = True                 # the client is gone: there is nobody to answer
             print(f"[chat] app={app!r} client left: work stopped", flush=True)
         except constrain.DeadEnd as e:
+            outcome = "error"
             raise ApiError(422, "constraint_dead_end", f"{e}. Try a simpler schema, or relax a limit such as minLength or minItems.")
+        except BaseException:
+            outcome = "error"
+            raise
         finally:
             done.set()
+            activity.end(outcome)
 
     def _chat_inner(self, req, app, cancel):
         check_chat_fields(req)
@@ -789,6 +805,7 @@ class Handler(BaseHTTPRequestHandler):
 
         gen, plan = start(guide)
         expect = plan["size_pct"]
+        activity.size(expect)
         if obj:
             with OBJ_LOCK:                               # what this object ran at, for apps that show it
                 if (app, name) in OBJECTS:
@@ -817,6 +834,7 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 for ev in gen:
                     if "delta" in ev:
+                        activity.piece()
                         text.append(ev["delta"])
                     elif "logprobs" in ev:
                         lps.extend(ev["logprobs"])
@@ -882,6 +900,7 @@ class Handler(BaseHTTPRequestHandler):
             chunk({"role": "assistant", "content": ""})
             for ev in events():
                 if "delta" in ev:
+                    activity.piece()
                     chunk({"content": ev["delta"]})
                 elif "logprobs" in ev:
                     chunk({}, None, None, ev["logprobs"])
@@ -892,7 +911,8 @@ class Handler(BaseHTTPRequestHandler):
                     chunk({}, d["finish"], {
                         "model": label(d["size_pct"]),
                         "usage": {"prompt_tokens": d["prompt_tokens"], "completion_tokens": d["tokens"],
-                                  "total_tokens": d["prompt_tokens"] + d["tokens"]},
+                                  "total_tokens": d["prompt_tokens"] + d["tokens"],
+                                  "prompt_tokens_details": {"cached_tokens": d.get("cached_tokens", 0)}},
                         "cale": {**info, "size": d["size_pct"], "seconds": d["seconds"], "waited_s": d.get("waited_s"),
                                  "total_s": d.get("total_s"), "goal_met_actual": d.get("goal_met_actual"),
                                  "goals_actual": d.get("goals_actual"), "size_changes": d.get("switches") or None,

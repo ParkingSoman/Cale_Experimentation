@@ -1,0 +1,5 @@
+to do before friday
+[ ] finish slide deck
+[ ] send invoice to Acme
+[x] book flights
+[ ] reply to legal

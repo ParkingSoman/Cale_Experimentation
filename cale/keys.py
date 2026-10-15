@@ -28,13 +28,36 @@ def _hash(key):
     return hashlib.sha256(key.encode()).hexdigest()
 
 
-def create(app):
-    """Make a new key for the app. Any older key for the same app stops working."""
+def create(app, role=None):
+    """Make a new key for the app. Any older key for the same app stops working.
+    role="hub" is for the Cale Hub only: it may read what every app does."""
     key = "cale-" + secrets.token_urlsafe(24)
     with _locked():
         data = _read()
-        data["apps"][app] = {"sha256": _hash(key), "created": int(time.time())}
+        data["apps"][app] = {"sha256": _hash(key), "created": int(time.time()), **({"role": role} if role else {})}
         _write(data)
+    return key
+
+
+def role(app):
+    return _read()["apps"].get(app, {}).get("role")
+
+
+HUB_APP = "Cale Hub"
+
+
+def hub_key():
+    """The Hub's key. Made without a question, because the Hub is part of Cale. Kept in a private file."""
+    f = paths.HOME / "hub.key"
+    try:
+        key = f.read_text().strip()
+        if check(key) == HUB_APP and role(HUB_APP) == "hub":
+            return key
+    except FileNotFoundError:
+        pass
+    key = create(HUB_APP, role="hub")
+    paths.HOME.mkdir(parents=True, exist_ok=True)
+    oslayer.private_file(f, key)
     return key
 
 

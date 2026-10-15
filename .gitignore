@@ -10,3 +10,9 @@ __pycache__/
 apps/open-webui/data/cale-key
 apps/open-webui/data/secrets.json
 apps/open-webui/data/webui.db*
+
+# one-download installers and their downloads
+dist/
+.playwright-mcp/
+demo/apps/*/data/
+demo/apps/*/__pycache__/

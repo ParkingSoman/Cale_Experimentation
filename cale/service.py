@@ -19,7 +19,7 @@ PIDFILE = paths.HOME / "cale.pid"
 
 
 def use_launchd():
-    return oslayer.MAC and os.path.exists(PLIST)
+    return oslayer.MAC and os.path.exists(PLIST) and os.environ.get("CALE_NO_LAUNCH_AGENT") != "1"      # the switch is for tests
 
 
 def _domain():

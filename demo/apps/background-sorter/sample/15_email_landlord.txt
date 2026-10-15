@@ -1,0 +1,8 @@
+From: Rosa Martinez <rosa@example.com>
+To: me@example.com
+Subject: Rent change notice
+Date: Mon, 5 Oct 2026
+
+Hi,
+Just letting you know the rent will go up to $1,850 per month starting January 1. Let me know if you have questions.
+Rosa

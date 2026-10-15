@@ -1,0 +1,6 @@
+From: Bright Smile Dental <noreply@brightsmile.example>
+To: me@example.com
+Subject: Appointment reminder
+Date: 12 Oct 2026
+
+This is a reminder of your cleaning on Oct 21, 2026 at 3:30pm. Reply C to confirm.

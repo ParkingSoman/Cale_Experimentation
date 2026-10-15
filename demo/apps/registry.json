@@ -1,0 +1,73 @@
+{
+ "apps": [
+  {
+   "id": "chat",
+   "name": "Chat",
+   "cale_app": "Open WebUI",
+   "port": 8810,
+   "external": true,
+   "language": "python",
+   "values": "Speed stays the same on every computer",
+   "line": "A full chat app. Its developer asked Cale for a minimum speed, not a model size.",
+   "settings": "min_tokens_per_s + memory_pct",
+   "launch": {
+    "python": [
+     "{src}/apps/open-webui/.venv/bin/python",
+     "{src}/apps/open-webui/.venv/Scripts/python.exe",
+     "{src}/apps/owui-venv/bin/python",
+     "{src}/apps/owui-venv/Scripts/python.exe",
+     "{home}/apps/owui-venv/bin/python",
+     "{home}/apps/owui-venv/Scripts/python.exe",
+     "{apps}/owui-venv/bin/python",
+     "{apps}/owui-venv/Scripts/python.exe",
+     "C:/cale/apps/owui-venv/Scripts/python.exe",
+     "{home}/../apps/owui-venv/bin/python"
+    ],
+    "script": [
+     "{apps}/chat/cale_webui.py",
+     "{src}/apps/open-webui/cale_webui.py"
+    ]
+   }
+  },
+  {
+   "id": "quick-notes",
+   "name": "Quick Notes",
+   "cale_app": "Quick Notes",
+   "port": 8821,
+   "language": "python",
+   "values": "It feels instant",
+   "line": "Ghost-text suggestions while you type. Its developer asked for a first word in about a second.",
+   "settings": "max_first_token_s"
+  },
+  {
+   "id": "doc-reader",
+   "name": "Private Doc Reader",
+   "cale_app": "Private Doc Reader",
+   "port": 8822,
+   "language": "python",
+   "values": "The same intelligence everywhere",
+   "line": "Your private documents never leave this computer. Its developer always asks for the full size, and tells you the time up front.",
+   "settings": "gemma-3n:smart + predict"
+  },
+  {
+   "id": "background-sorter",
+   "name": "Background Sorter",
+   "cale_app": "Background Sorter",
+   "port": 8823,
+   "language": "python",
+   "values": "Never slows you down",
+   "line": "Sorts a folder of messy notes into a tidy table while you work. Its developer asked for low power and low memory.",
+   "settings": "power=light + memory_pct + json_schema"
+  },
+  {
+   "id": "meeting-recap",
+   "name": "Meeting Recap",
+   "cale_app": "Meeting Recap",
+   "port": 8824,
+   "language": "node",
+   "values": "Any language works",
+   "line": "A Node.js app. Same Cale, no Python anywhere in it.",
+   "settings": "Node client + leased objects"
+  }
+ ]
+}

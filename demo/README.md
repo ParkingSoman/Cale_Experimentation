@@ -1,69 +1,85 @@
-# Demo: two apps, three computers, one runtime
+# The Cale demo: download once, every app works
 
-Two ordinary open-source apps (Open WebUI and Aider) normally call a cloud AI. Here they call Cale instead.
-Cale runs one local model on the computer. Each app says what it needs. Cale picks the size that fits this computer.
-The same apps, with no change, run the full size on a fast computer and a smaller size on a weaker one.
+One download. No terminal. No model choice. After that, five apps from five "developers" just work.
+The same five apps run on a fast Mac and on an old laptop. The apps do not change. Cale picks the size.
 
-| Computer | Engine | Starts Cale |
+This file is the run sheet. The numbers to quote are in `results/demo/` (measured, one JSON per computer).
+
+## What the audience sees
+
+| Step | What happens | What to say |
 |---|---|---|
-| Mac (Apple silicon) | MLX on the GPU | at login |
-| Windows (Intel or AMD) | llama.cpp on the CPU | when an app needs it |
-| Linux (Intel or AMD) | llama.cpp on the CPU | when an app needs it |
+| 1. Download | One file per OS. Mac: `Cale.app` (in a `.dmg`). Windows: `Cale-Setup.exe`. Linux: `Cale-linux-x86_64.run`. | "That is the whole install. No Python, no model picker, no settings." |
+| 2. Open it | A page opens: the Cale Hub. One progress bar: download, "Fitting Cale to this computer", done. | "Cale measures this computer once. The apps will never ask." |
+| 3. Open an app | The Hub lists five apps. Click Start. A native question asks: allow this app to use Cale? Click Allow. | "Each app asks once, like a camera permission." |
+| 4. Use all five | The Hub shows live meters per app: size, tokens/s, first word, goal met. A "Computer feels" meter shows if the screen stays smooth. | "The apps asked for a feel, not a model. Watch the sizes change on the old laptop. Watch the feel stay the same." |
+| 5. Switch computer | Same five apps on the old HP laptop. | "Smaller sizes. Same feel. The one exception is the app that chose quality over speed, and it says so up front." |
 
-## What each app asks for
+## The five apps (what each developer values)
 
-An app does not name a size. It makes a model object with goals. Cale does the rest.
+| App | Port | Language | The developer asked Cale for | What it adds to the Cale equation |
+|---|---|---|---|---|
+| Chat (Open WebUI, unmodified) | 8810 | Python | a minimum speed (`min_tokens_per_s`) and a memory share | The most common AI app works everywhere and keeps its speed. |
+| Quick Notes | 8821 | Python | a first word in about a second (`max_first_token_s`) | An instant-feel app type that a cloud call cannot match. |
+| Private Doc Reader | 8822 | Python | always the full size (`gemma-3n:smart`), told the time first (`/cale/predict`) | Same quality on every computer. Private documents stay on the computer. |
+| Background Sorter | 8823 | Python | low power and low memory (`power=light`, `memory_pct`, JSON schema) | Works in the background without slowing the foreground app. |
+| Meeting Recap | 8824 | Node.js | a speed goal through the Node client | Any language works. No Python in the app. |
 
-| App | Model object | What it says | Used for |
-|---|---|---|---|
-| Open WebUI | `answers` | an answer of about 600 tokens in 90 s, using at most 40% of the RAM | chat answers |
-| Open WebUI | `tasks` | an answer of about 60 tokens in 30 s | chat titles, tags, follow-up ideas |
-| Aider | `code` | an answer of about 1200 tokens in 600 s (code must be right, so time matters less), using at most 40% of the RAM | the code |
-| Aider | `commit` | an answer of about 60 tokens in 30 s | commit messages |
+Each app has a "Developer view" switch. It shows the few lines of Cale code the app uses.
+All four new apps were written from `docs/API.md` and the public client files only. Their friction notes fixed the docs.
 
-The numbers are the app developer's own. Change them with `CALE_ANSWER_DEADLINE`, `CALE_ANSWER_TOKENS`,
-`CALE_TASK_DEADLINE`, `CALE_MEMORY_PCT`, `CALE_CODE_DEADLINE`, `CALE_CODE_TOKENS`, `CALE_COMMIT_DEADLINE`.
+## Build the downloads (on a Mac)
 
-## Set up an app (same on every system)
-
-Each app has its own Python environment. Make it once.
-
-| System | Open WebUI | Aider |
+| Want | Command | Result |
 |---|---|---|
-| Mac, Linux | `uv venv apps/owui-venv && uv pip install --python apps/owui-venv/bin/python open-webui==0.11.4` | the same with `aider-chat==0.86.2` in `apps/aider-venv` |
-| Windows | `python -m venv apps\owui-venv` then `apps\owui-venv\Scripts\pip install open-webui==0.11.4` | the same with `aider-chat==0.86.2` in `apps\aider-venv` |
+| Mac | `python3 scripts/build_installer.py mac` | `dist/Cale-mac.dmg`, `dist/Cale-mac.zip` |
+| Linux | `python3 scripts/build_installer.py linux` | `dist/Cale-linux-x86_64.run` (`--arch arm64` for ARM) |
+| Windows | `python3 scripts/build_installer.py win`, then on Windows run `build_exe.ps1` in `dist/win` | `Cale-Setup.exe` |
 
-## Run the demo
+Each download carries its own `uv` and Node. It does not carry the AI model (4.4 to 5.5 GB). The installer fetches it and shows progress.
 
-| Step | Type | What you see |
+## No "unknown developer" warning (demo computers only)
+
+A public release needs an Apple Developer ID and a Windows signing certificate. For the two demo computers, lower the checks once:
+
+| Computer | Command | Undo |
 |---|---|---|
-| 1 | Start Open WebUI: `apps/owui-venv/bin/python apps/open-webui/cale_webui.py` (Windows: `apps\owui-venv\Scripts\python apps\open-webui\cale_webui.py`) | A web page at `http://127.0.0.1:8810` with a card: "Get Cale" |
-| 2 | Click **Get Cale** | A progress bar. The installer sets up Python, downloads the model, and starts Cale. |
-| 3 | Click **Connect Open WebUI to Cale** | The computer asks "Allow Open WebUI to use Cale?". Click Allow. |
-| 4 | Chat | The model is called `answers`. A small badge at the bottom left says which size Cale ran and whether the goal was met. |
-| 5 | Start Aider in a git folder: `apps/aider-venv/bin/python apps/aider/cale_aider.py` | Aider finds Cale, asks once "Use it for Aider?", and needs **no download**. It shares the model. |
+| Mac | `sh scripts/prep_mac_demo.sh` (asks for your password) | `sh scripts/prep_mac_demo.sh undo` |
+| Windows (as administrator) | `powershell -ExecutionPolicy Bypass -File prep_windows_demo.ps1`, then build the `.exe` | same command with `-Undo` |
 
-On the second app there is nothing to install. Both apps share the one loaded model.
+These lower the computer's protection. Use them only on a computer you keep for demos.
 
-## What to look for
+## Record the install
 
-| Computer | `answers` runs at | `tasks` runs at |
-|---|---|---|
-| Fast (Apple M5) | the full size, goal met | the full size, goal met |
-| Weaker (Intel laptop, 4 cores) | a smaller size, chosen to meet the time | the smallest size, goal not met but still answered |
+Record one real install per computer and speed it up. The live demo starts with Cale installed.
+Set `CALE_HOME` to a new empty folder to repeat an install without touching a real one. Test switches (never for real use):
 
-Check any time with `cale status`. `GET /v1/models` (with the app's key) shows each object and the size it ran at last.
-
-## Test the demo on one computer
-
-| Check | Type |
+| Variable | Meaning |
 |---|---|
-| Whole suite against a dev Cale | `python scripts/cale_dev_server.py /tmp/home`, then `python cale/tests/e2e.py --model`, `relative.py`, `objects.py` |
-| Remove everything | `python cale/uninstall.py` |
+| `CALE_HOME` | install folder |
+| `CALE_PORT`, `CALE_HUB_PORT` | Cale port (default 47821), Hub port (default 47800) |
+| `CALE_NO_LAUNCH_AGENT=1` | Mac: do not touch the real LaunchAgent |
+| `CALE_AUTO_APPROVE=1` with `CALE_DEBUG=1` | skip the Allow question (tests only) |
+| `CALE_MODEL_SRC` | link a local model instead of downloading |
 
-## The HP test laptop (for the people who build Cale)
+## The scorecard
 
-The Windows and Linux runs were done on one Intel laptop, reached from a Mac. See `scripts/hp` (runs a job on the laptop
-and waits through link drops) and `scripts/hp_forward.sh` (shows a web page from the laptop on the Mac).
-Run one system at a time on that laptop. It has 4 cores, so two Cales would slow each other and the speed numbers would be wrong.
-Also, Windows and Linux (WSL2) share `localhost` ports there. A Cale or Open WebUI that is still running on one side answers for the other side. Stop one before you start the other.
+Run on each computer, with its Hub:
+
+```
+python demo/check_apps.py --hub http://127.0.0.1:47800 --label mac --out results/demo/mac.json
+```
+
+It starts each app, does the app's main job through the app's own web calls, and reads the numbers from the Hub.
+Verdicts: WELL (done right, every goal Cale reported was met), POOR (done, but a goal was missed or it was very slow), FAIL.
+Results: see `results/demo/` (to be filled in by the runs on the Mac, HP Windows and HP Linux).
+
+## Known limits (say them before someone asks)
+
+| Limit | Why |
+|---|---|
+| Chat needs Open WebUI installed first (about 2 GB, its own Python packages). | It is a real third-party app. It is pre-installed on the demo computers. |
+| Pictures and sound work on the Mac only. | The Windows and Linux engine has no vision or audio files yet. |
+| Doc Reader's time prediction is cautious on the Mac (said 12 s, took 5.6 s). | The prediction counts a cold start. |
+| The model is a prototype (Gemma 3n). Its answers are not as good as the model Cale is meant to have. | The funding is for the Matryoshka model built for this. |
+| The Allow question must be clicked by a person. | That is the point of it. |

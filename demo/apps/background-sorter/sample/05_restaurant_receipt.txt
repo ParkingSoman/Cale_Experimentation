@@ -1,0 +1,6 @@
+Luigi's Trattoria
+2026-08-22
+2x pasta, 1 salad, wine
+food 52.00
+tip 10.00
+Total paid: 62.00

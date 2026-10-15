@@ -1,0 +1,45 @@
+Weekly product standup, Tuesday 14 October. Present: Priya (product lead), Marcus (backend), Lena (design), Tomás (QA).
+
+Priya: Morning everyone. Quick one today, we have the demo for the Harbor Logistics team on Friday, so let's focus on what blocks that. Marcus, where are we on the export API?
+
+Marcus: Good morning. The export endpoint works on my machine, but it times out when a customer has more than ten thousand rows. I think it's the way we build the CSV in memory. I want to switch to streaming the file out in chunks. I can have that done by Thursday noon. Also, the weather was awful on my commute, so if I'm slow on chat that's why.
+
+Priya: Ha, noted. Thursday noon is fine, that leaves a day for testing. Tomás, can you test it as soon as it lands?
+
+Tomás: Yes. I'll write the test plan tomorrow, Wednesday, and run the full pass on Thursday afternoon once Marcus merges. One concern: the staging database is still the old copy from September. I'd like fresh data before the demo, otherwise the numbers look stale.
+
+Marcus: I can refresh staging. I'll do it tonight so Tomás has clean data in the morning.
+
+Priya: Great. Lena, how is the new dashboard layout?
+
+Lena: Mostly done. The summary cards and the shipment table are finished. I still need to fix the dark mode colors, because the grey on grey is hard to read, and I haven't done the empty state for new customers. I'd like to finish both by Wednesday end of day so Priya can review them Thursday morning.
+
+Priya: Perfect. I'll block time on Thursday at nine for the review. Anything else blocking you?
+
+Lena: One thing. I'm waiting on the final logo files from the Harbor team. Without them the header uses a placeholder.
+
+Priya: I'll email their contact today and ask for the logo files. I'll copy you so you get them directly.
+
+Tomás: While we're on the demo, who's running it? I assume Priya, but someone should rehearse the script.
+
+Priya: I'll run it. Let's do a dry run on Thursday at four, everyone attends. I'll send the invite after this call. Also, we should decide what to do if the export is still slow. Marcus, do we need a fallback?
+
+Marcus: A fallback would be to limit the export to the last thirty days. It's a small change. I can add a flag for it by Wednesday evening just in case, but I'd rather not ship it unless streaming fails.
+
+Priya: Agreed, build the flag but keep it off. Okay, before we close, the team lunch. Lena suggested the noodle place on Fifth, and Tomás wants tacos.
+
+Tomás: Tacos are objectively better, but I'll go along with noodles if the others vote for it.
+
+Lena: Noodles on Friday after the demo, my treat if it goes well.
+
+Marcus: Deal. I'll bring the good coffee on Friday too.
+
+Priya: Wonderful. To recap the demo plan: export fix Thursday noon, staging refresh tonight, dark mode and empty state Wednesday, review Thursday at nine, dry run Thursday at four, demo Friday. Any last questions? No? Thanks everyone, see you Thursday.
+
+Tomás: One more thing, sorry. Does anyone know if the Harbor team uses single sign-on? If they do, the login screen in the demo will look different.
+
+Priya: Good question. I don't know. I'll ask their contact in the same email as the logos, and I'll tell you all on Wednesday what they say.
+
+Lena: And can someone remind me which font the Harbor brand uses? I'll check their site tonight, it's probably fine.
+
+Marcus: Okay, I really have to run, my next meeting started two minutes ago. Talk later, everyone. Thanks, Priya.

@@ -1,0 +1,6 @@
+standup mon 9/28
+attendees: me, priya, dan
+- deploy slipped to thurs
+- priya blocked on api keys
+- dan OOO fri
+action: me -> ping IT re keys

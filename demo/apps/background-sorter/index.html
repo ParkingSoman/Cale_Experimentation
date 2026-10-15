@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Background Sorter</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2128;--mute:#667085;--line:#e3e6eb;--accent:#2f6fed;--accent-ink:#fff;--ok:#1a7f4b;--warn:#b25e09;--bad:#c0362c;--code:#f0f2f5}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#14171c;--card:#1d2127;--ink:#e8eaed;--mute:#98a1ad;--line:#2d333b;--accent:#6b9bff;--accent-ink:#0d1117;--ok:#4cc38a;--warn:#e0a458;--bad:#ff7b72;--code:#12151a}}
+:root[data-theme=dark]{--bg:#14171c;--card:#1d2127;--ink:#e8eaed;--mute:#98a1ad;--line:#2d333b;--accent:#6b9bff;--accent-ink:#0d1117;--ok:#4cc38a;--warn:#e0a458;--bad:#ff7b72;--code:#12151a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-size:22px;margin:0}
+.gentle{color:var(--ok);font-weight:600;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:14px}
+.top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+#pp{font-size:20px;font-weight:700;padding:16px 36px;border-radius:12px;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer;min-width:170px}
+#pp.resume{background:var(--warn);color:#fff}
+#pp:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.status{flex:1;min-width:220px}
+.status b{display:block;font-size:16px}
+.status span{color:var(--mute)}
+.bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stat small{display:block;color:var(--mute);font-size:12px}
+.stat strong{font-size:18px}
+.folder{display:flex;gap:8px;flex-wrap:wrap}
+.folder input{flex:1;min-width:200px;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+button.small{padding:9px 14px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font:inherit}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{cursor:pointer;user-select:none;white-space:nowrap;color:var(--mute);font-weight:600}
+th:hover{color:var(--ink)}
+td.num,th.num{text-align:right}
+.kind{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;border:1px solid var(--line);white-space:nowrap}
+.err{color:var(--bad)}
+.empty{color:var(--mute);padding:18px 4px}
+.links a{color:var(--accent);margin-right:14px}
+label.tog{display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--mute)}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto;font-size:12.5px;line-height:1.5;margin:10px 0 0}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>Background Sorter</h1>
+  <span class="gentle" id="gentle">Running gently: low power mode</span>
+</header>
+
+<div class="card top">
+  <button id="pp" type="button">Pause</button>
+  <div class="status" aria-live="polite">
+    <b id="msg">Starting</b>
+    <span id="sub"></span>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><small>Files sorted</small><strong id="s-done">0 / 0</strong></div>
+  <div class="stat"><small>Files per minute</small><strong id="s-fpm">-</strong></div>
+  <div class="stat"><small>Size Cale chose</small><strong id="s-size">-</strong></div>
+  <div class="stat"><small>Goals met</small><strong id="s-goals">-</strong></div>
+  <div class="stat"><small>Memory used (goal 28%)</small><strong id="s-mem">-</strong></div>
+</div>
+
+<div class="card">
+  <form class="folder" id="ff">
+    <input id="folder" type="text" aria-label="Folder to sort" spellcheck="false">
+    <button class="small" type="submit">Use this folder</button>
+  </form>
+  <div id="ferr" class="err"></div>
+</div>
+
+<div class="card">
+  <div class="tablewrap">
+  <table>
+    <thead><tr id="head"></tr></thead>
+    <tbody id="body"></tbody>
+  </table>
+  <div id="empty" class="empty" hidden>No results yet.</div>
+  </div>
+  <p class="links"><a href="/data/sorted.csv" download>Download CSV</a><a href="/data/sorted.json" download>Download JSON</a></p>
+</div>
+
+<div class="card">
+  <label class="tog"><input type="checkbox" id="dev"> Developer view</label>
+  <pre id="code" hidden></pre>
+</div>
+</main>
+
+<script>
+const COLS=[["file","File"],["kind","Kind"],["date","Date"],["title","Title"],["amount","Amount","num"],["summary","Summary"],["seconds","Seconds","num"]];
+let sortKey="file",sortDir=1,rows=[],lastVersion=-1,busy=false,paused=false;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function head(){
+  $("head").innerHTML=COLS.map(([k,l,c])=>`<th data-k="${k}" class="${c||""}" tabindex="0" role="button" aria-label="Sort by ${l}">${l}${sortKey===k?(sortDir>0?" ▲":" ▼"):""}</th>`).join("");
+  for(const th of $("head").children){
+    const go=()=>{const k=th.dataset.k;if(sortKey===k)sortDir=-sortDir;else{sortKey=k;sortDir=1}head();draw()};
+    th.onclick=go;th.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}};
+  }
+}
+function draw(){
+  const k=sortKey,d=sortDir;
+  const v=r=>r[k];
+  const sorted=[...rows].sort((a,b)=>{const x=v(a),y=v(b);
+    if(x==null&&y==null)return 0;if(x==null)return 1;if(y==null)return -1;   // empty values go last
+    return (typeof x==="number"&&typeof y==="number"?x-y:String(x).localeCompare(String(y),undefined,{numeric:true}))*d});
+  $("body").innerHTML=sorted.map(r=>r.error?
+    `<tr><td>${esc(r.file)}</td><td colspan="6" class="err">${esc(r.error)}</td></tr>`:
+    `<tr><td>${esc(r.file)}</td><td><span class="kind">${esc(r.kind)}</span></td><td>${esc(r.date||"")}</td><td>${esc(r.title)}</td><td class="num">${r.amount==null?"":Number(r.amount).toFixed(2)}</td><td>${esc(r.summary)}</td><td class="num">${r.seconds==null?"":Number(r.seconds).toFixed(1)}</td></tr>`).join("");
+  $("empty").hidden=rows.length>0;
+}
+async function poll(){
+  try{
+    const s=await (await fetch("/api/state")).json();
+    paused=s.paused;
+    const pp=$("pp");pp.textContent=paused?"Resume":"Pause";pp.classList.toggle("resume",paused);
+    $("msg").textContent=s.message;
+    $("sub").textContent=s.current?("Now: "+s.current):"";
+    $("gentle").textContent=s.gentle;
+    $("s-done").textContent=s.done+" / "+s.total+(s.failed?" ("+s.failed+" failed)":"");
+    $("s-fpm").textContent=s.files_per_min==null?"-":s.files_per_min;
+    $("s-size").textContent=s.size||"-";
+    $("s-goals").textContent=s.goal_calls?(s.goal_met_calls+" of "+s.goal_calls+(s.goal_met_calls===s.goal_calls?" - yes":"")):"-";
+    $("s-mem").textContent=s.memory_pct_actual==null?"-":(Number(s.memory_pct_actual).toFixed(1)+"%");
+    $("bar").style.width=(s.total?100*(s.done+s.failed)/s.total:0)+"%";
+    if(document.activeElement!==$("folder"))$("folder").value=s.folder;
+    if(s.version!==lastVersion){lastVersion=s.version;rows=s.rows;draw()}
+  }catch(e){$("msg").textContent="Lost contact with the Background Sorter app. Is it still running?"}
+}
+$("pp").onclick=async()=>{await fetch(paused?"/api/resume":"/api/pause",{method:"POST",body:"{}"});poll()};
+$("ff").onsubmit=async e=>{e.preventDefault();
+  const r=await fetch("/api/folder",{method:"POST",body:JSON.stringify({path:$("folder").value})});
+  $("ferr").textContent=r.ok?"":"That folder does not exist.";lastVersion=-1;poll()};
+$("dev").onchange=async e=>{
+  const pre=$("code");pre.hidden=!e.target.checked;
+  if(e.target.checked&&!pre.textContent)pre.textContent=(await (await fetch("/api/code")).json()).code};
+head();draw();poll();setInterval(poll,1000);
+</script>
+</body>
+</html>

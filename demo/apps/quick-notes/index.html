@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quick Notes</title>
+<style>
+  :root {
+    --bg: #f6f5f2; --card: #ffffff; --text: #25262b; --muted: #8a8c94; --ghost: #a9abb3;
+    --line: #e3e1db; --accent: #3d6bd6; --code: #f0eee9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #17181b; --card: #1f2024; --text: #e6e6ea; --muted: #8b8d96; --ghost: #666873;
+            --line: #30323a; --accent: #7a9cf0; --code: #191a1e; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 48px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+  h1 { font-size: 20px; font-weight: 600; margin: 0; letter-spacing: -.01em; }
+  .hint { color: var(--muted); font-size: 13px; }
+  .editor { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+            height: 55vh; min-height: 280px; overflow: hidden; }
+  .editor:focus-within { border-color: var(--accent); }
+  .layer, textarea { position: absolute; inset: 0; margin: 0; padding: 18px 20px; border: 0; width: 100%; height: 100%;
+            font: 17px/1.65 ui-serif, Georgia, "Iowan Old Style", serif; letter-spacing: 0; tab-size: 4;
+            white-space: pre-wrap; overflow-wrap: break-word; word-break: normal; overflow: auto; }
+  .layer { color: transparent; pointer-events: none; overflow: hidden; }
+  .layer .ghost { color: var(--ghost); }
+  textarea { background: transparent; color: var(--text); resize: none; outline: none; caret-color: var(--accent); }
+  .status { margin-top: 10px; min-height: 22px; color: var(--muted); font-size: 12.5px;
+            font-variant-numeric: tabular-nums; display: flex; gap: 16px; flex-wrap: wrap; }
+  .status b { color: var(--text); font-weight: 600; }
+  .ok { color: #2f9e60; } .miss { color: #d0782b; } .err { color: #c9473f; }
+  label { display: inline-flex; gap: 8px; align-items: center; cursor: pointer; user-select: none; }
+  .dev { margin-top: 18px; }
+  pre { background: var(--code); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; overflow: auto;
+        font: 12.5px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; display: none; }
+  pre.on { display: block; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Quick Notes</h1>
+    <span class="hint">Pause while typing. <kbd>Tab</kbd> accepts the grey text.</span>
+  </header>
+  <div class="editor">
+    <div class="layer" id="layer" aria-hidden="true"></div>
+    <textarea id="ed" spellcheck="false" placeholder="Start writing..." autofocus></textarea>
+  </div>
+  <div class="status" id="status"><span>Ready.</span></div>
+  <div class="dev">
+    <label><input type="checkbox" id="devtoggle"> Developer view</label>
+    <pre id="snippet"></pre>
+  </div>
+</main>
+<script>
+(function () {
+  var ed = document.getElementById('ed'), layer = document.getElementById('layer'),
+      status = document.getElementById('status'), pre = document.getElementById('snippet');
+  var ghostText = '', timer = null, aborter = null, saveTimer = null, seq = 0;
+
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+  function render() {
+    var pos = ed.selectionStart, t = ed.value;
+    var g = (ghostText && ed.selectionStart === ed.selectionEnd) ? ghostText : '';
+    layer.innerHTML = esc(t.slice(0, pos)) + '<span class="ghost">' + esc(g) + '</span>' + esc(t.slice(pos)) + '​';
+    layer.scrollTop = ed.scrollTop;
+  }
+  function setStatus(html) { status.innerHTML = html; }
+
+  function cancel() {
+    clearTimeout(timer);
+    if (aborter) {            // closing the browser's request makes this app close its Cale connection
+      aborter.abort(); aborter = null;
+      fetch('/api/cancel', { method: 'POST', body: '{}' }).catch(function () {});
+    }
+  }
+  function clearGhost() { ghostText = ''; render(); }
+
+  function schedule() {
+    cancel(); clearGhost();
+    if (!ed.value.trim() || ed.selectionStart !== ed.value.length) { setStatus('<span>Ready.</span>'); return; }
+    timer = setTimeout(ask, 400);
+  }
+
+  function ask() {
+    var my = ++seq, text = ed.value;
+    aborter = new AbortController();
+    setStatus('<span>Thinking...</span>');
+    var t0 = performance.now();
+    fetch('/api/ghost', { method: 'POST', body: JSON.stringify({ text: text }), signal: aborter.signal })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (my !== seq || ed.value !== text) return;
+        aborter = null;
+        if (d.cancelled) return;
+        if (d.error) { setStatus('<span class="err">' + esc(d.error) + '</span>'); return; }
+        var g = d.text.replace(/\s+$/, '');
+        // The model may drop the space after a finished word. Add it when the text ends in a word and the reply starts one.
+        if (g && /[A-Za-z0-9,.;:!?)]$/.test(text) && /^[A-Za-z0-9(]/.test(g)) g = ' ' + g;
+        ghostText = g; render();
+        var met = d.goal_met === 'true' || d.goal_met === 'True' || d.goal_met === '1';
+        var goal = d.goal_met == null ? 'n/a' : (met ? '<span class="ok">goal met</span>' : '<span class="miss">goal missed</span>');
+        setStatus('<span>Ghost text in <b>' + d.ms + ' ms</b></span><span>Size <b>' + esc(String(d.size)) +
+                  '</b></span><span>Goal (first token under 1 s): ' + goal + '</span>');
+      })
+      .catch(function (e) {
+        if (e.name === 'AbortError') return;
+        setStatus('<span class="err">Quick Notes lost its connection to its own server.</span>');
+      });
+  }
+
+  function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () {
+      fetch('/api/notes', { method: 'POST', body: JSON.stringify({ text: ed.value }) }).catch(function () {});
+    }, 500);
+  }
+
+  ed.addEventListener('input', function () { save(); schedule(); });
+  ed.addEventListener('scroll', function () { layer.scrollTop = ed.scrollTop; });
+  ed.addEventListener('click', function () { cancel(); clearGhost(); });
+  ed.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab' && ghostText) {
+      e.preventDefault();
+      var pos = ed.selectionStart;
+      ed.value = ed.value.slice(0, pos) + ghostText + ed.value.slice(ed.selectionEnd);
+      ed.selectionStart = ed.selectionEnd = pos + ghostText.length;
+      ghostText = ''; render(); save(); schedule();
+    } else if (e.key === 'Escape') { cancel(); clearGhost(); }
+  });
+  document.getElementById('devtoggle').addEventListener('change', function (e) {
+    pre.classList.toggle('on', e.target.checked);
+  });
+
+  fetch('/api/notes').then(function (r) { return r.json(); }).then(function (d) {
+    ed.value = d.text; pre.textContent = d.snippet; render(); ed.focus();
+    ed.selectionStart = ed.selectionEnd = ed.value.length;
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>

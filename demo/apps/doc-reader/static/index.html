@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Private Doc Reader</title>
+<style>
+:root{--bg:#f6f5f2;--card:#fff;--ink:#1d1d1b;--mute:#6a675f;--line:#e2dfd7;--acc:#1f5f4a;--acc-ink:#fff;--warn:#8a4b00;--warnbg:#fff4e0;--err:#9b1c1c;--errbg:#fdeaea;--code:#f0eee8}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#161715;--card:#1f211e;--ink:#ecebe6;--mute:#a09d93;--line:#34362f;--acc:#5fb996;--acc-ink:#0d1a14;--warn:#f0c27a;--warnbg:#3a2c12;--err:#ff9a9a;--errbg:#3b1a1a;--code:#262823}}
+:root[data-theme=dark]{--bg:#161715;--card:#1f211e;--ink:#ecebe6;--mute:#a09d93;--line:#34362f;--acc:#5fb996;--acc-ink:#0d1a14;--warn:#f0c27a;--warnbg:#3a2c12;--err:#ff9a9a;--errbg:#3b1a1a;--code:#262823}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-size:1.4rem;margin:.2em 0}
+.sub{color:var(--mute);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0}
+button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:8px 14px;cursor:pointer}
+button.primary{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:600}
+button:disabled{opacity:.5;cursor:default}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+textarea,input[type=text]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
+textarea{min-height:110px;resize:vertical}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.drop{border:2px dashed var(--line);border-radius:12px;padding:18px;text-align:center;color:var(--mute)}
+.drop.over{border-color:var(--acc);color:var(--ink)}
+.note{border-radius:8px;padding:10px 12px;margin:10px 0}
+.note.info{background:var(--code)}
+.note.warn{background:var(--warnbg);color:var(--warn)}
+.note.err{background:var(--errbg);color:var(--err)}
+.bar{height:10px;background:var(--code);border-radius:6px;overflow:hidden;margin:10px 0 6px}
+.bar>i{display:block;height:100%;width:0;background:var(--acc);transition:width .4s}
+.mute{color:var(--mute);font-size:.9rem}
+.chips button{font-size:.9rem;border-radius:999px}
+.msg{margin:12px 0}
+.msg .who{font-size:.8rem;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.msg.q .body{font-weight:600}
+.body{white-space:pre-wrap;word-wrap:break-word}
+.foot{font-size:.85rem;color:var(--mute);border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
+pre{background:var(--code);padding:12px;border-radius:8px;overflow:auto;font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:8px 0 0}
+[hidden]{display:none!important}
+label.sw{display:inline-flex;gap:6px;align-items:center;cursor:pointer;font-size:.9rem;color:var(--mute)}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div>
+    <h1>Private Doc Reader</h1>
+    <p class="sub">Ask questions about a private document. It stays on this computer. Answers always use Cale's full size.</p>
+  </div>
+  <label class="sw"><input type="checkbox" id="dev"> Developer view</label>
+</header>
+
+<div id="conn" class="note info" hidden></div>
+<div class="card" id="devcard" hidden><strong>The Cale code this app uses</strong><pre id="code"></pre></div>
+
+<section class="card" id="pick">
+  <div class="drop" id="drop">
+    Drop a .txt or .md file here, or <button id="choose" type="button">choose a file</button>
+    <input type="file" id="file" accept=".txt,.md,.markdown,.text,text/plain,text/markdown" hidden>
+  </div>
+  <p class="mute" style="margin:12px 0 6px">Or paste the text:</p>
+  <textarea id="paste" aria-label="Paste document text" placeholder="Paste a contract or report here"></textarea>
+  <div class="row" style="margin-top:10px">
+    <button class="primary" id="usepaste" type="button">Use pasted text</button>
+    <button id="usesample" type="button">Try the sample lease</button>
+  </div>
+  <div id="pickmsg"></div>
+</section>
+
+<section class="card" id="plan" hidden>
+  <div id="planmsg" style="font-size:1.05rem"></div>
+  <div id="planwarn"></div>
+  <div class="row" style="margin-top:10px">
+    <button class="primary" id="readbtn" type="button">Read the document</button>
+    <button id="other" type="button">Choose another document</button>
+  </div>
+  <div id="prog" hidden>
+    <div class="bar"><i id="barfill"></i></div>
+    <div class="mute" id="progtxt"></div>
+  </div>
+</section>
+
+<section id="chat" hidden>
+  <div class="card">
+    <div class="mute" id="docline"></div>
+    <div class="chips row" id="chips" style="margin-top:8px"></div>
+    <form id="form" class="row" style="margin-top:10px;flex-wrap:nowrap">
+      <input type="text" id="q" aria-label="Your question" placeholder="Ask a question about the document" autocomplete="off">
+      <button class="primary" id="ask" type="submit">Ask</button>
+    </form>
+  </div>
+  <div id="log"></div>
+</section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const fmt = n => Number(n).toLocaleString();
+let busy = false, sampleQs = [], current = null;
+
+function note(el, kind, html){ el.innerHTML = html ? `<div class="note ${kind}">${html}</div>` : ''; }
+function secsText(s){ return s < 3 ? 'a few seconds' : `about ${Math.round(s)} seconds`; }
+
+async function api(path, body){
+  try{
+    const r = await fetch(path, body === undefined ? {} : {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+    return await r.json();
+  }catch(e){ return {ok:false, error:'The app lost contact with itself. Restart it with: python app.py'}; }
+}
+
+async function init(){
+  const s = await api('/api/status');
+  const c = $('conn');
+  if(!s.cale || !s.approved){
+    c.hidden = false; c.className = 'note warn';
+    c.textContent = s.message || 'Cale is not ready. If a question about allowing this app appears on your computer, answer it, then reload this page.';
+    if(!s.cale) return;
+  }
+  const smp = await api('/api/sample'); sampleQs = smp.questions || [];
+}
+
+async function loadDoc(name, text, extra={}){
+  note($('pickmsg'), 'info', 'Checking the document size...');
+  const r = await api('/api/load', {name, text, ...extra});
+  if(r.too_long){
+    window._pending = {name, text};
+    note($('pickmsg'), 'warn',
+      `This document is too long for Cale on this computer. It has about ${fmt(r.words)} words (about ${fmt(r.est_tokens)} tokens). The limit is about ${fmt(r.limit_tokens)} tokens, roughly ${fmt(r.limit_words)} words.<br>
+       <button id="firstpart" style="margin-top:8px">Use the first part only</button>`);
+    $('firstpart').onclick = () => loadDoc(name, text, {use_first_part:true});
+    return;
+  }
+  if(!r.ok){ note($('pickmsg'), 'err', esc(r.error || 'Could not use this document.')); return; }
+  current = r;
+  note($('pickmsg'), '', '');
+  $('pick').hidden = true; $('chat').hidden = true; $('plan').hidden = false; $('prog').hidden = true;
+  $('readbtn').disabled = false; $('readbtn').hidden = false;
+  $('planmsg').innerHTML = `Reading this ${fmt(r.words)}-word document takes ${secsText(r.predicted_s)} on this computer. Answers then start quickly.`;
+  $('planwarn').innerHTML = r.truncated ? `<div class="note warn">Using the first part of the document only (${fmt(r.words)} words). Answers cannot use what was cut.</div>` : '';
+  $('docline').textContent = `${name} - ${fmt(r.words)} words`;
+}
+
+async function readDoc(){
+  $('readbtn').disabled = true; $('prog').hidden = false; $('barfill').style.width = '2%';
+  $('progtxt').textContent = 'Starting...';
+  await sse('/api/read', {}, ev => {
+    if(ev.t !== undefined){
+      const p = ev.predicted_s || 10, pct = Math.min(95, 100*ev.t/Math.max(p,1));
+      $('barfill').style.width = pct + '%';
+      $('progtxt').textContent = ev.t > p*1.3 + 2
+        ? `Reading... ${ev.t.toFixed(0)} s so far. This is taking longer than predicted (${secsText(p)}). Cale may be busy with another app.`
+        : `Reading at full size... ${ev.t.toFixed(0)} s of ${secsText(p)}`;
+    }
+    if(ev.error){ $('prog').hidden = true; $('readbtn').disabled = false; note($('planwarn'), 'err', esc(ev.error)); }
+    if(ev.done){
+      $('barfill').style.width = '100%';
+      const diff = ev.predicted_s ? ` (predicted ${secsText(ev.predicted_s)})` : '';
+      $('docline').textContent += ` - read in ${ev.seconds} s${diff}, ${fmt(ev.prompt_tokens)} tokens`;
+      $('plan').hidden = true; $('chat').hidden = false; $('log').innerHTML = '';
+      if(ev.truncated) $('docline').textContent += ' - first part only';
+      const ch = $('chips'); ch.innerHTML = '';
+      (current && current.sample ? sampleQs : []).forEach(q => { const b = document.createElement('button'); b.type='button'; b.textContent = q; b.onclick = () => { $('q').value = q; ask(); }; ch.appendChild(b); });
+      $('q').focus();
+    }
+  });
+}
+
+async function sse(path, body, onEvent){
+  let res;
+  try{ res = await fetch(path, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)}); }
+  catch(e){ onEvent({error:'Lost contact with the app. Restart it with: python app.py'}); return; }
+  const ct = res.headers.get('content-type') || '';
+  if(ct.includes('application/json')){ const j = await res.json(); if(j.error) onEvent({error:j.error, code:j.code}); return; }
+  const rd = res.body.getReader(), dec = new TextDecoder(); let buf = '';
+  try{
+    for(;;){
+      const {done, value} = await rd.read(); if(done) break;
+      buf += dec.decode(value, {stream:true});
+      let i; while((i = buf.indexOf('\n\n')) >= 0){
+        const chunk = buf.slice(0, i); buf = buf.slice(i+2);
+        if(chunk.startsWith('data: ')) try{ onEvent(JSON.parse(chunk.slice(6))); }catch(e){}
+      }
+    }
+  }catch(e){ onEvent({error:'The connection stopped. Try again.'}); }
+}
+
+async function ask(ev){
+  if(ev) ev.preventDefault();
+  const q = $('q').value.trim(); if(!q || busy) return;
+  busy = true; $('ask').disabled = true; $('q').value = '';
+  const m = document.createElement('div'); m.className = 'msg';
+  m.innerHTML = `<div class="msg q"><div class="who">You</div><div class="body">${esc(q)}</div></div>
+    <div class="msg"><div class="who">Answer</div><div class="body" data-a>Thinking...</div><div class="foot" data-f hidden></div></div>`;
+  $('log').prepend(m);
+  const a = m.querySelector('[data-a]'), f = m.querySelector('[data-f]'); let got = false;
+  await sse('/api/ask', {question:q}, e => {
+    if(e.d){ if(!got){ a.textContent = ''; got = true; } a.textContent += e.d; }
+    if(e.error){ a.innerHTML = `<span style="color:var(--err)">${esc(e.error)}</span>`; }
+    if(e.done){
+      const parts = [`Size used: full (${e.size || 100}%)`];
+      parts.push(e.first_s != null ? `first word after ${e.first_s} s` : 'no words came back');
+      if(e.tps) parts.push(`${e.tps} tokens/s`);
+      parts.push(e.reused ? `reused from memory: ${fmt(e.reused)} tokens${e.reused_inferred ? ' (inferred)' : ''}` : 'reused from memory: 0 tokens (read again)');
+      parts.push(`${fmt(e.prompt_tokens)} prompt tokens`);
+      if(e.finish === 'length') parts.push('answer cut at the length limit');
+      if(e.dropped_history) parts.push('older questions were dropped to fit');
+      f.hidden = false; f.textContent = parts.join(' | ');
+    }
+  });
+  busy = false; $('ask').disabled = false; $('q').focus();
+}
+
+async function pick(name, text, pasted){ window._sample = false; await loadDoc(name, text, {pasted}); }
+function readFile(f){
+  if(!/\.(txt|md|markdown|text)$/i.test(f.name)){ note($('pickmsg'), 'err', 'This app reads .txt and .md files. Paste the text instead, or save the file as .txt.'); return; }
+  const fr = new FileReader(); fr.onload = () => pick(f.name, fr.result, false); fr.onerror = () => note($('pickmsg'), 'err', 'Could not read that file.'); fr.readAsText(f);
+}
+
+$('choose').onclick = () => $('file').click();
+$('file').onchange = e => e.target.files[0] && readFile(e.target.files[0]);
+const dz = $('drop');
+['dragenter','dragover'].forEach(t => dz.addEventListener(t, e => { e.preventDefault(); dz.classList.add('over'); }));
+['dragleave','drop'].forEach(t => dz.addEventListener(t, e => { e.preventDefault(); dz.classList.remove('over'); }));
+dz.addEventListener('drop', e => e.dataTransfer.files[0] && readFile(e.dataTransfer.files[0]));
+$('usepaste').onclick = () => pick('pasted text', $('paste').value, true);
+$('usesample').onclick = async () => { const s = await api('/api/sample'); sampleQs = s.questions; await loadDoc(s.name, s.text, {}); if(current) current.sample = true; };
+$('readbtn').onclick = readDoc;
+$('other').onclick = () => { $('plan').hidden = true; $('chat').hidden = true; $('pick').hidden = false; };
+$('form').addEventListener('submit', ask);
+$('dev').onchange = async e => { $('devcard').hidden = !e.target.checked; if(e.target.checked && !$('code').textContent){ $('code').textContent = (await api('/api/code')).code; } };
+init();
+</script>
+</body>
+</html>

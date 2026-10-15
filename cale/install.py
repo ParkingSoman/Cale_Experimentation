@@ -125,7 +125,7 @@ def download(url, dest, expect_sha=None):
 
 def find_uv(home):
     exe = "uv.exe" if oslayer.WIN else "uv"
-    for p in (shutil.which("uv"), home / "bin" / exe):
+    for p in (SRC / "bin" / exe, shutil.which("uv"), home / "bin" / exe):          # SRC/bin: the one-download installers carry their own uv
         if p and Path(p).exists():
             return str(p)
     triple = {("darwin", "arm64"): "aarch64-apple-darwin", ("linux", "x86_64"): "x86_64-unknown-linux-gnu",
@@ -177,6 +177,14 @@ def copy_runtime(home):
     (rt / "nest").mkdir(parents=True, exist_ok=True)
     for f in NEST_FILES:
         shutil.copy2(SRC / "nest" / f, rt / "nest" / f)
+    for tool in ("node", "node.exe"):                                # the one-download installers carry a Node for the Node demo app
+        if (SRC / "bin" / tool).exists():
+            (home / "bin").mkdir(parents=True, exist_ok=True)
+            shutil.copy2(SRC / "bin" / tool, home / "bin" / tool)
+    apps = SRC / "demo" / "apps"                                     # the demo apps that come with the one-download installers
+    if apps.is_dir():
+        shutil.rmtree(home / "apps", ignore_errors=True)
+        shutil.copytree(apps, home / "apps", ignore=shutil.ignore_patterns("__pycache__", "data", "node_modules", ".DS_Store"))
 
 
 def install_model(home, backend):
@@ -377,17 +385,37 @@ def install_gpu_backend(home):
         Path(str(tmp) + ".part").unlink(missing_ok=True)
 
 
+def add_to_windows_path(folder):
+    """Put the folder on this user's PATH, so any app can run `cale`. No admin rights: it is the user's own setting."""
+    import winreg
+    with winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Environment", 0, winreg.KEY_READ | winreg.KEY_WRITE) as k:
+        try:
+            cur, kind = winreg.QueryValueEx(k, "Path")
+        except FileNotFoundError:
+            cur, kind = "", winreg.REG_EXPAND_SZ
+        if str(folder).lower() not in [x.strip().lower() for x in cur.split(";")]:
+            winreg.SetValueEx(k, "Path", 0, kind, (cur.rstrip(";") + ";" if cur else "") + str(folder))
+    try:                                                         # tell open windows, so new programs see it
+        import ctypes
+        ctypes.windll.user32.SendMessageTimeoutW(0xFFFF, 0x1A, 0, "Environment", 2, 3000, None)
+    except Exception:
+        pass
+
+
 def write_command(home, port):
     (home / "bin").mkdir(parents=True, exist_ok=True)
     py, rt = oslayer.venv_python(home / "venv"), home / "runtime"
     if oslayer.WIN:
         (home / "bin" / "cale.cmd").write_text(
             f'@echo off\r\nset "CALE_HOME={home}"\r\nset "PYTHONPATH={rt}"\r\n"{py}" -m cale.cli %*\r\n')
+        add_to_windows_path(home / "bin")
         return home / "bin" / "cale.cmd"
     exe = home / "bin" / "cale"
     exe.write_text(f'#!/bin/sh\nexport CALE_HOME="{home}" PYTHONPATH="{rt}"\nexec "{py}" -m cale.cli "$@"\n')
     exe.chmod(0o755)
     link = Path.home() / ".local" / "bin"
+    if not oslayer.MAC:
+        link.mkdir(parents=True, exist_ok=True)                  # most Linux desktops put this folder on PATH at the next login
     if link.is_dir():
         (link / "cale").unlink(missing_ok=True)
         (link / "cale").symlink_to(exe)
@@ -451,7 +479,7 @@ def main():
         if problems:
             say("(Some measurements did not finish. Cale will repeat them the first time an app asks. Details: logs/tune.log)")
     progress("service", 95)
-    if oslayer.MAC:
+    if oslayer.MAC and os.environ.get("CALE_NO_LAUNCH_AGENT") != "1":      # the switch is for tests: it leaves the real LaunchAgent alone
         say("Starting Cale at login")
         install_launch_agent(home, port)
         from cale import service
@@ -463,6 +491,7 @@ def main():
         ok, msg = service.start(60)
     if not ok:
         die(msg)
+    (home / "installed.ok").write_text(time.strftime("%Y-%m-%d %H:%M:%S\n"))      # the Cale Hub counts Cale as installed only with this file
     progress("done", 100)
     print(f"Cale is running at http://127.0.0.1:{port}")
     print(f"Check it any time with:  {cmd} status")

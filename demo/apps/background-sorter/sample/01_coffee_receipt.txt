@@ -1,0 +1,9 @@
+BLUE BOTTLE COFFEE
+2026-09-03 08:14
+Latte        5.50
+Croissant    4.25
+Subtotal     9.75
+Tax          0.85
+TOTAL      $10.60
+Visa ****1234
+thanks!

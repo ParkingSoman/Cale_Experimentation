@@ -6,6 +6,7 @@
   cale tune                                measure this computer again (done once when Cale is installed)
   cale start [--wait] | stop | restart     --wait: return when Cale answers
   cale logs           follow the log
+  cale hub            open the Cale Hub: what Cale and your apps are doing, in a web page
   cale computer       what Cale predicts for this computer (speed and memory of every size)
   cale pending        apps that wait for you to allow them (no screen on this computer)
   cale allow NAME     allow one (type this in a terminal on this computer). cale deny NAME says no.
@@ -157,6 +158,10 @@ def main(argv=None):
         if stop() != 0:
             return 1
         return start(True)
+    if cmd == "hub":
+        from .hub import server
+        server.main(a[1:])
+        return 0
     if cmd == "logs":
         oslayer.follow(paths.LOGS / "cale.log")
         return 0

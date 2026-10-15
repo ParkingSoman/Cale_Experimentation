@@ -9,7 +9,8 @@ Send `Content-Length`. Chunked request bodies are refused.
 | Request | Reply |
 |---|---|
 | `GET /cale/status` (no key) | JSON with `ok`, `loaded`, `slots`, `pressure`, `holds` |
-| `GET /cale/computer` (no key) | what this computer can do, as last learned: predicted speed and memory of every size, the floor, the context limit. It never loads the model. For a full answer ask `POST /cale/predict` (with a key) or run `cale computer`. |
+| `GET /cale/computer` (no key) | what this computer can do, as last learned: predicted speed and memory of every size, the floor, and `max_context_tokens` (the limit for prompt plus answer tokens). It never loads the model. For a full answer ask `POST /cale/predict` (with a key) or run `cale computer`. |
+| `GET /cale/activity` (Cale Hub key only) | the calls that run now (app, size, pieces so far, first-token time) and the last 50 finished calls (app, size, tokens, seconds, tokens/s, first-token time, wait, goal met). Numbers only: never prompt or answer text. Any other key gets `403 hub_only`. The app name "Cale Hub" is reserved: `POST /cale/connect` refuses it. |
 
 Start Cale if it is not running, from any language: run `cale start --wait` (a command installed with Cale). Python apps can also call
 `cale.client.ensure_running()`, Node apps `ensureRunning()` from `cale/client.mjs`.
@@ -48,6 +49,12 @@ Cale never opens a network door for this: the command and Cale talk through Cale
 can already read the keys.
 
 Send the key as `Authorization: Bearer KEY` on every other call. Keep the key. Do not ask for a new one each time.
+
+| Rule | Detail |
+|---|---|
+| One key for each app name | A second `POST /cale/connect` for the same app name makes a new key. The old key stops at once: calls with it get `401 invalid_api_key`. An app must store its key (a file, or its settings) and reuse it. It asks again only after a `401`. |
+| `202` is not an error | `202 pending` is a normal success status. An HTTP library that raises on anything but `200` must be told to accept `202`, or use `wait_s` long enough, or poll with a client that reads the body. |
+| Reserved name | The app name "Cale Hub" belongs to Cale. `POST /cale/connect` with it gets `400 reserved_name`. |
 
 ## 3. Chat
 
@@ -157,7 +164,7 @@ The part of the model that reads pictures loads for the call and is freed after 
 This is not a request to the model. Cale checks every token as it is chosen, so the answer is always valid JSON that fits the schema,
 on every computer and at every size. If `max_tokens` cuts the answer short, `finish_reason` is `length` and the JSON is incomplete.
 Supported schema keywords: `type` (also a list), `properties`, `required`, `additionalProperties`, `items`, `minItems`, `maxItems`,
-`enum`, `const`, `anyOf`, `oneOf`, `minLength`, `maxLength`. An object with `properties` takes only those keys unless
+`enum`, `const`, `anyOf`, `oneOf`, `minLength`, `maxLength`. Any other keyword is ignored without an error, so it is not enforced. This includes `pattern`, `format`, `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`, `uniqueItems`, `minProperties`, `maxProperties`, `patternProperties`, `prefixItems`, `allOf`, `not`, `if`, `$ref` and `default`. Check those in your own code after the answer. A type Cale does not know gets `400 invalid_schema`. An object with `properties` takes only those keys unless
 `additionalProperties` is `true`. At most 2 blank characters between tokens. A schema Cale cannot use gets `400 invalid_schema`.
 A very strict schema that the model's tokens cannot spell gets `422 constraint_dead_end`.
 
@@ -181,29 +188,86 @@ You cannot send `tools` and `response_format` in one call yet.
 ### Prompt cache
 
 A chat that grows by a turn does not read its history again. `usage.prompt_tokens_details.cached_tokens` says how many prompt tokens were reused.
-It works when the new prompt starts with the previous prompt and the size is the same. Cale keeps only a few conversations (one on a Mac), so another call can push yours out. Only the app that made a conversation can reuse it: one app never gains speed from another app's prompt.
+It is in a reply that is not streamed, and in the last chunk of a stream (not in a stream with `tools` yet). `0` means nothing was reused.
+
+| Rule | Detail |
+|---|---|
+| What is kept | the previous prompt of the app |
+| What is reused | only the start of the new prompt that has exactly the same tokens as the kept prompt. One changed word early in the prompt ends the reuse at that word. |
+| Same size | the cache is kept per size. A call at another size starts again. |
+| Same app | only the app that made a conversation can reuse it. One app never gains speed from another app's prompt. |
+| How many | Cale keeps only a few conversations (one on a Mac), so another call can push yours out. |
+| No cache | a call with `seed`, and a call with pictures or sound |
+
+What this means for a long document:
+
+| Do | Why |
+|---|---|
+| Put the document FIRST (in the `system` message or the first `user` message). Keep it identical, character for character. | Only a same start is reused. |
+| Put the question LAST. | The question changes. The start must not. |
+| Do not put a date, a name or an id before the document. | A change before the document ends the reuse. |
+
+Windows and Linux (the llama.cpp engine) reuse the common start of the new prompt and the kept prompt, if it is at least 16 tokens. So a different question after the same document still reuses the document. A Mac (the MLX engine) reuses the kept prompt only when the whole kept prompt is the start of the new prompt, and the new prompt is longer. On a Mac, the best case is a chat that grows by a turn. A new question after the same document reuses the document only if the kept prompt was the document alone. Test with `cached_tokens` on the computers you care about.
 
 ### Context limit
 
 Each computer has a limit for prompt tokens plus answer tokens. `GET /v1/models` shows it as `cale.max_context_tokens`.
-It can differ between computers. A request over the limit gets `400 context_length_exceeded`. The reply lists
-`prompt_tokens`, `max_tokens` and `max_context_tokens`. If you send no `max_tokens`, Cale shortens the limit to fit.
+`GET /cale/computer` (no key) shows it too, as `max_context_tokens`. It can differ between computers. A request over the limit gets
+`400 context_length_exceeded`, with the numbers in `error.cale`:
+
+```json
+{"error": {"message": "This request needs 40012 prompt tokens plus 256 answer tokens. This computer accepts 32768 in total.",
+           "type": "invalid_request_error", "code": "context_length_exceeded", "param": "messages",
+           "cale": {"prompt_tokens": 40012, "max_tokens": 256, "max_context_tokens": 32768}}}
+```
+
+If you send no `max_tokens`, Cale shortens the limit to fit. Then `max_tokens` in the error is `32768`, and the call fails only when the prompt alone does not fit.
+
+Cale has no endpoint that counts tokens. To estimate: English text is about 4 characters for each token (other languages and code use more tokens per character). A picture is 256 tokens. Sound is about 6 tokens for each second. For the exact count, make one chat call with `max_tokens: 1` and read `usage.prompt_tokens`. `POST /cale/predict` takes a number, not text.
+`POST /cale/predict` takes `prompt_tokens` (your estimate) and says what Cale would do for a prompt of that size. It does not include the time to load the model or the time to wait for other apps: the numbers are for a model that is loaded and an empty line. A call that loads the model first counts that time in `waited_s` and `first_token` (see "Cold start" in section 4).
+
+### A prompt with no user message
+
+Gemma puts the text of a `system` (or `developer`) message into the first `user` turn. A prompt with only a `system` message has no user turn, so the system text is not sent: the prompt is only a few tokens (a developer saw 4), and the answer does not use your text. Always send at least one `user` message. Put your instructions in `system` and the work in `user`.
 
 ### What the reply says about speed and goals
 
 | Header or field | Meaning |
 |---|---|
-| `X-Cale-Size` | the size that ran (it may change during the answer: see `cale.size_changes`) |
+| `X-Cale-Size` | the size that ran, as a percent of the full model: `100` is the full size, `48` the smallest trained size. The same number is in `gemma-3n:<percent>`. It may change during the answer: see `cale.size_changes`. In the reply body, `model` is `gemma-3n` for 100 and `gemma-3n:<percent>` for the others. With a model object, `model` is the object's id. |
 | `X-Cale-Waited-S`, `cale.waited_s` | seconds the request waited for other apps |
 | `X-Cale-Predicted-Tokens-Per-S`, `X-Cale-Predicted-First-Token-S` | what Cale predicted for the size it chose |
 | `X-Cale-Confidence` | `estimate` (Cale has seen no answer on this computer yet) or `learned` |
-| `X-Cale-Goal-Met` | only when goals were given. In a reply that is not streamed: whether the goals were met in the end, wait included |
+| `X-Cale-Goal-Met` | only when goals were given. The value is the string `true` or `false`. In a reply that is not streamed: whether the goals were met in the end, wait included. In a streamed reply the headers go out before the answer starts, so the value is only the prediction. The final value is `cale.goal_met_actual` in the last chunk. |
 | `X-Cale-Unmet` | the goals that were not met (`speed`, `first_token`, `memory`, `quality`) |
 | `cale.goals_actual` | an object keyed `speed`, `first_token`, `memory`, `quality` (only the goals you gave). Each holds the goal, the measured value (`actual`, or `actual_pct` for memory), and `met` (true, false, or null when it could not be measured). `speed` is answer tokens per second after the first token. `first_token` counts the wait in line. |
 | `cale.goal_met_actual`, `cale.total_s` | the same in one value, and the total seconds (also in the last chunk of a stream) |
 | `cale.size_changes` | sizes Cale changed to during the answer to keep a speed goal |
 | `cale.answer_limit` | the limit on answer tokens that applied |
-| `X-Cale-Memory-Goal-Met` | a model object with `memory_pct`: whether a size fit the memory goal |
+| `X-Cale-Memory-Goal-Met` | a model object with `memory_pct`: `true` or `false`, whether a size fit the memory goal when the object was made (see `memory_pct` in section 4) |
+| `X-Cale-Total-S` | not streamed only: `cale.total_s` |
+
+### The last chunk of a stream
+
+A streamed reply is `data: {...}` events, then `data: [DONE]`. The text arrives in `choices[0].delta.content`. The last chunk before `[DONE]`
+has an empty `delta`, the `finish_reason`, `usage` and a `cale` block. All the facts about the answer are there, because they are not known earlier.
+
+| Field of `usage` in the last chunk | Meaning |
+|---|---|
+| `prompt_tokens`, `completion_tokens`, `total_tokens` | counts |
+| `prompt_tokens_details.cached_tokens` | prompt tokens reused from the prompt cache, as in a reply that is not streamed (see "Prompt cache"). Streamed replies that use `tools` do not carry it yet. |
+
+| Field of `cale` in the last chunk | Meaning |
+|---|---|
+| `size` | the size at the end (a percent) |
+| `seconds` | seconds the engine worked on this answer (reading the prompt and writing the answer, not the wait in line) |
+| `waited_s`, `total_s` | seconds in line, and wait plus `seconds` |
+| `goal_met`, `unmet`, `predicted`, `confidence`, `requested_size`, `memory_goal_met`, `answer_limit` | what Cale knew before the answer (the same as the headers) |
+| `goal_met_actual`, `goals_actual` | the end result. `null` when no goal was given. |
+| `size_changes` | the size changes during the answer, or `null` |
+| `drafter`, `disk_mb`, `disk_s` | `drafter` is `false` today. `disk_mb` and `disk_s`: megabytes read from disk for this call, and the seconds spent on that. A stream with `tools` does not have them. |
+
+A reply that is not streamed has the same `cale` fields, and also `first_token_s`, `switch_ms` and `answers_sharing_the_step`. A stream has no `first_token_s`.
 
 ### A client that leaves
 
@@ -220,6 +284,8 @@ If the engine fails during a call, you get `500 engine_error`. Cale unloads the 
 A model object holds what your app needs. Cale returns an id. Use that id as `model` in chat calls. With `gemma-3n:auto`
 you can send the same goals on one call, with a `cale_` prefix.
 
+The id is in the reply (`id`): it is `name` in lower case, with other characters changed to `-`, cut to 30 characters. A second live object with the same name gets a suffix. Always read `id` from the reply. Use it as `model` in `POST /v1/chat/completions`. Only the app that made the object can use it. A call with a model object must not send `cale_*` fields (`400 goal_in_object`).
+
 `POST /cale/models` with a JSON body. The reply stays open. The object lives while the connection is open.
 
 | Field | Meaning |
@@ -228,14 +294,47 @@ you can send the same goals on one call, with a `cale_` prefix.
 | `size` | exact size: `"smart"`, `"fast"` or a percent. Not with goals. |
 | `min_tokens_per_s` | answer at least this fast. Kept during the answer by changing the size between tokens. |
 | `max_first_token_s` | first token within this many seconds of the call arriving (waiting in line and reading the prompt count) |
-| `memory_pct` | keep Cale under this share of the computer's RAM, counting weights and context |
+| `memory_pct` | keep Cale under this share of the computer's RAM, counting weights and context. It is a cap and a check: see "What `memory_pct` does" below. |
 | `min_quality` | 0 to 1. No size that repeats less than this share of the full size's next-word choices. |
-| `power` | `"normal"` or `"light"` (a smaller size on battery or when the computer is hot) |
+| `power` | `"normal"` or `"light"`. `"light"` limits the size to 75% or less, but only while the computer runs on battery or is hot. See "What `power` does" below. |
 | `priority` | list of `"memory"`, `"quality"`, `"first_token"`, `"speed"`: which goal to keep when they conflict, most important first |
 | `on_miss` | when no size meets the goals: `"best_effort"` (default), `"refuse"`, `"wait"` or `"try"`. `"smallest"` is the old name of `"best_effort"`. |
-| `max_wait_s` | with `"wait"`: how long to keep trying, 0 to 60 s. Default 30. While Cale waits, other apps wait too. |
+| `max_wait_s` | with `"wait"`: how long to keep trying, 0 to 60 s. Default 30. On an engine that answers one call at a time (a Mac), other apps wait too while Cale waits. On Windows and Linux, answers that already run go on, and this call is tried again a little later. |
 | `allow_disk` | allow reading missing weights from disk. Default false. |
-| `max_tokens` | the length limit of this object's answers |
+| `max_tokens` | the length limit of this object's answers. A `max_tokens` (or `max_completion_tokens`) in a chat call overrides it for that call. Cale uses the object's number only when the call sends none. |
+
+#### What `memory_pct` does
+
+It is both a cap and a check.
+
+| Where | What happens |
+|---|---|
+| When the object is made | Cale keeps the largest size in RAM whose weights, plus the context of a hold (4096 tokens) and working room, fit in that share. This is a hold. Its size becomes the cap: no call with this object runs a larger size. If no size fits: with `on_miss: "refuse"` or `"wait"` you get `422 goal_missed` at once. With `"best_effort"` or `"try"` the smallest size is held and the memory goal counts as missed. |
+| At every call | The memory a size needs for this prompt and answer (weights, context, working room) must be at most that share of the RAM. A size over it is a miss. `priority` says if the memory goal wins over the others (it is first by default). |
+| With `cale_memory_pct` on `gemma-3n:auto` | Only the check at every call. There is no hold and no cap. |
+
+What the reply says:
+
+| Where | Value |
+|---|---|
+| `X-Cale-Memory-Goal-Met`, `cale.memory_goal_met` | a model object only: whether a size fit the share when the object was made |
+| `cale.goals_actual.memory` | `{"goal_pct", "actual_pct", "met"}`. `actual_pct` is the memory the engine uses after the answer, as a share of the RAM (GPU memory on a Mac, process memory on Windows and Linux). `met` is true when it is at most `goal_pct`. |
+| `cale.goal_met_actual`, `X-Cale-Unmet` | `memory` is listed when it was missed |
+
+#### What `power` does
+
+`"light"` has an effect only when the computer says it is on battery or hot. Then Cale uses no size above 75% (if all sizes are above it, the smallest). The test is made at each call.
+
+| Computer | Counts as "light" |
+|---|---|
+| Mac | on battery, or the system has lowered the CPU speed for heat |
+| Windows, Linux | on battery only (heat is not read). A desktop with no battery never counts. |
+
+On a plugged-in cool computer, `"light"` changes nothing: the size is the same as with `"normal"`. A computer that cannot say its power state also counts as not light. `"light"` alone counts as a goal, so Cale chooses the size. `"normal"` is the default.
+
+#### Cold start
+
+The first call after an idle time includes loading the model (seconds). That time counts in `waited_s`, so it counts in `first_token` too. `max_first_token_s` is judged for each call, so a cold start can miss it (`goals_actual.first_token.met` is false, with the load time in `actual`). To avoid it, keep the model loaded: make a hold (section 5), or a model object with `size` or `memory_pct`, which also holds a size in RAM. A hold keeps the weights in RAM. Without any hold, the model unloads after 10 minutes with no call.
 
 `deadline_s` was removed (400 `unsupported_parameter`). Cale cannot know how long an answer will be.
 
@@ -266,6 +365,7 @@ The reply is `507 unsafe_for_this_computer`. `error.cale` has `needed_gb`, `ram_
 ## 5. Holds
 
 `POST /cale/load` with `{"size": ...}` or `{"memory_pct": n}` keeps a size in RAM. `POST /cale/unload` with `{"hold": id}` ends it early.
+A hold keeps the model loaded, so the first call after a quiet time does not pay the load time (see "Cold start" in section 4). With `memory_pct`, `on_miss` is `"best_effort"` (default), `"refuse"`, `"wait"` or `"try"`; `"smallest"` is the old name of `"best_effort"`.
 
 ## 5b. Leases: model objects and holds over plain HTTP
 
@@ -287,8 +387,27 @@ Without `lease_s` the old form stays: the reply stays open and the object lives 
 | Language | How |
 |---|---|
 | any | plain HTTP, with `curl` or any library: this document is the whole interface |
-| Python | `cale/client.py`: `ensure_running`, `model`, `hold`, `predict` |
-| Node 18+ | `cale/client.mjs`: `connect`, `ensureRunning`, `createModel` (on a lease, renewed in the background), `hold`, `chat`, `chatStream`, `predict` |
+| Python | `cale/client.py`: `ensure_running`, `model`, `hold`, `predict`, `CaleError`. It has no `connect`: get the key with plain HTTP (section 2). |
+| Node 18+ | `cale/client.mjs`: `connect`, `ensureRunning`, the `Cale` class, `CaleError`. See below. |
+
+Python: copying `cale/client.py` alone into an app works. `ensure_running()` then runs the `cale` command (it also looks in Cale's install folder, and it uses `CALE_URL` as the address if set). The `hold(...)` helper has `on_miss="smallest"` as its default for `memory_pct`: `"smallest"` is the old name of `"best_effort"` and works.
+
+Node (`import { connect, ensureRunning, Cale } from "./client.mjs"`):
+
+| Call | Does |
+|---|---|
+| `await ensureRunning()` | Starts Cale if it does not answer. It runs the `cale` command (`cale start --wait`), so `cale` must be on the `PATH` of the app. If it is not installed, it throws. |
+| `await connect("My App")` | Asks for a key and returns a `Cale` object. If the person has not answered, it prints the message (what the person must do) to `console.error` once, and polls every 2 s. `maxWaitS` (default 300) ends the wait with an error. Pass `onWait(msg)` to show the message somewhere else. It uses the `202` polling of section 2. |
+| `new Cale(base, key)` | Reuses a key you saved: `new Cale("http://127.0.0.1:47821", savedKey)`. `connect` makes a new key and stops the old one (section 2), so save `cale.key` and use this next time. |
+| `await cale.models()` | `GET /v1/models` |
+| `await cale.predict({ ...goals, prompt_tokens })` | `POST /cale/predict` |
+| `await cale.createModel({ name, leaseS, ...goals })` | A model object on a lease (section 5b). `leaseS` is 5 to 3600 s, default 60. Goals are the fields of section 4 (`min_tokens_per_s`, `memory_pct`, ...). Returns `{id, info, renew(), end()}`. A timer renews the lease every third of `leaseS`. |
+| `await model.end()` | Ends the object now and stops the timer. Call it when the app is done. If the app dies, the lease ends by itself. |
+| `await cale.hold({ size or memory_pct, leaseS })` | A hold on a lease. Returns `{id, info, end()}`. |
+| `await cale.chat(body)` | Chat. Returns the JSON reply. |
+| `for await (const chunk of cale.chatStream(body))` | Streamed chat. It sets `stream: true`. Each `chunk` is one parsed event. The last has `usage` and `cale`. |
+
+A Node error is a `CaleError` with `status`, `code` and `body` (the error JSON).
 
 ## 6. List models
 
@@ -299,3 +418,14 @@ Without `lease_s` the old form stays: the reply stays open and the object lives 
 All errors use `{"error": {"message", "type", "code", "param"}}`. Status codes: 400 bad request (including
 `context_length_exceeded`), 401 bad key, 403 not allowed, 404 unknown model, 413 body too large, 422 goal missed
 (with `on_miss: "refuse"` or `"wait"`), 429 busy, 500 `engine_error`, 507 `unsafe_for_this_computer`.
+Some errors carry numbers in `error.cale`:
+
+| Error | `error.cale` |
+|---|---|
+| `400 context_length_exceeded` | `prompt_tokens`, `max_tokens`, `max_context_tokens` |
+| `422 goal_missed` in a chat call | `goal_met` (false), `unmet`, `predicted` (the best size: `tokens_per_s`, `first_token_s`, `memory_gb`, `quality`), `sizes`, `floor` |
+| `422 goal_missed` when a model object is made with `on_miss: "refuse"` | the whole `/cale/predict` reply |
+| `422 goal_missed` when a hold or an object with `memory_pct` finds no size | `goal` (`memory`), `goal_met`, `budget_gb`, `needs_gb` |
+| `507 unsafe_for_this_computer` | `needed_gb`, `ram_gb`, `available_gb`, `smallest_size` |
+
+A `422 constraint_dead_end` has no `cale` block.

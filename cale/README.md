@@ -66,9 +66,25 @@ curl -s -X POST http://127.0.0.1:47821/v1/chat/completions -H "Authorization: Be
 
 Node apps copy `cale/client.mjs` (no packages). A model object on a lease lives without an open connection: pass `lease_s` (see `docs/API.md`, section 5b).
 
+```js
+import { connect, ensureRunning, Cale } from "./client.mjs";
+await ensureRunning();                           // runs the `cale` command: `cale` must be on the PATH
+const cale = await connect("My App");            // prints what the person must do to stderr, then waits. Save cale.key.
+// next start: const cale = new Cale("http://127.0.0.1:47821", savedKey);
+const model = await cale.createModel({ name: "answers", min_tokens_per_s: 15, leaseS: 120 });   // leaseS: 5 to 3600
+const reply = await cale.chat({ model: model.id, messages: [{ role: "user", content: "Hello" }] });
+for await (const chunk of cale.chatStream({ model: model.id, messages: [...] })) { /* last chunk: usage and cale */ }
+await model.end();                               // ends the object and its renewal timer
+```
+
+`cale.models()` lists models, `cale.predict(...)` asks before you run, `cale.hold(...)` keeps a size in RAM. All of it is in `docs/API.md`, section 5c.
+
+Python: `cale/client.py` works as a single copied file. It has `ensure_running`, `model`, `hold`, `predict` and `CaleError`. Without the rest of Cale, `ensure_running` runs the `cale` command.
+An app keeps its key: a second `POST /cale/connect` with the same app name makes a new key and the old one gets `401`.
+
 ## For the developer: model objects and goals
 
-A model object is the model you want, written as goals. Cale returns a name. You use that name as the
+A model object is the model you want, written as goals. Cale returns a name (the object `id`, in the reply). You use that id as the
 `model` in normal OpenAI calls. Cale picks the size for every call, on every computer.
 
 ```python
@@ -87,9 +103,9 @@ with model(base_url, cale_key, name="answers", min_tokens_per_s=15, max_first_to
 |---|---|
 | `min_tokens_per_s` | Answer at least this fast (tokens per second). Kept during the answer: if the live speed falls under it, Cale steps to a smaller size between two tokens, and back up when there is room. |
 | `max_first_token_s` | The first token within this many seconds after the call arrives. Time waiting in line and reading the prompt count. |
-| `memory_pct` | Stay under this share of the computer's RAM. The weights and the context both count. |
+| `memory_pct` | Stay under this share of the computer's RAM. The weights and the context both count. It is a cap (the object holds the largest size that fits, and calls never run a larger one) and a check at every call. The reply says `goals_actual.memory` (`goal_pct`, `actual_pct`, `met`). Details: `docs/API.md`, section 4. |
 | `min_quality` | Use no size that repeats less than this share (0 to 1) of the full size's next-word choices. `0.95` means "almost the full model". |
-| `power` | `"normal"` (default) or `"light"`: on battery or when the computer is hot, run a smaller size. |
+| `power` | `"normal"` (default) or `"light"`: while on battery (Mac and Windows and Linux) or hot (Mac only), use no size above 75%. On a plugged-in cool computer it changes nothing. |
 
 Other settings of an object:
 
@@ -97,9 +113,9 @@ Other settings of an object:
 |---|---|
 | `name` | Becomes the id (`answers`). A second live object with the same name gets a suffix. |
 | `size` | An exact size: `"smart"`, `"fast"` or a percent. Do not combine it with goals. |
-| `max_tokens` | The length limit of your answers. If you set none, only the context limit applies. |
+| `max_tokens` | The length limit of your answers. If you set none, only the context limit applies. A `max_tokens` in a chat call overrides it for that call. |
 | `priority` | Which goals to keep when they cannot all be met, most important first. Default: `["memory", "quality", "first_token", "speed"]`. |
-| `on_miss` | What to do when no size meets the goals: `"best_effort"` (default, runs the size that misses least and says what missed), `"refuse"` (422, nothing runs), `"wait"` (try again for `max_wait_s`, 0 to 60, default 30, then 422), `"try"` (run anyway: also allows disk reads). |
+| `on_miss` | What to do when no size meets the goals: `"best_effort"` (default, runs the size that misses least and says what missed), `"refuse"` (422, nothing runs), `"wait"` (try again for `max_wait_s`, 0 to 60, default 30, then 422), `"try"` (run anyway: also allows disk reads). `"smallest"` is the old name of `"best_effort"`. With `"wait"`, other apps can wait too while Cale tries (see `docs/API.md`, section 4). |
 | `allow_disk` | Let a call read missing weights from disk. Default `False`. |
 
 `deadline_s` was removed. Cale cannot know how long an answer will be, so it cannot keep a deadline for a whole answer.
@@ -183,7 +199,12 @@ A hold ends when you close the connection or the app quits. Memory pressure does
 An app with no hold still works. Its first call keeps the full size in memory until 10 minutes after its last call.
 
 If a call needs a size larger than what is held, Cale reads the missing weights from disk for that call.
-The header `X-Cale-Disk-MB` says how much. The memory is freed when the call ends. A call never fails for this reason.
+The header `X-Cale-Disk-MB` says how much. `X-Cale-Size` is the size as a percent (100 is full). The memory is freed when the call ends. A call never fails for this reason.
+
+## Prompts that repeat, and the first call
+
+To reuse a long document, put it FIRST and keep it identical. Put the question LAST. `usage.prompt_tokens_details.cached_tokens` says what was reused (also in the last chunk of a stream). A prompt needs a `user` message: a `system` message alone is not sent. Details: `docs/API.md`, "Prompt cache".
+The first call after a quiet time loads the model (seconds). That time counts toward `max_first_token_s`. A hold keeps the model loaded.
 
 ## What Cale knows about each computer
 

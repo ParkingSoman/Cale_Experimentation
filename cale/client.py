@@ -116,9 +116,53 @@ def predict(base_url, api_key, prompt_tokens=200, max_tokens=256, **goals):
 
 
 def ensure_running(wait=60):
-    """Start Cale if it is not running (no service needed). Raises CaleError if it does not come up."""
-    from . import service
+    """Start Cale if it is not running (no service needed). Raises CaleError if it does not come up.
+    Works when this file is copied into an app on its own: it then runs the `cale` command."""
+    try:
+        from . import service
+    except ImportError:                                  # a standalone copy of this file
+        return _start_with_command(wait)
     ok, msg = service.start(wait)
     if not ok:
         raise CaleError(0, msg)
     return msg
+
+
+def _start_with_command(wait):
+    import os
+    import shutil
+    import subprocess
+    import sys
+    import time
+    import urllib.request
+    base = os.environ.get("CALE_URL", "http://127.0.0.1:47821").rstrip("/")
+
+    def up():
+        try:
+            with urllib.request.urlopen(base + "/cale/status", timeout=3):
+                return True
+        except (urllib.error.URLError, OSError, ValueError):
+            return False
+
+    if up():
+        return "Cale is running."
+    exe = shutil.which("cale")
+    if exe is None:                                       # the installer's own folders, for computers where `cale` is not on PATH
+        home = os.environ.get("CALE_HOME")
+        roots = [home] if home else {"darwin": ["~/Library/Application Support/Cale"], "win32": [os.path.expandvars("%LOCALAPPDATA%\\Cale")]}.get(
+            sys.platform, ["~/.local/share/cale"])
+        for r in roots:
+            for name in ("bin/cale", "cale.cmd", "bin/cale.cmd"):
+                cand = os.path.join(os.path.expanduser(r), name)
+                if os.path.exists(cand):
+                    exe = cand
+                    break
+    if exe is None:
+        raise CaleError(0, "Cale is not installed on this computer, or the `cale` command cannot be found.")
+    subprocess.run([exe, "start"], capture_output=True, timeout=wait + 10)
+    end = time.time() + wait
+    while time.time() < end:
+        if up():
+            return "Cale is running."
+        time.sleep(1)
+    raise CaleError(0, "Cale did not start in time.")

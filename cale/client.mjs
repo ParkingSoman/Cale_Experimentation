@@ -7,7 +7,10 @@
 //   const model = await cale.createModel({ name: "answers", min_tokens_per_s: 15, memory_pct: 40 });   // a model object on a lease
 //   const reply = await cale.chat({ model: model.id, messages: [{ role: "user", content: "Hello" }] });
 //   console.log(reply.choices[0].message.content, reply.cale.goals_actual);
-//   await model.end();
+//   await model.end();                                             // ends the object and its renewal timer
+//
+// Later runs: reuse the saved key with `new Cale(DEFAULT_URL, savedKey)`. A second connect() for the same app name makes a new key and the old one gets 401.
+// `ensureRunning` runs the `cale` command, so `cale` must be on the PATH.
 
 import { spawnSync } from "node:child_process";
 
@@ -41,7 +44,7 @@ export async function ensureRunning(base = DEFAULT_URL) {
   return true;
 }
 
-/** Ask for a key. The person at the computer allows the app (a dialog, or `cale allow NAME` in a terminal when there is no screen). */
+/** Ask for a key. It prints the message that says what the person must do (to console.error, or to `onWait`) once, polls every 2 s, and gives up after `maxWaitS` s. The person at the computer allows the app (a dialog, or `cale allow NAME` in a terminal when there is no screen). */
 export async function connect(app, { base = DEFAULT_URL, maxWaitS = 300, onWait = (msg) => console.error(msg) } = {}) {
   let r = await request(base, "/cale/connect", { method: "POST", body: { app, wait_s: 20 } });
   const t0 = Date.now();
@@ -71,7 +74,7 @@ export class Cale {
   /** OpenAI-style chat. Returns the JSON reply (with `cale` fields: goals_actual, size_changes, ...). */
   async chat(body) { return (await this.#call("/v1/chat/completions", { method: "POST", body })).json; }
 
-  /** Streamed chat: an async iterator of the parsed chunks. */
+  /** Streamed chat: an async iterator of the parsed chunks (it sets stream: true). The last chunk has `usage` (with prompt_tokens_details.cached_tokens) and `cale` (size, seconds, waited_s, total_s, goal_met_actual, goals_actual, size_changes, ...). */
   async *chatStream(body) {
     const res = await fetch(this.base + "/v1/chat/completions", {
       method: "POST",
@@ -94,9 +97,11 @@ export class Cale {
   /** Ask before you run: can this computer meet the goals, and which size would Cale use? Nothing runs. */
   async predict(goals = {}) { return (await this.#call("/cale/predict", { method: "POST", body: goals })).json; }
 
+  /** GET /v1/models: sizes, your model objects, this computer's predicted speed. */
   async models() { return (await this.#call("/v1/models")).json; }
 
   /**
+   * leaseS: 5 to 3600 seconds (default 60). Other fields are the goals and settings of docs/API.md section 4.
    * A model object on a lease: it lives while you use it or renew it, and ends by itself if the app dies.
    * Returns {id, info, renew(), end()}. The lease is renewed in the background every third of its length.
    */

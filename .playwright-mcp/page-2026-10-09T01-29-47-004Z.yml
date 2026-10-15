@@ -1,7 +1,0 @@
-- generic [ref=e2]:
-  - heading "Inbox runs its AI on your Mac" [level=1] [ref=e9]
-  - paragraph [ref=e10]: For that it needs Cale, a small helper that keeps the AI on this computer. It is not installed or not running.
-  - paragraph [ref=e11]: "Install it once, then come back:"
-  - paragraph [ref=e12]:
-    - code [ref=e13]: ./cale/install.sh
-  - button "Check again" [ref=e14] [cursor=pointer]

@@ -1,5 +1,0 @@
-- generic [ref=e2]:
-  - heading "Let Inbox use Cale" [level=1] [ref=e3]
-  - paragraph [ref=e4]: Inbox wants to use the AI on this Mac to sort and summarize your mail. Nothing leaves your computer.
-  - button "Connect" [ref=e5] [cursor=pointer]
-  - paragraph

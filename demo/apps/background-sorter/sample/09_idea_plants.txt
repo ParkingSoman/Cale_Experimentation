@@ -1,0 +1,1 @@
+idea: app that reminds you to water plants based on the weather forecast. could use a free weather api. name: Thirsty?
