@@ -54,6 +54,8 @@ def stream(model_id, key, prompt, out, name):
             if not line.startswith("data:") or line.endswith("[DONE]"):
                 continue
             ev = json.loads(line[5:])
+            if ev.get("cale"):
+                rec["cale"] = ev["cale"]
             if any((c.get("delta") or {}).get("content") for c in ev.get("choices", [])):
                 rec["tokens"] += 1
                 if rec["first"] is None:
@@ -98,6 +100,16 @@ if together:
           out["urgent"]["end"] < out["bg1"]["end"], f"urgent {out['urgent']['end']:.2f} s, background 1 {out['bg1']['end']:.2f} s")
 else:
     print("   (this engine answers one at a time: the running answer finishes first, the rule only picks who starts next)")
+
+# Time an answer spends paused for a higher tier is waiting, not working: the reply says so, and the predictor does not learn it as slow.
+paused = {k: round(float((out[k].get("cale") or {}).get("paused_pre_s") or 0) + float((out[k].get("cale") or {}).get("paused_dec_s") or 0), 2) for k in out}
+print(f"   paused seconds: {paused}")
+check("the reply reports paused seconds", all("paused_pre_s" in (out[k].get("cale") or {}) for k in out), {k: list((out[k].get("cale") or {})) for k in out})
+check("the urgent answer was never paused", paused["urgent"] == 0.0, paused)
+if together:
+    check("a background answer was paused while the urgent one ran", max(paused["bg1"], paused["bg2"]) > 0.0, paused)
+    wall = float((out["bg1"].get("cale") or {}).get("seconds") or 0)
+    check("paused seconds are never more than the answer's own time", all(paused[k] <= float((out[k].get("cale") or {}).get("seconds") or 0) + 0.01 for k in out), paused)
 
 print("\nALL PASS" if not FAIL else f"\n{len(FAIL)} FAILED: {FAIL}")
 sys.exit(1 if FAIL else 0)

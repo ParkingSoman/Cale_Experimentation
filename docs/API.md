@@ -262,6 +262,7 @@ has an empty `delta`, the `finish_reason`, `usage` and a `cale` block. All the f
 | `size` | the size at the end (a percent) |
 | `seconds` | seconds the engine worked on this answer (reading the prompt and writing the answer, not the wait in line) |
 | `waited_s`, `total_s` | seconds in line, and wait plus `seconds` |
+| `paused_pre_s`, `paused_dec_s` | seconds this answer was held back for an app of a higher tier, before its first word and after it (llama engine only; `null` or `0` elsewhere). They are part of `seconds`, but they are waiting, not work: Cale does not learn them as slow speed. |
 | `goal_met`, `unmet`, `predicted`, `confidence`, `requested_size`, `memory_goal_met`, `answer_limit` | what Cale knew before the answer (the same as the headers) |
 | `goal_met_actual`, `goals_actual` | the end result. `null` when no goal was given. |
 | `size_changes` | the size changes during the answer, or `null` |

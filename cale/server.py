@@ -862,7 +862,7 @@ class Handler(BaseHTTPRequestHandler):
                 "usage": {"prompt_tokens": done.get("prompt_tokens", 0), "completion_tokens": done.get("tokens", 0),
                           "total_tokens": done.get("prompt_tokens", 0) + done.get("tokens", 0),
                           "prompt_tokens_details": {"cached_tokens": done.get("cached_tokens", 0)}},
-                "cale": {**info, "size": actual, **{k: done.get(k) for k in ("seconds", "first_token_s", "waited_s", "total_s", "switch_ms", "drafter", "disk_mb", "disk_s")},
+                "cale": {**info, "size": actual, **{k: done.get(k) for k in ("seconds", "first_token_s", "waited_s", "total_s", "switch_ms", "drafter", "disk_mb", "disk_s", "paused_pre_s", "paused_dec_s")},
                            "answers_sharing_the_step": done.get("batch_avg", 1.0)},
             }, hdr)
 
@@ -916,7 +916,8 @@ class Handler(BaseHTTPRequestHandler):
                         "cale": {**info, "size": d["size_pct"], "seconds": d["seconds"], "waited_s": d.get("waited_s"),
                                  "total_s": d.get("total_s"), "goal_met_actual": d.get("goal_met_actual"),
                                  "goals_actual": d.get("goals_actual"), "size_changes": d.get("switches") or None,
-                                 "drafter": d["drafter"], "disk_mb": d.get("disk_mb"), "disk_s": d.get("disk_s")}})
+                                 "drafter": d["drafter"], "disk_mb": d.get("disk_mb"), "disk_s": d.get("disk_s"),
+                                 "paused_pre_s": d.get("paused_pre_s"), "paused_dec_s": d.get("paused_dec_s")}})
             send(b"[DONE]")
         except (BrokenPipeError, ConnectionResetError, Cancelled):
             pass

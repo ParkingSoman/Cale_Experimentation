@@ -154,6 +154,14 @@ check("predictor: smaller sizes are faster", all(p.decode_tps(a) <= p.decode_tps
 p.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 8.0, "prompt_tokens": 200, "first_token_s": 200 / 20 + 0.125})
 check("predictor: one real answer sets the full size's speed within 15%", abs(p.decode_tps(FULL) - 8.0) / 8.0 < 0.15 and p.confidence == "learned", p.decode_tps(FULL))
 check("predictor: ...and the prompt speed", abs(p.prefill_tps(FULL) - 20) / 20 < 0.2, p.prefill_tps(FULL))
+pp = Predictor("llama", 28e9, levels=LEVELS)       # an answer held back for another app: its clock ran, but it was not working
+pp.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 8.0 + 30.0, "paused_dec_s": 30.0, "prompt_tokens": 200,
+            "first_token_s": 200 / 20 + 0.125 + 45.0, "paused_pre_s": 45.0})
+check("predictor: time an answer spent paused is not learned as slow decode", abs(pp.decode_tps(FULL) - 8.0) / 8.0 < 0.15, pp.decode_tps(FULL))
+check("predictor: ...nor as slow prompt reading", abs(pp.prefill_tps(FULL) - 20) / 20 < 0.2, pp.prefill_tps(FULL))
+pn = Predictor("llama", 28e9, levels=LEVELS)       # the same answer without the pause fields shows what the bug did
+pn.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 8.0 + 30.0, "prompt_tokens": 200, "first_token_s": 200 / 20 + 0.125 + 45.0})
+check("predictor: without the pause fields the same answer looks much slower (the old behavior)", pn.decode_tps(FULL) < 0.5 * pp.decode_tps(FULL), pn.decode_tps(FULL))
 before = p.decode_tps(FULL)
 p.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 4.0, "prompt_tokens": 200, "first_token_s": 20, "switches": [{"at_token": 16}]})
 check("predictor: an answer that changed size is not used for speed", p.decode_tps(FULL) == before)

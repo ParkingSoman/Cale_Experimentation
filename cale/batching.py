@@ -145,7 +145,10 @@ class Request:
         self.share = 0                  # sum of the number of answers in those steps (to know how crowded it was)
         self.started = None
         self.paused = False             # held back for a higher tier answer (see tier())
-        self.defer_since = None         # [time] when an app that said `wait` first could not be served
+        self.pause_t0 = None            # [perf_counter] when the current pause began
+        self.paused_pre_s = 0.0         # seconds spent paused before the first token (the answer was waiting, not reading)
+        self.paused_dec_s = 0.0         # seconds spent paused after the first token (the answer was waiting, not decoding)
+        self.defer_since = None        # [time] when an app that said `wait` first could not be served
         self.retry_at = 0.0
 
 
@@ -460,6 +463,24 @@ class BatchMixin:
             if hold != r.paused:
                 lib.slot_pause(r.stream.slot, hold)
                 r.paused = hold
+                now = time.perf_counter()
+                if hold:
+                    r.pause_t0 = now
+                elif r.pause_t0 is not None:
+                    self._close_pause(r, now)
+
+    @staticmethod
+    def _close_pause(r, now):
+        """A pause ended: put its seconds where they belong. Time before the first token is waiting to read, time after it is waiting to decode."""
+        t0, tf = r.pause_t0, r.stream.t_first
+        r.pause_t0 = None
+        if tf is None or now <= tf:
+            r.paused_pre_s += now - t0
+        elif t0 >= tf:
+            r.paused_dec_s += now - t0
+        else:
+            r.paused_pre_s += tf - t0
+            r.paused_dec_s += now - tf
 
     def _reap(self):
         """Stop answers whose client left."""
@@ -503,8 +524,11 @@ class BatchMixin:
                 lps = st.take_logprobs()
                 if lps:
                     r.q.put({"logprobs": lps})
+            if r.pause_t0 is not None:
+                self._close_pause(r, time.perf_counter())
             d["waited_s"] = round(r.waited, 3)
             d["total_s"] = round(r.waited + d["seconds"], 3)
+            d["paused_pre_s"], d["paused_dec_s"] = round(r.paused_pre_s, 3), round(r.paused_dec_s, 3)       # the predictor learns from the time spent working, not waiting
             d["disk_mb"], d["disk_s"] = r.disk_mb, r.disk_s
             d["batch_avg"] = round(r.share / r.steps, 2) if r.steps else 1.0
             if r.goals is not None and goals_mod.is_set(r.goals):

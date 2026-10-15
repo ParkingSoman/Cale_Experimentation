@@ -268,3 +268,49 @@ Probe rules: a probe never runs while a goal-bound call is active or queued. A p
 |---|---|---|
 | 1b | Model of concurrent load: the predictor learns the speed loss per number of busy apps and tier, from the samples in item 2 | Fixes the real cause of missed goals on the HP |
 | 1c | Engine load failure on the GPU: retry on CPU inside the same call, never return 500, record the failure so placement avoids it | An app must never see a 500 for a hardware problem |
+
+## Revision: drafters are a gated family, not "always on" (2026-10-15, after Shonu's transcription example)
+
+Prompt-copy only helps when the answer repeats text that is in the prompt. Document transcription, open writing and any new text get nothing. Root cause: no single drafter wins everywhere, and Cale cannot know the text type in advance.
+
+| Change to the build list | Detail |
+|---|---|
+| Item 3 becomes "drafter family with per-call gating" | Prompt-copy and answer-copy (repeat from the answer so far). Both need no training. |
+| Default gain is 1.0x | The predictor counts a gain only after it is measured for that app on that machine. |
+| Per-call trial | Draft for the first few dozen tokens, watch the acceptance rate, stop if it is low, try again later in the answer. |
+| Cost cap | On an arithmetic-limited CPU (the HP) a failed draft can slow an answer. Measure the loss and cap the trial length by it. |
+| Step 0 (before any engine work) | Offline replay: take real prompts and answers from the five demo apps (and Shonu's transcription app if available), count how many answer tokens each drafter would have guessed. No engine change needed. Run after the Mac quality test. |
+| Funding pitch | A trained drafter for Gemma 3n stays the real answer for text that nothing can copy. |
+
+## BlinkFix lessons (read 2026-10-15, `~/BlinkFix`, Shonu's accessible PDF-to-HTML app that started Cale)
+
+BlinkFix converts document pages to accessible HTML with Gemma 4 12B (QAT Q4_0) plus Google's trained MTP assistant (drafter), on llama.cpp. Its own measured notes are in `MTP_ACCEPTANCE.md` and `MTP_PRIORITY.md`.
+
+**Measured with a trained drafter [M, `~/BlinkFix/MTP_ACCEPTANCE.md`]:** 1.59x on full-page prose, 1.7-1.8x on math, 2.12x on tables. Accepted/drafted is about 90% (478/529 on prose). All seven greedy outputs matched exactly with the drafter on and off. So a trained drafter is lossless and works on transcription.
+
+**Replay of the same saved answers with two copy-drafters [M, `scripts/drafter_replay.py`, `results/drafter-replay-blinkfix.json`].** Tokens per pass, upper bound (a pass with more tokens may cost more, especially on the HP):
+
+| Page type | Copy-drafter (answer-copy) | Trained drafter (BlinkFix) |
+|---|---|---|
+| Full-page prose | 1.06 | 1.59x |
+| Inline math | 1.03 | 1.68x |
+| Display math | 1.45 | 1.75x |
+| Tables | 2.01 | 2.12x |
+| Chemistry | 1.28 | 1.81x |
+| Diagrams | 1.07 | 1.72x |
+
+Prompt-copy adds nothing here: the prompt is an image, so there is no prompt text to copy. Answer-copy helps only on tables. This matches Shonu's report.
+
+**Conclusions**
+
+1. Copy-drafters are a niche tool (tables, lists, JSON, edits of given text). Keep them gated and cheap. They do not replace a trained drafter.
+2. For transcription-like work the only strong drafter is a trained one. Gemma 4 12B has one (Google's, 270 MB). Gemma 3n has none. This is the clearest funding-pitch fact: the trained Matryoshka model should ship with its own trained drafter.
+3. Earlier Mac data (`FINDINGS.md`): 12B plus drafter reaches about the plain E4B speed at full 12B quality. The HP is arithmetic-limited, so the gain there may be smaller. Measure it on the HP before using it in the pitch. This is a data point, not a change of model.
+4. BlinkFix already has Cale's tier idea: interactive edits interrupt background conversion. It measured that a GPU batch cannot be interrupted: one in-flight prefill added 5.84 s. In Cale the worst-case wait for a higher tier is one prefill piece, which `STEP_SECONDS` already limits. Add a test of that worst case on the HP.
+5. BlinkFix would be a strong "hidden zoo" test app for Cale: it needs vision input, JSON schema, cancel and priorities. Cale has all but vision on Windows and Linux. Vision on Windows and Linux becomes a candidate item.
+
+## Status log
+
+| Date | Item | Result |
+|---|---|---|
+| 2026-10-15 | Build item 1: paused time is no longer learned as slow decode or slow prompt reading | DONE. `cale/batching.py` (pause intervals per answer), `cale/predict.py` (subtracts paused time), `cale/engine.py` (paused time does not heat the computer), `cale/server.py` (reply fields `paused_pre_s`, `paused_dec_s`). Unit test in `cale/tests/choose.py` (all pass). End-to-end on HP Windows: `cale/tests/priority.py` ALL PASS, background answers paused 2.34 s each, the urgent answer 0.0 s. `docs/API.md` still needs the two new fields in its table. |

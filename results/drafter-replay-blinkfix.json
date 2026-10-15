@@ -1,0 +1,128 @@
+{
+ "full_page_prose": {
+  "answer_copy": {
+   "tokens": 1006,
+   "passes": 949,
+   "tokens_per_pass": 1.06,
+   "drafted": 1000,
+   "accepted": 57,
+   "accept_rate": 0.057
+  },
+  "prompt_copy": {
+   "tokens": 1006,
+   "passes": 949,
+   "tokens_per_pass": 1.06,
+   "drafted": 1000,
+   "accepted": 57,
+   "accept_rate": 0.057
+  }
+ },
+ "inline_math": {
+  "answer_copy": {
+   "tokens": 104,
+   "passes": 101,
+   "tokens_per_pass": 1.03,
+   "drafted": 72,
+   "accepted": 3,
+   "accept_rate": 0.042
+  },
+  "prompt_copy": {
+   "tokens": 104,
+   "passes": 101,
+   "tokens_per_pass": 1.03,
+   "drafted": 72,
+   "accepted": 3,
+   "accept_rate": 0.042
+  }
+ },
+ "display_math": {
+  "answer_copy": {
+   "tokens": 113,
+   "passes": 78,
+   "tokens_per_pass": 1.449,
+   "drafted": 172,
+   "accepted": 36,
+   "accept_rate": 0.209
+  },
+  "prompt_copy": {
+   "tokens": 113,
+   "passes": 78,
+   "tokens_per_pass": 1.449,
+   "drafted": 172,
+   "accepted": 36,
+   "accept_rate": 0.209
+  }
+ },
+ "tables": {
+  "answer_copy": {
+   "tokens": 582,
+   "passes": 289,
+   "tokens_per_pass": 2.014,
+   "drafted": 979,
+   "accepted": 294,
+   "accept_rate": 0.3
+  },
+  "prompt_copy": {
+   "tokens": 582,
+   "passes": 289,
+   "tokens_per_pass": 2.014,
+   "drafted": 979,
+   "accepted": 294,
+   "accept_rate": 0.3
+  }
+ },
+ "chemistry": {
+  "answer_copy": {
+   "tokens": 127,
+   "passes": 99,
+   "tokens_per_pass": 1.283,
+   "drafted": 192,
+   "accepted": 28,
+   "accept_rate": 0.146
+  },
+  "prompt_copy": {
+   "tokens": 127,
+   "passes": 99,
+   "tokens_per_pass": 1.283,
+   "drafted": 192,
+   "accepted": 28,
+   "accept_rate": 0.146
+  }
+ },
+ "rare_unicode": {
+  "answer_copy": {
+   "tokens": 129,
+   "passes": 108,
+   "tokens_per_pass": 1.194,
+   "drafted": 96,
+   "accepted": 21,
+   "accept_rate": 0.219
+  },
+  "prompt_copy": {
+   "tokens": 129,
+   "passes": 108,
+   "tokens_per_pass": 1.194,
+   "drafted": 96,
+   "accepted": 21,
+   "accept_rate": 0.219
+  }
+ },
+ "diagrams": {
+  "answer_copy": {
+   "tokens": 240,
+   "passes": 224,
+   "tokens_per_pass": 1.071,
+   "drafted": 282,
+   "accepted": 16,
+   "accept_rate": 0.057
+  },
+  "prompt_copy": {
+   "tokens": 240,
+   "passes": 224,
+   "tokens_per_pass": 1.071,
+   "drafted": 282,
+   "accepted": 16,
+   "accept_rate": 0.057
+  }
+ }
+}

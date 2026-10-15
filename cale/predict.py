@@ -171,7 +171,8 @@ class Predictor:
             self.disk_samples = (self.disk_samples + [disk_bytes / float(done["disk_s"])])[-KEEP:]
             self.disk_bps = statistics.median(self.disk_samples)
         live = self.live_factor()
-        tokens, decode_s = int(done.get("tokens") or 0), float(done.get("decode_s") or 0.0)
+        tokens = int(done.get("tokens") or 0)
+        decode_s = float(done.get("decode_s") or 0.0) - float(done.get("paused_dec_s") or 0.0)      # an answer held back for another app was waiting, not decoding
         if tokens >= 9 and decode_s > 0 and not done.get("switches") and float(done.get("batch_avg") or 1.0) < 1.05:
             tps = (tokens - 1) / decode_s
             hist = self.by_level.setdefault(level["id"], [])
@@ -188,7 +189,7 @@ class Predictor:
             self.n_dec += 1
             self._fit_fixed()
         prompt = int(done.get("prompt_tokens") or 0) - int(done.get("cached_tokens") or 0)      # only the tokens that were really read
-        first = float(done.get("first_token_s") or 0.0) - float(done.get("disk_s") or 0.0)
+        first = float(done.get("first_token_s") or 0.0) - float(done.get("disk_s") or 0.0) - float(done.get("paused_pre_s") or 0.0)
         if prompt >= 32 and first > 0 and float(done.get("batch_avg") or 1.0) < 1.05:
             read_s = first - 1.0 / max(self.decode_tps(level), 1e-6)
             if read_s > 0:
