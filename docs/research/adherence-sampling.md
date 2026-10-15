@@ -232,3 +232,16 @@ The **contention table** is a new asset. It says how a goal behaves when another
 
 - Repo: `FINDINGS.md`, `results/xplat/bakeoff.json`, `results/xplat/llama-gates.json`, `results/demo/hp-windows.json`, `cale/predict.py`, `cale/tuning.py`, `cale/engine.py`, `cale/oslayer.py`, `cale/backends/llama.py`, `cale/activity.py`, `cale/fetch_model.py`, `cale/gemma3n_facts.py`, `docs/PLAN.md`, memory files `project-ocean-ladder.md`, `feedback-tokens-per-second.md`, `project-consumer-demo.md`.
 - Web (indirect only; no Gemma 3n numbers found): [Gemma 3 QAT thread, r/LocalLLaMA](https://red.applefritter.com/r/LocalLLaMA/comments/1jr89mc/gemma_3_qat), [GGUF vs GPTQ vs EXL2 guide](https://www.kunalganglani.com/blog/llm-quantization-gguf-gptq-exl2.md), [llama.cpp `llama-context.h` mirror](https://git.mitjafelicijan.com/llmnpc/tree/llama.cpp/src/llama-context.h).
+
+## Build list (agreed with Shonu, 2026-10-15)
+
+| Order | Item | Why | Check before keeping it |
+|---|---|---|---|
+| 1 | Fix paused time counted as decode time (`cale/backends/llama.py:147`). Also stop the predictor learning from paused or contended samples. | The predictor learns "slow" from an answer that only waited. | Scorecard predictions get closer on HP Windows. |
+| 2 | Record per-token times, download speed, and idle-gap data. Passive only. No extra model runs. | Free data for the predictor. | Overhead near zero. Same size picked as before. |
+| 3 | Prompt-copy drafter (speculative decoding from the prompt text). Always on. Cale turns it off per answer if few drafts are accepted. Needs no training. | Faster answers for Doc Reader, Meeting Recap and Sorter. The gain can pay for a bigger size. | Measure on the Mac and on the HP (Windows and Linux). Same words out. Keep only if faster. |
+| 4 | Predictor counts the drafter's real gain, per app and per machine. | Honest goals. | Prediction error falls. |
+| 5 | In-answer size step-down. Developer opt-in. Hard floor. Once per answer. Sentence end only. Needs a Mac KV-cache test first. | Safety net, not the normal path. | See the rules in chat on 2026-10-15. |
+| Funding pitch | A trained drafter for Gemma 3n (Google has released none that we know of). | Matryoshka model + drafter together. | n/a |
+
+Probe rules: a probe never runs while a goal-bound call is active or queued. A probe holds no memory that the size choice counts. A sample taken under contention is tagged.
