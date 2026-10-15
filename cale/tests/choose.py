@@ -170,6 +170,69 @@ check("predictor: debug slowdown halves the speed", abs(p.decode_tps(FULL) - bef
 p.slow = 1.0
 p.busy = lambda: 1.0
 check("predictor: a busy computer predicts slower", p.decode_tps(FULL) < before)
+# --- what other programs cost (the load factor learns from answers)
+pl = Predictor("llama", 28e9, levels=LEVELS)
+check("load: the prior says half load costs about a third, full load a half", abs(1 / (1 + pl.load_alpha * 0.5) - 0.667) < 0.01 and abs(1 / (1 + pl.load_alpha) - 0.5) < 0.01)
+for _ in range(3):
+    pl.busy = lambda: 0.02
+    pl.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 8.0, "prompt_tokens": 100, "first_token_s": 5})
+pl.busy = lambda: 0.5
+pl.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 3.2, "prompt_tokens": 100, "first_token_s": 5})        # 8 -> 3.2 tok/s at half load: alpha 3
+check("load: a computer that slows more than the prior says teaches it", pl.load_alpha > 1.5 and pl.n_load == 1, pl.load_alpha)
+for _ in range(6):
+    pl.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 3.2, "prompt_tokens": 100, "first_token_s": 5})
+check("load: ...and it settles near what the answers show (alpha about 3)", 2.2 < pl.load_alpha < 3.4, pl.load_alpha)
+check("load: the learned factor is used in the prediction", abs(pl.live_factor() - 1 / (1 + pl.load_alpha * 0.5)) < 0.02, pl.live_factor())
+pc = Predictor("llama", 28e9, levels=LEVELS)
+pc.busy = lambda: 0.5
+pc.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 3.2, "prompt_tokens": 100, "first_token_s": 5})
+check("load: with no quiet answers yet nothing is learned (no baseline)", pc.n_load == 0 and pc.load_alpha == 1.0)
+pc2 = Predictor("llama", 28e9, levels=LEVELS)
+pc2.busy = lambda: 0.02
+for _ in range(3):
+    pc2.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 8.0, "prompt_tokens": 100, "first_token_s": 5})
+pc2.busy = lambda: 0.5
+pc2.observe({"tier": FULL["id"], "tokens": 40, "decode_s": 39 / 3.2, "prompt_tokens": 100, "first_token_s": 5, "batch_avg": 2.0})
+check("load: an answer that shared steps with another answer teaches nothing about other programs", pc2.n_load == 0)
+
+# --- interruptions: learn the speed of decoding alone, and the cost of being interrupted as a separate number
+ps = Predictor("llama", 28e9, levels=LEVELS)
+for _ in range(30):
+    ps.observe({"tier": FULL["id"], "tokens": 41, "decode_s": 40 / 5.5, "pure_tps": 8.0, "prompt_tokens": 100, "first_token_s": 5})        # felt 5.5, decoding alone 8.0
+check("steal: decode speed is learned from decoding alone (8, not the felt 5.5)", abs(ps._decode_pure(FULL) - 8.0) / 8.0 < 0.1, ps._decode_pure(FULL))
+check("steal: the interruption cost is learned (about 31%)", 0.25 < ps.steal < 0.37, ps.steal)
+check("steal: the speed the app feels is decode-only less the steal (about 5.5)", abs(ps.decode_tps(FULL) - 5.5) / 5.5 < 0.12, ps.decode_tps(FULL))
+pn2 = Predictor("llama", 28e9, levels=LEVELS)
+for _ in range(8):
+    pn2.observe({"tier": FULL["id"], "tokens": 41, "decode_s": 40 / 5.5, "prompt_tokens": 100, "first_token_s": 5})                      # no pure speed known: the old behavior
+check("steal: without a decode-only speed nothing is split (the old behavior)", pn2.steal == 0.0 and abs(pn2.decode_tps(FULL) - 5.5) / 5.5 < 0.12)
+
+# --- smoothing of other programs' CPU use
+from cale.predict import Smooth  # noqa: E402
+sm = Smooth(6.0)
+sm.update(1.0, 2.0)
+check("smooth: one spike of a 2 s reading moves the value by a third at most", sm.value < 0.34, sm.value)
+for _ in range(10):
+    sm.update(0.0, 2.0)
+check("smooth: it settles back", sm.value < 0.02, sm.value)
+for _ in range(15):
+    sm.update(0.5, 2.0)
+check("smooth: a lasting load shows in full", abs(sm.value - 0.5) < 0.02, sm.value)
+
+# --- the install-time table must not say a smaller size is slower
+from cale import tuning  # noqa: E402
+tbl = {"big": {"pre": 24.0, "dec": 5.6}, "mid": {"pre": 30.0, "dec": 7.7}, "bad": {"pre": 40.0, "dec": 5.1}, "small": {"pre": 42.0, "dec": 12.6}}
+redo = {"bad": [(41.0, 8.4)]}
+fixed = tuning.repair_monotone(["big", "mid", "bad", "small"], tbl, lambda i: redo[i].pop(0) if redo.get(i) else None)
+check("table: a smaller size measured slower is measured again", fixed == ["bad"], fixed)
+check("table: the better reading is kept (8.4, not 5.1)", tbl["bad"]["dec"] == 8.4 and tbl["bad"]["pre"] == 41.0, tbl["bad"])
+tbl2 = {"big": {"pre": 24.0, "dec": 5.6}, "small": {"pre": 42.0, "dec": 12.6}}
+check("table: a sound table is left alone (no extra runs)", tuning.repair_monotone(["big", "small"], tbl2, lambda i: (_ for _ in ()).throw(AssertionError("no extra run needed"))) == [])
+tbl3 = {"big": {"pre": 24.0, "dec": 9.0}, "small": {"pre": 42.0, "dec": 5.0}}
+n3 = []
+fixed3 = tuning.repair_monotone(["big", "small"], tbl3, lambda i: (n3.append(i), (40.0, 5.5))[1], tries=2)
+check("table: it does not loop forever when the order stays wrong", len(n3) == 2 and tbl3["small"]["dec"] == 5.5, n3)
+
 p2 = Predictor("mlx", 100e9, levels=LEVELS)
 check("predictor: a faster memory predicts faster", p2.decode_tps(FULL) > Predictor("llama", 28e9, levels=LEVELS).decode_tps(FULL))
 

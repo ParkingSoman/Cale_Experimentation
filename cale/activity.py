@@ -48,7 +48,8 @@ def finish(size_pct, done, goal_met=None):
     if rec:
         rec.update(final={"size_pct": size_pct, "tokens": done.get("tokens"), "seconds": done.get("seconds"),
                           "waited_s": done.get("waited_s"), "prompt_tokens": done.get("prompt_tokens"),
-                          "goal_met": done.get("goal_met_actual", goal_met), "disk_mb": done.get("disk_mb", 0)})
+                          "goal_met": done.get("goal_met_actual", goal_met), "disk_mb": done.get("disk_mb", 0),
+                          "headroom": done.get("headroom"), "wasted_slice": done.get("wasted_slice")})
 
 
 def _speed(rec, tokens, secs):
@@ -72,6 +73,7 @@ def end(outcome="ok"):
            "total_s": round(now - rec["t0"], 3), "first_token_s": rec["first_token_s"],
            "waited_s": fin.get("waited_s"), "prompt_tokens": fin.get("prompt_tokens"),
            "goal_met": fin.get("goal_met"), "disk_mb": fin.get("disk_mb", 0),
+           "headroom": fin.get("headroom"), "wasted_slice": fin.get("wasted_slice"),
            "tokens_per_s": _speed(rec, tokens, secs)}
     with _LOCK:
         _RUNNING.pop(rec["id"], None)

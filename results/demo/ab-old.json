@@ -1,0 +1,61 @@
+{
+ "label": "old",
+ "goal": 5.0,
+ "answers": 7,
+ "reads_by_B": 1,
+ "size_changes": 32,
+ "mean_size_pct": 91.6,
+ "median_tps": 6.9,
+ "met_share": 1.0,
+ "sizes_seen": [
+  75,
+  88,
+  94,
+  95,
+  100
+ ],
+ "rows": [
+  {
+   "tps": 6.664010260893764,
+   "size": 95,
+   "changes": 4,
+   "met": true
+  },
+  {
+   "tps": 7.192732369068325,
+   "size": 94,
+   "changes": 5,
+   "met": true
+  },
+  {
+   "tps": 6.750334899502871,
+   "size": 100,
+   "changes": 5,
+   "met": true
+  },
+  {
+   "tps": 6.89397735158586,
+   "size": 88,
+   "changes": 4,
+   "met": true
+  },
+  {
+   "tps": 6.899200426446663,
+   "size": 94,
+   "changes": 5,
+   "met": true
+  },
+  {
+   "tps": 9.980537978174242,
+   "size": 75,
+   "changes": 7,
+   "met": true
+  },
+  {
+   "tps": 6.934022005880964,
+   "size": 95,
+   "changes": 2,
+   "met": true
+  }
+ ]
+}

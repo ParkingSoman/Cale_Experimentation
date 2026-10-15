@@ -39,8 +39,11 @@ from . import gemma3n_facts as facts
 from . import goals as goals_mod
 from .batching import BatchMixin, BatchPred, Request, tier_of
 from .turns import TurnQueue
-from .predict import Predictor
+from .predict import Predictor, Smooth
 
+OVERSHOOT = 1.3             # POLICY: an answer that beats every speed, first-word and memory goal by more than this share, with a larger size allowed, wasted intelligence
+BUSY_TAU_S = 6.0            # POLICY: seconds over which other programs' CPU use is smoothed before it enters a prediction
+HOST_SAMPLE_S = 600.0        # POLICY: seconds between passive looks at the computer (cale/samples.py)
 IDLE_S = 600
 WARN_CAP = 0.6
 RECOVER_S = 180                # long, so a cap does not flip back and forth
@@ -111,7 +114,13 @@ class Engine(BatchMixin):
         self.loaded_at = 0.0
         self.events = []                       # short log of what the engine did on its own
         self.last_error = None                 # the last engine failure, for /cale/status
-        self.debug_fail = False                # debug only: make the next call fail inside the engine
+        self.debug_fail = False                # debug only: make the next call fail inside the engine (True), or fail in a step as a GPU error does ("gpu")
+        from .samples import Samples
+        self.samples = Samples(paths.HOME / "samples.jsonl")     # passive numbers about finished calls and the host: see cale/samples.py
+        self._host_sampled = 0.0
+        self.busy_smooth = Smooth(BUSY_TAU_S)       # other programs' CPU use, read every POLL_S by the monitor and smoothed (a prediction uses this)
+        self.gpu_off_until = 0.0               # after a GPU failure: the CPU runs until this time (batching.GPU_COOLDOWN_S)
+        self._gpu_env_was = None               # CALE_GPU as it was before the failure
         self.running_cancel = None             # the Cancel of the request that is running now
         self._batch_init()
         threading.Thread(target=self._monitor, daemon=True).start()
@@ -143,7 +152,7 @@ class Engine(BatchMixin):
         with self.mu:
             holds = [{"hold": k, "app": h["app"], "size_pct": h["pct"], "age_s": round(time.time() - h["since"])}
                      for k, h in self.holds.items()]
-        return {"loaded": m is not None, "placement": getattr(m, "placement", None), "slots": getattr(m, "n_slots", 1) if m is not None else None,
+        return {"loaded": m is not None, "placement": getattr(m, "placement", None), "placement_stale": bool(getattr(m, "placement_stale", False)), "slots": getattr(m, "n_slots", 1) if m is not None else None,
                 "cap_pct": round(self.cap * 100),
                 "resident_gb": resident, "ffn_gb": ffn, "pressure": pressure.name(), "load_s": self.load_s,
                 "idle_s": round(time.time() - self.last_used), "implicit_hold": self.implicit,
@@ -173,6 +182,13 @@ class Engine(BatchMixin):
     # --- load, cap, unload (call with the lock held) ----------------------------------
     def _load(self):
         t = time.perf_counter()
+        if self._gpu_env_was is not None and time.time() >= self.gpu_off_until:        # the cooldown after a GPU failure is over: the GPU is tried again
+            if self._gpu_env_was:
+                os.environ["CALE_GPU"] = self._gpu_env_was
+            else:
+                os.environ.pop("CALE_GPU", None)
+            self._gpu_env_was = None
+            self.log("the GPU is tried again")
         self.m = backends.load_model(self.path)
         self.cap = 1.0
         self.want_cap = None
@@ -181,6 +197,8 @@ class Engine(BatchMixin):
         self.load_s = round(time.perf_counter() - t, 1)
         self._learn_machine()
         self.log(f"loaded model in {self.load_s}s")
+        if getattr(self.m, "placement_stale", False):
+            self.log("the graphics card or its driver changed since this computer was measured: the saved way of running is not used. Run `cale tune` to measure again.")
 
     def _learn_machine(self):
         """What this computer's copy of the model weighs, and how fast its memory reads. No model timing: the memory probe takes about 0.15 s."""
@@ -202,7 +220,7 @@ class Engine(BatchMixin):
             self.pred.dec_full, self.pred.pre_full, self.pred.fixed = old.dec_full, old.pre_full, old.fixed     # a reload keeps what was learned
             self.pred.n_dec, self.pred.n_pre, self.pred.disk_bps = old.n_dec, old.n_pre, old.disk_bps
         self.pred.slow = self._slow
-        self.pred.busy = oslayer.cpu_busy_other
+        self.pred.busy = lambda: self.busy_smooth.value
         if hasattr(m, "hold_last_speeds"):                  # the llama engine reads the last prompt token alone when it pays (needs measured speeds)
             m.hold_last_speeds = lambda lv: (self.pred.prefill_tps(lv), self.pred.decode_tps(lv)) if self.pred is not None and self.pred.table else None
         self.mach = {"layer_bytes": m.layer_bytes, "layer_read": m.layer_read, "base_bytes": base0, "scratch_bytes": int((self.pred.extra or {}).get("scratch_bytes") or 0),   # measured by `cale tune` (0 = not measured: facts.SCRATCH_BYTES)
@@ -401,7 +419,21 @@ class Engine(BatchMixin):
     def _tick(self):
         if getattr(self, "_tuning", False):
             return                                     # `cale tune` is measuring: nothing may change the size or unload the model under it
+        try:
+            self.busy_smooth.update(oslayer.cpu_busy_other(), POLL_S)
+        except Exception:
+            pass
         lvl, now = pressure.level(), time.time()
+        if now - self._host_sampled >= HOST_SAMPLE_S:                 # a passive look at the computer between answers (monitor thread, not the scheduler)
+            self._host_sampled = now
+            try:
+                cached_power = oslayer._power_cache[1] if getattr(oslayer, "_power_cache", None) else {}
+                self.samples.record("host", loaded=self.m is not None, pressure=lvl, avail_gb=round(oslayer.available_ram() / 1e9, 2),
+                                    busy=self.pred.busy() if self.pred is not None else None, battery=(cached_power or {}).get("on_battery"),
+                                    hot=(cached_power or {}).get("hot"), heat=self.pred.heat_now() if self.pred is not None else None,
+                                    active=len(self.active))
+            except Exception:
+                pass
         if self.m is not None and self._settling(now):
             lvl = 1
         if lvl == 1:
@@ -741,6 +773,26 @@ class Engine(BatchMixin):
             return None
         return control
 
+    def _sample_call(self, d):
+        """One passive sample per finished call: what it took and what else was going on. Numbers only (cale/samples.py). Reads cached values only."""
+        try:
+            tokens = int(d.get("tokens") or 0)
+            work = float(d.get("decode_s") or 0.0) - float(d.get("paused_dec_s") or 0.0)
+            placement = str(getattr(self.m, "placement", "") or "")
+            cached_power = oslayer._power_cache[1] if getattr(oslayer, "_power_cache", None) else {}
+            step = d.get("step_ms") or {}
+            self.samples.record(
+                "call", size=d.get("size_pct"), tier=d.get("tier"), tokens=tokens, tps=(tokens - 1) / work if tokens >= 2 and work > 0 else None,
+                first_s=d.get("first_token_s"), paused_pre_s=d.get("paused_pre_s"), paused_dec_s=d.get("paused_dec_s"),
+                prompt=d.get("prompt_tokens"), cached=d.get("cached_tokens"), crowd=d.get("batch_avg"), waited_s=d.get("waited_s"),
+                disk_s=d.get("disk_s"), busy=self.pred.busy() if self.pred is not None else None,
+                heat=self.pred.heat_now() if self.pred is not None else None, battery=(cached_power or {}).get("on_battery"),
+                hot=(cached_power or {}).get("hot"), where="cpu" if "device=cpu" in placement else ("gpu" if "device=" in placement else "native"),
+                switches=len(d.get("switches") or []), start_tier=d.get("start_tier"), step_p50=step.get("p50"), step_p95=step.get("p95"), step_max=step.get("max"), goal_met=d.get("goal_met_actual"), predicted_tps=d.get("predicted_tps"),
+                headroom=d.get("headroom"), wasted=d.get("wasted_slice"), finish=d.get("finish"))
+        except Exception:
+            pass
+
     def _judge(self, d, goals, waited):
         """After the answer: what the goals were, what really happened, and whether each was met."""
         out = {}
@@ -748,23 +800,31 @@ class Engine(BatchMixin):
         if goals["min_tokens_per_s"] is not None:
             tps = (tokens - 1) / decode_s if tokens >= 2 and decode_s > 0 else None
             out["speed"] = {"goal": goals["min_tokens_per_s"], "actual": None if tps is None else round(tps, 2),
-                            "met": None if tps is None else tps >= goals["min_tokens_per_s"]}
+                            "met": None if tps is None else tps >= goals["min_tokens_per_s"],
+                            "headroom": None if tps is None else round(tps / goals["min_tokens_per_s"], 2)}       # above 1 is faster than asked: also a calibration error if a bigger size was allowed
         if goals["max_first_token_s"] is not None:
             ft = waited + float(d.get("first_token_s") or 0.0)
-            out["first_token"] = {"goal": goals["max_first_token_s"], "actual": round(ft, 2), "met": ft <= goals["max_first_token_s"]}
+            out["first_token"] = {"goal": goals["max_first_token_s"], "actual": round(ft, 2), "met": ft <= goals["max_first_token_s"],
+                                  "headroom": round(goals["max_first_token_s"] / max(ft, 1e-6), 2)}
         if goals["memory_pct"] is not None:
             used = self.m.active_bytes()
             out["memory"] = {"goal_pct": goals["memory_pct"], "actual_pct": round(100 * used / self.mach["total_ram"], 1),
-                             "met": used <= self.mach["total_ram"] * goals["memory_pct"] / 100}
+                             "met": used <= self.mach["total_ram"] * goals["memory_pct"] / 100,
+                             "headroom": round(self.mach["total_ram"] * goals["memory_pct"] / 100 / max(used, 1), 2)}
         if goals["min_quality"] is not None:
             q = min((facts.quality(l) for l in self.levels if l["id"] in {d.get("start_tier"), d.get("tier")}), default=1.0)
             out["quality"] = {"goal": goals["min_quality"], "actual": round(q, 3), "met": q >= goals["min_quality"]}
         d["goals_actual"] = out
+        heads = [v["headroom"] for v in out.values() if v.get("headroom") is not None]
+        room = float(d.get("size_pct") or 0) < round(self.cap * 100) - 0.5          # a larger size was allowed
+        d["headroom"] = min(heads) if heads else None                                   # the goal that holds the size down
+        d["wasted_slice"] = bool(heads) and min(heads) > OVERSHOOT and room
         known = [v["met"] for v in out.values() if v["met"] is not None]
         d["goal_met_actual"] = all(known) if known else None
 
     def _learn(self, d):
         """Fold a real answer into what Cale knows about this computer's speed."""
+        self._sample_call(d)
         self._grow_base(d)
         if self.pred is not None:
             self.pred.note_busy(max(float(d.get("seconds") or 0.0) - float(d.get("paused_pre_s") or 0.0) - float(d.get("paused_dec_s") or 0.0), 0.0))      # a paused answer does not heat the computer

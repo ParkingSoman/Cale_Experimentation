@@ -1,0 +1,107 @@
+{
+ "label": "goal8",
+ "goal": 8.0,
+ "answers": 11,
+ "reads_by_B": 1,
+ "size_changes": 2,
+ "mean_size_pct": 50.6,
+ "median_tps": 9.28,
+ "met_share": 0.82,
+ "headroom_median": 1.16,
+ "wasted_share": 0.45,
+ "sizes_seen": [
+  48,
+  49,
+  75
+ ],
+ "rows": [
+  {
+   "tps": 6.762709201078934,
+   "size": 75,
+   "changes": 1,
+   "met": false,
+   "headroom": 0.8453386501348668,
+   "wasted": false
+  },
+  {
+   "tps": 12.087980890879694,
+   "size": 49,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.5109976113599617,
+   "wasted": true
+  },
+  {
+   "tps": 12.173137373829794,
+   "size": 49,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.5216421717287243,
+   "wasted": true
+  },
+  {
+   "tps": 8.246347601915884,
+   "size": 48,
+   "changes": 1,
+   "met": true,
+   "headroom": 1.0307934502394855,
+   "wasted": false
+  },
+  {
+   "tps": 12.105897375362265,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.513237171920283,
+   "wasted": true
+  },
+  {
+   "tps": 12.21377286554067,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.5267216081925838,
+   "wasted": true
+  },
+  {
+   "tps": 8.961341295833666,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1201676619792083,
+   "wasted": false
+  },
+  {
+   "tps": 9.27809417044562,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1597617713057025,
+   "wasted": false
+  },
+  {
+   "tps": 7.075037576783565,
+   "size": 48,
+   "changes": 0,
+   "met": false,
+   "headroom": 0.8843796970979456,
+   "wasted": false
+  },
+  {
+   "tps": 12.204402589545039,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.5255503236931298,
+   "wasted": true
+  },
+  {
+   "tps": 8.360923706213585,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.0451154632766981,
+   "wasted": false
+  }
+ ]
+}

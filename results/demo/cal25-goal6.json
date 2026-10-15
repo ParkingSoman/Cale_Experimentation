@@ -1,0 +1,84 @@
+{
+ "label": "goal6",
+ "goal": 6.0,
+ "answers": 8,
+ "reads_by_B": 1,
+ "size_changes": 4,
+ "mean_size_pct": 85.4,
+ "median_tps": 7.41,
+ "met_share": 0.88,
+ "headroom_median": 1.23,
+ "wasted_share": 0.25,
+ "sizes_seen": [
+  80,
+  88,
+  90,
+  95
+ ],
+ "rows": [
+  {
+   "tps": 7.6745444501824975,
+   "size": 95,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.279090741697083,
+   "wasted": false
+  },
+  {
+   "tps": 7.138243916659198,
+   "size": 90,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1897073194431997,
+   "wasted": false
+  },
+  {
+   "tps": 7.786058645966597,
+   "size": 90,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.2976764409944328,
+   "wasted": false
+  },
+  {
+   "tps": 6.203671835441911,
+   "size": 88,
+   "changes": 1,
+   "met": true,
+   "headroom": 1.0339453059069852,
+   "wasted": false
+  },
+  {
+   "tps": 3.6398874485745005,
+   "size": 80,
+   "changes": 3,
+   "met": false,
+   "headroom": 0.6066479080957501,
+   "wasted": false
+  },
+  {
+   "tps": 6.805248576547021,
+   "size": 80,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1342080960911702,
+   "wasted": false
+  },
+  {
+   "tps": 8.626599805132441,
+   "size": 80,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.4377666341887403,
+   "wasted": true
+  },
+  {
+   "tps": 8.562174894847224,
+   "size": 80,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.4270291491412042,
+   "wasted": true
+  }
+ ]
+}

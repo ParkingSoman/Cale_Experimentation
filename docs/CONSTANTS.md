@@ -76,3 +76,15 @@ Also a model fact, and an estimate: `gemma3n_facts.ATTENTION_SHARE` (0.25), the 
 | Rest before the cooldown reading | 40 s | `tuning.cooldown` | Long enough to see recovery on a laptop, short enough to run at install. |
 | Predictor weights `BATCH_EPS` 0.7, `FIRST_WEIGHT`, `LATER_WEIGHT`, and `PRIORS` | see `cale/predict.py` | `predict.py` | **Open:** tuned on the Mac and the HP. Used only until `cale tune` has measured. |
 | Card choice when CUDA and Vulkan see the same card | CUDA is listed, Vulkan hidden | `devices.one_per_card` | **Open:** on the HP, Vulkan answered faster (7.7 against 6.1 tokens/s) but CUDA read prompts far faster. A neutral rule would measure both. |
+
+## Added 2026-10-15 (adherence and sampling work)
+
+| What | Where | Kind | Source or how it is replaced |
+|---|---|---|---|
+| Cost of other programs' CPU use: `LOAD_ALPHA` 1.0 (speed = 1 / (1 + alpha * busy)) | `cale/predict.py` | Measured, learned | The prior comes from one sweep (`results/demo/sweep-windows.json`, HP 4 cores: busy 0.5 gives 0.61-0.68x, busy 1.0 gives 0.5x). Each computer learns its own alpha from answers that ran alone (3 quiet answers, then every busy one). |
+| Pause time is not decode time | `cale/batching.py`, `cale/predict.py` | Measured | Pause intervals are timed per answer. |
+| Trial load for a small or failing graphics card: `CANARY_FREE_BELOW` 3 GB, `CANARY_TTL_S` 600, `TROUBLE_S` 24 h | `cale/backends/llama.py` | Policy | The free memory comes from the device. The 3 GB line is a policy for "small card". Reported in the log. |
+| CPU after a GPU failure: `GPU_COOLDOWN_S` 600 (`CALE_GPU_COOLDOWN_S`) | `cale/batching.py` | Policy | Then the GPU is tried again. |
+| Speed-goal adjuster: `STALL_S` 3 s, `STALL_RATIO` 0.92, up needs 3x the time (`CALE_ADJUST_MODE`, `CALE_STALL_S`, `CALE_STALL_RATIO`) | `cale/batching.py` | Policy | 0.92 is the old rule's own number. The new rule only changes what is measured: steps in which nobody read a prompt. Compare old and new on a machine before keeping. |
+| Passive samples: `KEEP` 4000 lines, `HOST_SAMPLE_S` 600 | `cale/samples.py`, `cale/engine.py` | Policy | About 1 MB per computer. Numbers only. |
+| Model objects survive a restart: `MAX_AGE_S` 24 h, `REVIVE_LEASE_S` 600 | `cale/objstore.py` | Policy | Documented in `docs/API.md`. |

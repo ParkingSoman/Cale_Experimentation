@@ -32,7 +32,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from nest.cancel import Cancel, Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pct_range, pick
 
-from . import activity, approval, backends, keys, oslayer, paths, pressure
+from . import activity, approval, backends, keys, objstore, oslayer, paths, pressure
 from .engine import ContextTooLong, Engine, EngineError, GoalMissed, Unsafe, Unsupported
 from . import choose, constrain, goals as goals_mod, tools as tools_mod
 
@@ -46,6 +46,53 @@ CONNECT_LOCK = threading.Lock()      # one Allow dialog at a time
 CONNECT_LOCK_META = threading.Lock()  # guards the table of waiting requests
 OBJECTS = {}                         # model objects: (app, id) -> {"spec", "created"}. See _model_object.
 OBJ_LOCK = threading.Lock()
+DORMANT = None                       # objects that were alive when Cale last ran: (app, id) -> {"spec", "created"}. See cale/objstore.py.
+
+
+def _dormant():
+    global DORMANT
+    if DORMANT is None:
+        DORMANT = objstore.load(paths.HOME / "objects.json")
+    return DORMANT
+
+
+def _persist_objects(forget=None):
+    """Write the live objects (and the ones still waiting to be brought back) to disk. `forget`: an (app, id) that has ended."""
+    with OBJ_LOCK:
+        d = _dormant()
+        if forget is not None:
+            d.pop(forget, None)
+        live = {k: {"spec": o["spec"], "created": o.get("created")} for k, o in OBJECTS.items()}
+    objstore.save(paths.HOME / "objects.json", live, d)
+
+
+def _revive(app, name):
+    """A call names an object this process does not have, but an earlier run of Cale did (a restart): bring it back as a leased object."""
+    with OBJ_LOCK:
+        if (app, name) in OBJECTS:
+            return OBJECTS[(app, name)]
+        d = _dormant().get((app, name))
+    if d is None:
+        return None
+    spec = d["spec"]
+    hold_spec, hid, info = None, None, {}
+    if "size_pct" in spec:
+        hold_spec = {"size_pct": spec["size_pct"]}
+    elif spec.get("memory_pct") is not None:
+        hold_spec = {"memory_pct": spec["memory_pct"], "on_miss": spec.get("on_miss", "best_effort")}
+    if hold_spec:
+        try:
+            hid, _event, info = ENGINE.hold(app, hold_spec)
+        except Exception:
+            return None                                   # it cannot be held now: the app gets the plain "unknown model" answer
+    with OBJ_LOCK:
+        OBJECTS[(app, name)] = {"spec": spec, "created": d.get("created") or time.time(),
+                                "max_pct": info.get("size_pct") if "memory_pct" in (hold_spec or {}) else None,
+                                "memory_goal_met": info.get("goal_met") if "memory_pct" in (hold_spec or {}) else None,
+                                "lease": {"ttl": objstore.REVIVE_LEASE_S, "expires": time.time() + objstore.REVIVE_LEASE_S, "hid": hid}}
+        obj = OBJECTS[(app, name)]
+    print(f"[model] {app!r} {name} brought back after a restart", flush=True)
+    return obj
 OBJECT_FIELDS = {"family", "name", "size", "max_tokens"} | set(goals_mod.FIELDS)
 
 
@@ -386,8 +433,8 @@ class Handler(BaseHTTPRequestHandler):
                     m.pool_limit = None if n is None else int(n)
                 return self._json(200, {"ok": True, "pool_tokens": None if m is None else getattr(m, "pool_limit", None)})
             if DEBUG and self.path == "/cale/debug/fail":
-                ENGINE.debug_fail = True
-                return self._json(200, {"ok": True, "next_call_fails": True})
+                ENGINE.debug_fail = "gpu" if self._body().get("kind") == "gpu" else True
+                return self._json(200, {"ok": True, "next_call_fails": True, "kind": ENGINE.debug_fail})
             if DEBUG and self.path == "/cale/debug/pressure":
                 pressure.set_override(self._body().get("level"))
                 return self._json(200, {"ok": True, "pressure": pressure.name()})
@@ -420,14 +467,22 @@ class Handler(BaseHTTPRequestHandler):
             oid = str(req["id"])
             with OBJ_LOCK:
                 obj = OBJECTS.get((app, oid))
-                if obj is None or not obj.get("lease"):
+                if obj is None and end and (app, oid) in _dormant():          # an object from before a restart that nobody used again: ending it is fine
+                    pass
+                elif obj is None or not obj.get("lease"):
                     raise ApiError(404, "no_lease", f"No leased model object '{oid}' for this app.")
+            if obj is None:
+                _persist_objects(forget=(app, oid))
+                return self._json(200, {"id": oid, "ended": True})
+            with OBJ_LOCK:
                 if end:
                     OBJECTS.pop((app, oid), None)
                     hid = obj["lease"].get("hid")
+                    ended = (app, oid)
                 else:
                     obj["lease"]["expires"] = time.time() + obj["lease"]["ttl"]
                     return self._json(200, {"id": oid, "expires_in_s": obj["lease"]["ttl"]})
+            _persist_objects(forget=ended)
             if hid:
                 ENGINE.release(hid)
             return self._json(200, {"id": oid, "ended": True})
@@ -593,6 +648,7 @@ class Handler(BaseHTTPRequestHandler):
                                    "max_pct": info.get("size_pct") if "memory_pct" in (hold_spec or {}) else None,   # a memory goal also caps the size this object's calls run at
                                    "memory_goal_met": info.get("goal_met") if "memory_pct" in (hold_spec or {}) else None}
         print(f"[model] {app!r} made {oid}: { {k: v for k, v in spec.items() if v is not None} }", flush=True)
+        _persist_objects()
         if lease is not None:                                       # plain HTTP: no open connection. The object lasts `lease_s` seconds after its last use or renewal.
             with OBJ_LOCK:
                 OBJECTS[(app, oid)]["lease"] = {"ttl": lease, "expires": time.time() + lease, "hid": hid}
@@ -609,6 +665,7 @@ class Handler(BaseHTTPRequestHandler):
         def cleanup():
             with OBJ_LOCK:
                 OBJECTS.pop((app, oid), None)
+            _persist_objects(forget=(app, oid))
             if hid:
                 ENGINE.release(hid)
             print(f"[model] {oid} ended", flush=True)
@@ -725,6 +782,8 @@ class Handler(BaseHTTPRequestHandler):
         name = req.get("model", BASE)
         with OBJ_LOCK:
             obj = OBJECTS.get((app, name)) if isinstance(name, str) else None     # only this app's own objects exist for it
+        if obj is None and isinstance(name, str) and name != BASE and not name.startswith(BASE + ":"):
+            obj = _revive(app, name)                                          # an object from before a restart of Cale
         spec = obj["spec"] if obj else None
         if obj and obj.get("lease"):                                 # using an object keeps its lease alive
             with OBJ_LOCK:
@@ -943,17 +1002,20 @@ def reap_leases():
     while True:
         time.sleep(1)
         now = time.time()
-        gone = []
+        gone, expired = [], []
         with OBJ_LOCK:
             for key, o in list(OBJECTS.items()):
                 if o.get("lease") and o["lease"]["expires"] < now:
                     gone.append(o["lease"].get("hid"))
                     OBJECTS.pop(key, None)
+                    expired.append(key)
                     print(f"[model] {key[1]} lease ended", flush=True)
             for hid, l in list(LEASES.items()):
                 if l["expires"] < now:
                     gone.append(hid)
                     LEASES.pop(hid, None)
+        for key in expired:                               # an app that let its lease run out is gone: the object is not brought back
+            _persist_objects(forget=key)
         for hid in gone:
             if hid:
                 ENGINE.release(hid)

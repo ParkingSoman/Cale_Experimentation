@@ -29,9 +29,22 @@ PRIORS = {
 }
 KEEP = 9               # answers kept per size for the median
 BATCH_EPS = 0.7        # each extra answer in a step adds this share of the time of one. Measured: Mac CPU 0.4-0.6, HP CPU 0.8-0.9 (llama.cpp, 2 and 4 answers). Learned per computer after that.
+LOAD_ALPHA = 1.0       # other programs using a share b of the CPU slow answers to 1 / (1 + alpha * b). Prior from one sweep (HP Windows, 4 cores, b = 0.5 -> 0.61-0.68x, b = 1 -> 0.5x, results/demo/sweep-windows.json). Learned per computer after 3 quiet and 1 busy answer.
 DISK_PRIOR = 1.0e9     # bytes per second until a real read has been seen (a modest SSD)
 FIRST_WEIGHT = 0.8     # the first real answer replaces the prior almost fully
 LATER_WEIGHT = 0.35    # later answers move the number gently
+
+
+class Smooth:
+    """A reading smoothed over time (exponential, time constant `tau` seconds). A short window of "other programs' CPU use" can spike for no
+    reason that lasts: a prediction made on the spike is wrong for the whole answer."""
+
+    def __init__(self, tau, start=0.0):
+        self.tau, self.value = float(tau), float(start)
+
+    def update(self, x, dt):
+        self.value += (float(x) - self.value) * min(1.0, dt / self.tau)
+        return self.value
 
 
 class Predictor:
@@ -49,6 +62,9 @@ class Predictor:
         self.n_dec = self.n_pre = 0
         self.disk_bps, self.disk_samples = DISK_PRIOR, []
         self.batch_eps, self.batch_n = BATCH_EPS, 0
+        self.steal, self.n_steal = 0.0, 0                                # share of an answer's time that other apps' prompt reading takes (learned: felt speed against decode-only speed)
+        self.load_alpha, self.n_load = LOAD_ALPHA, 0                    # how hard other programs' CPU use slows answers (see live_factor), learned from answers
+        self.quiet = {}                                                 # level id -> speeds of answers that ran alone on a quiet computer
         self.extra = {}                                                 # measured at install by `cale tune`: scratch_bytes, threads, piece_speed
         self.table = {}                                                 # measured at install: level id -> {"dec": tokens/s, "pre": tokens/s} for a short prompt
         self.pre_curve = []                                             # measured at install, full size: [(prompt tokens, prompt tokens/s)] by length
@@ -81,7 +97,7 @@ class Predictor:
     def live_factor(self):
         """Other programs using the computer now slow both memory and arithmetic, and a hot laptop is slower than a cool one. 1.0 = idle and cool."""
         throttle = 1.0 - (1.0 - self.sustained) * self.heat_now() if self.sustained < 0.999 else 1.0
-        return max(0.35, 1.0 - 0.5 * min(max(self.busy(), 0.0), 1.0)) * throttle / self.slow
+        return max(0.35, 1.0 / (1.0 + self.load_alpha * min(max(self.busy(), 0.0), 1.0))) * throttle / self.slow
 
     def _table_value(self, level, key):
         """The measured speed of this size, or between the two nearest measured sizes (by cost), or None if nothing was measured."""
@@ -100,6 +116,10 @@ class Predictor:
         return v0 * (c0 / c) if key == "pre" else v0
 
     def decode_tps(self, level, ctx=0, answer_tokens=None):
+        """Answer speed as the app feels it: the speed of decoding alone, less the share of time that other apps' prompt reading takes away."""
+        return self._decode_pure(level, ctx, answer_tokens) * (1.0 - self.steal)
+
+    def _decode_pure(self, level, ctx=0, answer_tokens=None):
         """Answer speed at this size, with `ctx` tokens already in the context and (if given) over an answer of that many tokens, which
         slows to the sustained speed once the burst is over."""
         t = self._table_value(level, "dec")
@@ -170,11 +190,20 @@ class Predictor:
         if disk_bytes > 50_000_000 and float(done.get("disk_s") or 0) > 0:
             self.disk_samples = (self.disk_samples + [disk_bytes / float(done["disk_s"])])[-KEEP:]
             self.disk_bps = statistics.median(self.disk_samples)
+        busy_now = min(max(self.busy(), 0.0), 1.0)
         live = self.live_factor()
         tokens = int(done.get("tokens") or 0)
         decode_s = float(done.get("decode_s") or 0.0) - float(done.get("paused_dec_s") or 0.0)      # an answer held back for another app was waiting, not decoding
+        pure = float(done.get("pure_tps") or 0.0)                                                    # the speed of the steps that only decoded
+        felt = (tokens - 1) / decode_s if tokens >= 2 and decode_s > 0 else 0.0
         if tokens >= 9 and decode_s > 0 and not done.get("switches") and float(done.get("batch_avg") or 1.0) < 1.05:
-            tps = (tokens - 1) / decode_s
+            self._learn_load(level["id"], pure or felt, busy_now)
+            if pure > 0:                                                                             # what interruptions cost, learned slowly
+                obs = max(0.0, min(0.8, 1.0 - felt / pure))
+                w = 0.5 if self.n_steal == 0 else 0.1
+                self.steal, self.n_steal = (1 - w) * self.steal + w * obs, self.n_steal + 1
+        if tokens >= 9 and decode_s > 0 and not done.get("switches") and float(done.get("batch_avg") or 1.0) < 1.05:
+            tps = pure or (tokens - 1) / decode_s                                                    # learn from decoding alone: an interrupted answer only looks slow
             hist = self.by_level.setdefault(level["id"], [])
             hist.append(tps)
             del hist[:-KEEP]
@@ -239,6 +268,21 @@ class Predictor:
         self.dec_ctx, self.sustained = float(d.get("dec_ctx", 0.0)), float(d.get("sustained", 1.0))
         self.corr_dec, self.corr_pre = float(d.get("corr_dec", 1.0)), float(d.get("corr_pre", 1.0))
         self.batch_eps = float(d.get("batch_eps", self.batch_eps))
+        self.load_alpha, self.n_load = float(d.get("load_alpha", self.load_alpha)), int(d.get("n_load", 0))
+        self.steal, self.n_steal = float(d.get("steal", 0.0)), int(d.get("n_steal", 0))
+
+    def _learn_load(self, level_id, tps, busy):
+        """What other programs cost: an answer that ran alone is compared with the quiet speed of the same size. Needs 3 quiet answers first."""
+        if busy < 0.1:
+            q = self.quiet.setdefault(level_id, [])
+            q.append(tps)
+            del q[:-KEEP]
+        elif busy >= 0.15 and len(self.quiet.get(level_id, [])) >= 3:
+            base = statistics.median(self.quiet[level_id])
+            implied = max(0.0, min(4.0, (base / max(tps, 1e-6) - 1.0) / busy))
+            w = 0.5 if self.n_load == 0 else 0.2
+            self.load_alpha = (1 - w) * self.load_alpha + w * implied
+            self.n_load += 1
 
     def save(self):
         self._save(force=True)
@@ -252,7 +296,7 @@ class Predictor:
                                        "fixed": self.fixed, "n_dec": self.n_dec, "n_pre": self.n_pre, "disk_bps": self.disk_bps,
                                        "sizes": self.snapshot(), "extra": self.extra, "table": self.table, "table_prompt": self.table_prompt, "pre_curve": self.pre_curve,
                                        "dec_ctx": self.dec_ctx, "sustained": self.sustained, "corr_dec": self.corr_dec, "corr_pre": self.corr_pre,
-                                       "batch_eps": self.batch_eps,
+                                       "batch_eps": self.batch_eps, "load_alpha": self.load_alpha, "n_load": self.n_load, "steal": self.steal, "n_steal": self.n_steal,
                                        "saved_at": time.strftime("%Y-%m-%d %H:%M:%S")}))
             os.replace(tmp, self.path)
         except OSError:

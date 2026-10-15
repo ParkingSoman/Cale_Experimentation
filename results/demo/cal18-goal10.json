@@ -1,0 +1,114 @@
+{
+ "label": "goal10",
+ "goal": 10.0,
+ "answers": 12,
+ "reads_by_B": 1,
+ "size_changes": 0,
+ "mean_size_pct": 48.2,
+ "median_tps": 11.25,
+ "met_share": 0.92,
+ "headroom_median": 1.13,
+ "wasted_share": 0.0,
+ "sizes_seen": [
+  48,
+  49
+ ],
+ "rows": [
+  {
+   "tps": 11.520552635090134,
+   "size": 49,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1520552635090133,
+   "wasted": false
+  },
+  {
+   "tps": 10.706633308444175,
+   "size": 49,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.0706633308444176,
+   "wasted": false
+  },
+  {
+   "tps": 11.03370156786557,
+   "size": 49,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.103370156786557,
+   "wasted": false
+  },
+  {
+   "tps": 11.911167381729658,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.191116738172966,
+   "wasted": false
+  },
+  {
+   "tps": 10.614430738037777,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.0614430738037777,
+   "wasted": false
+  },
+  {
+   "tps": 11.458772436131186,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1458772436131186,
+   "wasted": false
+  },
+  {
+   "tps": 11.878604379787685,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1878604379787685,
+   "wasted": false
+  },
+  {
+   "tps": 9.947324796655089,
+   "size": 48,
+   "changes": 0,
+   "met": false,
+   "headroom": 0.9947324796655088,
+   "wasted": false
+  },
+  {
+   "tps": 11.867218933231387,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1867218933231387,
+   "wasted": false
+  },
+  {
+   "tps": 10.748677665679397,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.0748677665679396,
+   "wasted": false
+  },
+  {
+   "tps": 11.041806668920268,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1041806668920269,
+   "wasted": false
+  },
+  {
+   "tps": 11.85691869620816,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.185691869620816,
+   "wasted": false
+  }
+ ]
+}

@@ -148,8 +148,90 @@ class LlamaStream:
                 "tokens": self.out, "finish": self.finish or "stop", "drafter": False}
 
 
+CANARY_FREE_BELOW = 3 << 30        # POLICY: a card with less free memory than this gets a trial load in a child process before the engine uses it
+CANARY_TTL_S = 600                 # POLICY: a trial that passed (or failed) is trusted for this long
+TROUBLE_S = 24 * 3600              # POLICY: after a failed trial the card is "in trouble" for a day: every load gets a trial
+_CANARY = {}
+
+
+VERIFIED_S = 24 * 3600             # POLICY: a graphics path that passed a whole trial (listing, fit check, load, a few tokens) is trusted this long for the same cards and driver
+
+
+def gpu_path_ok(devs, path, lib_path):
+    """May this process do any work on a graphics card? Listing, the memory-fit check and the load can each throw inside a driver, and after that
+    the process may not be able to load the model at all. So the first time (and after a failed trial, a driver change, or a day), a child process
+    does the whole decision, loads the model and answers a few tokens. Only if it comes back does this process touch the card. Computers with
+    no card that has its own memory, the CPU setting, and the trial child itself skip this."""
+    import json
+    if os.environ.get("CALE_CANARY_CHILD") == "1" or os.environ.get("CALE_NO_CANARY") == "1":
+        return True
+    mode = (os.environ.get("CALE_GPU") or "auto").strip()
+    own = [d for d in devs if d["type"] == "GPU"]
+    if mode.lower() == "off" or (not own and mode.lower() in ("auto", "full", "partial")):
+        return True
+    sig = json.loads(json.dumps([devices.signature(devs), mode]))
+    key = ("path", json.dumps(sig))
+    hit = _CANARY.get(key)
+    if hit and time.time() - hit[1] < (VERIFIED_S if hit[0] else CANARY_TTL_S):
+        return hit[0]
+    marker = paths.HOME / "gpu-verified.json"
+    try:
+        saved = json.loads(marker.read_text())
+        if saved.get("signature") == sig and time.time() - float(saved.get("at", 0)) < VERIFIED_S:
+            _CANARY[key] = (True, time.time())
+            return True
+    except (OSError, ValueError):
+        pass
+    from .. import tuning
+    ok = tuning.canary(mode, path, lib_path, log=lambda t: print("cale: " + t, flush=True))
+    _CANARY[key] = (ok, time.time())
+    try:
+        if ok:
+            marker.write_text(json.dumps({"signature": sig, "at": time.time()}))
+        else:
+            marker.unlink(missing_ok=True)
+            (paths.HOME / "gpu-trouble.json").write_text(json.dumps({"at": time.time(), "device": "path", "layers": None}))
+    except OSError:
+        pass
+    return ok
+
+
+def canary_ok(dev, layers, path, lib_path):
+    """May the engine use this card? A small or recently failing card gets a trial load in a child process first (cale/tuning.py canary)."""
+    import json
+    if os.environ.get("CALE_CANARY_CHILD") == "1" or os.environ.get("CALE_NO_CANARY") == "1":
+        return True
+    marker = paths.HOME / "gpu-trouble.json"
+    try:
+        trouble = time.time() - float(json.loads(marker.read_text()).get("at", 0)) < TROUBLE_S
+    except (OSError, ValueError):
+        trouble = False
+    if not trouble and dev.get("free", 1 << 62) >= CANARY_FREE_BELOW:
+        return True
+    key = (dev["name"], layers, int(dev.get("free", 0)) >> 29)
+    hit = _CANARY.get(key)
+    if hit and time.time() - hit[1] < CANARY_TTL_S:
+        return hit[0]
+    from .. import tuning
+    env = f"force:full:{dev['name']}" if layers == 999 else f"force:prompts:{dev['name']}" if layers == 0 else dev["name"]      # -1: a named device, llama.cpp's fit decides the layers
+    ok = tuning.canary(env, path, lib_path, log=lambda t: print("cale: " + t, flush=True))
+    _CANARY[key] = (ok, time.time())
+    if not ok:
+        try:
+            marker.write_text(json.dumps({"at": time.time(), "device": dev["name"], "layers": layers}))
+        except OSError:
+            pass
+    elif trouble:
+        try:
+            marker.unlink()
+        except OSError:
+            pass
+    return ok
+
+
 class LlamaNested:
     ple_on_disk = True                     # the per-layer embedding table is mapped: only the rows of the tokens used are read
+    placement_stale = False                # the saved way of running (placement.json) was measured for other cards or another driver than these
 
     @classmethod
     def load(cls, path, width=1.0, ple_on_disk=True, threads=None, n_ctx=N_CTX, lib_path=None, **_):
@@ -213,8 +295,15 @@ class LlamaNested:
     def _open(path, threads, n_ctx, lib_path):
         """Load on the device the rule in devices.py picks. Any GPU problem falls back to the CPU: Cale must still start."""
         devs = list_devices(lib_path)
+        if not gpu_path_ok(devs, path, lib_path):
+            devs = []                                         # the card's path failed a trial: this load runs on the CPU
+        saved = devices.saved_decision(devs)
+        # A measurement exists but the cards or the driver are not the ones it was made for (an OS update can swap the driver): say so, once per load.
+        LlamaNested.placement_stale = bool(saved is None and (paths.HOME / "placement.json").exists() and any(d["type"] in ("GPU", "IGPU") for d in devs))
         dev, layers, why = devices.choose(devs, os.path.getsize(path), readback=lib_readback(lib_path),
-                                          fits=lambda d: fit_all(path, d["handle"], n_ctx, threads, lib_path), saved=devices.saved_decision(devs))
+                                          fits=lambda d: fit_all(path, d["handle"], n_ctx, threads, lib_path), saved=saved)
+        if dev is not None and not canary_ok(dev, layers, path, lib_path):
+            dev, why = None, "the CPU (the graphics card failed a trial load)"
         if dev is not None:
             try:
                 lib = Lib(path, n_threads=threads, n_ctx=n_ctx, lib_path=lib_path, gpu=dev["handle"], n_gpu_layers=layers)

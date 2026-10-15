@@ -194,6 +194,10 @@ def summarize_calls(calls):
     out["goal_met"] = {"true": sum(1 for g in gm if g is True), "false": sum(1 for g in gm if g is False),
                        "null": sum(1 for g in gm if g is None)}
     out["outcomes"] = sorted({str(c.get("outcome")) for c in calls})
+    heads = col("headroom")
+    if heads:
+        out["headroom"] = {"min": round(min(heads), 2), "median": round(statistics.median(heads), 2), "max": round(max(heads), 2)}
+    out["wasted"] = sum(1 for c in calls if c.get("wasted_slice"))       # beat every goal by a lot while a larger size was allowed: Cale chose too small
     return out
 
 
@@ -202,6 +206,12 @@ def missed_goals(calls):
 
 
 def result(verdict, notes, seconds, **numbers):
+    hub = numbers.get("hub") or {}
+    if verdict == "WELL" and hub.get("calls") and hub.get("wasted", 0) * 2 >= hub["calls"]:
+        # Beating the goals is not a win: it means a more intelligent size could have been used (calibration error, cuts both ways).
+        verdict = "OVER"
+        notes = "%d of %d call(s) ran far above the goals with a larger size allowed (wasted slice, headroom median %s); %s" % (
+            hub["wasted"], hub["calls"], (hub.get("headroom") or {}).get("median"), notes)
     return dict({"verdict": verdict, "notes": notes, "seconds": round(seconds, 1)}, **numbers)
 
 

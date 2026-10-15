@@ -1,0 +1,146 @@
+{
+ "recap_action_items": {
+  "answer_copy": {
+   "tokens": 157,
+   "passes": 94,
+   "tokens_per_pass": 1.67,
+   "drafted": 142,
+   "accepted": 63,
+   "accept_rate": 0.444
+  },
+  "prompt_copy": {
+   "tokens": 157,
+   "passes": 87,
+   "tokens_per_pass": 1.805,
+   "drafted": 262,
+   "accepted": 70,
+   "accept_rate": 0.267
+  }
+ },
+ "recap_bullets": {
+  "answer_copy": {
+   "tokens": 101,
+   "passes": 97,
+   "tokens_per_pass": 1.041,
+   "drafted": 56,
+   "accepted": 4,
+   "accept_rate": 0.071
+  },
+  "prompt_copy": {
+   "tokens": 101,
+   "passes": 80,
+   "tokens_per_pass": 1.262,
+   "drafted": 224,
+   "accepted": 21,
+   "accept_rate": 0.094
+  }
+ },
+ "sorter_01_coffee_re": {
+  "answer_copy": {
+   "tokens": 68,
+   "passes": 65,
+   "tokens_per_pass": 1.046,
+   "drafted": 57,
+   "accepted": 3,
+   "accept_rate": 0.053
+  },
+  "prompt_copy": {
+   "tokens": 68,
+   "passes": 54,
+   "tokens_per_pass": 1.259,
+   "drafted": 70,
+   "accepted": 14,
+   "accept_rate": 0.2
+  }
+ },
+ "sorter_02_hardware_": {
+  "answer_copy": {
+   "tokens": 75,
+   "passes": 72,
+   "tokens_per_pass": 1.042,
+   "drafted": 46,
+   "accepted": 3,
+   "accept_rate": 0.065
+  },
+  "prompt_copy": {
+   "tokens": 75,
+   "passes": 65,
+   "tokens_per_pass": 1.154,
+   "drafted": 86,
+   "accepted": 10,
+   "accept_rate": 0.116
+  }
+ },
+ "sorter_03_ride_rece": {
+  "answer_copy": {
+   "tokens": 67,
+   "passes": 63,
+   "tokens_per_pass": 1.063,
+   "drafted": 46,
+   "accepted": 4,
+   "accept_rate": 0.087
+  },
+  "prompt_copy": {
+   "tokens": 67,
+   "passes": 58,
+   "tokens_per_pass": 1.155,
+   "drafted": 110,
+   "accepted": 9,
+   "accept_rate": 0.082
+  }
+ },
+ "sorter_04_power_bil": {
+  "answer_copy": {
+   "tokens": 88,
+   "passes": 82,
+   "tokens_per_pass": 1.073,
+   "drafted": 74,
+   "accepted": 6,
+   "accept_rate": 0.081
+  },
+  "prompt_copy": {
+   "tokens": 88,
+   "passes": 69,
+   "tokens_per_pass": 1.275,
+   "drafted": 138,
+   "accepted": 19,
+   "accept_rate": 0.138
+  }
+ },
+ "sorter_05_restauran": {
+  "answer_copy": {
+   "tokens": 79,
+   "passes": 73,
+   "tokens_per_pass": 1.082,
+   "drafted": 54,
+   "accepted": 6,
+   "accept_rate": 0.111
+  },
+  "prompt_copy": {
+   "tokens": 79,
+   "passes": 54,
+   "tokens_per_pass": 1.463,
+   "drafted": 110,
+   "accepted": 25,
+   "accept_rate": 0.227
+  }
+ },
+ "sorter_06_standup_n": {
+  "answer_copy": {
+   "tokens": 64,
+   "passes": 64,
+   "tokens_per_pass": 1.0,
+   "drafted": 43,
+   "accepted": 0,
+   "accept_rate": 0.0
+  },
+  "prompt_copy": {
+   "tokens": 64,
+   "passes": 64,
+   "tokens_per_pass": 1.0,
+   "drafted": 75,
+   "accepted": 0,
+   "accept_rate": 0.0
+  }
+ }
+}

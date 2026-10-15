@@ -1,0 +1,114 @@
+{
+ "label": "goal10",
+ "goal": 10.0,
+ "answers": 12,
+ "reads_by_B": 1,
+ "size_changes": 0,
+ "mean_size_pct": 48.4,
+ "median_tps": 10.95,
+ "met_share": 1.0,
+ "headroom_median": 1.1,
+ "wasted_share": 0.0,
+ "sizes_seen": [
+  48,
+  49
+ ],
+ "rows": [
+  {
+   "tps": 11.169804003434933,
+   "size": 49,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1169804003434933,
+   "wasted": false
+  },
+  {
+   "tps": 10.73228746442704,
+   "size": 49,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.073228746442704,
+   "wasted": false
+  },
+  {
+   "tps": 11.818341615894916,
+   "size": 49,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1818341615894916,
+   "wasted": false
+  },
+  {
+   "tps": 10.849465815015122,
+   "size": 49,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.0849465815015122,
+   "wasted": false
+  },
+  {
+   "tps": 11.048665144601001,
+   "size": 49,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1048665144601002,
+   "wasted": false
+  },
+  {
+   "tps": 10.444528012845561,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.0444528012845562,
+   "wasted": false
+  },
+  {
+   "tps": 10.859975426108798,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.0859975426108799,
+   "wasted": false
+  },
+  {
+   "tps": 11.491759857524134,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1491759857524133,
+   "wasted": false
+  },
+  {
+   "tps": 10.442090822212327,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.0442090822212327,
+   "wasted": false
+  },
+  {
+   "tps": 11.967528692885773,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1967528692885774,
+   "wasted": false
+  },
+  {
+   "tps": 11.906624411155674,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.1906624411155673,
+   "wasted": false
+  },
+  {
+   "tps": 10.781370562002568,
+   "size": 48,
+   "changes": 0,
+   "met": true,
+   "headroom": 1.0781370562002568,
+   "wasted": false
+  }
+ ]
+}

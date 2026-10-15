@@ -23,10 +23,15 @@ from nest.cancel import Cancelled
 from . import choose, constrain, goals as goals_mod, oslayer
 from .backends.llama import PoolFull
 from . import gemma3n_facts as facts
+from .samples import step_summary
 
 STEP_SECONDS = 0.75         # POLICY, not a measurement: a step that reads a prompt piece should take about this long, so the answers next to it keep moving
 CHECK_EVERY = 8             # steps between looks at the speed goals
 IDLE_POLL_S = 0.05
+ADJUST_MODE = os.environ.get("CALE_ADJUST_MODE", "sustained")      # "old": judge the speed over a few steps. "sustained": judge it over steps that only decoded, for STALL_S seconds
+STALL_S = float(os.environ.get("CALE_STALL_S", "3.0"))                # POLICY: seconds of pure decoding before a speed goal is judged (up needs 3 times as long)
+STALL_RATIO = float(os.environ.get("CALE_STALL_RATIO", "0.92"))       # POLICY: a size steps down when the sustained speed is under this share of the goal
+GPU_COOLDOWN_S = float(os.environ.get("CALE_GPU_COOLDOWN_S", "600"))      # POLICY: after a GPU failure the CPU runs for this long, then the GPU is tried again (the cause is often another program using the card)
 # A GPU that reads prompts gets the weights of the model again for every piece, so a piece must be long to pay for that. How long, and from
 # which length the GPU takes the work, depends on the computer: the GPU backend says the shortest piece it takes (lib.offload_min_batch), the
 # engine says the longest (its batch size), and PieceTuner finds the best length between them by trying. The one number left is a policy:
@@ -145,6 +150,11 @@ class Request:
         self.share = 0                  # sum of the number of answers in those steps (to know how crowded it was)
         self.started = None
         self.paused = False             # held back for a higher tier answer (see tier())
+        self.step_dts = []              # seconds of each step this answer took part in as a decoder (a passive sample: see cale/samples.py)
+        self.pure_n, self.pure_s = 0, 0.0   # tokens and seconds of steps where nobody read a prompt: the speed of decoding alone, since the last size change
+        self.pred_tps = None            # the speed the plan predicted for this answer
+        self.retried = False            # started again on the CPU after a GPU failure (once only)
+        self.plan_sent = False          # the app already has its `plan` event: a second start must not send another
         self.pause_t0 = None            # [perf_counter] when the current pause began
         self.paused_pre_s = 0.0         # seconds spent paused before the first token (the answer was waiting, not reading)
         self.paused_dec_s = 0.0         # seconds spent paused after the first token (the answer was waiting, not decoding)
@@ -245,18 +255,38 @@ class BatchMixin:
                 self.batch_level = None
                 self._apply_pending()
 
+    def _gpu_failure(self, e):
+        """Did this failure come while the GPU was in use? (A native out-of-memory error on a small card is the usual cause.)"""
+        placement = str(getattr(self.m, "placement", "") or "")
+        return "device=" in placement and "device=cpu" not in placement and not str(e).startswith("debug: injected engine")
+
     def _engine_failed(self, e):
         self.last_error = f"{type(e).__name__} at {time.strftime('%H:%M:%S')}"
         print(f"[engine] engine failed ({type(e).__name__}: {str(e)[:300]})", flush=True)
-        self.log(f"engine failed ({type(e).__name__}); unloading the model")
-        err = None
         from .engine import EngineError
         err = EngineError(type(e).__name__)
+        retry = []
+        if self._gpu_failure(e):
+            # A GPU problem must never reach an app as an error. Run on the CPU for a while and start again every answer that has not said a word.
+            self.gpu_off_until = time.time() + GPU_COOLDOWN_S
+            if self._gpu_env_was is None:
+                self._gpu_env_was = os.environ.get("CALE_GPU", "")
+            os.environ["CALE_GPU"] = "off"
+            self.log(f"engine failed on the GPU ({type(e).__name__}); using the CPU for {GPU_COOLDOWN_S:.0f} s and starting the answers again")
+            retry = [r for r in self.active if r.stream is not None and r.stream.out == 0 and not r.retried]
+        else:
+            self.log(f"engine failed ({type(e).__name__}); unloading the model")
         for r in list(self.active):
-            r.q.put(err)
+            if r in retry:
+                r.retried, r.stream = True, None
+            else:
+                r.q.put(err)
         self.active.clear()
         with self.cv:
             waiting, self.inbox = self.inbox, []
+            if retry or self.gpu_off_until > time.time():           # nothing was lost: the waiting requests start on the CPU too
+                self.inbox = sorted(retry, key=lambda x: x.arrived) + waiting
+                waiting = []
         for r in waiting:
             r.q.put(err)
         self._unload("engine error")
@@ -332,6 +362,20 @@ class BatchMixin:
         from nest.levels3n import pick
         return pick(self.levels, r.size_pct, round(self.cap * 100))
 
+    def _effective_crowd(self, r):
+        """How many answers `r` will share its steps with, on average over its own length. An answer that is nearly finished, or that is only
+        6 tokens long, shares few of them, so it counts for the share of `r`'s tokens that it will overlap (not as a whole answer).
+        A paused answer takes no steps. Counting every answer in full made a 6-token background answer look like a full competitor,
+        so the planner thought no size could meet a speed goal and took the smallest."""
+        horizon = max(1, r.max_tokens or 256)
+        n = 1.0
+        for o in self.active:
+            if o.paused:
+                continue
+            out = o.stream.out if o.stream is not None else 0
+            n += min(1.0, max(0, (o.max_tokens or 256) - out) / horizon)
+        return n
+
     def _start(self, r):
         """Plan the request, set the step's size, open its slot. Raises what chat_stream raises before the first event."""
         m = self.m
@@ -342,7 +386,7 @@ class BatchMixin:
             if not self.implicit:
                 self.implicit = True
                 self._resident_now()
-        n_after = len(self.active) + 1
+        n_after = self._effective_crowd(r)
         if r.goal is not None and r.defer_since is None:
             r.defer_since = [time.time()]
         lv, plan, max_tokens, goals, n_prompt, answer_tokens, _ = self._plan_request(
@@ -379,8 +423,11 @@ class BatchMixin:
         self._set_level(target)
         plan["disk_mb"] = round(read / 1e6)
         r.disk_mb, r.disk_s = round(read / 1e6), round(read_s, 3)
-        r.q.put({"plan": plan})
-        if self.debug_fail:
+        r.pred_tps = (plan.get("predicted") or {}).get("tokens_per_s")             # what Cale expected: kept to compare with what happened
+        if not r.plan_sent:
+            r.q.put({"plan": plan})
+            r.plan_sent = True
+        if self.debug_fail is True:
             self.debug_fail = False
             raise RuntimeError("debug: injected engine failure")
         r.stream = m.open_stream(r.messages, max_tokens, r.temperature, r.top_p, r.seed, r.stop, r.guide,
@@ -409,6 +456,7 @@ class BatchMixin:
                     r.stream.switches.append({"at_token": r.stream.out, "from": old["id"], "to": level["id"]})
             self.m.set(level)
             self.batch_level = level
+            self._reset_pure()                             # the speed of the new size is measured from now
 
     # --- one step ---------------------------------------------------------------------------------------------------------
     def _step(self):
@@ -416,6 +464,9 @@ class BatchMixin:
         self._reap()
         if not self.active:
             return
+        if self.debug_fail == "gpu":                       # debug only: the engine fails in a step, as a GPU out-of-memory does
+            self.debug_fail = False
+            raise OSError("debug: injected GPU failure")
         self._apply_priority()
         stepping = [r for r in self.active if not r.paused]
         decoding = [r for r in stepping if r.stream.t_first is not None]
@@ -445,6 +496,11 @@ class BatchMixin:
         for r in decoding:
             r.steps += 1
             r.share += n
+            if len(r.step_dts) < 512:
+                r.step_dts.append(dt)
+            if not reading:                                  # a step that also read a prompt piece (another app's) is slow for a reason that is not the size
+                r.pure_n += 1
+                r.pure_s += dt
         self._flush(finished)
         if n >= 1 and not any(r.stream.t_first is None for r in stepping):
             self.pred.observe_step(n, dt, self.batch_level)
@@ -528,7 +584,10 @@ class BatchMixin:
                 self._close_pause(r, time.perf_counter())
             d["waited_s"] = round(r.waited, 3)
             d["total_s"] = round(r.waited + d["seconds"], 3)
-            d["paused_pre_s"], d["paused_dec_s"] = round(r.paused_pre_s, 3), round(r.paused_dec_s, 3)       # the predictor learns from the time spent working, not waiting
+            d["paused_pre_s"], d["paused_dec_s"] = round(r.paused_pre_s, 3), round(r.paused_dec_s, 3)
+            d["step_ms"] = step_summary(r.step_dts)
+            d["predicted_tps"] = r.pred_tps
+            d["pure_tps"] = round(r.pure_n / r.pure_s, 3) if r.pure_n >= 8 and r.pure_s >= 1.0 else None      # decode-only speed since the last size change       # the predictor learns from the time spent working, not waiting
             d["disk_mb"], d["disk_s"] = r.disk_mb, r.disk_s
             d["batch_avg"] = round(r.share / r.steps, 2) if r.steps else 1.0
             if r.goals is not None and goals_mod.is_set(r.goals):
@@ -539,6 +598,45 @@ class BatchMixin:
     # --- keeping speed goals while answers run ------------------------------------------------------------------------------
     def _adjust(self):
         """Every few steps: if a running answer's speed goal is missed, the whole step moves one size down. If everyone has room, one up."""
+        if ADJUST_MODE == "sustained":
+            return self._adjust_sustained()
+        return self._adjust_old()
+
+    def _adjust_sustained(self):
+        """The same rule as before, judged on a quiet signal: only steps in which nobody read a prompt count, and at least STALL_S seconds of them.
+        A step that also read another app's prompt is slow for a reason that a smaller size does not fix, and moving every answer down for it
+        costs quality for nothing. Going up needs three times as much evidence. The counters start again after every size change."""
+        if not self.active or self.batch_level is None or any(r.fixed for r in self.active):
+            return
+        goals = [r for r in self.active if r.goals and r.goals.get("min_tokens_per_s") is not None and r.stream.t_first is not None]
+        if not goals or any(r.pure_s < STALL_S for r in goals):
+            return
+        speeds = [r.pure_n / r.pure_s for r in goals]
+        cap = min(r.max_pct for r in self.active)
+        floor_q = max((r.goals["min_quality"] for r in self.active if r.goals and r.goals.get("min_quality") is not None), default=None)
+        budgets = [self.mach["total_ram"] * r.goals["memory_pct"] / 100 for r in self.active if r.goals and r.goals.get("memory_pct") is not None]
+        pool = sorted([l for l in self.levels if l["pct"] <= cap + 0.5 and not self.m.missing(l)
+                       and (floor_q is None or facts.quality(l) >= floor_q)
+                       and (not budgets or choose.memory_needed(self.machine(), l, facts.HOLD_CONTEXT) <= min(budgets))], key=lambda l: -l["pct"])
+        i = next((k for k, l in enumerate(pool) if l["id"] == self.batch_level["id"]), None)
+        if i is None:
+            return
+        slow = any(sp < STALL_RATIO * r.goals["min_tokens_per_s"] for r, sp in zip(goals, speeds))
+        if slow and i + 1 < len(pool):
+            self._record_switch(pool[i + 1])
+            self._reset_pure()
+        elif i > 0 and all(r.pure_s >= 3 * STALL_S and sp > 1.3 * r.goals["min_tokens_per_s"] for r, sp in zip(goals, speeds)):
+            up = pool[i - 1]
+            ratio = self.pred.time_factor(self.batch_level) / self.pred.time_factor(up)
+            if all(sp * ratio >= 1.1 * r.goals["min_tokens_per_s"] for r, sp in zip(goals, speeds)):
+                self._record_switch(up)
+                self._reset_pure()
+
+    def _reset_pure(self):
+        for r in self.active:
+            r.pure_n, r.pure_s = 0, 0.0
+
+    def _adjust_old(self):
         if not self.active or self.batch_level is None or any(r.fixed for r in self.active):
             return
         n = len(self.active)

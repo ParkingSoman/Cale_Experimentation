@@ -45,12 +45,27 @@ def probe():
     return 0 if "pre" in out else 1
 
 
+def canary():
+    """A trial load for the engine: load the model the way CALE_GPU says, read a short prompt, answer a few tokens. Prints CANARY_OK or crashes.
+    It runs in its own process so that a graphics driver that fails (or takes the process down) cannot hurt the engine that asked."""
+    eng = Engine(paths.MODEL)
+    eng._tuning = True
+    with eng.lock:
+        eng._load()
+    eng._run_prompt(48, 4)
+    print("CANARY_OK " + str(getattr(eng.m, "placement", None)), flush=True)
+    return 0
+
+
 def main(argv=None):
     import argparse
     ap = argparse.ArgumentParser()
+    ap.add_argument("--canary", action="store_true", help="used by the engine: a trial load on the graphics card, in this process")
     ap.add_argument("--probe", action="store_true", help="used by `cale tune` itself: time this way of running and print one line")
     ap.add_argument("--profile", default=os.environ.get("CALE_TUNE_PROFILE", "full"), choices=["quick", "full", "max"])
     a = ap.parse_args(argv)
+    if a.canary:
+        return canary()
     if a.probe:
         return probe()
     eng = Engine(paths.MODEL)

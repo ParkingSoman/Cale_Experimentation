@@ -111,6 +111,8 @@ Send one WAV clip in a user message:
 | The memory goal is measured as GPU memory on a Mac and as process memory on Windows and Linux | Read `goals_actual.memory` for what was measured |
 | On Windows and Linux, the first answer to a prompt and a later answer that reuses the prompt cache can differ at `temperature` 0, because the arithmetic is split differently (tiny rounding). The Mac gives the same text | Send a `seed`. A seeded call does not use the prompt cache, so it repeats exactly |
 | On a computer where a GPU reads long prompts, an app that leaves in the middle of a long prompt can hold the next app up for about 6 seconds (one piece of the prompt cannot be stopped). Without that GPU, it is about 1 to 2 seconds | None needed. `GET /cale/status` shows `placement` |
+| After an OS update the graphics driver may differ from the one Cale was measured with. Cale then does not use its saved choice and may run on the CPU, which can be slower | `GET /cale/status` shows `placement` and `placement_stale` (`true` when the saved choice no longer fits this computer). `cale tune` measures again |
+| A graphics card that is nearly full can fail while Cale loads the model. Cale tries the card in a child process first, uses the CPU if that fails, and starts again on the CPU any answer that had not said a word. For about 10 minutes the CPU is used, then the card is tried again | Your app sees a normal answer, maybe a few seconds late. The log says why |
 | Pictures and sound work on a Mac only | Check `capabilities.images` and `capabilities.audio` first |
 
 ### Log-probabilities
@@ -399,6 +401,8 @@ its last renewal. If the app dies, it ends by itself. A chat call that uses a mo
 | `POST /cale/lease {"hold": ..., "end": true}` | end a hold now |
 
 Without `lease_s` the old form stays: the reply stays open and the object lives while the connection is open.
+
+**A restart of Cale does not break your app.** Cale writes the spec of each live model object (its name and goals, never a prompt or an answer) to `objects.json` in its home folder. If Cale restarts (an update, a crash, a reboot) and your app then calls a model object that Cale no longer has, Cale brings it back from that file at the first call, as a leased object (600 seconds after its last use). Your app sees a normal answer. An object that ended, or whose lease ran out, is not brought back, and an object nobody used for 24 hours is forgotten. Only the app that made an object can use it.
 
 ## 5c. Clients
 

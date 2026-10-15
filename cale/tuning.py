@@ -148,6 +148,14 @@ class Tuner:
             if r:
                 table[l["id"]] = {"pre": r[0], "dec": r[1]}
                 out[l["id"]] = [round(r[0], 1), round(r[1], 2)]
+        if len(table) >= 2:
+            order = [l["id"] for l in sorted(picks.values(), key=lambda l: -l["pct"]) if l["id"] in table]
+            levels_by_id = {l["id"]: l for l in picks.values()}
+            again = repair_monotone(order, table, lambda i: self.point(levels_by_id[i], self.pred.table_prompt, answer=20, repeats=1))
+            for i in again:
+                out[i] = [round(table[i]["pre"], 1), round(table[i]["dec"], 2)]
+            if again:
+                out["measured_again"] = again
         if table:
             self.pred.table, self.pred.corr_dec, self.pred.corr_pre = table, 1.0, 1.0
             self.pred.n_dec = self.pred.n_pre = max(1, len(table))
@@ -396,7 +404,56 @@ def wins(base, r):
     return call_s(base) >= GAIN * call_s(r) and r["dec"] >= ANSWER_FLOOR * base["dec"]
 
 
+def repair_monotone(order, table, remeasure, tries=2):
+    """A smaller size cannot be really slower than a bigger one: when the table says so, one of the readings was spoiled (something else used the
+    computer during that run, or it was hot). Noise only ever slows a run, so the answer is to measure that size again and keep the best reading.
+    `order`: size ids, largest first. `table`: id -> {"pre", "dec"} (changed in place). `remeasure(id)` -> (pre, dec) or None. Returns the ids measured again."""
+    again = []
+    for i in range(1, len(order)):
+        big, small = table[order[i - 1]], table[order[i]]
+        for _ in range(tries):
+            if small["dec"] > big["dec"] and small["pre"] >= 0.98 * big["pre"]:
+                break
+            r = remeasure(order[i])
+            if not r:
+                break
+            table[order[i]] = small = {"pre": max(small["pre"], r[0]), "dec": max(small["dec"], r[1])}
+            if order[i] not in again:
+                again.append(order[i])
+    return again
+
+
 PROBE_ENV = {}                        # CALE_MODEL and CALE_LLAMA_LIB for the probe processes: they use a temporary home, so they cannot find the model by themselves
+
+
+def canary(env_gpu, model_path, lib_path, log=print, timeout=300):
+    """A trial load in a child process: does the model load and answer a few tokens the way `env_gpu` says? True or False.
+    A graphics card that is nearly full can fail at load or at the first prompt, and after a native failure the same process may not load again,
+    so the engine asks a child first and never touches the card itself unless the child came back."""
+    import os
+    import shutil
+    import subprocess
+    import sys
+    import tempfile
+    from pathlib import Path
+    from .backends import llamalib
+    home = tempfile.mkdtemp(prefix="cale-canary-")
+    try:
+        from . import paths
+        for name in ("placement.json", "engine-options.json"):            # the child must decide the way the engine would
+            if (paths.HOME / name).exists():
+                shutil.copy(paths.HOME / name, Path(home) / name)
+        r = subprocess.run([sys.executable, "-m", "cale.tune", "--canary"], capture_output=True, text=True, timeout=timeout,
+                           env=dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", CALE_CANARY_CHILD="1",
+                                    CALE_MODEL=str(model_path), CALE_LLAMA_LIB=llamalib.find_library(lib_path)))
+        if r.returncode == 0 and "CANARY_OK" in r.stdout:
+            return True
+        log(f"canary: {env_gpu} failed ({r.returncode}) {(r.stderr or r.stdout)[-200:]}")
+    except Exception as e:
+        log(f"canary: {env_gpu} failed ({type(e).__name__})")
+    finally:
+        shutil.rmtree(home, ignore_errors=True)
+    return False
 
 
 def probe_one(env_gpu, log=print, extra_env=None):
@@ -431,6 +488,10 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
     from .backends.llama import N_CTX, default_threads
     PROBE_ENV.update({"CALE_MODEL": str(model_path), "CALE_LLAMA_LIB": llamalib.find_library(lib_path)})
     devs = llamalib.devices(lib_path)
+    from .backends.llama import gpu_path_ok
+    if not gpu_path_ok(devs, model_path, lib_path):
+        log("tune: the graphics path failed a trial in a child process, so only the CPU is measured")
+        return None
     cards = [d for d in devs if d["type"] in ("GPU", "IGPU")]
     if not cards:
         return None
@@ -442,7 +503,7 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print):
     cpu_first = (results["cpu"] or {}).get("first_pre")
     failed = []
     for d in cards:
-        fits = llamalib.fit_all(model_path, d["handle"], N_CTX, default_threads(), lib_path)
+        fits = llamalib.fit_all_safe(model_path, d["name"], N_CTX, default_threads(), lib_path)       # in a child: a driver that throws must not poison this process
         hows = ["full", "prompts"] if fits is not False else ["prompts"]   # "full" first when it may fit. If it is not clearly better, the readback way is tried too: it won on the card the design came from
         for how in hows:
             r = probe_one(f"force:{how}:{d['name']}", log, {"CALE_PROBE_SKIP_BELOW": str(SKIP_BELOW * cpu_first)} if cpu_first else None)

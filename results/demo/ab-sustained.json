@@ -1,0 +1,95 @@
+{
+ "label": "sustained",
+ "goal": 5.0,
+ "answers": 13,
+ "reads_by_B": 1,
+ "size_changes": 0,
+ "mean_size_pct": 56.5,
+ "median_tps": 10.71,
+ "met_share": 1.0,
+ "sizes_seen": [
+  49,
+  95,
+  100
+ ],
+ "rows": [
+  {
+   "tps": 5.5188640072154,
+   "size": 100,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 11.391849354878774,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 11.574488243026149,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 10.622302497038413,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 11.49442234897089,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 10.727651727683243,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 10.118084666324606,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 10.714934747362388,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 10.976809917243196,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 10.098273416952694,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 11.681649018905315,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 10.603137632158985,
+   "size": 49,
+   "changes": 0,
+   "met": true
+  },
+  {
+   "tps": 7.086167526179402,
+   "size": 95,
+   "changes": 0,
+   "met": true
+  }
+ ]
+}

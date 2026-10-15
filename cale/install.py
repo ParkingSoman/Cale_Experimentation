@@ -93,7 +93,7 @@ def download(url, dest, expect_sha=None):
             have = 0                                     # the server sent everything again
             total = int(r.headers.get("Content-Length") or 0) or None
         expect_sha = expect_sha or r.headers.get("X-Linked-Etag", "").strip('"') or None
-        t0, last, got = time.time(), 0.0, 0
+        t0, last, got, prev, worst_gap = time.time(), 0.0, 0, time.time(), 0.0
         with open(part, "ab" if have else "wb") as f:
             while True:
                 chunk = r.read(1 << 20)
@@ -102,12 +102,23 @@ def download(url, dest, expect_sha=None):
                 f.write(chunk)
                 got += len(chunk)
                 now = time.time()
+                worst_gap, prev = max(worst_gap, now - prev), now
                 if now - last > 0.25:
                     last = now
                     progress("model", done=have + got, total=total or 0)
                 if cap and got / max(now - t0, 1e-6) > cap:
                     time.sleep(len(chunk) / cap)
         r.close()
+        try:                                              # a passive sample: how fast this computer's connection and disk were (numbers only, see cale/samples.py)
+            from cale.samples import Samples
+            s_ = Samples(oslayer.home_dir() / "samples.jsonl")
+            secs = max(time.time() - t0, 1e-6)
+            if got >= 50_000_000:                         # a small file says nothing about speed
+                s_.record("download", mb=round(got / 1e6), seconds=round(secs, 1), mb_per_s=round(got / 1e6 / secs, 2), worst_gap_s=round(worst_gap, 2),
+                          resumed=bool(have), capped=bool(cap))
+                s_.flush()
+        except Exception:
+            pass
     size = part.stat().st_size
     if total and size != total:
         die(f"the model download is incomplete ({size} of {total} bytes). Run the install again to resume.")

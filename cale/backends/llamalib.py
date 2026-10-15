@@ -28,11 +28,41 @@ def find_library(extra=None):
     raise FileNotFoundError(f"{NAME} not found. Build it with llama/build.sh, or set CALE_LLAMA_LIB.")
 
 
+_ENUM = {}        # library path -> did listing the devices work in a child process
+
+
+def enumeration_safe(lib):
+    """Listing the graphics devices starts every backend's driver. A driver that throws while it is listed can leave the process unable to load the
+    model at all (measured on the HP after an OS update: Vulkan threw, then even the CPU load crashed). So the first listing in a process is made
+    by a child process. If the child fails, this process lists nothing and runs on the CPU. The child itself, and CALE_NO_CANARY=1, skip the check."""
+    if os.environ.get("CALE_CANARY_CHILD") == "1" or os.environ.get("CALE_NO_CANARY") == "1":
+        return True
+    if lib in _ENUM:
+        return _ENUM[lib]
+    import subprocess
+    root = str(Path(__file__).resolve().parents[2])
+    code = "import sys; from cale.backends import llamalib as L; print('ENUM_OK', len(L.devices(sys.argv[1])))"
+    ok = False
+    try:
+        r = subprocess.run([sys.executable, "-c", code, lib], capture_output=True, text=True, timeout=120,
+                           env=dict(os.environ, CALE_CANARY_CHILD="1", PYTHONPATH=root + os.pathsep + os.environ.get("PYTHONPATH", "")))
+        ok = r.returncode == 0 and "ENUM_OK" in r.stdout
+        if not ok:
+            print(f"cale: listing the graphics devices failed ({r.returncode}): {(r.stderr or r.stdout)[-200:]}. Running on the CPU.", flush=True)
+    except Exception as e:
+        print(f"cale: listing the graphics devices failed ({type(e).__name__}). Running on the CPU.", flush=True)
+    _ENUM[lib] = ok
+    return ok
+
+
 def devices(lib_path=None):
     """Compute devices other than the CPU, as dicts: handle, type (GPU, IGPU, ACCEL), name, description, free, total (bytes).
     Empty when the library has no GPU backend. The handle is only valid in this process. Choose a device by its type,
     name and memory, never by its number: the order changes when a driver changes."""
-    c = ctypes.CDLL(find_library(lib_path))
+    lib = find_library(lib_path)
+    if not enumeration_safe(lib):
+        return []
+    c = ctypes.CDLL(lib)
     if not hasattr(c, "cale_devices"):
         return []
     buf = ctypes.create_string_buffer(8192)
@@ -44,6 +74,25 @@ def devices(lib_path=None):
         h, kind, name, desc, free, total = line.split("|")
         out.append({"handle": int(h), "type": kind, "name": name, "description": desc, "free": int(free), "total": int(total)})
     return out
+
+
+def fit_all_safe(model_path, device_name, n_ctx, threads, lib_path=None, timeout=120):
+    """fit_all, asked in a child process: True, False, or None when it cannot be answered (a driver that throws takes the child down, not this process)."""
+    import subprocess
+    root = str(Path(__file__).resolve().parents[2])
+    code = ("import sys, json; from cale.backends import llamalib as L; "
+            "d = next((x for x in L.devices(sys.argv[1]) if x['name'] == sys.argv[3]), None); "
+            "print('FIT', json.dumps(L.fit_all(sys.argv[2], d['handle'], int(sys.argv[4]), int(sys.argv[5]), sys.argv[1]) if d else None))")
+    try:
+        r = subprocess.run([sys.executable, "-c", code, find_library(lib_path), str(model_path), device_name, str(n_ctx), str(threads)],
+                           capture_output=True, text=True, timeout=timeout,
+                           env=dict(os.environ, CALE_CANARY_CHILD="1", PYTHONPATH=root + os.pathsep + os.environ.get("PYTHONPATH", "")))
+        for line in r.stdout.splitlines():
+            if line.startswith("FIT "):
+                return json.loads(line[4:])
+    except Exception:
+        pass
+    return None
 
 
 def engine_option(name):
