@@ -245,3 +245,26 @@ The **contention table** is a new asset. It says how a goal behaves when another
 | Funding pitch | A trained drafter for Gemma 3n (Google has released none that we know of). | Matryoshka model + drafter together. | n/a |
 
 Probe rules: a probe never runs while a goal-bound call is active or queued. A probe holds no memory that the size choice counts. A sample taken under contention is tagged.
+
+## HP Windows investigation (measured 2026-10-15, after the scorecards)
+
+| Test | Result | Source |
+|---|---|---|
+| Install-time tuning on a quiet HP Windows (CUDA for prompts, CPU for answers) | full size 6.6 tok/s, smallest 10.7 tok/s | `C:\cale\apptest\tune-report.json` |
+| Quiet decode bench, same machine, hours later | full size 5.8-6.1 pieces/s, half size 10.3-11.8 pieces/s | job `wsl1` |
+| Page reads/s during that bench | high only while the model loaded (up to 5,500/s), then under 250/s | job `wsl1` |
+| Scorecard apps under load | 1.2-1.6 tok/s at 48-100% sizes | `results/demo/hp-windows.json` |
+| HP Linux (WSL) scorecard | 4.2-9.7 tok/s | `results/demo/hp-linux.json` |
+
+**Conclusion [M]:** HP Windows is NOT slow by itself. Quiet speed matches the install-time speed. The 1.3 tok/s was a loaded machine: several apps, the Sorter working in the background, and a 7,900-token context at full size. The "together" test shows it: Quick Notes whole-call time was 5.4-7.4 s with the Sorter running.
+
+**Root cause underneath (the common thread):** Cale predicts speed as if it ran alone, plus a small allowance for other load. Two apps at once cost far more than that on a 4-core laptop. So the goal check passes on paper and fails in use.
+
+**New bug found [M]:** after an idle unload, the first call hit `ggml_vulkan: ErrorOutOfDeviceMemory` on the 2 GB MX150. The engine threw `0xe06d7363`, Cale unloaded the model, and the app got HTTP 500. The next call worked after a 21 s reload. Placement was CUDA for prompts. So the Vulkan backend still tried to allocate GPU memory. Cale must catch this, retry on the CPU at once, and remember it, so no app sees a 500. (Source: `C:\cale\apptest\logs\cale.log`.)
+
+**Added to the build list (order 1b and 1c):**
+
+| Order | Item | Why |
+|---|---|---|
+| 1b | Model of concurrent load: the predictor learns the speed loss per number of busy apps and tier, from the samples in item 2 | Fixes the real cause of missed goals on the HP |
+| 1c | Engine load failure on the GPU: retry on CPU inside the same call, never return 500, record the failure so placement avoids it | An app must never see a 500 for a hardware problem |
