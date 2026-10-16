@@ -76,21 +76,20 @@ def devices(lib_path=None):
     return out
 
 
-def fit_all_safe(model_path, device_name, n_ctx, threads, lib_path=None, timeout=120, report_absent=False):
+def fit_all_safe(model_path, device_name, n_ctx, threads, lib_path=None, timeout=120):
     """fit_all, asked in a child process: True, False, or None when it cannot be answered (a driver that throws takes the child down, not this process)."""
     import subprocess
     root = str(Path(__file__).resolve().parents[2])
     code = ("import sys, json; from cale.backends import llamalib as L; "
             "d = next((x for x in L.devices(sys.argv[1]) if x['name'] == sys.argv[3]), None); "
-            "print('FIT', json.dumps(L.fit_all(sys.argv[2], d['handle'], int(sys.argv[4]), int(sys.argv[5]), sys.argv[1]) if d else 'absent'))")
+            "print('FIT', json.dumps(L.fit_all(sys.argv[2], d['handle'], int(sys.argv[4]), int(sys.argv[5]), sys.argv[1]) if d else None))")
     try:
         r = subprocess.run([sys.executable, "-c", code, find_library(lib_path), str(model_path), device_name, str(n_ctx), str(threads)],
                            capture_output=True, text=True, timeout=timeout,
                            env=dict(os.environ, CALE_CANARY_CHILD="1", PYTHONPATH=root + os.pathsep + os.environ.get("PYTHONPATH", "")))
         for line in r.stdout.splitlines():
             if line.startswith("FIT "):
-                v = json.loads(line[4:])
-                return (v if report_absent else None) if v == "absent" else v      # "absent": a child that looks for this card does not find it
+                return json.loads(line[4:])
     except Exception:
         pass
     return None

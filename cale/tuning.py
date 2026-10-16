@@ -551,11 +551,8 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print, 
     failed = []
     for d in cards:
         t_fit = time.time()
-        fits = llamalib.fit_all_safe(model_path, d["name"], N_CTX, default_threads(), lib_path, report_absent=True)       # in a child: a driver that throws must not poison this process
+        fits = llamalib.fit_all_safe(model_path, d["name"], N_CTX, default_threads(), lib_path)       # in a child: a driver that throws must not poison this process
         log(f"tune: memory check of {d['name']} took {time.time() - t_fit:.0f} s")
-        if fits == "absent":
-            log(f"tune: {d['name']} is listed but a child process does not find it, so it is skipped")
-            continue
         hows = ["full", "prompts"] if fits is not False else ["prompts"]   # "full" first when it may fit. If it is not clearly better, the readback way is tried too: it won on the card the design came from
         for how in hows:
             if stop is not None and stop():
