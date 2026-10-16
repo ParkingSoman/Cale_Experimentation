@@ -491,7 +491,7 @@ def run_child(cmd, env, timeout=900, stop=None, poll_s=0.5):
                 return None
 
 
-def probe_one(env_gpu, log=print, extra_env=None, stop=None):
+def probe_one(env_gpu, log=print, extra_env=None, stop=None, timeout=900):
     """Run one way of running (CALE_GPU=env_gpu) in its own process, and return {"pre", "dec", "placement"} or None.
     A separate process: a graphics driver that fails or hangs must not take the installer with it."""
     import os
@@ -502,7 +502,7 @@ def probe_one(env_gpu, log=print, extra_env=None, stop=None):
     try:
         t_probe = time.time()
         r = run_child([sys.executable, "-m", "cale.tune", "--probe"], dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", **PROBE_ENV, **(extra_env or {})),
-                      timeout=900, stop=stop)
+                      timeout=timeout, stop=stop)
         log(f"tune: trial {env_gpu} took {time.time() - t_probe:.0f} s")
         if r is None:
             log(f"tune: way of running {env_gpu} stopped")
@@ -537,7 +537,11 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print, 
     if not cards:
         return None
     say("pieces")
+    t_cpu = time.time()
     results = {"cpu": probe_one("off", log, stop=stop)}
+    # A trial on a card is the same work plus a driver. If it takes many times longer than the CPU trial did on this computer, a driver is stuck:
+    # give up on that card (it is reported as not measured) instead of waiting out the long default.
+    card_timeout = max(150, 4 * (time.time() - t_cpu))
     if stop is not None and stop():
         return None                                               # an app arrived: nothing is decided, the old choice stays
     if not results["cpu"]:
@@ -546,12 +550,20 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print, 
     cpu_first = (results["cpu"] or {}).get("first_pre")
     failed = []
     for d in cards:
-        fits = llamalib.fit_all_safe(model_path, d["name"], N_CTX, default_threads(), lib_path)       # in a child: a driver that throws must not poison this process
+        t_fit = time.time()
+        fits = llamalib.fit_all_safe(model_path, d["name"], N_CTX, default_threads(), lib_path, report_absent=True)       # in a child: a driver that throws must not poison this process
+        log(f"tune: memory check of {d['name']} took {time.time() - t_fit:.0f} s")
+        if fits == "absent":
+            log(f"tune: {d['name']} is listed but a child process does not find it, so it is skipped")
+            continue
         hows = ["full", "prompts"] if fits is not False else ["prompts"]   # "full" first when it may fit. If it is not clearly better, the readback way is tried too: it won on the card the design came from
         for how in hows:
             if stop is not None and stop():
                 return None
-            r = probe_one(f"force:{how}:{d['name']}", log, {"CALE_PROBE_SKIP_BELOW": str(SKIP_BELOW * cpu_first)} if cpu_first else None, stop=stop)
+            r = probe_one(f"force:{how}:{d['name']}", log, {"CALE_PROBE_SKIP_BELOW": str(SKIP_BELOW * cpu_first)} if cpu_first else None, stop=stop, timeout=card_timeout)
+            if r and "forced device not found" in str(r.get("placement", "")):
+                log(f"tune: {d['name']} is not there when the trial starts, so it is skipped (the trial only measured the CPU again)")
+                break                                                 # a second way on a card that does not exist would measure the CPU again too
             if r:
                 results[f"{d['name']}|{how}"] = r
             else:
