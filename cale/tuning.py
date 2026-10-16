@@ -450,6 +450,7 @@ def canary(env_gpu, model_path, lib_path, log=print, timeout=300):
     from pathlib import Path
     from .backends import llamalib
     home = tempfile.mkdtemp(prefix="cale-canary-")
+    t_canary = time.time()
     try:
         from . import paths
         for name in ("placement.json", "engine-options.json"):            # the child must decide the way the engine would
@@ -458,6 +459,7 @@ def canary(env_gpu, model_path, lib_path, log=print, timeout=300):
         r = subprocess.run([sys.executable, "-m", "cale.tune", "--canary"], capture_output=True, text=True, timeout=timeout,
                            env=dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", CALE_CANARY_CHILD="1",
                                     CALE_MODEL=str(model_path), CALE_LLAMA_LIB=llamalib.find_library(lib_path)))
+        log(f"canary: {env_gpu} took {time.time() - t_canary:.0f} s")
         if r.returncode == 0 and "CANARY_OK" in r.stdout:
             return True
         log(f"canary: {env_gpu} failed ({r.returncode}) {(r.stderr or r.stdout)[-200:]}")
@@ -498,8 +500,10 @@ def probe_one(env_gpu, log=print, extra_env=None, stop=None):
     import tempfile
     home = tempfile.mkdtemp(prefix="cale-probe-")
     try:
+        t_probe = time.time()
         r = run_child([sys.executable, "-m", "cale.tune", "--probe"], dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", **PROBE_ENV, **(extra_env or {})),
                       timeout=900, stop=stop)
+        log(f"tune: trial {env_gpu} took {time.time() - t_probe:.0f} s")
         if r is None:
             log(f"tune: way of running {env_gpu} stopped")
             return None
