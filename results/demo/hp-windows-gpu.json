@@ -1,0 +1,350 @@
+{
+ "label": "hp-windows-gpu",
+ "when": "2026-10-15T17:08:10-04:00",
+ "hub": "http://127.0.0.1:47802",
+ "host": {
+  "os": "Windows",
+  "cpus": 8,
+  "ram_total_gb": 17.1,
+  "ram_free_gb": 13.2,
+  "cpu_busy": 0.026,
+  "power": {
+   "on_battery": false,
+   "hot": null
+  }
+ },
+ "apps": {
+  "chat": {
+   "verdict": "SKIPPED",
+   "notes": "skipped by --skip",
+   "seconds": 0.0
+  },
+  "quick-notes": {
+   "verdict": "POOR",
+   "notes": "1 call(s) missed Cale's goal | 'Dear Maria, I wanted to follow up on' -> 'our conversation from yesterday.' | 'The quarterly numbers look good, but we should' -> 'be mindful of the upcoming headwinds.' | 'Ingredients for the cake: two cups of' -> 'flour, one and a half cups of'",
+   "seconds": 22.0,
+   "first_word_s": [
+    0.142,
+    1.288,
+    0.948
+   ],
+   "whole_call_ms": [
+    1003,
+    2476,
+    2158
+   ],
+   "cold_start_ms": 2021,
+   "first_word_source": "hub",
+   "hub": {
+    "calls": 3,
+    "size_pct": {
+     "min": 100,
+     "median": 100,
+     "max": 100
+    },
+    "tokens_per_s": {
+     "min": 6.77,
+     "median": 7.25,
+     "max": 7.47
+    },
+    "first_token_s": {
+     "min": 0.14,
+     "median": 0.95,
+     "max": 1.29
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 6,
+     "median": 8,
+     "max": 9,
+     "total": 23
+    },
+    "goal_met": {
+     "true": 2,
+     "false": 1,
+     "null": 0
+    },
+    "outcomes": [
+     "ok"
+    ],
+    "headroom": {
+     "min": 0.79,
+     "median": 1.06,
+     "max": 7.14
+    },
+    "wasted": 0
+   }
+  },
+  "doc-reader": {
+   "verdict": "WELL",
+   "notes": "3 of 3 answers correct",
+   "seconds": 172.4,
+   "read_s": 59.8,
+   "predicted_s": 53.75,
+   "prompt_tokens": 7824,
+   "first_word_s": [
+    2.84,
+    2.66,
+    2.8
+   ],
+   "reused_tokens": [
+    7826,
+    7921,
+    7973
+   ],
+   "answers": [
+    {
+     "q": "How much is the late fee, and when does it apply?",
+     "ok": true,
+     "first_s": 2.84,
+     "reused_tokens": 7826,
+     "tps": 1.5,
+     "answer": "The late fee is five percent (5%) of the overdue amount. It applies if payment is not received within five (5) days after it is due. If any payment of rent is more than fifteen (15) days late, the unpaid amount also bears interest at the rate of one percent (1%) per month from the due date until pai"
+    },
+    {
+     "q": "How much notice must the tenant give before moving out?",
+     "ok": true,
+     "first_s": 2.66,
+     "reused_tokens": 7921,
+     "tps": 1.5,
+     "answer": "If Tenant does not renew, Tenant shall give Landlord written notice at least sixty (60) days before the term ends that it will move out."
+    },
+    {
+     "q": "What is the pet deposit, and when is it refunded?",
+     "ok": true,
+     "first_s": 2.8,
+     "reused_tokens": 7973,
+     "tps": 1.4,
+     "answer": "The pet deposit is $750.00 for each animal. Landlord shall refund what is left of the pet deposit within thirty (30) days after the animal leaves for good or the Lease ends, whichever is first."
+    }
+   ],
+   "hub": {
+    "calls": 4,
+    "size_pct": {
+     "min": 100,
+     "median": 100.0,
+     "max": 100
+    },
+    "tokens_per_s": {
+     "min": 1.39,
+     "median": 1.46,
+     "max": 1.51
+    },
+    "first_token_s": {
+     "min": 2.65,
+     "median": 2.81,
+     "max": 58.33
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 3,
+     "median": 39.5,
+     "max": 72,
+     "total": 154
+    },
+    "goal_met": {
+     "true": 0,
+     "false": 0,
+     "null": 4
+    },
+    "outcomes": [
+     "ok"
+    ],
+    "wasted": 0
+   }
+  },
+  "meeting-recap": {
+   "verdict": "POOR",
+   "notes": "1 call(s) missed Cale's goal",
+   "seconds": 362.3,
+   "first_word_s": 10.45,
+   "whole_s": 360.9,
+   "action_items": 11,
+   "recap_chars": 348,
+   "size": 100,
+   "hub": {
+    "calls": 2,
+    "size_pct": {
+     "min": 75,
+     "median": 87.5,
+     "max": 100
+    },
+    "tokens_per_s": {
+     "min": 1.04,
+     "median": 1.15,
+     "max": 1.26
+    },
+    "first_token_s": {
+     "min": 10.41,
+     "median": 11.14,
+     "max": 11.86
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 77,
+     "median": 182.5,
+     "max": 288,
+     "total": 365
+    },
+    "goal_met": {
+     "true": 1,
+     "false": 1,
+     "null": 0
+    },
+    "outcomes": [
+     "ok"
+    ],
+    "headroom": {
+     "min": 0.41,
+     "median": 1.05,
+     "max": 1.69
+    },
+    "wasted": 0
+   }
+  },
+  "background-sorter": {
+   "verdict": "POOR",
+   "notes": "6 of 20 files in 480 s: slow for a background job on this computer",
+   "seconds": 480.8,
+   "files": 6,
+   "sort_seconds": 480.0,
+   "files_per_min": 0.75,
+   "size": "81",
+   "hub": {
+    "calls": 6,
+    "size_pct": {
+     "min": 81,
+     "median": 81.0,
+     "max": 81
+    },
+    "tokens_per_s": {
+     "min": 1.04,
+     "median": 1.06,
+     "max": 1.08
+    },
+    "first_token_s": {
+     "min": 2.66,
+     "median": 2.76,
+     "max": 5.43
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 65,
+     "median": 74.0,
+     "max": 103,
+     "total": 464
+    },
+    "goal_met": {
+     "true": 0,
+     "false": 6,
+     "null": 0
+    },
+    "outcomes": [
+     "ok"
+    ],
+    "headroom": {
+     "min": 0.93,
+     "median": 0.93,
+     "max": 0.93
+    },
+    "wasted": 0
+   }
+  }
+ },
+ "together": {
+  "quick_notes_first_word_s": [
+   3.712,
+   2.64,
+   2.553,
+   2.669,
+   2.347
+  ],
+  "quick_notes_whole_call_ms": [
+   9121,
+   11630,
+   11214,
+   7875,
+   13213
+  ],
+  "quick_notes_hub": {
+   "calls": 5,
+   "size_pct": {
+    "min": 81,
+    "median": 81,
+    "max": 81
+   },
+   "tokens_per_s": {
+    "min": 0.9,
+    "median": 1.06,
+    "max": 1.14
+   },
+   "first_token_s": {
+    "min": 2.35,
+    "median": 2.64,
+    "max": 3.71
+   },
+   "waited_s": {
+    "min": 0.44,
+    "median": 0.57,
+    "max": 0.93
+   },
+   "tokens": {
+    "min": 5,
+    "median": 9,
+    "max": 10,
+    "total": 40
+   },
+   "goal_met": {
+    "true": 0,
+    "false": 5,
+    "null": 0
+   },
+   "outcomes": [
+    "ok"
+   ],
+   "headroom": {
+    "min": 0.27,
+    "median": 0.38,
+    "max": 0.43
+   },
+   "wasted": 0
+  },
+  "sorter_calls_during": 0,
+  "sorter_still_running_after_5": true,
+  "host_cpu_busy": {
+   "samples": [
+    0.468,
+    0.497,
+    0.485,
+    0.48,
+    0.556
+   ],
+   "max": 0.556
+  },
+  "seconds": 550.1,
+  "quiet_first_word_s": [
+   0.142,
+   1.288,
+   0.948
+  ],
+  "median_quiet_s": 0.948,
+  "median_together_s": 2.64,
+  "slowdown_x": 2.78
+ }
+}

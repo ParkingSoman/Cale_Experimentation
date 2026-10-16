@@ -40,14 +40,15 @@ Each download carries its own `uv` and Node. It does not carry the AI model (4.4
 
 ## No "unknown developer" warning (demo computers only)
 
-A public release needs an Apple Developer ID and a Windows signing certificate. For the two demo computers, lower the checks once:
+A public release needs an Apple Developer ID ($99 a year) and a Windows signing certificate. For the two demo computers, do this once:
 
-| Computer | Command | Undo |
+| Computer | What to do | Undo |
 |---|---|---|
-| Mac | `sh scripts/prep_mac_demo.sh` (asks for your password) | `sh scripts/prep_mac_demo.sh undo` |
-| Windows (as administrator) | `powershell -ExecutionPolicy Bypass -File prep_windows_demo.ps1`, then build the `.exe` | same command with `-Undo` |
+| Mac | After the browser downloads `Cale-mac.dmg`, run `xattr -d com.apple.quarantine ~/Downloads/Cale-mac.dmg` before you open it. Do this before the demo, not on stage. | Nothing to undo. It changes one file. |
+| Windows (as administrator) | `powershell -ExecutionPolicy Bypass -File prep_windows_demo.ps1`, then build the `.exe`. | same command with `-Undo` |
 
-These lower the computer's protection. Use them only on a computer you keep for demos.
+Why the Mac line works: a browser marks every download with a "quarantine" label. Gatekeeper checks only marked files. Tested on 2026-10-15: Chrome marked the file, Gatekeeper said `rejected`, and the app inside the disk image had no mark after the label was removed.
+Do not use `scripts/prep_mac_demo.sh`. On macOS 26 it needs a manual confirm in System Settings and it lowers protection for every app.
 
 ## Record the install
 
@@ -90,6 +91,17 @@ Test: `cale/tests/priority.py`. Live: start Background Sorter, then type in Quic
 | Meeting Recap | first word 0.7 s, whole recap and action items in under 10 s |
 | Background Sorter | 20 of 20 files, 24 to 35 files per minute, receipts' amounts all correct |
 
+## HP laptop numbers (8 CPU threads, 17 GB Windows / 8 GB WSL Linux, measured 2026-10-15 with `demo/check_apps.py`)
+
+| App | Windows, CPU only | Windows, GPU reads prompts (MX150) | Linux (WSL), CPU only |
+|---|---|---|---|
+| Quick Notes | WELL, 13.3 tok/s | 12.4 tok/s, 1 of 3 calls missed | WELL, 10.4 tok/s |
+| Private Doc Reader | WELL, read 7,824 tokens in 423 s | WELL, read in 63 s | WELL, read in 434 s |
+| Meeting Recap | not measured (failed to start in that run) | WELL, 106 s | POOR, 137 s, first word 48 s |
+| Background Sorter | 20 files in 278 s | 20 files in 251 s (POOR: memory 29.8% vs goal 28%) | 20 files in 185 s (POOR: memory goal 28% not reachable, used 59%) |
+
+Files: `results/demo/hp-windows-cpu-sampling.json`, `hp-windows-gpu-fix.json`, `hp-linux-final.json`. Details and the GPU long-prompt fix are in `docs/research/adherence-sampling.md`.
+
 ## Known limits (say them before someone asks)
 
 | Limit | Why |
@@ -98,5 +110,7 @@ Test: `cale/tests/priority.py`. Live: start Background Sorter, then type in Quic
 | Pictures and sound work on the Mac only. | The Windows and Linux engine has no vision or audio files yet. |
 | Doc Reader's time prediction is cautious on the Mac (said 12 s, took 5.6 s). | The prediction counts a cold start. |
 | The model is a prototype (Gemma 3n). Its answers are not as good as the model Cale is meant to have. | The funding is for the Matryoshka model built for this. |
+| On the old HP the GPU only reads prompts (it has 2 GB). Answers run on the CPU. | That is the fastest way measured on that card. A card that holds the whole model would also speed up answers. |
+| Memory goals can miss by a few percent, and a small computer may not reach a low goal. The Scorecard says so (POOR). | Honest report, not a hidden trade-off. |
 | The Allow question must be clicked by a person. | That is the point of it. |
 | On the Mac a background answer that is already running is not stopped for a foreground app. | The Mac engine answers one at a time. A foreground call waits for the answer that runs now (a few seconds at most). |

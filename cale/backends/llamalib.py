@@ -215,6 +215,8 @@ class Lib:
             c.cale_set_option.restype, c.cale_set_option.argtypes = None, [i32, i32]
             for key, name in ((1, "flash"), (2, "batch"), (3, "ubatch"), (4, "hold_last")):
                 v = engine_option(name)
+                if v is None and name == "flash" and gpu is not None and n_gpu_layers == 0:
+                    v = 1       # a card that only reads prompts: "auto" attention made answers after a 7600-token prompt 2.7x slower (1.74 vs 4.6 tok/s, HP MX150, 2026-10-15); on or off both measured 4.6
                 if v is not None:
                     c.cale_set_option(key, v)
         if hasattr(c, "cale_set_slots"):               # not through the environment: a Windows library does not see variables set after the process started

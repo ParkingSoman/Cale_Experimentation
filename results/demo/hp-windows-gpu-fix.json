@@ -1,0 +1,353 @@
+{
+ "label": "hp-windows-gpu-fix",
+ "when": "2026-10-15T21:43:17-04:00",
+ "hub": "http://127.0.0.1:47802",
+ "host": {
+  "os": "Windows",
+  "cpus": 8,
+  "ram_total_gb": 17.1,
+  "ram_free_gb": 10.9,
+  "cpu_busy": 0.111,
+  "power": {
+   "on_battery": false,
+   "hot": null
+  }
+ },
+ "apps": {
+  "chat": {
+   "verdict": "SKIPPED",
+   "notes": "skipped by --skip",
+   "seconds": 0.0
+  },
+  "quick-notes": {
+   "verdict": "POOR",
+   "notes": "1 call(s) missed Cale's goal | 'Dear Maria, I wanted to follow up on' -> 'our conversation last week.' | 'The quarterly numbers look good, but we should' -> '...start planning for Q3.' | 'Ingredients for the cake: two cups of' -> 'all-purpose flour.'",
+   "seconds": 19.5,
+   "first_word_s": [
+    1.285,
+    0.533,
+    0.608
+   ],
+   "whole_call_ms": [
+    1760,
+    1342,
+    1105
+   ],
+   "cold_start_ms": 14126,
+   "first_word_source": "hub",
+   "hub": {
+    "calls": 3,
+    "size_pct": {
+     "min": 48,
+     "median": 48,
+     "max": 48
+    },
+    "tokens_per_s": {
+     "min": 9.91,
+     "median": 12.43,
+     "max": 13.19
+    },
+    "first_token_s": {
+     "min": 0.53,
+     "median": 0.61,
+     "max": 1.28
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 6,
+     "median": 6,
+     "max": 8,
+     "total": 20
+    },
+    "goal_met": {
+     "true": 2,
+     "false": 1,
+     "null": 0
+    },
+    "outcomes": [
+     "ok"
+    ],
+    "headroom": {
+     "min": 0.78,
+     "median": 1.65,
+     "max": 1.91
+    },
+    "wasted": 2
+   }
+  },
+  "doc-reader": {
+   "verdict": "WELL",
+   "notes": "3 of 3 answers correct",
+   "seconds": 105.4,
+   "read_s": 63.3,
+   "predicted_s": 28.31,
+   "prompt_tokens": 7824,
+   "first_word_s": [
+    2.45,
+    2.57,
+    2.85
+   ],
+   "reused_tokens": [
+    7826,
+    7921,
+    7975
+   ],
+   "answers": [
+    {
+     "q": "How much is the late fee, and when does it apply?",
+     "ok": true,
+     "first_s": 2.45,
+     "reused_tokens": 7826,
+     "tps": 4.4,
+     "answer": "The late fee is five percent (5%) of the overdue amount. It applies if Landlord has not received payment within five (5) days after it is due. If any payment of rent is more than fifteen (15) days late, the unpaid amount also bears interest at the rate of one percent (1%) per month from the due date"
+    },
+    {
+     "q": "How much notice must the tenant give before moving out?",
+     "ok": true,
+     "first_s": 2.57,
+     "reused_tokens": 7921,
+     "tps": 4.6,
+     "answer": "If Tenant does not renew the Lease, Tenant shall give Landlord written notice at least sixty (60) days before the term ends that it will move out."
+    },
+    {
+     "q": "What is the pet deposit, and when is it refunded?",
+     "ok": true,
+     "first_s": 2.85,
+     "reused_tokens": 7975,
+     "tps": 4.5,
+     "answer": "The pet deposit is $750.00 for each animal. Landlord shall refund what is left of the pet deposit within thirty (30) days after the animal leaves for good or the Lease ends, whichever is first."
+    }
+   ],
+   "hub": {
+    "calls": 4,
+    "size_pct": {
+     "min": 100,
+     "median": 100.0,
+     "max": 100
+    },
+    "tokens_per_s": {
+     "min": 4.47,
+     "median": 4.7,
+     "max": 5.3
+    },
+    "first_token_s": {
+     "min": 2.44,
+     "median": 2.7,
+     "max": 62.92
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 3,
+     "median": 40.5,
+     "max": 72,
+     "total": 156
+    },
+    "goal_met": {
+     "true": 0,
+     "false": 0,
+     "null": 4
+    },
+    "outcomes": [
+     "ok"
+    ],
+    "wasted": 0
+   }
+  },
+  "meeting-recap": {
+   "verdict": "WELL",
+   "notes": "recap written, 13 action items",
+   "seconds": 106.2,
+   "first_word_s": 9.35,
+   "whole_s": 105.4,
+   "action_items": 13,
+   "recap_chars": 394,
+   "size": 100,
+   "hub": {
+    "calls": 2,
+    "size_pct": {
+     "min": 100,
+     "median": 100.0,
+     "max": 100
+    },
+    "tokens_per_s": {
+     "min": 4.87,
+     "median": 5.08,
+     "max": 5.29
+    },
+    "first_token_s": {
+     "min": 9.35,
+     "median": 10.44,
+     "max": 11.53
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.0
+    },
+    "tokens": {
+     "min": 83,
+     "median": 209.5,
+     "max": 336,
+     "total": 419
+    },
+    "goal_met": {
+     "true": 2,
+     "false": 0,
+     "null": 0
+    },
+    "outcomes": [
+     "ok"
+    ],
+    "headroom": {
+     "min": 1.74,
+     "median": 1.74,
+     "max": 1.74
+    },
+    "wasted": 0
+   }
+  },
+  "background-sorter": {
+   "verdict": "POOR",
+   "notes": "20 call(s) missed Cale's goal",
+   "seconds": 250.7,
+   "files": 20,
+   "sort_seconds": 249.9,
+   "files_per_min": 4.8,
+   "app_files_per_min": 1.6,
+   "size": "85",
+   "memory_pct_actual": 29.8,
+   "receipts_checked": 6,
+   "hub": {
+    "calls": 20,
+    "size_pct": {
+     "min": 85,
+     "median": 85.0,
+     "max": 85
+    },
+    "tokens_per_s": {
+     "min": 5.77,
+     "median": 6.03,
+     "max": 6.37
+    },
+    "first_token_s": {
+     "min": 0.69,
+     "median": 1.44,
+     "max": 5.39
+    },
+    "waited_s": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.01
+    },
+    "tokens": {
+     "min": 36,
+     "median": 62.5,
+     "max": 98,
+     "total": 1262
+    },
+    "goal_met": {
+     "true": 0,
+     "false": 20,
+     "null": 0
+    },
+    "outcomes": [
+     "ok"
+    ],
+    "headroom": {
+     "min": 0.94,
+     "median": 0.94,
+     "max": 0.94
+    },
+    "wasted": 0
+   }
+  }
+ },
+ "together": {
+  "quick_notes_first_word_s": [
+   1.543,
+   1.177,
+   1.122,
+   1.29,
+   1.357
+  ],
+  "quick_notes_whole_call_ms": [
+   2253,
+   1861,
+   2626,
+   2090,
+   2520
+  ],
+  "quick_notes_hub": {
+   "calls": 5,
+   "size_pct": {
+    "min": 85,
+    "median": 85,
+    "max": 85
+   },
+   "tokens_per_s": {
+    "min": 6.07,
+    "median": 7.74,
+    "max": 8.47
+   },
+   "first_token_s": {
+    "min": 1.12,
+    "median": 1.29,
+    "max": 1.54
+   },
+   "waited_s": {
+    "min": 0.02,
+    "median": 0.09,
+    "max": 0.14
+   },
+   "tokens": {
+    "min": 5,
+    "median": 6,
+    "max": 9,
+    "total": 35
+   },
+   "goal_met": {
+    "true": 0,
+    "false": 5,
+    "null": 0
+   },
+   "outcomes": [
+    "ok"
+   ],
+   "headroom": {
+    "min": 0.65,
+    "median": 0.78,
+    "max": 0.9
+   },
+   "wasted": 0
+  },
+  "sorter_calls_during": 1,
+  "sorter_still_running_after_5": true,
+  "host_cpu_busy": {
+   "samples": [
+    0.344,
+    0.467,
+    0.528,
+    0.529,
+    0.407
+   ],
+   "max": 0.529
+  },
+  "seconds": 251.2,
+  "quiet_first_word_s": [
+   1.285,
+   0.533,
+   0.608
+  ],
+  "median_quiet_s": 0.608,
+  "median_together_s": 1.29,
+  "slowdown_x": 2.12
+ }
+}
