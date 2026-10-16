@@ -1,3 +1,40 @@
+# The consumer demo (2026-10-16): read this section first
+
+The demo is about what a consumer sees. Nothing technical is on any screen the audience sees. The presenter types nothing.
+
+| Part | What the consumer does | Files |
+|---|---|---|
+| 1. Cale, once | Double-click the Cale download. A plain page says "Setting up", then "You are all set". | Mac `dist/Cale-mac.dmg`, Windows `Cale-Setup.exe` |
+| 2. An app | Double-click an app download. It opens in the browser and works. | Mac `dist/apps/Quick-Notes-mac.dmg`, `dist/apps/Rewrite-mac.dmg`. Windows `Quick-Notes-Setup.exe`, `Rewrite-Setup.exe` |
+| 3. Another app | Double-click the second app. No second Cale download. | same |
+
+Apps are small (about 100 KB on Mac, 0.2 MB on Windows). They do not carry Cale. Each app finds the installed Cale and runs with the Python that Cale installed.
+If Cale is missing, the app says so in plain words and offers to get it (it looks for the Cale download in Downloads and on the Desktop).
+
+The two demo apps:
+
+| App | Port | Kind of app | What it asks Cale for |
+|---|---|---|---|
+| Quick Notes | 8821 | grey ghost text while you type | first word in about a second |
+| Rewrite | 8825 | pick a tone, new text streams in | words faster than you read (6 tokens/s) |
+
+Say out loud, with no screen showing it: "Same app code on both computers. Each app asks for a feel. Cale picks the model size that gives that feel. So both apps feel the same on a new Mac and a ten-year-old laptop."
+The technical view of every app and of Cale is hidden. Add `?dev=1` to the address to see it (for the funding pitch only).
+
+How to build (on the Mac): `python3 scripts/build_installer.py mac`, `python3 scripts/build_app.py mac all`. For Windows: `python3 scripts/build_installer.py win`, `python3 scripts/build_app.py win all`, copy the folders to the HP, run `build_exe.ps1` and `build_app_exe.ps1` there (they sign with the demo certificate).
+Warnings: a file built on this Mac has no quarantine mark and opens with no warning. A browser download does get the warning (the install is shown as a recorded time-lapse). The HP was prepared with `prep_windows_demo.ps1` on 2026-10-16 (undo: `-Undo`).
+
+Measured on 2026-10-16 (real `.exe` files, fresh Cale install on the HP, test mode for the Allow question):
+
+| Computer | Quick Notes first word | Rewrite |
+|---|---|---|
+| Mac (M5) | 0.2 to 0.4 s, size 100% | whole rewrite 0.7 s, size 100% |
+| HP Windows | 0.84 to 1.29 s, size 95 to 100% (4 of 6 under 1 s) | 3.7 to 4.1 s, size 90 to 95%, speed goal met |
+
+Known gaps: the HP set-up step "fitting to this computer" took about 9 minutes (fine for a time-lapse). Linux has no consumer double-click path (the HP Linux is inside WSL), so it is covered by the scorecard and by speaking. The plain Cale page, the "needs Cale" dialogs and the Allow wording were not looked at by eye (the Chrome extension was not connected).
+
+---
+
 # The Cale demo: download once, every app works
 
 One download. No terminal. No model choice. After that, five apps from five "developers" just work.
