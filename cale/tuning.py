@@ -501,7 +501,7 @@ def probe_one(env_gpu, log=print, extra_env=None, stop=None, timeout=900):
     home = tempfile.mkdtemp(prefix="cale-probe-")
     try:
         t_probe = time.time()
-        r = run_child([sys.executable, "-m", "cale.tune", "--probe"], dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", **PROBE_ENV, **(extra_env or {})),
+        r = run_child([sys.executable, "-m", "cale.tune", "--probe"], dict(os.environ, CALE_GPU=env_gpu, CALE_HOME=home, PYTHONUNBUFFERED="1", CALE_PROBE_T0=repr(time.time()), **PROBE_ENV, **(extra_env or {})),
                       timeout=timeout, stop=stop)
         log(f"tune: trial {env_gpu} took {time.time() - t_probe:.0f} s")
         if r is None:
@@ -510,7 +510,9 @@ def probe_one(env_gpu, log=print, extra_env=None, stop=None, timeout=900):
         rc, out, err = r
         for line in out.splitlines():
             if line.startswith("PLACEMENT_PROBE "):
-                return json.loads(line[len("PLACEMENT_PROBE "):])
+                got = json.loads(line[len("PLACEMENT_PROBE "):])
+                log(f"tune: trial {env_gpu} phases {got.get('phases')}")
+                return got
         log(f"tune: way of running {env_gpu} gave no result ({rc}) {err[-200:]}")
     except Exception as e:
         log(f"tune: way of running {env_gpu} failed ({type(e).__name__})")

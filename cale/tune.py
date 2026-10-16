@@ -18,13 +18,19 @@ def probe():
     tokens, and print the speeds. CALE_PROBE_SKIP_BELOW: stop after the short prompt if it was read slower than this (tokens/s)."""
     import json
     import statistics
+    import time
+    t_in = time.time()
+    boot = round(t_in - float(os.environ["CALE_PROBE_T0"]), 1) if os.environ.get("CALE_PROBE_T0") else None   # launch -> this line: Python and imports start-up
     eng = Engine(paths.MODEL)
     eng._tuning = True
+    t_a = time.time()
     with eng.lock:
         eng._load()
+    t_b = time.time()
     m = eng.m
     piece = min(256, getattr(m, "batch_tokens", 512))
     eng._run_prompt(48, 8)                                        # warm-up, thrown away
+    t_c = time.time()
 
     def speeds(d):
         if d and d.get("tokens", 0) >= 9 and d.get("decode_s", 0) > 0:
@@ -41,6 +47,7 @@ def probe():
         runs = [r for r in (speeds(eng._run_prompt(piece, 20)) for _ in range(2)) if r]
         if runs:
             out.update(pre=statistics.median(r[0] for r in runs), dec=statistics.median(r[1] for r in runs), first_pre=first[0] if first else None)
+    out["phases"] = {"boot_s": boot, "engine_init_s": round(t_a - t_in, 1), "load_s": round(t_b - t_a, 1), "warmup_s": round(t_c - t_b, 1), "measure_s": round(time.time() - t_c, 1)}
     print("PLACEMENT_PROBE " + (json.dumps(out) if "pre" in out else "failed"), flush=True)
     return 0 if "pre" in out else 1
 
