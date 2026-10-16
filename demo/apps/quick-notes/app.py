@@ -135,6 +135,19 @@ def setup_cale():
             return False
 
 
+def warm_up():
+    """Ask for one tiny answer when the app opens, so the model is in memory before the person types."""
+    try:
+        host = urlparse(CALE_URL)
+        conn = http.client.HTTPConnection(host.hostname, host.port, timeout=180)
+        try:
+            cale_complete(conn, State.key, "Hello")
+        finally:
+            close_conn(conn)
+    except Exception:
+        pass
+
+
 def ghost(text):
     """Ask Cale for a short continuation. Returns a dict for the browser."""
     with State.lock:
@@ -263,7 +276,7 @@ class Handler(BaseHTTPRequestHandler):
 
 def main():
     DATA.mkdir(parents=True, exist_ok=True)
-    threading.Thread(target=setup_cale, daemon=True).start()
+    threading.Thread(target=lambda: setup_cale() and warm_up(), daemon=True).start()
     try:
         srv = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     except OSError:

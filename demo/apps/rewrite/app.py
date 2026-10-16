@@ -126,6 +126,19 @@ def setup_cale():
             return False
 
 
+def warm_up():
+    """Ask for one tiny answer when the app opens, so the model is in memory before the person clicks."""
+    try:
+        host = urlparse(CALE_URL)
+        conn = http.client.HTTPConnection(host.hostname, host.port, timeout=180)
+        try:
+            cale_stream(conn, State.key, "shorter", "Hello there.").read()
+        finally:
+            conn.close()
+    except Exception:
+        pass
+
+
 def developer_snippet():
     src = Path(__file__).read_text(encoding="utf-8").split("\n")
     a = next(i for i, l in enumerate(src) if l.startswith("# --- cale-snippet-start"))
@@ -228,7 +241,7 @@ class Handler(BaseHTTPRequestHandler):
 
 def main():
     DATA.mkdir(parents=True, exist_ok=True)
-    threading.Thread(target=setup_cale, daemon=True).start()
+    threading.Thread(target=lambda: setup_cale() and warm_up(), daemon=True).start()
     try:
         srv = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     except OSError:
