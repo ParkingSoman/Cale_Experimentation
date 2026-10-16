@@ -69,6 +69,10 @@ h2 { font-size: 16px; margin: 26px 0 10px; }
 .setup { max-width: 640px; margin: 8vh auto; text-align: center; }
 .setup h2 { font-size: 28px; margin: 0 0 8px; }
 .setup .bar { height: 12px; border-radius: 6px; margin: 22px 0 10px; }
+.mark { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 700; }
+.mark.ok { background: var(--good-soft); color: var(--good); }
+.mark.busy { border: 5px solid var(--bar); border-top-color: var(--accent); animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .empty { color: var(--mute); padding: 18px; text-align: center; }
 [hidden] { display: none !important; }
 .note { color: var(--mute); font-size: 13px; margin-top: 8px; }
@@ -85,6 +89,7 @@ h2 { font-size: 16px; margin: 26px 0 10px; }
   </header>
 
   <section id="plain" class="setup" hidden>
+    <div id="plain-mark" class="mark" aria-hidden="true"></div>
     <h2 id="plain-title">One moment...</h2>
     <div class="sub" id="plain-sub"></div>
     <div class="bar" id="plain-barwrap" hidden><i id="plain-bar" style="width:0%"></i></div>
@@ -181,6 +186,7 @@ function paintPlain() {
   else if (ready || st.finished) { title = "You are all set"; sub = "You only do this once. Open any app that works with Cale and it starts right away. You can close this window."; }
   else if (S.installed) { title = "One moment..."; sub = "Waking up."; }
   else { title = "Set up your computer"; sub = "This is a one-time step. After it, apps start right away."; button = "Set up"; }
+  const mk = $("plain-mark"); mk.className = "mark " + (title === "You are all set" ? "ok" : button ? "" : "busy"); mk.textContent = title === "You are all set" ? "\u2713" : "";
   $("plain-title").textContent = title; $("plain-sub").textContent = sub; $("plain-label").textContent = label;
   $("plain-barwrap").hidden = bar == null; if (bar != null) $("plain-bar").style.width = bar + "%";
   btn.hidden = !button; btn.textContent = button;
