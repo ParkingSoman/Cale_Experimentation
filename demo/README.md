@@ -35,7 +35,19 @@ Mac dry run (2026-10-16): installed `Cale-mac.dmg` into a fresh test folder (abo
 
 HP clean dry run (2026-10-16, final files, fresh folder, real click on the Allow question): Cale installed through `Cale-Setup.exe` (served the plain page). Both apps opened from their own `.exe`, and a click on each Allow question worked (clicked by the test helper, as a person would). Quick Notes first word 0.88 s, size 100%, goal met. Rewrite 3.5 s in total, size 95%, goal met. The set-up step took 23 minutes this time and 9 minutes the first time (investigated: see the next paragraph).
 
-Why the HP set-up varied (investigated 2026-10-16): the measuring part took 348 s both times. The step before it (trying five ways of running the model, each in its own process) took 4 min the first time and 16 min the second, with identical results. With a stopwatch on each trial it took 6.4 min once (one memory check took 2 min, the limit of that check) and 3.5 min twice. So one trial or check stalls now and then. I could not make the 16-minute stall happen again. Changes made: timing lines in `tune.log` for every trial, a trial on a card now gives up after 4 times the CPU trial (at least 150 s) instead of 15 minutes, and a card the trial cannot find (here the Intel chip, Vulkan1) is skipped after one trial instead of two. Expect about 6 to 10 minutes on the HP, with a slow tail not yet explained.
+Why the HP set-up varied (investigated 2026-10-16, not fully solved):
+
+| Install of Cale on the HP | Time |
+|---|---|
+| First install (b2) | 9 min |
+| Second install (b3) | 23 min (the odd one) |
+| Two more fresh installs, back to back, with a monitor running | 10.8 and 10.9 min |
+
+What is known: the measuring part took 348 s every time. The step before it tries five ways of running the model, each in its own process. It took 3.5 min in 9 runs, but 16 min once and 6.4 min once. The speeds it measured were identical in the slow runs, so the computer was not slower at the real work. Every trial in the slow run was about 3 times slower, one about 6 times, so the extra time sat in the parts around the measuring (starting the process and loading files), not in the measuring.
+Ruled out: the computer being idle first (a run after 20 minutes of rest took 214 s), fresh files (two fresh installs were normal), a scheduled Windows or McAfee job in that window, Defender real-time scanning (it is off), a graphics driver crash that blocks (the three `vulkan-1.dll` crashes happen in every install, fast or slow, and cost only seconds).
+Best remaining guess: something on the HP that scans or locks files for a while (McAfee's scanner used 52 s of CPU in one fresh install and 99 s in the next, so it varies). Not proven.
+Changes that stay: every trial now writes its time and its phases (`boot_s`, `load_s`, `warmup_s`, `measure_s`) into `tune.log`, a trial on a card gives up after 4 times the CPU trial (at least 150 s), and a card that the trial cannot find is skipped after one trial. If a slow install happens again, `tune.log` shows which phase was slow.
+Plan for the demo: the install is a time-lapse, and a normal HP install takes about 11 minutes.
 
 Known gaps: the HP set-up step "fitting to this computer" took about 9 minutes (fine for a time-lapse). Linux has no consumer double-click path (the HP Linux is inside WSL), so it is covered by the scorecard and by speaking. The plain Cale page, the "needs Cale" dialogs and the Allow wording were not looked at by eye (the Chrome extension was not connected).
 
