@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cale Hub</title>
+<title>Cale</title>
 <style>
 :root {
   --bg: #f6f5f1; --card: #ffffff; --ink: #1c1b19; --mute: #6b6860; --line: #e4e1d8;
@@ -76,13 +76,21 @@ h2 { font-size: 16px; margin: 26px 0 10px; }
 </head>
 <body>
 <div class="wrap">
-  <header>
+  <header id="hdr">
     <h1>Cale<span>.</span> Hub</h1>
     <div class="sub" id="where">Checking this computer…</div>
     <div class="grow"></div>
     <span class="pill" id="smooth" title="Measured in this page: how many screen frames came late. A busy computer drops frames. Only counts while this page is visible."><i class="dot"></i><span>Computer feels: …</span></span>
     <span class="pill" id="runstate"><i class="dot"></i><span>…</span></span>
   </header>
+
+  <section id="plain" class="setup" hidden>
+    <h2 id="plain-title">One moment...</h2>
+    <div class="sub" id="plain-sub"></div>
+    <div class="bar" id="plain-barwrap" hidden><i id="plain-bar" style="width:0%"></i></div>
+    <div id="plain-label" class="sub"></div>
+    <p><button class="go" id="plain-btn" hidden></button></p>
+  </section>
 
   <section id="setup" class="setup" hidden>
     <h2 id="setup-title">Setting up Cale</h2>
@@ -119,6 +127,8 @@ h2 { font-size: 16px; margin: 26px 0 10px; }
 <script>
 "use strict";
 const $ = (id) => document.getElementById(id);
+const DEV = location.search.indexOf("dev=1") >= 0;       // the technical page is for developers: a consumer sees only the plain page
+if (!DEV) $("hdr").hidden = true;
 function h(tag, attrs, ...kids) {                       // build elements with textContent: app names come from other programs
   const e = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs || {})) { if (k === "class") e.className = v; else if (k.startsWith("on")) e[k] = v; else e.setAttribute(k, v); }
@@ -159,7 +169,27 @@ function meter(k, v, pct, cls) {
     pct == null ? "" : h("div", { class: "bar" }, h("i", { style: `width:${Math.max(0, Math.min(100, pct))}%` + (cls ? `;background:var(--${cls})` : "") })));
 }
 
+const PLAIN_STAGE = { runtime: "Getting started", python: "Getting started", model: "Getting ready. This is the longest part.",
+                      convert: "Almost done", tune: "Almost done", service: "Almost done", done: "Done" };
+function paintPlain() {
+  $("setup").hidden = true; $("main").hidden = true; $("plain").hidden = false;
+  const st = S && S.setup, ready = S && S.installed && S.cale, btn = $("plain-btn");
+  let title = "One moment...", sub = "", bar = null, label = "", button = "";
+  if (!S) { title = "One moment..."; }
+  else if (st.error) { title = "Setup stopped"; sub = "Something went wrong. Check your internet connection and try again."; button = "Try again"; }
+  else if (st.running) { title = "Setting up"; sub = "This happens only once. It can take a few minutes. You can leave this window open."; bar = st.pct; label = PLAIN_STAGE[st.stage] || ""; }
+  else if (ready || st.finished) { title = "You are all set"; sub = "You only do this once. Open any app that works with Cale and it starts right away. You can close this window."; }
+  else if (S.installed) { title = "One moment..."; sub = "Waking up."; }
+  else { title = "Set up your computer"; sub = "This is a one-time step. After it, apps start right away."; button = "Set up"; }
+  $("plain-title").textContent = title; $("plain-sub").textContent = sub; $("plain-label").textContent = label;
+  $("plain-barwrap").hidden = bar == null; if (bar != null) $("plain-bar").style.width = bar + "%";
+  btn.hidden = !button; btn.textContent = button;
+}
+$("plain-btn").onclick = () => fetch("/api/setup", { method: "POST", body: "{}" }).then(refresh);
+
 function paint() {
+  if (!DEV) return paintPlain();
+  $("plain").hidden = true;
   const setup = $("setup"), main = $("main");
   if (!S) { $("runstate").querySelector("span").textContent = "Hub cannot reach itself"; return; }
   const host = S.host, cale = S.cale;

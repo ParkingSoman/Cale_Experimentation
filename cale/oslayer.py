@@ -506,7 +506,7 @@ def ask_allow(app, replacing=False, seconds=120):
     extra = "This app already has a key. Allowing replaces it." if replacing else ""
     title = "Cale"
     body = (f'Allow "{app}" to use Cale on this computer?\n\n'
-            "It will be able to run the local AI model.\n"
+            "Cale lets apps use AI that runs on this computer. What you type stays here.\n"
             "If you did not just open this app, choose Don't Allow.")
     if extra:
         body += "\n\n" + extra
@@ -517,7 +517,7 @@ def ask_allow(app, replacing=False, seconds=120):
                   'set extra to ""',
                   'if r is "yes" then set extra to return & return & "This app already has a key. Allowing replaces it."',
                   'display dialog "Allow \\"" & a & "\\" to use Cale on this computer?" & return & return & '
-                  '"It will be able to run the local AI model." & return & '
+                  '"Cale lets apps use AI that runs on this computer. What you type stays here." & return & '
                   '"If you did not just open this app, choose Don\'t Allow." & extra '
                   'buttons {"Don\'t Allow", "Allow"} default button "Don\'t Allow" cancel button "Don\'t Allow" '
                   f'with title "Cale" with icon note giving up after {seconds}',

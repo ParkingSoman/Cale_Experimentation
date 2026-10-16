@@ -16,7 +16,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 HERE = Path(__file__).resolve().parent
-DATA = HERE / "data"
+DATA = Path(os.environ["CALE_APP_DATA"]) if os.environ.get("CALE_APP_DATA") else HERE / "data"   # an installed app keeps its files outside its bundle
 KEY_FILE = DATA / "cale-key"
 PORT = 8825
 CALE_URL = os.environ.get("CALE_URL", "http://127.0.0.1:47821").rstrip("/")
