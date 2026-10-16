@@ -26,8 +26,7 @@ CALE_URL = os.environ.get("CALE_URL", "http://127.0.0.1:47821").rstrip("/")
 APP_NAME = "Quick Notes"
 CONTEXT_CHARS = 1500          # how much text before the cursor we send
 
-SYSTEM = ("You continue the user's text. Reply with ONLY the next few words that naturally follow, "
-          "in the same language and style. Do not repeat the text. No quotes, no explanation.")
+SYSTEM = "Continue the text with only the next few words. Plain text, no quotes."   # short on purpose: every word of it is read again on each call
 
 
 class State:
@@ -188,7 +187,7 @@ def ghost(text):
     if status != 200:
         msg = (data.get("error") or {}).get("message", "") if isinstance(data, dict) else ""
         return {"error": "No suggestion this time. Keep typing."}
-    out = data["choices"][0]["message"]["content"] or ""
+    out = (data["choices"][0]["message"]["content"] or "").replace("**", "")
     cale = data.get("cale", {})
     return {"text": out, "ms": ms, "size": size, "goal_met": goal,
             "total_s": cale.get("total_s"), "goals_actual": cale.get("goals_actual")}
