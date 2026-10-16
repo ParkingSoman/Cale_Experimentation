@@ -21,7 +21,8 @@ Success = (app types that work well) x (consumer environments each one runs in).
 
 | Decision | Detail |
 |---|---|
-| Demo app | Quick Notes only. The other four apps are for the funding pitch. |
+| Demo apps | Quick Notes plus ONE new second app (a different app type, also on relative goals, works on both computers). The other four old apps are for the funding pitch: the size range is too narrow for them. |
+| Second-app purpose | Show that one Cale download lets people start other Cale apps with no hassle, and the download happens once. |
 | Show only the relative approach | Do NOT show absolute against relative live. Say it, do not stage it. |
 | Core message | Same app code, different operating systems, Cale picks the model for the app's goals. The app feels the same on a recent Mac and a ten-year-old laptop. |
 | No commands in the demo | The presenter types nothing. Anything that needs a command is a gap to fix. |

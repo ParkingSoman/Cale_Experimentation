@@ -51,7 +51,7 @@
     <textarea id="ed" spellcheck="false" placeholder="Start writing..." autofocus></textarea>
   </div>
   <div class="status" id="status"><span>Ready.</span></div>
-  <div class="dev">
+  <div class="dev" id="devbox" hidden>
     <label><input type="checkbox" id="devtoggle"> Developer view</label>
     <pre id="snippet"></pre>
   </div>
@@ -60,6 +60,8 @@
 (function () {
   var ed = document.getElementById('ed'), layer = document.getElementById('layer'),
       status = document.getElementById('status'), pre = document.getElementById('snippet');
+  var DEV = location.search.indexOf('dev=1') >= 0;   // the developer view is for the pitch, never for a consumer
+  if (DEV) document.getElementById('devbox').hidden = false;
   var ghostText = '', timer = null, aborter = null, saveTimer = null, seq = 0;
 
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
@@ -98,11 +100,12 @@
         if (my !== seq || ed.value !== text) return;
         aborter = null;
         if (d.cancelled) return;
-        if (d.error) { setStatus('<span class="err">' + esc(d.error) + '</span>'); return; }
+        if (d.error) { setStatus('<span class="muted">' + esc(d.error) + '</span>'); return; }
         var g = d.text.replace(/\s+$/, '');
         // The model may drop the space after a finished word. Add it when the text ends in a word and the reply starts one.
         if (g && /[A-Za-z0-9,.;:!?)]$/.test(text) && /^[A-Za-z0-9(]/.test(g)) g = ' ' + g;
         ghostText = g; render();
+        if (!DEV) { setStatus('<span>Ready.</span>'); return; }
         var met = d.goal_met === 'true' || d.goal_met === 'True' || d.goal_met === '1';
         var goal = d.goal_met == null ? 'n/a' : (met ? '<span class="ok">goal met</span>' : '<span class="miss">goal missed</span>');
         setStatus('<span>Ghost text in <b>' + d.ms + ' ms</b></span><span>Size <b>' + esc(String(d.size)) +
@@ -110,7 +113,7 @@
       })
       .catch(function (e) {
         if (e.name === 'AbortError') return;
-        setStatus('<span class="err">Quick Notes lost its connection to its own server.</span>');
+        setStatus('<span class="err">Quick Notes stopped for a moment. Reload this page.</span>');
       });
   }
 
@@ -136,6 +139,16 @@
   document.getElementById('devtoggle').addEventListener('change', function (e) {
     pre.classList.toggle('on', e.target.checked);
   });
+
+  function waitReady() {
+    setStatus('<span>Getting ready...</span>');
+    fetch('/api/ready').then(function (r) { return r.json(); }).then(function (d) {
+      if (d.ready) { setStatus('<span>Ready.</span>'); schedule(); }
+      else if (d.problem) setStatus('<span>' + esc(d.problem) + '</span>');
+      else setTimeout(waitReady, 1000);
+    }).catch(function () { setTimeout(waitReady, 2000); });
+  }
+  waitReady();
 
   fetch('/api/notes').then(function (r) { return r.json(); }).then(function (d) {
     ed.value = d.text; pre.textContent = d.snippet; render(); ed.focus();

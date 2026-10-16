@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rewrite</title>
+<style>
+  :root { --bg:#f6f5f2; --card:#fff; --text:#25262b; --muted:#8a8c94; --line:#e3e1db; --accent:#3d6bd6; --code:#f0eee9; --accent-text:#fff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#17181b; --card:#1f2024; --text:#e6e6ea; --muted:#8b8d96; --line:#30323a; --accent:#7a9cf0; --code:#191a1e; --accent-text:#101216; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:32px 16px 48px; }
+  h1 { font-size:20px; font-weight:600; margin:0 0 14px; letter-spacing:-.01em; }
+  .box { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
+         font:17px/1.65 ui-serif,Georgia,"Iowan Old Style",serif; width:100%; }
+  textarea.box { height:150px; resize:none; outline:none; color:var(--text); }
+  textarea.box:focus { border-color:var(--accent); }
+  .tones { display:flex; gap:8px; flex-wrap:wrap; margin:14px 0; }
+  button { font:inherit; font-size:14.5px; padding:8px 16px; border-radius:999px; border:1px solid var(--line);
+           background:var(--card); color:var(--text); cursor:pointer; }
+  button:hover { border-color:var(--accent); }
+  button.on { background:var(--accent); color:var(--accent-text); border-color:var(--accent); }
+  #result { min-height:110px; white-space:pre-wrap; }
+  #result.idle { color:var(--muted); }
+  .status { margin-top:10px; min-height:22px; color:var(--muted); font-size:12.5px; display:flex; gap:16px; flex-wrap:wrap; }
+  .actions { margin-top:10px; display:flex; gap:8px; }
+  .dev { margin-top:18px; }
+  pre { background:var(--code); border:1px solid var(--line); border-radius:10px; padding:14px 16px; overflow:auto;
+        font:12.5px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; display:none; }
+  pre.on { display:block; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Rewrite</h1>
+  <textarea class="box" id="src" spellcheck="false" placeholder="Paste or type a sentence..." autofocus></textarea>
+  <div class="tones" id="tones">
+    <button data-tone="friendlier">Friendlier</button>
+    <button data-tone="shorter">Shorter</button>
+    <button data-tone="clearer">Clearer</button>
+    <button data-tone="formal">More formal</button>
+  </div>
+  <div class="box idle" id="result">Your new version appears here.</div>
+  <div class="actions"><button id="copy" hidden>Copy</button><button id="use" hidden>Use this as my text</button></div>
+  <div class="status" id="status"><span>Getting ready...</span></div>
+  <div class="dev" id="devbox" hidden>
+    <label><input type="checkbox" id="devtoggle"> Developer view</label>
+    <pre id="snippet"></pre>
+  </div>
+</main>
+<script>
+(function () {
+  var DEV = location.search.indexOf('dev=1') >= 0;     // the developer view is for the pitch, never for a consumer
+  var src = document.getElementById('src'), result = document.getElementById('result'), status = document.getElementById('status'),
+      copyBtn = document.getElementById('copy'), useBtn = document.getElementById('use'), pre = document.getElementById('snippet');
+  var aborter = null, ready = false;
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function setStatus(h) { status.innerHTML = h; }
+
+  function run(tone, btn) {
+    var text = src.value.trim();
+    if (!text) { setStatus('<span>Type or paste a sentence first.</span>'); src.focus(); return; }
+    if (aborter) aborter.abort();                       // a new click stops the old one
+    aborter = new AbortController();
+    Array.prototype.forEach.call(document.querySelectorAll('#tones button'), function (b) { b.classList.toggle('on', b === btn); });
+    result.className = 'box'; result.textContent = ''; copyBtn.hidden = useBtn.hidden = true;
+    setStatus('<span>Writing...</span>');
+    var got = '', t0 = performance.now(), first = null;
+    fetch('/api/rewrite', { method: 'POST', body: JSON.stringify({ text: text, tone: tone }), signal: aborter.signal })
+      .then(function (r) {
+        var rd = r.body.getReader(), dec = new TextDecoder(), buf = '';
+        function pump() {
+          return rd.read().then(function (x) {
+            if (x.done) return;
+            buf += dec.decode(x.value, { stream: true });
+            var lines = buf.split('\n'); buf = lines.pop();
+            lines.forEach(function (l) {
+              if (!l) return;
+              var d = JSON.parse(l);
+              if (d.error) { result.className = 'box idle'; result.textContent = ''; setStatus('<span>' + esc(d.error) + '</span>'); }
+              else if (d.t) { if (first === null) first = performance.now() - t0; got += d.t; result.textContent = got.replace(/^\s+|\s+$/g, ''); }
+              else if (d.done && DEV) {
+                var c = d.cale || {};
+                setStatus('<span>First word <b>' + Math.round(first || 0) + ' ms</b></span><span>Size <b>' + esc(String(d.size)) +
+                          '</b></span><span>Speed goal met: <b>' + esc(String(c.goal_met_actual)) + '</b></span>');
+              } else if (d.end) {
+                if (got) { copyBtn.hidden = useBtn.hidden = false; if (!DEV) setStatus('<span>Done.</span>'); }
+              }
+            });
+            return pump();
+          });
+        }
+        return pump();
+      })
+      .catch(function (e) { if (e.name !== 'AbortError') setStatus('<span>Rewrite stopped for a moment. Reload this page.</span>'); });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('#tones button'), function (b) {
+    b.addEventListener('click', function () { run(b.getAttribute('data-tone'), b); });
+  });
+  copyBtn.addEventListener('click', function () {
+    navigator.clipboard.writeText(result.textContent).then(function () { setStatus('<span>Copied.</span>'); });
+  });
+  useBtn.addEventListener('click', function () { src.value = result.textContent; src.focus(); });
+
+  if (DEV) { document.getElementById('devbox').hidden = false;
+    document.getElementById('devtoggle').addEventListener('change', function (e) { pre.classList.toggle('on', e.target.checked); }); }
+  (function waitReady() {
+    fetch('/api/ready').then(function (r) { return r.json(); }).then(function (d) {
+      if (d.snippet) pre.textContent = d.snippet;
+      if (d.ready) { ready = true; setStatus('<span>Ready.</span>'); }
+      else if (d.problem) setStatus('<span>' + esc(d.problem) + '</span>');
+      else setTimeout(waitReady, 1000);
+    }).catch(function () { setTimeout(waitReady, 2000); });
+  })();
+})();
+</script>
+</body>
+</html>

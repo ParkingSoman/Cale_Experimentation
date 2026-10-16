@@ -93,10 +93,10 @@ def get_key():
 
 
 def ask_for_key():
-    print("Asking Cale for access. If a question appears on this computer, choose Allow.")
+    print("Asking for access. If a question appears on this computer, choose Allow.")
     status, body = cale_request("POST", "/cale/connect", {"app": APP_NAME})
     if status != 200 or "api_key" not in body:
-        raise RuntimeError("Cale did not give this app a key (the person must allow it).")
+        raise RuntimeError("Quick Notes was not allowed to start. Close it, open it again, and choose Allow.")
     DATA.mkdir(parents=True, exist_ok=True)
     KEY_FILE.write_text(body["api_key"])
     return body["api_key"]
@@ -113,7 +113,7 @@ def setup_cale():
                 except Exception:
                     pass
                 if not cale_up():
-                    State.error = "Cale is not running. Start it (run: cale start) and try again."
+                    State.error = "Quick Notes is not ready yet. Please wait a moment."
                     return False
             key = get_key()
             for attempt in range(2):
@@ -128,10 +128,10 @@ def setup_cale():
                         KEY_FILE.unlink(missing_ok=True)
                         key = ask_for_key()
                         continue
-                    State.error = "Cale refused the notes helper (%s)." % e.status
+                    State.error = "Quick Notes could not start. Close it and open it again."
                     return False
         except Exception as e:  # never show a stack trace in the UI
-            State.error = "Cale is not available: %s" % e
+            State.error = "Quick Notes is not ready yet. Please wait a moment."
             return False
 
 
@@ -160,7 +160,7 @@ def ghost(text):
             with State.lock:
                 if State.current_id != my_id or State.current is not conn:
                     return {"cancelled": True}
-            return {"error": "Cale stopped answering. It may be restarting."}
+            return {"error": "One moment. Keep typing."}
         finally:
             close_conn(conn)
         if status in (401, 404) and attempt == 0:      # key rejected or model object gone: set up again
@@ -174,7 +174,7 @@ def ghost(text):
     ms = round((time.perf_counter() - t0) * 1000)
     if status != 200:
         msg = (data.get("error") or {}).get("message", "") if isinstance(data, dict) else ""
-        return {"error": "Cale could not answer (%s). %s" % (status, msg)}
+        return {"error": "No suggestion this time. Keep typing."}
     out = data["choices"][0]["message"]["content"] or ""
     cale = data.get("cale", {})
     return {"text": out, "ms": ms, "size": size, "goal_met": goal,
@@ -228,6 +228,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send(200, (HERE / "index.html").read_bytes(), "text/html; charset=utf-8")
         elif p == "/favicon.ico":
             self.send(204, b"", "image/x-icon")
+        elif p == "/api/ready":
+            self.send(200, {"ready": State.model is not None, "problem": None if State.model or not State.error else State.error})
         elif p == "/api/notes":
             text = NOTES_FILE.read_text(encoding="utf-8") if NOTES_FILE.exists() else ""
             self.send(200, {"text": text, "snippet": developer_snippet(), "cale": CALE_URL})
@@ -256,7 +258,7 @@ class Handler(BaseHTTPRequestHandler):
         except (BrokenPipeError, ConnectionResetError):
             pass
         except Exception as e:
-            self.send(200, {"error": "Something went wrong: %s" % e})
+            self.send(200, {"error": "Something went wrong. Keep typing."})
 
 
 def main():

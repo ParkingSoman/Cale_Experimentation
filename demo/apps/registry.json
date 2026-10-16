@@ -68,6 +68,16 @@
    "values": "Any language works",
    "line": "A Node.js app. Same Cale, no Python anywhere in it.",
    "settings": "Node client + leased objects"
+  },
+  {
+   "id": "rewrite",
+   "name": "Rewrite",
+   "cale_app": "Rewrite",
+   "port": 8825,
+   "language": "python",
+   "values": "Words appear faster than you read",
+   "line": "Paste a sentence, pick a tone, and the new version streams in. Its developer asked for reading speed, not a model size.",
+   "settings": "min_tokens_per_s"
   }
  ]
 }
