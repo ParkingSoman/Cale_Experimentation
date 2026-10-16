@@ -33,6 +33,8 @@ Measured on 2026-10-16 (real `.exe` files, fresh Cale install on the HP, test mo
 
 Mac dry run (2026-10-16): installed `Cale-mac.dmg` into a fresh test folder (about 2 minutes), then opened both apps from their own `.dmg` files. Quick Notes first word 0.1 s, Rewrite 100% size, goals met. Your real Cale was not touched.
 
+HP clean dry run (2026-10-16, final files, fresh folder, real click on the Allow question): Cale installed through `Cale-Setup.exe` (served the plain page). Both apps opened from their own `.exe`, and a click on each Allow question worked (clicked by the test helper, as a person would). Quick Notes first word 0.88 s, size 100%, goal met. Rewrite 3.5 s in total, size 95%, goal met. The set-up step took 23 minutes this time and 9 minutes the first time (cause not found: the HP was busy; this is why the install is a time-lapse).
+
 Known gaps: the HP set-up step "fitting to this computer" took about 9 minutes (fine for a time-lapse). Linux has no consumer double-click path (the HP Linux is inside WSL), so it is covered by the scorecard and by speaking. The plain Cale page, the "needs Cale" dialogs and the Allow wording were not looked at by eye (the Chrome extension was not connected).
 
 ---
