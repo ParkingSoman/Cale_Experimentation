@@ -31,6 +31,8 @@ Measured on 2026-10-16 (real `.exe` files, fresh Cale install on the HP, test mo
 | Mac (M5) | 0.2 to 0.4 s, size 100% | whole rewrite 0.7 s, size 100% |
 | HP Windows | 0.84 to 1.29 s, size 95 to 100% (4 of 6 under 1 s) | 3.7 to 4.1 s, size 90 to 95%, speed goal met |
 
+Mac dry run (2026-10-16): installed `Cale-mac.dmg` into a fresh test folder (about 2 minutes), then opened both apps from their own `.dmg` files. Quick Notes first word 0.1 s, Rewrite 100% size, goals met. Your real Cale was not touched.
+
 Known gaps: the HP set-up step "fitting to this computer" took about 9 minutes (fine for a time-lapse). Linux has no consumer double-click path (the HP Linux is inside WSL), so it is covered by the scorecard and by speaking. The plain Cale page, the "needs Cale" dialogs and the Allow wording were not looked at by eye (the Chrome extension was not connected).
 
 ---
