@@ -114,7 +114,7 @@ def download(url, dest, expect_sha=None):
             s_ = Samples(oslayer.home_dir() / "samples.jsonl")
             secs = max(time.time() - t0, 1e-6)
             if got >= 50_000_000:                         # a small file says nothing about speed
-                s_.record("download", mb=round(got / 1e6), seconds=round(secs, 1), mb_per_s=round(got / 1e6 / secs, 2), worst_gap_s=round(worst_gap, 2),
+                s_.record("download", mb=round(got / 1e6), seconds=round(secs, 2), mb_per_s=round(got / 1e6 / secs, 2), worst_gap_s=round(worst_gap, 2),
                           resumed=bool(have), capped=bool(cap))
                 s_.flush()
         except Exception:

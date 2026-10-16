@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
 OWN_MODEL = ["oslayer", "choose", "constrain", "install_check", "engine_features", "backend_llama", "prefill_exit",
-             "adjust", "gpu_retry", "samples", "canary", "restart_objects", "calibration", "download_sample", "replace"]     # these load the model or need no server
+             "adjust", "gpu_retry", "samples", "canary", "restart_objects", "calibration", "download_sample", "replace", "short_prompt"]     # these load the model or need no server
 SERVER = ["honest", "relative", "objects", "goals", "structured", "promptcache", "images", "logprobs", "crowd", "priority", "activity", "anylang", "e2e",
           "gpu_fallback"]
 SERVER_ENV = {"anylang": {"CALE_HEADLESS": "1", "CALE_DEV_APPROVE": "0", "CALE_APPROVE_WAIT_S": "8"}}    # a server with no screen: the person answers in a terminal

@@ -172,7 +172,19 @@ class Tuner:
                 pts.append((n, r[0]))
         if len(pts) >= 2:
             self.pred.pre_curve = sorted(pts)
-        return {str(n): round(v, 1) for n, v in pts}
+        out = {str(n): round(v, 1) for n, v in pts}
+        small = min(self.eng.levels, key=lambda l: l["pct"])             # the same short and table-length points at the smallest size
+        ts = self.pred.table.get(small["id"])
+        if ts and small is not full and len(self.pred.pre_curve) >= 2:
+            spts = [(self.pred.table_prompt, ts["pre"])]
+            for n in {n for n, _ in self.pred.pre_curve if n != self.pred.table_prompt}:
+                r = self.point(small, n, repeats=1)
+                if r:
+                    spts.append((n, r[0]))
+            if len(spts) >= 2:
+                self.pred.pre_curve_small, self.pred.small_id = sorted(spts), small["id"]
+                out["smallest size"] = {str(n): round(v, 1) for n, v in sorted(spts)}
+        return out
 
     def working_memory(self):
         """The most memory the process holds while the longest prompt piece is read, beyond the weights, the base and the context."""

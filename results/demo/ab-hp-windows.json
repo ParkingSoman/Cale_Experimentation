@@ -1,0 +1,745 @@
+{
+ "label": "hp-windows-shortfix",
+ "when": "2026-10-15 23:06",
+ "target": {
+  "first_s": 1.0,
+  "tps": 8.0
+ },
+ "arms": {
+  "absolute-smart": {
+   "calls": 18,
+   "feel_met": 0,
+   "first_s_median": 1.28,
+   "first_s_max": 1.868,
+   "tps_median": 5.39,
+   "total_s_median": 2.47,
+   "size_median": 100.0,
+   "rows": [
+    {
+     "first_s": 1.236,
+     "total_s": 2.405,
+     "tokens": 6,
+     "tps": 4.28,
+     "said": {
+      "predicted_tps": "5.19",
+      "predicted_first_s": "1.18",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.182,
+     "total_s": 2.403,
+     "tokens": 8,
+     "tps": 5.73,
+     "said": {
+      "predicted_tps": "5.14",
+      "predicted_first_s": "1.18",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.134,
+     "total_s": 2.479,
+     "tokens": 9,
+     "tps": 5.95,
+     "said": {
+      "predicted_tps": "5.38",
+      "predicted_first_s": "1.1",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.552,
+     "total_s": 2.279,
+     "tokens": 5,
+     "tps": 5.5,
+     "said": {
+      "predicted_tps": "5.54",
+      "predicted_first_s": "1.13",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.291,
+     "total_s": 2.413,
+     "tokens": 7,
+     "tps": 5.35,
+     "said": {
+      "predicted_tps": "5.15",
+      "predicted_first_s": "1.15",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.249,
+     "total_s": 2.725,
+     "tokens": 8,
+     "tps": 4.74,
+     "said": {
+      "predicted_tps": "5.37",
+      "predicted_first_s": "1.09",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.324,
+     "total_s": 2.365,
+     "tokens": 6,
+     "tps": 4.8,
+     "said": {
+      "predicted_tps": "5.01",
+      "predicted_first_s": "1.17",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.429,
+     "total_s": 2.722,
+     "tokens": 8,
+     "tps": 5.41,
+     "said": {
+      "predicted_tps": "5.0",
+      "predicted_first_s": "1.17",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.227,
+     "total_s": 2.829,
+     "tokens": 9,
+     "tps": 5.0,
+     "said": {
+      "predicted_tps": "4.84",
+      "predicted_first_s": "1.2",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.579,
+     "total_s": 2.417,
+     "tokens": 5,
+     "tps": 4.77,
+     "said": {
+      "predicted_tps": "5.02",
+      "predicted_first_s": "1.22",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.801,
+     "total_s": 2.919,
+     "tokens": 7,
+     "tps": 5.37,
+     "said": {
+      "predicted_tps": "5.1",
+      "predicted_first_s": "1.17",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.365,
+     "total_s": 2.557,
+     "tokens": 8,
+     "tps": 5.88,
+     "said": {
+      "predicted_tps": "5.17",
+      "predicted_first_s": "1.15",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.207,
+     "total_s": 2.149,
+     "tokens": 6,
+     "tps": 5.31,
+     "said": {
+      "predicted_tps": "5.33",
+      "predicted_first_s": "1.11",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.264,
+     "total_s": 2.466,
+     "tokens": 8,
+     "tps": 5.82,
+     "said": {
+      "predicted_tps": "5.27",
+      "predicted_first_s": "1.13",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.141,
+     "total_s": 2.533,
+     "tokens": 9,
+     "tps": 5.75,
+     "said": {
+      "predicted_tps": "5.36",
+      "predicted_first_s": "1.1",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.868,
+     "total_s": 2.673,
+     "tokens": 5,
+     "tps": 4.97,
+     "said": {
+      "predicted_tps": "5.68",
+      "predicted_first_s": "1.11",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.353,
+     "total_s": 2.435,
+     "tokens": 7,
+     "tps": 5.55,
+     "said": {
+      "predicted_tps": "5.33",
+      "predicted_first_s": "1.15",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    },
+    {
+     "first_s": 1.221,
+     "total_s": 2.478,
+     "tokens": 8,
+     "tps": 5.57,
+     "said": {
+      "predicted_tps": "5.51",
+      "predicted_first_s": "1.09",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 100.0
+    }
+   ]
+  },
+  "absolute-fast": {
+   "calls": 18,
+   "feel_met": 15,
+   "first_s_median": 0.63,
+   "first_s_max": 0.842,
+   "tps_median": 9.38,
+   "total_s_median": 1.32,
+   "size_median": 48.0,
+   "rows": [
+    {
+     "first_s": 0.639,
+     "total_s": 1.201,
+     "tokens": 5,
+     "tps": 7.13,
+     "said": {
+      "predicted_tps": "10.22",
+      "predicted_first_s": "1.05",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.501,
+     "total_s": 1.292,
+     "tokens": 9,
+     "tps": 10.12,
+     "said": {
+      "predicted_tps": "10.19",
+      "predicted_first_s": "1.04",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.617,
+     "total_s": 1.137,
+     "tokens": 6,
+     "tps": 9.62,
+     "said": {
+      "predicted_tps": "10.77",
+      "predicted_first_s": "0.97",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.556,
+     "total_s": 1.386,
+     "tokens": 9,
+     "tps": 9.63,
+     "said": {
+      "predicted_tps": "10.0",
+      "predicted_first_s": "1.1",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.52,
+     "total_s": 1.057,
+     "tokens": 6,
+     "tps": 9.32,
+     "said": {
+      "predicted_tps": "10.22",
+      "predicted_first_s": "1.01",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.827,
+     "total_s": 1.439,
+     "tokens": 6,
+     "tps": 8.18,
+     "said": {
+      "predicted_tps": "10.37",
+      "predicted_first_s": "1.0",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.715,
+     "total_s": 1.311,
+     "tokens": 6,
+     "tps": 8.39,
+     "said": {
+      "predicted_tps": "9.79",
+      "predicted_first_s": "1.04",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.682,
+     "total_s": 1.447,
+     "tokens": 8,
+     "tps": 9.16,
+     "said": {
+      "predicted_tps": "9.56",
+      "predicted_first_s": "1.07",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.712,
+     "total_s": 1.333,
+     "tokens": 6,
+     "tps": 8.04,
+     "said": {
+      "predicted_tps": "9.67",
+      "predicted_first_s": "1.06",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.63,
+     "total_s": 1.409,
+     "tokens": 9,
+     "tps": 10.28,
+     "said": {
+      "predicted_tps": "9.73",
+      "predicted_first_s": "1.12",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.556,
+     "total_s": 1.103,
+     "tokens": 6,
+     "tps": 9.14,
+     "said": {
+      "predicted_tps": "9.57",
+      "predicted_first_s": "1.1",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.686,
+     "total_s": 1.196,
+     "tokens": 6,
+     "tps": 9.82,
+     "said": {
+      "predicted_tps": "9.99",
+      "predicted_first_s": "1.03",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.842,
+     "total_s": 1.543,
+     "tokens": 6,
+     "tps": 7.14,
+     "said": {
+      "predicted_tps": "10.4",
+      "predicted_first_s": "0.99",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.637,
+     "total_s": 1.334,
+     "tokens": 8,
+     "tps": 10.04,
+     "said": {
+      "predicted_tps": "10.08",
+      "predicted_first_s": "1.03",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.669,
+     "total_s": 1.18,
+     "tokens": 6,
+     "tps": 9.78,
+     "said": {
+      "predicted_tps": "10.83",
+      "predicted_first_s": "0.97",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.572,
+     "total_s": 1.438,
+     "tokens": 10,
+     "tps": 10.39,
+     "said": {
+      "predicted_tps": "10.17",
+      "predicted_first_s": "1.1",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.571,
+     "total_s": 1.1,
+     "tokens": 6,
+     "tps": 9.44,
+     "said": {
+      "predicted_tps": "10.43",
+      "predicted_first_s": "1.02",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.605,
+     "total_s": 1.346,
+     "tokens": 6,
+     "tps": 6.75,
+     "said": {
+      "predicted_tps": "10.7",
+      "predicted_first_s": "0.98",
+      "confidence": "learned",
+      "goal_met": null
+     },
+     "size": 48.0
+    }
+   ]
+  },
+  "relative": {
+   "calls": 18,
+   "feel_met": 14,
+   "first_s_median": 0.66,
+   "first_s_max": 1.063,
+   "tps_median": 9.25,
+   "total_s_median": 1.22,
+   "size_median": 48.0,
+   "rows": [
+    {
+     "first_s": 1.063,
+     "total_s": 1.586,
+     "tokens": 6,
+     "tps": 9.56,
+     "said": {
+      "predicted_tps": "10.22",
+      "predicted_first_s": "1.05",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.493,
+     "total_s": 1.214,
+     "tokens": 8,
+     "tps": 9.71,
+     "said": {
+      "predicted_tps": "10.33",
+      "predicted_first_s": "1.01",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.697,
+     "total_s": 1.449,
+     "tokens": 6,
+     "tps": 6.65,
+     "said": {
+      "predicted_tps": "10.61",
+      "predicted_first_s": "0.97",
+      "confidence": "learned",
+      "goal_met": "true"
+     },
+     "size": 49.0
+    },
+    {
+     "first_s": 0.585,
+     "total_s": 1.221,
+     "tokens": 7,
+     "tps": 9.43,
+     "said": {
+      "predicted_tps": "9.9",
+      "predicted_first_s": "1.07",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.532,
+     "total_s": 1.049,
+     "tokens": 6,
+     "tps": 9.67,
+     "said": {
+      "predicted_tps": "10.22",
+      "predicted_first_s": "1.01",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.652,
+     "total_s": 1.195,
+     "tokens": 6,
+     "tps": 9.21,
+     "said": {
+      "predicted_tps": "9.62",
+      "predicted_first_s": "1.06",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.727,
+     "total_s": 1.231,
+     "tokens": 5,
+     "tps": 7.93,
+     "said": {
+      "predicted_tps": "9.72",
+      "predicted_first_s": "1.05",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.897,
+     "total_s": 1.839,
+     "tokens": 8,
+     "tps": 7.43,
+     "said": {
+      "predicted_tps": "9.76",
+      "predicted_first_s": "1.04",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.695,
+     "total_s": 1.301,
+     "tokens": 6,
+     "tps": 8.25,
+     "said": {
+      "predicted_tps": "9.61",
+      "predicted_first_s": "1.07",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.536,
+     "total_s": 1.212,
+     "tokens": 7,
+     "tps": 8.88,
+     "said": {
+      "predicted_tps": "9.66",
+      "predicted_first_s": "1.11",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.558,
+     "total_s": 1.071,
+     "tokens": 6,
+     "tps": 9.75,
+     "said": {
+      "predicted_tps": "9.6",
+      "predicted_first_s": "1.09",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.664,
+     "total_s": 1.203,
+     "tokens": 6,
+     "tps": 9.28,
+     "said": {
+      "predicted_tps": "9.99",
+      "predicted_first_s": "1.03",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.779,
+     "total_s": 1.223,
+     "tokens": 5,
+     "tps": 9.02,
+     "said": {
+      "predicted_tps": "10.12",
+      "predicted_first_s": "1.02",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.664,
+     "total_s": 1.362,
+     "tokens": 8,
+     "tps": 10.04,
+     "said": {
+      "predicted_tps": "10.08",
+      "predicted_first_s": "1.04",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.111,
+     "total_s": 0.695,
+     "tokens": 6,
+     "tps": 8.55,
+     "said": {
+      "predicted_tps": "10.76",
+      "predicted_first_s": "0.97",
+      "confidence": "learned",
+      "goal_met": "true"
+     },
+     "size": 49.0
+    },
+    {
+     "first_s": 0.545,
+     "total_s": 1.177,
+     "tokens": 7,
+     "tps": 9.51,
+     "said": {
+      "predicted_tps": "9.99",
+      "predicted_first_s": "1.1",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.564,
+     "total_s": 1.094,
+     "tokens": 6,
+     "tps": 9.43,
+     "said": {
+      "predicted_tps": "10.59",
+      "predicted_first_s": "1.01",
+      "confidence": "learned",
+      "goal_met": "false"
+     },
+     "size": 48.0
+    },
+    {
+     "first_s": 0.784,
+     "total_s": 1.332,
+     "tokens": 6,
+     "tps": 9.13,
+     "said": {
+      "predicted_tps": "10.52",
+      "predicted_first_s": "0.99",
+      "confidence": "learned",
+      "goal_met": "true"
+     },
+     "size": 49.0
+    }
+   ]
+  }
+ }
+}

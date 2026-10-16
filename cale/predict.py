@@ -68,6 +68,7 @@ class Predictor:
         self.extra = {}                                                 # measured at install by `cale tune`: scratch_bytes, threads, piece_speed
         self.table = {}                                                 # measured at install: level id -> {"dec": tokens/s, "pre": tokens/s} for a short prompt
         self.pre_curve = []                                             # measured at install, full size: [(prompt tokens, prompt tokens/s)] by length
+        self.pre_curve_small, self.small_id = [], None                  # the same at the smallest size (level id): a graphics card that reads prompts has a cost per pass that depends on the size, so short prompts do not scale like long ones
         self.dec_ctx = 0.0                                              # measured at install: share of answer speed lost per 1000 tokens of context
         self.sustained = 1.0                                            # measured at install: speed after minutes of work / speed in the first seconds (1 = no throttling)
         self.corr_dec = self.corr_pre = 1.0                             # what real answers say about the measured table (1 = it is right)
@@ -138,17 +139,28 @@ class Predictor:
         t = self._table_value(level, "pre")
         if t is None:
             return self.pre_full / facts.cost(level, self.full) * self.live_factor()
-        v = t * self.corr_pre * self.live_factor()
-        if tokens and len(self.pre_curve) >= 2:
-            ref = self._curve(self.table_prompt)
-            v *= self._curve(tokens) / ref if ref else 1.0
-        return v
+        return t * self.corr_pre * self.live_factor() * self._shape(level, tokens)
+
+    def _shape(self, level, tokens):
+        """Prompt speed at `tokens` as a multiple of the speed at the table's prompt length. Between the full size's curve and the smallest size's curve, by cost."""
+        if not tokens or len(self.pre_curve) < 2:
+            return 1.0
+        ref = self._curve(self.table_prompt)
+        shape = self._curve(tokens) / ref if ref else 1.0
+        small = next((l for l in self.levels if l["id"] == self.small_id), None)
+        if small is None or len(self.pre_curve_small) < 2:
+            return shape
+        ref_s = self._curve(self.table_prompt, self.pre_curve_small)
+        shape_s = self._curve(tokens, self.pre_curve_small) / ref_s if ref_s else shape
+        cs = facts.cost(small, self.full)
+        w = min(1.0, max(0.0, (facts.cost(level, self.full) - cs) / (1.0 - cs))) if cs < 1.0 else 1.0
+        return w * shape + (1.0 - w) * shape_s
 
     table_prompt = 256                                                         # the prompt length the table was measured at
 
-    def _curve(self, n):
-        """Measured prompt speed (full size) at a prompt length: straight lines between the measured points, flat beyond them."""
-        pts = sorted(self.pre_curve)
+    def _curve(self, n, pts=None):
+        """Measured prompt speed (full size, or `pts`) at a prompt length: straight lines between the measured points, flat beyond them."""
+        pts = sorted(self.pre_curve if pts is None else pts)
         if n <= pts[0][0]:
             return pts[0][1]
         for (n0, v0), (n1, v1) in zip(pts, pts[1:]):
@@ -225,8 +237,7 @@ class Predictor:
                 w = FIRST_WEIGHT if self.n_pre == 0 else LATER_WEIGHT
                 if self.table and self._table_value(level, "pre"):
                     base = self._table_value(level, "pre")
-                    if len(self.pre_curve) >= 2:
-                        base *= self._curve(prompt) / self._curve(self.table_prompt)
+                    base *= self._shape(level, prompt)
                     self.corr_pre = (1 - LATER_WEIGHT) * self.corr_pre + LATER_WEIGHT * (prompt / read_s / live / base)
                 else:
                     implied = prompt / read_s * facts.cost(level, self.full) / live
@@ -265,6 +276,7 @@ class Predictor:
         self.table = d.get("table") or {}
         self.table_prompt = int(d.get("table_prompt", self.table_prompt))
         self.pre_curve = [tuple(p) for p in (d.get("pre_curve") or [])]
+        self.pre_curve_small, self.small_id = [tuple(p) for p in (d.get("pre_curve_small") or [])], d.get("small_id")
         self.dec_ctx, self.sustained = float(d.get("dec_ctx", 0.0)), float(d.get("sustained", 1.0))
         self.corr_dec, self.corr_pre = float(d.get("corr_dec", 1.0)), float(d.get("corr_pre", 1.0))
         self.batch_eps = float(d.get("batch_eps", self.batch_eps))
@@ -295,6 +307,7 @@ class Predictor:
             tmp.write_text(json.dumps({"version": 1, "key": self.key, "dec_full": self.dec_full, "pre_full": self.pre_full,
                                        "fixed": self.fixed, "n_dec": self.n_dec, "n_pre": self.n_pre, "disk_bps": self.disk_bps,
                                        "sizes": self.snapshot(), "extra": self.extra, "table": self.table, "table_prompt": self.table_prompt, "pre_curve": self.pre_curve,
+                                       "pre_curve_small": self.pre_curve_small, "small_id": self.small_id,
                                        "dec_ctx": self.dec_ctx, "sustained": self.sustained, "corr_dec": self.corr_dec, "corr_pre": self.corr_pre,
                                        "batch_eps": self.batch_eps, "load_alpha": self.load_alpha, "n_load": self.n_load, "steal": self.steal, "n_steal": self.n_steal,
                                        "saved_at": time.strftime("%Y-%m-%d %H:%M:%S")}))

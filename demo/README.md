@@ -15,6 +15,29 @@ This file is the run sheet. The numbers to quote are in `results/demo/` (measure
 | 4. Use all five | The Hub shows live meters per app: size, tokens/s, first word, goal met. A "Computer feels" meter shows if the screen stays smooth. | "The apps asked for a feel, not a model. Watch the sizes change on the old laptop. Watch the feel stay the same." |
 | 5. Switch computer | Same five apps on the old HP laptop. | "Smaller sizes. Same feel. The one exception is the app that chose quality over speed, and it says so up front." |
 
+## The centerpiece: absolute against relative (Quick Notes)
+
+The demo story has two claims. (1) One install and the same app code on every computer. (2) The developer controls how the app feels, on any hardware, by stating goals.
+Claim 2 is shown with one app and one test. The same notes-style completion call is written three ways, and each is scored against the same target (first word within 1 s, at least 8 tok/s):
+
+| Way | The model line |
+|---|---|
+| Absolute, full model | `model = "gemma-3n:smart"` |
+| Absolute, small model | `model = "gemma-3n:fast"` |
+| Relative, goals | `max_first_token_s = 1`, `min_tokens_per_s = 8` |
+
+Run on each computer, against its running Cale: `python3 scripts/ab_absolute_relative.py --base URL --label NAME --out results/demo/ab-NAME.json`
+
+| Computer | Absolute, full | Absolute, small | Relative (model size that ran) |
+|---|---|---|---|
+| Mac (M5) | 18 of 18 | 18 of 18 (but only 48% of the model) | 18 of 18 (100%) |
+| Old HP, Windows | 0 of 18 | 15 of 18 | 14 of 18 (48%) |
+| Old HP, Linux | 0 of 18 | 13 of 18 | 14 of 18 (48%) |
+
+Say: "Write the full model and it fails on the old laptop. Write the small model and the Mac loses half its intelligence for nothing. Write the goal, and each computer gets the biggest slice that keeps the feel."
+Say before asked: the two HP rows are one laptop. The relative arm misses 4 of 18 on the laptop because 8 tok/s is close to its ceiling.
+The other four apps are not the demo. They show where the size ladder (100% down to 48%) is too narrow: that is the funding case for a model with a much wider range of slices.
+
 ## The five apps (what each developer values)
 
 | App | Port | Language | The developer asked Cale for | What it adds to the Cale equation |
