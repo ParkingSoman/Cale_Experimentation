@@ -190,7 +190,7 @@ INFO_PLIST = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 
-def make_icon(path):
+def make_icon(path, bg=(47, 93, 80), fg=(247, 245, 238)):
     """A plain icon, drawn with the standard library: a green rounded square with a white ring."""
     import struct
     import zlib
@@ -209,7 +209,7 @@ def make_icon(path):
                 continue
             d = ((x - c) ** 2 + (y - c) ** 2) ** 0.5
             ring = 215 <= d <= 300 and not (x > c and abs(y - c) < 120)      # a "C": a ring with an opening on the right
-            row += bytes((247, 245, 238, 255)) if ring else bytes((47, 93, 80, 255))
+            row += bytes((*fg, 255)) if ring else bytes((*bg, 255))
         rows.append(bytes(row))
     raw = zlib.compress(b"".join(rows), 6)
 
