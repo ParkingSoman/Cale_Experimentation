@@ -1,0 +1,74 @@
+{
+ "note": "score = mean over calls of (quality of the size that ran, if the call met first word <= 1 s and >= 8 tok/s, else 0)",
+ "computers": {
+  "mac": {
+   "absolute-smart": {
+    "score": 1.0,
+    "on_target": 18,
+    "calls": 18,
+    "size": 100.0,
+    "quality": 1.0
+   },
+   "absolute-fast": {
+    "score": 0.807,
+    "on_target": 18,
+    "calls": 18,
+    "size": 48.0,
+    "quality": 0.807
+   },
+   "relative": {
+    "score": 1.0,
+    "on_target": 18,
+    "calls": 18,
+    "size": 100.0,
+    "quality": 1.0
+   }
+  },
+  "hp-windows": {
+   "absolute-smart": {
+    "score": 0.0,
+    "on_target": 0,
+    "calls": 18,
+    "size": 100.0,
+    "quality": 1.0
+   },
+   "absolute-fast": {
+    "score": 0.672,
+    "on_target": 15,
+    "calls": 18,
+    "size": 48.0,
+    "quality": 0.807
+   },
+   "relative": {
+    "score": 0.628,
+    "on_target": 14,
+    "calls": 18,
+    "size": 48.0,
+    "quality": 0.807
+   }
+  },
+  "hp-linux": {
+   "absolute-smart": {
+    "score": 0.0,
+    "on_target": 0,
+    "calls": 18,
+    "size": 100.0,
+    "quality": 1.0
+   },
+   "absolute-fast": {
+    "score": 0.583,
+    "on_target": 13,
+    "calls": 18,
+    "size": 48.0,
+    "quality": 0.807
+   },
+   "relative": {
+    "score": 0.628,
+    "on_target": 14,
+    "calls": 18,
+    "size": 48.0,
+    "quality": 0.807
+   }
+  }
+ }
+}

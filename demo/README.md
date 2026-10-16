@@ -34,6 +34,16 @@ Run on each computer, against its running Cale: `python3 scripts/ab_absolute_rel
 | Old HP, Windows | 0 of 18 | 15 of 18 | 14 of 18 (48%) |
 | Old HP, Linux | 0 of 18 | 13 of 18 | 14 of 18 (48%) |
 
+Combined score (`python3 scripts/ab_score.py`, saved in `results/demo/ab-combined.json`): a call off target scores 0, a call on target scores the quality of the slice that ran (1.00 full, 0.81 smallest; share of the full model's next-word choices it repeats).
+
+| Score | Mac | HP Windows | HP Linux | Worst | Mean |
+|---|---|---|---|---|---|
+| Absolute, full | 1.00 | 0.00 | 0.00 | 0.00 | 0.33 |
+| Absolute, small | 0.81 | 0.67 | 0.58 | 0.58 | 0.69 |
+| Relative, goals | 1.00 | 0.63 | 0.63 | 0.63 | 0.75 |
+
+Goals match the winner on each computer without being told which computer it is. On the laptop they tie the small model (within noise). Limit: quality is agreement with the full model, not a rating of the notes.
+
 Say: "Write the full model and it fails on the old laptop. Write the small model and the Mac loses half its intelligence for nothing. Write the goal, and each computer gets the biggest slice that keeps the feel."
 Say before asked: the two HP rows are one laptop. The relative arm misses 4 of 18 on the laptop because 8 tok/s is close to its ceiling.
 The other four apps are not the demo. They show where the size ladder (100% down to 48%) is too narrow: that is the funding case for a model with a much wider range of slices.
