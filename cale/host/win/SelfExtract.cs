@@ -184,6 +184,26 @@ namespace CaleHost
             return d;
         }
 
+        // Where our data ends: the start of the signature (PE certificate table) if the file is signed, else the end of the file.
+        static long DataEnd(FileStream fs)
+        {
+            try
+            {
+                BinaryReader r = new BinaryReader(fs);
+                fs.Position = 0x3C;
+                int pe = r.ReadInt32();
+                fs.Position = pe + 24;
+                ushort magic = r.ReadUInt16();
+                long dirs = pe + 24 + (magic == 0x20b ? 112 : 96);
+                fs.Position = dirs + 4 * 8;                            // data directory number 4: the certificate table
+                uint offset = r.ReadUInt32();
+                uint size = r.ReadUInt32();
+                if (offset != 0 && size != 0 && offset < fs.Length) return offset;
+            }
+            catch (Exception) { }
+            return fs.Length;
+        }
+
         [STAThread]
         static int Main(string[] args)
         {
@@ -195,13 +215,19 @@ namespace CaleHost
             {
                 using (FileStream fs = new FileStream(exe, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    byte[] f = new byte[footer];
-                    fs.Position = fs.Length - footer;
-                    fs.Read(f, 0, footer);
-                    if (Encoding.ASCII.GetString(f, 12, 8) != "CALEZIP1") throw new InvalidDataException("not packed");
-                    int cfgLen = BitConverter.ToInt32(f, 0);
-                    zipLen = BitConverter.ToInt64(f, 4);
-                    long cfgStart = fs.Length - footer - cfgLen;
+                    // Signing adds a certificate after our data. The data ends where the certificate starts.
+                    long end = DataEnd(fs);
+                    byte[] tail = new byte[footer + 16];
+                    long tailStart = Math.Max(0, end - tail.Length);
+                    fs.Position = tailStart;
+                    int got = fs.Read(tail, 0, (int)Math.Min(tail.Length, end - tailStart));
+                    string text = Encoding.ASCII.GetString(tail, 0, got);
+                    int m = text.LastIndexOf("CALEZIP1", StringComparison.Ordinal);
+                    if (m < footer - 8) throw new InvalidDataException("not packed");
+                    int f = m - 12;                                    // the footer starts 12 bytes before the magic
+                    int cfgLen = BitConverter.ToInt32(tail, f);
+                    zipLen = BitConverter.ToInt64(tail, f + 4);
+                    long cfgStart = tailStart + f - cfgLen;
                     zipStart = cfgStart - zipLen;
                     byte[] c = new byte[cfgLen];
                     fs.Position = cfgStart;

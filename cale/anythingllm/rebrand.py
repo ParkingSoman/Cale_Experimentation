@@ -129,6 +129,7 @@ body, button, input, textarea, select {{
 :root:not([data-theme="light"]) .rounded-\\[20px\\] {{ border: 3px solid #7a5238 !important; }}
 button.rounded-full {{ border: 2px solid {BROWN}; color: {BROWN}; background-color: {CARROT} !important; }}
 :root:not([data-theme="light"]) button.rounded-full {{ border-color: {BROWN}; }}
+button.rounded-full svg, button.rounded-full svg * {{ color: {BROWN} !important; }}
 .bg-theme-button-primary, .bg-primary-button {{ color: {BROWN} !important; }}
 /* Links and buttons that lead to the AnythingLLM web site, or to chat tools and the model picker */
 a[href^="mailto:"], a[href*="/settings/privacy"], a[href*="github.com"], a[href*="docs.anythingllm.com"],
@@ -293,13 +294,14 @@ function HoldToReveal''')
     _sub(qa, r"show=\{\s*hasAvailableWorkspace &&.*?\}\n", "show={false}\n")
 
     # 7. the empty chat: the carrot and one friendly line, no model picker
-    cc = src / "components/WorkspaceChat/ChatContainer/index.jsx"
-    text = _read(cc)
-    if "{greeting}" not in text or "<WorkspaceModelPicker workspaceSlug={workspace.slug} />" not in text:
-        raise PatchError(f"{cc}: greeting or model picker not found")
-    text = text.replace("{greeting}", '<img src="/carrot.png" alt="" className="h-28 w-28 mx-auto mb-4" />' + GREETING)
-    text = text.replace("<WorkspaceModelPicker workspaceSlug={workspace.slug} />", "{null}")
-    cc.write_text(text, encoding="utf-8")
+    for page in ("components/WorkspaceChat/ChatContainer/index.jsx", "pages/Main/Home/index.jsx"):      # a new chat, and the home screen
+        cc = src / page
+        text = _read(cc)
+        text, n1 = re.subn(r"<WorkspaceModelPicker workspaceSlug=\{[^}]*\} />", "{null}", text)
+        if "{greeting}" not in text or n1 < 1:
+            raise PatchError(f"{cc}: greeting or model picker not found")
+        text = text.replace("{greeting}", '<img src="/carrot.png" alt="" className="h-28 w-28 mx-auto mb-4" />' + GREETING)
+        cc.write_text(text, encoding="utf-8")
 
     # 8. the message box: no "@" agent button, no "Tools", no reasoning button
     pi = src / "components/WorkspaceChat/ChatContainer/PromptInput/index.jsx"

@@ -81,6 +81,13 @@ def stage(os_name, arch, dest):
         shutil.rmtree(dest)
     dest.mkdir(parents=True)
     shutil.copytree(ROOT / "cale", dest / "cale", ignore=IGNORE)
+    chat = ROOT / "dist" / "chat"                                   # Cale's chat (AnythingLLM, rebranded). Made by scripts/build_chat.py.
+    if (chat / "server" / "index.js").exists() and os_name == "mac":    # its native files are for one OS and chip: build it on each OS
+        shutil.copytree(chat, dest / "chat", symlinks=True)
+    elif os_name == "mac":
+        sys.exit("No chat bundle in dist/chat. Run: python3 scripts/build_chat.py --src <AnythingLLM v1.18.0 checkout> --node-dir <unpacked node 22> --out dist/chat")
+    else:
+        print(f"note: the chat bundle is not in the {os_name} installer yet (its native files must be built on {os_name})")
     (dest / "nest").mkdir()
     for f in NEST_FILES:
         shutil.copy2(ROOT / "nest" / f, dest / "nest" / f)
