@@ -59,8 +59,8 @@ namespace CaleHost
             float k = Height / 200f;                                  // drawn for a 440 x 200 box; scale to the real size
             g.ScaleTransform(k, k);
             float w = Width / k, h = 200f;
-            float soilTop = h - 34f;
-            float size = 176f;                                        // the carrot picture is square
+            float soilTop = h - 36f;
+            float size = 160f;                                        // the carrot picture is square
             float gr = (float)Math.Max(0.0, Math.Min(1.0, growth));
             if (carrot != null)
             {
@@ -73,7 +73,7 @@ namespace CaleHost
             using (SolidBrush soil = new SolidBrush(Garden.Soil))
             using (Pen line = new Pen(Garden.Brown, 3f))
             {
-                RectangleF r = new RectangleF(w * 0.1f, soilTop, w * 0.8f, 40f);
+                RectangleF r = new RectangleF(w * 0.1f, soilTop, w * 0.8f, 30f);
                 using (GraphicsPath p = new GraphicsPath())
                 {
                     float d = 24f;

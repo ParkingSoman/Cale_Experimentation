@@ -17,7 +17,7 @@ from pathlib import Path
 SRC = Path(__file__).resolve().parent.parent                 # the folder that holds cale/
 
 STAGES = {"runtime": "Putting Cale on this computer", "chat": "Setting up your chat", "python": "Getting ready", "model": "Getting Cale's AI ready",
-          "convert": "Preparing it", "tune": "Fitting Cale to this computer", "service": "Starting Cale", "done": "Done"}
+          "convert": "Preparing it", "tune": "Getting Cale ready for this computer", "service": "Starting Cale", "done": "Done"}
 
 
 def percent(update, current=0):
