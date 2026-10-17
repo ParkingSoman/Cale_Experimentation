@@ -1,13 +1,31 @@
 # Build the app's setup .exe from the files that `python scripts/build_app.py win APP` made.
-# Run on Windows, in the folder that holds payload.zip, setup.cmd, setup.vbs and name.txt:
+# Run on Windows, in the folder that holds payload.zip, name.txt and (for desktop apps) setup.ini, app.ico and host\:
 #   powershell -ExecutionPolicy Bypass -File build_app_exe.ps1
-# Uses IExpress (part of Windows). Signs with the demo certificate if this computer has one (see prep_windows_demo.ps1).
+# A desktop app (Quick Notes) gets a small self-extracting installer with the app's own icon (compiled with csc.exe, which
+# comes with Windows). When it runs, it unpacks the app, adds a Start Menu entry with the icon, and opens the app in its own window.
+# Other apps still use IExpress. Signs with the demo certificate if this computer has one (see prep_windows_demo.ps1).
 $ErrorActionPreference = "Stop"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $name = (Get-Content (Join-Path $here "name.txt") -Raw).Trim()
 $target = Join-Path $here "$name.exe"
+if (-not (Test-Path (Join-Path $here "payload.zip"))) { throw "missing payload.zip. Run scripts/build_app.py win first." }
+
+if ((Test-Path (Join-Path $here "setup.ini")) -and (Test-Path (Join-Path $here "host\SelfExtract.cs"))) {
+    . (Join-Path $here "host\pack.ps1")
+    $csc = Find-Csc
+    if ($csc) {
+        $settings = [System.IO.File]::ReadAllText((Join-Path $here "setup.ini"))
+        New-SetupExe $csc (Join-Path $here "host") (Join-Path $here "app.ico") ($name -replace "-Setup$", "" -replace "-", " ") $settings (Join-Path $here "payload.zip") $target
+        Sign-Demo $target
+        Write-Host ("built: {0}  ({1:N1} MB)" -f $target, ((Get-Item $target).Length / 1MB))
+        return
+    }
+    Write-Host "csc.exe not found: using IExpress (default icon, no window)."
+}
+
+# ---- IExpress (other apps, or no csc.exe) ----
 $sed = Join-Path $here "app.sed"
-foreach ($f in "payload.zip", "setup.cmd", "setup.vbs") {
+foreach ($f in "setup.cmd", "setup.vbs") {
     if (-not (Test-Path (Join-Path $here $f))) { throw "missing $f. Run scripts/build_app.py win first." }
 }
 if (Test-Path $target) { Remove-Item $target -Force }

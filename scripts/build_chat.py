@@ -40,6 +40,13 @@ EMBEDDER = "Xenova/all-MiniLM-L6-v2"
 SKIP = shutil.ignore_patterns("node_modules", "dist", ".git", "storage", "hotdir", "__tests__", ".env*", "*.log")
 
 
+def top_only(*names):
+    """An ignore rule for copytree that skips these names in the top folder only (node_modules has folders with the same names)."""
+    def ignore(folder, entries):
+        return [e for e in entries if e in names] if Path(folder).name in ("server", "collector") and Path(folder).parent.name != "node_modules" else []
+    return ignore
+
+
 def say(msg):
     print(f"[build_chat {time.strftime('%H:%M:%S')}] {msg}", flush=True)
 
@@ -167,9 +174,9 @@ def main():
 
     # 5. put the bundle together
     say("bundle")
-    shutil.copytree(srv, out / "server", symlinks=True, ignore=shutil.ignore_patterns("storage", "__tests__", "swagger"))
+    shutil.copytree(srv, out / "server", symlinks=True, ignore=top_only("storage", "swagger"))
     shutil.copytree(work / "frontend" / "dist", out / "server" / "public")
-    shutil.copytree(work / "collector", out / "collector", symlinks=True, ignore=shutil.ignore_patterns("hotdir", "__tests__"))
+    shutil.copytree(work / "collector", out / "collector", symlinks=True, ignore=top_only("hotdir"))
     shutil.copyfile(ROOT / "cale" / "anythingllm" / "preload.js", out / "preload.js")
     engines = sorted(p.name for p in (out / "server" / "node_modules" / ".prisma" / "client").glob("libquery_engine*"))
     (out / "bundle.json").write_text(json.dumps({"anythingllm": json.loads((src / "server" / "package.json").read_text())["version"], "prisma_engines": engines, "embedder": EMBEDDER,

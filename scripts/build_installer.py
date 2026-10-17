@@ -25,6 +25,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from cale.install import NEST_FILES, UV_BASE  # noqa: E402
 
 DIST = ROOT / "dist"
@@ -155,22 +156,19 @@ cd "$here" && PATH="$home/bin:$PATH" exec "$here/bin/uv" run --python 3.12 --no-
 '''
 
 WIN_LAUNCHER = r'''@echo off
-setlocal
-set "HOMEDIR=%LOCALAPPDATA%\Cale"
-if defined CALE_HOME set "HOMEDIR=%CALE_HOME%"
-set "HERE=%~dp0"
-curl.exe -s -o nul http://127.0.0.1:47800/api/state && ( start "" http://127.0.0.1:47800/ & exit /b )
-if exist "%HOMEDIR%\venv\Scripts\python.exe" if exist "%HOMEDIR%\runtime\cale\hub\server.py" (
-  set "PATH=%HOMEDIR%\bin;%PATH%"
-  set "CALE_HOME=%HOMEDIR%"
-  "%HOMEDIR%\venv\Scripts\python.exe" "%HERE%cale\install.py" --update >nul 2>&1
-  set "PYTHONPATH=%HOMEDIR%\runtime"
-  "%HOMEDIR%\venv\Scripts\python.exe" -m cale.hub
-  exit /b
-)
-cd /d "%HERE%"
-"%HERE%bin\uv.exe" run --python 3.12 --no-project python -m cale.hub --setup
+rem Only used by the IExpress fallback. The normal Cale-Setup.exe starts bin\CaleSetup.exe itself.
+rem CaleSetup.exe is a window program: no browser, no console. It installs Cale, or opens Cale's chat if it is installed.
+start "" "%~dp0bin\CaleSetup.exe"
 '''
+
+# Settings for the setup exe (cale/host/win/SelfExtract.cs): where to unpack, and what to start afterwards.
+WIN_SETUP_INI = (
+    "name=Cale\n"
+    "target=%LOCALAPPDATA%\\Cale\\app\n"
+    "target_calehome=%CALE_HOME%\\app\n"
+    "run=%TARGET%\\bin\\CaleSetup.exe\n"
+    "args=\n"
+)
 
 WIN_SETUP_CMD = r'''@echo off
 title Cale
@@ -301,6 +299,13 @@ def build_linux(arch):
     return out
 
 
+def copy_win_host(dest):
+    """The Windows window programs are C# files. The Mac has no C# compiler, so build_exe.ps1 compiles them on Windows."""
+    src = ROOT / "cale" / "host" / "win"
+    shutil.rmtree(dest, ignore_errors=True)
+    shutil.copytree(src, dest, ignore=shutil.ignore_patterns("__pycache__"))
+
+
 def build_win(arch):
     """On a Mac or Linux this prepares the files. The .exe itself needs IExpress, so run work/build_exe.ps1 on Windows."""
     work = DIST / "win"
@@ -308,6 +313,9 @@ def build_win(arch):
     shutil.rmtree(work, ignore_errors=True)
     stage("win", arch, payload)
     (payload / "launch.cmd").write_text(WIN_LAUNCHER.replace("\n", "\r\n"))
+    from make_ico import make_ico
+    make_ico(payload / "cale.ico", glyph="kale")                    # the icon of Cale's windows and its Start Menu entry
+    shutil.copy2(payload / "cale.ico", work / "cale.ico")
     zip_path = work / "payload.zip"
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
         for p in payload.rglob("*"):
@@ -316,8 +324,10 @@ def build_win(arch):
     shutil.rmtree(payload)
     (work / "setup.cmd").write_text(WIN_SETUP_CMD.replace("\n", "\r\n"))
     (work / "setup.vbs").write_text(WIN_SETUP_VBS.replace("\n", "\r\n"))
+    (work / "setup.ini").write_text(WIN_SETUP_INI.replace("\n", "\r\n"))
     for name in ("build_exe.ps1", "prep_windows_demo.ps1"):
         shutil.copy2(Path(__file__).with_name(name), work / name)
+    copy_win_host(work / "host")
     return work
 
 

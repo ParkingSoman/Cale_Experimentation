@@ -1,13 +1,51 @@
 # Build Cale-Setup.exe from the files that `python scripts/build_installer.py win` made.
-# Run on Windows, in the folder that holds payload.zip, setup.cmd and setup.vbs:
+# Run on Windows, in the folder that holds payload.zip, setup.ini, cale.ico and host\ (the C# files):
 #   powershell -ExecutionPolicy Bypass -File build_exe.ps1
-# It uses IExpress, a tool that comes with Windows. If the demo certificate exists (see prep_windows_demo.ps1),
-# the .exe is signed with it. No admin rights are needed to build.
+#
+# What it does (no install and no admin rights needed; the C# compiler csc.exe comes with Windows):
+#   1. compiles CaleWindow.exe (the window that shows Cale's chat and apps) and CaleSetup.exe (the setup window),
+#   2. adds them, with WebView2Loader.dll, to payload.zip (the folder bin\),
+#   3. compiles a small self-extracting installer with Cale's icon (host\SelfExtract.cs) and appends payload.zip to it,
+#   4. signs it with the demo certificate if this computer has one (see prep_windows_demo.ps1).
+# Cale-Setup.exe has Cale's own icon. IExpress could not do that. Pass -UseIExpress to use IExpress anyway
+# (then no window programs are built: only for a computer with no csc.exe).
+param([switch]$UseIExpress)
 $ErrorActionPreference = "Stop"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $target = Join-Path $here "Cale-Setup.exe"
+foreach ($f in "payload.zip") {
+    if (-not (Test-Path (Join-Path $here $f))) { throw "missing $f. Run scripts/build_installer.py win first." }
+}
+$csc = $null
+if (-not $UseIExpress) {
+    . (Join-Path $here "host\pack.ps1")
+    $csc = Find-Csc
+    if (-not $csc) { Write-Host "csc.exe not found: using IExpress (no window programs, default icon)." }
+}
+
+if ($csc) {
+    $hostDir = Join-Path $here "host"
+    $bin = Join-Path $here "hostbuild"
+    if (Test-Path $bin) { Remove-Item $bin -Recurse -Force }
+    $icon = Join-Path $here "cale.ico"
+    Build-Host $csc $hostDir $icon $bin
+    Add-ToZip (Join-Path $here "payload.zip") @{
+        "bin/CaleWindow.exe" = (Join-Path $bin "CaleWindow.exe")
+        "bin/CaleSetup.exe" = (Join-Path $bin "CaleSetup.exe")
+        "bin/WebView2Loader.dll" = (Join-Path $bin "WebView2Loader.dll")
+        "cale.ico" = $icon
+    }
+    Remove-Item $bin -Recurse -Force
+    $settings = [System.IO.File]::ReadAllText((Join-Path $here "setup.ini"))
+    New-SetupExe $csc $hostDir $icon "Cale" $settings (Join-Path $here "payload.zip") $target
+    Sign-Demo $target
+    Write-Host ("built: {0}  ({1:N1} MB)" -f $target, ((Get-Item $target).Length / 1MB))
+    return
+}
+
+# ---- IExpress fallback ----
 $sed = Join-Path $here "Cale.sed"
-foreach ($f in "payload.zip", "setup.cmd", "setup.vbs") {
+foreach ($f in "setup.cmd", "setup.vbs") {
     if (-not (Test-Path (Join-Path $here $f))) { throw "missing $f. Run scripts/build_installer.py win first." }
 }
 if (Test-Path $target) { Remove-Item $target -Force }

@@ -74,14 +74,15 @@ namespace CaleHost
             zipLen = len;
             string name = Get("name", "Setup");
             Text = name;
-            AutoScaleDimensions = new SizeF(96f, 96f);
-            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScaleMode = AutoScaleMode.None;
+            float k;
+            using (Graphics dg = CreateGraphics()) k = dg.DpiX / 96f;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             ControlBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            ClientSize = new Size(380, 110);
+            ClientSize = new Size((int)(380 * k), (int)(110 * k));
             BackColor = Color.FromArgb(247, 245, 238);
             try { Icon = Icon.ExtractAssociatedIcon(exePath); } catch (Exception) { }
 
@@ -90,7 +91,7 @@ namespace CaleHost
             title.Font = new Font("Segoe UI Semibold", 13f, FontStyle.Regular, GraphicsUnit.Point);
             title.ForeColor = Color.FromArgb(47, 93, 80);
             title.TextAlign = ContentAlignment.MiddleCenter;
-            title.SetBounds(10, 22, 360, 32);
+            title.SetBounds((int)(10 * k), (int)(22 * k), (int)(360 * k), (int)(32 * k));
             Controls.Add(title);
 
             detail = new Label();
@@ -98,7 +99,7 @@ namespace CaleHost
             detail.Font = new Font("Segoe UI", 10f, FontStyle.Regular, GraphicsUnit.Point);
             detail.ForeColor = Color.FromArgb(89, 89, 89);
             detail.TextAlign = ContentAlignment.MiddleCenter;
-            detail.SetBounds(10, 58, 360, 26);
+            detail.SetBounds((int)(10 * k), (int)(58 * k), (int)(360 * k), (int)(26 * k));
             Controls.Add(detail);
         }
 

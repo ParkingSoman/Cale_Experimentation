@@ -176,6 +176,74 @@ If r = vbYes Then
 End If
 '''
 
+# A desktop app (DESKTOP_APPS) starts through Cale's window program, like the Mac one: its own window, name and icon.
+# launch.vbs runs with no console. "launch.vbs install" also adds a Start Menu entry with the app's icon.
+WIN_DESKTOP_LAUNCH = r'''name = "__NAME__"
+Set sh = CreateObject("WScript.Shell")
+Set fso = CreateObject("Scripting.FileSystemObject")
+here = fso.GetParentFolderName(WScript.ScriptFullName)
+home = sh.ExpandEnvironmentStrings("%CALE_HOME%")
+If home = "%CALE_HOME%" Or home = "" Then home = sh.ExpandEnvironmentStrings("%LOCALAPPDATA%") & "\Cale"
+q = Chr(34)
+
+If WScript.Arguments.Count > 0 Then
+  If WScript.Arguments(0) = "install" Then
+    Set lnk = sh.CreateShortcut(sh.SpecialFolders("Programs") & "\" & name & ".lnk")
+    lnk.TargetPath = sh.ExpandEnvironmentStrings("%SystemRoot%") & "\System32\wscript.exe"
+    lnk.Arguments = q & here & "\launch.vbs" & q
+    lnk.WorkingDirectory = here
+    lnk.IconLocation = here & "\app.ico,0"
+    lnk.Description = name
+    lnk.Save
+  End If
+End If
+
+If Not fso.FileExists(home & "\venv\Scripts\pythonw.exe") Or Not fso.FileExists(home & "\installed.ok") Then
+  r = MsgBox(name & " needs Cale to run. Cale is a one-time download that lets apps like this work on your computer." & vbCrLf & vbCrLf & "Get Cale now?", vbYesNo + vbInformation, name)
+  If r = vbYes Then
+    found = ""
+    For Each d In Array(sh.ExpandEnvironmentStrings("%USERPROFILE%\Downloads"), sh.ExpandEnvironmentStrings("%USERPROFILE%\Desktop"))
+      If fso.FileExists(d & "\Cale-Setup.exe") Then found = d & "\Cale-Setup.exe"
+    Next
+    If found <> "" Then
+      sh.Run q & found & q
+    ElseIf "__CALE_URL__" <> "" Then
+      sh.Run "__CALE_URL__"
+    Else
+      MsgBox "Cale was not found on this computer. Ask the person who gave you this app for the Cale download.", vbOKOnly, name
+    End If
+  End If
+  WScript.Quit
+End If
+
+data = sh.ExpandEnvironmentStrings("%LOCALAPPDATA%") & "\" & name
+If Not fso.FolderExists(data) Then fso.CreateFolder data
+Set env = sh.Environment("Process")
+env("CALE_HOME") = home
+env("CALE_APP_DATA") = data
+env("PATH") = home & "\bin;" & env("PATH")
+py = home & "\venv\Scripts\pythonw.exe"
+win = home & "\bin\CaleWindow.exe"
+relaunch = "wscript.exe " & q & here & "\launch.vbs" & q
+If fso.FileExists(win) Then
+  cmd = q & win & q & " --title " & q & name & q & " --width 940 --height 680 --min-width 520 --min-height 380" _
+      & " --icon " & q & here & "\app.ico" & q & " --relaunch " & q & Replace(relaunch, q, "\" & q) & q _
+      & " --server-exec " & q & py & q & " --server-arg app.py --server-cwd " & q & here & "\app" & q
+  sh.Run cmd, 1, False
+Else
+  sh.CurrentDirectory = here & "\app"
+  sh.Run q & py & q & " app.py", 0, False
+End If
+'''
+
+WIN_DESKTOP_INI = (
+    "name=__NAME__\n"
+    "target=%LOCALAPPDATA%\\__NAME__\\files\n"
+    "target_calehome=%CALE_HOME%\\apps-test\\__NAME__\n"
+    "run=wscript.exe\n"
+    'args="%TARGET%\\launch.vbs" install\n'
+)
+
 WIN_SETUP_CMD = r'''@echo off
 set "D=%LOCALAPPDATA%\__NAME__\files"
 if not exist "%D%" mkdir "%D%"
@@ -196,8 +264,20 @@ def build_win(app_id):
     stage = work / "stage"
     copy_app(app_id, stage / "app")
     crlf = lambda t: t.replace("\n", "\r\n")  # noqa: E731
-    (stage / "launch.cmd").write_text(crlf(WIN_LAUNCH.replace("__NAME__", name).replace("__PORT__", str(port)).replace("__CALE_URL__", CALE_URL)))
-    (stage / "needcale.vbs").write_text(crlf(WIN_NEEDCALE))
+    desktop = app_id in DESKTOP_APPS
+    if desktop:
+        from make_ico import make_ico
+        make_ico(stage / "app.ico", bg=COLORS[app_id][0], fg=COLORS[app_id][1])      # its own icon, like the Mac one
+        shutil.copy2(stage / "app.ico", work / "app.ico")
+        (stage / "launch.vbs").write_text(crlf(WIN_DESKTOP_LAUNCH.replace("__NAME__", name).replace("__CALE_URL__", CALE_URL)))
+        (work / "setup.ini").write_text(crlf(WIN_DESKTOP_INI.replace("__NAME__", name)))
+        host = work / "host"
+        host.mkdir()
+        for f in ("SelfExtract.cs", "pack.ps1"):
+            shutil.copy2(ROOT / "cale" / "host" / "win" / f, host / f)
+    else:
+        (stage / "launch.cmd").write_text(crlf(WIN_LAUNCH.replace("__NAME__", name).replace("__PORT__", str(port)).replace("__CALE_URL__", CALE_URL)))
+        (stage / "needcale.vbs").write_text(crlf(WIN_NEEDCALE))
     with zipfile.ZipFile(work / "payload.zip", "w", zipfile.ZIP_DEFLATED) as z:
         for p in stage.rglob("*"):
             if p.is_file():

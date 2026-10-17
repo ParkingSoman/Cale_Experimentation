@@ -57,7 +57,9 @@ namespace CaleHost
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.Clear(Garden.Cream);
-            float w = Width, h = Height;
+            float k = Height / 200f;                                  // drawn for a 440 x 200 box; scale to the real size
+            g.ScaleTransform(k, k);
+            float w = Width / k, h = 200f;
             // Drawing is done in "up is bigger" numbers like the Mac version. Up(v) turns one into a screen position.
             Func<float, float> up = delegate(float v) { return h - v; };
 
@@ -165,24 +167,30 @@ namespace CaleHost
         bool finished = false;
         bool closing = false;
         string home, payload;
+        float k = 1f;
+
+        void Place(Control c, int x, int y, int w, int h)
+        {
+            c.SetBounds((int)(x * k), (int)(y * k), (int)(w * k), (int)(h * k));
+        }
 
         public SetupForm(string homeDir, string payloadDir)
         {
             home = homeDir;
             payload = payloadDir;
             Text = "Cale";
-            AutoScaleDimensions = new SizeF(96f, 96f);
-            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScaleMode = AutoScaleMode.None;
+            using (Graphics dg = CreateGraphics()) k = dg.DpiX / 96f;       // our own scaling: one number for every size
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            ClientSize = new Size(520, 420);
+            ClientSize = new Size((int)(520 * k), (int)(420 * k));
             BackColor = Garden.Cream;
             string ico = Path.Combine(payload, "cale.ico");
             if (File.Exists(ico)) { try { Icon = new Icon(ico); } catch (Exception) { } }
 
             garden = new GardenView();
-            garden.SetBounds(40, 30, 440, 200);
+            Place(garden, 40, 30, 440, 200);
             Controls.Add(garden);
 
             title = new Label();
@@ -190,7 +198,7 @@ namespace CaleHost
             title.Font = new Font("Segoe UI Semibold", 18f, FontStyle.Regular, GraphicsUnit.Point);
             title.ForeColor = Garden.Kale;
             title.TextAlign = ContentAlignment.MiddleCenter;
-            title.SetBounds(20, 246, 480, 40);
+            Place(title, 20, 246, 480, 40);
             Controls.Add(title);
 
             detail = new Label();
@@ -198,11 +206,11 @@ namespace CaleHost
             detail.Font = new Font("Segoe UI", 10.5f, FontStyle.Regular, GraphicsUnit.Point);
             detail.ForeColor = Color.FromArgb(89, 89, 89);
             detail.TextAlign = ContentAlignment.MiddleCenter;
-            detail.SetBounds(30, 292, 460, 28);
+            Place(detail, 30, 292, 460, 28);
             Controls.Add(detail);
 
             bar = new Meter();
-            bar.SetBounds(60, 338, 400, 12);
+            Place(bar, 60, 338, 400, 12);
             Controls.Add(bar);
 
             button = new Button();
@@ -213,7 +221,7 @@ namespace CaleHost
             button.BackColor = Garden.Kale;
             button.ForeColor = Color.White;
             button.Cursor = Cursors.Hand;
-            button.SetBounds(175, 336, 170, 42);
+            Place(button, 175, 336, 170, 42);
             button.Visible = false;
             button.Click += delegate { StartChat(home); Close(); };
             Controls.Add(button);
