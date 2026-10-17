@@ -379,8 +379,14 @@ namespace CaleHost
             {
                 BeginInvoke((MethodInvoker)delegate
                 {
+                    // Every READY line loads its address. A later one (same port, new one-time code) reloads the page.
                     url = opts.UrlTemplate.Replace("{port}", port).Replace("{token}", tok);
                     token = (opts.UrlTemplate.IndexOf("{token}") >= 0) ? tok : "";
+                    tokenSpent = false;                                  // a new code may be used once
+                    tokenUrl = "";
+                    cleanUrl = "";
+                    retries = 0;
+                    retryTimer.Stop();
                     ready = true;
                     Load();
                 });
