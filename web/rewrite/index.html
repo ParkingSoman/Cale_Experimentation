@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rewrite: say it better</title>
+<meta name="description" content="Paste a sentence, pick a tone, and get a better version. It is written on your own computer. Your words never leave it.">
+<style>
+  :root {
+    --paper:#f3eee4; --card:#fffdf8; --ink:#1c2b24; --soft:#5d6b63; --line:#ddd5c3; --accent:#b8481f; --accent-ink:#fff;
+    --chip:#ebe4d4; --shadow:0 1px 0 rgba(28,43,36,.04), 0 12px 30px -18px rgba(28,43,36,.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#141a17; --card:#1b231f; --ink:#ece8dc; --soft:#98a39b; --line:#2c3730; --accent:#e0794d; --accent-ink:#1a0f09; --chip:#232d28; --shadow:none; }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:980px; margin:0 auto; padding:40px 16px 56px; }
+  header { margin-bottom:28px; }
+  h1 { font:700 clamp(38px,7vw,60px)/1 Georgia,"Iowan Old Style","Times New Roman",serif; letter-spacing:-.02em; margin:0 0 10px; }
+  h1 span { color:var(--accent); }
+  .lede { margin:0; max-width:34em; color:var(--soft); font-size:18px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:760px) { .grid { grid-template-columns:1fr; } }
+  .panel { background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:16px 18px 18px; display:flex; flex-direction:column; }
+  .panel h2 { margin:0 0 8px; font:600 12px/1 system-ui,sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--soft); }
+  textarea, #result { font:19px/1.6 Georgia,"Iowan Old Style",serif; color:var(--ink); background:transparent; border:0; outline:none; width:100%; min-height:190px; padding:0; margin:0; resize:vertical; }
+  #result { white-space:pre-wrap; flex:1; }
+  #result.idle { color:var(--soft); }
+  .tones { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .tones button { font:inherit; font-size:15px; padding:8px 16px; border-radius:999px; border:1px solid var(--line); background:var(--chip); color:var(--ink); cursor:pointer; }
+  .tones button:hover { border-color:var(--accent); }
+  .tones button.on { background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
+  .row { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .row button { font:inherit; font-size:14px; padding:6px 14px; border-radius:8px; border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; }
+  .row button:hover { border-color:var(--accent); }
+  #status { margin:16px 2px 0; min-height:24px; color:var(--soft); font-size:14px; }
+  footer { margin-top:36px; color:var(--soft); font-size:13px; }
+  /* the card shown when Cale is not on this computer */
+  #card { position:fixed; inset:0; display:none; align-items:center; justify-content:center; padding:16px; background:rgba(20,26,23,.6); backdrop-filter:blur(5px); z-index:10; }
+  #card.on { display:flex; }
+  #card div { width:min(440px,100%); background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px 26px 22px; box-shadow:0 24px 60px -20px rgba(0,0,0,.5); }
+  #card h2 { margin:0 0 8px; font:700 24px/1.2 Georgia,serif; }
+  #card p { margin:0 0 18px; color:var(--soft); }
+  #card a { display:block; text-align:center; text-decoration:none; padding:12px; border-radius:10px; background:var(--accent); color:var(--accent-ink); font-weight:600; }
+  #card small { display:block; margin-top:12px; color:var(--soft); font-size:13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Re<span>write</span></h1>
+    <p class="lede">Paste a sentence. Pick a tone. Get a better version. It is written on your own computer, so your words stay with you.</p>
+  </header>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Your words</h2>
+      <textarea id="src" spellcheck="false" placeholder="Paste or type a sentence here..." maxlength="2000" autofocus></textarea>
+      <div class="tones" id="tones">
+        <button data-tone="friendlier">Friendlier</button>
+        <button data-tone="shorter">Shorter</button>
+        <button data-tone="clearer">Clearer</button>
+        <button data-tone="formal">More formal</button>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Better version</h2>
+      <div id="result" class="idle" aria-live="polite">Your new version appears here.</div>
+      <div class="row"><button id="copy" hidden>Copy</button><button id="use" hidden>Use this as my words</button></div>
+    </section>
+  </div>
+  <div id="status" role="status"></div>
+  <footer>Rewrite runs with Cale, on your computer. Nothing you type is sent to this website.</footer>
+</div>
+
+<div id="card" role="dialog" aria-modal="true" aria-labelledby="card-title">
+  <div>
+    <h2 id="card-title">This site works on your computer with Cale.</h2>
+    <p>You get Cale once. After that, this site and other sites that use it just work. Nothing you write leaves your computer.</p>
+    <a id="get-cale" href="#">Get Cale</a>
+    <small>Already have Cale? Open it. This page notices on its own.</small>
+  </div>
+</div>
+
+<script src="cale-web.js"></script>
+<script>
+(function () {
+  "use strict";
+  var GET_CALE_URL = "https://get-cale.example";            // TODO before launch: the real download page for Cale
+  var TONES = {
+    friendlier: "Rewrite the text so it sounds warmer and friendlier. Keep the meaning.",
+    shorter: "Rewrite the text so it is shorter. Keep the meaning.",
+    clearer: "Rewrite the text so it is clearer and simpler. Keep the meaning.",
+    formal: "Rewrite the text so it sounds polite and professional. Keep the meaning."
+  };
+  var SUFFIX = " Reply with ONLY the rewritten text. No quotes, no explanation.";
+
+  // --- the Cale part: the whole of it is in this block (goals in, an id out, then plain chat) ---
+  var cale = new CaleWeb();
+  var model = null;
+  function makeModel() {
+    // The page states a goal ("at least 6 words a second", as a feel). Cale picks the size that meets it on this computer.
+    return cale.model({ name: "rewriter", min_tokens_per_s: 6, max_tokens: 120 });
+  }
+  function ask(tone, text, signal) {
+    return cale.chat({ model: model.id, temperature: 0.4, messages: [
+      { role: "system", content: TONES[tone] + SUFFIX }, { role: "user", content: text }] }, signal);
+  }
+  // --- end of the Cale part ---
+
+  var $ = function (id) { return document.getElementById(id); };
+  var src = $("src"), result = $("result"), status = $("status"), copyBtn = $("copy"), useBtn = $("use"), card = $("card");
+  var aborter = null, starting = null;
+
+  $("get-cale").href = GET_CALE_URL;
+  function say(t) { status.textContent = t || ""; }
+  function showCard(on) { card.classList.toggle("on", on); }
+
+  // Is Cale on this computer? If not, show the card and keep looking, so the page carries on once Cale is there.
+  var watching = false;
+  function watch() {
+    if (watching) return;
+    watching = true;
+    showCard(true);
+    (function look() {
+      cale.isRunning().then(function (up) {
+        if (up) { watching = false; showCard(false); say(""); setup(); } else setTimeout(look, 3000);
+      });
+    })();
+  }
+
+  // Get a key (asks the person once) and a model object. A saved key from an earlier visit needs no question.
+  function ready(askPerson) {
+    if (model && model.alive()) return Promise.resolve();
+    if (starting) return starting;
+    starting = (function () {
+      var step = cale.key ? cale.check().catch(function () { return false; }) : Promise.resolve(false);
+      return step.then(function (ok) {
+        if (ok) return;
+        if (!askPerson) throw new CaleWeb.Error("gone", "no key yet");
+        say("Look for a question on your screen and choose Allow.");
+        return cale.connect({ onWait: function () { say("Look for a question on your screen and choose Allow."); } });
+      }).then(makeModel).then(function (m) { model = m; });
+    })();
+    var done = function () { starting = null; };
+    starting.then(done, done);
+    return starting;
+  }
+
+  function setup() {          // on page load: carry on quietly if the person allowed this site on an earlier visit
+    cale.isRunning().then(function (up) {
+      if (!up) return watch();
+      if (!cale.key) return;
+      ready(false).then(function () { return warm(); }).catch(function () { /* the first click asks */ });
+    });
+  }
+
+  function warm() {           // one tiny answer, so Cale is awake before the first click
+    return (async function () { for await (var ev of ask("shorter", "Hello there.")) { if (ev.done) break; } })().catch(function () {});
+  }
+
+  function problem(e) {
+    if (!e) return "Rewrite stopped for a moment. Try again.";
+    if (e.kind === "denied") return "Cale was not allowed on this site. Press a button to try again.";
+    if (e.kind === "wait") return "Cale was told no a moment ago. Try again in a few minutes.";
+    if (e.kind === "busy") return "Cale is waiting for an answer on your screen.";
+    return "Rewrite stopped for a moment. Try again.";
+  }
+
+  async function run(tone, btn, again) {
+    var text = src.value.trim().slice(0, 2000);
+    if (!text) { say("Type or paste a sentence first."); src.focus(); return; }
+    if (aborter) aborter.abort();                             // a new click stops the old one
+    var mine = aborter = new AbortController();
+    Array.prototype.forEach.call(document.querySelectorAll("#tones button"), function (b) { b.classList.toggle("on", b === btn); });
+    result.className = ""; result.textContent = ""; copyBtn.hidden = useBtn.hidden = true;
+    say("Writing...");
+    var got = "";
+    try {
+      await ready(true);
+      for await (var ev of ask(tone, text, mine.signal)) {
+        if (mine.signal.aborted) return;
+        if (ev.text) { got += ev.text; result.textContent = got.replace(/^\s+/, ""); }
+      }
+      result.textContent = got.trim();
+      if (got.trim()) { copyBtn.hidden = useBtn.hidden = false; say("Done."); } else say("Nothing came back. Try again.");
+    } catch (e) {
+      if (e && e.name === "AbortError") return;
+      if (e && e.kind === "missing") { result.className = "idle"; result.textContent = "Your new version appears here."; say(""); return watch(); }
+      if (e && e.kind === "gone" && !again) {                 // the key or the object ended (Cale restarted): start over once
+        model = null; if (e.status === 401 || e.status === 403) cale.forget();
+        return run(tone, btn, true);
+      }
+      result.className = "idle"; result.textContent = "Your new version appears here.";
+      say(problem(e));
+    }
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("#tones button"), function (b) {
+    b.addEventListener("click", function () { run(b.getAttribute("data-tone"), b); });
+  });
+  copyBtn.addEventListener("click", function () {
+    navigator.clipboard.writeText(result.textContent).then(function () { say("Copied."); }, function () { say("Select the text and copy it."); });
+  });
+  useBtn.addEventListener("click", function () { src.value = result.textContent; src.focus(); });
+  window.addEventListener("pagehide", function () { if (model) model.close(); });
+
+  setup();
+})();
+</script>
+</body>
+</html>

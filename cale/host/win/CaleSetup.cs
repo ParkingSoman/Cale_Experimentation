@@ -223,6 +223,8 @@ namespace CaleHost
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
+            TopMost = true;                // come to the front, then behave like a normal window
+            TopMost = false;
             Activate();
             RunSetup();
         }

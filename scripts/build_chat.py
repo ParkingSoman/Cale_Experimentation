@@ -65,7 +65,7 @@ def make_pictures(out_dir):
     """The kale icon (scripts/build_installer.py draws it) and a wide logo with the name next to it."""
     import build_installer
     icon = out_dir / "kale-icon.png"
-    build_installer.make_icon(str(icon), glyph="kale")
+    build_installer.make_icon(icon, glyph="kale")
     wide = out_dir / "kale-wordmark.png"
     try:
         from PIL import Image, ImageDraw, ImageFont

@@ -1,7 +1,7 @@
 # Cale HTTP API
 
 Cale listens on `http://127.0.0.1:47821`. Use this exact host, not `localhost`.
-Call it from an app's own backend. Cale refuses any request that carries an `Origin` header.
+Call it from an app's own backend. Cale refuses any request that carries an `Origin` header, with one exception: a secure website that the person allows (section 5d).
 Send `Content-Length`. Chunked request bodies are refused.
 
 ## 1. Check that Cale runs
@@ -55,6 +55,7 @@ Send the key as `Authorization: Bearer KEY` on every other call. Keep the key. D
 | One key for each app name | A second `POST /cale/connect` for the same app name makes a new key. The old key stops at once: calls with it get `401 invalid_api_key`. An app must store its key (a file, or its settings) and reuse it. It asks again only after a `401`. |
 | `202` is not an error | `202 pending` is a normal success status. An HTTP library that raises on anything but `200` must be told to accept `202`, or use `wait_s` long enough, or poll with a client that reads the body. |
 | Reserved name | The app name "Cale Hub" belongs to Cale. `POST /cale/connect` with it gets `400 reserved_name`. |
+| Reserved prefix | App names that start with `web:` are for websites (section 5d). `POST /cale/connect` without `Origin` gets `400 reserved_name`. |
 
 ## 3. Chat
 
@@ -430,6 +431,78 @@ Node (`import { connect, ensureRunning, Cale } from "./client.mjs"`):
 | `for await (const chunk of cale.chatStream(body))` | Streamed chat. It sets `stream: true`. Each `chunk` is one parsed event. The last has `usage` and `cale`. |
 
 A Node error is a `CaleError` with `status`, `code` and `body` (the error JSON).
+
+## 5d. Websites
+
+A web page (https, on the internet) can use Cale on the visitor's computer. It calls `http://127.0.0.1:47821` straight from the browser.
+This is the only way a browser reaches Cale. Everything else stays refused. `cale-web.js` in `web/rewrite/` is a small client for it.
+
+**Who the site is.** Cale knows a site by its `Origin` (the browser sets it, a page cannot change it). A name that the page sends is ignored.
+The person sees the site's address: `Allow "rewrite.example.com" to use Cale on this computer?`
+
+| Rule | Detail |
+|---|---|
+| Use `127.0.0.1` | Not `localhost`. The Host check is unchanged: any other Host gets `403 bad_host`. |
+| Which origins | `https://` plus a host name with at least one dot, spelled as the browser sends it (lower case, no path, no user name). Everything else gets `403 browser_not_allowed`: `Origin: null`, `file://`, `http://`, a path, an empty value, two `Origin` headers, a browser request that has `Sec-Fetch-Site` but no `Origin`. |
+| Tests only | `CALE_WEB_DEV_ORIGINS=http://127.0.0.1:5555,...` (exact origins, `http://127.0.0.1:PORT` only) lets a local test page ask. Never set it on a consumer's computer. |
+| Apps | A request without `Origin` behaves exactly as before. |
+
+**What an accepted site may do without a key.** Only what lets the person be asked:
+
+| Request | Reply |
+|---|---|
+| `OPTIONS` (any path) | `204` with the CORS headers below. The method asked for must be GET, POST or DELETE. |
+| `GET /cale/status` | `{"ok": true, "version", "model"}`. Nothing about other apps, holds or memory. |
+| `POST /cale/connect`, `GET /cale/connect/status` | The Allow question. The body field `app` is ignored. |
+
+Every other route needs `Authorization: Bearer KEY`. The key for a site is bound to that site's origin:
+
+| Case | Reply |
+|---|---|
+| Site key, same `Origin` | works |
+| Site key, another `Origin`, or no `Origin` | `403 wrong_origin` |
+| App key (made without `Origin`) from a browser | `403 wrong_origin` |
+| No key, or an unknown key | `401 invalid_api_key` (with CORS headers, so the page can read it) |
+| Any `/cale/debug/*` route | `403 browser_not_allowed` |
+| `GET /cale/computer` | needs a key for a site (an app needs none) |
+| `GET /v1/models` | the list of other apps' holds is empty for a site |
+| `GET /cale/activity` | `403 hub_only` (a site key is never a Hub key) |
+
+A ticket from `/cale/connect` can be read only by the caller that asked: another site, or an app, gets `404 unknown_ticket`.
+The key is handed out once, and only in the answer to the site that asked (CORS: the answer is readable only by that origin).
+
+**CORS headers** on every answer to an accepted site (normal, error and streamed ones):
+
+| Header | Value |
+|---|---|
+| `Access-Control-Allow-Origin` | the request's exact origin, never `*` |
+| `Vary` | `Origin` |
+| `Access-Control-Expose-Headers` | the `X-Cale-*` headers and `Retry-After`, so the page can read them |
+| `Access-Control-Allow-Methods` (preflight) | `GET, POST, DELETE, OPTIONS` |
+| `Access-Control-Allow-Headers` (preflight) | `Authorization, Content-Type` |
+| `Access-Control-Allow-Private-Network` (preflight) | `true` |
+| `Access-Control-Max-Age` (preflight) | `600` |
+
+A refused origin gets no CORS headers at all.
+
+**Stopping a hostile page from filling the screen with questions.**
+
+| Limit | Value |
+|---|---|
+| Open questions per site | 1. A second ask while one is open gets `409 already_waiting` (or `429 busy` while any question is on the screen). |
+| After "Don't Allow", a timeout, or an error | that site gets `429 asked_recently` for **10 minutes** (`WEB_COOLDOWN_S = 600`), with `Retry-After` and `error.cale.retry_after_s`. "Allow" clears it. |
+| All sites together | at most **3** new questions in 10 minutes (`WEB_MAX_ASKS`, `WEB_ASK_WINDOW_S`), then `429 too_many_questions`. This stops a site that asks from many sub-domains. Apps are not counted. |
+
+The limits live in memory. A restart of Cale clears them.
+
+**Browser side.** Every call with `Authorization` or a JSON body makes the browser send a preflight first, and `cale-web.js` keeps
+the connection of `POST /cale/models` open (a model object lives while the connection stays open, as with `cale.client.model`). A site that
+cannot reach Cale (not installed, not running, or the browser said no) sees a network error: show "Get Cale". Newer Chrome versions may ask the
+person for permission to reach devices on the local network. That is the browser's own question, before Cale's.
+Browsers differ on whether an https page may call `http://127.0.0.1` (Chrome and Firefox allow it; check Safari before you rely on it).
+
+A site key is saved by the page in its own `localStorage`. A second `POST /cale/connect` from the same site makes a new key and stops the old
+one, as for apps. Two tabs of one site share the saved key.
 
 ## 6. List models
 

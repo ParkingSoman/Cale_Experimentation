@@ -73,9 +73,13 @@ ASKED = []                                            # what the person was aske
 _real_ask = server.ask_user
 
 
-def recording_ask(app, replacing=False):
+SITE_FLAGS = []                                       # for each question: was it worded as a website question?
+
+
+def recording_ask(app, replacing=False, site=False):
     ASKED.append(app)
-    return _real_ask(app, replacing)                  # CALE_DEBUG=1 + CALE_AUTO_APPROVE=1: counts as "Allow"
+    SITE_FLAGS.append(site)
+    return _real_ask(app, replacing, site=site)       # CALE_DEBUG=1 + CALE_AUTO_APPROVE=1: counts as "Allow"
 
 
 server.ask_user = recording_ask
@@ -229,7 +233,7 @@ GATE = threading.Event()
 ANSWER = {"yes": False}
 
 
-def slow_ask(app, replacing=False):
+def slow_ask(app, replacing=False, site=False):
     ASKED.append(app)
     GATE.wait(20)
     return ANSWER["yes"]
@@ -268,7 +272,7 @@ check("after the cooldown the site may ask again", s == 200, f"{s} {js}")
 
 # ---- global limit (a site with many sub-domains) -----------------------------------------------------------------------
 reset_web_state()
-server.ask_user = lambda app, replacing=False: False
+server.ask_user = lambda app, replacing=False, site=False: False
 codes = []
 for i in range(server.WEB_MAX_ASKS + 1):
     codes.append(call("POST", "/cale/connect", {"wait_s": 20}, origin=f"https://s{i}.evil.example")[0])
@@ -276,6 +280,16 @@ check("many sub-domains: first questions are asked, then 429", codes[:server.WEB
 check("apps are not limited by the web limit", call("POST", "/cale/connect", {"app": "Another App", "wait_s": 20}, key=None)[0] == 403)   # the stub says no: 403, not 429
 server.ask_user = recording_ask
 reset_web_state()
+
+# ---- the question says "website" for a site and "app" for an app -----------------------------------------------------
+reset_web_state()
+SITE_FLAGS.clear()
+call("POST", "/cale/connect", {"wait_s": 20}, origin="https://wording.example")
+call("POST", "/cale/connect", {"app": "Wording App", "wait_s": 20})
+check("the question is worded as a website question only for a site", SITE_FLAGS == [True, False], str(SITE_FLAGS))
+import inspect
+src = inspect.getsource(server.oslayer.ask_allow)
+check("the dialog text names the kind (website or app)", 'kind = "website" if site else "app"' in src and "{kind}" in src)
 
 print("\nFAILED: " + ", ".join(FAIL) if FAIL else "\nAll checks passed.")
 sys.exit(1 if FAIL else 0)

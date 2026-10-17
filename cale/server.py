@@ -255,13 +255,13 @@ def object_slug(name):
     return (s or "model")[:30]
 
 
-def ask_user(app, replacing=False):
+def ask_user(app, replacing=False, site=False):
     """Ask the person: allow this app? With a screen, the Allow dialog (oslayer.ask_allow). Without one, the request waits for
     `cale allow NAME` typed in a terminal on this computer (cale/approval.py)."""
     if DEBUG and os.environ.get("CALE_AUTO_APPROVE") == "1":
         return True
     if oslayer.has_screen():
-        answer = oslayer.ask_allow(app, replacing)
+        answer = oslayer.ask_allow(app, replacing, site=site)
         if answer is not None:
             return answer                                  # a person answered (or the question timed out: that is a no)
     return approval.wait_for_terminal(app, replacing, float(os.environ.get("CALE_APPROVE_WAIT_S", 300)))
@@ -281,9 +281,9 @@ def _decide_connect(ticket):
     try:
         if oslayer.has_screen():
             with CONNECT_LOCK:                                     # one dialog at a time
-                allowed = ask_user(shown, it["replacing"])
+                allowed = ask_user(shown, it["replacing"], site=bool(it.get("origin")))
         else:
-            allowed = ask_user(shown, it["replacing"])
+            allowed = ask_user(shown, it["replacing"], site=bool(it.get("origin")))
     except Exception as e:
         print(f"[connect] asking failed ({type(e).__name__}); counting that as no", flush=True)
     if it.get("origin"):

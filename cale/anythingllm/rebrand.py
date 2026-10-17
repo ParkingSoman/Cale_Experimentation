@@ -172,7 +172,12 @@ WORDING = {
 def apply(frontend, icon=None, wordmark=None):
     fe = Path(frontend)
     src, pub = fe / "src", fe / "public"
-    version = re.search(r'"version":\s*"([^"]+)"', _read(fe / "package.json")).group(1)
+    version = None
+    for pj in (fe / "package.json", fe.parent / "server" / "package.json"):
+        m = pj.exists() and re.search(r'"version":\s*"([^"]+)"', _read(pj))
+        if m:
+            version = m.group(1)
+            break
     if version != TESTED_VERSION:
         print(f"rebrand: tested with AnythingLLM {TESTED_VERSION}, this is {version}. Look at every message below.", file=sys.stderr)
 

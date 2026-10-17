@@ -47,3 +47,11 @@ if (process.env.CALE_ALLOW_NET !== "1") {
     };
   }
 }
+
+// 3. End when the program that started us ends (cale/chat.py sets CALE_PARENT_PID).
+if (process.env.CALE_PARENT_PID) {
+  const parent = parseInt(process.env.CALE_PARENT_PID, 10);
+  setInterval(() => {
+    try { process.kill(parent, 0); } catch (e) { if (e.code === "ESRCH") process.exit(0); }
+  }, 2000).unref();
+}

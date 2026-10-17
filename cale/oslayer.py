@@ -500,14 +500,15 @@ NO_SCREEN_MESSAGES = (b"failed to open display", b"cannot open display", b"canno
                       b"failed to connect to the wayland display", b"no protocol specified")
 
 
-def ask_allow(app, replacing=False, seconds=120):
-    """Ask the person at the computer: allow this app to use Cale? True only for a clear yes. None if the dialog tool found no screen to show it on.
-    The app name travels as data, never inside script text."""
-    extra = "This app already has a key. Allowing replaces it." if replacing else ""
+def ask_allow(app, replacing=False, seconds=120, site=False):
+    """Ask the person at the computer: allow this app (or website, site=True) to use Cale? True only for a clear yes.
+    None if the dialog tool found no screen to show it on. The name travels as data, never inside script text."""
+    kind = "website" if site else "app"
+    extra = f"This {kind} already has a key. Allowing replaces it." if replacing else ""
     title = "Cale"
-    body = (f'Allow "{app}" to use Cale on this computer?\n\n'
-            "Cale lets apps use AI that runs on this computer. What you type stays here.\n"
-            "If you did not just open this app, choose Don't Allow.")
+    body = (f'Allow the {kind} "{app}" to use Cale on this computer?\n\n'
+            f"Cale lets {kind}s use AI that runs on this computer. What you type stays here.\n"
+            f"If you did not just open this {kind}, choose Don't Allow.")
     if extra:
         body += "\n\n" + extra
     if MAC:
