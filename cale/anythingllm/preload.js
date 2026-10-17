@@ -3,11 +3,15 @@
 // 2. Who may talk to the chat server: only the window program, and nothing from a web page in a browser:
 //      a. the Host header must be 127.0.0.1:<port> or localhost:<port>  (stops DNS rebinding);
 //      b. an Origin header, if there is one, must be the server's own address (no cross-origin use; no CORS headers are sent by us);
-//      c. a per-launch secret: the request must carry the cookie cale_chat=<token>. The window program opens /?t=<token> once;
-//         the server then sets that cookie (HttpOnly, SameSite=Strict). Checks run at the http.Server 'request' and 'upgrade'
-//         events, before express sees anything.
-//    Settings from cale/chat.py: CALE_CHAT_TOKEN, CALE_CHAT_MAIN_PORT (the chat server: all three checks),
-//    CALE_CHAT_COLLECTOR_PORT (the document reader: Host and Origin checks only; the chat server calls it).
+//      c. two secrets. The request must carry the cookie cale_chat=<cookie secret> (the cookie is what counts). The window program
+//         gets the cookie by opening /?t=<one-time code> ONCE: the first GET/HEAD with the right code sets the cookie and spends
+//         the code. A request without the cookie that carries ?t= (even the right, spent code) gets 403, so a leaked address is
+//         worth nothing after the window has opened it. The cookie is HttpOnly, SameSite=Strict, with no Expires (it ends with the
+//         window). It has no __Host- prefix on purpose: that prefix needs the Secure flag, and Secure cookies need https, but this
+//         is plain http on the loopback address. Checks run at the http.Server 'request' and 'upgrade' events, before express.
+//    Settings from cale/chat.py: CALE_CHAT_TOKEN (the one-time code, new for every start of the server), CALE_CHAT_COOKIE (the
+//    cookie secret, the same for every restart of the server within one launch of cale.chat, so an open window keeps working),
+//    CALE_CHAT_MAIN_PORT (the chat server: all checks), CALE_CHAT_COLLECTOR_PORT (the document reader: Host and Origin only).
 // 3. Nothing leaves this computer: connections to any address except this computer are refused at the socket layer
 //    (CALE_ALLOW_NET=1 lifts this, for tests). The purpose is privacy: what the person types stays here. It is not a wall
 //    against an attacker who runs code inside this process. Native add-ons (onnxruntime, lancedb, prisma) open sockets
@@ -32,7 +36,9 @@ net.Server.prototype.listen = function (...a) {
 };
 
 // ---- 2. who may talk to the server ------------------------------------------------------------------------------------
-const TOKEN = process.env.CALE_CHAT_TOKEN || "";
+const TOKEN = process.env.CALE_CHAT_TOKEN || "";                 // the one-time code
+const COOKIE = process.env.CALE_CHAT_COOKIE || TOKEN;            // the cookie secret
+let spent = false;                                               // the one-time code has been used
 const MAIN_PORT = parseInt(process.env.CALE_CHAT_MAIN_PORT || "0", 10);
 const COLLECTOR_PORT = parseInt(process.env.CALE_CHAT_COLLECTOR_PORT || "0", 10);
 
@@ -57,10 +63,13 @@ function judge(req, port, needToken) {
   const origin = req.headers.origin;
   if (origin !== undefined && origin !== `http://127.0.0.1:${port}` && origin !== `http://localhost:${port}` && !(!needToken && origin === `http://0.0.0.0:${port}`)) return { why: "wrong origin" };
   if (!needToken) return null;
-  if (same(cookieOf(req, "cale_chat"), TOKEN)) return null;
+  if (same(cookieOf(req, "cale_chat"), COOKIE)) return null;                    // the cookie counts, with or without ?t=
   let t = "";
   try { t = new URL(req.url, "http://x").searchParams.get("t") || ""; } catch { /* no query */ }
-  if (t && same(t, TOKEN) && (req.method === "GET" || req.method === "HEAD")) return { setCookie: true };
+  if (!spent && t && same(t, TOKEN) && (req.method === "GET" || req.method === "HEAD")) {
+    spent = true;                                                                // one use only
+    return { setCookie: true };
+  }
   return { why: "no key" };
 }
 
@@ -83,7 +92,7 @@ http.Server.prototype.emit = function (event, req, resOrSocket) {
         return true;
       }
       if (verdict && verdict.setCookie && event === "request") {
-        resOrSocket.setHeader("Set-Cookie", `cale_chat=${TOKEN}; HttpOnly; SameSite=Strict; Path=/`);
+        resOrSocket.setHeader("Set-Cookie", `cale_chat=${COOKIE}; HttpOnly; SameSite=Strict; Path=/`);
       }
     }
   }

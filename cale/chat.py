@@ -187,9 +187,10 @@ class Holder(threading.Thread):
 
 # --- the servers ------------------------------------------------------------------------------
 class Servers:
-    def __init__(self, node, model_id, key, port=None, token=None):
+    def __init__(self, node, model_id, key, port=None, cookie=None):
         self.node, self.model_id, self.key = node, model_id, key
-        self.token = token or secrets.token_urlsafe(24)
+        self.token = secrets.token_urlsafe(24)                    # the one-time code in the window's first address: new for every start
+        self.cookie = cookie or secrets.token_urlsafe(24)         # the cookie secret: kept across restarts, so an open window keeps working
         self.port = port or int(os.environ.get("CALE_CHAT_PORT") or 0) or free_port()
         self.collector_port = free_port()
         self.procs = []
@@ -208,7 +209,7 @@ class Servers:
             GENERIC_OPEN_AI_MODEL_PREF=self.model_id, GENERIC_OPEN_AI_MODEL_TOKEN_LIMIT=str(CONTEXT_TOKENS),
             GENERIC_OPEN_AI_API_KEY=self.key, GENERIC_OPEN_AI_MAX_TOKENS=str(GOALS["max_tokens"]),
             EMBEDDING_ENGINE="native", VECTOR_DB="lancedb", CALE_PARENT_PID=str(os.getpid()),
-            CALE_CHAT_TOKEN=self.token, CALE_CHAT_MAIN_PORT=str(self.port), CALE_CHAT_COLLECTOR_PORT=str(self.collector_port))
+            CALE_CHAT_TOKEN=self.token, CALE_CHAT_COOKIE=self.cookie, CALE_CHAT_MAIN_PORT=str(self.port), CALE_CHAT_COLLECTOR_PORT=str(self.collector_port))
         return e
 
     def start(self):
@@ -237,7 +238,7 @@ class Servers:
 
     def request(self, path, body=None, timeout=3):
         """A call to the chat server, with the cookie it wants (its own calls need the secret too)."""
-        req = urllib.request.Request(f"http://{paths.HOST}:{self.port}{path}", headers={"Cookie": f"cale_chat={self.token}"},
+        req = urllib.request.Request(f"http://{paths.HOST}:{self.port}{path}", headers={"Cookie": f"cale_chat={self.cookie}"},
                                      data=None if body is None else json.dumps(body).encode())
         if body is not None:
             req.add_header("Content-Type", "application/json")
@@ -310,9 +311,11 @@ def main():
             if holder.id and holder.id != servers.model_id:  # Cale gave the chat a new name (it restarted): start the servers again with it
                 log("chat object changed; restarting")
                 servers.stop()
-                servers = Servers(servers.node, holder.id, servers.key, port=servers.port, token=servers.token)     # same port: the open window keeps working
+                servers = Servers(servers.node, holder.id, servers.key, port=servers.port, cookie=servers.cookie)     # same port and cookie secret: the open window keeps working
                 servers.start()
                 servers.wait_ready()
+                servers.ensure_workspace()
+                say_ready(servers.port, servers.token)             # a new one-time code; the window program reloads its page with it
             if not servers.alive():
                 print("The chat window server stopped. See " + str(paths.LOGS / "chat.log"), file=sys.stderr, flush=True)
                 return 1

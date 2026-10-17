@@ -242,6 +242,10 @@ namespace CaleHost
         Process server;
         string url = "";
         string pending = "";
+        string token = "";
+        string tokenUrl = "";            // the first address (it carries a one-time secret) once it has been used
+        string cleanUrl = "";
+        bool tokenSpent = false;
         bool ready = false;
         bool webFailed = false;
         bool closing = false;
@@ -309,6 +313,7 @@ namespace CaleHost
                 s.IsStatusBarEnabled = false;
                 s.IsZoomControlEnabled = false;
                 s.IsBuiltInErrorPageEnabled = false;
+                try { s.AreBrowserAcceleratorKeysEnabled = false; } catch (Exception) { }      // no F5 reload of a spent address
                 web.CoreWebView2.NewWindowRequested += OnNewWindow;
                 web.CoreWebView2.NavigationStarting += OnNavigating;
                 web.CoreWebView2.NavigationCompleted += OnNavigated;
@@ -369,12 +374,13 @@ namespace CaleHost
             string[] words = e.Data.Substring(6).Trim().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
             if (words.Length == 0) return;
             string port = words[0];
-            string token = words.Length > 1 ? words[1] : "";          // optional per-launch secret
+            string tok = words.Length > 1 ? words[1] : "";          // optional per-launch secret
             try
             {
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    url = opts.UrlTemplate.Replace("{port}", port).Replace("{token}", token);
+                    url = opts.UrlTemplate.Replace("{port}", port).Replace("{token}", tok);
+                    token = (opts.UrlTemplate.IndexOf("{token}") >= 0) ? tok : "";
                     ready = true;
                     Load();
                 });
@@ -387,6 +393,7 @@ namespace CaleHost
             if (!ready || url == "") return;
             if (webFailed)
             {
+                if (token != "") { NeedWebView(); return; }        // a secret address never goes to a browser
                 if (pending == url) return;
                 pending = url;
                 OpenInEdge(url);
@@ -395,7 +402,25 @@ namespace CaleHost
             try { web.CoreWebView2.Navigate(url); } catch (Exception) { }
         }
 
-        // Fallback when the web engine is missing: Edge's app mode has no address bar either.
+        // The chat address carries a secret. It must not reach a browser (history, command line, extensions).
+        // So: stop the server, say so in plain words, offer the official download page (no secret in it), and quit.
+        void NeedWebView()
+        {
+            if (closing) return;
+            closing = true;
+            StopServer();
+            Hide();
+            DialogResult r = MessageBox.Show(
+                opts.Title + " needs a Windows part called WebView2 to show its window.\r\n\r\nInstall it from Microsoft, then open " + opts.Title + " again.\r\n\r\nOpen the Microsoft page now?",
+                opts.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (r == DialogResult.Yes)
+            {
+                try { Process.Start("https://developer.microsoft.com/microsoft-edge/webview2/"); } catch (Exception) { }
+            }
+            Close();
+        }
+
+        // Fallback when the web engine is missing (only for addresses with no secret): Edge's app mode has no address bar either.
         void OpenInEdge(string u)
         {
             try { Process.Start("msedge.exe", "--app=" + u); }
@@ -405,7 +430,16 @@ namespace CaleHost
         // The page's server may take a moment to start. Try again a few times, quietly.
         void OnNavigated(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
-            if (e.IsSuccess) return;
+            if (e.IsSuccess)
+            {
+                if (token != "" && !tokenSpent)
+                {
+                    tokenSpent = true;                                   // the server accepts the secret once, then uses a cookie
+                    tokenUrl = url;
+                    try { cleanUrl = new Uri(url).GetLeftPart(UriPartial.Path); } catch (Exception) { cleanUrl = ""; }
+                }
+                return;
+            }
             retries++;
             if (retries <= 40) retryTimer.Start();
         }
@@ -413,6 +447,14 @@ namespace CaleHost
         // Links to other sites open in the browser, not inside this window.
         void OnNavigating(object sender, CoreWebView2NavigationStartingEventArgs e)
         {
+            if (tokenSpent && cleanUrl != "" && e.Uri == tokenUrl)
+            {
+                // A reload of the first address would send the spent secret and get a blank refusal. Use the cookie instead.
+                e.Cancel = true;
+                string go = cleanUrl;
+                BeginInvoke((MethodInvoker)delegate { try { web.CoreWebView2.Navigate(go); } catch (Exception) { } });
+                return;
+            }
             try
             {
                 Uri target = new Uri(e.Uri);
