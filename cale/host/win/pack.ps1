@@ -28,6 +28,7 @@ function Build-Host($csc, $hostDir, $icon, $binDir) {
     Invoke-Csc $csc $args1
     $args2 = @("/target:winexe", "/platform:anycpu", "/win32icon:$icon", "/out:$(Join-Path $binDir 'CaleSetup.exe')",
         "/r:System.Windows.Forms.dll", "/r:System.Drawing.dll", "/r:Microsoft.CSharp.dll",
+        "/resource:$(Join-Path $hostDir 'carrot.png'),carrot.png",
         (Join-Path $hostDir "CaleSetup.cs"))
     Invoke-Csc $csc $args2
     Copy-Item (Join-Path $lib "WebView2Loader.dll") (Join-Path $binDir "WebView2Loader.dll") -Force

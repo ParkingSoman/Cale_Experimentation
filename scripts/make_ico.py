@@ -20,7 +20,7 @@ SIZES = (256, 128, 64, 32, 16)                    # every size is a power of two
 
 
 def read_png(data):
-    """Read the RGBA PNG that make_icon writes (8-bit, filter 0 on every row). Returns (width, height, rows of RGBA bytes)."""
+    """Read an 8-bit RGBA PNG without interlacing (any row filter). Returns (width, height, rows of RGBA bytes)."""
     if data[:8] != b"\x89PNG\r\n\x1a\n":
         raise ValueError("not a PNG")
     pos, idat, w = 8, b"", 0
@@ -35,13 +35,34 @@ def read_png(data):
             idat += body
         pos += 12 + n
     raw = zlib.decompress(idat)
-    stride = w * 4 + 1
-    rows = []
+    stride, bpp = w * 4, 4
+    rows, prev = [], bytearray(stride)
+    pos = 0
     for y in range(h):
-        line = raw[y * stride:(y + 1) * stride]
-        if line[0] != 0:
-            raise ValueError("only PNG rows with filter 0 are supported")
-        rows.append(line[1:])
+        ftype = raw[pos]
+        line = bytearray(raw[pos + 1:pos + 1 + stride])
+        pos += 1 + stride
+        if ftype == 1:                                  # Sub
+            for i in range(bpp, stride):
+                line[i] = (line[i] + line[i - bpp]) & 255
+        elif ftype == 2:                                # Up
+            line = bytearray((x + u) & 255 for x, u in zip(line, prev))
+        elif ftype == 3:                                # Average
+            for i in range(stride):
+                a_ = line[i - bpp] if i >= bpp else 0
+                line[i] = (line[i] + ((a_ + prev[i]) >> 1)) & 255
+        elif ftype == 4:                                # Paeth
+            for i in range(stride):
+                a_ = line[i - bpp] if i >= bpp else 0
+                b_ = prev[i]
+                c_ = prev[i - bpp] if i >= bpp else 0
+                pa, pb, pc = abs(b_ - c_), abs(a_ - c_), abs(a_ + b_ - 2 * c_)
+                pred = a_ if pa <= pb and pa <= pc else (b_ if pb <= pc else c_)
+                line[i] = (line[i] + pred) & 255
+        elif ftype != 0:
+            raise ValueError("unknown PNG filter")
+        rows.append(bytes(line))
+        prev = line
     return w, h, rows
 
 

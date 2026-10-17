@@ -256,14 +256,14 @@ namespace CaleHost
             ClientSize = new Size(o.Width, o.Height);
             MinimumSize = SizeFromClientSize(new Size(o.MinWidth, o.MinHeight));
             StartPosition = FormStartPosition.CenterScreen;
-            BackColor = Color.FromArgb(247, 245, 238);
+            BackColor = Color.FromArgb(255, 241, 214);
             if (!string.IsNullOrEmpty(o.Icon) && File.Exists(o.Icon))
             {
                 try { Icon = new Icon(o.Icon); } catch (Exception) { }
             }
             web = new WebView2();
             web.Dock = DockStyle.Fill;
-            web.DefaultBackgroundColor = Color.FromArgb(247, 245, 238);
+            web.DefaultBackgroundColor = Color.FromArgb(255, 241, 214);
             Controls.Add(web);
             retryTimer = new System.Windows.Forms.Timer();
             retryTimer.Interval = 500;

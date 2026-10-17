@@ -105,32 +105,52 @@ def size_mb(p):
 
 
 def make_pictures(out_dir):
-    """The kale icon (scripts/build_installer.py draws it) and a wide logo with the name next to it."""
-    import build_installer
-    icon = out_dir / "kale-icon.png"
-    build_installer.make_icon(icon, glyph="kale")
-    wide = out_dir / "kale-wordmark.png"
+    """Pictures from the mascot (cale/brand/carrot.svg): the app icon (sky tile), the carrot, and wide logos (carrot plus the name).
+    cale/host/mac/MascotIcon.swift draws them on a Mac. Elsewhere the ready-made cale/brand/carrot.png is used."""
+    brand = ROOT / "cale" / "brand"
+    svg = brand / "carrot.svg"
+    tool = out_dir / "MascotIcon"
+
+    def draw(size, name, bg=None):
+        dest = out_dir / name
+        if tool.exists():
+            subprocess.run([str(tool), str(svg), str(dest), str(size)] + ([bg] if bg else []), check=True)
+        else:
+            try:
+                from PIL import Image
+                Image.open(brand / "carrot.png").convert("RGBA").resize((size, size), Image.LANCZOS).save(dest)
+            except ImportError:
+                shutil.copyfile(brand / "carrot.png", dest)
+        return dest
+
+    if sys.platform == "darwin" and shutil.which("swiftc"):
+        subprocess.run(["swiftc", "-O", "-o", str(tool), str(ROOT / "cale" / "host" / "mac" / "MascotIcon.swift")], check=True, capture_output=True)
+    icon = draw(256, "icon.png", "8fd3f4")
+    carrot = draw(512, "carrot.png")
+    wide, wide_dark = out_dir / "wordmark.png", out_dir / "wordmark-on-dark.png"
+    glyph = draw(91, "glyph.png")
     try:
         from PIL import Image, ImageDraw, ImageFont
         h, w = 99, 704
-        canvas = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-        glyph = Image.open(icon).convert("RGBA").resize((h - 8, h - 8), Image.LANCZOS)
-        canvas.paste(glyph, (0, 4), glyph)
         font = None
-        for f in ("/System/Library/Fonts/Helvetica.ttc", "/System/Library/Fonts/SFNS.ttf", "C:/Windows/Fonts/segoeuib.ttf"):
+        for f in ("/System/Library/Fonts/Supplemental/Arial Rounded Bold.ttf", "/Library/Fonts/Arial Rounded Bold.ttf", "C:/Windows/Fonts/ARLRDBD.TTF",
+                  "/System/Library/Fonts/Helvetica.ttc"):
             try:
                 font = ImageFont.truetype(f, 66)
                 break
             except OSError:
                 continue
-        if font:
-            ImageDraw.Draw(canvas).text((h + 8, h // 2), "Cale", font=font, fill=(47, 93, 80, 255), anchor="lm")
-        canvas.save(wide)
+        g = Image.open(glyph).convert("RGBA")
+        for path, color in ((wide, (59, 35, 20, 255)), (wide_dark, (255, 241, 214, 255))):
+            canvas = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+            canvas.paste(g, (0, 4), g)
+            if font:
+                ImageDraw.Draw(canvas).text((h + 4, h // 2 + 2), "Cale", font=font, fill=color, anchor="lm")
+            canvas.save(path)
     except ImportError:
-        subprocess.run(["sips", "-z", "99", "99", str(icon), "--out", str(wide)], capture_output=True)   # macOS only: the icon alone
-        if not wide.exists():
-            shutil.copyfile(icon, wide)
-    return icon, wide
+        for path in (wide, wide_dark):               # no Pillow: the carrot alone
+            shutil.copyfile(glyph, path)
+    return dict(carrot_svg=svg, carrot_png=carrot, icon=icon, wordmark=wide, wordmark_on_dark=wide_dark)
 
 
 def main():
@@ -170,9 +190,9 @@ def main():
 
     # 1. frontend: rebrand the source, then build
     say("pictures and rebrand")
-    icon, wordmark = make_pictures(work)
+    pictures = make_pictures(work)
     from cale.anythingllm import rebrand
-    rebrand.apply(work / "frontend", icon=icon, wordmark=wordmark)
+    rebrand.apply(work / "frontend", **pictures)
     say("frontend: install and build")
     run(yarn_install, work / "frontend", env)
     run([yarn, "build"], work / "frontend", env)

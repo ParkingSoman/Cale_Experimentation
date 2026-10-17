@@ -96,3 +96,7 @@ Removed: the Mac test install `cale-app-home` (venv only; its model was hard-lin
 ## Quant quality test (2026-10-15)
 
 Downloaded one at a time into the scratchpad, measured, deleted: Q8_0 (7.4 GB, twice), Q4_0 (4.4 GB, twice), Q4_K_M (about 5 GB, twice). Free space never went below 17 GB. Nothing of these is kept. Removed: the llama.cpp b11558 clone and build in the scratchpad (0.27 GB, scratchpad only).
+
+## Chat window bundle (2026-10-17)
+
+Kept in the scratchpad (not in the repo): `scratchpad/chatbundle` (0.8 GB, output of `scripts/build_chat.py`, can be rebuilt in about 1 minute with a warm yarn cache), `scratchpad/anythingllm-src` (source only, about 0.1 GB), `scratchpad/node22`, `scratchpad/yarnbox` (small). Removed: all node_modules of the AnythingLLM source tree (about 2 GB), the Chromium that puppeteer fetched into `~/.cache/puppeteer` (0.26 GB), the build work folder, the test data folder. The yarn download cache (`~/Library/Caches/Yarn`) was not touched.

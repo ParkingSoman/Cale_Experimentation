@@ -18,109 +18,78 @@ using System.Windows.Forms;
 
 namespace CaleHost
 {
+    // Cale's colours (see cale/brand/README.md).
     static class Garden
     {
-        public static readonly Color Kale = Color.FromArgb(47, 93, 80);           // #2f5d50
-        public static readonly Color Leaf = Color.FromArgb(90, 148, 102);
-        public static readonly Color Cream = Color.FromArgb(247, 245, 238);      // #f7f5ee
-        public static readonly Color Soil = Color.FromArgb(110, 79, 56);
-        public static readonly Color Carrot = Color.FromArgb(232, 130, 43);
+        public static readonly Color Carrot = Color.FromArgb(245, 138, 31);       // #f58a1f  buttons, progress bar
+        public static readonly Color Brown = Color.FromArgb(59, 35, 20);          // #3b2314  text and outlines
+        public static readonly Color Cream = Color.FromArgb(255, 241, 214);       // #fff1d6  window background
+        public static readonly Color Soil = Color.FromArgb(138, 90, 59);          // #8a5a3b  the ground
+        public static readonly Color Track = Color.FromArgb(255, 224, 168);       // the empty part of the bar
     }
 
-    // A small garden: soil, a stem and leaves that grow with Growth (0 to 1). When Ripe, a carrot shows beside it.
+    // The carrot rises out of the soil as Growth goes from 0 to 1. The soil is drawn over its lower part.
     class GardenView : Control
     {
         double growth = 0;
-        bool ripe = false;
+        Image carrot;
 
         public GardenView()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
+            try
+            {
+                using (Stream s = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("carrot.png"))
+                {
+                    if (s != null) carrot = Image.FromStream(s);
+                }
+            }
+            catch (Exception) { }
         }
 
         public double Growth { get { return growth; } set { growth = value; Invalidate(); } }
-        public bool Ripe { get { return ripe; } set { ripe = value; Invalidate(); } }
-
-        static GraphicsPath Rounded(float x, float y, float w, float h, float r)
-        {
-            GraphicsPath p = new GraphicsPath();
-            p.AddArc(x, y, 2 * r, 2 * r, 180, 90);
-            p.AddArc(x + w - 2 * r, y, 2 * r, 2 * r, 270, 90);
-            p.AddArc(x + w - 2 * r, y + h - 2 * r, 2 * r, 2 * r, 0, 90);
-            p.AddArc(x, y + h - 2 * r, 2 * r, 2 * r, 90, 90);
-            p.CloseFigure();
-            return p;
-        }
+        public bool Ripe { get { return growth >= 1; } set { } }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
             g.Clear(Garden.Cream);
             float k = Height / 200f;                                  // drawn for a 440 x 200 box; scale to the real size
             g.ScaleTransform(k, k);
             float w = Width / k, h = 200f;
-            // Drawing is done in "up is bigger" numbers like the Mac version. Up(v) turns one into a screen position.
-            Func<float, float> up = delegate(float v) { return h - v; };
-
+            float soilTop = h - 34f;
+            float size = 176f;                                        // the carrot picture is square
+            float gr = (float)Math.Max(0.0, Math.Min(1.0, growth));
+            if (carrot != null)
+            {
+                float y = soilTop - size * (0.02f + 0.98f * gr);      // a hint of leaf shows at the start
+                Region old = g.Clip;
+                g.SetClip(new RectangleF(0, 0, w, soilTop + 4));
+                g.DrawImage(carrot, (w - size) / 2f, y, size, size);
+                g.Clip = old;
+            }
             using (SolidBrush soil = new SolidBrush(Garden.Soil))
-            using (GraphicsPath sp = Rounded(w * 0.12f, up(h * 0.14f), w * 0.76f, h * 0.14f, 10))
-                g.FillPath(soil, sp);
-
-            float baseX = w * (ripe ? 0.38f : 0.5f), baseY = h * 0.13f;
-            float top = baseY + (h * 0.62f) * (float)growth;
-            using (Pen stem = new Pen(Garden.Leaf, 5))
+            using (Pen line = new Pen(Garden.Brown, 3f))
             {
-                stem.StartCap = LineCap.Round;
-                stem.EndCap = LineCap.Round;
-                g.DrawLine(stem, baseX, up(baseY), baseX, up(top));
-            }
-            // Kale leaves: pairs at fixed spacing along the stem. Each pair unfurls once the stem reaches it.
-            float spacing = (h * 0.62f - 14) / 6;
-            using (SolidBrush light = new SolidBrush(Garden.Leaf))
-            using (SolidBrush dark = new SolidBrush(Garden.Kale))
-            {
-                for (int i = 0; i < 6; i++)
+                RectangleF r = new RectangleF(w * 0.1f, soilTop, w * 0.8f, 40f);
+                using (GraphicsPath p = new GraphicsPath())
                 {
-                    float y = baseY + 14 + i * spacing;
-                    if (top < y) continue;
-                    float unfurl = Math.Min(1f, (top - y) / 30f);
-                    float size = (30 - 3 * i) * unfurl;
-                    for (int sd = 0; sd < 2; sd++)
-                    {
-                        float side = sd == 0 ? -1f : 1f;
-                        using (GraphicsPath p = new GraphicsPath())
-                        {
-                            p.AddBezier(baseX, up(y),
-                                baseX + side * size * 0.4f, up(y + size * 0.9f),
-                                baseX + side * size * 1.3f, up(y + size * 1.0f),
-                                baseX + side * size * 1.6f, up(y + size * 0.5f));
-                            p.AddBezier(baseX + side * size * 1.6f, up(y + size * 0.5f),
-                                baseX + side * size * 1.2f, up(y - size * 0.3f),
-                                baseX + side * size * 0.4f, up(y - size * 0.2f),
-                                baseX, up(y));
-                            p.CloseFigure();
-                            g.FillPath(i % 2 == 0 ? light : dark, p);
-                        }
-                    }
-                }
-            }
-            if (ripe)
-            {
-                float cx = w * 0.68f;
-                using (SolidBrush carrot = new SolidBrush(Garden.Carrot))
-                    g.FillPolygon(carrot, new PointF[] { new PointF(cx - 16, up(baseY + 70)), new PointF(cx + 16, up(baseY + 70)), new PointF(cx, up(baseY - 2)) });
-                using (SolidBrush leaf = new SolidBrush(Garden.Leaf))
-                {
-                    float[] dxs = new float[] { -10f, 0f, 10f };
-                    foreach (float dx in dxs)
-                        g.FillPolygon(leaf, new PointF[] { new PointF(cx + dx * 0.4f, up(baseY + 70)), new PointF(cx + dx * 1.6f, up(baseY + 100)), new PointF(cx + dx * 0.4f + 5, up(baseY + 70)) });
+                    float d = 24f;
+                    p.AddArc(r.X, r.Y, d, d, 180, 90);
+                    p.AddArc(r.Right - d, r.Y, d, d, 270, 90);
+                    p.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
+                    p.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
+                    p.CloseFigure();
+                    g.FillPath(soil, p);
+                    g.DrawPath(line, p);
                 }
             }
         }
     }
 
-    // A progress bar in the garden colours.
+    // A progress bar: carrot orange with a brown outline.
     class Meter : Control
     {
         double value = 0;
@@ -132,11 +101,11 @@ namespace CaleHost
 
         public double Value { get { return value; } set { this.value = value; Invalidate(); } }
 
-        static GraphicsPath Pill(float w, float h)
+        static GraphicsPath Pill(float x, float y, float w, float h)
         {
             GraphicsPath p = new GraphicsPath();
-            p.AddArc(0, 0, h, h, 90, 180);
-            p.AddArc(w - h, 0, h, h, 270, 180);
+            p.AddArc(x, y, h, h, 90, 180);
+            p.AddArc(x + w - h, y, h, h, 270, 180);
             p.CloseFigure();
             return p;
         }
@@ -146,14 +115,18 @@ namespace CaleHost
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.Clear(Garden.Cream);
-            float h = Height - 1, w = Width - 1;
-            using (SolidBrush track = new SolidBrush(Color.FromArgb(222, 219, 204)))
-            using (GraphicsPath p = Pill(w, h))
-                g.FillPath(track, p);
+            float pen = Math.Max(2f, Height / 5f);
+            float h = Height - pen, w = Width - pen, o = pen / 2f;
             float fill = Math.Max(h, w * (float)Math.Min(1.0, value / 100.0));
-            using (SolidBrush bar = new SolidBrush(Garden.Leaf))
-            using (GraphicsPath p = Pill(fill, h))
+            using (SolidBrush track = new SolidBrush(Garden.Track))
+            using (GraphicsPath p = Pill(o, o, w, h))
+                g.FillPath(track, p);
+            using (SolidBrush bar = new SolidBrush(Garden.Carrot))
+            using (GraphicsPath p = Pill(o, o, fill, h))
                 g.FillPath(bar, p);
+            using (Pen line = new Pen(Garden.Brown, pen))
+            using (GraphicsPath p = Pill(o, o, w, h))
+                g.DrawPath(line, p);
         }
     }
 
@@ -195,8 +168,8 @@ namespace CaleHost
 
             title = new Label();
             title.Text = "Planting Cale";
-            title.Font = new Font("Segoe UI Semibold", 18f, FontStyle.Regular, GraphicsUnit.Point);
-            title.ForeColor = Garden.Kale;
+            title.Font = new Font("Segoe UI Black", 17f, FontStyle.Regular, GraphicsUnit.Point);
+            title.ForeColor = Garden.Brown;
             title.TextAlign = ContentAlignment.MiddleCenter;
             Place(title, 20, 246, 480, 40);
             Controls.Add(title);
@@ -204,22 +177,24 @@ namespace CaleHost
             detail = new Label();
             detail.Text = "This takes a few minutes. You can keep using your computer.";
             detail.Font = new Font("Segoe UI", 10.5f, FontStyle.Regular, GraphicsUnit.Point);
-            detail.ForeColor = Color.FromArgb(89, 89, 89);
+            detail.ForeColor = Garden.Brown;
             detail.TextAlign = ContentAlignment.MiddleCenter;
             Place(detail, 30, 292, 460, 28);
             Controls.Add(detail);
 
             bar = new Meter();
-            Place(bar, 60, 338, 400, 12);
+            Place(bar, 60, 336, 400, 16);
             Controls.Add(bar);
 
             button = new Button();
             button.Text = "Start chatting";
             button.Font = new Font("Segoe UI Semibold", 10.5f, FontStyle.Regular, GraphicsUnit.Point);
             button.FlatStyle = FlatStyle.Flat;
-            button.FlatAppearance.BorderSize = 0;
-            button.BackColor = Garden.Kale;
-            button.ForeColor = Color.White;
+            button.FlatAppearance.BorderSize = 3;
+            button.FlatAppearance.BorderColor = Garden.Brown;
+            button.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 160, 64);
+            button.BackColor = Garden.Carrot;
+            button.ForeColor = Garden.Brown;
             button.Cursor = Cursors.Hand;
             Place(button, 175, 336, 170, 42);
             button.Visible = false;
@@ -305,7 +280,6 @@ namespace CaleHost
                 finished = true;
                 bar.Value = 100;
                 garden.Growth = 1;
-                garden.Ripe = true;
                 title.Text = "You are all set";
                 detail.Text = "Cale is ready on this computer. Apps made for Cale will just work.";
                 bar.Visible = false;

@@ -83,13 +83,13 @@ namespace CaleHost
             ControlBox = false;
             StartPosition = FormStartPosition.CenterScreen;
             ClientSize = new Size((int)(380 * k), (int)(110 * k));
-            BackColor = Color.FromArgb(247, 245, 238);
+            BackColor = Color.FromArgb(255, 241, 214);
             try { Icon = Icon.ExtractAssociatedIcon(exePath); } catch (Exception) { }
 
             title = new Label();
             title.Text = "Getting " + name + " ready";
             title.Font = new Font("Segoe UI Semibold", 13f, FontStyle.Regular, GraphicsUnit.Point);
-            title.ForeColor = Color.FromArgb(47, 93, 80);
+            title.ForeColor = Color.FromArgb(59, 35, 20);
             title.TextAlign = ContentAlignment.MiddleCenter;
             title.SetBounds((int)(10 * k), (int)(22 * k), (int)(360 * k), (int)(32 * k));
             Controls.Add(title);
@@ -97,7 +97,7 @@ namespace CaleHost
             detail = new Label();
             detail.Text = "One moment.";
             detail.Font = new Font("Segoe UI", 10f, FontStyle.Regular, GraphicsUnit.Point);
-            detail.ForeColor = Color.FromArgb(89, 89, 89);
+            detail.ForeColor = Color.FromArgb(59, 35, 20);
             detail.TextAlign = ContentAlignment.MiddleCenter;
             detail.SetBounds((int)(10 * k), (int)(58 * k), (int)(360 * k), (int)(26 * k));
             Controls.Add(detail);

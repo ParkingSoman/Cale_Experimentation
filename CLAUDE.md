@@ -27,7 +27,7 @@ Success = (app types that work well) x (consumer environments each one runs in).
 | Core message | Same app code, different operating systems, Cale picks the model for the app's goals. The app feels the same on a recent Mac and a ten-year-old laptop. |
 | No commands in the demo | The presenter types nothing. Anything that needs a command is a gap to fix. |
 | Browser checks | Use Claude in Chrome only. |
-| Cale is a real program (decided 2026-10-17) | Cale has its own windows and its own chat, like ChatGPT or Claude. No localhost page, no address bar, no console window. Garden theme (kale leaf; carrot as mascot) on Cale's own screens and chat only. |
+| Cale is a real program (decided 2026-10-17) | Cale has its own windows and its own chat, like ChatGPT or Claude. No localhost page, no address bar, no console window. Cartoony, down-to-earth look (not sci-fi): the mascot is a carrot in sunglasses, in orange and cream. The green kale look is retired. Tokens and rules: `cale/brand/README.md`. It applies to Cale's own screens and chat only. |
 | Cale's chat base | AnythingLLM (MIT licence), rebranded as Cale. Not Open WebUI: its licence allows removing its branding only for 50 or fewer users. Open WebUI stays in the funding pitch as an unchanged third-party app. |
 | Demo story | Install Cale once, chat at once (no sign-up, no usage limits). Quick Notes is a downloaded desktop app. Rewrite is a real website. All three use the same AI on this computer. |
 | Start state | The Cale installer and the Quick Notes installer are already downloaded. The install itself is a recorded time-lapse. |

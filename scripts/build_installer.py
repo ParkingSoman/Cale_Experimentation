@@ -202,10 +202,18 @@ INFO_PLIST = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 
+def render_mascot(path, size=1024, bg="8fd3f4"):
+    """Cale's icon: the carrot in sunglasses (cale/brand/carrot.svg) on a sky-blue rounded square. Drawn by macOS, so this runs on the Mac
+    that builds every installer. bg=None gives a see-through picture."""
+    exe = compile_mac("MascotIcon")
+    subprocess.run([str(exe), str(ROOT / "cale" / "brand" / "carrot.svg"), str(path), str(size)] + ([bg] if bg else []), check=True)
+
+
 def make_icon(path, bg=(47, 93, 80), fg=(247, 245, 238), glyph="ring"):
-    """A plain icon, drawn with the standard library: a green rounded square with a white ring ("ring")
-    or a kale leaf ("kale": Cale's own icon)."""
-    import math
+    """A plain icon, drawn with the standard library: a coloured rounded square with a white ring (the demo apps).
+    glyph="carrot" (or the old name "kale") gives Cale's own icon, the mascot (see render_mascot)."""
+    if glyph in ("kale", "carrot"):
+        return render_mascot(path)
     import struct
     import zlib
     n = 1024
@@ -213,8 +221,6 @@ def make_icon(path, bg=(47, 93, 80), fg=(247, 245, 238), glyph="ring"):
     c = n / 2
     half, r = 452, 190                                              # the square's half width, and the corner radius
     ix = half - r
-    cos45 = sin45 = math.sqrt(0.5)
-    L, W = 300, 175                                                 # the kale leaf: half length, half width
     for y in range(n):
         row = bytearray([0])
         for x in range(n):
@@ -222,16 +228,6 @@ def make_icon(path, bg=(47, 93, 80), fg=(247, 245, 238), glyph="ring"):
             inside = dx <= half and dy <= half and (dx <= ix or dy <= ix or (dx - ix) ** 2 + (dy - ix) ** 2 <= r * r)
             if not inside:
                 row += bytes((0, 0, 0, 0))
-                continue
-            if glyph == "kale":
-                u = ((x - c) * cos45 + (c - y) * sin45) + 20            # along the leaf (up and to the right)
-                v = -(x - c) * sin45 + (c - y) * cos45                  # across the leaf
-                shape = abs(v) <= W * math.sin(math.pi * (u + L) / (2 * L)) if -L <= u <= L else False
-                rib = abs(v) <= 9 and -L - 110 <= u <= L * 0.75            # the stem and the middle vein
-                veins = shape and u > -L * 0.5 and abs(abs(v) - (u + L * 0.5) * 0.42) <= 7 and abs(v) < W * 0.8
-                stem = abs(v) <= 16 and -L - 120 <= u < -L
-                mark = (shape and not (rib or veins)) or stem
-                row += bytes((*fg, 255)) if mark else bytes((*bg, 255))
                 continue
             d = ((x - c) ** 2 + (y - c) ** 2) ** 0.5
             ring = 215 <= d <= 300 and not (x > c and abs(y - c) < 120)      # a "C": a ring with an opening on the right
@@ -256,8 +252,9 @@ def build_mac():
     launcher = app / "Contents" / "MacOS" / "Cale"
     shutil.copy2(compile_mac("Cale"), launcher)               # a real program with its own window (cale/host/mac/Cale.swift)
     launcher.chmod(0o755)
+    shutil.copy2(compile_mac("CaleWindow"), app / "Contents" / "MacOS" / "window")      # Cale turns into the chat window with this (same app, so the Dock shows Cale)
     png = DIST / "mac" / "icon.png"
-    make_icon(png, glyph="kale")
+    make_icon(png, glyph="carrot")
     iconset = DIST / "mac" / "Cale.iconset"
     iconset.mkdir()
     for size in (16, 32, 64, 128, 256, 512, 1024):
@@ -304,6 +301,7 @@ def copy_win_host(dest):
     src = ROOT / "cale" / "host" / "win"
     shutil.rmtree(dest, ignore_errors=True)
     shutil.copytree(src, dest, ignore=shutil.ignore_patterns("__pycache__"))
+    shutil.copy2(ROOT / "cale" / "brand" / "carrot.png", dest / "carrot.png")      # the mascot in the setup window
 
 
 def build_win(arch):

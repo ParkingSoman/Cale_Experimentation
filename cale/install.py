@@ -199,6 +199,32 @@ def copy_runtime(home):
         shutil.copytree(apps, home / "apps", ignore=shutil.ignore_patterns("__pycache__", "data", "node_modules", ".DS_Store"))
 
 
+def chat_bundle_source():
+    """Where the chat window program is (built by scripts/build_chat.py): CALE_CHAT_SRC, else chat/ or dist/chat/ next to cale/. None if absent."""
+    for c in (os.environ.get("CALE_CHAT_SRC"), SRC / "chat", SRC / "dist" / "chat"):
+        if c and (Path(c) / "server" / "index.js").exists():
+            return Path(c)
+    return None
+
+
+def install_chat(home):
+    """Copy Cale's chat window program into <home>/chat. What the person made (<home>/chat-data) is never touched."""
+    src = chat_bundle_source()
+    if src is None:
+        say("(No chat window program in this download: skipping it.)")
+        return False
+    dst = home / "chat"
+    tmp = home / "chat.new"
+    shutil.rmtree(tmp, ignore_errors=True)
+    shutil.copytree(src, tmp, symlinks=True)
+    for link in (tmp / "server" / "storage", tmp / "collector" / "hotdir"):      # made at run time by cale/chat.py, never shipped
+        if link.is_symlink() or link.exists():
+            shutil.rmtree(link) if link.is_dir() and not link.is_symlink() else link.unlink()
+    shutil.rmtree(dst, ignore_errors=True)
+    tmp.rename(dst)
+    return True
+
+
 def install_model(home, backend):
     if backend == "mlx":
         model = home / "models" / "gemma-3n-e4b"
@@ -478,6 +504,10 @@ def main():
     progress("runtime", 2)
     say("Copying the runtime")
     copy_runtime(home)
+
+    progress("chat", 6)
+    say("Setting up the chat window")
+    install_chat(home)
 
     progress("python", 8)
     say("Setting up Python (its own copy, nothing shared with other projects)")
