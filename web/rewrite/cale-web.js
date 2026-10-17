@@ -14,7 +14,7 @@
 
   var DEFAULT_BASE = "http://127.0.0.1:47821";        // 127.0.0.1, not "localhost": Cale refuses any other Host
 
-  /* kind: "missing" (Cale did not answer), "denied", "wait" (asked too soon after a no), "busy", "gone" (the key or the object ended), "failed" */
+  /* kind: "missing" (Cale did not answer), "denied", "blocked" (the person said no to this site: Cale will not ask again until they reset it), "wait" (the question went unanswered too often: the site waits 7 days), "busy", "gone" (the key or the object ended), "failed" */
   function CaleWebError(kind, message, status, body) {
     var e = new Error(message);
     e.name = "CaleWebError";
@@ -28,7 +28,8 @@
     var e = CaleWebError("failed", msg, status, body);
     e.code = code;
     if (code === "denied") e.kind = "denied";
-    else if (code === "asked_recently" || code === "too_many_questions") { e.kind = "wait"; e.retryAfterS = body.error.cale && body.error.cale.retry_after_s; }
+    else if (code === "site_blocked") e.kind = "blocked";
+    else if (code === "asked_recently") { e.kind = "wait"; e.retryAfterS = body.error.cale && body.error.cale.retry_after_s; }
     else if (code === "busy" || code === "already_waiting") e.kind = "busy";
     else if (status === 401 || code === "wrong_origin" || code === "invalid_api_key") e.kind = "gone";
     return e;

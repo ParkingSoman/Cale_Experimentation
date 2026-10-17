@@ -3,7 +3,7 @@
 usage: .venv/bin/python cale/tests/web_origin.py        (no model, no real Cale, no dialog: a stub engine on a spare port, a fresh CALE_HOME)
 Checks: foreign / null / file / http origins are refused; preflight headers; the Allow question shows the site's address;
 a key made for a site works only from that site; an app key does not work from a browser and a site key does not work without its origin;
-one open question per site; cooldown after "Don't Allow"; apps without an Origin behave as before; streamed answers carry the CORS headers.
+one open question per site; Chromium's per-site rules (block, 4 ignores -> 7 days, allow clears, no global limit, forget); apps without an Origin behave as before; streamed answers carry the CORS headers.
 """
 import http.client
 import json
@@ -20,7 +20,7 @@ os.environ["CALE_DEBUG"] = "1"
 os.environ["CALE_AUTO_APPROVE"] = "1"
 os.environ["CALE_WEB_DEV_ORIGINS"] = "http://127.0.0.1:5555"
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from cale import server  # noqa: E402
+from cale import oslayer, paths, server, sites  # noqa: E402
 
 FAIL = []
 SITE, OTHER = "https://rewrite.example.com", "https://other.example.org"
@@ -76,10 +76,10 @@ _real_ask = server.ask_user
 SITE_FLAGS = []                                       # for each question: was it worded as a website question?
 
 
-def recording_ask(app, replacing=False, site=False):
+def recording_ask(app, replacing=False, site=False, outcome=None):
     ASKED.append(app)
     SITE_FLAGS.append(site)
-    return _real_ask(app, replacing, site=site)       # CALE_DEBUG=1 + CALE_AUTO_APPROVE=1: counts as "Allow"
+    return _real_ask(app, replacing, site=site, outcome=outcome)       # CALE_DEBUG=1 + CALE_AUTO_APPROVE=1: counts as "Allow"
 
 
 server.ask_user = recording_ask
@@ -114,8 +114,8 @@ def code(res):
 
 
 def reset_web_state():
-    server.WEB_STATE["until"].clear()
-    server.WEB_STATE["asked"].clear()
+    for o in list(sites.listing()):
+        sites.forget(o)
 
 
 # ---- apps (no Origin) behave as before ----------------------------------------------------------------------------
@@ -233,9 +233,11 @@ GATE = threading.Event()
 ANSWER = {"yes": False}
 
 
-def slow_ask(app, replacing=False, site=False):
+def slow_ask(app, replacing=False, site=False, outcome=None):
     ASKED.append(app)
     GATE.wait(20)
+    if outcome is not None:
+        outcome["how"] = ANSWER.get("how", "allow" if ANSWER["yes"] else "deny")
     return ANSWER["yes"]
 
 
@@ -260,26 +262,141 @@ for _ in range(50):
     time.sleep(0.1)
 check("Don't Allow -> 403 denied with CORS headers", s == 403 and code((s, js)) == "denied" and h.get("access-control-allow-origin") == OTHER, f"{s} {js}")
 s, js, h = call("POST", "/cale/connect", {"wait_s": 0}, origin=OTHER)
-check("cooldown after Don't Allow -> 429 with Retry-After", s == 429 and code((s, js)) == "asked_recently" and int(h.get("retry-after", 0)) > 0, f"{s} {js} {h.get('retry-after')}")
-check("cooldown is 10 minutes", 590 < int(h.get("retry-after", 0)) <= 601, h.get("retry-after"))
-check("cooldown does not block another site", call("POST", "/cale/connect", {"wait_s": 0}, origin=SITE)[0] in (202, 200))
+check("explicit Don't Allow -> 403 site_blocked", s == 403 and code((s, js)) == "site_blocked", f"{s} {js}")
+check("site_blocked message has no technical words", "The person said no to this site" in js["error"]["message"], str(js))
+check("a blocked site does not block another site", call("POST", "/cale/connect", {"wait_s": 0}, origin=SITE)[0] in (202, 200))
 GATE.set()
 time.sleep(0.3)
-server.WEB_STATE["until"][OTHER] = time.time() - 1
+
+# the block is in the file, mode 0600, and survives a restart (a fresh read of the file by a fresh import)
+check("sites file exists with mode 0600", paths.SITES.exists() and (paths.SITES.stat().st_mode & 0o777) == 0o600 or os.name == "nt")
+import importlib  # noqa: E402
+fresh = importlib.reload(sites)
+check("block survives a restart (module reloaded, state read from the file)", fresh.check(OTHER) == ("site_blocked", None), str(fresh.check(OTHER)))
+import subprocess  # noqa: E402
+r = subprocess.run([sys.executable, "-c", "from cale import sites; print(sites.check('%s'))" % OTHER], capture_output=True, text=True,
+                   env={**os.environ}, cwd=str(Path(__file__).resolve().parents[2]))
+check("block is seen by a new process", "site_blocked" in r.stdout, r.stdout + r.stderr)
+sites = fresh
+server.sites = fresh
+check("forget() resets the block", sites.forget("other.example.org") is True and sites.check(OTHER) is None)
+check("forget() of an unknown site is False", sites.forget("never.example.org") is False)
 server.ask_user = recording_ask
 s, js, h = call("POST", "/cale/connect", {"wait_s": 20}, origin=OTHER)
-check("after the cooldown the site may ask again", s == 200, f"{s} {js}")
+check("after forget the site may ask again", s == 200, f"{s} {js}")
 
-# ---- global limit (a site with many sub-domains) -----------------------------------------------------------------------
+# ---- ignored questions: 3 still ask, the 4th gives a 7-day embargo ---------------------------------------------------
 reset_web_state()
-server.ask_user = lambda app, replacing=False, site=False: False
-codes = []
-for i in range(server.WEB_MAX_ASKS + 1):
-    codes.append(call("POST", "/cale/connect", {"wait_s": 20}, origin=f"https://s{i}.evil.example")[0])
-check("many sub-domains: first questions are asked, then 429", codes[:server.WEB_MAX_ASKS] == [403] * server.WEB_MAX_ASKS and codes[-1] == 429, str(codes))
-check("apps are not limited by the web limit", call("POST", "/cale/connect", {"app": "Another App", "wait_s": 20}, key=None)[0] == 403)   # the stub says no: 403, not 429
+IGN = "https://ignore.example.com"
+server.ask_user = slow_ask
+ANSWER.update(yes=False, how="timeout")
+GATE.set()
+seen = []
+for i in range(4):
+    seen.append(call("POST", "/cale/connect", {"wait_s": 20}, origin=IGN)[0])
+check("3 ignored questions are each asked (403 denied for this answer), the 4th too", seen == [403, 403, 403, 403], str(seen))
+s, js, h = call("POST", "/cale/connect", {"wait_s": 0}, origin=IGN)
+ra = js.get("error", {}).get("cale", {}).get("retry_after_s", 0)
+check("after the 4th ignored question: 429 asked_recently", s == 429 and code((s, js)) == "asked_recently", f"{s} {js}")
+check("embargo is about 7 days (retry_after_s ~ 604800)", 604700 < ra <= 604801 and 604700 < int(h.get("retry-after", 0)) <= 604801, f"{ra} {h.get('retry-after')}")
+check("kDefaultIgnoresBeforeBlock = 4 and kDefaultEmbargoDays = 7", sites.DEFAULT_IGNORES_BEFORE_BLOCK == 4 and sites.DEFAULT_EMBARGO_DAYS == 7)
+check("embargo ends after 7 days", sites.check(IGN, now=time.time() + 7 * 86400 + 5) is None)
+sites.record(IGN, "timeout", now=time.time() + 8 * 86400)
+check("an ended embargo starts the count again", sites.listing()[IGN]["ignores"] == 1 and sites.listing()[IGN]["embargo_until"] == 0)
+
+# ---- an allow clears the counters --------------------------------------------------------------------------------------
+reset_web_state()
+for _ in range(3):
+    sites.record(IGN, "timeout")
+check("3 ignores are stored", sites.listing()[IGN]["ignores"] == 3)
+server.ask_user = recording_ask
+s, js, h = call("POST", "/cale/connect", {"wait_s": 20}, origin=IGN)
+check("an allow clears the counters", s == 200 and IGN not in sites.listing(), f"{s} {sites.listing()}")
+for _ in range(3):
+    sites.record(IGN, "timeout")
+check("after an allow, 3 more ignores do not embargo", sites.check(IGN) is None)
+
+# ---- error outcomes do not count ---------------------------------------------------------------------------------------
+reset_web_state()
+for _ in range(10):
+    sites.record(IGN, "error")
+check("error outcomes change nothing", IGN not in sites.listing() and sites.check(IGN) is None)
+server.ask_user = lambda app, replacing=False, site=False, outcome=None: False     # a stub that fails and says nothing
+for _ in range(6):
+    call("POST", "/cale/connect", {"wait_s": 20}, origin=IGN)
+check("a question that fails without an outcome counts for nothing", IGN not in sites.listing(), str(sites.listing()))
+def _boom(app, replacing=False, site=False, outcome=None):
+    raise RuntimeError("x")
+server.ask_user = _boom
+for _ in range(6):
+    call("POST", "/cale/connect", {"wait_s": 20}, origin=IGN)
+check("an exception while asking counts for nothing", IGN not in sites.listing(), str(sites.listing()))
+check("blocked stays blocked when ignores arrive", (sites.record(OTHER, "deny"), sites.record(OTHER, "timeout"), sites.check(OTHER))[2] == ("site_blocked", None))
+
+# ---- no limit across sites (a site with many sub-domains: each gets its own question) --------------------------------
+reset_web_state()
+server.ask_user = lambda app, replacing=False, site=False, outcome=None: (outcome.update(how="timeout") if outcome is not None else None) or False
+codes = [call("POST", "/cale/connect", {"wait_s": 20}, origin=f"https://s{i}.evil.example")[0] for i in range(8)]
+check("many sub-domains: each one gets its own question, no global 429", codes == [403] * 8, str(codes))
+check("each sub-domain has its own record", len(sites.listing()) == 8)
+check("apps are not affected by site records", call("POST", "/cale/connect", {"app": "Another App", "wait_s": 20}, key=None)[0] == 403)   # the stub says no: 403
 server.ask_user = recording_ask
 reset_web_state()
+
+# ---- ask_allow: the answer parsing (no dialog is opened) -------------------------------------------------------------
+check("mac: Allow", oslayer.mac_outcome(0, "button returned:Allow, gave up:false", "") == "allow")
+check("mac: gave up -> timeout", oslayer.mac_outcome(0, "button returned:, gave up:true", "") == "timeout")
+check("mac: Allow text with gave up -> timeout, never allow", oslayer.mac_outcome(0, "button returned:Allow, gave up:true", "") == "timeout")
+check("mac: Don't Allow (cancel) -> deny", oslayer.mac_outcome(1, "", "execution error: User canceled. (-128)") == "deny")
+check("mac: -128 only -> deny", oslayer.mac_outcome(1, "", "... (-128)") == "deny")
+check("mac: other failure -> error", oslayer.mac_outcome(1, "", "osascript: no window server") == "error")
+check("mac: odd success -> error", oslayer.mac_outcome(0, "button returned:Don't Allow", "") == "error")
+check("windows: 6 allow, 7 deny, 32000 timeout, 0 error", [oslayer.win_outcome(x) for x in (6, 7, 32000, 0, 2)] == ["allow", "deny", "timeout", "error", "error"])
+check("zenity: 0 allow, 1 deny, 5 timeout, 3 error", [oslayer.zenity_outcome(x) for x in (0, 1, 5, 3, -9)] == ["allow", "deny", "timeout", "error", "error"])
+import unittest.mock as mock  # noqa: E402
+for label, how_in in (("allow", "allow"), ("deny", "deny"), ("timeout", "timeout"), ("error", "error")):
+    with mock.patch.object(oslayer, "MAC", True), mock.patch.object(oslayer, "WIN", False), mock.patch.object(oslayer.subprocess, "run") as run:
+        res = {"allow": (0, "button returned:Allow, gave up:false", ""), "deny": (1, "", "User canceled. (-128)"),
+               "timeout": (0, "button returned:, gave up:true", ""), "error": (1, "", "boom")}[how_in]
+        run.return_value = mock.Mock(returncode=res[0], stdout=res[1], stderr=res[2])
+        out = {}
+        ret = oslayer.ask_allow("rewrite.example.com", False, site=True, outcome=out)
+        cmd = run.call_args[0][0]
+        check(f"ask_allow (mac, mocked) {label}: bool result and outcome", isinstance(ret, bool) and ret is (how_in == "allow") and out["how"] == how_in, f"{ret} {out}")
+        check(f"ask_allow (mac, {label}): name and kind travel as argv, not in script text",
+              cmd[-3:] == ["rewrite.example.com", "no", "website"] and not any("rewrite.example.com" in x for x in cmd[:-3]), str(cmd[-3:]))
+        if label == "allow":
+            text = " ".join(cmd[:-3])
+            check("mac dialog text uses the kind from argv and the shared wording", 'Allow the " & k' in text and "to use Cale on this computer?" in text and "If you did not just open this " in text and "choose Don't Allow." in text)
+    with mock.patch.object(oslayer, "MAC", False), mock.patch.object(oslayer, "WIN", True), mock.patch.object(oslayer, "ctypes", create=True) as ct:
+        ct.windll.user32.MessageBoxTimeoutW.return_value = {"allow": 6, "deny": 7, "timeout": 32000, "error": 0}[how_in]
+        out = {}
+        ret = oslayer.ask_allow("x.example.com", True, site=True, outcome=out)
+        check(f"ask_allow (windows, mocked) {label}: bool result and outcome", isinstance(ret, bool) and ret is (how_in == "allow") and out["how"] == how_in, f"{ret} {out}")
+with mock.patch.object(oslayer, "MAC", False), mock.patch.object(oslayer, "WIN", False), mock.patch.object(oslayer.shutil, "which", return_value="/usr/bin/zenity"), \
+        mock.patch.dict(os.environ, {"DISPLAY": ":0"}), mock.patch.object(oslayer.subprocess, "run") as run:
+    for rc, how_in in ((0, "allow"), (1, "deny"), (5, "timeout"), (7, "error")):
+        run.return_value = mock.Mock(returncode=rc, stdout=b"", stderr=b"")
+        out = {}
+        ret = oslayer.ask_allow("x.example.com", False, site=True, outcome=out)
+        check(f"ask_allow (zenity, mocked) code {rc}: bool and {how_in}", isinstance(ret, bool) and ret is (rc == 0) and out["how"] == how_in, f"{ret} {out}")
+    run.side_effect = oslayer.subprocess.TimeoutExpired("zenity", 1)
+    out = {}
+    ret = oslayer.ask_allow("x.example.com", False, site=True, outcome=out)
+    check("ask_allow (zenity) TimeoutExpired -> False and timeout", ret is False and out["how"] == "timeout")
+check("ask_allow works without an outcome dict", True)
+
+# ---- terminal path: `cale deny` is a deny, no answer is a timeout ------------------------------------------------------
+from cale import approval  # noqa: E402
+out = {}
+t = threading.Thread(target=lambda: out.setdefault("r", approval.wait_for_terminal("t.example.com", False, 5, outcome=out)))
+t.start()
+time.sleep(1.2)
+approval.decide(approval.pending()[0]["ticket"], False)
+t.join(10)
+check("terminal: cale deny -> False and deny", out.get("r") is False and out.get("how") == "deny", str(out))
+out = {}
+check("terminal: no answer -> False and timeout", approval.wait_for_terminal("t.example.com", False, 0.6, outcome=out) is False and out["how"] == "timeout", str(out))
 
 # ---- the question says "website" for a site and "app" for an app -----------------------------------------------------
 reset_web_state()

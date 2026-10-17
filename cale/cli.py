@@ -8,6 +8,8 @@
   cale logs           follow the log
   cale hub            open the Cale Hub: what Cale and your apps are doing, in a web page
   cale computer       what Cale predicts for this computer (speed and memory of every size)
+  cale sites          websites that asked to use Cale, and what Cale remembers about each
+  cale forget SITE    let a site ask again (SITE as shown in the question, e.g. rewrite.example.com)
   cale pending        apps that wait for you to allow them (no screen on this computer)
   cale allow NAME     allow one (type this in a terminal on this computer). cale deny NAME says no.
   cale status --json  the same as status, for programs
@@ -15,7 +17,7 @@
 import sys
 import time
 
-from . import approval, keys, oslayer, paths, service
+from . import approval, keys, oslayer, paths, service, sites
 
 
 def status(as_json=False):
@@ -49,6 +51,30 @@ def apps():
 def revoke(name):
     ok = keys.revoke(name)
     print(f"Removed the key for '{name}'." if ok else f"No app named '{name}'.")
+    return 0 if ok else 1
+
+
+def sites_list():
+    known = sites.listing()
+    if not known:
+        print("No website has asked, or none is held back.")
+        return 0
+    now = time.time()
+    for origin, r in sorted(known.items()):
+        name = origin.split("://", 1)[-1]
+        if r.get("state") == sites.BLOCKED:
+            what = "blocked: you said Don't Allow. Type: cale forget " + name
+        elif r.get("embargo_until", 0) > now:
+            what = f"waiting: it asked {r.get('ignores', 0)} times with no answer. It may ask again in {int((r['embargo_until'] - now) / 3600) + 1} hours"
+        else:
+            what = f"may ask: {r.get('ignores', 0)} question(s) had no answer"
+        print(f"  {name}  {what}")
+    return 0
+
+
+def forget(site):
+    ok = sites.forget(site)
+    print(f"'{site}' may ask again." if ok else f"Cale holds nothing back about '{site}'. Type: cale sites")
     return 0 if ok else 1
 
 
@@ -141,6 +167,10 @@ def main(argv=None):
         return apps()
     if cmd == "revoke" and len(a) == 2:
         return revoke(a[1])
+    if cmd == "sites":
+        return sites_list()
+    if cmd == "forget" and len(a) == 2:
+        return forget(a[1])
     if cmd == "start":
         return start("--wait" in a)
     if cmd == "tune":

@@ -25,6 +25,7 @@ Install size and the exact installer change: see the end of the run (it prints t
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -45,6 +46,41 @@ def top_only(*names):
     def ignore(folder, entries):
         return [e for e in entries if e in names] if Path(folder).name in ("server", "collector") and Path(folder).parent.name != "node_modules" else []
     return ignore
+
+
+# Packages the chat window never runs (cloud providers, other vector databases, the tool that makes the database, PDF export).
+# The build test (cale/tests or the end-to-end run in the report) must pass after this. Add to the list only with that test.
+UNUSED = ("prisma", "@prisma/engines", "@mintplex-labs/mdpdf-*", "chromadb", "chromadb-default-embed", "@azure")
+
+
+def prune(bundle):
+    """Remove what is not needed on this computer: unused packages, other systems' native files, maps, notes, type files."""
+    import glob
+    import platform
+    osname = {"darwin": "darwin", "win32": "win32"}.get(sys.platform, "linux")
+    arch = "arm64" if platform.machine().lower() in ("arm64", "aarch64") else "x64"
+    for sub in ("server", "collector"):
+        nm = bundle / sub / "node_modules"
+        if sub == "server":
+            for pat in UNUSED:
+                for hit in glob.glob(str(nm / pat)):
+                    shutil.rmtree(hit)
+        ort = nm / "onnxruntime-node" / "bin" / "napi-v3"                       # the number engine: one folder per system and chip
+        if ort.is_dir():
+            for d in ort.iterdir():
+                if d.name != osname:
+                    shutil.rmtree(d)
+                else:
+                    for chip in d.iterdir():
+                        if chip.name != arch:
+                            shutil.rmtree(chip)
+        for dirpath, dirs, files in os.walk(nm):
+            for f in files:
+                if f.endswith((".map", ".d.ts", ".md")) and not f.upper().startswith("LICENSE"):
+                    try:
+                        os.remove(os.path.join(dirpath, f))
+                    except OSError:
+                        pass
 
 
 def say(msg):
@@ -174,10 +210,18 @@ def main():
 
     # 5. put the bundle together
     say("bundle")
-    shutil.copytree(srv, out / "server", symlinks=True, ignore=top_only("storage", "swagger"))
+    shutil.copytree(srv, out / "server", symlinks=True, ignore=top_only("storage"))
     shutil.copytree(work / "frontend" / "dist", out / "server" / "public")
+    meta = out / "server" / "utils" / "boot" / "MetaGenerator.js"      # the page's title and share tags: name Cale, no link to the AnythingLLM site
+    text = meta.read_text()
+    for old, new in (("AnythingLLM | Your personal LLM trained on anything", "Cale"), ("https://anythingllm.com", ""),
+                     ("AnythingLLM", "Cale")):
+        text = text.replace(old, new)
+    text = re.sub(r"https://raw\.githubusercontent\.com/Mintplex-Labs/[^\"]*", "", text)
+    meta.write_text(text)
     shutil.copytree(work / "collector", out / "collector", symlinks=True, ignore=top_only("hotdir"))
     shutil.copyfile(ROOT / "cale" / "anythingllm" / "preload.js", out / "preload.js")
+    prune(out)
     engines = sorted(p.name for p in (out / "server" / "node_modules" / ".prisma" / "client").glob("libquery_engine*"))
     (out / "bundle.json").write_text(json.dumps({"anythingllm": json.loads((src / "server" / "package.json").read_text())["version"], "prisma_engines": engines, "embedder": EMBEDDER,
         "node": subprocess.run([str(node_bin / "node"), "--version"], capture_output=True, text=True).stdout.strip(),

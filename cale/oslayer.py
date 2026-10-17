@@ -500,9 +500,32 @@ NO_SCREEN_MESSAGES = (b"failed to open display", b"cannot open display", b"canno
                       b"failed to connect to the wayland display", b"no protocol specified")
 
 
-def ask_allow(app, replacing=False, seconds=120, site=False):
+def mac_outcome(returncode, stdout, stderr):
+    """Read the result of the Mac dialog script. Returns "allow", "deny", "timeout" or "error". Pure: it opens nothing.
+    Only a clear "button returned:Allow" is allow. The cancel button is Don't Allow, and osascript reports it as "User canceled" (-128)."""
+    if returncode == 0:
+        if "gave up:true" in stdout:
+            return "timeout"
+        return "allow" if "button returned:Allow" in stdout else "error"
+    if "user canceled" in stderr.lower() or "(-128)" in stderr:
+        return "deny"
+    return "error"
+
+
+def win_outcome(result):
+    """MessageBoxTimeoutW result: 6 Yes, 7 No, 32000 (MB_TIMEDOUT) no answer. Anything else is an error."""
+    return {6: "allow", 7: "deny", 32000: "timeout"}.get(result, "error")
+
+
+def zenity_outcome(returncode):
+    """zenity exit code: 0 Allow, 1 Don't Allow (or the window was closed), 5 timeout. Anything else is an error."""
+    return {0: "allow", 1: "deny", 5: "timeout"}.get(returncode, "error")
+
+
+def ask_allow(app, replacing=False, seconds=120, site=False, outcome=None):
     """Ask the person at the computer: allow this app (or website, site=True) to use Cale? True only for a clear yes.
-    None if the dialog tool found no screen to show it on. The name travels as data, never inside script text."""
+    None if the dialog tool found no screen to show it on. The name travels as data, never inside script text.
+    outcome: an optional dict. It gets outcome["how"] = "allow", "deny", "timeout" or "error". The return value stays True, False or None."""
     kind = "website" if site else "app"
     extra = f"This {kind} already has a key. Allowing replaces it." if replacing else ""
     title = "Cale"
@@ -511,29 +534,37 @@ def ask_allow(app, replacing=False, seconds=120, site=False):
             f"If you did not just open this {kind}, choose Don't Allow.")
     if extra:
         body += "\n\n" + extra
+
+    def done(how):
+        if outcome is not None:
+            outcome["how"] = how
+        return how == "allow"
+
     if MAC:
         script = ['on run argv',
                   'set a to item 1 of argv',
                   'set r to item 2 of argv',
+                  'set k to item 3 of argv',
                   'set extra to ""',
-                  'if r is "yes" then set extra to return & return & "This app already has a key. Allowing replaces it."',
-                  'display dialog "Allow \\"" & a & "\\" to use Cale on this computer?" & return & return & '
-                  '"Cale lets apps use AI that runs on this computer. What you type stays here." & return & '
-                  '"If you did not just open this app, choose Don\'t Allow." & extra '
+                  'if r is "yes" then set extra to return & return & "This " & k & " already has a key. Allowing replaces it."',
+                  'display dialog "Allow the " & k & " \\"" & a & "\\" to use Cale on this computer?" & return & return & '
+                  '"Cale lets " & k & "s use AI that runs on this computer. What you type stays here." & return & '
+                  '"If you did not just open this " & k & ", choose Don\'t Allow." & extra '
                   'buttons {"Don\'t Allow", "Allow"} default button "Don\'t Allow" cancel button "Don\'t Allow" '
                   f'with title "Cale" with icon note giving up after {seconds}',
                   'end run']
-        cmd = ["osascript"] + [x for s in script for x in ("-e", s)] + [app, "yes" if replacing else "no"]
+        cmd = ["osascript"] + [x for s in script for x in ("-e", s)] + [app, "yes" if replacing else "no", kind]
         r = subprocess.run(cmd, capture_output=True, text=True)
-        if r.returncode != 0:
+        how = mac_outcome(r.returncode, r.stdout, r.stderr)
+        if how == "error":
             print(f"[connect] osascript failed code={r.returncode} stderr={r.stderr.strip()!r}", flush=True)
-        return r.returncode == 0 and "button returned:Allow" in r.stdout and "gave up:true" not in r.stdout
+        return done(how)
     if WIN:
         # MessageBoxTimeoutW lives in user32 on every Windows version. 0x24 = Yes/No + question icon.
         # 0x100 = second button (No) is the default. 0x10000 = set foreground. 0x40000 = always on top.
         user32 = ctypes.windll.user32
         r = user32.MessageBoxTimeoutW(0, body, title, 0x24 | 0x100 | 0x10000 | 0x40000, 0, seconds * 1000)
-        return r == 6                                                # IDYES
+        return done(win_outcome(r))
     for tool, args in (("zenity", ["--question", f"--timeout={seconds}", "--title", title, "--text", body,
                                    "--ok-label", "Allow", "--cancel-label", "Don't Allow"]),
                        ("kdialog", ["--title", title, "--yesno", body])):
@@ -548,15 +579,17 @@ def ask_allow(app, replacing=False, seconds=120, site=False):
                 if r.returncode != 0 and time.time() - t0 < 2.0 and any(m in err for m in NO_SCREEN_MESSAGES):
                     print(f"[connect] {tool} could not reach the screen. The question will be answered in a terminal instead.", flush=True)
                     return None
-                return r.returncode == 0
+                if tool == "zenity":
+                    return done(zenity_outcome(r.returncode))
+                return done({0: "allow", 1: "deny"}.get(r.returncode, "error"))        # kdialog has no timeout of its own
             except subprocess.TimeoutExpired:          # the tool ignored its own timeout: no answer means no
                 print(f"[connect] {tool} did not close after {seconds} s. Counting that as no.", flush=True)
-                return False
+                return done("timeout")
             except OSError as e:
                 print(f"[connect] {tool} failed to start ({e}). Refusing.", flush=True)
-                return False
+                return done("error")
     print("[connect] no screen to show the Allow question on (no DISPLAY, or no zenity/kdialog). Refusing.", flush=True)
-    return False
+    return done("error")
 
 
 # ---- starting and stopping Cale without a service manager ---------------------------------------------------------------

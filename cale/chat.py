@@ -255,6 +255,9 @@ class Servers:
             req = urllib.request.Request(f"http://{paths.HOST}:{self.port}/api/workspace/new", data=json.dumps({"name": WORKSPACE}).encode(),
                                          headers={"Content-Type": "application/json"})
             urllib.request.urlopen(req, timeout=20).read()
+            req = urllib.request.Request(f"http://{paths.HOST}:{self.port}/api/workspace/{WORKSPACE.lower()}/update", data=json.dumps({"chatMode": "chat"}).encode(),
+                                         headers={"Content-Type": "application/json"})
+            urllib.request.urlopen(req, timeout=20).read()     # plain chat: no tool "agent" mode, which small models handle badly
         except (urllib.error.URLError, OSError, ValueError) as e:
             log(f"could not make the first workspace ({e})")
 

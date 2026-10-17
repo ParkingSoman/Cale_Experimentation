@@ -31,8 +31,14 @@ def folder():
     return d
 
 
-def wait_for_terminal(app, replacing=False, seconds=300):
-    """Wait for `cale allow` or `cale deny` for this app. True only for allow. No answer in `seconds` counts as no."""
+def wait_for_terminal(app, replacing=False, seconds=300, outcome=None):
+    """Wait for `cale allow` or `cale deny` for this app. True only for allow. No answer in `seconds` counts as no.
+    outcome: an optional dict. It gets outcome["how"] = "allow", "deny" (a `cale deny` was typed) or "timeout" (no answer)."""
+    def done(how):
+        if outcome is not None:
+            outcome["how"] = how
+        return how == "allow"
+
     d = folder()
     ticket = secrets.token_hex(4)
     note = d / f"{ticket}.json"
@@ -42,12 +48,14 @@ def wait_for_terminal(app, replacing=False, seconds=300):
         end = time.time() + seconds
         while time.time() < end:
             if (d / f"{ticket}.allow").exists():
-                return True
-            if (d / f"{ticket}.deny").exists() or not note.exists():
-                return False
+                return done("allow")
+            if (d / f"{ticket}.deny").exists():
+                return done("deny")
+            if not note.exists():                      # the note was removed and nobody typed deny: no answer
+                return done("timeout")
             time.sleep(POLL_S)
         print(f"[connect] no answer for {app!r} in {seconds} s. Counting that as no.", flush=True)
-        return False
+        return done("timeout")
     finally:
         for suffix in (".json", ".allow", ".deny"):
             (d / f"{ticket}{suffix}").unlink(missing_ok=True)

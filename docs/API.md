@@ -485,15 +485,27 @@ The key is handed out once, and only in the answer to the site that asked (CORS:
 
 A refused origin gets no CORS headers at all.
 
-**Stopping a hostile page from filling the screen with questions.**
+**Stopping a hostile page from filling the screen with questions.** Cale uses the rules that Chromium uses for its own permission questions
+(`components/permissions/permission_decision_auto_blocker.cc`). They are counted for each origin on its own. There is no limit across sites.
+Cale keeps them in `web_sites.json` in its private folder, so a restart does not clear them.
 
-| Limit | Value |
+| Rule | Value |
 |---|---|
 | Open questions per site | 1. A second ask while one is open gets `409 already_waiting` (or `429 busy` while any question is on the screen). |
-| After "Don't Allow", a timeout, or an error | that site gets `429 asked_recently` for **10 minutes** (`WEB_COOLDOWN_S = 600`), with `Retry-After` and `error.cale.retry_after_s`. "Allow" clears it. |
-| All sites together | at most **3** new questions in 10 minutes (`WEB_MAX_ASKS`, `WEB_ASK_WINDOW_S`), then `429 too_many_questions`. This stops a site that asks from many sub-domains. Apps are not counted. |
+| The person presses "Don't Allow" | The site is blocked until the person resets it. `403 site_blocked`. It never expires. |
+| A question gets no answer (time out, or no answer in the terminal) | It counts as ignored. `kDefaultIgnoresBeforeBlock = 4`: the 4th ignored question blocks that site for `kDefaultEmbargoDays = 7` days. Until then it may ask again. |
+| During the 7 days | `429 asked_recently` with `Retry-After` and `error.cale.retry_after_s` (about 604800 at first). When the days end, the count starts again. |
+| "Allow" | Clears every count for that site. |
+| An error while asking | Counts for nothing. |
 
-The limits live in memory. A restart of Cale clears them.
+Chromium also counts dismissals (3, then 7 days). Cale's question has no separate dismiss button, so it does not count them.
+
+The person resets a site in a terminal on the computer:
+
+| Command | What it does |
+|---|---|
+| `cale sites` | Lists the sites Cale holds back, in plain words. |
+| `cale forget SITE` | Lets that site ask again. SITE is the address shown in the question (`rewrite.example.com`) or the full origin (`https://rewrite.example.com`). |
 
 **Browser side.** Every call with `Authorization` or a JSON body makes the browser send a preflight first, and `cale-web.js` keeps
 the connection of `POST /cale/models` open (a model object lives while the connection stays open, as with `cale.client.model`). A site that

@@ -34,7 +34,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from nest.cancel import Cancel, Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pct_range, pick
 
-from . import activity, approval, backends, keys, objstore, oslayer, paths, pressure
+from . import activity, approval, backends, keys, objstore, oslayer, paths, pressure, sites
 from .engine import ContextTooLong, Engine, EngineError, GoalMissed, Unsafe, Unsupported
 from . import choose, constrain, goals as goals_mod, tools as tools_mod
 
@@ -255,16 +255,19 @@ def object_slug(name):
     return (s or "model")[:30]
 
 
-def ask_user(app, replacing=False, site=False):
+def ask_user(app, replacing=False, site=False, outcome=None):
     """Ask the person: allow this app? With a screen, the Allow dialog (oslayer.ask_allow). Without one, the request waits for
-    `cale allow NAME` typed in a terminal on this computer (cale/approval.py)."""
+    `cale allow NAME` typed in a terminal on this computer (cale/approval.py).
+    outcome: an optional dict. It gets outcome["how"] = "allow", "deny", "timeout" or "error" (see cale/sites.py)."""
     if DEBUG and os.environ.get("CALE_AUTO_APPROVE") == "1":
+        if outcome is not None:
+            outcome["how"] = "allow"
         return True
     if oslayer.has_screen():
-        answer = oslayer.ask_allow(app, replacing, site=site)
+        answer = oslayer.ask_allow(app, replacing, site=site, outcome=outcome)
         if answer is not None:
             return answer                                  # a person answered (or the question timed out: that is a no)
-    return approval.wait_for_terminal(app, replacing, float(os.environ.get("CALE_APPROVE_WAIT_S", 300)))
+    return approval.wait_for_terminal(app, replacing, float(os.environ.get("CALE_APPROVE_WAIT_S", 300)), outcome=outcome)
 
 
 CONNECTS = {}                        # ticket -> {"app", "state": pending|allowed|denied, "key", "done": Event, "since"}
@@ -277,21 +280,26 @@ def _decide_connect(ticket):
     """Runs in its own thread: ask the person, then make the key if they allowed."""
     it = CONNECTS[ticket]
     allowed = False
+    how = {"how": "error"}                                         # if asking fails, this stays "error", which counts for nothing
     shown = it["display"]                                          # what the person reads: an app's name, or a site's address
     try:
         if oslayer.has_screen():
             with CONNECT_LOCK:                                     # one dialog at a time
-                allowed = ask_user(shown, it["replacing"], site=bool(it.get("origin")))
+                allowed = ask_user(shown, it["replacing"], site=bool(it.get("origin")), outcome=how)
         else:
-            allowed = ask_user(shown, it["replacing"], site=bool(it.get("origin")))
+            allowed = ask_user(shown, it["replacing"], site=bool(it.get("origin")), outcome=how)
     except Exception as e:
         print(f"[connect] asking failed ({type(e).__name__}); counting that as no", flush=True)
+        allowed = False
+    if allowed:
+        how["how"] = "allow"
+    elif how.get("how") == "allow":
+        how["how"] = "error"                                       # never record an allow for a no
     if it.get("origin"):
-        with CONNECT_LOCK_META:
-            if allowed:
-                WEB_STATE["until"].pop(it["origin"], None)
-            else:                                                  # "Don't Allow", no answer, or an error: this site waits before it may ask again
-                WEB_STATE["until"][it["origin"]] = time.time() + WEB_COOLDOWN_S
+        try:
+            sites.record(it["origin"], how["how"])                 # per-site memory, as Chromium does it (cale/sites.py)
+        except Exception as e:
+            print(f"[connect] could not save the answer for the site ({type(e).__name__})", flush=True)
     if allowed:
         it["key"] = keys.create(it["app"], origin=it.get("origin"))
     it["state"] = "allowed" if allowed else "denied"
@@ -307,10 +315,6 @@ def _purge_connects():
 # --- websites ------------------------------------------------------------------------------------------------------
 # A website is known by its Origin (the browser sets it; a page cannot change it), never by a name the page sends.
 WEB_PREFIX = "web:"                  # the key record of a website is named "web:" + origin. Apps may not use this prefix.
-WEB_COOLDOWN_S = 600                 # after "Don't Allow" (or no answer), the same origin is not asked again for 10 minutes
-WEB_MAX_ASKS = 3                     # at most this many questions for ALL websites together ...
-WEB_ASK_WINDOW_S = 600               # ... in this many seconds (a site with many sub-domains cannot get round the cooldown)
-WEB_STATE = {"until": {}, "asked": []}     # origin -> time when it may ask again; times of recent questions. Guarded by CONNECT_LOCK_META.
 WEB_EXPOSE = ("X-Cale-Requested-Size, X-Cale-Size, X-Cale-Disk-MB, X-Cale-Waited-S, X-Cale-Memory-Goal-Met, X-Cale-Predicted-Tokens-Per-S, "
               "X-Cale-Predicted-First-Token-S, X-Cale-Confidence, X-Cale-Goal-Met, X-Cale-Unmet, X-Cale-Total-S, Retry-After")
 _LABEL = r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?"
@@ -622,23 +626,17 @@ class Handler(BaseHTTPRequestHandler):
         with CONNECT_LOCK_META:
             _purge_connects()
             now = time.time()
-            if self.origin:
-                until = WEB_STATE["until"].get(self.origin, 0)
-                if until > now:
-                    wait = int(until - now) + 1
-                    raise ApiError(429, "asked_recently", "The person said no (or did not answer) a short time ago. This site cannot ask again yet.",
-                                   {"retry_after_s": wait})
-                for o in [o for o, t in WEB_STATE["until"].items() if t <= now]:
-                    WEB_STATE["until"].pop(o, None)
+            if self.origin:                                # the rules of cale/sites.py: for each site on its own, no limit across sites
+                refused = sites.check(self.origin, now)
+                if refused and refused[0] == "site_blocked":
+                    raise ApiError(403, "site_blocked", "The person said no to this site. It cannot ask again until they reset it.")
+                if refused:
+                    raise ApiError(429, "asked_recently", "The person did not answer this site's questions. It cannot ask again yet.",
+                                   {"retry_after_s": refused[1]})
             if sum(1 for it in CONNECTS.values() if it["state"] == "pending") >= CONNECT_MAX:
                 raise ApiError(429, "busy", "Too many apps are waiting for the user to answer. Try again later.")
             if oslayer.has_screen() and CONNECT_LOCK.locked():
                 raise ApiError(429, "busy", "Another app is waiting for the user to answer. Try again later.")
-            if self.origin:
-                WEB_STATE["asked"] = [t for t in WEB_STATE["asked"] if now - t < WEB_ASK_WINDOW_S]
-                if len(WEB_STATE["asked"]) >= WEB_MAX_ASKS and not any(it["app"] == app and it["state"] == "pending" for it in CONNECTS.values()):
-                    raise ApiError(429, "too_many_questions", "Too many websites asked for access lately. Try again later.",
-                                   {"retry_after_s": int(WEB_ASK_WINDOW_S - (now - min(WEB_STATE["asked"]))) + 1})
             if any(it["app"] == app and it["state"] == "pending" for it in CONNECTS.values()):
                 # Never hand a second asker the first one's ticket: it could collect the first one's key. The first asker polls its own ticket.
                 raise ApiError(409, "already_waiting", f"An app named '{app}' is already waiting for the person's answer. Wait for it, or use another name.")
@@ -646,7 +644,6 @@ class Handler(BaseHTTPRequestHandler):
             CONNECTS[ticket] = {"app": app, "display": shown, "origin": self.origin, "state": "pending", "key": None, "done": threading.Event(),
                                 "since": time.time(), "replacing": app in keys.apps()}
             if self.origin:
-                WEB_STATE["asked"].append(now)
                 print(f"[connect] website {shown!r} asks to use Cale", flush=True)
             threading.Thread(target=_decide_connect, args=(ticket,), daemon=True).start()
         it = CONNECTS[ticket]
