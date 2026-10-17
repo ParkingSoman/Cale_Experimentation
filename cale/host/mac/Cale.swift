@@ -218,7 +218,8 @@ final class App: NSObject, NSApplicationDelegate, NSWindowDelegate {
         setenv("PYTHONPATH", home + "/runtime", 1)
         let args = [host, "--title", "Cale", "--width", "1100", "--height", "760", "--min-width", "640", "--min-height", "480",
                     "--server-exec", home + "/venv/bin/python", "--server-arg", "-m", "--server-arg", "cale.chat",
-                    "--server-cwd", home + "/runtime"]
+                    "--server-cwd", home + "/runtime",
+                    "--url-template", "http://127.0.0.1:{port}/?t={token}"]
         var cargs: [UnsafeMutablePointer<CChar>?] = args.map { strdup($0) }
         cargs.append(nil)
         execv(host, &cargs)                                            // only returns if it failed

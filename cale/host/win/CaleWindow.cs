@@ -4,7 +4,7 @@
 //
 //   CaleWindow.exe --url http://127.0.0.1:51234/ --title "Quick Notes" [--width 900 --height 640] [--min-width 480 --min-height 360]
 //
-// An app can let this program start its server. The server picks a free port and prints  READY <port>  on one line:
+// An app can let this program start its server. The server picks a free port and prints  READY <port> [token]  on one line (the token is optional; {token} in --url-template):
 //   CaleWindow.exe --title "Quick Notes" --icon app.ico --server-exec C:\path\pythonw.exe --server-arg app.py
 //                  --server-cwd C:\path\app --url-template http://127.0.0.1:{port}/
 // The server stops when the window closes (the whole process tree). If the server stops, the window closes.
@@ -366,12 +366,15 @@ namespace CaleHost
         void OnServerLine(object sender, DataReceivedEventArgs e)
         {
             if (e.Data == null || !e.Data.StartsWith("READY ")) return;
-            string port = e.Data.Substring(6).Trim();
+            string[] words = e.Data.Substring(6).Trim().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            if (words.Length == 0) return;
+            string port = words[0];
+            string token = words.Length > 1 ? words[1] : "";          // optional per-launch secret
             try
             {
                 BeginInvoke((MethodInvoker)delegate
                 {
-                    url = opts.UrlTemplate.Replace("{port}", port);
+                    url = opts.UrlTemplate.Replace("{port}", port).Replace("{token}", token);
                     ready = true;
                     Load();
                 });

@@ -6,7 +6,9 @@ announces. What this does, in order:
   2. asks Cale for a "chat" model object (goals, not a size) and keeps it with a hold;
   3. prepares a data folder for the chat window (chat history, documents, settings) under Cale's home;
   4. starts the chat window server (AnythingLLM, rebranded, see cale/anythingllm/) and its document reader with Cale's Node;
-  5. prints  READY <port>  on one line when the page answers;
+  5. prints  READY <port> <token>  on one line when the page answers. The token is a secret for this launch: the window opens
+     http://127.0.0.1:<port>/?t=<token> once, and the server then wants the cookie it sets. Anything else (a web page in a
+     browser, another program) gets 403. See cale/anythingllm/preload.js;
   6. stays alive, keeps the hold, and ends everything when its parent ends or when it gets SIGTERM.
 
 Files (all under Cale's home, see cale/paths.py):
@@ -55,8 +57,9 @@ def log(msg):
     print(f"[chat] {msg}", file=sys.stderr, flush=True)
 
 
-def say_ready(port):
-    print(f"READY {port}", flush=True)
+def say_ready(port, token=""):
+    """READY <port> <token>. The window program fills {port} and {token} in its address. (A server for other apps prints just READY <port>.)"""
+    print(f"READY {port} {token}".rstrip(), flush=True)
 
 
 def node_path():
@@ -184,8 +187,9 @@ class Holder(threading.Thread):
 
 # --- the servers ------------------------------------------------------------------------------
 class Servers:
-    def __init__(self, node, model_id, key, port=None):
+    def __init__(self, node, model_id, key, port=None, token=None):
         self.node, self.model_id, self.key = node, model_id, key
+        self.token = token or secrets.token_urlsafe(24)
         self.port = port or int(os.environ.get("CALE_CHAT_PORT") or 0) or free_port()
         self.collector_port = free_port()
         self.procs = []
@@ -203,7 +207,8 @@ class Servers:
             LLM_PROVIDER="generic-openai", GENERIC_OPEN_AI_BASE_PATH=f"http://{paths.HOST}:{paths.PORT}/v1",
             GENERIC_OPEN_AI_MODEL_PREF=self.model_id, GENERIC_OPEN_AI_MODEL_TOKEN_LIMIT=str(CONTEXT_TOKENS),
             GENERIC_OPEN_AI_API_KEY=self.key, GENERIC_OPEN_AI_MAX_TOKENS=str(GOALS["max_tokens"]),
-            EMBEDDING_ENGINE="native", VECTOR_DB="lancedb", CALE_PARENT_PID=str(os.getpid()))
+            EMBEDDING_ENGINE="native", VECTOR_DB="lancedb", CALE_PARENT_PID=str(os.getpid()),
+            CALE_CHAT_TOKEN=self.token, CALE_CHAT_MAIN_PORT=str(self.port), CALE_CHAT_COLLECTOR_PORT=str(self.collector_port))
         return e
 
     def start(self):
@@ -230,9 +235,17 @@ class Servers:
                 p.kill()
         self.procs = []
 
-    def get(self, path, timeout=3):
-        with urllib.request.urlopen(f"http://{paths.HOST}:{self.port}{path}", timeout=timeout) as r:
+    def request(self, path, body=None, timeout=3):
+        """A call to the chat server, with the cookie it wants (its own calls need the secret too)."""
+        req = urllib.request.Request(f"http://{paths.HOST}:{self.port}{path}", headers={"Cookie": f"cale_chat={self.token}"},
+                                     data=None if body is None else json.dumps(body).encode())
+        if body is not None:
+            req.add_header("Content-Type", "application/json")
+        with urllib.request.urlopen(req, timeout=timeout) as r:
             return json.loads(r.read() or b"{}")
+
+    def get(self, path, timeout=3):
+        return self.request(path, timeout=timeout)
 
     def wait_ready(self, timeout=START_TIMEOUT_S):
         end = time.time() + timeout
@@ -252,12 +265,8 @@ class Servers:
         try:
             if self.get("/api/workspaces").get("workspaces"):
                 return
-            req = urllib.request.Request(f"http://{paths.HOST}:{self.port}/api/workspace/new", data=json.dumps({"name": WORKSPACE}).encode(),
-                                         headers={"Content-Type": "application/json"})
-            urllib.request.urlopen(req, timeout=20).read()
-            req = urllib.request.Request(f"http://{paths.HOST}:{self.port}/api/workspace/{WORKSPACE.lower()}/update", data=json.dumps({"chatMode": "chat"}).encode(),
-                                         headers={"Content-Type": "application/json"})
-            urllib.request.urlopen(req, timeout=20).read()     # plain chat: no tool "agent" mode, which small models handle badly
+            self.request("/api/workspace/new", {"name": WORKSPACE}, timeout=20)
+            self.request(f"/api/workspace/{WORKSPACE.lower()}/update", {"chatMode": "chat"}, timeout=20)     # plain chat: no tool "agent" mode, which small models handle badly
         except (urllib.error.URLError, OSError, ValueError) as e:
             log(f"could not make the first workspace ({e})")
 
@@ -294,14 +303,14 @@ def main():
         servers.start()
         servers.wait_ready()
         servers.ensure_workspace()
-        say_ready(servers.port)
+        say_ready(servers.port, servers.token)
         while not done.is_set():
             if parent > 1 and (not pid_alive(parent) or os.getppid() != parent):
                 break                                        # the window program is gone
             if holder.id and holder.id != servers.model_id:  # Cale gave the chat a new name (it restarted): start the servers again with it
                 log("chat object changed; restarting")
                 servers.stop()
-                servers = Servers(servers.node, holder.id, servers.key, port=servers.port)     # same port: the open window keeps working
+                servers = Servers(servers.node, holder.id, servers.key, port=servers.port, token=servers.token)     # same port: the open window keeps working
                 servers.start()
                 servers.wait_ready()
             if not servers.alive():

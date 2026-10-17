@@ -198,7 +198,7 @@ namespace CaleHost
             button.Cursor = Cursors.Hand;
             Place(button, 175, 336, 170, 42);
             button.Visible = false;
-            button.Click += delegate { StartChat(home); Close(); };
+            button.Click += delegate { StartChat(home, payload); Close(); };
             Controls.Add(button);
             AcceptButton = button;
         }
@@ -321,17 +321,39 @@ namespace CaleHost
 
         // ---- shared with Program ----
 
-        public static void StartChat(string home)
+        static string Q(string a)
+        {
+            if (a.Length > 0 && a.IndexOfAny(new char[] { ' ', '\t', '"' }) < 0) return a;
+            return "\"" + a.Replace("\"", "\\\"") + "\"";
+        }
+
+        // Open Cale's chat in Cale's own window (CaleWindow.exe starts the chat server and shows its page).
+        public static void StartChat(string home, string payload)
         {
             try
             {
                 string py = Path.Combine(home, "venv", "Scripts", "pythonw.exe");
-                ProcessStartInfo psi = new ProcessStartInfo(py, "-m cale.chat");
-                psi.WorkingDirectory = Path.Combine(home, "runtime");
+                string runtime = Path.Combine(home, "runtime");
+                string win = Path.Combine(home, "bin", "CaleWindow.exe");
+                string ico = Path.Combine(payload, "cale.ico");
+                ProcessStartInfo psi;
+                if (File.Exists(win))
+                {
+                    string args = "--title Cale --width 1100 --height 760 --min-width 640 --min-height 480"
+                        + (File.Exists(ico) ? " --icon " + Q(ico) : "")
+                        + " --server-exec " + Q(py) + " --server-arg -m --server-arg cale.chat --server-cwd " + Q(runtime)
+                        + " --url-template " + Q("http://127.0.0.1:{port}/?t={token}");
+                    psi = new ProcessStartInfo(win, args);
+                }
+                else
+                {
+                    psi = new ProcessStartInfo(py, "-m cale.chat");                  // an older Cale without the window program
+                }
+                psi.WorkingDirectory = runtime;
                 psi.UseShellExecute = false;
                 psi.CreateNoWindow = true;
                 psi.EnvironmentVariables["CALE_HOME"] = home;
-                psi.EnvironmentVariables["PYTHONPATH"] = Path.Combine(home, "runtime");
+                psi.EnvironmentVariables["PYTHONPATH"] = runtime;
                 psi.EnvironmentVariables["PATH"] = Path.Combine(home, "bin") + ";" + Environment.GetEnvironmentVariable("PATH");
                 Process.Start(psi);
             }
@@ -382,17 +404,12 @@ namespace CaleHost
                 psi.WorkingDirectory = payload;
                 psi.UseShellExecute = false;
                 psi.CreateNoWindow = true;
-                psi.RedirectStandardOutput = true;
-                psi.RedirectStandardError = true;
                 psi.EnvironmentVariables["CALE_HOME"] = home;
                 psi.EnvironmentVariables["PATH"] = Path.Combine(home, "bin") + ";" + Environment.GetEnvironmentVariable("PATH");
+                // Wait only a few seconds. A slow update goes on by itself; the chat opens now (nobody stares at nothing).
                 using (Process p = Process.Start(psi))
                 {
-                    p.OutputDataReceived += delegate { };
-                    p.ErrorDataReceived += delegate { };
-                    p.BeginOutputReadLine();
-                    p.BeginErrorReadLine();
-                    if (!p.WaitForExit(90000)) { try { p.Kill(); } catch (Exception) { } }
+                    p.WaitForExit(4000);
                 }
             }
             catch (Exception) { }
@@ -412,7 +429,7 @@ namespace CaleHost
             if (Installed(home))
             {
                 Refresh(home, payload);
-                SetupForm.StartChat(home);
+                SetupForm.StartChat(home, payload);
                 SetupForm.MakeShortcut(payload);
                 return 0;
             }

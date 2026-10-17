@@ -5,7 +5,7 @@
 //
 // An app can also let this program start its server. The server picks a free port and prints  READY <port>  on one line:
 //   CaleWindow --title "Quick Notes" --server-exec /path/python --server-arg app.py --server-cwd /path/app
-//              --url-template http://127.0.0.1:{port}/
+//              --url-template http://127.0.0.1:{port}/        ({token} is also filled when the server prints  READY <port> <token>)
 // The window closes the program. The server stops when the window closes. If the server stops, the window closes.
 // The program also exits when --parent-pid ends.
 import Cocoa
@@ -75,9 +75,12 @@ final class Delegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKU
                 let line = String(decoding: buffer[buffer.startIndex..<nl], as: UTF8.self)
                 buffer.removeSubrange(buffer.startIndex...nl)
                 if line.hasPrefix("READY ") {
-                    let port = line.dropFirst(6).trimmingCharacters(in: .whitespaces)
+                    // READY <port>  or  READY <port> <token>. The token (a one-time secret for this launch) fills {token} in the address.
+                    let words = line.dropFirst(6).split(separator: " ", omittingEmptySubsequences: true).map(String.init)
+                    let port = words.first ?? ""
+                    let token = words.count > 1 ? words[1] : ""
                     DispatchQueue.main.async {
-                        self.opts.url = self.opts.urlTemplate.replacingOccurrences(of: "{port}", with: port)
+                        self.opts.url = self.opts.urlTemplate.replacingOccurrences(of: "{port}", with: port).replacingOccurrences(of: "{token}", with: token)
                         self.load()
                     }
                 }
