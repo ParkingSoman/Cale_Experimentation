@@ -21,7 +21,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 SRC = HERE.parent.parent                                     # the folder that holds cale/, demo/, ...
 sys.path.insert(0, str(SRC))
-from cale import keys, oslayer, paths  # noqa: E402
+from cale import keys, oslayer, paths, setup_runner  # noqa: E402
 
 HUB_PORT = int(os.environ.get("CALE_HUB_PORT", "47800"))
 CALE_URL = os.environ.get("CALE_URL", f"http://{paths.HOST}:{paths.PORT}")
@@ -39,26 +39,16 @@ def installed():
 
 
 def run_setup():
-    """Run cale/install.py and turn its CALE_PROGRESS lines into SETUP. Runs in a thread."""
-    env = {k: v for k, v in os.environ.items() if k not in ("HF_HUB_OFFLINE", "TRANSFORMERS_OFFLINE", "HF_DATASETS_OFFLINE")}
-    env["CALE_PROGRESS"] = "1"
-    tail = []
+    """Run cale/install.py (through cale/setup_runner.py) and keep SETUP up to date. Runs in a thread."""
+    def update(stage, pct, label, extra):
+        SETUP["stage"] = stage
+        SETUP["pct"] = pct
+        if stage == "model" and extra.get("total"):
+            SETUP.update(done=extra["done"], total=extra["total"])
     try:
-        p = subprocess.Popen([sys.executable, str(SRC / "cale" / "install.py")], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                             text=True, env=env, cwd=str(SRC))
-        for line in p.stdout:
-            line = line.rstrip()
-            if line.startswith("CALE_PROGRESS "):
-                u = json.loads(line[len("CALE_PROGRESS "):])
-                SETUP["stage"] = u["stage"]
-                if u["stage"] == "model" and u.get("total"):
-                    SETUP.update(done=u["done"], total=u["total"], pct=min(90, round(25 + 65 * u["done"] / u["total"])))
-                elif "pct" in u:
-                    SETUP["pct"] = max(SETUP["pct"], u["pct"])
-            else:
-                tail = (tail + [line])[-6:]
-        if p.wait() != 0:
-            SETUP["error"] = " ".join(tail[-3:]) or f"the installer stopped (code {p.returncode})"
+        error = setup_runner.run(update)
+        if error:
+            SETUP["error"] = error
         else:
             SETUP.update(pct=100, stage="done", finished=True)
     except Exception as e:

@@ -114,6 +114,19 @@ def stage(os_name, arch, dest):
                     (dest / "bin" / exe).write_bytes(t.extractfile(m).read())
     (dest / "bin" / exe).chmod(0o755)
     get_node(os_name, arch, dest / "bin")
+    if os_name == "mac":
+        shutil.copy2(compile_mac("CaleWindow"), dest / "bin" / "CaleWindow")     # shows Cale's chat and downloaded apps in their own window
+
+
+def compile_mac(name):
+    """Compile cale/host/mac/<name>.swift (CaleWindow, or Cale for the setup window). Returns the program's path."""
+    out = DIST / "cache" / "host"
+    out.mkdir(parents=True, exist_ok=True)
+    src = ROOT / "cale" / "host" / "mac" / f"{name}.swift"
+    exe = out / name
+    if not exe.exists() or exe.stat().st_mtime < src.stat().st_mtime:
+        subprocess.run(["swiftc", "-O", "-target", "arm64-apple-macos14", "-o", str(exe), str(src)], check=True)
+    return exe
 
 
 # The launcher is the same idea everywhere: if Cale is installed, run its Hub with its own Python.
@@ -186,12 +199,15 @@ INFO_PLIST = """<?xml version="1.0" encoding="UTF-8"?>
   <key>CFBundleShortVersionString</key><string>0.1</string>
   <key>LSMinimumSystemVersion</key><string>14.0</string>
   <key>LSApplicationCategoryType</key><string>public.app-category.productivity</string>
+  <key>NSAppTransportSecurity</key><dict><key>NSAllowsLocalNetworking</key><true/></dict>
 </dict></plist>
 """
 
 
-def make_icon(path, bg=(47, 93, 80), fg=(247, 245, 238)):
-    """A plain icon, drawn with the standard library: a green rounded square with a white ring."""
+def make_icon(path, bg=(47, 93, 80), fg=(247, 245, 238), glyph="ring"):
+    """A plain icon, drawn with the standard library: a green rounded square with a white ring ("ring")
+    or a kale leaf ("kale": Cale's own icon)."""
+    import math
     import struct
     import zlib
     n = 1024
@@ -199,6 +215,8 @@ def make_icon(path, bg=(47, 93, 80), fg=(247, 245, 238)):
     c = n / 2
     half, r = 452, 190                                              # the square's half width, and the corner radius
     ix = half - r
+    cos45 = sin45 = math.sqrt(0.5)
+    L, W = 300, 175                                                 # the kale leaf: half length, half width
     for y in range(n):
         row = bytearray([0])
         for x in range(n):
@@ -206,6 +224,16 @@ def make_icon(path, bg=(47, 93, 80), fg=(247, 245, 238)):
             inside = dx <= half and dy <= half and (dx <= ix or dy <= ix or (dx - ix) ** 2 + (dy - ix) ** 2 <= r * r)
             if not inside:
                 row += bytes((0, 0, 0, 0))
+                continue
+            if glyph == "kale":
+                u = ((x - c) * cos45 + (c - y) * sin45) + 20            # along the leaf (up and to the right)
+                v = -(x - c) * sin45 + (c - y) * cos45                  # across the leaf
+                shape = abs(v) <= W * math.sin(math.pi * (u + L) / (2 * L)) if -L <= u <= L else False
+                rib = abs(v) <= 9 and -L - 110 <= u <= L * 0.75            # the stem and the middle vein
+                veins = shape and u > -L * 0.5 and abs(abs(v) - (u + L * 0.5) * 0.42) <= 7 and abs(v) < W * 0.8
+                stem = abs(v) <= 16 and -L - 120 <= u < -L
+                mark = (shape and not (rib or veins)) or stem
+                row += bytes((*fg, 255)) if mark else bytes((*bg, 255))
                 continue
             d = ((x - c) ** 2 + (y - c) ** 2) ** 0.5
             ring = 215 <= d <= 300 and not (x > c and abs(y - c) < 120)      # a "C": a ring with an opening on the right
@@ -228,10 +256,10 @@ def build_mac():
     stage("mac", "arm64", app / "Contents" / "Resources" / "payload")
     (app / "Contents" / "Info.plist").write_text(INFO_PLIST)
     launcher = app / "Contents" / "MacOS" / "Cale"
-    launcher.write_text(MAC_LAUNCHER)
+    shutil.copy2(compile_mac("Cale"), launcher)               # a real program with its own window (cale/host/mac/Cale.swift)
     launcher.chmod(0o755)
     png = DIST / "mac" / "icon.png"
-    make_icon(png)
+    make_icon(png, glyph="kale")
     iconset = DIST / "mac" / "Cale.iconset"
     iconset.mkdir()
     for size in (16, 32, 64, 128, 256, 512, 1024):

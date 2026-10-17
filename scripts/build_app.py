@@ -27,9 +27,21 @@ import build_installer as bi  # noqa: E402
 DIST = ROOT / "dist" / "apps"
 APPS = ROOT / "demo" / "apps"
 CONSUMER_APPS = ("quick-notes", "rewrite")
+DESKTOP_APPS = ("quick-notes",)               # these open in their own window (Cale's window program). The others still open in the browser.
 COLORS = {"quick-notes": ((61, 107, 214), (247, 245, 238)), "rewrite": ((196, 98, 63), (247, 245, 238))}
 COPY = ("app.py", "index.html", "cale_client.py")
 CALE_URL = os.environ.get("CALE_DOWNLOAD_URL", "")
+
+
+def desktop_launcher(text):
+    """The browser launcher, changed to open the app in its own window. The window program is the bundle's own file
+    (Contents/MacOS/window), so the Dock shows this app's name and icon, not Cale's."""
+    text = text.replace('if curl -s -o /dev/null "$url"; then open "$url"; exit 0; fi                  # already running: show it again\n', "")
+    old = 'cd "$here" && exec "$home/venv/bin/python" app.py\n'
+    new = ('exec "$(dirname "$0")/window" --title "$name" --width 940 --height 680 --min-width 520 --min-height 380 \\\n'
+           '  --server-exec "$home/venv/bin/python" --server-arg app.py --server-cwd "$here"\n')
+    assert old in text
+    return text.replace(old, new)
 
 
 def spec(app_id):
@@ -75,6 +87,7 @@ INFO_PLIST = """<?xml version="1.0" encoding="UTF-8"?>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>0.1</string>
   <key>LSMinimumSystemVersion</key><string>14.0</string>
+  <key>NSAppTransportSecurity</key><dict><key>NSAllowsLocalNetworking</key><true/></dict>
 </dict></plist>
 """
 
@@ -95,8 +108,11 @@ def build_mac(app_id):
     copy_app(app_id, app / "Contents" / "Resources" / "app")
     (app / "Contents" / "Info.plist").write_text(INFO_PLIST.replace("__NAME__", name).replace("__ID__", app_id))
     launcher = app / "Contents" / "MacOS" / name
-    launcher.write_text(MAC_LAUNCHER.replace("__NAME__", name).replace("__PORT__", str(port)).replace("__CALE_URL__", CALE_URL))
+    text = desktop_launcher(MAC_LAUNCHER) if app_id in DESKTOP_APPS else MAC_LAUNCHER
+    launcher.write_text(text.replace("__NAME__", name).replace("__PORT__", str(port)).replace("__CALE_URL__", CALE_URL))
     launcher.chmod(0o755)
+    if app_id in DESKTOP_APPS:
+        shutil.copy2(bi.compile_mac("CaleWindow"), app / "Contents" / "MacOS" / "window")      # about 100 KB
     png = work / "icon.png"
     bi.make_icon(png, *COLORS[app_id])
     iconset = work / "App.iconset"

@@ -188,7 +188,8 @@ def copy_runtime(home):
     (rt / "nest").mkdir(parents=True, exist_ok=True)
     for f in NEST_FILES:
         shutil.copy2(SRC / "nest" / f, rt / "nest" / f)
-    for tool in ("node", "node.exe"):                                # the one-download installers carry a Node for the Node demo app
+    # The one-download installers carry a Node (for the Node demo app) and the window program that shows Cale's chat and apps.
+    for tool in ("node", "node.exe", "CaleWindow", "CaleWindow.exe", "WebView2Loader.dll"):
         if (SRC / "bin" / tool).exists():
             (home / "bin").mkdir(parents=True, exist_ok=True)
             shutil.copy2(SRC / "bin" / tool, home / "bin" / tool)

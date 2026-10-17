@@ -276,15 +276,27 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     DATA.mkdir(parents=True, exist_ok=True)
     threading.Thread(target=lambda: setup_cale() and warm_up(), daemon=True).start()
+    window = bool(os.environ.get("CALE_APP_WINDOW"))               # started by the app's own window: free port, no browser
     try:
-        srv = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
+        srv = ThreadingHTTPServer(("127.0.0.1", 0 if window else PORT), Handler)
     except OSError:
         print("Port %d is in use. Is Quick Notes already running?" % PORT)
         return
     srv.daemon_threads = True
-    url = "http://127.0.0.1:%d/" % PORT
-    print("Quick Notes is at " + url + "  (Cale: " + CALE_URL + ")")
-    if not (os.environ.get("QN_NO_BROWSER") or os.environ.get("CALE_NO_BROWSER")):
+    port = srv.server_address[1]
+    url = "http://127.0.0.1:%d/" % port
+    if window:
+        print("READY %d" % port, flush=True)
+        parent = os.getppid()                                       # the window program: if it is gone (even a force quit), stop too
+
+        def watch():
+            while os.getppid() == parent:
+                time.sleep(2)
+            os._exit(0)
+        threading.Thread(target=watch, daemon=True).start()
+    else:
+        print("Quick Notes is at " + url + "  (Cale: " + CALE_URL + ")")
+    if not (window or os.environ.get("QN_NO_BROWSER") or os.environ.get("CALE_NO_BROWSER")):
         threading.Timer(0.5, lambda: webbrowser.open(url)).start()
     try:
         srv.serve_forever()
