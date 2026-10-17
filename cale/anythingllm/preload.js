@@ -52,9 +52,10 @@ function cookieOf(req, name) {
 /** null when the request may pass; else a short reason. `setCookie` is true when this request carries the right ?t=. */
 function judge(req, port, needToken) {
   const host = req.headers.host || "";
-  if (host !== `127.0.0.1:${port}` && host !== `localhost:${port}`) return { why: "wrong host" };
+  // The chat server calls its document reader as http://0.0.0.0:<port>, so that one port also accepts that name (the reader checks a signed key too).
+  if (host !== `127.0.0.1:${port}` && host !== `localhost:${port}` && !(!needToken && host === `0.0.0.0:${port}`)) return { why: "wrong host" };
   const origin = req.headers.origin;
-  if (origin !== undefined && origin !== `http://127.0.0.1:${port}` && origin !== `http://localhost:${port}`) return { why: "wrong origin" };
+  if (origin !== undefined && origin !== `http://127.0.0.1:${port}` && origin !== `http://localhost:${port}` && !(!needToken && origin === `http://0.0.0.0:${port}`)) return { why: "wrong origin" };
   if (!needToken) return null;
   if (same(cookieOf(req, "cale_chat"), TOKEN)) return null;
   let t = "";
@@ -95,6 +96,7 @@ if (process.env.CALE_ALLOW_NET !== "1") {
     if (typeof h !== "string") return false;
     h = h.replace(/^\[|\]$/g, "").toLowerCase();
     if (h === "localhost" || h === "::1" || h === "0:0:0:0:0:0:0:1") return true;
+    if (h === "0.0.0.0" || h === "::") return true;                              // "this computer" (the server calls its document reader this way)
     if (/^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(h)) return true;
     const m = /^::ffff:(127\.\d{1,3}\.\d{1,3}\.\d{1,3})$/.exec(h);
     return !!m;
@@ -110,7 +112,13 @@ if (process.env.CALE_ALLOW_NET !== "1") {
   const origConnect = net.Socket.prototype.connect;
   net.Socket.prototype.connect = function (...args) {
     let opts;
-    try { opts = net._normalizeArgs(args)[0]; } catch { opts = {}; }
+    // net.connect() hands over arguments that Node already normalized: [options, callback]. Other callers pass (options), (port, host) or (path).
+    try { opts = Array.isArray(args[0]) ? args[0][0] : net._normalizeArgs(args)[0]; } catch { opts = null; }
+    if (!opts) {                                                                   // could not read the arguments: refuse (fail closed)
+      const err = refuse("an address that could not be read");
+      process.nextTick(() => { this.destroy(err); });
+      return this;
+    }
     if (opts && opts.path) return origConnect.apply(this, args);                  // a unix socket or pipe: on this computer
     const host = (opts && (opts.host || opts.hostname)) || "localhost";           // no host means localhost (Node's own rule)
     if (!isLoopback(host)) {
