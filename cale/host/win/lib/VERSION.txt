@@ -1,0 +1,1 @@
+Microsoft.Web.WebView2 NuGet 1.0.2210.55 (net45 managed DLLs, win-x64 loader). Source: https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.2210.55

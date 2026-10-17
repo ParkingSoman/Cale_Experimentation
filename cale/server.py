@@ -13,14 +13,16 @@
 
 "gemma-3n:auto" lets Cale choose the size. Goal fields: "cale_min_tokens_per_s", "cale_max_first_token_s", "cale_memory_pct", "cale_min_quality", "cale_power", "cale_priority", "cale_on_miss", "cale_max_wait_s", "cale_allow_disk".
 
-No browser access on purpose: there are no CORS headers, requests whose Host is not 127.0.0.1
-are refused, and every route refuses a request that carries an Origin header (so web pages cannot use it).
+Web pages: refused by default. Requests whose Host is not 127.0.0.1 are refused. A request with an Origin header is refused unless the
+Origin is an https website (see "Websites" in docs/API.md). Such a site may ask (status, connect). Only the person's Allow makes a key.
+That key works only for requests with the same Origin. Requests without an Origin (apps) behave as before.
 Debug switches (CALE_DEBUG=1 only): CALE_AUTO_APPROVE=1 skips the dialog, CALE_IDLE_S=n sets the idle time,
 POST /cale/debug/pressure forces a memory pressure level.
 """
 import json
 import math
 import os
+import re
 import secrets
 import select
 import socket
@@ -275,16 +277,23 @@ def _decide_connect(ticket):
     """Runs in its own thread: ask the person, then make the key if they allowed."""
     it = CONNECTS[ticket]
     allowed = False
+    shown = it["display"]                                          # what the person reads: an app's name, or a site's address
     try:
         if oslayer.has_screen():
             with CONNECT_LOCK:                                     # one dialog at a time
-                allowed = ask_user(it["app"], it["replacing"])
+                allowed = ask_user(shown, it["replacing"])
         else:
-            allowed = ask_user(it["app"], it["replacing"])
+            allowed = ask_user(shown, it["replacing"])
     except Exception as e:
         print(f"[connect] asking failed ({type(e).__name__}); counting that as no", flush=True)
+    if it.get("origin"):
+        with CONNECT_LOCK_META:
+            if allowed:
+                WEB_STATE["until"].pop(it["origin"], None)
+            else:                                                  # "Don't Allow", no answer, or an error: this site waits before it may ask again
+                WEB_STATE["until"][it["origin"]] = time.time() + WEB_COOLDOWN_S
     if allowed:
-        it["key"] = keys.create(it["app"])
+        it["key"] = keys.create(it["app"], origin=it.get("origin"))
     it["state"] = "allowed" if allowed else "denied"
     it["done"].set()
 
@@ -295,12 +304,63 @@ def _purge_connects():
         CONNECTS.pop(t, None)
 
 
+# --- websites ------------------------------------------------------------------------------------------------------
+# A website is known by its Origin (the browser sets it; a page cannot change it), never by a name the page sends.
+WEB_PREFIX = "web:"                  # the key record of a website is named "web:" + origin. Apps may not use this prefix.
+WEB_COOLDOWN_S = 600                 # after "Don't Allow" (or no answer), the same origin is not asked again for 10 minutes
+WEB_MAX_ASKS = 3                     # at most this many questions for ALL websites together ...
+WEB_ASK_WINDOW_S = 600               # ... in this many seconds (a site with many sub-domains cannot get round the cooldown)
+WEB_STATE = {"until": {}, "asked": []}     # origin -> time when it may ask again; times of recent questions. Guarded by CONNECT_LOCK_META.
+WEB_EXPOSE = ("X-Cale-Requested-Size, X-Cale-Size, X-Cale-Disk-MB, X-Cale-Waited-S, X-Cale-Memory-Goal-Met, X-Cale-Predicted-Tokens-Per-S, "
+              "X-Cale-Predicted-First-Token-S, X-Cale-Confidence, X-Cale-Goal-Met, X-Cale-Unmet, X-Cale-Total-S, Retry-After")
+_LABEL = r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?"
+_HTTPS_ORIGIN = re.compile(rf"^https://{_LABEL}(?:\.{_LABEL})+(?::[0-9]{{1,5}})?$")
+_DEV_ORIGIN = re.compile(r"^http://127\.0\.0\.1:[0-9]{1,5}$")
+
+
+def web_origin(value):
+    """The Origin header value if a website may ask Cale, else None. An https site with a plain host name, spelled exactly the way a browser
+    sends it. `null`, file://, http:// and everything odd are refused. CALE_WEB_DEV_ORIGINS (comma list of http://127.0.0.1:PORT) is for tests."""
+    if not isinstance(value, str) or len(value) > 270:
+        return None
+    if _HTTPS_ORIGIN.fullmatch(value):
+        return value
+    if _DEV_ORIGIN.fullmatch(value) and value in {x.strip() for x in os.environ.get("CALE_WEB_DEV_ORIGINS", "").split(",")}:
+        return value
+    return None
+
+
+def site_name(origin):
+    """What the person sees in the Allow question: the site's address without the scheme."""
+    return origin.split("://", 1)[1]
+
+
 ENGINE = None
 
 
 class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     timeout = 120                        # a stalled client cannot hold a thread for ever
+
+    origin = None                        # the website that sent this request (None: an app, or no Origin)
+    cors = None                          # the Origin to answer with CORS headers. Set only after the checks of _guard passed.
+
+    def handle_one_request(self):
+        self.origin = self.cors = None   # nothing from the last request on this connection carries over
+        super().handle_one_request()
+
+    def end_headers(self):
+        """Every answer to an accepted website carries CORS headers: normal, error and streamed ones alike."""
+        if self.cors:
+            self.send_header("Access-Control-Allow-Origin", self.cors)        # this exact origin, never *
+            self.send_header("Vary", "Origin")
+            self.send_header("Access-Control-Expose-Headers", WEB_EXPOSE)
+            if self.command == "OPTIONS":
+                self.send_header("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
+                self.send_header("Access-Control-Allow-Headers", "Authorization, Content-Type")
+                self.send_header("Access-Control-Allow-Private-Network", "true")
+                self.send_header("Access-Control-Max-Age", "600")
+        super().end_headers()
 
     # --- helpers ----------------------------------------------------------------------
     def _json(self, code, obj, headers=None):
@@ -318,7 +378,10 @@ class Handler(BaseHTTPRequestHandler):
         err = {"message": str(e), "type": "invalid_request_error", "code": e.code, "param": e.param}
         if e.extra:
             err["cale"] = e.extra
-        self._json(e.status, {"error": err}, {"Connection": "close"})
+        hdr = {"Connection": "close"}
+        if isinstance(e.extra, dict) and "retry_after_s" in e.extra:
+            hdr["Retry-After"] = str(e.extra["retry_after_s"])
+        self._json(e.status, {"error": err}, hdr)
 
     def _body(self):
         try:
@@ -338,17 +401,34 @@ class Handler(BaseHTTPRequestHandler):
         return body
 
     def _guard(self):
-        if self.headers.get("Origin") or self.headers.get("Sec-Fetch-Site"):
-            raise ApiError(403, "browser_not_allowed", "Web pages cannot use Cale. Call it from the app's own backend.")
+        """Who may talk to Cale. An app sends no Origin. A website sends one, and only a secure (https) site is let in this far:
+        what it may do is decided by _auth (a key made for that origin) and by /cale/connect (the person's Allow)."""
+        self.origin = self.cors = None
+        origins = self.headers.get_all("Origin") or []
+        if len(origins) > 1:
+            raise ApiError(403, "browser_not_allowed", "More than one Origin header.")
+        if not origins and self.headers.get("Sec-Fetch-Site"):               # a browser request without CORS (a link, an image): never
+            raise ApiError(403, "browser_not_allowed", "Web pages cannot use Cale this way. Call it from the app's own backend.")
+        origin = None
+        if origins:
+            origin = web_origin(origins[0])
+            if origin is None:
+                raise ApiError(403, "browser_not_allowed", "This web page cannot use Cale. Only secure (https) websites can ask the person for access.")
         host = (self.headers.get("Host") or "").split(":")[0]
         if host != paths.HOST:
             raise ApiError(403, "bad_host", f"Use http://{paths.HOST}:{paths.PORT} (not '{host}').")
+        self.origin = self.cors = origin
 
     def _auth(self):
+        """The app (or website) name for the key. A key works only for the same kind of caller it was made for:
+        an app key with no Origin, a website key with exactly its own Origin."""
         auth = self.headers.get("Authorization") or ""
-        app = keys.check(auth[7:].strip() if auth.lower().startswith("bearer ") else "")
-        if app is None:
+        rec = keys.lookup(auth[7:].strip() if auth.lower().startswith("bearer ") else "")
+        if rec is None:
             raise ApiError(401, "invalid_api_key", "Missing or invalid Cale key. Ask Cale for one at /cale/connect.")
+        app, key_origin = rec
+        if key_origin != self.origin:
+            raise ApiError(403, "wrong_origin", "This key was made for a different caller. Ask Cale for a key from this site at /cale/connect.")
         return app
 
     def log_message(self, fmt, *a):
@@ -359,12 +439,16 @@ class Handler(BaseHTTPRequestHandler):
         try:
             self._guard()
             if self.path == "/cale/status":
+                if self.origin:                                            # a site that has no key yet learns only that Cale runs
+                    return self._json(200, {"ok": True, "version": "0.1", "model": BASE})
                 return self._json(200, {"ok": True, "version": "0.1", "model": BASE, **ENGINE.status()})
             if self.path.startswith("/cale/connect/status"):
                 from urllib.parse import parse_qs, urlparse
                 ticket = (parse_qs(urlparse(self.path).query).get("ticket") or [""])[0]
                 return self._connect_reply(ticket, "")
             if self.path == "/cale/computer":                          # like /cale/status: no key. What this computer can do.
+                if self.origin:
+                    self._auth()                                           # a site needs the person's Allow first
                 return self._json(200, {"model": BASE, "max_context_tokens": ENGINE.known_context(), "this_computer": ENGINE.this_computer()})                  # no key: it never loads the model
             if self.path.split("?")[0] == "/cale/activity":           # only the Cale Hub's own key: it shows what every app does
                 app = self._auth()
@@ -389,7 +473,7 @@ class Handler(BaseHTTPRequestHandler):
                                             "available": sorted({l["pct"] for l in LEVELS}),
                                             "usage": f"{BASE}:<percent> or {BASE}:auto", "goals": list(goals_mod.FIELDS)}, "curve": curve,
                     "this_computer": this_mac, "this_mac": this_mac,       # this_mac: the first name, kept so old apps still work
-                    "holds": ENGINE.status()["holds"]}})
+                    "holds": [] if self.origin else ENGINE.status()["holds"]}})        # other apps' names are not for a website
             raise ApiError(404, "not_found", "Unknown path.")
         except ApiError as e:
             self._error(e)
@@ -401,6 +485,8 @@ class Handler(BaseHTTPRequestHandler):
         self.arrived = time.time()                 # time spent waiting in line counts toward an app's first-token goal
         try:
             self._guard()
+            if self.origin and self.path.startswith("/cale/debug/"):
+                raise ApiError(403, "browser_not_allowed", "Not for web pages.")
             if self.path == "/cale/connect":
                 return self._connect()
             if self.path == "/v1/chat/completions":
@@ -449,6 +535,24 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(500, {"error": {"message": "Internal error. The details are in Cale's log.", "type": "server_error", "code": "internal"}})
             except Exception:
                 pass
+
+    def do_OPTIONS(self):
+        """The browser's question before a cross-origin call. Answered for any accepted website (https), because a site must be able to
+        ask. It gives nothing away and changes nothing: the call that follows is checked as usual."""
+        try:
+            self._guard()
+            if self.origin is None:
+                raise ApiError(403, "browser_not_allowed", "Only a web page sends this.")
+            if (self.headers.get("Access-Control-Request-Method") or "").upper() not in ("GET", "POST", "DELETE"):
+                raise ApiError(403, "browser_not_allowed", "That method is not allowed.")
+            self.send_response(204)
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+        except ApiError as e:
+            self._error(e)
+        except Exception as e:
+            print(f"[http] error {type(e).__name__}: {e}", flush=True)
+            self.close_connection = True
 
     def do_DELETE(self):
         try:
@@ -502,25 +606,48 @@ class Handler(BaseHTTPRequestHandler):
 
     def _connect(self):
         body = self._body()
-        app = str(body.get("app", "")).strip()
-        app = "".join(ch for ch in app if ch.isprintable() and ch not in '"\\')[:40]
-        if not app:
-            raise ApiError(400, "invalid_app", "Send {\"app\": \"Your App Name\"}.")
-        if app.casefold() == keys.HUB_APP.casefold():
-            raise ApiError(400, "reserved_name", f"The name \"{keys.HUB_APP}\" belongs to Cale itself. Pick your own app name.")
+        if self.origin:                                    # a website: its name is its Origin. Any "app" the page sends is ignored.
+            app, shown = WEB_PREFIX + self.origin, site_name(self.origin)
+        else:
+            app = str(body.get("app", "")).strip()
+            app = "".join(ch for ch in app if ch.isprintable() and ch not in '"\\')[:40]
+            if not app:
+                raise ApiError(400, "invalid_app", "Send {\"app\": \"Your App Name\"}.")
+            if app.casefold() == keys.HUB_APP.casefold():
+                raise ApiError(400, "reserved_name", f"The name \"{keys.HUB_APP}\" belongs to Cale itself. Pick your own app name.")
+            if app.casefold().startswith(WEB_PREFIX):
+                raise ApiError(400, "reserved_name", f"Names that start with \"{WEB_PREFIX}\" are for websites. Pick your own app name.")
+            shown = app
         wait_s = number(body, "wait_s", 0, 600, 120)
         with CONNECT_LOCK_META:
             _purge_connects()
+            now = time.time()
+            if self.origin:
+                until = WEB_STATE["until"].get(self.origin, 0)
+                if until > now:
+                    wait = int(until - now) + 1
+                    raise ApiError(429, "asked_recently", "The person said no (or did not answer) a short time ago. This site cannot ask again yet.",
+                                   {"retry_after_s": wait})
+                for o in [o for o, t in WEB_STATE["until"].items() if t <= now]:
+                    WEB_STATE["until"].pop(o, None)
             if sum(1 for it in CONNECTS.values() if it["state"] == "pending") >= CONNECT_MAX:
                 raise ApiError(429, "busy", "Too many apps are waiting for the user to answer. Try again later.")
             if oslayer.has_screen() and CONNECT_LOCK.locked():
                 raise ApiError(429, "busy", "Another app is waiting for the user to answer. Try again later.")
+            if self.origin:
+                WEB_STATE["asked"] = [t for t in WEB_STATE["asked"] if now - t < WEB_ASK_WINDOW_S]
+                if len(WEB_STATE["asked"]) >= WEB_MAX_ASKS and not any(it["app"] == app and it["state"] == "pending" for it in CONNECTS.values()):
+                    raise ApiError(429, "too_many_questions", "Too many websites asked for access lately. Try again later.",
+                                   {"retry_after_s": int(WEB_ASK_WINDOW_S - (now - min(WEB_STATE["asked"]))) + 1})
             if any(it["app"] == app and it["state"] == "pending" for it in CONNECTS.values()):
                 # Never hand a second asker the first one's ticket: it could collect the first one's key. The first asker polls its own ticket.
                 raise ApiError(409, "already_waiting", f"An app named '{app}' is already waiting for the person's answer. Wait for it, or use another name.")
             ticket = "t-" + secrets.token_urlsafe(16)
-            CONNECTS[ticket] = {"app": app, "state": "pending", "key": None, "done": threading.Event(), "since": time.time(),
-                                "replacing": app in keys.apps()}
+            CONNECTS[ticket] = {"app": app, "display": shown, "origin": self.origin, "state": "pending", "key": None, "done": threading.Event(),
+                                "since": time.time(), "replacing": app in keys.apps()}
+            if self.origin:
+                WEB_STATE["asked"].append(now)
+                print(f"[connect] website {shown!r} asks to use Cale", flush=True)
             threading.Thread(target=_decide_connect, args=(ticket,), daemon=True).start()
         it = CONNECTS[ticket]
         if wait_s > 0:
@@ -529,18 +656,18 @@ class Handler(BaseHTTPRequestHandler):
 
     def _connect_reply(self, ticket, app):
         it = CONNECTS.get(ticket)
-        if it is None:
+        if it is None or it.get("origin") != self.origin:        # a ticket belongs to the caller that asked: another site or app cannot collect the key
             raise ApiError(404, "unknown_ticket", "No such request. Ask again with POST /cale/connect.")
         if it["state"] == "allowed":
             key, it["key"] = it["key"], None                       # the key is handed out once
             if key is None:
                 raise ApiError(410, "already_delivered", "The key was handed out already. Ask again with POST /cale/connect.")
             CONNECTS.pop(ticket, None)
-            return self._json(200, {"app": it["app"], "api_key": key, "base_url": f"http://{paths.HOST}:{paths.PORT}/v1"})
+            return self._json(200, {"app": it["display"], "api_key": key, **({"origin": it["origin"]} if it.get("origin") else {}), "base_url": f"http://{paths.HOST}:{paths.PORT}/v1"})
         if it["state"] == "denied":
             CONNECTS.pop(ticket, None)
             raise ApiError(403, "denied", "The user did not allow this app.")
-        how = (f"Ask the person to type, in a terminal on this computer:  cale allow \"{it['app']}\"" if not oslayer.has_screen()
+        how = (f"Ask the person to type, in a terminal on this computer:  cale allow \"{it['display']}\"" if not oslayer.has_screen()
                else "The person must answer the question on the screen.")
         return self._json(202, {"status": "pending", "ticket": ticket, "poll": f"/cale/connect/status?ticket={ticket}", "message": how},
                           {"Retry-After": "2"})

@@ -61,12 +61,12 @@ def main():
 
     s, j = http(base, "/cale/status", headers={"Host": "evil.example"})
     check("foreign Host header refused", s == 403, j)
-    s, j = http(base, "/cale/connect", {"app": "Web Page"}, {"Origin": "https://evil.example"})
+    s, j = http(base, "/cale/connect", {"app": "Web Page"}, {"Origin": "http://evil.example"})   # https sites may ask now (cale/tests/web_origin.py); http never
     check("connect with an Origin header refused", s == 403 and j["error"]["code"] == "browser_not_allowed", j)
     s, j = http(base, "/cale/connect", {})
     check("connect without app name -> 400", s == 400, j)
-    s, j = http(base, "/cale/status", headers={"Origin": "https://evil.example"})
-    check("any route refuses an Origin header", s == 403, j)
+    s, j = http(base, "/cale/status", headers={"Origin": "null"})
+    check("any route refuses an Origin that is not an https site", s == 403, j)
     s, j = http(base, "/cale/status", headers={"Sec-Fetch-Site": "cross-site"})
     check("any route refuses Sec-Fetch-Site", s == 403, j)
 
