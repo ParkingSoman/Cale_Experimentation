@@ -2,7 +2,7 @@
 
   CALE_DEBUG=1 CALE_AUTO_APPROVE=1 on the server lets this run without clicking Allow.
 
-  python cale/tests/e2e.py [--base http://127.0.0.1:47821] [--model]     # --model also runs generation tests
+  python cale/tests/e2e.py --base http://127.0.0.1:47955 [--model]     # a TEST Cale on a spare port, never the real one     # --model also runs generation tests
 Run it with the repo venv (it has openai):  .venv/bin/python cale/tests/e2e.py --model
 """
 import argparse
@@ -46,10 +46,13 @@ def http(base, path, body=None, headers=None, method=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--base", default="http://127.0.0.1:47821")
+    ap.add_argument("--base", required=True, help="a TEST Cale, for example http://127.0.0.1:47955 started with CALE_HOME=<empty folder> CALE_PORT=47955 CALE_DEBUG=1 CALE_AUTO_APPROVE=1")
     ap.add_argument("--model", action="store_true", help="also run tests that load and use the model")
+    ap.add_argument("--i-mean-the-real-cale", action="store_true", help="allow port 47821 (shows Allow questions and leaves test keys in the real Cale)")
     a = ap.parse_args()
     base = a.base
+    if base.rstrip("/").endswith(":47821") and not a.i_mean_the_real_cale:
+        sys.exit("This is the port of the real Cale. This test makes Allow questions pop up and leaves keys behind. Start a test Cale on another port.")
 
     s, j = http(base, "/cale/status")
     check("status answers without a key", s == 200 and j.get("ok") is True, j)

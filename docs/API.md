@@ -492,13 +492,13 @@ Cale keeps them in `web_sites.json` in its private folder, so a restart does not
 | Rule | Value |
 |---|---|
 | Open questions per site | 1. A second ask while one is open gets `409 already_waiting` (or `429 busy` while any question is on the screen). |
-| The person presses "Don't Allow" | The site is blocked until the person resets it. `403 site_blocked`. It never expires. |
-| A question gets no answer (time out, or no answer in the terminal) | It counts as ignored. `kDefaultIgnoresBeforeBlock = 4`: the 4th ignored question blocks that site for `kDefaultEmbargoDays = 7` days. Until then it may ask again. |
+| The person presses "Don't Allow" | It counts as a dismissal. `kDefaultDismissalsBeforeBlock = 3`: the 3rd dismissal blocks that site for `kDefaultEmbargoDays = 7` days. Cale's question cannot tell the Don't Allow button from the Escape key (and Don't Allow is the default button), so, as Chromium does for a dismissed question, it never blocks for ever. |
+| A question gets no answer (time out, or no answer in the terminal) | It counts as ignored. `kDefaultIgnoresBeforeBlock = 4`: the 4th ignored question blocks that site for 7 days. Until then it may ask again. |
 | During the 7 days | `429 asked_recently` with `Retry-After` and `error.cale.retry_after_s` (about 604800 at first). When the days end, the count starts again. |
 | "Allow" | Clears every count for that site. |
 | An error while asking | Counts for nothing. |
 
-Chromium also counts dismissals (3, then 7 days). Cale's question has no separate dismiss button, so it does not count them.
+Dismissals and ignored questions are counted apart. Either count can start the 7 days.
 
 The person resets a site in a terminal on the computer:
 

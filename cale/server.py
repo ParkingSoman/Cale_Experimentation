@@ -628,10 +628,8 @@ class Handler(BaseHTTPRequestHandler):
             now = time.time()
             if self.origin:                                # the rules of cale/sites.py: for each site on its own, no limit across sites
                 refused = sites.check(self.origin, now)
-                if refused and refused[0] == "site_blocked":
-                    raise ApiError(403, "site_blocked", "The person said no to this site. It cannot ask again until they reset it.")
                 if refused:
-                    raise ApiError(429, "asked_recently", "The person did not answer this site's questions. It cannot ask again yet.",
+                    raise ApiError(429, "asked_recently", "The person did not say yes to this site's questions. It cannot ask again yet.",
                                    {"retry_after_s": refused[1]})
             if sum(1 for it in CONNECTS.values() if it["state"] == "pending") >= CONNECT_MAX:
                 raise ApiError(429, "busy", "Too many apps are waiting for the user to answer. Try again later.")

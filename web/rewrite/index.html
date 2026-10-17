@@ -164,8 +164,7 @@
   function problem(e) {
     if (!e) return "Rewrite stopped for a moment. Try again.";
     if (e.kind === "denied") return "Cale was not allowed on this site. Press a button to try again.";
-    if (e.kind === "blocked") return "You said no to this site before, so Cale will not ask again.";
-    if (e.kind === "wait") return "Cale asked a few times and nobody answered. This site can ask again in a few days.";
+    if (e.kind === "wait") return "Cale asked a few times and did not get a yes. This site can ask again in a few days.";
     if (e.kind === "busy") return "Cale is waiting for an answer on your screen.";
     return "Rewrite stopped for a moment. Try again.";
   }

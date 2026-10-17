@@ -62,12 +62,11 @@ def sites_list():
     now = time.time()
     for origin, r in sorted(known.items()):
         name = origin.split("://", 1)[-1]
-        if r.get("state") == sites.BLOCKED:
-            what = "blocked: you said Don't Allow. Type: cale forget " + name
-        elif r.get("embargo_until", 0) > now:
-            what = f"waiting: it asked {r.get('ignores', 0)} times with no answer. It may ask again in {int((r['embargo_until'] - now) / 3600) + 1} hours"
+        counts = f"{r.get('dismissals', 0)} no, {r.get('ignores', 0)} not answered"
+        if r.get("embargo_until", 0) > now:
+            what = f"waiting ({counts}). It may ask again in {int((r['embargo_until'] - now) / 3600) + 1} hours. To let it ask now, type: cale forget {name}"
         else:
-            what = f"may ask: {r.get('ignores', 0)} question(s) had no answer"
+            what = f"may ask ({counts})"
         print(f"  {name}  {what}")
     return 0
 

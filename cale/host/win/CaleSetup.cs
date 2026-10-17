@@ -86,9 +86,9 @@ namespace CaleHost
                     if (top < y) continue;
                     float unfurl = Math.Min(1f, (top - y) / 30f);
                     float size = (30 - 3 * i) * unfurl;
-                    for (int k = 0; k < 2; k++)
+                    for (int sd = 0; sd < 2; sd++)
                     {
-                        float side = k == 0 ? -1f : 1f;
+                        float side = sd == 0 ? -1f : 1f;
                         using (GraphicsPath p = new GraphicsPath())
                         {
                             p.AddBezier(baseX, up(y),

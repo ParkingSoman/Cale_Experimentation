@@ -261,10 +261,15 @@ for _ in range(50):
         break
     time.sleep(0.1)
 check("Don't Allow -> 403 denied with CORS headers", s == 403 and code((s, js)) == "denied" and h.get("access-control-allow-origin") == OTHER, f"{s} {js}")
+check("one Don't Allow is a dismissal, not a block (it may ask again)", sites.check(OTHER) is None and sites.listing()[OTHER]["dismissals"] == 1, str(sites.listing()))
+sites.record(OTHER, "deny")
+check("two dismissals: it may still ask", sites.check(OTHER) is None)
+sites.record(OTHER, "deny")
 s, js, h = call("POST", "/cale/connect", {"wait_s": 0}, origin=OTHER)
-check("explicit Don't Allow -> 403 site_blocked", s == 403 and code((s, js)) == "site_blocked", f"{s} {js}")
-check("site_blocked message has no technical words", "The person said no to this site" in js["error"]["message"], str(js))
-check("a blocked site does not block another site", call("POST", "/cale/connect", {"wait_s": 0}, origin=SITE)[0] in (202, 200))
+ra = js.get("error", {}).get("cale", {}).get("retry_after_s", 0)
+check("the 3rd dismissal gives 7 days: 429 asked_recently", s == 429 and code((s, js)) == "asked_recently" and 604000 < ra < 605000, f"{s} {js}")
+check("asked_recently message has no technical words", "cannot ask again yet" in js["error"]["message"], str(js))
+check("a waiting site does not hold back another site", call("POST", "/cale/connect", {"wait_s": 0}, origin=SITE)[0] in (202, 200))
 GATE.set()
 time.sleep(0.3)
 
@@ -272,14 +277,14 @@ time.sleep(0.3)
 check("sites file exists with mode 0600", paths.SITES.exists() and (paths.SITES.stat().st_mode & 0o777) == 0o600 or os.name == "nt")
 import importlib  # noqa: E402
 fresh = importlib.reload(sites)
-check("block survives a restart (module reloaded, state read from the file)", fresh.check(OTHER) == ("site_blocked", None), str(fresh.check(OTHER)))
+check("the wait survives a restart (module reloaded, state read from the file)", (fresh.check(OTHER) or ("",))[0] == "asked_recently", str(fresh.check(OTHER)))
 import subprocess  # noqa: E402
 r = subprocess.run([sys.executable, "-c", "from cale import sites; print(sites.check('%s'))" % OTHER], capture_output=True, text=True,
                    env={**os.environ}, cwd=str(Path(__file__).resolve().parents[2]))
-check("block is seen by a new process", "site_blocked" in r.stdout, r.stdout + r.stderr)
+check("the wait is seen by a new process", "asked_recently" in r.stdout, r.stdout + r.stderr)
 sites = fresh
 server.sites = fresh
-check("forget() resets the block", sites.forget("other.example.org") is True and sites.check(OTHER) is None)
+check("forget() resets the wait", sites.forget("other.example.org") is True and sites.check(OTHER) is None)
 check("forget() of an unknown site is False", sites.forget("never.example.org") is False)
 server.ask_user = recording_ask
 s, js, h = call("POST", "/cale/connect", {"wait_s": 20}, origin=OTHER)
@@ -331,7 +336,13 @@ server.ask_user = _boom
 for _ in range(6):
     call("POST", "/cale/connect", {"wait_s": 20}, origin=IGN)
 check("an exception while asking counts for nothing", IGN not in sites.listing(), str(sites.listing()))
-check("blocked stays blocked when ignores arrive", (sites.record(OTHER, "deny"), sites.record(OTHER, "timeout"), sites.check(OTHER))[2] == ("site_blocked", None))
+sites.forget("other.example.org")
+for how in ("deny", "deny", "timeout", "timeout", "timeout"):
+    sites.record(OTHER, how)
+check("dismissals and ignores are counted apart (2 + 3: still may ask)", sites.check(OTHER) is None, str(sites.listing().get(OTHER)))
+sites.record(OTHER, "timeout")
+check("the 4th ignore starts the 7 days even after dismissals", (sites.check(OTHER) or ("",))[0] == "asked_recently")
+sites.forget("other.example.org")
 
 # ---- no limit across sites (a site with many sub-domains: each gets its own question) --------------------------------
 reset_web_state()
