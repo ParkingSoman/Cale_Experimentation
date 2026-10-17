@@ -37,8 +37,14 @@ net.Server.prototype.listen = function (...a) {
 
 // ---- 2. who may talk to the server ------------------------------------------------------------------------------------
 const TOKEN = process.env.CALE_CHAT_TOKEN || "";                 // the one-time code
-const COOKIE = process.env.CALE_CHAT_COOKIE || TOKEN;            // the cookie secret
+const COOKIE = process.env.CALE_CHAT_COOKIE || "";               // the cookie secret. It must be a different secret from the code.
 let spent = false;                                               // the one-time code has been used
+// Fail closed. Without both secrets, or with the same value for both, this server would be open or would take the address code as the
+// cookie. Only cale/chat.py starts this server, and it always sets both.
+if (!TOKEN || !COOKIE || COOKIE === TOKEN) {
+  console.error("[cale-guard] CALE_CHAT_TOKEN and CALE_CHAT_COOKIE must both be set, and must differ. Refusing to start.");
+  process.exit(1);
+}
 const MAIN_PORT = parseInt(process.env.CALE_CHAT_MAIN_PORT || "0", 10);
 const COLLECTOR_PORT = parseInt(process.env.CALE_CHAT_COLLECTOR_PORT || "0", 10);
 
@@ -63,10 +69,14 @@ function judge(req, port, needToken) {
   const origin = req.headers.origin;
   if (origin !== undefined && origin !== `http://127.0.0.1:${port}` && origin !== `http://localhost:${port}` && !(!needToken && origin === `http://0.0.0.0:${port}`)) return { why: "wrong origin" };
   if (!needToken) return null;
-  if (same(cookieOf(req, "cale_chat"), COOKIE)) return null;                    // the cookie counts, with or without ?t=
   let t = "";
   try { t = new URL(req.url, "http://x").searchParams.get("t") || ""; } catch { /* no query */ }
-  if (!spent && t && same(t, TOKEN) && (req.method === "GET" || req.method === "HEAD")) {
+  const codeOk = !spent && t !== "" && same(t, TOKEN);                           // the right code, not used yet
+  if (same(cookieOf(req, "cale_chat"), COOKIE)) {                                // the cookie counts, with or without ?t=
+    if (codeOk) spent = true;                                                    // ...but a request that carries the code spends it, whatever else it has
+    return null;                                                                 // (a window that already has the cookie loads the new code after a restart)
+  }
+  if (codeOk && (req.method === "GET" || req.method === "HEAD")) {
     spent = true;                                                                // one use only
     return { setCookie: true };
   }
