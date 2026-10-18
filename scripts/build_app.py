@@ -238,6 +238,7 @@ End If
 
 WIN_DESKTOP_INI = (
     "name=__NAME__\n"
+    "detail=This takes a moment.\n"
     "target=%LOCALAPPDATA%\\__NAME__\\files\n"
     "target_calehome=%CALE_HOME%\\apps-test\\__NAME__\n"
     "run=wscript.exe\n"

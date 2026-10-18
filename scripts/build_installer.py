@@ -179,6 +179,7 @@ start "" "%~dp0bin\CaleSetup.exe"
 # Settings for the setup exe (cale/host/win/SelfExtract.cs): where to unpack, and what to start afterwards.
 WIN_SETUP_INI = (
     "name=Cale\n"
+    "detail=This takes a few minutes.\n"
     "target=%LOCALAPPDATA%\\Cale\\app\n"
     "target_calehome=%CALE_HOME%\\app\n"
     "run=%TARGET%\\bin\\CaleSetup.exe\n"

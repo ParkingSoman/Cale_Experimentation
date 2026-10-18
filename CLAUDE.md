@@ -32,4 +32,4 @@ Success = (app types that work well) x (consumer environments each one runs in).
 | Demo story | Install Cale once, chat at once (no sign-up, no usage limits). Quick Notes is a downloaded desktop app. Rewrite is a real website. All three use the same AI on this computer. |
 | Start state | The Cale installer and the Quick Notes installer are already downloaded. The install itself is a recorded time-lapse. |
 
-Run sheet and measured numbers: `demo/README.md`. Latest handoff: `docs/HANDOFF-2026-10-15.md`.
+Run sheet and measured numbers: `demo/README.md`. Latest handoff: `docs/HANDOFF-2026-10-17.md`.

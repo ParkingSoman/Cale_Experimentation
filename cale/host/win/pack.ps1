@@ -56,10 +56,13 @@ function New-SetupExe($csc, $hostDir, $icon, $title, $settings, $zipPath, $outPa
     $text = "using System.Reflection;`n[assembly: AssemblyTitle(""$safe"")]`n[assembly: AssemblyProduct(""$safe"")]`n[assembly: AssemblyDescription(""$safe"")]`n[assembly: AssemblyFileVersion(""1.0.0.0"")]`n[assembly: AssemblyVersion(""1.0.0.0"")]`n"
     [System.IO.File]::WriteAllText($info, $text, (New-Object System.Text.UTF8Encoding $false))
     if (Test-Path $outPath) { Remove-Item $outPath -Force }
+    $extra = @()
+    $carrot = Join-Path $hostDir "carrot.png"
+    if (Test-Path $carrot) { $extra = @("/resource:$carrot,carrot.png") }      # the mascot on Cale's own unpack screen
     try {
-        Invoke-Csc $csc @("/target:winexe", "/platform:anycpu", "/win32icon:$icon", "/out:$outPath",
-            "/r:System.Windows.Forms.dll", "/r:System.Drawing.dll", "/r:System.IO.Compression.dll", "/r:System.IO.Compression.FileSystem.dll",
-            (Join-Path $hostDir "SelfExtract.cs"), $info)
+        Invoke-Csc $csc (@("/target:winexe", "/platform:anycpu", "/win32icon:$icon", "/out:$outPath",
+            "/r:System.Windows.Forms.dll", "/r:System.Drawing.dll", "/r:System.IO.Compression.dll", "/r:System.IO.Compression.FileSystem.dll") + $extra + @(
+            (Join-Path $hostDir "SelfExtract.cs"), $info))
     } finally { Remove-Item $info -Force -ErrorAction SilentlyContinue }
     $cfg = [System.Text.Encoding]::UTF8.GetBytes($settings)
     $zipLen = (Get-Item $zipPath).Length

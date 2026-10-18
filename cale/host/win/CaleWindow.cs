@@ -257,9 +257,14 @@ namespace CaleHost
             opts = o;
             Text = o.Title;
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(o.Width, o.Height);
-            MinimumSize = SizeFromClientSize(new Size(o.MinWidth, o.MinHeight));
-            StartPosition = FormStartPosition.CenterScreen;
+            float k;
+            using (Graphics dg = CreateGraphics()) k = dg.DpiX / 96f;        // the sizes above are in 96-dpi units: scale them, or the page gets a narrow, clipped view on a high-resolution screen
+            ClientSize = new Size((int)(o.Width * k), (int)(o.Height * k));
+            MinimumSize = SizeFromClientSize(new Size((int)(o.MinWidth * k), (int)(o.MinHeight * k)));
+            Rectangle wa = Screen.PrimaryScreen.WorkingArea;                  // never taller or wider than 90% of the usable screen (a small laptop screen)
+            Size = new Size(Math.Min(Width, (int)(wa.Width * 0.9)), Math.Min(Height, (int)(wa.Height * 0.9)));
+            StartPosition = FormStartPosition.Manual;                          // centered by hand: CreateGraphics above already made the window, so CenterScreen would use the old size
+            Location = new Point(wa.Left + (wa.Width - Width) / 2, wa.Top + (wa.Height - Height) / 2);
             BackColor = Color.FromArgb(255, 241, 214);
             if (!string.IsNullOrEmpty(o.Icon) && File.Exists(o.Icon))
             {

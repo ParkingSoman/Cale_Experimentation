@@ -56,6 +56,52 @@ namespace CaleHost
         public override void Write(byte[] buffer, int offset, int count) { throw new NotSupportedException(); }
     }
 
+    // A moving bar for "this takes a while": a carrot-orange block slides inside a brown-outlined track.
+    class Slider : Control
+    {
+        double phase = 0;
+        System.Windows.Forms.Timer t;
+        public Slider()
+        {
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
+            t = new System.Windows.Forms.Timer();
+            t.Interval = 40;
+            t.Tick += delegate { phase += 0.012; if (phase > 1) phase -= 1; Invalidate(); };
+            t.Start();
+        }
+        static System.Drawing.Drawing2D.GraphicsPath Pill(float x, float y, float w, float h)
+        {
+            System.Drawing.Drawing2D.GraphicsPath p = new System.Drawing.Drawing2D.GraphicsPath();
+            p.AddArc(x, y, h, h, 90, 180);
+            p.AddArc(x + w - h, y, h, h, 270, 180);
+            p.CloseFigure();
+            return p;
+        }
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.Clear(Color.FromArgb(255, 241, 214));
+            float pen = Math.Max(2f, Height / 5f);
+            float h = Height - pen, w = Width - pen, o = pen / 2f;
+            using (SolidBrush track = new SolidBrush(Color.FromArgb(255, 224, 168)))
+            using (System.Drawing.Drawing2D.GraphicsPath p = Pill(o, o, w, h))
+            {
+                g.FillPath(track, p);
+                Region old = g.Clip;
+                g.SetClip(p);
+                float block = w * 0.3f;
+                float x = o - block + (float)phase * (w + block);
+                using (SolidBrush bar = new SolidBrush(Color.FromArgb(245, 138, 31)))
+                using (System.Drawing.Drawing2D.GraphicsPath q = Pill(x, o, block, h))
+                    g.FillPath(bar, q);
+                g.Clip = old;
+                using (Pen line = new Pen(Color.FromArgb(59, 35, 20), pen))
+                    g.DrawPath(line, p);
+            }
+        }
+    }
+
     class ExtractForm : Form
     {
         Label title;
@@ -76,31 +122,57 @@ namespace CaleHost
             Text = name;
             AutoScaleMode = AutoScaleMode.None;
             float k;
-            using (Graphics dg = CreateGraphics()) k = dg.DpiX / 96f;
+            using (Graphics dg = CreateGraphics()) k = dg.DpiX / 96f;       // our own scaling: every size times dpi / 96
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             ControlBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            ClientSize = new Size((int)(380 * k), (int)(110 * k));
+            ClientSize = new Size((int)(460 * k), (int)(290 * k));
             BackColor = Color.FromArgb(255, 241, 214);
             try { Icon = Icon.ExtractAssociatedIcon(exePath); } catch (Exception) { }
+            Color brown = Color.FromArgb(59, 35, 20);
+
+            int top = 14;
+            try
+            {
+                using (Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream("carrot.png"))
+                {
+                    if (s != null)
+                    {
+                        PictureBox pic = new PictureBox();
+                        pic.Image = Image.FromStream(s);
+                        pic.SizeMode = PictureBoxSizeMode.Zoom;
+                        pic.BackColor = Color.Transparent;
+                        pic.SetBounds((int)(180 * k), (int)(14 * k), (int)(100 * k), (int)(100 * k));
+                        Controls.Add(pic);
+                        top = 120;
+                    }
+                }
+            }
+            catch (Exception) { top = 14; }
+            if (top == 14) top = 40;
 
             title = new Label();
             title.Text = "Getting " + name + " ready";
-            title.Font = new Font("Segoe UI Semibold", 13f, FontStyle.Regular, GraphicsUnit.Point);
-            title.ForeColor = Color.FromArgb(59, 35, 20);
+            title.Font = new Font("Segoe UI Black", 15f, FontStyle.Regular, GraphicsUnit.Point);
+            title.ForeColor = brown;
             title.TextAlign = ContentAlignment.MiddleCenter;
-            title.SetBounds((int)(10 * k), (int)(22 * k), (int)(360 * k), (int)(32 * k));
+            title.SetBounds((int)(10 * k), (int)(top * k), (int)(440 * k), (int)(40 * k));
             Controls.Add(title);
 
             detail = new Label();
-            detail.Text = "One moment.";
-            detail.Font = new Font("Segoe UI", 10f, FontStyle.Regular, GraphicsUnit.Point);
-            detail.ForeColor = Color.FromArgb(59, 35, 20);
+            detail.Text = Get("detail", "This takes a few minutes.");
+            detail.Font = new Font("Segoe UI", 11f, FontStyle.Regular, GraphicsUnit.Point);
+            detail.ForeColor = brown;
             detail.TextAlign = ContentAlignment.MiddleCenter;
-            detail.SetBounds((int)(10 * k), (int)(58 * k), (int)(360 * k), (int)(26 * k));
+            detail.SetBounds((int)(10 * k), (int)((top + 44) * k), (int)(440 * k), (int)(30 * k));
             Controls.Add(detail);
+
+            Slider slide = new Slider();
+            slide.SetBounds((int)(60 * k), (int)((top + 88) * k), (int)(340 * k), (int)(16 * k));
+            Controls.Add(slide);
+            ClientSize = new Size((int)(460 * k), (int)((top + 128) * k));
         }
 
         string Get(string key, string fallback)
@@ -138,7 +210,11 @@ namespace CaleHost
                         string dest = Path.GetFullPath(Path.Combine(target, entry.FullName.Replace('/', '\\')));
                         if (!dest.StartsWith(root, StringComparison.OrdinalIgnoreCase)) continue;       // never write outside the target
                         Directory.CreateDirectory(Path.GetDirectoryName(dest));
-                        try { entry.ExtractToFile(dest, true); }
+                        try
+                        {
+                            if (entry.Length == 0) File.WriteAllBytes(dest, new byte[0]);              // an empty file stays empty (Python writes it as a 2-byte deflate stream, and ExtractToFile copied those 2 bytes, which broke "import cale")
+                            else entry.ExtractToFile(dest, true);
+                        }
                         catch (IOException) { }                                                         // a file in use is already there
                         catch (UnauthorizedAccessException) { }
                     }

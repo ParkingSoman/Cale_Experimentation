@@ -14,6 +14,7 @@ Settings (all optional, as environment variables):
   CALE_MAX_MBPS     limit the download speed (megabytes per second), to keep a shared network usable
   CALE_LIB_SRC      the cale_llama library file to install (Windows and Linux). Default: llama/dist/<os>-<arch>/
   CALE_PROGRESS=1   also print  CALE_PROGRESS {"stage": ..., "pct": ...}  lines for an app to show
+  CALE_NO_PATH=1    Windows, for tests: do not add Cale's bin folder to this user's PATH (and CALE_NO_LAUNCH_AGENT=1 on a Mac)
   CALE_DEBUG=1      test mode (Mac): CALE_AUTO_APPROVE=1 skips the Allow dialog
 """
 import hashlib
@@ -463,7 +464,8 @@ def write_command(home, port):
     if oslayer.WIN:
         (home / "bin" / "cale.cmd").write_text(
             f'@echo off\r\nset "CALE_HOME={home}"\r\nset "PYTHONPATH={rt}"\r\n"{py}" -m cale.cli %*\r\n')
-        add_to_windows_path(home / "bin")
+        if os.environ.get("CALE_NO_PATH") != "1":      # the switch is for tests: it leaves this user's real PATH alone
+            add_to_windows_path(home / "bin")
         return home / "bin" / "cale.cmd"
     exe = home / "bin" / "cale"
     exe.write_text(f'#!/bin/sh\nexport CALE_HOME="{home}" PYTHONPATH="{rt}"\nexec "{py}" -m cale.cli "$@"\n')

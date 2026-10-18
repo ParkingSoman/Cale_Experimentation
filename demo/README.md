@@ -1,57 +1,77 @@
-# The consumer demo (2026-10-16): read this section first
+# The demo (2026-10-17): read this section first
 
-The demo is about what a consumer sees. Nothing technical is on any screen the audience sees. The presenter types nothing.
+Cale is a real program now. It has its own windows and its own chat. Nothing on screen shows a web address, a console, or a technical word.
+The look is a cartoon carrot in sunglasses (`cale/brand/README.md`). The presenter types nothing.
 
-| Part | What the consumer does | Files |
+## The story, in three parts
+
+| Part | What the audience sees | What it proves |
 |---|---|---|
-| 1. Cale, once | Double-click the Cale download. A plain page says "Setting up", then "You are all set". | Mac `dist/Cale-mac.dmg`, Windows `Cale-Setup.exe` |
-| 2. An app | Double-click an app download. It opens in the browser and works. | Mac `dist/apps/Quick-Notes-mac.dmg`, `dist/apps/Rewrite-mac.dmg`. Windows `Quick-Notes-Setup.exe`, `Rewrite-Setup.exe` |
-| 3. Another app | Double-click the second app. No second Cale download. | same |
+| 1. Cale | Double-click Cale. A carrot grows out of the soil. "You are all set". Click "Start chatting". Ask a question. Add a document and ask about it. | One download gives a person an AI chat. No sign-up, no usage limit. |
+| 2. A desktop app | Double-click Quick Notes. It opens in its own window. Grey ghost text appears while you type. | A downloaded app uses the same AI on this computer. The app is tiny (145 KB on the Mac, 39 KB on Windows). |
+| 3. A website | Open the Rewrite website in Chrome. Pick a tone. New text streams in. Cale asks once: "Allow the website ... to use Cale?" | A real website uses the same AI on this computer. |
 
-Apps are small (about 100 KB on Mac, 0.2 MB on Windows). They do not carry Cale. Each app finds the installed Cale and runs with the Python that Cale installed.
-If Cale is missing, the app says so in plain words and offers to get it (it looks for the Cale download in Downloads and on the Desktop).
+Say out loud: "Same AI, on this computer, for a chat, for a desktop app, and for a website. Nobody signed up. Nothing has a usage limit. It feels the same on a new Mac and on a ten-year-old laptop."
 
-The two demo apps:
+## Start state (already done before the demo)
 
-| App | Port | Kind of app | What it asks Cale for |
-|---|---|---|---|
-| Quick Notes | 8821 | grey ghost text while you type | first word in about a second |
-| Rewrite | 8825 | pick a tone, new text streams in | words faster than you read (6 tokens/s) |
-
-Say out loud, with no screen showing it: "Same app code on both computers. Each app asks for a feel. Cale picks the model size that gives that feel. So both apps feel the same on a new Mac and a ten-year-old laptop."
-The technical view of every app and of Cale is hidden. Add `?dev=1` to the address to see it (for the funding pitch only).
-
-How to build (on the Mac): `python3 scripts/build_installer.py mac`, `python3 scripts/build_app.py mac all`. For Windows: `python3 scripts/build_installer.py win`, `python3 scripts/build_app.py win all`, copy the folders to the HP, run `build_exe.ps1` and `build_app_exe.ps1` there (they sign with the demo certificate).
-Warnings: a file built on this Mac has no quarantine mark and opens with no warning. A browser download does get the warning (the install is shown as a recorded time-lapse). The HP was prepared with `prep_windows_demo.ps1` on 2026-10-16 (undo: `-Undo`).
-
-Measured on 2026-10-16 (real `.exe` files, fresh Cale install on the HP, test mode for the Allow question):
-
-| Computer | Quick Notes first word | Rewrite |
-|---|---|---|
-| Mac (M5) | 0.2 to 0.4 s, size 100% | whole rewrite 0.7 s, size 100% |
-| HP Windows | 0.84 to 1.29 s, size 95 to 100% (4 of 6 under 1 s) | 3.7 to 4.1 s, size 90 to 95%, speed goal met |
-
-Mac dry run (2026-10-16): installed `Cale-mac.dmg` into a fresh test folder (about 2 minutes), then opened both apps from their own `.dmg` files. Quick Notes first word 0.1 s, Rewrite 100% size, goals met. Your real Cale was not touched.
-
-HP clean dry run (2026-10-16, final files, fresh folder, real click on the Allow question): Cale installed through `Cale-Setup.exe` (served the plain page). Both apps opened from their own `.exe`, and a click on each Allow question worked (clicked by the test helper, as a person would). Quick Notes first word 0.88 s, size 100%, goal met. Rewrite 3.5 s in total, size 95%, goal met. The set-up step took 23 minutes this time and 9 minutes the first time (investigated: see the next paragraph).
-
-Why the HP set-up varied (investigated 2026-10-16, not fully solved):
-
-| Install of Cale on the HP | Time |
+| Computer | Files already downloaded |
 |---|---|
-| First install (b2) | 9 min |
-| Second install (b3) | 23 min (the odd one) |
-| Two more fresh installs, back to back, with a monitor running | 10.8 and 10.9 min |
+| Mac | `dist/Cale-mac.dmg` (563 MB), `dist/apps/Quick-Notes-mac.dmg` (145 KB) |
+| HP Windows | `Cale-Setup.exe` (342 MB), `Quick-Notes-Setup.exe` (39 KB). Built by `build_exe.ps1` and `build_app_exe.ps1` on the HP. |
+| Website | Not published yet. See "Open items". |
 
-What is known: the measuring part took 348 s every time. The step before it tries five ways of running the model, each in its own process. It took 3.5 min in 9 runs, but 16 min once and 6.4 min once. The speeds it measured were identical in the slow runs, so the computer was not slower at the real work. Every trial in the slow run was about 3 times slower, one about 6 times, so the extra time sat in the parts around the measuring (starting the process and loading files), not in the measuring.
-Ruled out: the computer being idle first (a run after 20 minutes of rest took 214 s), fresh files (two fresh installs were normal), a scheduled Windows or McAfee job in that window, Defender real-time scanning (it is off), a graphics driver crash that blocks (the three `vulkan-1.dll` crashes happen in every install, fast or slow, and cost only seconds).
-Best remaining guess: something on the HP that scans or locks files for a while (McAfee's scanner used 52 s of CPU in one fresh install and 99 s in the next, so it varies). Not proven.
-Changes that stay: every trial now writes its time and its phases (`boot_s`, `load_s`, `warmup_s`, `measure_s`) into `tune.log`, a trial on a card gives up after 4 times the CPU trial (at least 150 s), and a card that the trial cannot find is skipped after one trial. If a slow install happens again, `tune.log` shows which phase was slow.
-Plan for the demo: the install is a time-lapse, and a normal HP install takes about 11 minutes.
+The install itself is a recorded time-lapse. Do not run it live.
 
-Known gaps: the HP set-up step "fitting to this computer" took about 9 minutes (fine for a time-lapse). Linux has no consumer double-click path (the HP Linux is inside WSL), so it is covered by the scorecard and by speaking. The plain Cale page, the "needs Cale" dialogs and the Allow wording were not looked at by eye (the Chrome extension was not connected).
+## Measured on 2026-10-17 (fresh test install, real AI, nothing of the owner's real Cale touched)
 
----
+| Step | Mac (M5) | HP Windows |
+|---|---|---|
+| Install, start to "You are all set" | 150 to 161 s | 25 min on a heavy-load day (11 min on a normal one) |
+| Chat opens by itself after install | within 12 s | 3 s (page ready after 40 s on a warm start) |
+| First real chat answer | 1.85 s in total | first text 1.35 s, 5.3 s in total |
+| Quick Notes first word (goal 1 s) | 0.12 to 0.15 s | 0.13 to 0.14 s. The first call after a cold start took 1.24 s (goal missed). |
+
+## Safe testing (read before running any test)
+
+| Rule | Why |
+|---|---|
+| Never run a test against the real Cale (port 47821). | A real Cale shows Allow questions on the screen and keeps test keys. `cale/tests/e2e.py` now refuses that port. |
+| Start a TEST Cale: fresh `CALE_HOME`, spare `CALE_PORT`, and `CALE_DEBUG=1` with `CALE_AUTO_APPROVE=1` in its own environment. | These two switches skip the Allow question. They are for test copies only. |
+| Isolated tests (safe): `cale/tests/web_origin.py`, `cale/tests/oslayer.py`, `cale/tests/chat_guard_*.js`. | They use a stub engine. |
+| On the HP set `CALE_NO_PATH=1` for tests. | It keeps the test from changing the user's PATH. |
+
+## What protects the demo (security, in plain words)
+
+| Piece | Rule |
+|---|---|
+| Chat | A random one-time code in the window's address, then a cookie. Wrong Host or foreign Origin: refused. The server refuses to start if its two secrets are missing or equal. |
+| Websites | Only secure (`https`) sites may ask. Each site gets one Allow question. Each site is counted on its own, with Chromium's numbers: 3 "Don't Allow" presses or 4 unanswered questions mean 7 days of waiting. `cale sites` lists them and `cale forget SITE` resets one. |
+| Outside network | The chat may talk to loopback addresses only. |
+
+## Build
+
+| Want | Commands |
+|---|---|
+| Mac | `python3 scripts/build_chat.py ... --out dist/chat` once, then `python3 scripts/build_installer.py mac` and `python3 scripts/build_app.py mac quick-notes` |
+| Windows | `python3 scripts/build_chat.py ... --target win-x64 --out dist/chat-win`, then `python3 scripts/build_installer.py win` and `python3 scripts/build_app.py win quick-notes`. Copy the two `dist` folders to the HP (let the HP download them: scp fails near 90 MB). Run `build_exe.ps1` and `build_app_exe.ps1` there. |
+
+## Open items
+
+| Item | State |
+|---|---|
+| Rewrite website | Built (`web/rewrite/`). Not tested in real Chrome. Not published. The download link in `index.html` is a placeholder (`https://get-cale.example`). Chrome's call needs `targetAddressSpace` set: the value is not decided yet and must be tested. |
+| Chat, light theme | Being fixed. The dark theme looks right. |
+| Linux | No chat, no window program. Covered by the scorecard and by speaking. |
+| A first install on a Mac with no developer tools | Not tested. |
+| The real taskbar name on Windows | Only the window title and icon were seen. |
+| Quick Notes ghost text sometimes repeats part of the prompt | Not investigated. |
+| Document reader port in the chat | Loopback only, Host and Origin checked, no cookie. A small accepted risk. |
+
+# Older notes (2026-10-16): the browser-based demo
+
+Kept for the funding pitch and the measured numbers. The screens described in this part (browser pages, the Cale Hub) are no longer the demo.
+
 
 # The Cale demo: download once, every app works
 

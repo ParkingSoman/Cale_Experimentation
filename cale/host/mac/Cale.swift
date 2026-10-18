@@ -70,9 +70,25 @@ final class Field: NSView {
     }
 }
 
-/// A progress bar with a thick brown outline, like a cartoon.
+/// A progress bar with a thick brown outline, like a cartoon. The percentage is exactly what the installer reports.
+/// When nothing new has arrived for a few seconds (a slow step), moving stripes run inside the filled part, so it never looks stuck.
 final class Meter: NSView {
-    var value = 0.0 { didSet { needsDisplay = true } }
+    var value = 0.0 { didSet { lastChange = Date(); needsDisplay = true } }
+    private var lastChange = Date()
+    private var phase: CGFloat = 0
+    private var timer: Timer?
+
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        timer?.invalidate()
+        guard window != nil else { return }
+        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] _ in
+            guard let self = self, !self.isHidden, Date().timeIntervalSince(self.lastChange) > 4 else { return }
+            self.phase = (self.phase + 1.2).truncatingRemainder(dividingBy: 28)
+            self.needsDisplay = true
+        }
+    }
+
     override func draw(_ r: NSRect) {
         let box = bounds.insetBy(dx: 2, dy: 2)
         let radius = box.height / 2
@@ -82,6 +98,23 @@ final class Meter: NSView {
         carrot.setFill()
         let fill = NSBezierPath(roundedRect: NSRect(x: box.minX, y: box.minY, width: w, height: box.height), xRadius: radius, yRadius: radius)
         fill.fill()
+        if Date().timeIntervalSince(lastChange) > 4 && value < 100 {
+            NSGraphicsContext.saveGraphicsState()
+            fill.addClip()
+            NSColor(srgbRed: 1.0, green: 0.74, blue: 0.38, alpha: 0.85).setFill()
+            var x = box.minX - 28 + phase
+            while x < box.minX + w {
+                let stripe = NSBezierPath()
+                stripe.move(to: NSPoint(x: x, y: box.minY))
+                stripe.line(to: NSPoint(x: x + 10, y: box.minY))
+                stripe.line(to: NSPoint(x: x + 24, y: box.maxY))
+                stripe.line(to: NSPoint(x: x + 14, y: box.maxY))
+                stripe.close()
+                stripe.fill()
+                x += 28
+            }
+            NSGraphicsContext.restoreGraphicsState()
+        }
         brown.setStroke()
         fill.lineWidth = 3
         fill.stroke()

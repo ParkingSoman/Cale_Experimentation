@@ -32,6 +32,7 @@ namespace CaleHost
     class GardenView : Control
     {
         double growth = 0;
+        double bob = 0;                    // a small up and down wobble while we wait
         Image carrot;
 
         public GardenView()
@@ -48,6 +49,7 @@ namespace CaleHost
         }
 
         public double Growth { get { return growth; } set { growth = value; Invalidate(); } }
+        public double Bob { get { return bob; } set { bob = value; Invalidate(); } }
         public bool Ripe { get { return growth >= 1; } set { } }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -64,7 +66,7 @@ namespace CaleHost
             float gr = (float)Math.Max(0.0, Math.Min(1.0, growth));
             if (carrot != null)
             {
-                float y = soilTop - size * (0.02f + 0.98f * gr);      // a hint of leaf shows at the start
+                float y = soilTop - size * (0.02f + 0.98f * gr) + (float)bob;      // a hint of leaf shows at the start
                 Region old = g.Clip;
                 g.SetClip(new RectangleF(0, 0, w, soilTop + 4));
                 g.DrawImage(carrot, (w - size) / 2f, y, size, size);
@@ -93,6 +95,7 @@ namespace CaleHost
     class Meter : Control
     {
         double value = 0;
+        double shimmer = -1;               // -1: off. Otherwise a phase that moves the stripes
 
         public Meter()
         {
@@ -100,6 +103,7 @@ namespace CaleHost
         }
 
         public double Value { get { return value; } set { this.value = value; Invalidate(); } }
+        public double Shimmer { get { return shimmer; } set { shimmer = value; Invalidate(); } }
 
         static GraphicsPath Pill(float x, float y, float w, float h)
         {
@@ -123,7 +127,23 @@ namespace CaleHost
                 g.FillPath(track, p);
             using (SolidBrush bar = new SolidBrush(Garden.Carrot))
             using (GraphicsPath p = Pill(o, o, fill, h))
+            {
                 g.FillPath(bar, p);
+                if (shimmer >= 0)
+                {
+                    // Soft diagonal stripes slide along inside the filled part. The length of the bar does not change.
+                    Region old = g.Clip;
+                    g.SetClip(p);
+                    float period = Math.Max(16f, h * 2.2f), width = period * 0.4f;
+                    float shift = (float)(shimmer % 1.0) * period;
+                    using (SolidBrush light = new SolidBrush(Color.FromArgb(255, 190, 110)))
+                    {
+                        for (float x = o - period + shift; x < o + fill; x += period)
+                            g.FillPolygon(light, new PointF[] { new PointF(x, o + h), new PointF(x + width, o + h), new PointF(x + width + h * 0.6f, o), new PointF(x + h * 0.6f, o) });
+                    }
+                    g.Clip = old;
+                }
+            }
             using (Pen line = new Pen(Garden.Brown, pen))
             using (GraphicsPath p = Pill(o, o, w, h))
                 g.DrawPath(line, p);
@@ -141,6 +161,9 @@ namespace CaleHost
         bool closing = false;
         string home, payload;
         float k = 1f;
+        DateTime lastLine = DateTime.Now;
+        System.Windows.Forms.Timer idleTimer;
+        double phase = 0;
 
         void Place(Control c, int x, int y, int w, int h)
         {
@@ -201,6 +224,23 @@ namespace CaleHost
             button.Click += delegate { StartChat(home, payload); Close(); };
             Controls.Add(button);
             AcceptButton = button;
+
+            // No progress line for 4 seconds: move a shimmer inside the bar (and wobble the carrot) so it never looks stuck.
+            // The percentage itself is never changed.
+            idleTimer = new System.Windows.Forms.Timer();
+            idleTimer.Interval = 60;
+            idleTimer.Tick += delegate
+            {
+                if (finished || (DateTime.Now - lastLine).TotalSeconds < 4)
+                {
+                    if (bar.Shimmer >= 0) { bar.Shimmer = -1; garden.Bob = 0; }
+                    return;
+                }
+                phase += 0.025;
+                bar.Shimmer = phase;
+                garden.Bob = Math.Sin(phase * 2 * Math.PI * 2) * 3.0;
+            };
+            idleTimer.Start();
         }
 
         protected override void OnShown(EventArgs e)
@@ -264,6 +304,7 @@ namespace CaleHost
 
         void HandleLine(string line)
         {
+            if (line.StartsWith("PCT ") || line == "DONE") lastLine = DateTime.Now;
             if (line.StartsWith("PCT "))
             {
                 string[] parts = line.Substring(4).Split(new char[] { ' ' }, 2);
