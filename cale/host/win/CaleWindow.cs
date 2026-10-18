@@ -313,6 +313,9 @@ namespace CaleHost
         System.Windows.Forms.Timer retryTimer;
         Splash splash;
         System.Windows.Forms.Timer splashTimer;
+        System.Windows.Forms.Timer drawnTimer;      // polls until the page has put some text on screen
+        bool polling = false;
+        bool firstNavStarted = false;
 
         public MainForm(Options o)
         {
@@ -344,7 +347,7 @@ namespace CaleHost
                 Controls.Add(splash);
                 splash.BringToFront();
                 splashTimer = new System.Windows.Forms.Timer();
-                splashTimer.Interval = 60000;                      // never leave it up for ever
+                splashTimer.Interval = 180000;                     // if no page address ever comes; it is set to 60 s when the first page load starts
                 splashTimer.Tick += delegate { HideSplash(); };
                 splashTimer.Start();
             }
@@ -484,6 +487,11 @@ namespace CaleHost
                 OpenInEdge(url);
                 return;
             }
+            if (!firstNavStarted)
+            {
+                firstNavStarted = true;
+                if (splashTimer != null) { splashTimer.Stop(); splashTimer.Interval = 60000; splashTimer.Start(); }     // 60 s from the first page load
+            }
             try { web.CoreWebView2.Navigate(url); } catch (Exception) { }
         }
 
@@ -516,7 +524,7 @@ namespace CaleHost
         // The page's server may take a moment to start. Try again a few times, quietly.
         void OnNavigated(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
-            if (e.IsSuccess) HideSplash();                      // also an HTTP error page: the first answer ends the loading screen
+            if (e.IsSuccess) WatchForText();                    // keep the loading screen until the page has drawn some text (an HTTP error page has text too)
             if (e.IsSuccess)
             {
                 if (token != "" && !tokenSpent)
@@ -531,8 +539,31 @@ namespace CaleHost
             if (retries <= 40) retryTimer.Start(); else HideSplash();
         }
 
+        // A big page needs seconds after its HTML has loaded before anything is drawn. Look every 250 ms.
+        void WatchForText()
+        {
+            if (splash == null || drawnTimer != null) return;
+            drawnTimer = new System.Windows.Forms.Timer();
+            drawnTimer.Interval = 250;
+            drawnTimer.Tick += async delegate
+            {
+                if (polling || splash == null) return;
+                polling = true;
+                try
+                {
+                    string r = await web.CoreWebView2.ExecuteScriptAsync("document.body ? document.body.innerText.trim().length : 0");
+                    int n;
+                    if (int.TryParse(r, out n) && n > 0) HideSplash();
+                }
+                catch (Exception) { }
+                polling = false;
+            };
+            drawnTimer.Start();
+        }
+
         void HideSplash()
         {
+            if (drawnTimer != null) { drawnTimer.Stop(); drawnTimer.Dispose(); drawnTimer = null; }
             if (splashTimer != null) { splashTimer.Stop(); splashTimer.Dispose(); splashTimer = null; }
             if (splash != null)
             {

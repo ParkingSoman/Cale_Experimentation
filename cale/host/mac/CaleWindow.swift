@@ -177,10 +177,22 @@ final class Delegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKU
         splashView = v
     }
 
+    /// The HTML is loaded, but a big page (the chat) can take many more seconds to draw. Keep the loading screen until some text is on screen.
     func webView(_ w: WKWebView, didFinish navigation: WKNavigation!) {
+        if splashView != nil { waitForText(tries: 0) }
+    }
+
+    func waitForText(tries: Int) {
         guard let v = splashView else { return }
-        splashView = nil
-        NSAnimationContext.runAnimationGroup({ c in c.duration = 0.25; v.animator().alphaValue = 0 }, completionHandler: { v.removeFromSuperview() })
+        web.evaluateJavaScript("document.body ? document.body.innerText.trim().length : 0") { result, _ in
+            let n = (result as? Int) ?? 0
+            if n > 0 || tries >= 240 {                                  // text is showing, or 60 seconds have passed
+                self.splashView = nil
+                NSAnimationContext.runAnimationGroup({ c in c.duration = 0.25; v.animator().alphaValue = 0 }, completionHandler: { v.removeFromSuperview() })
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { self.waitForText(tries: tries + 1) }
+            }
+        }
     }
 
     // The page's server may take a moment to start. Try again a few times, quietly.
