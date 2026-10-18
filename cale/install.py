@@ -207,6 +207,15 @@ def chat_bundle_source():
     return None
 
 
+def _long(p):
+    """On Windows, a path form with no 259-character limit (the chat's packages have long names inside long folders)."""
+    p = Path(p)
+    if os.name != "nt":
+        return p
+    full = str(p.resolve())
+    return Path(full if full.startswith("\\\\?\\") else "\\\\?\\" + full)
+
+
 def install_chat(home):
     """Copy Cale's chat window program into <home>/chat. What the person made (<home>/chat-data) is never touched."""
     src = chat_bundle_source()
@@ -215,20 +224,20 @@ def install_chat(home):
         return False
     dst = home / "chat"
     tmp = home / "chat.new"
-    shutil.rmtree(tmp, ignore_errors=True)
-    shutil.copytree(src, tmp, symlinks=True)
+    shutil.rmtree(_long(tmp), ignore_errors=True)
+    shutil.copytree(_long(src), _long(tmp), symlinks=True)
     for link in (tmp / "server" / "storage", tmp / "collector" / "hotdir"):      # made at run time by cale/chat.py, never shipped
         if link.is_symlink() or link.exists():
             shutil.rmtree(link) if link.is_dir() and not link.is_symlink() else link.unlink()
-    shutil.rmtree(dst, ignore_errors=True)
+    shutil.rmtree(_long(dst), ignore_errors=True)
     if dst.exists():                                       # Windows: a read-only file stops rmtree. Make everything writable and try again.
-        for d, dirs, files in os.walk(dst):
+        for d, dirs, files in os.walk(_long(dst)):
             for n in dirs + files:
                 try:
                     os.chmod(os.path.join(d, n), 0o700)
                 except OSError:
                     pass
-        shutil.rmtree(dst)
+        shutil.rmtree(_long(dst))
     tmp.rename(dst)
     return True
 

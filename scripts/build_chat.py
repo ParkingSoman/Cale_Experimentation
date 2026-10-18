@@ -118,6 +118,27 @@ def no_links(bundle):
         shutil.rmtree(d, ignore_errors=True)
 
 
+def shorten_for_windows(bundle):
+    """Windows stops at 259 characters in a path (many programs; the person's user name is part of it). Remove what makes the longest paths
+    and is never run: test, example and notes folders inside node_modules, and type-only files with a name over 100 characters."""
+    for sub in ("server", "collector"):
+        for dirpath, dirs, files in os.walk(bundle / sub / "node_modules"):
+            for d in list(dirs):
+                if d in ("test", "tests", "__tests__", ".github", "example", "examples", "docs") and Path(dirpath).name != "node_modules" and not Path(dirpath).name.startswith("@"):
+                    shutil.rmtree(os.path.join(dirpath, d), ignore_errors=True)
+                    dirs.remove(d)
+            for f in files:
+                if len(f) > 100 and f.endswith(".js"):
+                    stem = f[:-3]
+                    here = Path(dirpath)
+                    users = [q for folder in (here, here.parent) for q in folder.glob("*.js") if q.name != f]
+                    if not any(stem + '"' in q.read_text(errors="ignore") or stem + "'" in q.read_text(errors="ignore") for q in users):
+                        os.remove(here / f)                              # nothing requires it (it only names a type)
+    longest = max((len(str(p.relative_to(bundle))) for p in bundle.rglob("*") if p.is_file()), default=0)
+    say(f"longest path inside the bundle: {longest} characters")
+    return longest
+
+
 def say(msg):
     print(f"[build_chat {time.strftime('%H:%M:%S')}] {msg}", flush=True)
 
@@ -298,6 +319,7 @@ def main():
         for f in (out / "server" / "node_modules" / ".prisma" / "client").glob("libquery_engine*"):      # the engine of the build computer
             f.unlink()
         no_links(out)
+        shorten_for_windows(out)
     else:
         prune(out)
     engines = sorted(p.name for p in (out / "server" / "node_modules" / ".prisma" / "client").glob("*query_engine*"))
