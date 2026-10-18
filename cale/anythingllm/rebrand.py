@@ -140,6 +140,8 @@ a.bg-theme-sidebar-footer-icon:hover {{ background-color: #ffa447 !important; }}
 [data-theme="light"] [class*="border-theme-modal-border"], [data-theme="light"] .bg-theme-bg-secondary {{ border: 2px solid {BROWN}; }}
 /* Text on a carrot-coloured box is brown, never white */
 [class*="bg-sky-"], [class*="bg-blue-"], [class*="bg-cyan-"], .bg-theme-button-primary, .bg-theme-home-button-primary {{ color: {BROWN} !important; }}
+/* Small pop-up labels: brown with cream text, not black */
+.tooltip, .react-tooltip, [role="tooltip"] {{ background-color: {BROWN} !important; color: {CREAM} !important; border-radius: 12px !important; }}
 /* Links and buttons that lead to the AnythingLLM web site, or to chat tools and the model picker */
 a[href^="mailto:"], a[href*="/settings/privacy"], a[href*="github.com"], a[href*="docs.anythingllm.com"],
 a[href*="discord"], a[href*="useanything.com"], a[href*="anythingllm.com"] {{ display: none !important; }}
@@ -224,6 +226,11 @@ WORDING = {
     '    search: "Search",': '    search: "Search chats",',
     'uploadDocument: "Upload a Document"': 'uploadDocument: "Add a document"',
     'send_message: "Send a message"': 'send_message: "Ask Cale anything"',
+    'title: "Instance Settings"': 'title: "Settings"',
+    'interface: "UI Preferences"': 'interface: "Look and feel"',
+    'title: "UI Preferences"': 'title: "Look and feel"',
+    "These files will be uploaded to the document processor running on this Cale instance. These files are not sent or shared with a third party.":
+        "Your files stay on this computer. Nothing is sent anywhere.",
 }
 
 
@@ -408,6 +415,13 @@ function HoldToReveal''')
           '<div className="bg-[#f58a1f] border-2 border-solid border-[#3b2314] p-2 rounded-lg h-[24px] w-[24px] flex items-center justify-center">')
     _swap(tc, 'className="shrink-0 text-white light:text-theme-text-primary"\n            />\n          )}', 'className="shrink-0 text-[#3b2314]"\n            />\n          )}')
     _swap(sb, 'className="text-black light:text-slate-500"', 'className="text-[#3b2314]"')
+
+    # 9b. the add-a-document window: documents only (no web links, no "data connectors"), plain words
+    mw = src / "components/Modals/ManageWorkspace/index.jsx"
+    _sub(mw, r"<ModalTabSwitcher\s.*?/>", "null")                       # one tab only: no tab box
+    uf = src / "components/Modals/ManageWorkspace/Documents/UploadFile/index.jsx"
+    _sub(uf, r"<div className=\"text-center text-white text-opacity-50 text-xs font-medium w-\[560px\] py-2\">\s*\{t\(\"connectors\.upload\.or-submit-link\"\)\}\s*</div>\s*<form onSubmit=\{handleSendLink\}.*?</form>", "{null}")
+    _swap(src / "components/Sidebar/ActiveWorkspaces/ThreadContainer/ThreadItem/index.jsx", "Delete Thread</p>", "Delete chat</p>")
 
     # 10. the loading screen: the carrot
     lc = src / "components/WorkspaceChat/LoadingChat/index.jsx"
