@@ -132,5 +132,11 @@ if (ri > 0) {
   const stolen = new CaleWeb({ base: real, storage: memory(), fetch: fetch }); stolen._save(key);
   check("real: the site key is refused without its origin", (await stolen.check()) === false);
 }
+// the test hook ?cale=... accepts only a loopback http address with a port
+check("hook: a loopback test address is accepted", CaleWeb.baseFromSearch("?cale=http://127.0.0.1:47959") === "http://127.0.0.1:47959");
+check("hook: no parameter -> default", CaleWeb.baseFromSearch("") === undefined && CaleWeb.baseFromSearch("?x=1") === undefined);
+for (const bad of ["https://127.0.0.1:47959", "http://localhost:47959", "http://127.0.0.1", "http://127.0.0.1:47959/x", "http://evil.example:47959", "http://127.0.0.1.evil.example:80", "//127.0.0.1:47959", "http://127.0.0.1:47959@evil.example", "javascript:alert(1)", "%zz"]) {
+  check("hook: refuses " + bad, CaleWeb.baseFromSearch("?cale=" + encodeURIComponent(bad)) === undefined || bad === "%zz" && CaleWeb.baseFromSearch("?cale=%zz") === undefined);
+}
 console.log(fails.length ? "\nFAILED: " + fails.join(", ") : "\nAll checks passed.");
 process.exit(fails.length ? 1 : 0);

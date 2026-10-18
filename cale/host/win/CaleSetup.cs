@@ -377,11 +377,13 @@ namespace CaleHost
                 string runtime = Path.Combine(home, "runtime");
                 string win = Path.Combine(home, "bin", "CaleWindow.exe");
                 string ico = Path.Combine(payload, "cale.ico");
+                string carrot = Path.Combine(payload, "cale", "brand", "carrot.png");
                 ProcessStartInfo psi;
                 if (File.Exists(win))
                 {
                     string args = "--title Cale --width 1100 --height 760 --min-width 640 --min-height 480"
                         + (File.Exists(ico) ? " --icon " + Q(ico) : "")
+                        + (File.Exists(carrot) ? " --splash " + Q(carrot) + " --splash-text " + Q("Opening Cale") : "")
                         + " --server-exec " + Q(py) + " --server-arg -m --server-arg cale.chat --server-cwd " + Q(runtime)
                         + " --url-template " + Q("http://127.0.0.1:{port}/?t={token}");
                     psi = new ProcessStartInfo(win, args);

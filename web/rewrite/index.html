@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rewrite: say it better</title>
+<link rel="icon" type="image/svg+xml" href="carrot.svg">
 <meta name="description" content="Paste a sentence, pick a tone, and get a better version. It is written on your own computer. Your words never leave it.">
 <style>
   :root {
@@ -88,7 +89,7 @@
 <script>
 (function () {
   "use strict";
-  var GET_CALE_URL = "https://get-cale.example";            // TODO before launch: the real download page for Cale
+  var GET_CALE_URL = "get-cale.html";                       // a plain page for now. Point this at the real download page when there is one.
   var TONES = {
     friendlier: "Rewrite the text so it sounds warmer and friendlier. Keep the meaning.",
     shorter: "Rewrite the text so it is shorter. Keep the meaning.",
@@ -98,7 +99,7 @@
   var SUFFIX = " Reply with ONLY the rewritten text. No quotes, no explanation.";
 
   // --- the Cale part: the whole of it is in this block (goals in, an id out, then plain chat) ---
-  var cale = new CaleWeb();
+  var cale = new CaleWeb({ base: CaleWeb.baseFromSearch(location.search) });
   var model = null;
   function makeModel() {
     // The page states a goal ("at least 6 words a second", as a feel). Cale picks the size that meets it on this computer.

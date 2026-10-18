@@ -13,6 +13,7 @@
 // Extra on Windows:
 //   --icon PATH      a .ico file: the window and taskbar icon.
 //   --relaunch CMD   the command the taskbar uses for "pin to taskbar" (optional).
+//   --splash PNG [--splash-text TEXT]   a loading screen (cream, picture, one line of text) until the first page has loaded.
 // Each title gets its own AppUserModelID, so the taskbar shows the app's own name and icon.
 //
 // Written for the C# 5 compiler that comes with Windows (csc.exe, .NET Framework 4).
@@ -47,6 +48,8 @@ namespace CaleHost
         public string UrlTemplate = "http://127.0.0.1:{port}/";
         public string Icon = "";
         public string Relaunch = "";
+        public string Splash = "";
+        public string SplashText = "";
 
         static int Num(string s, int fallback)
         {
@@ -79,6 +82,8 @@ namespace CaleHost
                     case "--url-template": if (next != "") o.UrlTemplate = next; i++; break;
                     case "--icon": o.Icon = next; i++; break;
                     case "--relaunch": o.Relaunch = next; i++; break;
+                    case "--splash": o.Splash = next; i++; break;
+                    case "--splash-text": o.SplashText = next; i++; break;
                 }
             }
             return o;
@@ -235,6 +240,61 @@ namespace CaleHost
         }
     }
 
+    // The loading screen: cream, the mascot picture and one line of text. Shown until the first page has loaded.
+    class Splash : Control
+    {
+        Image img;
+        string text;
+        float k;
+
+        public Splash(string picture, string line, float scale)
+        {
+            text = line;
+            k = scale;
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
+            Dock = DockStyle.Fill;
+            try
+            {
+                if (!string.IsNullOrEmpty(picture) && File.Exists(picture))
+                {
+                    using (MemoryStream m = new MemoryStream(File.ReadAllBytes(picture))) img = Image.FromStream(m);
+                }
+            }
+            catch (Exception) { img = null; }
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.Clear(Color.FromArgb(255, 241, 214));
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            float size = 150f * k, gap = 18f * k;
+            float textH = 0f;
+            using (Font f = new Font("Segoe UI Semibold", 17f, FontStyle.Bold, GraphicsUnit.Point))
+            {
+                if (!string.IsNullOrEmpty(text)) textH = g.MeasureString(text, f).Height;
+                float total = (img != null ? size : 0f) + ((img != null && textH > 0) ? gap : 0f) + textH;
+                float y = (Height - total) / 2f;
+                if (img != null)
+                {
+                    g.DrawImage(img, (Width - size) / 2f, y, size, size);
+                    y += size + gap;
+                }
+                if (textH > 0)
+                {
+                    using (SolidBrush brown = new SolidBrush(Color.FromArgb(59, 35, 20)))
+                    using (StringFormat sf = new StringFormat())
+                    {
+                        sf.Alignment = StringAlignment.Center;
+                        g.DrawString(text, f, brown, new RectangleF(0, y, Width, textH + 4), sf);
+                    }
+                }
+            }
+        }
+    }
+
     class MainForm : Form
     {
         Options opts;
@@ -251,6 +311,8 @@ namespace CaleHost
         bool closing = false;
         int retries = 0;
         System.Windows.Forms.Timer retryTimer;
+        Splash splash;
+        System.Windows.Forms.Timer splashTimer;
 
         public MainForm(Options o)
         {
@@ -274,6 +336,18 @@ namespace CaleHost
             web.Dock = DockStyle.Fill;
             web.DefaultBackgroundColor = Color.FromArgb(255, 241, 214);
             Controls.Add(web);
+            if (!string.IsNullOrEmpty(o.Splash))
+            {
+                float dpiScale;
+                using (Graphics dg = CreateGraphics()) dpiScale = dg.DpiX / 96f;
+                splash = new Splash(o.Splash, o.SplashText, dpiScale);
+                Controls.Add(splash);
+                splash.BringToFront();
+                splashTimer = new System.Windows.Forms.Timer();
+                splashTimer.Interval = 60000;                      // never leave it up for ever
+                splashTimer.Tick += delegate { HideSplash(); };
+                splashTimer.Start();
+            }
             retryTimer = new System.Windows.Forms.Timer();
             retryTimer.Interval = 500;
             retryTimer.Tick += delegate { retryTimer.Stop(); Load(); };
@@ -420,6 +494,7 @@ namespace CaleHost
             if (closing) return;
             closing = true;
             StopServer();
+            HideSplash();
             Hide();
             DialogResult r = MessageBox.Show(
                 opts.Title + " needs a Windows part called WebView2 to show its window.\r\n\r\nInstall it from Microsoft, then open " + opts.Title + " again.\r\n\r\nOpen the Microsoft page now?",
@@ -441,6 +516,7 @@ namespace CaleHost
         // The page's server may take a moment to start. Try again a few times, quietly.
         void OnNavigated(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
+            if (e.IsSuccess) HideSplash();                      // also an HTTP error page: the first answer ends the loading screen
             if (e.IsSuccess)
             {
                 if (token != "" && !tokenSpent)
@@ -452,7 +528,18 @@ namespace CaleHost
                 return;
             }
             retries++;
-            if (retries <= 40) retryTimer.Start();
+            if (retries <= 40) retryTimer.Start(); else HideSplash();
+        }
+
+        void HideSplash()
+        {
+            if (splashTimer != null) { splashTimer.Stop(); splashTimer.Dispose(); splashTimer = null; }
+            if (splash != null)
+            {
+                Controls.Remove(splash);
+                splash.Dispose();
+                splash = null;
+            }
         }
 
         // Links to other sites open in the browser, not inside this window.

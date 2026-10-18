@@ -194,6 +194,16 @@
 
   function sleep(ms) { return new Promise(function (ok) { setTimeout(ok, ms); }); }
 
+  /* A page address such as  ?cale=http://127.0.0.1:47959  points this page at a TEST Cale on the visitor's own computer (used to test the
+     site without touching the real Cale). Only a loopback http address with a port is accepted, so nothing can move the page's calls anywhere else. */
+  CaleWeb.baseFromSearch = function (search) {
+    var m = /[?&]cale=([^&]*)/.exec(search || "");
+    if (!m) return undefined;
+    var v;
+    try { v = decodeURIComponent(m[1]); } catch (e) { return undefined; }
+    return /^http:\/\/127\.0\.0\.1:[0-9]{2,5}$/.test(v) ? v : undefined;
+  };
+
   CaleWeb.DEFAULT_BASE = DEFAULT_BASE;
   CaleWeb.Error = CaleWebError;
   if (typeof module !== "undefined" && module.exports) module.exports = CaleWeb;

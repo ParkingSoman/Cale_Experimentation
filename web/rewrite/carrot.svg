@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Cale's mascot: a carrot in sunglasses. One file, used for every picture of Cale (icon, setup window, chat logo). -->
+  <g stroke="#3b2314" stroke-width="13" stroke-linejoin="round" stroke-linecap="round">
+    <!-- leaves -->
+    <path d="M256 160 C228 110 226 52 256 22 C286 52 284 110 256 160 Z" fill="#5db85c"/>
+    <path d="M256 160 C228 110 226 52 256 22 C286 52 284 110 256 160 Z" fill="#4aa34f" transform="rotate(-32 256 160)"/>
+    <path d="M256 160 C228 110 226 52 256 22 C286 52 284 110 256 160 Z" fill="#4aa34f" transform="rotate(32 256 160)"/>
+    <!-- body -->
+    <path d="M160 215 C160 150 352 150 352 215 C352 318 298 428 256 492 C214 428 160 318 160 215 Z" fill="#f58a1f"/>
+  </g>
+  <!-- shine and ridges -->
+  <path d="M190 232 C192 290 214 352 236 410" fill="none" stroke="#ffb45a" stroke-width="14" stroke-linecap="round"/>
+  <g stroke="#d96a0c" stroke-width="9" stroke-linecap="round" fill="none">
+    <path d="M282 342 L306 337"/>
+    <path d="M268 392 L288 388"/>
+    <path d="M296 296 L320 292"/>
+  </g>
+  <!-- sunglasses -->
+  <g stroke="#1b1722" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M168 216 L190 222" fill="none"/>
+    <path d="M344 216 L322 222" fill="none"/>
+    <path d="M180 224 H250 V252 C250 276 234 288 214 288 C192 288 180 274 180 252 Z" fill="#1b1722"/>
+    <path d="M262 224 H332 V252 C332 274 320 288 298 288 C278 288 262 276 262 252 Z" fill="#1b1722"/>
+    <path d="M250 232 Q256 226 262 232" fill="none"/>
+  </g>
+  <path d="M192 236 L214 236 L198 262 L192 262 Z" fill="#ffffff" opacity="0.55"/>
+  <path d="M274 236 L296 236 L280 262 L274 262 Z" fill="#ffffff" opacity="0.55"/>
+  <!-- cheeks and smile -->
+  <circle cx="190" cy="314" r="13" fill="#ff7a70" opacity="0.65"/>
+  <circle cx="322" cy="314" r="13" fill="#ff7a70" opacity="0.65"/>
+  <path d="M222 316 Q256 350 290 316" fill="none" stroke="#3b2314" stroke-width="10" stroke-linecap="round"/>
+</svg>
