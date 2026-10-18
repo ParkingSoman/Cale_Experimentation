@@ -38,7 +38,9 @@
     opts = opts || {};
     this.base = (opts.base || DEFAULT_BASE).replace(/\/+$/, "");
     this._fetch = opts.fetch || (root.fetch && root.fetch.bind(root));
-    this.storageKey = opts.storageKey || "cale-web-key";
+    // The saved key belongs to ONE base address. A test address (see baseFromSearch) gets its own name, so the real Cale's key
+    // is never read for, or sent to, any other address.
+    this.storageKey = opts.storageKey || (this.base === DEFAULT_BASE ? "cale-web-key" : "cale-web-key:" + this.base);
     this._store = opts.storage === undefined ? safeStorage() : opts.storage;
     this.key = this._load();
   }

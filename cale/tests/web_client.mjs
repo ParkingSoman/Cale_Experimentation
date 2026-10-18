@@ -62,7 +62,8 @@ check("connect with no Cale -> kind missing", err.kind === "missing", err.kind);
 fake.mode = "ok";
 check("connect returns and saves the key", (await c.connect()) === "cale-KEY" && c.key === "cale-KEY");
 check("connect sent no app name and no key", JSON.parse(seen.find((s) => s.url === "/cale/connect").body).app === undefined && seen.find((s) => s.url === "/cale/connect").auth === undefined);
-const store = memory(); store.setItem("cale-web-key", "cale-SAVED");
+const store = memory();
+store.setItem(new CaleWeb({ base, storage: memory() }).storageKey, "cale-SAVED");     // the key's name depends on the base address
 check("a saved key is read at start", new CaleWeb({ base, storage: store }).key === "cale-SAVED");
 check("works with no storage at all", new CaleWeb({ base, storage: null }).key === null);
 const broken = { getItem() { throw new Error("blocked"); }, setItem() { throw new Error("blocked"); }, removeItem() { throw new Error("blocked"); } };
@@ -137,6 +138,18 @@ check("hook: a loopback test address is accepted", CaleWeb.baseFromSearch("?cale
 check("hook: no parameter -> default", CaleWeb.baseFromSearch("") === undefined && CaleWeb.baseFromSearch("?x=1") === undefined);
 for (const bad of ["https://127.0.0.1:47959", "http://localhost:47959", "http://127.0.0.1", "http://127.0.0.1:47959/x", "http://evil.example:47959", "http://127.0.0.1.evil.example:80", "//127.0.0.1:47959", "http://127.0.0.1:47959@evil.example", "javascript:alert(1)", "%zz"]) {
   check("hook: refuses " + bad, CaleWeb.baseFromSearch("?cale=" + encodeURIComponent(bad)) === undefined || bad === "%zz" && CaleWeb.baseFromSearch("?cale=%zz") === undefined);
+}
+// the saved key is named per base address: the real Cale's key is never used for a test address
+{
+  const store = new Map();
+  const mem = { getItem: (k) => (store.has(k) ? store.get(k) : null), setItem: (k, v) => store.set(k, v), removeItem: (k) => store.delete(k) };
+  store.set("cale-web-key", "REAL-KEY");
+  const real = new CaleWeb({ storage: mem });
+  const test = new CaleWeb({ base: "http://127.0.0.1:47959", storage: mem });
+  check("key name: the default base uses the plain name and finds the real key", real.storageKey === "cale-web-key" && real.key === "REAL-KEY");
+  check("key name: a test base has its own name and does NOT see the real key", test.storageKey === "cale-web-key:http://127.0.0.1:47959" && test.key === null, String(test.key));
+  test._save("TEST-KEY");
+  check("key name: saving a test key leaves the real key alone", store.get("cale-web-key") === "REAL-KEY" && store.get("cale-web-key:http://127.0.0.1:47959") === "TEST-KEY");
 }
 console.log(fails.length ? "\nFAILED: " + fails.join(", ") : "\nAll checks passed.");
 process.exit(fails.length ? 1 : 0);

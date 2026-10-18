@@ -99,7 +99,14 @@
   var SUFFIX = " Reply with ONLY the rewritten text. No quotes, no explanation.";
 
   // --- the Cale part: the whole of it is in this block (goals in, an id out, then plain chat) ---
-  var cale = new CaleWeb({ base: CaleWeb.baseFromSearch(location.search) });
+  var testBase = CaleWeb.baseFromSearch(location.search);
+  var cale = new CaleWeb({ base: testBase });
+  if (testBase) {                                           // never silent: a test Cale is in use, not the real one
+    var banner = document.createElement("div");
+    banner.textContent = "Test mode: talking to a test Cale at " + testBase.replace("http://", "");
+    banner.style.cssText = "position:fixed;left:0;right:0;top:0;padding:6px 12px;text-align:center;font:600 13px system-ui,sans-serif;background:#ffd66b;color:#3b2314;z-index:20";
+    document.body.appendChild(banner);
+  }
   var model = null;
   function makeModel() {
     // The page states a goal ("at least 6 words a second", as a feel). Cale picks the size that meets it on this computer.
