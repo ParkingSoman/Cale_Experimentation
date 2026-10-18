@@ -112,8 +112,10 @@ body, button, input, textarea, select {{
   --theme-settings-input-bg: #1e140e;
   --theme-modal-border: #5a3c26;
   --theme-button-primary: {CARROT};
+  --theme-button-primary-hover: #ffa447;
   --theme-button-cta: {CARROT};
   --theme-home-button-primary: {CARROT};
+  --theme-home-button-primary-hover: #ffa447;
   --theme-file-row-even: #1e140e;
   --theme-file-row-odd: #2a1c13;
   --theme-file-row-selected-even: rgba(245, 138, 31, 0.3);
@@ -140,6 +142,15 @@ a.bg-theme-sidebar-footer-icon:hover {{ background-color: #ffa447 !important; }}
 [data-theme="light"] [class*="border-theme-modal-border"], [data-theme="light"] .bg-theme-bg-secondary {{ border: 2px solid {BROWN}; }}
 /* Text on a carrot-coloured box is brown, never white */
 [class*="bg-sky-"], [class*="bg-blue-"], [class*="bg-cyan-"], .bg-theme-button-primary, .bg-theme-home-button-primary {{ color: {BROWN} !important; }}
+/* Every orange button and pill: on hover and keyboard focus a lighter Carrot, pressed a deeper Carrot; brown text and outline stay.
+   (The page's own hover colours are grey or brown and would hide the label. The doubled :root makes this win over them.) */
+:root:root :is(button.rounded-full, a.bg-theme-sidebar-footer-icon, [class*="bg-[#f58a1f]"], .bg-theme-button-primary, .bg-primary-button):is(:hover, :focus-visible):not(:disabled) {{
+  background-color: #ffa447 !important; color: {BROWN} !important; border-color: {BROWN} !important; opacity: 1 !important;
+}}
+:root:root :is(button.rounded-full, a.bg-theme-sidebar-footer-icon, [class*="bg-[#f58a1f]"], .bg-theme-button-primary, .bg-primary-button):active:not(:disabled) {{
+  background-color: #e07a10 !important; color: {BROWN} !important; border-color: {BROWN} !important;
+}}
+:root:root :is(button.rounded-full, [class*="bg-[#f58a1f]"]):is(:hover, :focus-visible, :active) svg, :root:root :is(button.rounded-full, [class*="bg-[#f58a1f]"]):is(:hover, :focus-visible, :active) svg * {{ color: {BROWN} !important; }}
 /* Small pop-up labels: brown with cream text, not black */
 .tooltip, .react-tooltip, [role="tooltip"] {{ background-color: {BROWN} !important; color: {CREAM} !important; border-radius: 12px !important; }}
 /* Links and buttons that lead to the AnythingLLM web site, or to chat tools and the model picker */
@@ -186,7 +197,8 @@ def about_html(carrot_svg):
  .art{width:140px;height:140px;background:#8fd3f4;border:4px solid #3b2314;border-radius:32px;padding:14px;box-sizing:border-box}
  .art svg{width:100%;height:100%}
  pre{white-space:pre-wrap;font:12px/1.5 ui-monospace,Menlo,monospace;background:#ffe7b3;border:3px solid #3b2314;padding:16px;border-radius:16px}
- .back{display:inline-block;margin-bottom:24px;background:#f58a1f;border:3px solid #3b2314;border-radius:999px;padding:6px 16px;text-decoration:none}
+ .back{display:inline-block;margin-bottom:24px;background:#f58a1f;border:3px solid #3b2314;border-radius:999px;padding:6px 16px;text-decoration:none;color:#3b2314}
+ .back:hover,.back:focus-visible{background:#ffa447}.back:active{background:#e07a10}
 </style></head><body><main>
 <a class="back" href="/">&larr; Back to chat</a>
 <div class="art">""" + carrot_svg + """</div>
@@ -226,6 +238,7 @@ WORDING = {
     '    search: "Search",': '    search: "Search chats",',
     'uploadDocument: "Upload a Document"': 'uploadDocument: "Add a document"',
     'send_message: "Send a message"': 'send_message: "Ask Cale anything"',
+    'send: "Send prompt message to workspace"': 'send: "Send your message"',
     'title: "Instance Settings"': 'title: "Settings"',
     'interface: "UI Preferences"': 'interface: "Look and feel"',
     'title: "UI Preferences"': 'title: "Look and feel"',
@@ -392,6 +405,14 @@ function HoldToReveal''')
             raise PatchError(f"{cc}: greeting or model picker not found")
         text = text.replace("{greeting}", '<img src="/carrot.png" alt="" className="h-28 w-28 mx-auto mb-4" />' + GREETING)
         cc.write_text(text, encoding="utf-8")
+
+    # 7b. no "Memories" panel (it keeps notes about the person; it is closed and has no button now, and it is removed so it cannot be reached)
+    for page in ("components/WorkspaceChat/ChatContainer/index.jsx", "pages/Main/Home/index.jsx"):
+        mp = src / page
+        text, n3 = re.subn(r"<MemoriesSidebar workspace=\{workspace\} />", "{null}", _read(mp))
+        if n3 < 1:
+            raise PatchError(f"{mp}: memories panel not found")
+        mp.write_text(text, encoding="utf-8")
 
     # 8. the message box: no "@" agent button, no "Tools", no reasoning button
     pi = src / "components/WorkspaceChat/ChatContainer/PromptInput/index.jsx"
