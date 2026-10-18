@@ -250,6 +250,7 @@ final class App: NSObject, NSApplicationDelegate, NSWindowDelegate {
         setenv("CALE_HOME", home, 1)
         setenv("PYTHONPATH", home + "/runtime", 1)
         let args = [host, "--title", "Cale", "--width", "1100", "--height", "760", "--min-width", "640", "--min-height", "480",
+                    "--splash", payload + "/cale/brand/carrot.svg", "--splash-text", "Opening Cale",
                     "--server-exec", home + "/venv/bin/python", "--server-arg", "-m", "--server-arg", "cale.chat",
                     "--server-cwd", home + "/runtime",
                     "--url-template", "http://127.0.0.1:{port}/?t={token}"]

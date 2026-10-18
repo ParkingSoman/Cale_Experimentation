@@ -24,6 +24,8 @@ struct Options {
     var serverCwd = ""
     var appearance = ""                                           // "light" or "dark": this window only, whatever the computer uses (for tests)
     var urlTemplate = "http://127.0.0.1:{port}/"
+    var splash = ""                      // a picture (SVG or PNG) shown on cream, with splashText, until the page has loaded
+    var splashText = ""
 }
 
 func parse() -> Options {
@@ -43,6 +45,8 @@ func parse() -> Options {
         case "--server-cwd": o.serverCwd = it.next() ?? ""
         case "--appearance": o.appearance = it.next() ?? ""
         case "--url-template": o.urlTemplate = it.next() ?? o.urlTemplate
+        case "--splash": o.splash = it.next() ?? ""
+        case "--splash-text": o.splashText = it.next() ?? ""
         default: break
         }
     }
@@ -113,7 +117,12 @@ final class Delegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKU
         if opts.appearance == "light" { window.appearance = NSAppearance(named: .aqua) }
         if opts.appearance == "dark" { window.appearance = NSAppearance(named: .darkAqua) }
         window.contentMinSize = NSSize(width: opts.minWidth, height: opts.minHeight)
-        window.contentView = web
+        let container = NSView()
+        web.frame = container.bounds
+        web.autoresizingMask = [.width, .height]
+        container.addSubview(web)
+        if !opts.splash.isEmpty { addSplash(to: container) }
+        window.contentView = container
         window.delegate = self
         window.center()
         window.setFrameAutosaveName(opts.title)
@@ -130,6 +139,48 @@ final class Delegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKU
     func load() {
         guard let u = URL(string: opts.url) else { return }
         web.load(URLRequest(url: u))
+    }
+
+    var splashView: NSView?
+
+    /// Cream screen with the mascot and a short line, shown until the first page has loaded (a cold start can take about 10 seconds).
+    func addSplash(to container: NSView) {
+        let v = NSView()
+        v.wantsLayer = true
+        v.layer?.backgroundColor = NSColor(srgbRed: 1.0, green: 0.945, blue: 0.839, alpha: 1).cgColor     // cream #fff1d6
+        v.frame = container.bounds
+        v.autoresizingMask = [.width, .height]
+        let brown = NSColor(srgbRed: 0.231, green: 0.137, blue: 0.078, alpha: 1)                         // #3b2314
+        let stack = NSStackView()
+        stack.orientation = .vertical
+        stack.alignment = .centerX
+        stack.spacing = 18
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        if let img = NSImage(contentsOfFile: opts.splash) {
+            let iv = NSImageView(image: img)
+            iv.imageScaling = .scaleProportionallyUpOrDown
+            iv.translatesAutoresizingMaskIntoConstraints = false
+            iv.widthAnchor.constraint(equalToConstant: 150).isActive = true
+            iv.heightAnchor.constraint(equalToConstant: 150).isActive = true
+            stack.addArrangedSubview(iv)
+        }
+        if !opts.splashText.isEmpty {
+            let label = NSTextField(labelWithString: opts.splashText)
+            let base = NSFont.systemFont(ofSize: 22, weight: .bold)
+            label.font = base.fontDescriptor.withDesign(.rounded).flatMap { NSFont(descriptor: $0, size: 22) } ?? base
+            label.textColor = brown
+            stack.addArrangedSubview(label)
+        }
+        v.addSubview(stack)
+        NSLayoutConstraint.activate([stack.centerXAnchor.constraint(equalTo: v.centerXAnchor), stack.centerYAnchor.constraint(equalTo: v.centerYAnchor)])
+        container.addSubview(v)
+        splashView = v
+    }
+
+    func webView(_ w: WKWebView, didFinish navigation: WKNavigation!) {
+        guard let v = splashView else { return }
+        splashView = nil
+        NSAnimationContext.runAnimationGroup({ c in c.duration = 0.25; v.animator().alphaValue = 0 }, completionHandler: { v.removeFromSuperview() })
     }
 
     // The page's server may take a moment to start. Try again a few times, quietly.
