@@ -280,9 +280,13 @@ namespace CaleHost
             return fs.Length;
         }
 
+        [DllImport("user32.dll")]
+        static extern bool SetProcessDPIAware();
+
         [STAThread]
         static int Main(string[] args)
         {
+            try { SetProcessDPIAware(); } catch (Exception) { }          // sharp on big screens; sizes are scaled by dpi / 96 below
             string exe = Assembly.GetExecutingAssembly().Location;
             const int footer = 20;
             Dictionary<string, string> cfg;

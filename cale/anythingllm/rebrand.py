@@ -48,6 +48,7 @@ GREETING = "Hi, I am Cale. Ask me anything."
 
 THEME_CSS = f"""
 /* ---- Cale look: carrot, cream, brown (appended by cale/anythingllm/rebrand.py) ---- */
+html, body, #root {{ background-color: var(--theme-bg-primary); }}
 body, button, input, textarea, select {{
   font-family: ui-rounded, "SF Pro Rounded", "Arial Rounded MT Bold", "Nunito", system-ui, sans-serif !important;
 }}
@@ -131,6 +132,14 @@ button.rounded-full {{ border: 2px solid {BROWN}; color: {BROWN}; background-col
 :root:not([data-theme="light"]) button.rounded-full {{ border-color: {BROWN}; }}
 button.rounded-full svg, button.rounded-full svg * {{ color: {BROWN} !important; }}
 .bg-theme-button-primary, .bg-primary-button {{ color: {BROWN} !important; }}
+/* The wrench and the "back" button at the bottom of the sidebar */
+a.bg-theme-sidebar-footer-icon {{ background-color: {CARROT} !important; border: 2px solid {BROWN}; }}
+a.bg-theme-sidebar-footer-icon svg {{ color: {BROWN} !important; }}
+a.bg-theme-sidebar-footer-icon:hover {{ background-color: #ffa447 !important; }}
+/* Boxes: thick brown outline in the light theme */
+[data-theme="light"] [class*="border-theme-modal-border"], [data-theme="light"] .bg-theme-bg-secondary {{ border: 2px solid {BROWN}; }}
+/* Text on a carrot-coloured box is brown, never white */
+[class*="bg-sky-"], [class*="bg-blue-"], [class*="bg-cyan-"], .bg-theme-button-primary, .bg-theme-home-button-primary {{ color: {BROWN} !important; }}
 /* Links and buttons that lead to the AnythingLLM web site, or to chat tools and the model picker */
 a[href^="mailto:"], a[href*="/settings/privacy"], a[href*="github.com"], a[href*="docs.anythingllm.com"],
 a[href*="discord"], a[href*="useanything.com"], a[href*="anythingllm.com"] {{ display: none !important; }}
@@ -218,6 +227,77 @@ WORDING = {
 }
 
 
+# ---------------------------------------------------------------------------------------------------------------------
+# After `yarn build`: every stock blue and every grey-blue in the built page becomes a carrot-palette colour.
+import colorsys
+
+KEEP = {"8fd3f4", "f58a1f", "3b2314", "fff1d6", "fff8e8", "1b1722", "4aa34f", "8a5a3b"}      # the brand colours themselves
+
+
+def _recolor(r, g, b, accent_only=False):
+    """(r, g, b) -> new (r, g, b), or None to keep it. Blues become carrot or brown, greys become warm greys, the rest stays."""
+    h, l, s = colorsys.rgb_to_hls(r / 255, g / 255, b / 255)
+    if l > 0.985 or l < 0.03:
+        return None
+    hue = h * 360
+    if 15 <= hue <= 50 and s > 0.12:
+        return None                                              # already warm: the brand
+    if s < 0.12 or (165 <= hue <= 275 and s < 0.45):
+        if accent_only:
+            return None
+        nh, nl, ns = (36, l, 0.8) if l > 0.8 else (30, l, 0.4)  # grey and grey-blue -> warm grey/cream (same lightness)
+    elif 165 <= hue <= 275:
+        nh, nl, ns = (36, l, 1.0) if l > 0.8 else (31, l, 0.91) if l > 0.35 else (24, l, 0.55)    # blue -> pale carrot, carrot, brown
+    else:
+        return None
+    nr, ng, nb = colorsys.hls_to_rgb(nh / 360, nl, ns)
+    return round(nr * 255), round(ng * 255), round(nb * 255)
+
+
+def recolor_built(dist):
+    """Patch the built files of the frontend (a folder with index.css and assets/*.js). Returns how many colours changed."""
+    import glob
+    n = 0
+    hexre = re.compile(r"#([0-9a-fA-F]{6})\b|#([0-9a-fA-F]{3})\b")
+    rgbre = re.compile(r"rgba?\(\s*(\d{1,3})([\s,]+)(\d{1,3})([\s,]+)(\d{1,3})")
+
+    def hexsub(accent_only):
+        def f(m):
+            nonlocal n
+            h = m.group(1) or "".join(c * 2 for c in m.group(2))
+            if h.lower() in KEEP:
+                return m.group(0)
+            r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+            new = _recolor(r, g, b, accent_only)
+            if new is None:
+                return m.group(0)
+            n += 1
+            return "#%02x%02x%02x" % new
+        return f
+
+    def rgbsub(m):
+        nonlocal n
+        new = _recolor(int(m.group(1)), int(m.group(3)), int(m.group(5)))
+        if new is None:
+            return m.group(0)
+        n += 1
+        return f"rgb({new[0]}{m.group(2)}{new[1]}{m.group(4)}{new[2]}" if m.group(0).startswith("rgb(") else \
+            f"rgba({new[0]}{m.group(2)}{new[1]}{m.group(4)}{new[2]}"
+    for css in glob.glob(str(Path(dist) / "*.css")) + glob.glob(str(Path(dist) / "assets" / "*.css")):
+        if Path(css).name in ("github.css", "github-dark.css"):
+            continue                                              # the code colours: left alone
+        text = _read(css)
+        text = hexre.sub(hexsub(False), text)
+        text = rgbre.sub(rgbsub, text)
+        Path(css).write_text(text, encoding="utf-8")
+    for js in glob.glob(str(Path(dist) / "assets" / "*.js")) + glob.glob(str(Path(dist) / "*.js")):
+        text = _read(js)
+        new_text = hexre.sub(hexsub(True), text)                  # in scripts only the blues (inline styles), never greys
+        if new_text != text:
+            Path(js).write_text(new_text, encoding="utf-8")
+    return n
+
+
 def apply(frontend, carrot_svg=None, carrot_png=None, icon=None, wordmark=None, wordmark_on_dark=None):
     fe = Path(frontend)
     src, pub = fe / "src", fe / "public"
@@ -297,6 +377,9 @@ function HoldToReveal''')
     for page in ("components/WorkspaceChat/ChatContainer/index.jsx", "pages/Main/Home/index.jsx"):      # a new chat, and the home screen
         cc = src / page
         text = _read(cc)
+        text, n2 = re.subn(r"<ChatSettingsMenu(\s[^>]*?)?/>", "{null}", text, flags=re.S)       # the text-size and export button covers the first message
+        if n2 < 1:
+            raise PatchError(f"{cc}: chat settings button not found")
         text, n1 = re.subn(r"<WorkspaceModelPicker workspaceSlug=\{[^}]*\} />", "{null}", text)
         if "{greeting}" not in text or n1 < 1:
             raise PatchError(f"{cc}: greeting or model picker not found")
@@ -316,8 +399,15 @@ function HoldToReveal''')
     _swap(aw, "Upload documents to this workspace for RAG indexing", "Add a document")
     tc = src / "components/Sidebar/ActiveWorkspaces/ThreadContainer/index.jsx"
     _swap(tc, 'name: "default"', 'name: "Main chat"')
-    _swap(tc, 'name: "*New Thread"', 'name: "*New chat"')
-    _sub(tc, r"New Thread\n", "New chat\n")
+    _swap(tc, 'name: "*New Thread"', 'name: "New chat"')
+    _sub(tc, r"New Thread\n", "Start another chat\n")
+    sb = src / "components/Sidebar/SearchBox/index.jsx"        # the "+" next to Search: carrot with a brown outline, not white
+    _swap(sb, 'className="border-none flex items-center justify-center bg-white  rounded-lg p-[8px] hover:bg-white/80 light:hover:bg-slate-300 transition-all duration-300"',
+          'className="flex items-center justify-center bg-[#f58a1f] border-2 border-solid border-[#3b2314] rounded-lg p-[8px] hover:opacity-80 transition-all duration-300"')
+    _swap(tc, '<div className="bg-zinc-800 light:bg-slate-50 p-2 rounded-lg h-[24px] w-[24px] flex items-center justify-center">',
+          '<div className="bg-[#f58a1f] border-2 border-solid border-[#3b2314] p-2 rounded-lg h-[24px] w-[24px] flex items-center justify-center">')
+    _swap(tc, 'className="shrink-0 text-white light:text-theme-text-primary"\n            />\n          )}', 'className="shrink-0 text-[#3b2314]"\n            />\n          )}')
+    _swap(sb, 'className="text-black light:text-slate-500"', 'className="text-[#3b2314]"')
 
     # 10. the loading screen: the carrot
     lc = src / "components/WorkspaceChat/LoadingChat/index.jsx"

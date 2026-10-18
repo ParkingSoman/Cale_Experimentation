@@ -270,6 +270,7 @@ def main():
     say("frontend: install and build")
     run(yarn_install, work / "frontend", env)
     run([yarn, "build"], work / "frontend", env)
+    say(f"recolor: {rebrand.recolor_built(work / 'frontend' / 'dist')} colours moved into the carrot palette")
 
     # 2. server: full install (the Prisma tool is needed once), make the empty database, then keep only production packages
     say("server: install (with the build tools)")

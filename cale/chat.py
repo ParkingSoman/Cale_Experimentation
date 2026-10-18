@@ -40,7 +40,7 @@ BUNDLE = Path(os.environ.get("CALE_CHAT_BUNDLE") or paths.HOME / "chat")
 DATA = Path(os.environ.get("CALE_CHAT_DATA") or paths.HOME / "chat-data")
 APP_NAME = "Cale"                    # the name Cale knows this window by (first-party: no Allow question, like the Hub)
 OBJECT_NAME = "chat"
-WORKSPACE = "Chat"
+WORKSPACE = "My chats"
 START_TIMEOUT_S = 120
 NO_WINDOW = 0x08000000 if oslayer.WIN else 0         # CREATE_NO_WINDOW: a child program that is not started from a console must not open one
 
@@ -333,8 +333,9 @@ class Servers:
         try:
             if self.get("/api/workspaces").get("workspaces"):
                 return
-            self.request("/api/workspace/new", {"name": WORKSPACE}, timeout=20)
-            self.request(f"/api/workspace/{WORKSPACE.lower()}/update", {"chatMode": "chat"}, timeout=20)     # plain chat: no tool "agent" mode, which small models handle badly
+            made = self.request("/api/workspace/new", {"name": WORKSPACE}, timeout=20)
+            slug = (made.get("workspace") or {}).get("slug") or "my-chats"
+            self.request(f"/api/workspace/{slug}/update", {"chatMode": "chat"}, timeout=20)     # plain chat: no tool "agent" mode, which small models handle badly
         except (urllib.error.URLError, OSError, ValueError) as e:
             log(f"could not make the first workspace ({e})")
 

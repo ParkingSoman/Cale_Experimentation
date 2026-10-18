@@ -22,6 +22,7 @@ struct Options {
     var serverExec = ""
     var serverArgs: [String] = []
     var serverCwd = ""
+    var appearance = ""                                           // "light" or "dark": this window only, whatever the computer uses (for tests)
     var urlTemplate = "http://127.0.0.1:{port}/"
 }
 
@@ -40,6 +41,7 @@ func parse() -> Options {
         case "--server-exec": o.serverExec = it.next() ?? ""
         case "--server-arg": o.serverArgs.append(it.next() ?? "")
         case "--server-cwd": o.serverCwd = it.next() ?? ""
+        case "--appearance": o.appearance = it.next() ?? ""
         case "--url-template": o.urlTemplate = it.next() ?? o.urlTemplate
         default: break
         }
@@ -108,6 +110,8 @@ final class Delegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKU
                           styleMask: [.titled, .closable, .miniaturizable, .resizable],
                           backing: .buffered, defer: false)
         window.title = opts.title
+        if opts.appearance == "light" { window.appearance = NSAppearance(named: .aqua) }
+        if opts.appearance == "dark" { window.appearance = NSAppearance(named: .darkAqua) }
         window.contentMinSize = NSSize(width: opts.minWidth, height: opts.minHeight)
         window.contentView = web
         window.delegate = self
