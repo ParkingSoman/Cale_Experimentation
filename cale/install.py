@@ -221,6 +221,14 @@ def install_chat(home):
         if link.is_symlink() or link.exists():
             shutil.rmtree(link) if link.is_dir() and not link.is_symlink() else link.unlink()
     shutil.rmtree(dst, ignore_errors=True)
+    if dst.exists():                                       # Windows: a read-only file stops rmtree. Make everything writable and try again.
+        for d, dirs, files in os.walk(dst):
+            for n in dirs + files:
+                try:
+                    os.chmod(os.path.join(d, n), 0o700)
+                except OSError:
+                    pass
+        shutil.rmtree(dst)
     tmp.rename(dst)
     return True
 

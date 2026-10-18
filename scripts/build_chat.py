@@ -53,12 +53,26 @@ def top_only(*names):
 UNUSED = ("prisma", "@prisma/engines", "@mintplex-labs/mdpdf-*", "chromadb", "chromadb-default-embed", "@azure")
 
 
-def prune(bundle):
+OS_WORDS = ("darwin", "linux", "win32", "freebsd", "android")
+
+
+def _foreign(name, osname, arch):
+    """True if a native package or folder name (like lancedb-darwin-arm64, linuxmusl-x64, win32-x64-msvc) is for another system or chip.
+    Only names that have a system word AND a chip word, so source folders such as lib/win32 are never touched."""
+    n = name.lower()
+    if not re.search(r"(^|[-_.])(%s)" % "|".join(OS_WORDS), n) or not re.search(r"(arm64|aarch64|x64|x86_64|ia32|arm|armv|s390x|ppc64|riscv64|loong64)", n):
+        return False
+    mine_os = {"win32": "win32", "darwin": "darwin", "linux": "linux"}[osname]
+    chip = ("arm64", "aarch64") if arch == "arm64" else ("x64", "x86_64")
+    return mine_os not in n or not any(c in n for c in chip)
+
+
+def prune(bundle, osname=None, arch=None):
     """Remove what is not needed on this computer: unused packages, other systems' native files, maps, notes, type files."""
     import glob
     import platform
-    osname = {"darwin": "darwin", "win32": "win32"}.get(sys.platform, "linux")
-    arch = "arm64" if platform.machine().lower() in ("arm64", "aarch64") else "x64"
+    osname = osname or {"darwin": "darwin", "win32": "win32"}.get(sys.platform, "linux")
+    arch = arch or ("arm64" if platform.machine().lower() in ("arm64", "aarch64") else "x64")
     for sub in ("server", "collector"):
         nm = bundle / sub / "node_modules"
         if sub == "server":
@@ -75,12 +89,33 @@ def prune(bundle):
                         if chip.name != arch:
                             shutil.rmtree(chip)
         for dirpath, dirs, files in os.walk(nm):
+            for d in list(dirs):                                              # other systems' or chips' native packages and folders
+                if _foreign(d, osname, arch) and (Path(dirpath).name == "node_modules" or Path(dirpath).parent.name == "node_modules" and Path(dirpath).name.startswith("@")
+                                                  or Path(dirpath).name in ("vendor", "napi-v3", "prebuilds") or Path(dirpath).parent.name == "vendor"):
+                    shutil.rmtree(os.path.join(dirpath, d), ignore_errors=True)
+                    dirs.remove(d)
             for f in files:
                 if f.endswith((".map", ".d.ts", ".md")) and not f.upper().startswith("LICENSE"):
                     try:
                         os.remove(os.path.join(dirpath, f))
                     except OSError:
                         pass
+
+
+def no_links(bundle):
+    """Windows installers cannot carry symbolic links: remove the .bin links (tools for people, not used at run time), copy any other link's target."""
+    for dirpath, dirs, files in os.walk(bundle):
+        for name in dirs + files:
+            p = Path(dirpath) / name
+            if not p.is_symlink():
+                continue
+            target = p.resolve()
+            p.unlink()
+            if p.parent.name == ".bin" or not target.exists():
+                continue
+            shutil.copytree(target, p, symlinks=False) if target.is_dir() else shutil.copy2(target, p)
+    for d in list(bundle.rglob(".bin")):
+        shutil.rmtree(d, ignore_errors=True)
 
 
 def say(msg):
@@ -161,6 +196,8 @@ def main():
     ap.add_argument("--out", default=str(ROOT / "dist" / "chat"))
     ap.add_argument("--work")
     ap.add_argument("--keep-work", action="store_true")
+    ap.add_argument("--target", choices=("native", "win-x64"), default="native",
+                    help="native: this computer (default). win-x64: a Windows bundle built on any computer (native files of the other system are fetched, not built)")
     a = ap.parse_args()
     src, out = Path(a.src).resolve(), Path(a.out).resolve()
     work = Path(a.work).resolve() if a.work else out.with_name(out.name + ".work")
@@ -183,6 +220,22 @@ def main():
         run(["npm", "install", "--silent", "--no-audit", "--no-fund", "--prefix", str(work / "yarnbox"), "yarn@1.22.22"], work, env)
         yarn = str(work / "yarnbox" / "node_modules" / ".bin" / "yarn")
     yarn_install = [yarn, "install", "--frozen-lockfile", "--silent", "--ignore-engines", "--non-interactive"]
+    cross = a.target == "win-x64"
+    # Cross build: the full install (Prisma tool, embedding file) runs natively. The production install fetches the Windows files: yarn takes the
+    # optional packages of every system (--ignore-platform), and sharp / canvas fetch their own files for npm_config_platform/arch.
+    target_env = dict(env, npm_config_platform="win32", npm_config_arch="x64", npm_config_target_platform="win32", npm_config_target_arch="x64") if cross else env
+    prod_install = yarn_install + ["--production"] + (["--ignore-platform"] if cross else [])
+
+    out_seed = out / "models-seed"
+
+    def fetch_embedder():
+        """The embedding file, so the first document needs no internet. Runs with the packages of THIS computer."""
+        say("embedding file")
+        out_seed.mkdir()
+        fetch = ('import("@xenova/transformers").then(async ({pipeline,env})=>{env.cacheDir=process.argv[1];'
+                 f'const p=await pipeline("feature-extraction","{EMBEDDER}",{{cache_dir:process.argv[1]}});'
+                 'const r=await p("hello",{pooling:"mean",normalize:true});console.log("embedder ok",r.data.length)})')
+        run([str(node_bin / "node"), "-e", fetch, str(out_seed)], work / "server", env, quiet=False)
 
     for sub in ("server", "collector", "frontend"):
         shutil.copytree(src / sub, work / sub, ignore=SKIP)
@@ -203,30 +256,29 @@ def main():
     say("server: Prisma client and the empty database")
     srv = work / "server"
     (srv / "storage").mkdir(exist_ok=True)
+    if cross:                                                                         # also make the Windows query engine (a file, fetched here)
+        schema = srv / "prisma" / "schema.prisma"
+        schema.write_text(schema.read_text().replace('provider = "prisma-client-js"', 'provider = "prisma-client-js"\n  binaryTargets = ["native", "windows"]', 1))
     run([str(srv / "node_modules" / ".bin" / "prisma"), "generate", "--schema=./prisma/schema.prisma"], srv, env)
     run([str(srv / "node_modules" / ".bin" / "prisma"), "migrate", "deploy", "--schema=./prisma/schema.prisma"], srv, env)
     shutil.copyfile(srv / "storage" / "anythingllm.db", out / "template.db")
+    if cross:
+        fetch_embedder()                                  # the full install here still has this computer's files; the Windows packages come next
     prisma_gen = work / "prisma-generated"
     shutil.copytree(srv / "node_modules" / ".prisma", prisma_gen)                  # holds the query engine (a file). No download at run time.
     shutil.rmtree(srv / "node_modules")
     shutil.rmtree(srv / "storage")
     say("server: install (production packages only)")
-    run(yarn_install + ["--production"], srv, env)
+    run(prod_install, srv, target_env)
     shutil.rmtree(srv / "node_modules" / ".prisma", ignore_errors=True)
     shutil.copytree(prisma_gen, srv / "node_modules" / ".prisma")
 
     # 3. collector without Chromium
     say("collector: install (production packages only, no Chromium)")
-    run(yarn_install + ["--production"], work / "collector", env)
+    run(prod_install, work / "collector", target_env)
 
-    # 4. the embedding file, so the first document needs no internet
-    say("embedding file")
-    seed = out / "models-seed"
-    seed.mkdir()
-    fetch = ('import("@xenova/transformers").then(async ({pipeline,env})=>{env.cacheDir=process.argv[1];'
-             f'const p=await pipeline("feature-extraction","{EMBEDDER}",{{cache_dir:process.argv[1]}});'
-             'const r=await p("hello",{pooling:"mean",normalize:true});console.log("embedder ok",r.data.length)})')
-    run([str(node_bin / "node"), "-e", fetch, str(seed)], srv, env, quiet=False)
+    if not cross:
+        fetch_embedder()
 
     # 5. put the bundle together
     say("bundle")
@@ -241,15 +293,21 @@ def main():
     meta.write_text(text)
     shutil.copytree(work / "collector", out / "collector", symlinks=True, ignore=top_only("hotdir"))
     shutil.copyfile(ROOT / "cale" / "anythingllm" / "preload.js", out / "preload.js")
-    prune(out)
-    engines = sorted(p.name for p in (out / "server" / "node_modules" / ".prisma" / "client").glob("libquery_engine*"))
+    if cross:
+        prune(out, "win32", "x64")
+        for f in (out / "server" / "node_modules" / ".prisma" / "client").glob("libquery_engine*"):      # the engine of the build computer
+            f.unlink()
+        no_links(out)
+    else:
+        prune(out)
+    engines = sorted(p.name for p in (out / "server" / "node_modules" / ".prisma" / "client").glob("*query_engine*"))
     (out / "bundle.json").write_text(json.dumps({"anythingllm": json.loads((src / "server" / "package.json").read_text())["version"], "prisma_engines": engines, "embedder": EMBEDDER,
-        "node": subprocess.run([str(node_bin / "node"), "--version"], capture_output=True, text=True).stdout.strip(),
+        "target": a.target, "node": subprocess.run([str(node_bin / "node"), "--version"], capture_output=True, text=True).stdout.strip(),
         "built": time.strftime("%Y-%m-%d")}, indent=1))
     if not a.keep_work:
         shutil.rmtree(work, ignore_errors=True)
     say(f"DONE {out}  {size_mb(out)} MB   (server {size_mb(out / 'server')}, collector {size_mb(out / 'collector')}, "
-        f"models-seed {size_mb(seed)}, template.db {size_mb(out / 'template.db')})")
+        f"models-seed {size_mb(out_seed)}, template.db {size_mb(out / 'template.db')})")
 
 
 if __name__ == "__main__":

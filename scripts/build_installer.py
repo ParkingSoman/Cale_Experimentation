@@ -86,8 +86,16 @@ def stage(os_name, arch, dest):
         shutil.copytree(chat, dest / "chat", symlinks=True)
     elif os_name == "mac":
         sys.exit("No chat bundle in dist/chat. Run: python3 scripts/build_chat.py --src <AnythingLLM v1.18.0 checkout> --node-dir <unpacked node 22> --out dist/chat")
+    elif os_name == "win":
+        chat_win = ROOT / "dist" / "chat-win"                       # made on any computer: python3 scripts/build_chat.py --target win-x64 --out dist/chat-win ...
+        if (chat_win / "server" / "index.js").exists():
+            if any(p.is_symlink() for p in chat_win.rglob("*")):
+                sys.exit("dist/chat-win has symbolic links, which a Windows install cannot carry. Rebuild it with scripts/build_chat.py --target win-x64.")
+            shutil.copytree(chat_win, dest / "chat")
+        else:
+            print("note: no Windows chat bundle in dist/chat-win: the Windows installer has no chat. Run: python3 scripts/build_chat.py --target win-x64 --out dist/chat-win --src <AnythingLLM v1.18.0 checkout> --node-dir <unpacked node 22>")
     else:
-        print(f"note: the chat bundle is not in the {os_name} installer yet (its native files must be built on {os_name})")
+        print(f"note: the chat bundle is not in the {os_name} installer yet (its native files must be built for {os_name})")
     (dest / "nest").mkdir()
     for f in NEST_FILES:
         shutil.copy2(ROOT / "nest" / f, dest / "nest" / f)

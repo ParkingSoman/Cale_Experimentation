@@ -42,6 +42,54 @@ APP_NAME = "Cale"                    # the name Cale knows this window by (first
 OBJECT_NAME = "chat"
 WORKSPACE = "Chat"
 START_TIMEOUT_S = 120
+NO_WINDOW = 0x08000000 if oslayer.WIN else 0         # CREATE_NO_WINDOW: a child program that is not started from a console must not open one
+
+
+class KillWithMe:
+    """Windows: a Job Object that ends its programs when this program ends for any reason (also when it is killed, where SIGTERM never
+    comes). Elsewhere the servers check their parent (CALE_PARENT_PID) and this does nothing."""
+
+    def __init__(self):
+        self.job = None
+        if not oslayer.WIN:
+            return
+        import ctypes
+        from ctypes import wintypes
+        k = ctypes.windll.kernel32
+        k.CreateJobObjectW.restype = wintypes.HANDLE
+        k.CreateJobObjectW.argtypes = [ctypes.c_void_p, wintypes.LPCWSTR]
+        k.AssignProcessToJobObject.argtypes = [wintypes.HANDLE, wintypes.HANDLE]
+        k.OpenProcess.restype = wintypes.HANDLE
+        k.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+        k.SetInformationJobObject.argtypes = [wintypes.HANDLE, ctypes.c_int, ctypes.c_void_p, wintypes.DWORD]
+        job = k.CreateJobObjectW(None, None)
+        if not job:
+            return
+
+        class Basic(ctypes.Structure):
+            _fields_ = [("a", ctypes.c_int64), ("b", ctypes.c_int64), ("LimitFlags", wintypes.DWORD), ("c", ctypes.c_size_t), ("d", ctypes.c_size_t),
+                        ("e", wintypes.DWORD), ("f", ctypes.c_size_t), ("g", wintypes.DWORD), ("h", wintypes.DWORD)]
+
+        class Counters(ctypes.Structure):
+            _fields_ = [(n, ctypes.c_uint64) for n in "abcdef"]
+
+        class Extended(ctypes.Structure):
+            _fields_ = [("Basic", Basic), ("Io", Counters), ("p", ctypes.c_size_t), ("j", ctypes.c_size_t), ("pm", ctypes.c_size_t), ("pk", ctypes.c_size_t)]
+
+        info = Extended()
+        info.Basic.LimitFlags = 0x2000                                   # JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE
+        if k.SetInformationJobObject(job, 9, ctypes.byref(info), ctypes.sizeof(info)):    # JobObjectExtendedLimitInformation
+            self.job, self._k, self._ct = job, k, ctypes
+
+    def add(self, proc):
+        if self.job:
+            h = self._k.OpenProcess(0x0100 | 0x0001, False, proc.pid)     # PROCESS_SET_QUOTA | PROCESS_TERMINATE
+            if h:
+                self._k.AssignProcessToJobObject(self.job, h)
+                self._k.CloseHandle(h)
+
+
+KILL_WITH_ME = KillWithMe()
 
 # What the chat needs, in its own words. Cale turns this into a size on each computer (cale/goals.py).
 GOALS = dict(name=OBJECT_NAME, min_tokens_per_s=float(os.environ.get("CALE_CHAT_TPS", "3")),
@@ -76,29 +124,46 @@ def free_port():
 
 
 def pid_alive(pid):
+    return oslayer.pid_alive(pid)            # on Windows os.kill(pid, 0) would END the process: never use it there
+
+
+def _is_link(path):
+    """A symbolic link, or on Windows a directory junction (it has the reparse-point flag)."""
+    path = Path(path)
+    if path.is_symlink():
+        return True
+    if oslayer.WIN:
+        try:
+            return bool(os.lstat(path).st_file_attributes & 0x400)       # FILE_ATTRIBUTE_REPARSE_POINT
+        except (OSError, AttributeError):
+            return False
+    return False
+
+
+def _drop_link(path):
     try:
-        os.kill(pid, 0)
-        return True
-    except ProcessLookupError:
-        return False
-    except PermissionError:
-        return True
+        os.rmdir(path) if oslayer.WIN else os.unlink(path)               # a junction ends with rmdir and leaves its target alone
     except OSError:
-        return False
+        os.unlink(path)
 
 
 # --- the data folder --------------------------------------------------------------------------
 def _link(path, target):
     """path -> target (a link), so everything the person makes lives in the data folder and the program folder stays unchanged."""
     path = Path(path)
-    if path.is_symlink():
-        if Path(os.readlink(path)) == Path(target):
+    if _is_link(path):
+        if os.path.normcase(os.path.realpath(path)) == os.path.normcase(os.path.realpath(target)):
             return
-        path.unlink()
+        _drop_link(path)
     elif path.exists():
         shutil.rmtree(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    os.symlink(target, path, target_is_directory=True)
+    if oslayer.WIN:                                                      # a junction needs no special right (a symbolic link does)
+        r = subprocess.run(["cmd", "/c", "mklink", "/J", str(path), str(target)], capture_output=True, text=True, creationflags=NO_WINDOW)
+        if r.returncode:
+            raise OSError(f"could not link {path} to {target}: {(r.stdout + r.stderr).strip()}")
+    else:
+        os.symlink(target, path, target_is_directory=True)
 
 
 def secrets_for_chat():
@@ -218,8 +283,10 @@ class Servers:
         env = self.env()
         pre = ["-r", str(BUNDLE / "preload.js")]
         for sub in ("collector", "server"):
-            self.procs.append(subprocess.Popen([self.node, *pre, "index.js"], cwd=BUNDLE / sub, env=env, stdin=subprocess.DEVNULL,
-                                               stdout=self.logfile, stderr=subprocess.STDOUT))
+            p = subprocess.Popen([self.node, *pre, "index.js"], cwd=BUNDLE / sub, env=env, stdin=subprocess.DEVNULL,
+                                 stdout=self.logfile, stderr=subprocess.STDOUT, creationflags=NO_WINDOW)
+            KILL_WITH_ME.add(p)
+            self.procs.append(p)
 
     def alive(self):
         return all(p.poll() is None for p in self.procs)
