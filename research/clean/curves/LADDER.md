@@ -3364,3 +3364,66 @@ Limits of the checks, said plainly. `model/tq30_cover.py` has 0 fails on 24 smal
 | referee | `REFEREE-BQ12-2026-11-02.md` |
 | your calls | none now. The factor 2 in P4 stays as approved |
 | next, my view | (a) re-referee TQ30 and TQ31; (b) I3 and I4 for TQ30, which are provable or a named miss; (c) finish S4 and score it held out; (d) move the real-network work off the 20-photo table and onto the read, on as many photos as the disk holds |
+
+## 52. Row 3, round 4 continued: the hard family reaches ordinary losses, and the read looks limited by its k numbers (2026-11-02; plan i-need-you-to-tingly-orbit.md; COARSE-THEORY.md B.Q.12; card 3-37)
+
+**Row 3 is NOT closed. Nothing passes on a real network.** The impossibility side now works at the tail mass a real table has. The real-network side has a new object, and no theorem on it yet.
+
+| Word | Meaning here |
+|---|---|
+| sealed photos | photos no fit has seen |
+| movement a | how far a class's logit moves between the two photos of an area in the hard network |
+| decoder | what turns the k numbers into 1000 logits. The trunk's box uses one linear map |
+
+**Step 1. The hard family no longer needs small numbers (Proposition TQ31, part 2).** The second referee round proposed this, and I checked it by hand.
+
+```
+before:  tail mass tiny, movement tiny, loss about 1/poly      ->  "that is not a real table"
+now:     any fixed movement a, any fixed tail mass             ->  loss of ordinary size
+         one split of KL:   KL = sum over classes of s_i psi(e_i),  every term >= 0,  so a wrong sign must pay somewhere
+```
+
+Checked on 30 small graphs: 0 fails, tails up to .63, best fit .006 to .16. Why it matters: "a real table has a big tail" no longer answers this theorem. It stays conditional on the Unique Games Conjecture, and its tables stay tables of graphs.
+
+**Step 2. Your IMPOSSIBLE test now reads:**
+
+| Line | State |
+|---|---|
+| I1 | met |
+| I2 | below about 1.36 with no conjecture; every factor only under the Unique Games Conjecture |
+| I3 | outputs reached by real training from random starts (KL at most 1e-5). The map's claims do not hold on the trained network: units do not line up with areas. With soft labels every network is a global minimum of its own objective, so that clause says little |
+| I4 | tail mass and range met. The shape of the loss is not shown |
+| I5 | not met, not tried. I expect these graph tables to fail it |
+
+Why it matters: this is still not "impossible on real networks". A theorem about graph tables does not reach a real table unless real tables are shown to be in the family, and I expect they are not.
+
+**Step 3. Real networks: the 14-number limit.**
+
+```
+ResNet-18, k = 14, 35000 photos to fit, 10000 sealed:              sealed KL     fit rows
+   plain read: 14 numbers -> one linear map -> logits                 1.487        1.173
+   same 14 numbers -> a 2-layer decoder                               1.495         .890
+   encoder and 2-layer decoder trained together, from the read        1.513         .942
+   encoder and 2-layer decoder trained together, from random          1.678        1.026
+   for reference: 64 PCA numbers -> a 2-layer decoder                  .350         .023
+```
+
+Why it matters: on photos the fit did not see, no decoder I tried beats the plain linear read from k numbers. So the cost looks like what k linear numbers of z cannot hold, not how they are read. This is one network, one k, one decoder size, 35 photos per class, and these are upper values. It is not a floor. The decoders overfit, and more photos could change it. These are validation crops, not N's training photos.
+
+**Step 4. What died.**
+
+| Screen | Result |
+|---|---|
+| S4: trees from agents | held out 1.69 to 1.73, Ward 1.73, shuffled 2.06, line 1.0. My line may be below the noise floor. A directed low-rank form beat trees by .1 to .17 |
+| S7: Gaussian information floor | empty: 14 dimensions hold 8 nats, N has 5.7 |
+| S7: closed-form encoder | 1.8 to 6.9 times the read fit. Predicted 1.5 times |
+
+**Step 5. Said plainly.** Your rule asks for a pass or a proof. After this round I have neither. A proof that covers real networks needs a family that holds them, and I do not know how to define one that a theorem can reach. A pass needs a floor on the read within a factor of 2, and every floor so far misses, the best by far. The information picture in Step 3 is the first thing that points at what the floor should be: the least over M of what k linear numbers of z leave out. The hard step is an upper bound on what any k linear numbers can hold, and the finite list P makes that quantity 0 unless the argument uses more than P alone (a generic projection is one-to-one on a finite list).
+
+| | |
+|---|---|
+| Trunk check | used: "new units that read only that group's units" (the read; the decoders are not networks the trunk allows, and I say so); "inputs N was trained on" (I3, and N's training photos are not on this disk); "a map of claims" (M_N, and agents' trees). Not used: the nested zoom, the graded clause, the one-time computation |
+| proved | Proposition TQ31 part 2, by hand, two readers. Labels: none of the four. No OPT-KL result is new. No slot is filled |
+| checks | Part C. `model/tq31_anytail.py`, `model/tq31_trained.py`, `pc_r4_s4_eval.py`, `pc_r4_s7_info.py`, `pc_r4_s8_decoder.py`, `pc_r4_s8b_joint.py` |
+| referee | `REFEREE-BQ12-2026-11-02.md`, two rounds. TQ31 part 2 has not had a third reader |
+| your calls | none are forced. Two to think about: does I2 count under the Unique Games Conjecture? And is the 2-layer test above worth repeating on N's real training photos, which needs a download of about 2.5 GB for 20 per class? |
