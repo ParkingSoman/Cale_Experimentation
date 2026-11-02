@@ -1,0 +1,4 @@
+Written before the final scoring (agent1, resnet18).
+Tree: average linkage on the wiring-predicted class-to-class mass graph (softmax of mean feature H_c times head W, temperature 1.5, symmetrised, no scaling).
+Prediction on split A: 1.32 (range 1.31-1.34). Reason: earlier probes of this family gave 1.32-1.33; the rank-14 floor is about 1.33 and photo-noise is large.
+Top-down channel bisection (probe) gave 1.43-1.45: the top splits carry almost no sbar mass.

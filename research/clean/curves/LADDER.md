@@ -3333,7 +3333,15 @@ the mistake:  I assumed a YES build fits every row. TQ30 puts the gap in the row
 3. tail against rank:   rank 128 gives rms .2, and .99 of the mass within a factor 3      so the tail is structure, not noise
 ```
 
-Why it matters: (2) says real tables do not behave like the hard family, on this one test. The hard family is built to have many bad minima. This is a measurement of fits and not a theorem, and fits from two starts cannot show a global least. (1) and (3) describe what a real table has that a graph's table lacks. These are the leads for the next round. S3's premise, that the residual is noise, is wrong by (3).
+**Corrected the same day: lead (3) is WRONG, and I told you it in chat.** An agent warned of photo noise, and I measured it. `pc_r4_s4_noise.py`:
+
+```
+two independent halves of each class's photos (10 and 10):    rms between them    3.07 (ResNet-18), 3.26 (ResNet-50)
+rank 14, fit on half 1:     KL on half 1   .237      KL on half 2   1.01
+rank 38, fit on half 1:     KL on half 1   .056      KL on half 2    .93       (ResNet-50: .163, .958 and .034, .838)
+```
+
+Why it matters: rank 128's small number is mostly a fit to the noise of these 20 photos per class. It is not shown to be structure. Much of the .245 that three rounds tried to certify may be the same. A held-out score of about 1.0 sits close to the real read's 1.06, so the gap "7 times above the floor" may be partly an artifact of this small table. That is a reading of two numbers and not a proof. Part of the half-table score is half 2's own noise, which no build can fit. The trunk's object is the least on P, so noise is still part of that least, but a claim could not name it. My prediction of .9 missed by more than 3 times. An agent's rougher split-half estimate gave about .8 and another's about 1.5 on the full table, so the size of the noise on this measure is not settled, though the in-sample and held-out KL numbers above are direct. S4's line of 1.0 may be below the noise floor, so it was a poor line. Leads (1) and (2) rest on the same noisy tables, so they are weaker than I said. (2) is what a low-rank-plus-noise table would do anyway, so it does not show structure.
 
 **What the referee found in my drafts.** All fixed.
 
@@ -3355,4 +3363,4 @@ Limits of the checks, said plainly. `model/tq30_cover.py` has 0 fails on 24 smal
 | checks | Part C, Round 4 rows. `rounds/round4/` |
 | referee | `REFEREE-BQ12-2026-11-02.md` |
 | your calls | none now. The factor 2 in P4 stays as approved |
-| next, my view | (a) re-referee TQ30 and TQ31; (b) I3 and I4 for TQ30, which are provable or a named miss; (c) S4 with agents; (d) why the fixed-metric fits agree, with a claim built on leads (1) and (3), which must leave TQ30's graphs out |
+| next, my view | (a) re-referee TQ30 and TQ31; (b) I3 and I4 for TQ30, which are provable or a named miss; (c) finish S4 and score it held out; (d) move the real-network work off the 20-photo table and onto the read, on as many photos as the disk holds |

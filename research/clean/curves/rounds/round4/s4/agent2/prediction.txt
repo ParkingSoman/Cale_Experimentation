@@ -1,0 +1,1 @@
+PREDICTION before scoring: tool split A about 1.20 (in-sample, circular: evidence comes from A rows); honest held-out gain over Ward only about 0.03 to 0.06
