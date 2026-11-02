@@ -173,3 +173,14 @@ theorem tq23_gauge (f y θ : ℝ) (h0 : 0 < θ) :
 /-- Lemma TQ27, the arithmetic step: the minority weight squared is at most the product of the two weights. -/
 theorem tq27_clean (a b r : ℝ) (hr : 0 ≤ r) (ha : r ≤ a) (hb : r ≤ b) : r ^ 2 ≤ a * b := by
   nlinarith [mul_le_mul ha hb hr (le_trans hr ha)]
+
+/-- Proposition TQ30 part 1, the algebraic step: two opposite entries of a rank-one matrix bound the product of its diagonal values. -/
+theorem tq30_two_two (uw vj uj vw : ℝ) :
+    2 * |(uw * vw) * (uj * vj)| ≤ (uw * vj) ^ 2 + (uj * vw) ^ 2 := by
+  have h : (uw * vw) * (uj * vj) = (uw * vj) * (uj * vw) := by ring
+  rw [h]
+  have := two_mul_le_add_sq (|uw * vj|) (|uj * vw|)
+  have h1 : |uw * vj| ^ 2 = (uw * vj) ^ 2 := sq_abs _
+  have h2 : |uj * vw| ^ 2 = (uj * vw) ^ 2 := sq_abs _
+  rw [abs_mul (uw * vj) (uj * vw)]
+  nlinarith

@@ -3262,3 +3262,97 @@ So "exact is really exact" is not met by this check in your sense, on this theor
 | referee | `REFEREE-BQ11-2026-11-02.md`, two rounds |
 | your calls | card 3-36. Nothing blocks on it |
 | next, my view | the claim on real tables, from agents reading the network, not from one clustering. And the question this theorem leaves open: is a constant-factor certificate possible? It would be graded, so whether that counts is your call on the card |
+
+## 51. Row 3, round 4: your end rule, a fixed factor proved hard, and no candidate passes (2026-11-02; plan i-need-you-to-tingly-orbit.md; COARSE-THEORY.md B.Q.12, D.20; card 3-37)
+
+**Row 3 is NOT closed. Nothing passes on a real network. The impossibility side moved further than any earlier session, and it is not finished.** Your rule, on card 3-37: row 3 ends only by passing on real networks, or by a proof that it cannot.
+
+| Word | Meaning here |
+|---|---|
+| vertex cover | a set of vertices of a graph that touches every edge. Finding the smallest one is a standard hard problem |
+| Unique Games Conjecture | a widely used open conjecture in complexity theory. Results that rest on it are conditional |
+| fixed metric | the loss (1/2) Var under N's own probabilities, which stay fixed. No softmax in the student |
+| weight gap | the second singular value of the table of class weights, after scaling rows and columns. 0 means a plain product |
+
+**Step 1. A fixed factor is now proved hard, on clean networks.** The referee found this. I had missed it, and I checked its proof.
+
+```
+any graph Q   ->   areas = vertices,  one unit k = 1,  every claim at error 0
+                   own tail class: heavy.   Edge of Q: heavy, and must stay level.   Others: light
+one unit can write its pattern only on areas with no edge between them
+so the areas it gives up form a vertex cover
+
+least KL  =  Gamma L vc(Q)  (1 + O(delta))
+```
+
+| Proposition | Excludes a fast rule within | Rests on |
+|---|---|---|
+| TQ30 | a factor below about 1.36 | P != NP (Dinur and Safra) |
+| TQ30 | a factor below 2^(1/2) | P != NP (Khot, Minzer, Safra; that its last step is proved I have from a secondary source) |
+| TQ30 | a factor below 2 | Unique Games Conjecture |
+| TQ31, signed entries | every fixed factor | Unique Games Conjecture |
+
+Why it matters: LADDER 50 could exclude only about 1 part in 8 m n. Now a factor of 1.36 is excluded outright. A certificate within a factor of 2 is excluded on these networks if the conjecture holds, and with signed entries so is any factor. So a claim that passes your test must leave these networks out.
+
+**Step 2. What that does and does not settle.** Against your IMPOSSIBLE test:
+
+| Line | State |
+|---|---|
+| I1: a theorem, every claim at 0 | met |
+| I2: every fixed factor, unless P = NP | met only under the Unique Games Conjecture. Under P != NP alone, below about 1.36 |
+| I3: trained-like | not done. I expect it can be done: labels sampled from the table make N a global minimum |
+| I4: matches ResNet's tables | not met. Tail mass and movement are small here |
+| I5: clean by the essay | not met. These are tables of graphs, and I expect them to fail this |
+
+Why it matters: I must say this before you read Step 1 as an ending. This does not show a real network's least cannot be computed. A finished version would say what any passing claim must exclude.
+
+```
+what I tried first, and why it failed (Proposition TQ26):
+   a completion theorem gives one bad entry, and a YES build pays on every hole of every row
+   ratio below 1, always
+the mistake:  I assumed a YES build fits every row. TQ30 puts the gap in the rows it gives up
+```
+
+**Step 3. Real networks: every screen missed its line.** Each line and prediction was fixed before its run.
+
+| # | Candidate | Line | Result | Prediction |
+|---|---|---|---|---|
+| S1 | weight gap, ResNet-18 / -50 | at most .5, on .7 of the loss | .67 / .65 at .72 of the loss: misses | held |
+| S2 | read curvature near a Kronecker product | ratio in [.5, 2] | .04 to over 1000: misses by far | held |
+| S3 | table: a fixed-metric or closed-form value within 10% of the fit | within 10% | Q / fit .60 to .85, closed form 3 to 30 times too high: misses | Q within 30%: missed |
+| S3b | the read: Q at least half the fit | at both k | .35 at k = 14, .62 at k = 38: misses at k = 14 | missed at k = 14 |
+| S4 | a claim from agents | tree rms at most 1.0 | NOT RUN | |
+| S5 | gates | gain above 10% | train 5.3%, sealed -13%, not converged, too few rows: not settled | train gain held; warm start missed |
+| S6 | packing dual | at least 10% of the fit | already dead: round 2 measured 1e-7. My plan was wrong to list it | |
+
+**Step 4. Three things the screens showed that I did not expect.**
+
+```
+1. weight gap past the first directions:   sigma_2 = .67,  sigma_15 = .25,  sigma_39 = .19     at the same point, both nets
+2. fixed metric, warm against random start:   within 2% at every k, on tables and on the read
+3. tail against rank:   rank 128 gives rms .2, and .99 of the mass within a factor 3      so the tail is structure, not noise
+```
+
+Why it matters: (2) says real tables do not behave like the hard family, on this one test. The hard family is built to have many bad minima. This is a measurement of fits and not a theorem, and fits from two starts cannot show a global least. (1) and (3) describe what a real table has that a graph's table lacks. These are the leads for the next round. S3's premise, that the residual is noise, is wrong by (3).
+
+**What the referee found in my drafts.** All fixed.
+
+| I wrote | True |
+|---|---|
+| a proof needs a constant mass of bad rows | false: TQ30 needs none |
+| "no choice of weights helps" | proved for product hole weights only, and my reason was wrong |
+| a Gaussian xi gives KL = half the variance | impossible on finitely many classes. A limit |
+| a few entries do not move sigma_2 | false: one rare pair can hold it near 1 |
+| the entry bound and the row norm in TQ26 | I mixed them. The conclusion stands after the repair |
+
+Limits of the checks, said plainly. `model/tq30_cover.py` has 0 fails on 24 small graphs, and it can only refute. At network level the free fit stalled at a loss scale of 1e-11, so only the proof's own build is checked there. No certified global search was run. So "exact is really exact" is not met by this check. TQ30 and TQ31 as I wrote them are not re-refereed yet.
+
+| | |
+|---|---|
+| Trunk check | used: "a map of claims" (M_N at error 0); "complete for the zoom" (M_N is not complete, said in TQ30); "one-time computation" (no time limit, so the trunk is not contradicted); "new units that read only that group's units" (the box of TQ23.a); "inputs N was trained on" (not yet: I3). Not used: the nested zoom, the graded clause |
+| proved | Propositions TQ26, TQ28, TQ30, TQ31, Lemmas TQ27, TQ29. Labels: none of the four. These are limits and tools. No OPT-KL result is new. No slot is filled |
+| conjecture | DQ21 |
+| checks | Part C, Round 4 rows. `rounds/round4/` |
+| referee | `REFEREE-BQ12-2026-11-02.md` |
+| your calls | none now. The factor 2 in P4 stays as approved |
+| next, my view | (a) re-referee TQ30 and TQ31; (b) I3 and I4 for TQ30, which are provable or a named miss; (c) S4 with agents; (d) why the fixed-metric fits agree, with a claim built on leads (1) and (3), which must leave TQ30's graphs out |

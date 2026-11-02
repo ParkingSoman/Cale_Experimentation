@@ -1,3 +1,5 @@
+SUPERSEDED in part (2026-11-02): the referee found a route that avoids the obstruction below. See Propositions TQ30 and TQ31 in COARSE-THEORY.md B.Q.12. The notes below are the record of the attempt.
+
 # Round 4, Arm I: working notes (not the paper; nothing here is refereed)
 
 Date: 2026-11-02. Plan: `~/.claude/plans/i-need-you-to-tingly-orbit.md`. Card 3-37.

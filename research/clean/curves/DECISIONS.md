@@ -181,6 +181,8 @@ the trunk:     its "exact closed form" has no time limit, and R-mixclean (e) all
 on real nets:  no claim found. Product tail misses badly. One Ward tree reduces the error from 1.81 to 1.43, far from 0
 ```
 
+Update (2026-11-02, Propositions TQ30 and TQ31): option (c) is now limited by a theorem. On networks with every claim at 0, a fast rule within a factor below about 1.36 gives P = NP, and within any fixed factor gives P = NP under the Unique Games Conjecture. So (c) needs a claim too. Its tables are graphs, not shown to be trained-like.
+
 Which promise should a squeeze carry?
 
 | Option | What it means | Gains | Loses |
@@ -1873,6 +1875,7 @@ so the lint fails until it gets a node.
 | H-active | R-active |
 | squeeze-complete groups | S-squeezecomplete |
 | pole claims | R-poleclaim |
+| the Unique Games Conjecture | TECH |
 <!-- /aliases -->
 
 ## 6. The path of every result
@@ -2152,8 +2155,10 @@ node named by a tag is on the path, and prints the table with distances.
 | Proposition TQ26 | S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | a source with one bad entry lifts to a ratio below 1: a limit of method |
 | Lemma TQ27 | (none) | a set with few conflicts holds a large independent set; every f-coloring of a conflict system leaves pair mass about 1 / (R^2 f) |
 | Proposition TQ28 | (none) | at rank r, a build fits all but 1 / b(r) of a line digraph's diagonal, on any graph |
+| Proposition TQ30 | S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | V_b(1) equals a vertex cover number within 1 + O(delta), on networks with every claim at 0: a fixed factor below about 1.36 is hard under P != NP |
+| Proposition TQ31 | S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | with signed M, under the Unique Games Conjecture, every fixed factor is hard at k = 1 |
 | Lemma TQ29 | (none) | KL is a variance along the geometric path between s and q, at any amplitude; a tool, no lower bound over competitors |
-| Conjecture DQ21 | S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | no fast rule within a fixed factor on clean networks; route stopped at the norm tail |
+| Conjecture DQ21 | S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | every fixed factor is hard under P != NP alone; the known routes and their limits |
 | Conjecture DQ17 | R-treeweight | at one unit, a least order of the wall program respects a monotone tree, with no scales |
 | Lemma TQ23.c | (none) | padding: rank-r fitting on M plus r - 1 heavy blocks holds the biclique value |
 | Lemma TQ23.a | S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | the squeeze of N(M, W) with areas kept is rank-r weighted fitting, within 4 alpha + 6 eta |
