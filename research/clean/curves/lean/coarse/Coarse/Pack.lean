@@ -169,3 +169,7 @@ theorem tq23_gauge (f y θ : ℝ) (h0 : 0 < θ) :
     ring
   have : 0 ≤ (θ * f - y) ^ 2 / θ := div_nonneg (sq_nonneg _) h0.le
   linarith
+
+/-- Lemma TQ27, the arithmetic step: the minority weight squared is at most the product of the two weights. -/
+theorem tq27_clean (a b r : ℝ) (hr : 0 ≤ r) (ha : r ≤ a) (hb : r ≤ b) : r ^ 2 ≤ a * b := by
+  nlinarith [mul_le_mul ha hb hr (le_trans hr ha)]
