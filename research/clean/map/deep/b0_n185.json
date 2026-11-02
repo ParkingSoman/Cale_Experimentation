@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 185,
+ "max": 19.876710891723633,
+ "min": -20.36084747314453,
+ "edits": {
+  "flip": 0.9457699060440063,
+  "rot90": 0.8602452278137207,
+  "rot180": 0.9392821788787842,
+  "gray": 0.08643897622823715,
+  "blur1": 1.0295965671539307,
+  "blur3": 0.9970003366470337,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9931474924087524,
+  "hue": 0.5568369626998901,
+  "invert": 0.9423834085464478,
+  "zoomout": 0.9264280796051025,
+  "zoomin": 0.912163257598877
+ },
+ "top50_classes": {
+  "hair slide": 2,
+  "CD player": 1,
+  "neck brace": 1,
+  "oboe": 1,
+  "water tower": 1,
+  "cup": 1,
+  "lumbermill": 1,
+  "hook": 1,
+  "bookcase": 1,
+  "mailbox": 1
+ },
+ "neg50_classes": {
+  "ruddy turnstone": 1,
+  "red wine": 1,
+  "crib": 1,
+  "velvet": 1,
+  "maypole": 1,
+  "hand blower": 1,
+  "packet": 1,
+  "measuring cup": 1,
+  "hair slide": 1,
+  "sloth bear": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2521,
+ "max": 12.494537353515625,
+ "min": -22.85390281677246,
+ "edits": {
+  "flip": 0.9160987734794617,
+  "rot90": 0.4085398316383362,
+  "rot180": 0.18684211373329163,
+  "gray": 0.36299723386764526,
+  "blur1": 0.8717743158340454,
+  "blur3": 0.49752938747406006,
+  "shuf2": 1.0,
+  "shuf4": 0.5726180076599121,
+  "shuf8": 0.2185698300600052,
+  "hue": 0.15208002924919128,
+  "invert": 0.8925907611846924,
+  "zoomout": 0.23667499423027039,
+  "zoomin": 0.6876819729804993
+ },
+ "top50_classes": {
+  "Ibizan hound": 2,
+  "Cardigan": 2,
+  "basenji": 2,
+  "Appenzeller": 2,
+  "beach wagon": 2,
+  "miniature pinscher": 2,
+  "clumber": 2,
+  "Brittany spaniel": 2,
+  "hog": 1,
+  "black-and-tan coonhound": 1
+ },
+ "neg50_classes": {
+  "Pekinese": 2,
+  "soft-coated wheaten terrier": 2,
+  "jay": 2,
+  "mortarboard": 1,
+  "lynx": 1,
+  "maillot": 1,
+  "German shepherd": 1,
+  "park bench": 1,
+  "Border terrier": 1,
+  "Lhasa": 1
+ }
+}

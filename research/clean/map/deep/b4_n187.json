@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 187,
+ "max": 4.704179286956787,
+ "min": -4.9462738037109375,
+ "edits": {
+  "flip": 0.9916447401046753,
+  "rot90": 0.71230149269104,
+  "rot180": 0.7566876411437988,
+  "gray": 0.9871784448623657,
+  "blur1": 0.8922938108444214,
+  "blur3": 0.33508843183517456,
+  "shuf2": 0.9890342950820923,
+  "shuf4": 0.9872943758964539,
+  "shuf8": 0.8006687760353088,
+  "hue": 1.0038608312606812,
+  "invert": 0.9873582124710083,
+  "zoomout": 0.6379418969154358,
+  "zoomin": 0.6795642971992493
+ },
+ "top50_classes": {
+  "book jacket": 2,
+  "web site": 2,
+  "folding chair": 1,
+  "sulphur-crested cockatoo": 1,
+  "window shade": 1,
+  "wing": 1,
+  "freight car": 1,
+  "four-poster": 1,
+  "cash machine": 1,
+  "pay-phone": 1
+ },
+ "neg50_classes": {
+  "Newfoundland": 2,
+  "platypus": 1,
+  "American egret": 1,
+  "jersey": 1,
+  "black stork": 1,
+  "isopod": 1,
+  "iron": 1,
+  "chambered nautilus": 1,
+  "hard disc": 1,
+  "vestment": 1
+ }
+}

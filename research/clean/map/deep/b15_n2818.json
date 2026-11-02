@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 2818,
+ "max": 4.339341640472412,
+ "min": -12.291641235351562,
+ "edits": {
+  "flip": 0.9432544112205505,
+  "rot90": 0.45702478289604187,
+  "rot180": 0.38901734352111816,
+  "gray": 1.0010566711425781,
+  "blur1": 0.9264931678771973,
+  "blur3": 0.32602459192276,
+  "shuf2": 0.9536458253860474,
+  "shuf4": 0.7319679260253906,
+  "shuf8": 0.44355520606040955,
+  "hue": 0.8944326043128967,
+  "invert": 1.0050570964813232,
+  "zoomout": 0.4402005076408386,
+  "zoomin": 0.6341537237167358
+ },
+ "top50_classes": {
+  "half track": 3,
+  "forklift": 2,
+  "jeep": 2,
+  "Model T": 2,
+  "harvester": 2,
+  "moving van": 1,
+  "minivan": 1,
+  "thresher": 1,
+  "hoopskirt": 1,
+  "restaurant": 1
+ },
+ "neg50_classes": {
+  "canoe": 3,
+  "drumstick": 2,
+  "whiskey jug": 2,
+  "ice cream": 1,
+  "papillon": 1,
+  "corkscrew": 1,
+  "cheetah": 1,
+  "Shetland sheepdog": 1,
+  "rhinoceros beetle": 1,
+  "snail": 1
+ }
+}

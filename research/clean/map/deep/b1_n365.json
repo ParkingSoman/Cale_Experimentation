@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 365,
+ "max": 15.523149490356445,
+ "min": -16.440658569335938,
+ "edits": {
+  "flip": 0.9982043504714966,
+  "rot90": 0.90185546875,
+  "rot180": 0.8689457178115845,
+  "gray": 0.09925371408462524,
+  "blur1": 0.9993877410888672,
+  "blur3": 1.0001369714736938,
+  "shuf2": 1.0,
+  "shuf4": 1.0018742084503174,
+  "shuf8": 0.991826057434082,
+  "hue": 0.8028862476348877,
+  "invert": 0.7038623094558716,
+  "zoomout": 0.8847456574440002,
+  "zoomin": 0.923682451248169
+ },
+ "top50_classes": {
+  "feather boa": 2,
+  "cabbage butterfly": 1,
+  "whistle": 1,
+  "gas pump": 1,
+  "sock": 1,
+  "airship": 1,
+  "missile": 1,
+  "soap dispenser": 1,
+  "peacock": 1,
+  "backpack": 1
+ },
+ "neg50_classes": {
+  "tennis ball": 3,
+  "leafhopper": 2,
+  "admiral": 1,
+  "guinea pig": 1,
+  "soup bowl": 1,
+  "nematode": 1,
+  "ringlet": 1,
+  "vine snake": 1,
+  "monarch": 1,
+  "leaf beetle": 1
+ }
+}

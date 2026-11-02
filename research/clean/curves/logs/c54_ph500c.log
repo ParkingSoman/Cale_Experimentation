@@ -1,0 +1,9 @@
+G skipped (0s)
+centered KFC: A const diag 1, Cov median diag 4.76e+04
+S on dev-1000: 0.0517
+  it 1: train L_ex 286.2  held-out L_ex 282.1  dev-1000 KL 0.0493 (vs S -0.0025, se 0.0018)  |v-S|/|T-S| 1499.5  halvings 0 beta 0.27 (65s)
+  it 2: train L_ex 278.4  held-out L_ex 276.4  dev-1000 KL 0.0492 (vs S -0.0025, se 0.0021)  |v-S|/|T-S| 1960.3  halvings 0 beta 1.17 (117s)
+  it 3: train L_ex 273.3  held-out L_ex 271.6  dev-1000 KL 0.0471 (vs S -0.0046, se 0.0024)  |v-S|/|T-S| 2278.6  halvings 0 beta 0.77 (173s)
+  it 4: train L_ex 267.2  held-out L_ex 264.4  dev-1000 KL 0.0471 (vs S -0.0047, se 0.0025)  |v-S|/|T-S| 2597.2  halvings 0 beta 0.60 (233s)
+  it 5: train L_ex 260.8  held-out L_ex 258.5  dev-1000 KL 0.0465 (vs S -0.0052, se 0.0028)  |v-S|/|T-S| 2916.4  halvings 0 beta 0.71 (293s)
+  it 6: train L_ex 257.1  held-out L_ex 256.9  dev-1000 KL 0.0471 (vs S -0.0046, se 0.0029)  |v-S|/|T-S| 3017.8  halvings 0 beta 1.42 (352s)

@@ -1,0 +1,4 @@
+  network-made B, solve's beta                   dev-5000 KL 0.1282 (se 0.0060)
+  network-made B, beta from inversions           dev-5000 KL 0.1131 (se 0.0052)
+  network-made B, plain-mean beta from the set   dev-5000 KL 0.0932 (se 0.0044)
+  network-made B, beta from real (diagnostic)    dev-5000 KL 0.0938 (se 0.0044)

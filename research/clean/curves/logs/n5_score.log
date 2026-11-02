@@ -1,0 +1,5 @@
+set              | S 3b->4a | S 4a->4b | S 4d->4e
+real unsure      | 0.880   | 0.803   | 0.868
+class inversions | 0.838   | 0.824   | 0.819
+boundary         | 0.709   | 0.717   | 0.796
+reader pictures  | 0.832   | 0.752   | 0.827

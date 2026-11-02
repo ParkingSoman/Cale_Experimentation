@@ -1,0 +1,45 @@
+{
+ "block": 2,
+ "neuron": 332,
+ "max": 3.8357720375061035,
+ "min": -4.971856117248535,
+ "edits": {
+  "flip": 0.8867757320404053,
+  "rot90": 0.7183634638786316,
+  "rot180": 0.8829524517059326,
+  "gray": 1.0,
+  "blur1": 0.9998321533203125,
+  "blur3": 0.7787925004959106,
+  "shuf2": 1.0,
+  "shuf4": 0.9863172769546509,
+  "shuf8": 0.8310571312904358,
+  "hue": 0.9990696310997009,
+  "invert": 0.8368862271308899,
+  "zoomout": 0.586679995059967,
+  "zoomin": 0.8001276254653931
+ },
+ "top50_classes": {
+  "cassette": 1,
+  "steel arch bridge": 1,
+  "tree frog": 1,
+  "parachute": 1,
+  "streetcar": 1,
+  "bonnet": 1,
+  "kit fox": 1,
+  "stove": 1,
+  "crash helmet": 1,
+  "turnstile": 1
+ },
+ "neg50_classes": {
+  "schooner": 2,
+  "Chihuahua": 2,
+  "laptop": 1,
+  "croquet ball": 1,
+  "triumphal arch": 1,
+  "bottlecap": 1,
+  "toucan": 1,
+  "silky terrier": 1,
+  "tree frog": 1,
+  "bonnet": 1
+ }
+}

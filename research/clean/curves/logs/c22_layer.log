@@ -1,0 +1,7 @@
+[layer] effective rank 643
+c22_build_layer: 0.0499 (se 0.0029)
+  layer minus level0p    -0.0134 (paired se 0.0012)
+  layer minus wmetric    -0.0071 (paired se 0.0007)
+  layer minus kbar       +0.0008 (paired se 0.0002)
+  layer minus 4d         +0.0009 (paired se 0.0005)
+  layer minus true_a3    +0.0009 (paired se 0.0001)

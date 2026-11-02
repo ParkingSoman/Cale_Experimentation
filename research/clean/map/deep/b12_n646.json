@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 646,
+ "max": 4.0717949867248535,
+ "min": -6.601055145263672,
+ "edits": {
+  "flip": 0.9463708996772766,
+  "rot90": 0.7683080434799194,
+  "rot180": 0.7321422100067139,
+  "gray": 0.6647889018058777,
+  "blur1": 0.9675596952438354,
+  "blur3": 0.7900614142417908,
+  "shuf2": 0.8898868560791016,
+  "shuf4": 0.8745743036270142,
+  "shuf8": 0.81563800573349,
+  "hue": 0.5929259061813354,
+  "invert": 0.710618257522583,
+  "zoomout": 0.8311905860900879,
+  "zoomin": 0.7461928129196167
+ },
+ "top50_classes": {
+  "flatworm": 2,
+  "brain coral": 2,
+  "bison": 1,
+  "Siamese cat": 1,
+  "ibex": 1,
+  "cougar": 1,
+  "leatherback turtle": 1,
+  "lynx": 1,
+  "bighorn": 1,
+  "harvester": 1
+ },
+ "neg50_classes": {
+  "butcher shop": 2,
+  "briard": 1,
+  "slot": 1,
+  "shower cap": 1,
+  "plate": 1,
+  "neck brace": 1,
+  "screwdriver": 1,
+  "mashed potato": 1,
+  "head cabbage": 1,
+  "long-horned beetle": 1
+ }
+}

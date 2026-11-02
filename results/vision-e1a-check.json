@@ -1,0 +1,14 @@
+{
+ "13": {
+  "spearman_median": 0.7231935198729917,
+  "top20_overlap_median": 0.45
+ },
+ "15": {
+  "spearman_median": 0.46472249427146317,
+  "top20_overlap_median": 0.375
+ },
+ "16": {
+  "spearman_median": 0.31175557847214574,
+  "top20_overlap_median": 0.525
+ }
+}

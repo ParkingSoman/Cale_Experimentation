@@ -1,0 +1,45 @@
+{
+ "block": 8,
+ "neuron": 106,
+ "max": 3.9261226654052734,
+ "min": -6.212855815887451,
+ "edits": {
+  "flip": 0.5358450412750244,
+  "rot90": 0.4611130952835083,
+  "rot180": 0.7303831577301025,
+  "gray": 0.9896111488342285,
+  "blur1": 0.955562949180603,
+  "blur3": 0.5836974382400513,
+  "shuf2": 1.0030629634857178,
+  "shuf4": 0.8437755107879639,
+  "shuf8": 0.7380541563034058,
+  "hue": 0.9713048934936523,
+  "invert": 0.9358730316162109,
+  "zoomout": 0.62900310754776,
+  "zoomin": 0.5564086437225342
+ },
+ "top50_classes": {
+  "wardrobe": 2,
+  "desk": 1,
+  "corkscrew": 1,
+  "water bottle": 1,
+  "mailbox": 1,
+  "triumphal arch": 1,
+  "shoji": 1,
+  "birdhouse": 1,
+  "shoe shop": 1,
+  "refrigerator": 1
+ },
+ "neg50_classes": {
+  "hog": 2,
+  "hand-held computer": 1,
+  "gondola": 1,
+  "crane2": 1,
+  "harp": 1,
+  "upright": 1,
+  "paddlewheel": 1,
+  "vault": 1,
+  "safe": 1,
+  "titi": 1
+ }
+}

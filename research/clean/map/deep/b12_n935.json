@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 935,
+ "max": 4.1722211837768555,
+ "min": -5.821754455566406,
+ "edits": {
+  "flip": 0.9700589179992676,
+  "rot90": 0.9173556566238403,
+  "rot180": 0.9953011870384216,
+  "gray": 1.0069866180419922,
+  "blur1": 1.0140610933303833,
+  "blur3": 1.0648829936981201,
+  "shuf2": 0.8039234280586243,
+  "shuf4": 0.2782970666885376,
+  "shuf8": -0.08482307195663452,
+  "hue": 1.0055580139160156,
+  "invert": 0.3461865782737732,
+  "zoomout": 1.485560417175293,
+  "zoomin": 0.7506449818611145
+ },
+ "top50_classes": {
+  "can opener": 2,
+  "toilet tissue": 1,
+  "mortar": 1,
+  "motor scooter": 1,
+  "lens cap": 1,
+  "ladybug": 1,
+  "meerkat": 1,
+  "bassoon": 1,
+  "vine snake": 1,
+  "oxygen mask": 1
+ },
+ "neg50_classes": {
+  "armadillo": 1,
+  "odometer": 1,
+  "conch": 1,
+  "stove": 1,
+  "hard disc": 1,
+  "cocker spaniel": 1,
+  "wool": 1,
+  "hand blower": 1,
+  "alligator lizard": 1,
+  "velvet": 1
+ }
+}

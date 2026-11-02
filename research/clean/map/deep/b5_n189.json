@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 189,
+ "max": 3.3472518920898438,
+ "min": -5.318633079528809,
+ "edits": {
+  "flip": 0.9464352130889893,
+  "rot90": 0.6738736629486084,
+  "rot180": 0.7106701135635376,
+  "gray": 0.6795065402984619,
+  "blur1": 0.8212449550628662,
+  "blur3": 0.5724338293075562,
+  "shuf2": 0.9997923374176025,
+  "shuf4": 0.9077560901641846,
+  "shuf8": 0.7389553189277649,
+  "hue": 0.893733024597168,
+  "invert": 0.7352442741394043,
+  "zoomout": 0.6039612889289856,
+  "zoomin": 0.5848948955535889
+ },
+ "top50_classes": {
+  "polecat": 1,
+  "triumphal arch": 1,
+  "umbrella": 1,
+  "dam": 1,
+  "panpipe": 1,
+  "Yorkshire terrier": 1,
+  "lynx": 1,
+  "rule": 1,
+  "Indian elephant": 1,
+  "jaguar": 1
+ },
+ "neg50_classes": {
+  "African grey": 2,
+  "great white shark": 2,
+  "stage": 2,
+  "whistle": 1,
+  "ruddy turnstone": 1,
+  "theater curtain": 1,
+  "flamingo": 1,
+  "tripod": 1,
+  "typewriter keyboard": 1,
+  "jellyfish": 1
+ }
+}

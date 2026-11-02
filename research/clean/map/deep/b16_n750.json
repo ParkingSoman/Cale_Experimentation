@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 750,
+ "max": 7.463840961456299,
+ "min": -14.39744758605957,
+ "edits": {
+  "flip": 1.012677550315857,
+  "rot90": 0.8585782647132874,
+  "rot180": 0.8533942699432373,
+  "gray": 0.9913949370384216,
+  "blur1": 0.9474564790725708,
+  "blur3": 0.18441155552864075,
+  "shuf2": 0.968328595161438,
+  "shuf4": 0.5833231210708618,
+  "shuf8": 0.21594135463237762,
+  "hue": 0.8232216238975525,
+  "invert": 0.898597776889801,
+  "zoomout": 0.5659459233283997,
+  "zoomin": 0.3728069067001343
+ },
+ "top50_classes": {
+  "loggerhead": 2,
+  "drake": 2,
+  "leopard": 2,
+  "electric guitar": 2,
+  "television": 1,
+  "marmoset": 1,
+  "shopping basket": 1,
+  "mailbag": 1,
+  "bagel": 1,
+  "Indian cobra": 1
+ },
+ "neg50_classes": {
+  "Polaroid camera": 1,
+  "American black bear": 1,
+  "analog clock": 1,
+  "balloon": 1,
+  "cairn": 1,
+  "leaf beetle": 1,
+  "sloth bear": 1,
+  "ice bear": 1,
+  "screwdriver": 1,
+  "groenendael": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 232,
+ "max": 12.494656562805176,
+ "min": -10.764192581176758,
+ "edits": {
+  "flip": 0.9925800561904907,
+  "rot90": 0.7670581340789795,
+  "rot180": 0.8079253435134888,
+  "gray": 1.006490707397461,
+  "blur1": 0.7589766979217529,
+  "blur3": 0.7480222582817078,
+  "shuf2": 1.0270602703094482,
+  "shuf4": 1.1178522109985352,
+  "shuf8": 1.161512851715088,
+  "hue": 0.9899338483810425,
+  "invert": 0.8122876882553101,
+  "zoomout": 0.9716125130653381,
+  "zoomin": 0.7233924269676208
+ },
+ "top50_classes": {
+  "buckle": 2,
+  "rain barrel": 1,
+  "notebook": 1,
+  "screen": 1,
+  "pretzel": 1,
+  "oscilloscope": 1,
+  "bassoon": 1,
+  "packet": 1,
+  "cardoon": 1,
+  "cash machine": 1
+ },
+ "neg50_classes": {
+  "mantis": 2,
+  "toilet tissue": 1,
+  "joystick": 1,
+  "king crab": 1,
+  "chambered nautilus": 1,
+  "home theater": 1,
+  "vase": 1,
+  "freight car": 1,
+  "ashcan": 1,
+  "fountain": 1
+ }
+}

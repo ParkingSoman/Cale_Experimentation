@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 1182,
+ "max": 7.976723670959473,
+ "min": -17.677490234375,
+ "edits": {
+  "flip": 0.9513254165649414,
+  "rot90": 0.6534498333930969,
+  "rot180": 0.7524966597557068,
+  "gray": 0.22309067845344543,
+  "blur1": 0.751518964767456,
+  "blur3": 0.40495339035987854,
+  "shuf2": 0.9211233854293823,
+  "shuf4": 0.6775393486022949,
+  "shuf8": 0.13306139409542084,
+  "hue": 0.4804268479347229,
+  "invert": 0.8393770456314087,
+  "zoomout": 0.17592108249664307,
+  "zoomin": 0.2703743577003479
+ },
+ "top50_classes": {
+  "plate rack": 2,
+  "pillow": 2,
+  "drum": 2,
+  "power drill": 1,
+  "analog clock": 1,
+  "albatross": 1,
+  "laptop": 1,
+  "kimono": 1,
+  "hamper": 1,
+  "hair spray": 1
+ },
+ "neg50_classes": {
+  "meerkat": 2,
+  "ruddy turnstone": 1,
+  "head cabbage": 1,
+  "tailed frog": 1,
+  "rock crab": 1,
+  "malinois": 1,
+  "desktop computer": 1,
+  "Madagascar cat": 1,
+  "maraca": 1,
+  "Gila monster": 1
+ }
+}

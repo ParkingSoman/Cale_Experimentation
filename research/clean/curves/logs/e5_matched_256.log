@@ -1,0 +1,2 @@
+  self read + self lsq (256)       dev-5000 KL 0.0696 (se 0.0038) | paired vs self +0.0000 (se 0.0000)
+  real read + real lsq (same 256)  dev-5000 KL 0.0740 (se 0.0040) | paired vs self +0.0044 (se 0.0017)

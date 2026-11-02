@@ -1,0 +1,72 @@
+# Coverage children, layer 3, K=48, local_rand
+
+- T0+: 10 children, up-cover 1.00, cover order ['O545+'], overlap None
+- T0-: 2 children, up-cover 0.38, cover order ['O1468-'], overlap None
+- T1+: 3 children, up-cover 0.97, cover order ['O1016+'], overlap None
+- T1-: 5 children, up-cover 0.62, cover order ['O463+', 'O545+'], overlap 0.0
+- T2-: 2 children, up-cover 0.93, cover order ['O1022+', 'O1197-'], overlap 0.0
+- T3+: 12 children, up-cover 1.00, cover order ['O378+'], overlap None
+- T3-: 3 children, up-cover 0.16, cover order ['O890+', 'O580+'], overlap 0.0
+- T4-: 11 children, up-cover 0.69, cover order ['O1452-', 'O977-', 'O946+'], overlap 0.25146198830409355
+- T5+: 4 children, up-cover 0.64, cover order ['O317+', 'O1328-', 'O242-'], overlap 0.0
+- T5-: 11 children, up-cover 0.39, cover order ['O704-', 'O324-', 'O770+', 'O810-', 'O977-', 'O660+'], overlap 0.03618765182486035
+- T6+: 7 children, up-cover 0.78, cover order ['O890+', 'O1016+', 'O317+', 'O977-', 'O1486-'], overlap 0.04084507042253521
+- T6-: 5 children, up-cover 0.08, cover order ['O1059-'], overlap None
+- T7+: 9 children, up-cover 1.00, cover order ['O436-'], overlap None
+- T7-: 5 children, up-cover 0.99, cover order ['O1197-'], overlap None
+- T8-: 3 children, up-cover 0.68, cover order ['O890+', 'O977-'], overlap 0.0
+- T9+: 5 children, up-cover 0.62, cover order ['O1329+', 'O1328+', 'O1113+'], overlap 0.013676281717518833
+- T9-: 10 children, up-cover 0.78, cover order ['O1468-', 'O1513+', 'O1427-', 'O463+'], overlap 0.1206896551724138
+- T10+: 10 children, up-cover 1.00, cover order ['O436-'], overlap None
+- T10-: 2 children, up-cover 0.85, cover order ['O242-', 'O687+'], overlap 0.0
+- T11+: 2 children, up-cover 0.17, cover order ['O1245-'], overlap None
+- T11-: 6 children, up-cover 0.98, cover order ['O1059-'], overlap None
+- T12+: 7 children, up-cover 0.74, cover order ['O1427-', 'O580+', 'O890+', 'O1486-', 'O138-'], overlap 0.07242401779095627
+- T12-: 11 children, up-cover 1.00, cover order ['O1016+'], overlap None
+- T13-: 5 children, up-cover 0.79, cover order ['O1010-', 'O242-', 'O525+'], overlap 0.025089605734767026
+- T14+: 16 children, up-cover 1.00, cover order ['O478+'], overlap None
+- T15+: 4 children, up-cover 0.35, cover order ['O820-', 'O1016+'], overlap 0.0
+- T15-: 7 children, up-cover 0.45, cover order ['O242-', 'O463+', 'O1513+'], overlap 0.2413793103448276
+- T16+: 4 children, up-cover 0.64, cover order ['O317+', 'O138-', 'O1427-'], overlap 0.22757875079856504
+- T16-: 7 children, up-cover 0.60, cover order ['O1274+', 'O1513+', 'O463+', 'O1325-'], overlap 0.12924565489188922
+- T17+: 2 children, up-cover 0.00, cover order [], overlap None
+- T19+: 2 children, up-cover 0.25, cover order ['O1486-'], overlap None
+- T20-: 14 children, up-cover 1.00, cover order ['O378+'], overlap None
+- T21+: 8 children, up-cover 0.79, cover order ['O1508+', 'O138-', 'O279+', 'O1427-'], overlap 0.0938300808200276
+- T22+: 10 children, up-cover 0.97, cover order ['O436-', 'O1513+'], overlap 0.0
+- T22-: 2 children, up-cover 0.01, cover order ['O138-'], overlap None
+- T23+: 10 children, up-cover 0.70, cover order ['O138-', 'O545+', 'O258-', 'O317+', 'O580+', 'O1031+', 'O333-'], overlap 0.12815353000633495
+- T23-: 2 children, up-cover 0.22, cover order ['O1486-', 'O890+'], overlap 0.4084507042253521
+- T24-: 6 children, up-cover 0.55, cover order ['O580+', 'O138-'], overlap 0.0
+- T25+: 3 children, up-cover 0.84, cover order ['O317+'], overlap None
+- T26-: 3 children, up-cover 0.82, cover order ['O890+', 'O977-'], overlap 0.0
+- T27+: 3 children, up-cover 0.25, cover order ['O891+', 'O545+'], overlap 0.2345679012345679
+- T27-: 10 children, up-cover 1.00, cover order ['O279+'], overlap None
+- T28+: 4 children, up-cover 0.15, cover order ['O187+', 'O695+', 'O75-', 'O690-'], overlap 0.5703387312207435
+- T28-: 2 children, up-cover 0.67, cover order ['O279+'], overlap None
+- T29+: 6 children, up-cover 0.50, cover order ['O148+', 'O891+', 'O580+', 'O317+', 'O1016+'], overlap 0.020481927710843374
+- T30+: 8 children, up-cover 0.32, cover order ['O1513+', 'O145-', 'O463+'], overlap 0.2413793103448276
+- T30-: 8 children, up-cover 0.94, cover order ['O891+'], overlap None
+- T31+: 3 children, up-cover 0.92, cover order ['O1427-'], overlap None
+- T31-: 9 children, up-cover 0.99, cover order ['O562+', 'O436-'], overlap 0.0
+- T32+: 4 children, up-cover 0.23, cover order ['O1059-'], overlap None
+- T32-: 6 children, up-cover 0.95, cover order ['O317+', 'O148+'], overlap 0.20481927710843373
+- T33+: 8 children, up-cover 0.95, cover order ['O977-', 'O1508+'], overlap 0.0
+- T33-: 11 children, up-cover 1.00, cover order ['O591-'], overlap None
+- T34-: 11 children, up-cover 0.99, cover order ['O1020+', 'O1308-'], overlap 0.030927835051546393
+- T35+: 9 children, up-cover 0.87, cover order ['O1308-', 'O873-', 'O770+'], overlap 0.10615145458583165
+- T36+: 13 children, up-cover 0.78, cover order ['O1427-', 'O317+', 'O138-'], overlap 0.22757875079856504
+- T36-: 5 children, up-cover 1.00, cover order ['O1328-'], overlap None
+- T37-: 6 children, up-cover 1.00, cover order ['O381-'], overlap None
+- T38+: 12 children, up-cover 1.00, cover order ['O210+'], overlap None
+- T38-: 3 children, up-cover 0.96, cover order ['O890+', 'O977-'], overlap 0.0
+- T40+: 5 children, up-cover 0.92, cover order ['O1427-'], overlap None
+- T41+: 12 children, up-cover 0.88, cover order ['O770+'], overlap None
+- T42-: 17 children, up-cover 1.00, cover order ['O478+'], overlap None
+- T43-: 4 children, up-cover 0.57, cover order ['O580+', 'O1452-', 'O258-'], overlap 0.7143970387687513
+- T44+: 4 children, up-cover 0.68, cover order ['O317+', 'O148+'], overlap 0.20481927710843373
+- T44-: 12 children, up-cover 1.00, cover order ['O478+', 'O770+'], overlap 0.010101010101010102
+- T45+: 18 children, up-cover 1.00, cover order ['O1513+'], overlap None
+- T46+: 3 children, up-cover 0.17, cover order ['O1245-'], overlap None
+- T46-: 6 children, up-cover 0.87, cover order ['O145-'], overlap None
+- T47+: 5 children, up-cover 0.99, cover order ['O1427-'], overlap None

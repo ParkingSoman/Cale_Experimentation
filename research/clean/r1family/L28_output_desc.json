@@ -1,0 +1,252 @@
+{
+ "U042": {
+  "function": "Pushes the next token toward word-ending or mid-word pieces such as 'field', 'mode', 'cycle', 'chan', 'kin'; promoted words are a loose mix with a weak 'field/cycle/mode' cluster.",
+  "category": "field/cycle/mode word pieces",
+  "coherent": false
+ },
+ "U023": {
+  "function": "Pushes the next token toward rare name or word fragments (e.g. 'arr', 'terr', 'INGTON', 'ibald'); unrelated pieces, active after a first letter of a name.",
+  "category": "rare name fragments",
+  "coherent": false
+ },
+ "U047": {
+  "function": "Pushes the next word toward a generic singular countable noun such as thing, issue, item, task, question, article, piece, document.",
+  "category": "generic singular noun",
+  "coherent": true
+ },
+ "U005": {
+  "function": "Pushes the next token toward a closing bracket or brace, often combined with a quote or punctuation (']', '\"]', '}', ')]').",
+  "category": "closing bracket tokens",
+  "coherent": true
+ },
+ "U024": {
+  "function": "Pushes the next token toward 'letter', 'mission' and related fragments; a mix of letter/mail/mission words and unrelated pieces.",
+  "category": "letter/mission words (mixed)",
+  "coherent": false
+ },
+ "U035": {
+  "function": "Pushes the next token toward a mix of unrelated fragments, with a weak 'bed/beds' and landed/stood theme.",
+  "category": "mixed fragments, bed words",
+  "coherent": false
+ },
+ "U046": {
+  "function": "Pushes the next token toward an arbitrary mix of rare word fragments and code-like tokens with no shared theme (e.g. 'caterpill', 'enguin', 'CreateModel', 'reponame'); it fires on mid-word pieces, digits and function words.",
+  "category": "junk fragment mix",
+  "coherent": false
+ },
+ "U016": {
+  "function": "Pushes the next token toward rare code-like tokens, pipe-separated symbols and whitespace/control characters; no semantic theme.",
+  "category": "code symbols and pipes",
+  "coherent": false
+ },
+ "U034": {
+  "function": "Pushes the next word toward 'digital', 'electronic', 'online', 'internet', 'computer' and similar technology words.",
+  "category": "digital/electronic/online words",
+  "coherent": true
+ },
+ "U049": {
+  "function": "Pushes the next token toward unrelated word fragments (e.g. 'pid', 'wey', 'heim', 'IndexError'); no common theme, active mid-name or mid-word.",
+  "category": "mixed word fragments",
+  "coherent": false
+ },
+ "U013": {
+  "function": "Pushes the next token toward punctuation-plus-slash or bracket endings and assorted fragments (e.g. '/),', \"')]\", 'museum', 'district'); mixed.",
+  "category": "mixed punctuation and fragments",
+  "coherent": false
+ },
+ "U036": {
+  "function": "Pushes the next token toward an arbitrary mix of rare word fragments and code-like tokens with no shared theme (e.g. 'caterpill', 'enguin', 'CreateModel', 'reponame'); it fires on mid-word pieces, digits and function words.",
+  "category": "junk fragment mix",
+  "coherent": false
+ },
+ "U019": {
+  "function": "Pushes the next token toward fragments linked to fractions and quarters, and animals or berries (fox, crow, berry, quarter, '¼'); mixed.",
+  "category": "quarter/fox/berry fragments",
+  "coherent": false
+ },
+ "U025": {
+  "function": "Pushes the next token toward unrelated rare fragments (e.g. 'oop', 'redirect', 'traject', 'supply'); no shared theme.",
+  "category": "mixed rare fragments",
+  "coherent": false
+ },
+ "U028": {
+  "function": "Pushes the next token toward an arbitrary mix of rare word fragments and code-like tokens with no shared theme (e.g. 'caterpill', 'enguin', 'CreateModel', 'reponame'); it fires on mid-word pieces, digits and function words.",
+  "category": "junk fragment mix",
+  "coherent": false
+ },
+ "U007": {
+  "function": "Pushes the next token toward assorted rare code and name fragments (e.g. 'States', 'Encoder', 'CheckBox', 'HETATM'); no shared theme.",
+  "category": "mixed code/name fragments",
+  "coherent": false
+ },
+ "U012": {
+  "function": "Pushes the next token toward the stem of a long abstract word that needs a suffix (e.g. ' strugg', ' affili', ' advoc', ' acknow', ' dismant').",
+  "category": "truncated word stems",
+  "coherent": true
+ },
+ "U004": {
+  "function": "Pushes the next token toward a colon, often joined with a quote, bracket or other punctuation (':', '\":', ':)').",
+  "category": "colon tokens",
+  "coherent": true
+ },
+ "U033": {
+  "function": "Pushes the next token toward unrelated words and fragments (e.g. 'habit', 'attitudes', 'oppression', 'Titus'); no clear theme.",
+  "category": "mixed words and names",
+  "coherent": false
+ },
+ "U043": {
+  "function": "Pushes the next token toward unrelated rare words and fragments (e.g. 'unanim', 'pige', 'caliph', 'rifles'); no shared theme.",
+  "category": "mixed rare words",
+  "coherent": false
+ },
+ "U038": {
+  "function": "Pushes the next token toward closing parentheses or brackets stacked together ('))', '])', '()))') plus unrelated fragments.",
+  "category": "stacked closing brackets (mixed)",
+  "coherent": false
+ },
+ "U030": {
+  "function": "Pushes the next token toward an arbitrary mix of rare word fragments and code-like tokens with no shared theme (e.g. 'caterpill', 'enguin', 'CreateModel', 'reponame'); it fires on mid-word pieces, digits and function words.",
+  "category": "junk fragment mix",
+  "coherent": false
+ },
+ "U044": {
+  "function": "Pushes the next token toward unrelated items: pronouns 'she/her/herself' and assorted fragments (e.g. 'PF', 'bush', 'econom').",
+  "category": "mixed, some feminine pronouns",
+  "coherent": false
+ },
+ "U022": {
+  "function": "Pushes the next token toward unusual formatting tokens: pipe-separated table symbols, control or whitespace characters, and quote-plus-punctuation endings.",
+  "category": "odd formatting and pipe tokens",
+  "coherent": false
+ },
+ "U008": {
+  "function": "Pushes the next token toward word-suffix pieces such as 'rams', 'agrams', 'ciples', 'cipline', 'aphy', 'raph'; mixed suffix fragments.",
+  "category": "suffix word pieces",
+  "coherent": false
+ },
+ "U010": {
+  "function": "Pushes the next token toward stems of long words (e.g. ' affili', ' strugg', ' acknow', ' purpos', ' encourag') plus a few whole words.",
+  "category": "truncated word stems",
+  "coherent": true
+ },
+ "U018": {
+  "function": "Pushes the next token toward an arbitrary mix of rare word fragments and code-like tokens with no shared theme (e.g. 'caterpill', 'enguin', 'CreateModel', 'reponame'); it fires on mid-word pieces, digits and function words.",
+  "category": "junk fragment mix",
+  "coherent": false
+ },
+ "U048": {
+  "function": "Pushes the next token toward assorted rare fragments and replacement characters (e.g. 'hicle', 'terranean', '�'); no shared theme.",
+  "category": "mixed rare fragments",
+  "coherent": false
+ },
+ "U029": {
+  "function": "Pushes the next token toward an arbitrary mix of rare word fragments and code-like tokens with no shared theme (e.g. 'caterpill', 'enguin', 'CreateModel', 'reponame'); it fires on mid-word pieces, digits and function words.",
+  "category": "junk fragment mix",
+  "coherent": false
+ },
+ "U020": {
+  "function": "Pushes the next token toward assorted word-ending fragments (e.g. 'lasses', 'ades', 'cible', 'forms', 'rights'); no single theme.",
+  "category": "mixed word endings",
+  "coherent": false
+ },
+ "U031": {
+  "function": "Pushes the next token toward an arbitrary mix of rare word fragments and code-like tokens with no shared theme (e.g. 'caterpill', 'enguin', 'CreateModel', 'reponame'); it fires on mid-word pieces, digits and function words.",
+  "category": "junk fragment mix",
+  "coherent": false
+ },
+ "U006": {
+  "function": "Pushes the next token toward unrelated fragments, with a weak 'phot/photo' cluster (' phot', 'Phot', 'ometric'); mixed.",
+  "category": "mixed fragments, photo stems",
+  "coherent": false
+ },
+ "U014": {
+  "function": "Pushes the next token toward unrelated rare fragments and words (e.g. 'ipple', 'Run', 'museum', 'escalate'); no theme.",
+  "category": "mixed rare fragments",
+  "coherent": false
+ },
+ "U002": {
+  "function": "Pushes the next token toward a closing quotation mark, often with a period, comma or parenthesis attached ('.\"', '\".', '”)').",
+  "category": "closing quote tokens",
+  "coherent": true
+ },
+ "U015": {
+  "function": "Pushes the next token toward odd formatting tokens: pipe-table symbols, control characters, 'reponame' and repeated punctuation; fires after units like cm or mm.",
+  "category": "odd formatting and pipe tokens",
+  "coherent": false
+ },
+ "U011": {
+  "function": "Pushes the next token toward stems of long words that need a suffix (e.g. ' strugg', ' affili', ' advoc', ' enthus', ' dismant').",
+  "category": "truncated word stems",
+  "coherent": true
+ },
+ "U009": {
+  "function": "Pushes the next token toward a spelled-out number word, especially tens and teens (nineteen, twenty, sixty, fifty), or a space before a number.",
+  "category": "spelled-out number words",
+  "coherent": true
+ },
+ "U050": {
+  "function": "Pushes the next token toward unrelated fragments (e.g. 'ioned', 'lement', 'Cole', dashes); no shared theme, active in digits after 'long tons'.",
+  "category": "mixed fragments",
+  "coherent": false
+ },
+ "U021": {
+  "function": "Pushes the next token toward 'change' and its forms (change, changes, changed, changing), plus unrelated suffix pieces.",
+  "category": "change words (plus noise)",
+  "coherent": true
+ },
+ "U001": {
+  "function": "Pushes the next token toward closing punctuation with parenthesis or quote, pipe symbols and control characters, plus stray fragments; mixed.",
+  "category": "odd punctuation and formatting",
+  "coherent": false
+ },
+ "U017": {
+  "function": "Pushes the next token toward a closing quotation mark joined with a comma ('\",', ',”', '\"),').",
+  "category": "quote plus comma tokens",
+  "coherent": true
+ },
+ "U003": {
+  "function": "Pushes the next token toward a closing parenthesis, alone or with punctuation (')', ').', '?)', '”)').",
+  "category": "closing parenthesis tokens",
+  "coherent": true
+ },
+ "U032": {
+  "function": "Pushes the next word toward 'play' and its forms (play, played, playing, player, game).",
+  "category": "play/player words",
+  "coherent": true
+ },
+ "U026": {
+  "function": "Pushes the next word toward 'make' and its forms (make, making, made, maker).",
+  "category": "make/made words",
+  "coherent": true
+ },
+ "U039": {
+  "function": "Pushes the next token toward a closing punctuation mark after a question or exclamation ('?)', '?\"', '!)', ').”').",
+  "category": "question/closing punctuation",
+  "coherent": true
+ },
+ "U045": {
+  "function": "Pushes the next token toward unrelated words with a loose health/chemistry flavor (vesicles, herbal, zinc, chemicals) and fragments.",
+  "category": "mixed, some herbal/chemical",
+  "coherent": false
+ },
+ "U037": {
+  "function": "Pushes the next token toward unrelated fragments and words (e.g. 'ner', 'idency', 'senses', 'universe', 'participle'); no theme.",
+  "category": "mixed fragments",
+  "coherent": false
+ },
+ "U040": {
+  "function": "Pushes the next token toward body-part and medical words (ligament, bladder, vertebra, cavities, tingling, blurred) mixed with fragments.",
+  "category": "body parts and medical words",
+  "coherent": false
+ },
+ "U027": {
+  "function": "Pushes the next token toward an arbitrary mix of rare word fragments and code-like tokens with no shared theme (e.g. 'caterpill', 'enguin', 'CreateModel', 'reponame'); it fires on mid-word pieces, digits and function words.",
+  "category": "junk fragment mix",
+  "coherent": false
+ },
+ "U041": {
+  "function": "Pushes the next token toward an arbitrary mix of rare word fragments and code-like tokens with no shared theme (e.g. 'caterpill', 'enguin', 'CreateModel', 'reponame'); it fires on mid-word pieces, digits and function words.",
+  "category": "junk fragment mix",
+  "coherent": false
+ }
+}

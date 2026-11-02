@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 754,
+ "max": 4.115405082702637,
+ "min": -4.316184043884277,
+ "edits": {
+  "flip": 1.0209054946899414,
+  "rot90": 0.4065425395965576,
+  "rot180": 0.9798456430435181,
+  "gray": 0.967542290687561,
+  "blur1": 0.2732714116573334,
+  "blur3": -0.09305000305175781,
+  "shuf2": 1.000148057937622,
+  "shuf4": 1.114981770515442,
+  "shuf8": 1.1209945678710938,
+  "hue": 0.9847801923751831,
+  "invert": 0.9229936003684998,
+  "zoomout": 1.278695821762085,
+  "zoomin": 0.11741237342357635
+ },
+ "top50_classes": {
+  "studio couch": 2,
+  "scorpion": 1,
+  "gas pump": 1,
+  "rain barrel": 1,
+  "cowboy boot": 1,
+  "recreational vehicle": 1,
+  "turnstile": 1,
+  "packet": 1,
+  "pineapple": 1,
+  "orange": 1
+ },
+ "neg50_classes": {
+  "chain": 2,
+  "jinrikisha": 1,
+  "mongoose": 1,
+  "slide rule": 1,
+  "fountain": 1,
+  "muzzle": 1,
+  "menu": 1,
+  "balance beam": 1,
+  "shovel": 1,
+  "curly-coated retriever": 1
+ }
+}

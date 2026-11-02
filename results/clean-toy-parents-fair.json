@@ -1,0 +1,60 @@
+{
+ "rows": {
+  "remove": {
+   "kl": 0.002445013727992773,
+   "ce_minus_orig": null
+  },
+  "dominant": {
+   "kl": 0.0017804380040615797,
+   "ce_minus_orig": null
+  },
+  "H1": {
+   "kl": 0.0020119454711675644,
+   "ce_minus_orig": null
+  },
+  "recipe": {
+   "kl": 0.0016113277524709702,
+   "ce_minus_orig": null
+  },
+  "dominant_intact": {
+   "kl": 0.001970873447135091,
+   "ce_minus_orig": null
+  },
+  "dominant_lsD": {
+   "kl": 0.0017069194000214338,
+   "ce_minus_orig": null
+  }
+ },
+ "note": "20 children removed from L15, 4 units added",
+ "kl_recipe_minus_dominant": {
+  "mean": -0.0001691102224867791,
+  "lo": -0.00027712166775017977,
+  "hi": -6.983578350627795e-05
+ },
+ "kl_recipe_minus_H1": {
+  "mean": -0.00040061771869659424,
+  "lo": -0.0005542879225686193,
+  "hi": -0.00026810914278030396
+ },
+ "kl_recipe_minus_remove": {
+  "mean": -0.0008336862665601075,
+  "lo": -0.0009491617092862725,
+  "hi": -0.0007366318604908884
+ },
+ "kl_dominant_minus_remove": {
+  "mean": -0.000664575956761837,
+  "lo": -0.0008237102883867919,
+  "hi": -0.0005131044308654964
+ },
+ "kl_recipe_minus_dominant_intact": {
+  "mean": -0.00035954563645645976,
+  "lo": -0.00048285035882145166,
+  "hi": -0.00022730104683432728
+ },
+ "kl_recipe_minus_dominant_lsD": {
+  "mean": -9.559169120620936e-05,
+  "lo": -0.00024206841771956533,
+  "hi": 7.312162779271603e-05
+ },
+ "rule4": true
+}

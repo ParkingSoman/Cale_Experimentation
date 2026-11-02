@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 72,
+ "max": 9.606205940246582,
+ "min": -12.070241928100586,
+ "edits": {
+  "flip": 0.9795699715614319,
+  "rot90": 0.18743225932121277,
+  "rot180": 0.09705176949501038,
+  "gray": 1.0958144664764404,
+  "blur1": 0.9160505533218384,
+  "blur3": 0.6050071120262146,
+  "shuf2": 0.9053082466125488,
+  "shuf4": 0.4901846647262573,
+  "shuf8": 0.10447047650814056,
+  "hue": 1.0336066484451294,
+  "invert": 0.9490780830383301,
+  "zoomout": 0.5437237024307251,
+  "zoomin": 0.42497289180755615
+ },
+ "top50_classes": {
+  "Dandie Dinmont": 3,
+  "golden retriever": 2,
+  "Tibetan mastiff": 2,
+  "beach wagon": 2,
+  "Saint Bernard": 2,
+  "soft-coated wheaten terrier": 1,
+  "Lhasa": 1,
+  "flagpole": 1,
+  "flat-coated retriever": 1,
+  "Brittany spaniel": 1
+ },
+ "neg50_classes": {
+  "cock": 2,
+  "French bulldog": 1,
+  "Weimaraner": 1,
+  "Rottweiler": 1,
+  "impala": 1,
+  "hook": 1,
+  "beagle": 1,
+  "hatchet": 1,
+  "flatworm": 1,
+  "sturgeon": 1
+ }
+}

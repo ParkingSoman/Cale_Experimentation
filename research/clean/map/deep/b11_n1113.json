@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 1113,
+ "max": 3.2196927070617676,
+ "min": -5.310203552246094,
+ "edits": {
+  "flip": 1.0002155303955078,
+  "rot90": 0.6472959518432617,
+  "rot180": 0.9495545625686646,
+  "gray": 0.9908164739608765,
+  "blur1": 1.0002315044403076,
+  "blur3": 0.9872681498527527,
+  "shuf2": 1.120680332183838,
+  "shuf4": 1.0056360960006714,
+  "shuf8": 0.7820426225662231,
+  "hue": 1.006071925163269,
+  "invert": 0.9500216245651245,
+  "zoomout": 1.5354795455932617,
+  "zoomin": 0.8873575925827026
+ },
+ "top50_classes": {
+  "nematode": 2,
+  "jack-o'-lantern": 1,
+  "hamper": 1,
+  "tennis ball": 1,
+  "laptop": 1,
+  "badger": 1,
+  "joystick": 1,
+  "iron": 1,
+  "typewriter keyboard": 1,
+  "upright": 1
+ },
+ "neg50_classes": {
+  "mountain bike": 2,
+  "oxcart": 2,
+  "academic gown": 2,
+  "snowplow": 1,
+  "marimba": 1,
+  "passenger car": 1,
+  "stupa": 1,
+  "restaurant": 1,
+  "typewriter keyboard": 1,
+  "stretcher": 1
+ }
+}

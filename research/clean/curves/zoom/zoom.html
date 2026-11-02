@@ -1,0 +1,122 @@
+<title>ResNet-18 Zoom</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,650&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono&display=swap">
+<style>
+/* Layout: a single instrument panel. Slider and readout on top, the curve below, the merged sets beside it. */
+:root { --bg:#f6f7f4; --panel:#fcfcfb; --fg:#1d2420; --muted:#5d6a63; --rule:#d9dfda; --accent:#2f6f5e;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
+  --display:"Source Serif 4", Georgia, serif; --body:"IBM Plex Sans", system-ui, sans-serif; --mono:"IBM Plex Mono", ui-monospace, monospace; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#151a18; --panel:#1a1a19; --fg:#e4ebe6; --muted:#9aa8a0; --rule:#2e3833; --accent:#7cc2ad;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; color-scheme:dark; } }
+:root[data-theme="dark"] { --bg:#151a18; --panel:#1a1a19; --fg:#e4ebe6; --muted:#9aa8a0; --rule:#2e3833; --accent:#7cc2ad;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; color-scheme:dark; }
+body { background:var(--bg); color:var(--fg); font-family:var(--body); font-size:15px; line-height:1.55; }
+main { max-width:1080px; margin:0 auto; padding-block:28px 56px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); display:flex; flex-direction:column; gap:22px; }
+h1 { font-family:var(--display); font-weight:650; font-size:2rem; line-height:1.15; margin:0; text-wrap:balance; }
+h2 { font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 10px; font-weight:600; }
+.lede { max-width:70ch; margin:8px 0 0; color:var(--muted); }
+.panel { background:var(--panel); border:1px solid var(--rule); border-radius:6px; padding:18px; min-width:0; }
+.ctl { display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; }
+.ctl label { font-weight:600; }
+#k { flex:1 1 260px; accent-color:var(--accent); }
+#kout { font-family:var(--mono); font-size:1.6rem; color:var(--accent); font-variant-numeric:tabular-nums; min-width:9ch; }
+.read { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px; margin-top:16px; }
+.tile { border-top:2px solid var(--rule); padding-top:8px; }
+.tile b { display:block; font-family:var(--mono); font-size:1.3rem; font-variant-numeric:tabular-nums; }
+.tile span { color:var(--muted); font-size:.85rem; }
+.cols { display:grid; grid-template-columns:minmax(0, 1.6fr) minmax(0, 1fr); gap:18px; }
+@media (max-width:760px) { .cols { grid-template-columns:1fr; } }
+.chartwrap { position:relative; overflow-x:auto; }
+svg text { fill:var(--muted); font-family:var(--body); font-size:11px; }
+.legend { display:flex; flex-wrap:wrap; gap:6px 16px; margin:0 0 8px; padding:0; list-style:none; font-size:.85rem; }
+.legend i { display:inline-block; width:14px; height:3px; border-radius:2px; vertical-align:middle; margin-right:6px; }
+.tip { position:absolute; pointer-events:none; background:var(--panel); border:1px solid var(--rule); border-radius:4px; padding:6px 8px; font-size:.8rem; color:var(--fg); white-space:nowrap; }
+.sets { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+.sets li { border-left:2px solid var(--rule); padding-left:10px; }
+.sets b { font-family:var(--mono); font-weight:400; color:var(--accent); }
+.note { color:var(--muted); font-size:.88rem; max-width:75ch; margin:0; }
+table { border-collapse:collapse; font-size:.82rem; font-variant-numeric:tabular-nums; width:100%; }
+th, td { padding:4px 8px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap; }
+th:first-child, td:first-child { text-align:left; }
+.tablewrap { overflow-x:auto; }
+input:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+</style>
+<main>
+<header><h1>ResNet-18 Zoom</h1>
+<p class="lede">The last layer of ResNet-18 has 512 channels. Slide to choose how many it keeps. Each size was built once, up front, by the merge rule: channels that the map says move together become one channel, and the output weights are re-fit. Moving the slider only picks a stored network. Numbers are on 10,000 photos the rule never saw.</p></header>
+<section class="panel">
+<div class="ctl"><label for="k">Channels kept</label><input id="k" type="range" min="0" max="0" step="1" value="0"><output id="kout" for="k"></output></div>
+<div class="read">
+<div class="tile"><b id="t-agree"></b><span>photos where the small network's top answer matches the full network's</span></div>
+<div class="tile"><b id="t-top1"></b><span>top-1 accuracy (full network: <span id="t-n"></span>)</span></div>
+<div class="tile"><b id="t-kl"></b><span>KL from the full network (0 = identical answers)</span></div>
+<div class="tile"><b id="t-size"></b><span>of the last layer's channels kept</span></div>
+</div>
+</section>
+<div class="cols">
+<section class="panel"><h2>KL from the full network, by size</h2>
+<ul class="legend" id="legend"></ul>
+<div class="chartwrap" id="chartwrap"><svg id="chart" viewBox="0 0 640 300" width="100%" role="img" aria-label="KL against channels kept for five ways of building the small network"></svg><div class="tip" id="tip" hidden></div></div>
+<p class="note">Lower is better. Trained is an estimate of the best possible at that size (boxes trained by gradient descent), shown at three sizes only. It is a check on the rule, not part of it.</p>
+</section>
+<section class="panel"><h2>Largest merged channels at this size</h2><ul class="sets" id="sets"></ul>
+<p class="note" style="margin-top:12px">Each merged channel is listed by the classes its new output weights favour most.</p></section>
+</div>
+<section class="panel"><h2>All sizes (table view)</h2><div class="tablewrap"><table id="tbl"></table></div></section>
+<p class="note">What this shows about ResNet-18: its channels are not near-copies of each other, so the proved bound is far too large to use here, and down to about 100 channels merging is no better than pruning or random groups. From about 48 down to 16 channels the merges beat both. At 4 channels or fewer nothing works. Trained boxes do better at every size checked, so the rule is not the best possible build here.</p>
+</main>
+<script>
+const D = {"levels": [{"k": 512, "bound": 0.0, "merge": {"kl": 3.983639196292188e-09, "agree": 1.0, "top1": 0.6785}, "refit": {"kl": 3.983639196292188e-09, "agree": 1.0, "top1": 0.6785}, "prune": {"kl": 3.5205993675901937e-09, "agree": 1.0, "top1": 0.6785}, "random": {"kl": 3.0811702078636927e-09, "agree": 1.0, "top1": 0.6785}, "sets": []}, {"k": 384, "bound": 65398.62631122043, "merge": {"kl": 0.2284674346446991, "agree": 0.8141999840736389, "top1": 0.6393}, "refit": {"kl": 0.03885510936379433, "agree": 0.9175000190734863, "top1": 0.6726}, "prune": {"kl": 0.036334212869405746, "agree": 0.9175000190734863, "top1": 0.6743}, "random": {"kl": 0.04132992774248123, "agree": 0.911300003528595, "top1": 0.674}, "sets": [{"size": 54, "classes": ["throne", "monastery", "altar"]}, {"size": 20, "classes": ["goose", "African grey", "lycaenid"]}, {"size": 14, "classes": ["sliding door", "barbershop", "turnstile"]}]}, {"k": 256, "bound": 268043.1161104263, "merge": {"kl": 0.8335603475570679, "agree": 0.6689000129699707, "top1": 0.5592}, "refit": {"kl": 0.13125675916671753, "agree": 0.8482000231742859, "top1": 0.6584}, "prune": {"kl": 0.12402456253767014, "agree": 0.8503000140190125, "top1": 0.6569}, "random": {"kl": 0.12842880189418793, "agree": 0.8472999930381775, "top1": 0.6556}, "sets": [{"size": 54, "classes": ["throne", "monastery", "altar"]}, {"size": 29, "classes": ["holster", "jean", "bulletproof vest"]}, {"size": 25, "classes": ["Polaroid camera", "printer", "notebook"]}], "trained": {"kl": 0.09817220270633698, "agree": 0.864300012588501, "top1": 0.6628}}, {"k": 192, "bound": 425715.50825271115, "merge": {"kl": 1.3331407308578491, "agree": 0.5648000240325928, "top1": 0.4814}, "refit": {"kl": 0.22060033679008484, "agree": 0.8069000244140625, "top1": 0.64}, "prune": {"kl": 0.21487362682819366, "agree": 0.8044000267982483, "top1": 0.6361}, "random": {"kl": 0.2248605191707611, "agree": 0.8022000193595886, "top1": 0.6383}, "sets": [{"size": 54, "classes": ["throne", "monastery", "altar"]}, {"size": 43, "classes": ["basset", "buckeye", "Airedale"]}, {"size": 30, "classes": ["shower curtain", "paper towel", "toilet tissue"]}]}, {"k": 128, "bound": 624175.2715152605, "merge": {"kl": 2.196287155151367, "agree": 0.4059999883174896, "top1": 0.3488}, "refit": {"kl": 0.4316629469394684, "agree": 0.7299000024795532, "top1": 0.6005}, "prune": {"kl": 0.41916629672050476, "agree": 0.7317000031471252, "top1": 0.6028}, "random": {"kl": 0.4315584897994995, "agree": 0.7287999987602234, "top1": 0.5987}, "sets": [{"size": 67, "classes": ["breastplate", "cuirass", "gasmask"]}, {"size": 54, "classes": ["throne", "monastery", "altar"]}, {"size": 43, "classes": ["buckeye", "basset", "Airedale"]}]}, {"k": 96, "bound": 741795.0274254867, "merge": {"kl": 2.647615671157837, "agree": 0.31540000438690186, "top1": 0.2754}, "refit": {"kl": 0.6490684747695923, "agree": 0.6687999963760376, "top1": 0.5633}, "prune": {"kl": 0.6272021532058716, "agree": 0.6744999885559082, "top1": 0.5656}, "random": {"kl": 0.6657916903495789, "agree": 0.6563000082969666, "top1": 0.5555}, "sets": [{"size": 67, "classes": ["breastplate", "cuirass", "gasmask"]}, {"size": 54, "classes": ["throne", "altar", "monastery"]}, {"size": 43, "classes": ["buckeye", "French loaf", "Airedale"]}]}, {"k": 64, "bound": 873234.5836568087, "merge": {"kl": 3.18334698677063, "agree": 0.20749999582767487, "top1": 0.1808}, "refit": {"kl": 1.0217097997665405, "agree": 0.5792999863624573, "top1": 0.4949}, "prune": {"kl": 1.0458706617355347, "agree": 0.5787000060081482, "top1": 0.5015}, "random": {"kl": 1.094984531402588, "agree": 0.5684999823570251, "top1": 0.4963}, "sets": [{"size": 91, "classes": ["hammer", "can opener", "cuirass"]}, {"size": 54, "classes": ["altar", "throne", "vestment"]}, {"size": 43, "classes": ["buckeye", "French loaf", "basset"]}], "trained": {"kl": 0.7485533356666565, "agree": 0.638700008392334, "top1": 0.54}}, {"k": 48, "bound": 944780.940042848, "merge": {"kl": 3.4102063179016113, "agree": 0.17010000348091125, "top1": 0.1486}, "refit": {"kl": 1.2675230503082275, "agree": 0.5241000056266785, "top1": 0.4523}, "prune": {"kl": 1.4255989789962769, "agree": 0.5041999816894531, "top1": 0.4382}, "random": {"kl": 1.4185400009155273, "agree": 0.5062000155448914, "top1": 0.4462}, "sets": [{"size": 91, "classes": ["cuirass", "breastplate", "hammer"]}, {"size": 54, "classes": ["throne", "altar", "vestment"]}, {"size": 43, "classes": ["buckeye", "basset", "hamper"]}]}, {"k": 32, "bound": 1019690.4337884864, "merge": {"kl": 3.8317790031433105, "agree": 0.11270000040531158, "top1": 0.0993}, "refit": {"kl": 1.6306613683700562, "agree": 0.4503999948501587, "top1": 0.3913}, "prune": {"kl": 2.066044569015503, "agree": 0.37860000133514404, "top1": 0.3384}, "random": {"kl": 1.9115935564041138, "agree": 0.4090000092983246, "top1": 0.3697}, "sets": [{"size": 121, "classes": ["cuirass", "breastplate", "ground beetle"]}, {"size": 54, "classes": ["altar", "throne", "prayer rug"]}, {"size": 43, "classes": ["buckeye", "French loaf", "basset"]}]}, {"k": 24, "bound": 1060198.6697492902, "merge": {"kl": 3.969618082046509, "agree": 0.08669999986886978, "top1": 0.0775}, "refit": {"kl": 1.8747285604476929, "agree": 0.3903000056743622, "top1": 0.341}, "prune": {"kl": 2.5115206241607666, "agree": 0.29510000348091125, "top1": 0.2614}, "random": {"kl": 2.350247859954834, "agree": 0.3472000062465668, "top1": 0.3117}, "sets": [{"size": 121, "classes": ["cuirass", "gasmask", "breastplate"]}, {"size": 54, "classes": ["altar", "mosque", "stupa"]}, {"size": 43, "classes": ["buckeye", "Airedale", "Irish terrier"]}]}, {"k": 16, "bound": 1099921.5923537312, "merge": {"kl": 4.362133502960205, "agree": 0.0551999993622303, "top1": 0.0482}, "refit": {"kl": 2.4205498695373535, "agree": 0.28619998693466187, "top1": 0.2541}, "prune": {"kl": 3.156358242034912, "agree": 0.19370000064373016, "top1": 0.173}, "random": {"kl": 2.976921558380127, "agree": 0.2354000061750412, "top1": 0.2135}, "sets": [{"size": 121, "classes": ["cuirass", "screw", "breastplate"]}, {"size": 54, "classes": ["altar", "mosque", "throne"]}, {"size": 53, "classes": ["yawl", "Great Pyrenees", "ice bear"]}], "trained": {"kl": 2.001518487930298, "agree": 0.3458000123500824, "top1": 0.3075}}, {"k": 8, "bound": 1154588.9377451637, "merge": {"kl": 5.2701287269592285, "agree": 0.011800000444054604, "top1": 0.0103}, "refit": {"kl": 4.020970344543457, "agree": 0.08410000056028366, "top1": 0.0723}, "prune": {"kl": 4.136565208435059, "agree": 0.06970000267028809, "top1": 0.0607}, "random": {"kl": 4.249542236328125, "agree": 0.07699999958276749, "top1": 0.0699}, "sets": [{"size": 350, "classes": ["brown bear", "armadillo", "Arabian camel"]}, {"size": 54, "classes": ["altar", "throne", "mosque"]}, {"size": 30, "classes": ["paper towel", "mosquito net", "Maltese dog"]}]}, {"k": 4, "bound": 1176830.0304037582, "merge": {"kl": 5.628779411315918, "agree": 0.0026000000070780516, "top1": 0.0027}, "refit": {"kl": 5.040727615356445, "agree": 0.016100000590085983, "top1": 0.0139}, "prune": {"kl": 4.790553569793701, "agree": 0.01860000006854534, "top1": 0.0165}, "random": {"kl": 5.060706615447998, "agree": 0.01860000006854534, "top1": 0.0162}, "sets": [{"size": 467, "classes": ["macaw", "European gallinule", "brown bear"]}, {"size": 30, "classes": ["mosquito net", "bassinet", "paper towel"]}, {"size": 12, "classes": ["pickelhaube", "sax", "hay"]}]}, {"k": 2, "bound": 1186374.571301763, "merge": {"kl": 5.755410194396973, "agree": 0.0017999999690800905, "top1": 0.0017}, "refit": {"kl": 5.4865007400512695, "agree": 0.005900000222027302, "top1": 0.0046}, "prune": {"kl": 5.256899833679199, "agree": 0.00860000029206276, "top1": 0.0069}, "random": {"kl": 5.34225606918335, "agree": 0.008100000210106373, "top1": 0.0061}, "sets": [{"size": 500, "classes": ["macaw", "great grey owl", "brown bear"]}, {"size": 12, "classes": ["pickelhaube", "sax", "cornet"]}]}, {"k": 1, "bound": 1190742.5906838523, "merge": {"kl": 5.785777568817139, "agree": 0.0012000000569969416, "top1": 0.001}, "refit": {"kl": 5.5816650390625, "agree": 0.002899999963119626, "top1": 0.0023}, "prune": {"kl": 5.599472999572754, "agree": 0.0032999999821186066, "top1": 0.0023}, "random": {"kl": 5.5816650390625, "agree": 0.002899999963119626, "top1": 0.0023}, "sets": [{"size": 512, "classes": ["macaw", "great grey owl", "koala"]}]}], "n_sealed": 10000, "top1_N": 0.6785};
+const L = D.levels.slice().sort((a,b)=>a.k-b.k);
+const S = [
+ {key:"refit", name:"Merge rule, re-fit readers", c:"--s1"},
+ {key:"merge", name:"Merge rule, written-down readers", c:"--s5", dash:"5 4"},
+ {key:"prune", name:"Keep the strongest channels", c:"--s2"},
+ {key:"random", name:"Random groups", c:"--s3"},
+ {key:"trained", name:"Trained (check)", c:"--s4", dots:true}];
+const slider = document.getElementById("k"); slider.max = L.length-1; slider.value = L.findIndex(l=>l.k===64);
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const pct = x => (100*x).toFixed(1)+"%";
+document.getElementById("t-n").textContent = pct(D.top1_N);
+document.getElementById("legend").innerHTML = S.map(s=>`<li><i style="background:var(${s.c})"></i>${s.name}</li>`).join("");
+const W=640,H=300,ml=46,mr=16,mt=12,mb=36;
+const xs = k => ml + (Math.log2(k)/9)*(W-ml-mr);
+const ymax = 6; const ys = v => mt + (1 - v/ymax)*(H-mt-mb);
+function draw(sel){
+  const svg = document.getElementById("chart"); let g = "";
+  for (let v=0; v<=ymax; v+=1) g += `<line x1="${ml}" x2="${W-mr}" y1="${ys(v)}" y2="${ys(v)}" stroke="${css('--rule')}" stroke-width="1"/><text x="${ml-8}" y="${ys(v)+4}" text-anchor="end">${v}</text>`;
+  [1,2,4,8,16,32,64,128,256,512].forEach(k=> g += `<text x="${xs(k)}" y="${H-mb+16}" text-anchor="middle">${k}</text>`);
+  g += `<text x="${(ml+W-mr)/2}" y="${H-4}" text-anchor="middle">channels kept (log scale)</text>`;
+  g += `<line x1="${xs(sel.k)}" x2="${xs(sel.k)}" y1="${mt}" y2="${H-mb}" stroke="${css('--muted')}" stroke-dasharray="2 3"/>`;
+  S.forEach(s=>{
+    const pts = L.filter(l=>l[s.key]).map(l=>[xs(l.k), ys(Math.min(l[s.key].kl, ymax)), l]);
+    if (!s.dots) g += `<polyline fill="none" stroke="${css(s.c)}" stroke-width="2" ${s.dash?`stroke-dasharray="${s.dash}"`:""} points="${pts.map(p=>p[0]+","+p[1]).join(" ")}"/>`;
+    pts.forEach(p=> g += `<circle cx="${p[0]}" cy="${p[1]}" r="${s.dots?5:3}" fill="${css(s.c)}" stroke="${css('--panel')}" stroke-width="2"/>`);
+  });
+  L.forEach(l=> g += `<rect x="${xs(l.k)-10}" y="${mt}" width="20" height="${H-mt-mb}" fill="transparent" data-k="${l.k}"/>`);
+  svg.innerHTML = g;
+}
+const tip = document.getElementById("tip");
+document.getElementById("chart").addEventListener("mousemove", e=>{
+  const r = e.target.closest("rect[data-k]"); if(!r){tip.hidden=true;return;}
+  const l = L.find(x=>x.k==r.dataset.k);
+  tip.innerHTML = `<b>${l.k} channels</b><br>` + S.filter(s=>l[s.key]).map(s=>`${s.name}: ${l[s.key].kl.toFixed(3)}`).join("<br>");
+  const wrap = document.getElementById("chartwrap").getBoundingClientRect();
+  tip.style.left = Math.min(e.clientX-wrap.left+12, wrap.width-230)+"px"; tip.style.top = (e.clientY-wrap.top+12)+"px"; tip.hidden=false;
+});
+document.getElementById("chart").addEventListener("mouseleave", ()=> tip.hidden=true);
+function show(){
+  const l = L[+slider.value];
+  document.getElementById("kout").textContent = l.k + " / 512";
+  document.getElementById("t-agree").textContent = pct(l.refit.agree);
+  document.getElementById("t-top1").textContent = pct(l.refit.top1);
+  document.getElementById("t-kl").textContent = l.refit.kl.toFixed(3);
+  document.getElementById("t-size").textContent = pct(l.k/512);
+  document.getElementById("sets").innerHTML = l.sets.length ? l.sets.map(s=>`<li><b>${s.size} channels</b> into one: ${s.classes.join(", ")}</li>`).join("") : "<li>No merges at this size: every channel is kept.</li>";
+  draw(l);
+}
+slider.addEventListener("input", show);
+document.getElementById("tbl").innerHTML = "<tr><th>Channels</th><th>Agree</th><th>Top-1</th>" + S.map(s=>`<th>KL: ${s.name}</th>`).join("") + "</tr>" +
+  L.slice().reverse().map(l=>`<tr><td>${l.k}</td><td>${pct(l.refit.agree)}</td><td>${pct(l.refit.top1)}</td>` + S.map(s=>`<td>${l[s.key]?l[s.key].kl.toFixed(3):"–"}</td>`).join("") + "</tr>").join("");
+show();
+</script>

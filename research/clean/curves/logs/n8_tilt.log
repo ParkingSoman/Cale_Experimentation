@@ -1,0 +1,3 @@
+  unweighted                      : Spearman even (fit) +0.263 | odd (held out) +0.316
+  tilted (mu fit on even neurons) : Spearman even (fit) +0.182 | odd (held out) +0.322
+  effective sample size 269 of 1384 (0.19); weight by source: inversions 0.919, boundary 0.003, reader pictures 0.078; dual converged True

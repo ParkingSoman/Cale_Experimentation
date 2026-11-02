@@ -1,0 +1,5 @@
+G skipped (0s)
+|within|/|cov| 0.957   |between|/|cov| 0.468   cos(within, between) -0.039
+cos with photo-8000: cov 0.827 within 0.846 between 0.089
+cos(class-256 cov, photo within) 0.305   cos(class-256 cov, photo between) 0.096
+done (25s)

@@ -1,0 +1,45 @@
+{
+ "block": 7,
+ "neuron": 1155,
+ "max": 4.091012001037598,
+ "min": -4.898950576782227,
+ "edits": {
+  "flip": 0.7239733934402466,
+  "rot90": 0.510595440864563,
+  "rot180": 0.5783659219741821,
+  "gray": 1.0360863208770752,
+  "blur1": 0.9554125666618347,
+  "blur3": 0.7783116102218628,
+  "shuf2": 0.9543027877807617,
+  "shuf4": 0.628339409828186,
+  "shuf8": 0.6177331209182739,
+  "hue": 0.9935424327850342,
+  "invert": 0.9803048372268677,
+  "zoomout": 0.4127534031867981,
+  "zoomin": 0.6224849820137024
+ },
+ "top50_classes": {
+  "saltshaker": 2,
+  "parallel bars": 2,
+  "iron": 1,
+  "television": 1,
+  "shower cap": 1,
+  "crossword puzzle": 1,
+  "street sign": 1,
+  "backpack": 1,
+  "mosque": 1,
+  "shopping basket": 1
+ },
+ "neg50_classes": {
+  "zebra": 2,
+  "white stork": 1,
+  "gasmask": 1,
+  "little blue heron": 1,
+  "plow": 1,
+  "crayfish": 1,
+  "Madagascar cat": 1,
+  "hair spray": 1,
+  "black swan": 1,
+  "drake": 1
+ }
+}

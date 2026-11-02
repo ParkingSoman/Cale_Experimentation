@@ -1,0 +1,45 @@
+{
+ "block": 2,
+ "neuron": 173,
+ "max": 4.564798831939697,
+ "min": -4.920989990234375,
+ "edits": {
+  "flip": 0.9225177764892578,
+  "rot90": 0.8244436979293823,
+  "rot180": 0.8476803302764893,
+  "gray": 0.9961763620376587,
+  "blur1": 0.9030925035476685,
+  "blur3": 0.6017333269119263,
+  "shuf2": 1.0,
+  "shuf4": 0.9955018758773804,
+  "shuf8": 0.9130473136901855,
+  "hue": 1.0021450519561768,
+  "invert": 0.9434558153152466,
+  "zoomout": 0.6562598943710327,
+  "zoomin": 0.6694186925888062
+ },
+ "top50_classes": {
+  "handkerchief": 2,
+  "space bar": 2,
+  "coho": 1,
+  "Afghan hound": 1,
+  "bib": 1,
+  "bloodhound": 1,
+  "monitor": 1,
+  "beer bottle": 1,
+  "dial telephone": 1,
+  "measuring cup": 1
+ },
+ "neg50_classes": {
+  "ballpoint": 1,
+  "academic gown": 1,
+  "modem": 1,
+  "moped": 1,
+  "snowmobile": 1,
+  "apron": 1,
+  "dung beetle": 1,
+  "muzzle": 1,
+  "banjo": 1,
+  "ice lolly": 1
+ }
+}

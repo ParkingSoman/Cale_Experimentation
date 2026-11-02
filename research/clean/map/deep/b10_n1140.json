@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 1140,
+ "max": 4.272299289703369,
+ "min": -5.659656047821045,
+ "edits": {
+  "flip": 0.9791533946990967,
+  "rot90": 0.6802448034286499,
+  "rot180": 0.8507785797119141,
+  "gray": 0.9507730603218079,
+  "blur1": 0.9472813606262207,
+  "blur3": 0.7295384407043457,
+  "shuf2": 0.9328920841217041,
+  "shuf4": 0.7045258283615112,
+  "shuf8": 0.4694746136665344,
+  "hue": 0.9256527423858643,
+  "invert": 0.9148420095443726,
+  "zoomout": 0.5392167568206787,
+  "zoomin": 0.3923187851905823
+ },
+ "top50_classes": {
+  "balance beam": 1,
+  "manhole cover": 1,
+  "black-and-tan coonhound": 1,
+  "vase": 1,
+  "ruffed grouse": 1,
+  "velvet": 1,
+  "Brittany spaniel": 1,
+  "running shoe": 1,
+  "English setter": 1,
+  "safety pin": 1
+ },
+ "neg50_classes": {
+  "Loafer": 2,
+  "king penguin": 2,
+  "daisy": 2,
+  "oil filter": 1,
+  "red wine": 1,
+  "loudspeaker": 1,
+  "crash helmet": 1,
+  "hatchet": 1,
+  "black grouse": 1,
+  "maillot": 1
+ }
+}

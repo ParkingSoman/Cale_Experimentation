@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 721,
+ "max": 3.9967451095581055,
+ "min": -5.115387916564941,
+ "edits": {
+  "flip": 0.9764754772186279,
+  "rot90": 0.5108367204666138,
+  "rot180": 0.7182462215423584,
+  "gray": 0.9855272173881531,
+  "blur1": 0.990403413772583,
+  "blur3": 0.9608027935028076,
+  "shuf2": 0.97685706615448,
+  "shuf4": 0.9208049774169922,
+  "shuf8": 0.7543959617614746,
+  "hue": 0.9850358366966248,
+  "invert": 0.7103026509284973,
+  "zoomout": 0.8197038173675537,
+  "zoomin": 0.4461899399757385
+ },
+ "top50_classes": {
+  "Granny Smith": 2,
+  "barn": 2,
+  "reel": 1,
+  "kit fox": 1,
+  "patio": 1,
+  "perfume": 1,
+  "photocopier": 1,
+  "picket fence": 1,
+  "pickup": 1,
+  "pier": 1
+ },
+ "neg50_classes": {
+  "squirrel monkey": 2,
+  "badger": 1,
+  "whiskey jug": 1,
+  "tiger cat": 1,
+  "bullfrog": 1,
+  "Indian elephant": 1,
+  "crutch": 1,
+  "baseball": 1,
+  "horned viper": 1,
+  "basset": 1
+ }
+}

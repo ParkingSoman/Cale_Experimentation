@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 135,
+ "max": 3.666919469833374,
+ "min": -5.811673164367676,
+ "edits": {
+  "flip": 0.6890034675598145,
+  "rot90": 0.6494184732437134,
+  "rot180": 0.6983147859573364,
+  "gray": 1.0281741619110107,
+  "blur1": 0.9363974928855896,
+  "blur3": 0.5510964393615723,
+  "shuf2": 0.9970983266830444,
+  "shuf4": 0.9418866038322449,
+  "shuf8": 0.7703678011894226,
+  "hue": 0.9913550615310669,
+  "invert": 0.960166335105896,
+  "zoomout": 0.6345998644828796,
+  "zoomin": 0.6914222240447998
+ },
+ "top50_classes": {
+  "stopwatch": 1,
+  "zucchini": 1,
+  "bib": 1,
+  "starfish": 1,
+  "marimba": 1,
+  "hand-held computer": 1,
+  "rocking chair": 1,
+  "snorkel": 1,
+  "rubber eraser": 1,
+  "pineapple": 1
+ },
+ "neg50_classes": {
+  "submarine": 2,
+  "trifle": 1,
+  "axolotl": 1,
+  "studio couch": 1,
+  "home theater": 1,
+  "cornet": 1,
+  "electric locomotive": 1,
+  "spider monkey": 1,
+  "tiger cat": 1,
+  "French loaf": 1
+ }
+}

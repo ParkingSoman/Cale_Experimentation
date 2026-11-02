@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 2795,
+ "max": 7.9172539710998535,
+ "min": -21.37872886657715,
+ "edits": {
+  "flip": 0.19030529260635376,
+  "rot90": -123.76351165771484,
+  "rot180": -3.009190082550049,
+  "gray": -0.3130698800086975,
+  "blur1": -6.591785430908203,
+  "blur3": -114.3820571899414,
+  "shuf2": 0.4938780665397644,
+  "shuf4": 1.0416468381881714,
+  "shuf8": -156.37109375,
+  "hue": -10.361886024475098,
+  "invert": -0.7265843749046326,
+  "zoomout": -20.850418090820312,
+  "zoomin": -119.78730773925781
+ },
+ "top50_classes": {
+  "carousel": 3,
+  "swing": 2,
+  "mask": 2,
+  "tobacco shop": 2,
+  "marimba": 1,
+  "scabbard": 1,
+  "hair spray": 1,
+  "Madagascar cat": 1,
+  "oxygen mask": 1,
+  "teddy": 1
+ },
+ "neg50_classes": {
+  "golf ball": 3,
+  "slide rule": 2,
+  "stopwatch": 2,
+  "strawberry": 1,
+  "green lizard": 1,
+  "clumber": 1,
+  "triceratops": 1,
+  "long-horned beetle": 1,
+  "king snake": 1,
+  "missile": 1
+ }
+}

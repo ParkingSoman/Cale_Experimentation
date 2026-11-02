@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 442,
+ "max": 6.720239162445068,
+ "min": -15.820037841796875,
+ "edits": {
+  "flip": 0.9303855895996094,
+  "rot90": 0.6484284400939941,
+  "rot180": 0.9092187285423279,
+  "gray": 0.7028873562812805,
+  "blur1": 0.9289723634719849,
+  "blur3": 0.7804441452026367,
+  "shuf2": 0.9897119998931885,
+  "shuf4": 0.9241322875022888,
+  "shuf8": 0.38763538002967834,
+  "hue": 0.8760503530502319,
+  "invert": 0.9282860159873962,
+  "zoomout": 0.44532543420791626,
+  "zoomin": 0.6373673677444458
+ },
+ "top50_classes": {
+  "plate": 2,
+  "potpie": 2,
+  "bagel": 2,
+  "pretzel": 2,
+  "strainer": 2,
+  "tray": 2,
+  "sombrero": 2,
+  "acorn squash": 1,
+  "cheeseburger": 1,
+  "broccoli": 1
+ },
+ "neg50_classes": {
+  "Samoyed": 2,
+  "timber wolf": 2,
+  "barber chair": 2,
+  "baboon": 1,
+  "bassoon": 1,
+  "crossword puzzle": 1,
+  "grasshopper": 1,
+  "flagpole": 1,
+  "soft-coated wheaten terrier": 1,
+  "West Highland white terrier": 1
+ }
+}

@@ -1,0 +1,10 @@
+/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+  32/256  109 s  top-1 on own class 0.97
+  64/256  216 s  top-1 on own class 0.97
+  96/256  328 s  top-1 on own class 1.00
+  128/256  443 s  top-1 on own class 0.97
+  160/256  559 s  top-1 on own class 0.97
+  192/256  676 s  top-1 on own class 0.94
+  224/256  795 s  top-1 on own class 0.97
+  256/256  916 s  top-1 on own class 0.97

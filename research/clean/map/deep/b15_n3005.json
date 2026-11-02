@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 3005,
+ "max": 5.851813316345215,
+ "min": -9.765816688537598,
+ "edits": {
+  "flip": 0.998754620552063,
+  "rot90": 0.8656975030899048,
+  "rot180": 0.8030259609222412,
+  "gray": 0.945209264755249,
+  "blur1": 0.9213615655899048,
+  "blur3": 0.48430952429771423,
+  "shuf2": 1.1339111328125,
+  "shuf4": 1.003241777420044,
+  "shuf8": 0.46623021364212036,
+  "hue": 0.889579713344574,
+  "invert": 0.9831396341323853,
+  "zoomout": 0.7635514736175537,
+  "zoomin": 0.6820306777954102
+ },
+ "top50_classes": {
+  "Polaroid camera": 3,
+  "hand-held computer": 3,
+  "reflex camera": 3,
+  "remote control": 3,
+  "joystick": 2,
+  "cassette player": 2,
+  "cellular telephone": 2,
+  "iPod": 2,
+  "digital watch": 2,
+  "digital clock": 2
+ },
+ "neg50_classes": {
+  "chambered nautilus": 2,
+  "agaric": 2,
+  "acorn squash": 2,
+  "monarch": 2,
+  "zebra": 2,
+  "goldfinch": 2,
+  "wooden spoon": 2,
+  "unicycle": 1,
+  "harvester": 1,
+  "overskirt": 1
+ }
+}

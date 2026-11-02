@@ -1,0 +1,35 @@
+|Delta-W|^2 0.0080: in-span 0.0006 (0.08), remainder 0.0074 (0.92)
+top-10 readers by remainder energy (global index over 1x1|3x3b|5x5b|pool = 192|96|16|64): [300, 297, 289, 298, 303, 293, 291, 295, 50, 301] share 0.22; top-37 (10%) share 0.42
+S            0.0491 (se 0.0029)
+S+span       0.0488 (se 0.0028)
+S+rem        0.0407 (se 0.0021)
+S+bias       0.0491 (se 0.0029)
+S+span+bias  0.0488 (se 0.0028)
+T            0.0404 (se 0.0021)
+  S+span minus S -0.0002 (paired se 0.0002)
+  S+rem minus S -0.0084 (paired se 0.0013)
+  S+bias minus S -0.0000 (paired se 0.0000)
+  S+span+bias minus S -0.0002 (paired se 0.0002)
+  T minus S -0.0087 (paired se 0.0013)
+build              KL       L3      L3p  (500 x2b images)
+S              0.0614   0.0662   0.0712
+S+span         0.0608   0.0671   0.0723
+S+rem          0.0504   0.0532   0.0578
+S+bias         0.0614   0.0662   0.0712
+S+span+bias    0.0608   0.0672   0.0723
+T              0.0503   0.0545   0.0594
+  S+span minus S, KL: -0.0006 (se 0.0008)
+  S+span minus S, L3: +0.0010 (se 0.0011)
+  S+span minus S, L3p: +0.0012 (se 0.0012)
+  S+rem minus S, KL: -0.0110 (se 0.0054)
+  S+rem minus S, L3: -0.0130 (se 0.0060)
+  S+rem minus S, L3p: -0.0133 (se 0.0060)
+  S+bias minus S, KL: -0.0000 (se 0.0000)
+  S+bias minus S, L3: -0.0000 (se 0.0000)
+  S+bias minus S, L3p: +0.0000 (se 0.0000)
+  S+span+bias minus S, KL: -0.0006 (se 0.0008)
+  S+span+bias minus S, L3: +0.0010 (se 0.0011)
+  S+span+bias minus S, L3p: +0.0012 (se 0.0012)
+  T minus S, KL: -0.0111 (se 0.0057)
+  T minus S, L3: -0.0116 (se 0.0062)
+  T minus S, L3p: -0.0117 (se 0.0061)

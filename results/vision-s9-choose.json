@@ -1,0 +1,13 @@
+{
+ "in6": {
+  "in6": 33,
+  "n": 39
+ },
+ "choosers": {
+  "rule score": 13,
+  "|edge|": 9,
+  "rank sum": 16,
+  "rule score x log(1/edge rank)": 16,
+  "nearest block, then rule": 9
+ }
+}

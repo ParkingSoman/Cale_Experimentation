@@ -1,0 +1,1885 @@
+{
+ "layer": 15,
+ "axis": "input",
+ "K": 48,
+ "tag": "global",
+ "units": {
+  "U001": {
+   "kind": "parent",
+   "which": 0,
+   "sign": -1
+  },
+  "U002": {
+   "kind": "child",
+   "which": 104,
+   "sign": -1
+  },
+  "U003": {
+   "kind": "child",
+   "which": 940,
+   "sign": -1
+  },
+  "U004": {
+   "kind": "child",
+   "which": 994,
+   "sign": 1
+  },
+  "U005": {
+   "kind": "decoy",
+   "which": 15,
+   "sign": 1
+  },
+  "U006": {
+   "kind": "decoy",
+   "which": 69,
+   "sign": -1
+  },
+  "U007": {
+   "kind": "decoy",
+   "which": 235,
+   "sign": -1
+  },
+  "U008": {
+   "kind": "parent",
+   "which": 2,
+   "sign": -1
+  },
+  "U009": {
+   "kind": "child",
+   "which": 168,
+   "sign": -1
+  },
+  "U010": {
+   "kind": "child",
+   "which": 865,
+   "sign": -1
+  },
+  "U011": {
+   "kind": "child",
+   "which": 1303,
+   "sign": 1
+  },
+  "U012": {
+   "kind": "child",
+   "which": 297,
+   "sign": -1
+  },
+  "U013": {
+   "kind": "decoy",
+   "which": 687,
+   "sign": -1
+  },
+  "U014": {
+   "kind": "decoy",
+   "which": 985,
+   "sign": 1
+  },
+  "U015": {
+   "kind": "decoy",
+   "which": 877,
+   "sign": -1
+  },
+  "U016": {
+   "kind": "decoy",
+   "which": 1029,
+   "sign": 1
+  },
+  "U017": {
+   "kind": "parent",
+   "which": 5,
+   "sign": -1
+  },
+  "U018": {
+   "kind": "child",
+   "which": 653,
+   "sign": 1
+  },
+  "U019": {
+   "kind": "child",
+   "which": 1486,
+   "sign": 1
+  },
+  "U020": {
+   "kind": "decoy",
+   "which": 1000,
+   "sign": -1
+  },
+  "U021": {
+   "kind": "decoy",
+   "which": 329,
+   "sign": -1
+  },
+  "U022": {
+   "kind": "decoy",
+   "which": 326,
+   "sign": 1
+  },
+  "U023": {
+   "kind": "decoy",
+   "which": 843,
+   "sign": -1
+  },
+  "U024": {
+   "kind": "parent",
+   "which": 7,
+   "sign": 1
+  },
+  "U025": {
+   "kind": "child",
+   "which": 16,
+   "sign": 1
+  },
+  "U026": {
+   "kind": "child",
+   "which": 410,
+   "sign": 1
+  },
+  "U027": {
+   "kind": "child",
+   "which": 717,
+   "sign": -1
+  },
+  "U028": {
+   "kind": "child",
+   "which": 365,
+   "sign": 1
+  },
+  "U029": {
+   "kind": "decoy",
+   "which": 960,
+   "sign": 1
+  },
+  "U030": {
+   "kind": "decoy",
+   "which": 1287,
+   "sign": -1
+  },
+  "U031": {
+   "kind": "decoy",
+   "which": 362,
+   "sign": -1
+  },
+  "U032": {
+   "kind": "decoy",
+   "which": 284,
+   "sign": -1
+  },
+  "U033": {
+   "kind": "parent",
+   "which": 8,
+   "sign": -1
+  },
+  "U034": {
+   "kind": "child",
+   "which": 993,
+   "sign": -1
+  },
+  "U035": {
+   "kind": "child",
+   "which": 1094,
+   "sign": 1
+  },
+  "U036": {
+   "kind": "decoy",
+   "which": 1161,
+   "sign": 1
+  },
+  "U037": {
+   "kind": "decoy",
+   "which": 852,
+   "sign": 1
+  },
+  "U038": {
+   "kind": "decoy",
+   "which": 484,
+   "sign": 1
+  },
+  "U039": {
+   "kind": "decoy",
+   "which": 732,
+   "sign": -1
+  },
+  "U040": {
+   "kind": "parent",
+   "which": 9,
+   "sign": 1
+  },
+  "U041": {
+   "kind": "child",
+   "which": 446,
+   "sign": 1
+  },
+  "U042": {
+   "kind": "child",
+   "which": 1359,
+   "sign": -1
+  },
+  "U043": {
+   "kind": "decoy",
+   "which": 1496,
+   "sign": 1
+  },
+  "U044": {
+   "kind": "decoy",
+   "which": 700,
+   "sign": 1
+  },
+  "U045": {
+   "kind": "parent",
+   "which": 10,
+   "sign": -1
+  },
+  "U046": {
+   "kind": "child",
+   "which": 1033,
+   "sign": 1
+  },
+  "U047": {
+   "kind": "child",
+   "which": 1165,
+   "sign": 1
+  },
+  "U048": {
+   "kind": "child",
+   "which": 780,
+   "sign": 1
+  },
+  "U049": {
+   "kind": "decoy",
+   "which": 1390,
+   "sign": -1
+  },
+  "U050": {
+   "kind": "decoy",
+   "which": 1458,
+   "sign": -1
+  },
+  "U051": {
+   "kind": "decoy",
+   "which": 448,
+   "sign": 1
+  },
+  "U052": {
+   "kind": "parent",
+   "which": 12,
+   "sign": 1
+  },
+  "U053": {
+   "kind": "child",
+   "which": 514,
+   "sign": 1
+  },
+  "U054": {
+   "kind": "child",
+   "which": 1218,
+   "sign": 1
+  },
+  "U055": {
+   "kind": "child",
+   "which": 12,
+   "sign": 1
+  },
+  "U056": {
+   "kind": "child",
+   "which": 97,
+   "sign": -1
+  },
+  "U057": {
+   "kind": "decoy",
+   "which": 917,
+   "sign": 1
+  },
+  "U058": {
+   "kind": "decoy",
+   "which": 255,
+   "sign": -1
+  },
+  "U059": {
+   "kind": "decoy",
+   "which": 843,
+   "sign": 1
+  },
+  "U060": {
+   "kind": "decoy",
+   "which": 87,
+   "sign": 1
+  },
+  "U061": {
+   "kind": "parent",
+   "which": 13,
+   "sign": -1
+  },
+  "U062": {
+   "kind": "child",
+   "which": 645,
+   "sign": 1
+  },
+  "U063": {
+   "kind": "child",
+   "which": 410,
+   "sign": -1
+  },
+  "U064": {
+   "kind": "child",
+   "which": 482,
+   "sign": 1
+  },
+  "U065": {
+   "kind": "child",
+   "which": 1033,
+   "sign": -1
+  },
+  "U066": {
+   "kind": "decoy",
+   "which": 930,
+   "sign": -1
+  },
+  "U067": {
+   "kind": "decoy",
+   "which": 376,
+   "sign": -1
+  },
+  "U068": {
+   "kind": "decoy",
+   "which": 529,
+   "sign": 1
+  },
+  "U069": {
+   "kind": "decoy",
+   "which": 189,
+   "sign": 1
+  },
+  "U070": {
+   "kind": "parent",
+   "which": 14,
+   "sign": -1
+  },
+  "U071": {
+   "kind": "child",
+   "which": 833,
+   "sign": 1
+  },
+  "U072": {
+   "kind": "child",
+   "which": 1077,
+   "sign": 1
+  },
+  "U073": {
+   "kind": "child",
+   "which": 116,
+   "sign": -1
+  },
+  "U074": {
+   "kind": "child",
+   "which": 50,
+   "sign": 1
+  },
+  "U075": {
+   "kind": "decoy",
+   "which": 467,
+   "sign": 1
+  },
+  "U076": {
+   "kind": "decoy",
+   "which": 296,
+   "sign": -1
+  },
+  "U077": {
+   "kind": "decoy",
+   "which": 1346,
+   "sign": 1
+  },
+  "U078": {
+   "kind": "decoy",
+   "which": 553,
+   "sign": -1
+  },
+  "U079": {
+   "kind": "parent",
+   "which": 15,
+   "sign": -1
+  },
+  "U080": {
+   "kind": "child",
+   "which": 655,
+   "sign": 1
+  },
+  "U081": {
+   "kind": "child",
+   "which": 131,
+   "sign": 1
+  },
+  "U082": {
+   "kind": "child",
+   "which": 547,
+   "sign": -1
+  },
+  "U083": {
+   "kind": "decoy",
+   "which": 252,
+   "sign": 1
+  },
+  "U084": {
+   "kind": "decoy",
+   "which": 1124,
+   "sign": -1
+  },
+  "U085": {
+   "kind": "decoy",
+   "which": 1253,
+   "sign": -1
+  },
+  "U086": {
+   "kind": "decoy",
+   "which": 1233,
+   "sign": 1
+  },
+  "U087": {
+   "kind": "parent",
+   "which": 18,
+   "sign": -1
+  },
+  "U088": {
+   "kind": "decoy",
+   "which": 1300,
+   "sign": -1
+  },
+  "U089": {
+   "kind": "decoy",
+   "which": 1508,
+   "sign": -1
+  },
+  "U090": {
+   "kind": "decoy",
+   "which": 1256,
+   "sign": 1
+  },
+  "U091": {
+   "kind": "decoy",
+   "which": 520,
+   "sign": 1
+  },
+  "U092": {
+   "kind": "parent",
+   "which": 19,
+   "sign": 1
+  },
+  "U093": {
+   "kind": "child",
+   "which": 795,
+   "sign": -1
+  },
+  "U094": {
+   "kind": "decoy",
+   "which": 567,
+   "sign": -1
+  },
+  "U095": {
+   "kind": "decoy",
+   "which": 860,
+   "sign": -1
+  },
+  "U096": {
+   "kind": "decoy",
+   "which": 692,
+   "sign": 1
+  },
+  "U097": {
+   "kind": "decoy",
+   "which": 999,
+   "sign": -1
+  },
+  "U098": {
+   "kind": "parent",
+   "which": 21,
+   "sign": 1
+  },
+  "U099": {
+   "kind": "child",
+   "which": 673,
+   "sign": -1
+  },
+  "U100": {
+   "kind": "child",
+   "which": 334,
+   "sign": -1
+  },
+  "U101": {
+   "kind": "decoy",
+   "which": 774,
+   "sign": -1
+  },
+  "U102": {
+   "kind": "decoy",
+   "which": 571,
+   "sign": -1
+  },
+  "U103": {
+   "kind": "decoy",
+   "which": 776,
+   "sign": -1
+  },
+  "U104": {
+   "kind": "decoy",
+   "which": 205,
+   "sign": -1
+  },
+  "U105": {
+   "kind": "parent",
+   "which": 22,
+   "sign": -1
+  },
+  "U106": {
+   "kind": "decoy",
+   "which": 597,
+   "sign": -1
+  },
+  "U107": {
+   "kind": "decoy",
+   "which": 1412,
+   "sign": -1
+  },
+  "U108": {
+   "kind": "decoy",
+   "which": 575,
+   "sign": -1
+  },
+  "U109": {
+   "kind": "decoy",
+   "which": 476,
+   "sign": 1
+  },
+  "U110": {
+   "kind": "parent",
+   "which": 23,
+   "sign": -1
+  },
+  "U111": {
+   "kind": "child",
+   "which": 1001,
+   "sign": -1
+  },
+  "U112": {
+   "kind": "decoy",
+   "which": 675,
+   "sign": -1
+  },
+  "U113": {
+   "kind": "decoy",
+   "which": 1265,
+   "sign": 1
+  },
+  "U114": {
+   "kind": "decoy",
+   "which": 1473,
+   "sign": 1
+  },
+  "U115": {
+   "kind": "decoy",
+   "which": 61,
+   "sign": -1
+  },
+  "U116": {
+   "kind": "parent",
+   "which": 25,
+   "sign": -1
+  },
+  "U117": {
+   "kind": "decoy",
+   "which": 1497,
+   "sign": 1
+  },
+  "U118": {
+   "kind": "decoy",
+   "which": 628,
+   "sign": -1
+  },
+  "U119": {
+   "kind": "decoy",
+   "which": 1450,
+   "sign": -1
+  },
+  "U120": {
+   "kind": "decoy",
+   "which": 1282,
+   "sign": -1
+  },
+  "U121": {
+   "kind": "parent",
+   "which": 26,
+   "sign": -1
+  },
+  "U122": {
+   "kind": "child",
+   "which": 1062,
+   "sign": -1
+  },
+  "U123": {
+   "kind": "decoy",
+   "which": 1389,
+   "sign": 1
+  },
+  "U124": {
+   "kind": "decoy",
+   "which": 804,
+   "sign": 1
+  },
+  "U125": {
+   "kind": "decoy",
+   "which": 349,
+   "sign": 1
+  },
+  "U126": {
+   "kind": "decoy",
+   "which": 1409,
+   "sign": -1
+  },
+  "U127": {
+   "kind": "parent",
+   "which": 27,
+   "sign": 1
+  },
+  "U128": {
+   "kind": "child",
+   "which": 1112,
+   "sign": 1
+  },
+  "U129": {
+   "kind": "child",
+   "which": 1317,
+   "sign": -1
+  },
+  "U130": {
+   "kind": "child",
+   "which": 964,
+   "sign": -1
+  },
+  "U131": {
+   "kind": "child",
+   "which": 287,
+   "sign": 1
+  },
+  "U132": {
+   "kind": "decoy",
+   "which": 1438,
+   "sign": 1
+  },
+  "U133": {
+   "kind": "decoy",
+   "which": 1255,
+   "sign": 1
+  },
+  "U134": {
+   "kind": "decoy",
+   "which": 601,
+   "sign": 1
+  },
+  "U135": {
+   "kind": "decoy",
+   "which": 810,
+   "sign": -1
+  },
+  "U136": {
+   "kind": "parent",
+   "which": 30,
+   "sign": -1
+  },
+  "U137": {
+   "kind": "child",
+   "which": 1205,
+   "sign": -1
+  },
+  "U138": {
+   "kind": "decoy",
+   "which": 1021,
+   "sign": 1
+  },
+  "U139": {
+   "kind": "decoy",
+   "which": 1388,
+   "sign": 1
+  },
+  "U140": {
+   "kind": "decoy",
+   "which": 772,
+   "sign": 1
+  },
+  "U141": {
+   "kind": "decoy",
+   "which": 948,
+   "sign": -1
+  },
+  "U142": {
+   "kind": "parent",
+   "which": 31,
+   "sign": -1
+  },
+  "U143": {
+   "kind": "decoy",
+   "which": 1116,
+   "sign": -1
+  },
+  "U144": {
+   "kind": "decoy",
+   "which": 1341,
+   "sign": 1
+  },
+  "U145": {
+   "kind": "decoy",
+   "which": 827,
+   "sign": -1
+  },
+  "U146": {
+   "kind": "decoy",
+   "which": 1170,
+   "sign": 1
+  },
+  "U147": {
+   "kind": "parent",
+   "which": 34,
+   "sign": 1
+  },
+  "U148": {
+   "kind": "child",
+   "which": 1262,
+   "sign": 1
+  },
+  "U149": {
+   "kind": "child",
+   "which": 129,
+   "sign": 1
+  },
+  "U150": {
+   "kind": "decoy",
+   "which": 1002,
+   "sign": -1
+  },
+  "U151": {
+   "kind": "decoy",
+   "which": 1488,
+   "sign": -1
+  },
+  "U152": {
+   "kind": "parent",
+   "which": 36,
+   "sign": -1
+  },
+  "U153": {
+   "kind": "child",
+   "which": 435,
+   "sign": -1
+  },
+  "U154": {
+   "kind": "decoy",
+   "which": 78,
+   "sign": -1
+  },
+  "U155": {
+   "kind": "decoy",
+   "which": 336,
+   "sign": 1
+  },
+  "U156": {
+   "kind": "decoy",
+   "which": 488,
+   "sign": 1
+  },
+  "U157": {
+   "kind": "decoy",
+   "which": 1366,
+   "sign": 1
+  },
+  "U158": {
+   "kind": "parent",
+   "which": 40,
+   "sign": 1
+  },
+  "U159": {
+   "kind": "decoy",
+   "which": 524,
+   "sign": 1
+  },
+  "U160": {
+   "kind": "decoy",
+   "which": 1386,
+   "sign": 1
+  },
+  "U161": {
+   "kind": "decoy",
+   "which": 1281,
+   "sign": -1
+  },
+  "U162": {
+   "kind": "decoy",
+   "which": 1091,
+   "sign": -1
+  },
+  "U163": {
+   "kind": "parent",
+   "which": 41,
+   "sign": 1
+  },
+  "U164": {
+   "kind": "child",
+   "which": 1171,
+   "sign": 1
+  },
+  "U165": {
+   "kind": "decoy",
+   "which": 1535,
+   "sign": 1
+  },
+  "U166": {
+   "kind": "decoy",
+   "which": 569,
+   "sign": 1
+  },
+  "U167": {
+   "kind": "decoy",
+   "which": 728,
+   "sign": -1
+  },
+  "U168": {
+   "kind": "decoy",
+   "which": 707,
+   "sign": 1
+  },
+  "U169": {
+   "kind": "parent",
+   "which": 42,
+   "sign": 1
+  },
+  "U170": {
+   "kind": "child",
+   "which": 1384,
+   "sign": 1
+  },
+  "U171": {
+   "kind": "child",
+   "which": 1484,
+   "sign": 1
+  },
+  "U172": {
+   "kind": "decoy",
+   "which": 1261,
+   "sign": 1
+  },
+  "U173": {
+   "kind": "decoy",
+   "which": 463,
+   "sign": -1
+  },
+  "U174": {
+   "kind": "decoy",
+   "which": 1058,
+   "sign": -1
+  },
+  "U175": {
+   "kind": "decoy",
+   "which": 771,
+   "sign": 1
+  },
+  "U176": {
+   "kind": "parent",
+   "which": 43,
+   "sign": 1
+  },
+  "U177": {
+   "kind": "child",
+   "which": 799,
+   "sign": -1
+  },
+  "U178": {
+   "kind": "child",
+   "which": 390,
+   "sign": 1
+  },
+  "U179": {
+   "kind": "child",
+   "which": 353,
+   "sign": 1
+  },
+  "U180": {
+   "kind": "child",
+   "which": 869,
+   "sign": 1
+  },
+  "U181": {
+   "kind": "decoy",
+   "which": 900,
+   "sign": 1
+  },
+  "U182": {
+   "kind": "decoy",
+   "which": 1100,
+   "sign": -1
+  },
+  "U183": {
+   "kind": "decoy",
+   "which": 1129,
+   "sign": -1
+  },
+  "U184": {
+   "kind": "decoy",
+   "which": 64,
+   "sign": 1
+  },
+  "U185": {
+   "kind": "parent",
+   "which": 44,
+   "sign": 1
+  },
+  "U186": {
+   "kind": "child",
+   "which": 1402,
+   "sign": 1
+  },
+  "U187": {
+   "kind": "child",
+   "which": 638,
+   "sign": 1
+  },
+  "U188": {
+   "kind": "child",
+   "which": 184,
+   "sign": -1
+  },
+  "U189": {
+   "kind": "child",
+   "which": 646,
+   "sign": -1
+  },
+  "U190": {
+   "kind": "decoy",
+   "which": 1254,
+   "sign": -1
+  },
+  "U191": {
+   "kind": "decoy",
+   "which": 1070,
+   "sign": 1
+  },
+  "U192": {
+   "kind": "decoy",
+   "which": 766,
+   "sign": 1
+  },
+  "U193": {
+   "kind": "decoy",
+   "which": 308,
+   "sign": 1
+  },
+  "U194": {
+   "kind": "parent",
+   "which": 45,
+   "sign": -1
+  },
+  "U195": {
+   "kind": "decoy",
+   "which": 1024,
+   "sign": -1
+  },
+  "U196": {
+   "kind": "decoy",
+   "which": 1379,
+   "sign": -1
+  },
+  "U197": {
+   "kind": "decoy",
+   "which": 1431,
+   "sign": 1
+  },
+  "U198": {
+   "kind": "decoy",
+   "which": 751,
+   "sign": 1
+  },
+  "U199": {
+   "kind": "parent",
+   "which": 46,
+   "sign": 1
+  },
+  "U200": {
+   "kind": "decoy",
+   "which": 217,
+   "sign": -1
+  },
+  "U201": {
+   "kind": "decoy",
+   "which": 641,
+   "sign": 1
+  },
+  "U202": {
+   "kind": "decoy",
+   "which": 922,
+   "sign": 1
+  },
+  "U203": {
+   "kind": "decoy",
+   "which": 788,
+   "sign": 1
+  }
+ },
+ "families": [
+  {
+   "parent": "U001",
+   "trained_unit": 0,
+   "pole": "-",
+   "children": [
+    "U002",
+    "U003",
+    "U004"
+   ],
+   "decoys": [
+    "U005",
+    "U006",
+    "U007"
+   ]
+  },
+  {
+   "parent": "U008",
+   "trained_unit": 2,
+   "pole": "-",
+   "children": [
+    "U009",
+    "U010",
+    "U011",
+    "U012"
+   ],
+   "decoys": [
+    "U013",
+    "U014",
+    "U015",
+    "U016"
+   ]
+  },
+  {
+   "parent": "U017",
+   "trained_unit": 5,
+   "pole": "-",
+   "children": [
+    "U018",
+    "U019",
+    "U011",
+    "U010"
+   ],
+   "decoys": [
+    "U020",
+    "U021",
+    "U022",
+    "U023"
+   ]
+  },
+  {
+   "parent": "U024",
+   "trained_unit": 7,
+   "pole": "+",
+   "children": [
+    "U025",
+    "U026",
+    "U027",
+    "U028"
+   ],
+   "decoys": [
+    "U029",
+    "U030",
+    "U031",
+    "U032"
+   ]
+  },
+  {
+   "parent": "U033",
+   "trained_unit": 8,
+   "pole": "-",
+   "children": [
+    "U011",
+    "U019",
+    "U034",
+    "U035"
+   ],
+   "decoys": [
+    "U036",
+    "U037",
+    "U038",
+    "U039"
+   ]
+  },
+  {
+   "parent": "U040",
+   "trained_unit": 9,
+   "pole": "+",
+   "children": [
+    "U041",
+    "U042"
+   ],
+   "decoys": [
+    "U043",
+    "U044"
+   ]
+  },
+  {
+   "parent": "U045",
+   "trained_unit": 10,
+   "pole": "-",
+   "children": [
+    "U046",
+    "U047",
+    "U048"
+   ],
+   "decoys": [
+    "U049",
+    "U050",
+    "U051"
+   ]
+  },
+  {
+   "parent": "U052",
+   "trained_unit": 12,
+   "pole": "+",
+   "children": [
+    "U053",
+    "U054",
+    "U055",
+    "U056"
+   ],
+   "decoys": [
+    "U057",
+    "U058",
+    "U059",
+    "U060"
+   ]
+  },
+  {
+   "parent": "U061",
+   "trained_unit": 13,
+   "pole": "-",
+   "children": [
+    "U062",
+    "U063",
+    "U064",
+    "U065"
+   ],
+   "decoys": [
+    "U066",
+    "U067",
+    "U068",
+    "U069"
+   ]
+  },
+  {
+   "parent": "U070",
+   "trained_unit": 14,
+   "pole": "-",
+   "children": [
+    "U071",
+    "U072",
+    "U073",
+    "U074"
+   ],
+   "decoys": [
+    "U075",
+    "U076",
+    "U077",
+    "U078"
+   ]
+  },
+  {
+   "parent": "U079",
+   "trained_unit": 15,
+   "pole": "-",
+   "children": [
+    "U080",
+    "U009",
+    "U081",
+    "U082"
+   ],
+   "decoys": [
+    "U083",
+    "U084",
+    "U085",
+    "U086"
+   ]
+  },
+  {
+   "parent": "U087",
+   "trained_unit": 18,
+   "pole": "-",
+   "children": [
+    "U062",
+    "U065",
+    "U064",
+    "U063"
+   ],
+   "decoys": [
+    "U088",
+    "U089",
+    "U090",
+    "U091"
+   ]
+  },
+  {
+   "parent": "U092",
+   "trained_unit": 19,
+   "pole": "+",
+   "children": [
+    "U080",
+    "U009",
+    "U093",
+    "U081"
+   ],
+   "decoys": [
+    "U094",
+    "U095",
+    "U096",
+    "U097"
+   ]
+  },
+  {
+   "parent": "U098",
+   "trained_unit": 21,
+   "pole": "+",
+   "children": [
+    "U099",
+    "U054",
+    "U055",
+    "U100"
+   ],
+   "decoys": [
+    "U101",
+    "U102",
+    "U103",
+    "U104"
+   ]
+  },
+  {
+   "parent": "U105",
+   "trained_unit": 22,
+   "pole": "-",
+   "children": [
+    "U064",
+    "U062",
+    "U063",
+    "U065"
+   ],
+   "decoys": [
+    "U106",
+    "U107",
+    "U108",
+    "U109"
+   ]
+  },
+  {
+   "parent": "U110",
+   "trained_unit": 23,
+   "pole": "-",
+   "children": [
+    "U080",
+    "U009",
+    "U018",
+    "U111"
+   ],
+   "decoys": [
+    "U112",
+    "U113",
+    "U114",
+    "U115"
+   ]
+  },
+  {
+   "parent": "U116",
+   "trained_unit": 25,
+   "pole": "-",
+   "children": [
+    "U065",
+    "U062",
+    "U064",
+    "U063"
+   ],
+   "decoys": [
+    "U117",
+    "U118",
+    "U119",
+    "U120"
+   ]
+  },
+  {
+   "parent": "U121",
+   "trained_unit": 26,
+   "pole": "-",
+   "children": [
+    "U080",
+    "U009",
+    "U122",
+    "U012"
+   ],
+   "decoys": [
+    "U123",
+    "U124",
+    "U125",
+    "U126"
+   ]
+  },
+  {
+   "parent": "U127",
+   "trained_unit": 27,
+   "pole": "+",
+   "children": [
+    "U128",
+    "U129",
+    "U130",
+    "U131"
+   ],
+   "decoys": [
+    "U132",
+    "U133",
+    "U134",
+    "U135"
+   ]
+  },
+  {
+   "parent": "U136",
+   "trained_unit": 30,
+   "pole": "-",
+   "children": [
+    "U080",
+    "U137",
+    "U012",
+    "U019"
+   ],
+   "decoys": [
+    "U138",
+    "U139",
+    "U140",
+    "U141"
+   ]
+  },
+  {
+   "parent": "U142",
+   "trained_unit": 31,
+   "pole": "-",
+   "children": [
+    "U034",
+    "U019",
+    "U093",
+    "U010"
+   ],
+   "decoys": [
+    "U143",
+    "U144",
+    "U145",
+    "U146"
+   ]
+  },
+  {
+   "parent": "U147",
+   "trained_unit": 34,
+   "pole": "+",
+   "children": [
+    "U148",
+    "U149"
+   ],
+   "decoys": [
+    "U150",
+    "U151"
+   ]
+  },
+  {
+   "parent": "U152",
+   "trained_unit": 36,
+   "pole": "-",
+   "children": [
+    "U054",
+    "U153",
+    "U056",
+    "U046"
+   ],
+   "decoys": [
+    "U154",
+    "U155",
+    "U156",
+    "U157"
+   ]
+  },
+  {
+   "parent": "U158",
+   "trained_unit": 40,
+   "pole": "+",
+   "children": [
+    "U080",
+    "U018",
+    "U009",
+    "U093"
+   ],
+   "decoys": [
+    "U159",
+    "U160",
+    "U161",
+    "U162"
+   ]
+  },
+  {
+   "parent": "U163",
+   "trained_unit": 41,
+   "pole": "+",
+   "children": [
+    "U099",
+    "U129",
+    "U164",
+    "U034"
+   ],
+   "decoys": [
+    "U165",
+    "U166",
+    "U167",
+    "U168"
+   ]
+  },
+  {
+   "parent": "U169",
+   "trained_unit": 42,
+   "pole": "+",
+   "children": [
+    "U170",
+    "U093",
+    "U012",
+    "U171"
+   ],
+   "decoys": [
+    "U172",
+    "U173",
+    "U174",
+    "U175"
+   ]
+  },
+  {
+   "parent": "U176",
+   "trained_unit": 43,
+   "pole": "+",
+   "children": [
+    "U177",
+    "U178",
+    "U179",
+    "U180"
+   ],
+   "decoys": [
+    "U181",
+    "U182",
+    "U183",
+    "U184"
+   ]
+  },
+  {
+   "parent": "U185",
+   "trained_unit": 44,
+   "pole": "+",
+   "children": [
+    "U186",
+    "U187",
+    "U188",
+    "U189"
+   ],
+   "decoys": [
+    "U190",
+    "U191",
+    "U192",
+    "U193"
+   ]
+  },
+  {
+   "parent": "U194",
+   "trained_unit": 45,
+   "pole": "-",
+   "children": [
+    "U093",
+    "U009",
+    "U080",
+    "U012"
+   ],
+   "decoys": [
+    "U195",
+    "U196",
+    "U197",
+    "U198"
+   ]
+  },
+  {
+   "parent": "U199",
+   "trained_unit": 46,
+   "pole": "+",
+   "children": [
+    "U011",
+    "U009",
+    "U010",
+    "U035"
+   ],
+   "decoys": [
+    "U200",
+    "U201",
+    "U202",
+    "U203"
+   ]
+  }
+ ],
+ "detect_key": {
+  "U001": [
+   false,
+   true,
+   true,
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   false
+  ],
+  "U008": [
+   false,
+   true,
+   false,
+   false,
+   true,
+   true,
+   true,
+   false,
+   true,
+   false
+  ],
+  "U017": [
+   true,
+   false,
+   false,
+   false,
+   true,
+   true,
+   false,
+   true,
+   true,
+   false
+  ],
+  "U024": [
+   false,
+   true,
+   true,
+   false,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true
+  ],
+  "U033": [
+   true,
+   false,
+   true,
+   true,
+   true,
+   false,
+   false,
+   false,
+   true,
+   false
+  ],
+  "U040": [
+   true,
+   false,
+   true,
+   true,
+   false,
+   true,
+   false,
+   false,
+   true,
+   false
+  ],
+  "U045": [
+   true,
+   true,
+   true,
+   false,
+   false,
+   false,
+   true,
+   false,
+   false,
+   true
+  ],
+  "U052": [
+   true,
+   false,
+   false,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true
+  ],
+  "U061": [
+   false,
+   true,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false
+  ],
+  "U070": [
+   true,
+   false,
+   false,
+   true,
+   false,
+   true,
+   true,
+   true,
+   false,
+   false
+  ],
+  "U079": [
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   true,
+   false,
+   false,
+   false
+  ],
+  "U087": [
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false
+  ],
+  "U092": [
+   false,
+   false,
+   true,
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   false
+  ],
+  "U098": [
+   false,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true,
+   false,
+   true
+  ],
+  "U105": [
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true
+  ],
+  "U110": [
+   false,
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   false,
+   true,
+   true
+  ],
+  "U116": [
+   false,
+   false,
+   true,
+   true,
+   false,
+   false,
+   true,
+   true,
+   true,
+   false
+  ],
+  "U121": [
+   true,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true,
+   false,
+   false
+  ],
+  "U127": [
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   true,
+   false
+  ],
+  "U136": [
+   false,
+   false,
+   true,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true
+  ],
+  "U142": [
+   true,
+   true,
+   false,
+   false,
+   true,
+   true,
+   true,
+   false,
+   false,
+   false
+  ],
+  "U147": [
+   false,
+   true,
+   true,
+   false,
+   false,
+   false,
+   true,
+   false,
+   true,
+   true
+  ],
+  "U152": [
+   true,
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   false,
+   false,
+   false
+  ],
+  "U158": [
+   false,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true,
+   false,
+   true
+  ],
+  "U163": [
+   true,
+   true,
+   false,
+   true,
+   false,
+   false,
+   true,
+   true,
+   false,
+   false
+  ],
+  "U169": [
+   true,
+   false,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true,
+   false,
+   true
+  ],
+  "U176": [
+   false,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   true
+  ],
+  "U185": [
+   true,
+   false,
+   true,
+   true,
+   false,
+   false,
+   true,
+   false,
+   false,
+   true
+  ],
+  "U194": [
+   false,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true,
+   true
+  ],
+  "U199": [
+   false,
+   true,
+   true,
+   true,
+   true,
+   false,
+   false,
+   true,
+   false,
+   false
+  ]
+ }
+}

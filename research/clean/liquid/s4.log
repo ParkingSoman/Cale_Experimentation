@@ -1,0 +1,31 @@
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (46012 > 8192). Running this sequence through the model will result in indexing errors
+stats 3.6s
+saliency [np.int64(17), np.int64(230), np.int64(247), np.int64(260), np.int64(308), np.int64(371), np.int64(507)]
+  pca_global             d518 frac 0.101  prose +0.6136  code +0.3941  (131.4s)
+  pca_global_ls          d518 frac 0.101  prose +0.6615  code +0.4962  (10.7s)
+  read_glob              d518 frac 0.101  prose +1.5533  code +1.2880  (8.0s)
+  read_glob_ls           d518 frac 0.101  prose +1.7517  code +1.5222  (9.9s)
+  read_act               d518 frac 0.101  prose +1.2821  code +1.1253  (7.9s)
+  read_act_ls            d518 frac 0.101  prose +1.5996  code +1.5211  (9.4s)
+  coord                  d518 frac 0.101  prose +0.8108  code +0.6954  (5.9s)
+  blocks6_pca            d518 frac 0.101  prose +0.7925  code +0.6056  (7.5s)
+  blocks6_pca_ls         d518 frac 0.101  prose +1.7890  code +1.7109  (16.4s)
+  blocks6_read_act       d518 frac 0.101  prose +3.9518  code +5.1640  (115.8s)
+  blocks6_read_act_ls    d518 frac 0.101  prose +3.2499  code +4.4352  (128.1s)
+  mlp_cut_ls_mix_K1330   d518 frac 0.101  prose +0.3047  code +0.2405  (715.3s)
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s4-stream-whole.json
+  pca_global             d432 frac 0.250  prose +2.1288  code +1.9846  (10.9s)
+  pca_global_ls          d432 frac 0.250  prose +2.8643  code +2.8165  (8.3s)
+  read_glob              d432 frac 0.250  prose +6.5891  code +8.0784  (7.5s)
+  read_glob_ls           d432 frac 0.250  prose +5.2626  code +5.8490  (7.5s)
+  read_act               d432 frac 0.250  prose +6.1295  code +7.1212  (7.9s)
+  read_act_ls            d432 frac 0.250  prose +4.5166  code +5.1457  (9.3s)
+  coord                  d432 frac 0.250  prose +3.3084  code +3.4008  (6.8s)
+  blocks6_pca            d432 frac 0.250  prose +3.3383  code +3.4754  (6.3s)
+  blocks6_pca_ls         d432 frac 0.250  prose +3.4273  code +3.3239  (5.0s)
+  blocks6_read_act       d432 frac 0.250  prose +6.9375  code +8.2618  (100.8s)
+  blocks6_read_act_ls    d432 frac 0.250  prose +7.2292  code +8.4029  (100.7s)
+  mlp_cut_ls_mix_K1024   d432 frac 0.250  prose +0.8299  code +0.7330  (614.5s)
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s4-stream-whole.json
+  heads_9to6_cut_ls      dNone frac 0.062  prose +0.1835  code +0.1638  (166.5s)
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s4-stream-whole.json

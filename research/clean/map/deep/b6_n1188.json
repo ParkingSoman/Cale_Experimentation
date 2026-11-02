@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 1188,
+ "max": 3.1286611557006836,
+ "min": -4.609475135803223,
+ "edits": {
+  "flip": 0.9494671821594238,
+  "rot90": 0.7926375865936279,
+  "rot180": 0.90582275390625,
+  "gray": 0.8440300822257996,
+  "blur1": 0.7002358436584473,
+  "blur3": 0.2738175392150879,
+  "shuf2": 0.9919565320014954,
+  "shuf4": 0.9109947681427002,
+  "shuf8": 0.8409228324890137,
+  "hue": 0.8868346214294434,
+  "invert": 0.8253529667854309,
+  "zoomout": 0.7333235144615173,
+  "zoomin": 0.47541362047195435
+ },
+ "top50_classes": {
+  "Siberian husky": 2,
+  "beagle": 2,
+  "Eskimo dog": 2,
+  "schipperke": 1,
+  "capuchin": 1,
+  "Blenheim spaniel": 1,
+  "papillon": 1,
+  "rifle": 1,
+  "toy terrier": 1,
+  "kelpie": 1
+ },
+ "neg50_classes": {
+  "hippopotamus": 2,
+  "coil": 2,
+  "chain": 1,
+  "face powder": 1,
+  "wire-haired fox terrier": 1,
+  "French horn": 1,
+  "slot": 1,
+  "centipede": 1,
+  "barbershop": 1,
+  "file": 1
+ }
+}

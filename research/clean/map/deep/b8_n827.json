@@ -1,0 +1,45 @@
+{
+ "block": 8,
+ "neuron": 827,
+ "max": 4.708076477050781,
+ "min": -5.03506326675415,
+ "edits": {
+  "flip": 0.806556224822998,
+  "rot90": 0.4215323328971863,
+  "rot180": 0.8464076519012451,
+  "gray": 0.9977467060089111,
+  "blur1": 0.9656153917312622,
+  "blur3": 0.5547342300415039,
+  "shuf2": 0.9938321113586426,
+  "shuf4": 0.6755678653717041,
+  "shuf8": 0.5501604080200195,
+  "hue": 1.0027307271957397,
+  "invert": 0.3342767357826233,
+  "zoomout": 0.5611532926559448,
+  "zoomin": 0.3850637972354889
+ },
+ "top50_classes": {
+  "unicycle": 2,
+  "cleaver": 1,
+  "yawl": 1,
+  "accordion": 1,
+  "Model T": 1,
+  "airship": 1,
+  "modem": 1,
+  "freight car": 1,
+  "monitor": 1,
+  "shoji": 1
+ },
+ "neg50_classes": {
+  "prison": 1,
+  "jeep": 1,
+  "horizontal bar": 1,
+  "American lobster": 1,
+  "honeycomb": 1,
+  "home theater": 1,
+  "holster": 1,
+  "hatchet": 1,
+  "typewriter keyboard": 1,
+  "sea anemone": 1
+ }
+}

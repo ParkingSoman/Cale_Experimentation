@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 1759,
+ "max": 12.552248001098633,
+ "min": -21.45902442932129,
+ "edits": {
+  "flip": 0.9476810693740845,
+  "rot90": 0.7100878953933716,
+  "rot180": 0.8445733785629272,
+  "gray": 0.789260745048523,
+  "blur1": 0.9808118343353271,
+  "blur3": 0.2333974540233612,
+  "shuf2": 0.6852700710296631,
+  "shuf4": 0.3376536965370178,
+  "shuf8": -0.04402853548526764,
+  "hue": 0.6981541514396667,
+  "invert": 0.824148952960968,
+  "zoomout": 0.030172739177942276,
+  "zoomin": 0.37249234318733215
+ },
+ "top50_classes": {
+  "tick": 3,
+  "garden spider": 3,
+  "black and gold garden spider": 3,
+  "wolf spider": 2,
+  "leaf beetle": 2,
+  "velvet": 1,
+  "chocolate sauce": 1,
+  "mud turtle": 1,
+  "pomegranate": 1,
+  "admiral": 1
+ },
+ "neg50_classes": {
+  "Afghan hound": 2,
+  "Pembroke": 2,
+  "projector": 1,
+  "Dandie Dinmont": 1,
+  "Scottish deerhound": 1,
+  "wooden spoon": 1,
+  "Irish terrier": 1,
+  "Norwich terrier": 1,
+  "frying pan": 1,
+  "crossword puzzle": 1
+ }
+}

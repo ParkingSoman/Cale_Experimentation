@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 32,
+ "max": 15.219344139099121,
+ "min": -13.76315689086914,
+ "edits": {
+  "flip": 0.9968550205230713,
+  "rot90": 0.8643920421600342,
+  "rot180": 0.8235076665878296,
+  "gray": 0.07135748863220215,
+  "blur1": 0.9957579374313354,
+  "blur3": 0.8865649700164795,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.988611102104187,
+  "hue": 0.7075394988059998,
+  "invert": 0.8197171688079834,
+  "zoomout": 0.9419426321983337,
+  "zoomin": 0.8133733868598938
+ },
+ "top50_classes": {
+  "tennis ball": 3,
+  "puck": 2,
+  "pretzel": 1,
+  "admiral": 1,
+  "airship": 1,
+  "altar": 1,
+  "balloon": 1,
+  "leaf beetle": 1,
+  "green mamba": 1,
+  "bagel": 1
+ },
+ "neg50_classes": {
+  "teapot": 2,
+  "puck": 2,
+  "stingray": 2,
+  "ear": 2,
+  "moving van": 1,
+  "entertainment center": 1,
+  "sock": 1,
+  "hippopotamus": 1,
+  "studio couch": 1,
+  "soup bowl": 1
+ }
+}

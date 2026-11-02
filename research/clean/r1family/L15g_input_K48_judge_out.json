@@ -1,0 +1,182 @@
+{
+ "F1": {
+  "choice": "Y",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F2": {
+  "choice": "Y",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F3": {
+  "choice": "Y",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F4": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F5": {
+  "choice": "Y",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F6": {
+  "choice": "Y",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F7": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F8": {
+  "choice": "X",
+  "confidence": 4,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F9": {
+  "choice": "X",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F10": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "broader",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F11": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F12": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F13": {
+  "choice": "Y",
+  "confidence": 5,
+  "relation": "broader",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F14": {
+  "choice": "X",
+  "confidence": 3,
+  "relation": "unclear",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F15": {
+  "choice": "X",
+  "confidence": 3,
+  "relation": "unclear",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F16": {
+  "choice": "Y",
+  "confidence": 5,
+  "relation": "broader",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F17": {
+  "choice": "X",
+  "confidence": 4,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F18": {
+  "choice": "Y",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F19": {
+  "choice": "X",
+  "confidence": 3,
+  "relation": "unclear",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F20": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F21": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F22": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F23": {
+  "choice": "X",
+  "confidence": 4,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F24": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F25": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "unclear",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F26": {
+  "choice": "X",
+  "confidence": 4,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F27": {
+  "choice": "Y",
+  "confidence": 3,
+  "relation": "unclear",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F28": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F29": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ },
+ "F30": {
+  "choice": "Y",
+  "confidence": 5,
+  "relation": "same",
+  "why": "Chosen set matches the parent's theme."
+ }
+}

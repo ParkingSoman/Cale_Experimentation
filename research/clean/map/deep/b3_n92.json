@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 92,
+ "max": 4.804319858551025,
+ "min": -5.863952159881592,
+ "edits": {
+  "flip": 0.9942129850387573,
+  "rot90": 0.9966326951980591,
+  "rot180": 1.007340908050537,
+  "gray": -0.0684274286031723,
+  "blur1": 0.9601647853851318,
+  "blur3": 0.8734134435653687,
+  "shuf2": 0.9999375343322754,
+  "shuf4": 0.9853562712669373,
+  "shuf8": 0.9449620246887207,
+  "hue": 0.056227993220090866,
+  "invert": 0.06326933205127716,
+  "zoomout": 0.9494838714599609,
+  "zoomin": 0.9020059108734131
+ },
+ "top50_classes": {
+  "bullfrog": 2,
+  "macaw": 2,
+  "cockroach": 2,
+  "American chameleon": 2,
+  "green lizard": 2,
+  "pineapple": 1,
+  "cucumber": 1,
+  "bell pepper": 1,
+  "padlock": 1,
+  "maypole": 1
+ },
+ "neg50_classes": {
+  "red wine": 2,
+  "dalmatian": 1,
+  "dishrag": 1,
+  "sleeping bag": 1,
+  "feather boa": 1,
+  "mouse": 1,
+  "bakery": 1,
+  "electric guitar": 1,
+  "bagel": 1,
+  "digital watch": 1
+ }
+}

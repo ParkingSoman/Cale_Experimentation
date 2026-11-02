@@ -1,0 +1,45 @@
+{
+ "block": 7,
+ "neuron": 701,
+ "max": 4.70258092880249,
+ "min": -7.744937896728516,
+ "edits": {
+  "flip": 0.6928149461746216,
+  "rot90": 0.5769758224487305,
+  "rot180": 0.5704033374786377,
+  "gray": 0.7295283079147339,
+  "blur1": 0.9198582768440247,
+  "blur3": 0.5513918399810791,
+  "shuf2": 0.9640217423439026,
+  "shuf4": 0.7528873682022095,
+  "shuf8": 0.7191723585128784,
+  "hue": 0.6336573958396912,
+  "invert": 0.6059342622756958,
+  "zoomout": 0.6442396640777588,
+  "zoomin": 0.5305370688438416
+ },
+ "top50_classes": {
+  "sorrel": 2,
+  "Siberian husky": 1,
+  "fox squirrel": 1,
+  "hog": 1,
+  "English foxhound": 1,
+  "black-and-tan coonhound": 1,
+  "Afghan hound": 1,
+  "Rhodesian ridgeback": 1,
+  "orangutan": 1,
+  "chimpanzee": 1
+ },
+ "neg50_classes": {
+  "malinois": 2,
+  "fiddler crab": 1,
+  "Rhodesian ridgeback": 1,
+  "hartebeest": 1,
+  "gazelle": 1,
+  "three-toed sloth": 1,
+  "siamang": 1,
+  "bustard": 1,
+  "lawn mower": 1,
+  "white stork": 1
+ }
+}

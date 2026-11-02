@@ -1,0 +1,128 @@
+{
+ "T20": {
+  "Q2": "holds",
+  "Q3": "empty",
+  "Q2_first_witness": null,
+  "Q3_first_witness": null,
+  "Q2_lp_max_overlap": -1.0,
+  "Q3_lp_max_overlap": 0.0,
+  "n_units": 2,
+  "n_points": 7
+ },
+ "T22 teacher (yes-graph, kappa 2)": {
+  "Q2": "empty",
+  "Q3": "fails",
+  "Q2_first_witness": null,
+  "Q3_first_witness": {
+   "reader": 0,
+   "pair": [
+    0,
+    1
+   ],
+   "witness": [
+    "0",
+    "1",
+    "0",
+    "0"
+   ],
+   "lp_overlap": 1.0
+  },
+  "Q2_lp_max_overlap": 0.0,
+  "Q3_lp_max_overlap": 1.0,
+  "n_units": 8,
+  "n_points": 9
+ },
+ "T23 teacher": {
+  "Q2": "empty",
+  "Q3": "fails",
+  "Q2_first_witness": null,
+  "Q3_first_witness": {
+   "reader": 0,
+   "pair": [
+    0,
+    4
+   ],
+   "witness": [
+    "1",
+    "1"
+   ],
+   "lp_overlap": 1.0
+  },
+  "Q2_lp_max_overlap": 0.0,
+  "Q3_lp_max_overlap": 1.0,
+  "n_units": 5,
+  "n_points": 6
+ },
+ "T32": {
+  "Q2": "fails",
+  "Q3": "empty",
+  "Q2_first_witness": {
+   "pair": [
+    0,
+    1
+   ],
+   "witness": [
+    "2",
+    "2"
+   ],
+   "lp_overlap": 1.0
+  },
+  "Q3_first_witness": null,
+  "Q2_lp_max_overlap": 1.0,
+  "Q3_lp_max_overlap": 0.0,
+  "n_units": 4,
+  "n_points": 8
+ },
+ "T33": {
+  "Q2": "fails",
+  "Q3": "empty",
+  "Q2_first_witness": {
+   "pair": [
+    0,
+    1
+   ],
+   "witness": [
+    "1",
+    "1",
+    "1/2"
+   ],
+   "lp_overlap": 0.5
+  },
+  "Q3_first_witness": null,
+  "Q2_lp_max_overlap": 0.5,
+  "Q3_lp_max_overlap": 0.0,
+  "n_units": 4,
+  "n_points": 12
+ },
+ "T34": {
+  "Q2": "fails",
+  "Q3": "empty",
+  "Q2_first_witness": {
+   "pair": [
+    0,
+    1
+   ],
+   "witness": [
+    "1",
+    "1",
+    "2"
+   ],
+   "lp_overlap": 1.0
+  },
+  "Q3_first_witness": null,
+  "Q2_lp_max_overlap": 1.0,
+  "Q3_lp_max_overlap": 0.0,
+  "n_units": 8,
+  "n_points": 12
+ },
+ "D40 (kappa 2, m 3)": {
+  "Q2": "holds",
+  "Q3": "empty",
+  "Q2_first_witness": null,
+  "Q3_first_witness": null,
+  "Q2_lp_max_overlap": -0.015000000000000013,
+  "Q3_lp_max_overlap": 0.0,
+  "n_units": 6,
+  "n_points": 17
+ }
+}

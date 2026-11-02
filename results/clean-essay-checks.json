@@ -1,0 +1,40 @@
+{
+ "15": {
+  "check1": {
+   "value_more_distinct": 0.4609375,
+   "nesting_gate_inside_value": 0.3880208333333333,
+   "pass": false
+  },
+  "check2": {
+   "share_value_partner_ge_0.6": 0.030598958333333332,
+   "share_gate_partner_ge_0.6": 0.166015625,
+   "median_max_value_corr": 0.3561667195582927,
+   "median_max_gate_corr": 0.4695927170349137,
+   "pass": false
+  },
+  "check3": {
+   "pairs": 84,
+   "sib_below_p25": 0.011904761904761904,
+   "rand_below_p25": 0.0,
+   "sib_above_p90": 0.2976190476190476,
+   "rand_above_p90": 0.011904761904761904,
+   "sib_median_pct": 0.8200067270058709,
+   "rand_median_pct": 0.48724926614481406,
+   "pass": true
+  }
+ },
+ "28": {
+  "check1": {
+   "value_more_distinct": 0.490234375,
+   "nesting_gate_inside_value": 0.2669270833333333,
+   "pass": false
+  },
+  "check2": {
+   "share_value_partner_ge_0.6": 0.031901041666666664,
+   "share_gate_partner_ge_0.6": 0.11002604166666667,
+   "median_max_value_corr": 0.37197272033019946,
+   "median_max_gate_corr": 0.45610570439747977,
+   "pass": false
+  }
+ }
+}

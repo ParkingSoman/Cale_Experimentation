@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 851,
+ "max": 3.8151488304138184,
+ "min": -5.451834678649902,
+ "edits": {
+  "flip": 0.9431872367858887,
+  "rot90": 0.4286963939666748,
+  "rot180": 0.7599037885665894,
+  "gray": 0.9941507577896118,
+  "blur1": 0.8808630704879761,
+  "blur3": 0.572533130645752,
+  "shuf2": 0.9433718919754028,
+  "shuf4": 0.8064993619918823,
+  "shuf8": 0.5292383432388306,
+  "hue": 0.9283753633499146,
+  "invert": 0.8906135559082031,
+  "zoomout": 0.7378300428390503,
+  "zoomin": 0.5369999408721924
+ },
+ "top50_classes": {
+  "radio telescope": 2,
+  "French bulldog": 1,
+  "torch": 1,
+  "Walker hound": 1,
+  "ram": 1,
+  "ibex": 1,
+  "Chihuahua": 1,
+  "killer whale": 1,
+  "black-footed ferret": 1,
+  "ruddy turnstone": 1
+ },
+ "neg50_classes": {
+  "cleaver": 1,
+  "tile roof": 1,
+  "purse": 1,
+  "rule": 1,
+  "English setter": 1,
+  "Labrador retriever": 1,
+  "space bar": 1,
+  "stopwatch": 1,
+  "papillon": 1,
+  "switch": 1
+ }
+}

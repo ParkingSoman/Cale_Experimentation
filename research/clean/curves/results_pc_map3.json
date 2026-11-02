@@ -1,0 +1,225 @@
+{
+ "car_detector_4c_447": {
+  "a_sum": 0.010244600474834442,
+  "a_sum_side": "car",
+  "b_max": 0.045128870755434036,
+  "b_max_side": "car",
+  "c_strong": 0.0,
+  "c_strong_side": "car",
+  "n_strong": 16
+ },
+ "mixed5b_car_side": [
+  {
+   "ch": 50,
+   "a_sum": 0.26362064480781555,
+   "a_sum_side": "car",
+   "b_max": 0.335195928812027,
+   "b_max_side": "car",
+   "c_strong": 0.3125,
+   "c_strong_side": "car",
+   "n_strong": 16
+  },
+  {
+   "ch": 652,
+   "a_sum": 0.09804269671440125,
+   "a_sum_side": "car",
+   "b_max": 0.1285339891910553,
+   "b_max_side": "car",
+   "c_strong": 0.0625,
+   "c_strong_side": "car",
+   "n_strong": 16
+  },
+  {
+   "ch": 513,
+   "a_sum": 0.14038275182247162,
+   "a_sum_side": "car",
+   "b_max": 0.1994016021490097,
+   "b_max_side": "car",
+   "c_strong": 0.0625,
+   "c_strong_side": "car",
+   "n_strong": 16
+  },
+  {
+   "ch": 185,
+   "a_sum": 0.030998829752206802,
+   "a_sum_side": "car",
+   "b_max": 0.07547196000814438,
+   "b_max_side": "car",
+   "c_strong": 0.0,
+   "c_strong_side": "car",
+   "n_strong": 16
+  },
+  {
+   "ch": 60,
+   "a_sum": 0.20831511914730072,
+   "a_sum_side": "car",
+   "b_max": 0.2624346613883972,
+   "b_max_side": "car",
+   "c_strong": 0.18749999999999997,
+   "c_strong_side": "car",
+   "n_strong": 16
+  },
+  {
+   "ch": 661,
+   "a_sum": 0.10023386776447296,
+   "a_sum_side": "car",
+   "b_max": 0.1749991625547409,
+   "b_max_side": "car",
+   "c_strong": 0.0,
+   "c_strong_side": "car",
+   "n_strong": 16
+  },
+  {
+   "ch": 547,
+   "a_sum": 0.2426082342863083,
+   "a_sum_side": "car",
+   "b_max": 0.25934699177742004,
+   "b_max_side": "car",
+   "c_strong": 0.3125,
+   "c_strong_side": "car",
+   "n_strong": 16
+  },
+  {
+   "ch": 317,
+   "a_sum": 0.07019688934087753,
+   "a_sum_side": "car",
+   "b_max": 0.11185777187347412,
+   "b_max_side": "car",
+   "c_strong": 0.0,
+   "c_strong_side": "car",
+   "n_strong": 16
+  },
+  {
+   "ch": 326,
+   "a_sum": 0.08732433617115021,
+   "a_sum_side": "car",
+   "b_max": 0.1803458333015442,
+   "b_max_side": "car",
+   "c_strong": 0.0,
+   "c_strong_side": "car",
+   "n_strong": 16
+  },
+  {
+   "ch": 518,
+   "a_sum": 0.1334400326013565,
+   "a_sum_side": "car",
+   "b_max": 0.1868671029806137,
+   "b_max_side": "car",
+   "c_strong": 0.0625,
+   "c_strong_side": "car",
+   "n_strong": 16
+  }
+ ],
+ "mixed5b_dog_side": [
+  {
+   "ch": 70,
+   "a_sum": 0.042412638664245605,
+   "a_sum_side": "dog",
+   "b_max": 0.10508787631988525,
+   "b_max_side": "dog",
+   "c_strong": 0.0,
+   "c_strong_side": "dog",
+   "n_strong": 16
+  },
+  {
+   "ch": 252,
+   "a_sum": 0.03357982635498047,
+   "a_sum_side": "dog",
+   "b_max": 0.11897675693035126,
+   "b_max_side": "dog",
+   "c_strong": 0.0,
+   "c_strong_side": "dog",
+   "n_strong": 16
+  },
+  {
+   "ch": 148,
+   "a_sum": 0.04227084666490555,
+   "a_sum_side": "dog",
+   "b_max": 0.1192253977060318,
+   "b_max_side": "dog",
+   "c_strong": 0.0625,
+   "c_strong_side": "dog",
+   "n_strong": 16
+  },
+  {
+   "ch": 54,
+   "a_sum": 0.08491365611553192,
+   "a_sum_side": "dog",
+   "b_max": 0.16675600409507751,
+   "b_max_side": "dog",
+   "c_strong": 0.0,
+   "c_strong_side": "dog",
+   "n_strong": 16
+  },
+  {
+   "ch": 494,
+   "a_sum": 0.10436753928661346,
+   "a_sum_side": "dog",
+   "b_max": 0.15709200501441956,
+   "b_max_side": "dog",
+   "c_strong": 0.0625,
+   "c_strong_side": "dog",
+   "n_strong": 16
+  },
+  {
+   "ch": 149,
+   "a_sum": 0.0703040137887001,
+   "a_sum_side": "dog",
+   "b_max": 0.13681982457637787,
+   "b_max_side": "dog",
+   "c_strong": 0.0625,
+   "c_strong_side": "dog",
+   "n_strong": 16
+  },
+  {
+   "ch": 424,
+   "a_sum": 0.15770916640758514,
+   "a_sum_side": "dog",
+   "b_max": 0.224343404173851,
+   "b_max_side": "dog",
+   "c_strong": 0.0625,
+   "c_strong_side": "dog",
+   "n_strong": 16
+  },
+  {
+   "ch": 730,
+   "a_sum": 0.1597299873828888,
+   "a_sum_side": "dog",
+   "b_max": 0.2666742503643036,
+   "b_max_side": "dog",
+   "c_strong": 0.0625,
+   "c_strong_side": "dog",
+   "n_strong": 16
+  },
+  {
+   "ch": 667,
+   "a_sum": 0.09720966219902039,
+   "a_sum_side": "dog",
+   "b_max": 0.1595969945192337,
+   "b_max_side": "dog",
+   "c_strong": 0.0,
+   "c_strong_side": "dog",
+   "n_strong": 16
+  },
+  {
+   "ch": 231,
+   "a_sum": 0.07257475703954697,
+   "a_sum_side": "dog",
+   "b_max": 0.13377131521701813,
+   "b_max_side": "dog",
+   "c_strong": 0.0625,
+   "c_strong_side": "dog",
+   "n_strong": 16
+  }
+ ],
+ "mixed4c_median": {
+  "a_sum": 0.34808874130249023,
+  "b_max": 0.42872558534145355,
+  "c_strong": 0.18749999999999997
+ },
+ "mixed5b_median": {
+  "a_sum": 0.3379104733467102,
+  "b_max": 0.3827220946550369,
+  "c_strong": 0.3125
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 676,
+ "max": 3.9329705238342285,
+ "min": -5.9264960289001465,
+ "edits": {
+  "flip": 0.9521540403366089,
+  "rot90": 0.17057931423187256,
+  "rot180": 0.8515123128890991,
+  "gray": 0.7387064695358276,
+  "blur1": 0.3725566267967224,
+  "blur3": 0.2058984637260437,
+  "shuf2": 1.3471755981445312,
+  "shuf4": 1.288636326789856,
+  "shuf8": 0.42145758867263794,
+  "hue": 0.8712941408157349,
+  "invert": 0.8107151985168457,
+  "zoomout": 1.0753099918365479,
+  "zoomin": 0.23625421524047852
+ },
+ "top50_classes": {
+  "hand-held computer": 1,
+  "hamper": 1,
+  "screen": 1,
+  "beach wagon": 1,
+  "anemone fish": 1,
+  "microphone": 1,
+  "African chameleon": 1,
+  "viaduct": 1,
+  "fig": 1,
+  "conch": 1
+ },
+ "neg50_classes": {
+  "rapeseed": 2,
+  "cleaver": 1,
+  "switch": 1,
+  "knot": 1,
+  "howler monkey": 1,
+  "hard disc": 1,
+  "handkerchief": 1,
+  "sea anemone": 1,
+  "eel": 1,
+  "greenhouse": 1
+ }
+}

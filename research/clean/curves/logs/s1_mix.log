@@ -1,0 +1,13 @@
+unsure pool 10498: animal 3642, non-animal 6856
+done animal 3642
+done non-animal 4000
+done randA 4000
+done randB 4000
+  animal     dev-5000 KL 0.0791 (se 0.0038)
+  non-animal dev-5000 KL 0.0837 (se 0.0040)
+  randA      dev-5000 KL 0.0674 (se 0.0031)
+  randB      dev-5000 KL 0.0649 (se 0.0032)
+  paired animal - non-animal: -0.0045 (se 0.0041)
+  paired randA - randB: +0.0025 (se 0.0028)
+  paired animal - randA: +0.0117 (se 0.0033)
+  paired non-animal - randA: +0.0162 (se 0.0034)

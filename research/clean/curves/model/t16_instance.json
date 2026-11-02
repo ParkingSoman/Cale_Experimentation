@@ -1,0 +1,39 @@
+{
+ "teacher gates from R* match": 2.842170943040401e-14,
+ "k=2": {
+  "floor (T12)": 349.3614068094512,
+  "T11 value": 12737.337796321073,
+  "U1 J(R*)": 12737.337796321051,
+  "U1 rel err": 1.7136919183265143e-15,
+  "U2 max (J - D2)/J over random builds (<= 0 expected)": 0.0,
+  "U2 converse build rel err": 3.75413262674128e-15,
+  "U3 grad norm at R*": 12522.759877457014,
+  "U3 J after descent from R*": 1190.092237292265,
+  "U4 best J over 30 starts": 1190.0921929657925,
+  "U4 students D2": [
+   1261.8845713972662,
+   1212.2033710437113,
+   1263.108804788123,
+   1242.3826364637562
+  ],
+  "U5 max (J(R_student) - D2)/D2 (<= 0 expected)": 0.0
+ },
+ "k=3": {
+  "floor (T12)": 30.518522357979535,
+  "T11 value": 138.93218963483108,
+  "U1 J(R*)": 138.93218963481377,
+  "U1 rel err": 1.245846703244978e-13,
+  "U2 max (J - D2)/J over random builds (<= 0 expected)": 0.0,
+  "U2 converse build rel err": 3.562567321891239e-15,
+  "U3 grad norm at R*": 2638.3573590774126,
+  "U3 J after descent from R*": 36.917956828063325,
+  "U4 best J over 30 starts": 36.91795682731026,
+  "U4 students D2": [
+   44.72393585820908,
+   954.7980894147282,
+   48.53448416196015,
+   41.49943665054385
+  ],
+  "U5 max (J(R_student) - D2)/D2 (<= 0 expected)": 0.0
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 1206,
+ "max": 4.0910444259643555,
+ "min": -7.221129417419434,
+ "edits": {
+  "flip": 0.9751526117324829,
+  "rot90": 0.8247554302215576,
+  "rot180": 0.874813973903656,
+  "gray": 0.045018672943115234,
+  "blur1": 1.005180835723877,
+  "blur3": 0.9518142938613892,
+  "shuf2": 1.0,
+  "shuf4": 0.9403721690177917,
+  "shuf8": 0.8910976052284241,
+  "hue": 0.13824114203453064,
+  "invert": 0.9539139270782471,
+  "zoomout": 0.7381230592727661,
+  "zoomin": 0.8056275844573975
+ },
+ "top50_classes": {
+  "acorn squash": 2,
+  "English foxhound": 2,
+  "buckeye": 2,
+  "papillon": 2,
+  "lesser panda": 2,
+  "Blenheim spaniel": 2,
+  "spindle": 2,
+  "croquet ball": 1,
+  "Saluki": 1,
+  "drum": 1
+ },
+ "neg50_classes": {
+  "reel": 2,
+  "tench": 1,
+  "night snake": 1,
+  "sidewinder": 1,
+  "horned viper": 1,
+  "ground beetle": 1,
+  "Indian cobra": 1,
+  "nipple": 1,
+  "cheeseburger": 1,
+  "odometer": 1
+ }
+}

@@ -1,0 +1,1017 @@
+{
+ "U195": {
+  "function": "Detects tokens inside a parenthetical gloss after \"(\", such as Chinese characters, romanized words, acronym letters and unit fragments like \"h\" in km/h.",
+  "category": "parenthetical gloss content",
+  "coherent": true
+ },
+ "U156": {
+  "function": "Fires on a preposition or opening parenthesis (\"in\", \"to\", \"for\", \"on\", \"from\", \"(\") that follows a verb or noun and expects a place, date or name next.",
+  "category": "preposition expecting object",
+  "coherent": true
+ },
+ "U091": {
+  "function": "Detects intensifier or scope words like \"even\", \"all\", \"any\", \"anything\" in superlative or comparison phrases (\"bigger than anything\", \"highest of all\").",
+  "category": "intensifier in superlatives",
+  "coherent": true
+ },
+ "U080": {
+  "function": "Fires on the first digit of a converted measurement just after \"(\" following metres or feet, as in \"metres ( 6\".",
+  "category": "digit after unit parenthesis",
+  "coherent": true
+ },
+ "U063": {
+  "function": "Detects an apostrophe or closing quote mark after a word (possessive, contraction, closing quote) and ordinal \"th\".",
+  "category": "possessive and quote apostrophes",
+  "coherent": true
+ },
+ "U012": {
+  "function": "Fires on the leading digit of a number inside a unit-conversion parenthesis (metres, tons), with a few unrelated function words in set B.",
+  "category": "conversion parenthesis digits",
+  "coherent": true
+ },
+ "U101": {
+  "function": "Fires on auxiliary or linking function words (\"be\", \"was\", \"had\", \"as\", \"more\") in mid-clause where a verb or participle is expected next; mixed with stray digits.",
+  "category": "function word before verb",
+  "coherent": false
+ },
+ "U028": {
+  "function": "Fires on sentence-boundary tokens (period, closing paren, double space) and on digits inside catalog codes like ASIN numbers.",
+  "category": "sentence boundary punctuation",
+  "coherent": false
+ },
+ "U196": {
+  "function": "Detects discourse connectors that open or continue a clause, such as \"However\", \"Furthermore\", \"as well\", \"that\", \"also\".",
+  "category": "discourse connectors",
+  "coherent": true
+ },
+ "U122": {
+  "function": "Fires on digits in the inches part of a feet-inches conversion (e.g. \"42 ft 8\") and on colons after a language label.",
+  "category": "feet-inches digits",
+  "coherent": true
+ },
+ "U004": {
+  "function": "Detects digits inside years and dates (2012, 2013, 25 April) and in ASIN codes.",
+  "category": "digits in years",
+  "coherent": true
+ },
+ "U182": {
+  "function": "Fires on digits and the decimal \".\" inside numbers written with @.@ formatting, plus ASIN code digits and \"t\" in a contraction.",
+  "category": "decimal number pieces",
+  "coherent": false
+ },
+ "U010": {
+  "function": "Fires on the opening parenthesis or first digit that begins a converted measurement after metres, tons or feet.",
+  "category": "conversion opening paren",
+  "coherent": true
+ },
+ "U049": {
+  "function": "Detects words introducing a reason, purpose or contrast (\"financial\", \"economic\", \"due to\", \"increase\", \"but\", \"and\") in explanatory narrative.",
+  "category": "reason or purpose words",
+  "coherent": false
+ },
+ "U119": {
+  "function": "Fires on mid-sentence function words (were, had, maintain, at, of, up) in narrative prose and on the year digit \"1\"; no single theme.",
+  "category": "mixed function words",
+  "coherent": false
+ },
+ "U053": {
+  "function": "Fires on closing quote marks, double spaces and \"=\" of headings at the end of a quoted or sentence unit; mixed.",
+  "category": "quote and sentence end",
+  "coherent": false
+ },
+ "U105": {
+  "function": "Detects mid-word fragments of proper names and acronyms (IFP, RI, ICA, Alb-in, shi-se-i) and apostrophes after song titles.",
+  "category": "name and acronym fragments",
+  "coherent": true
+ },
+ "U025": {
+  "function": "Fires on commas, dashes and opening parentheses that begin an aside, including the thousands comma in \"5 @,@ 000\".",
+  "category": "commas dashes parentheses",
+  "coherent": true
+ },
+ "U176": {
+  "function": "Detects wikitext formatting tokens: the second \"=\" of a heading marker and the \"@\" or \"-\" in @-@ hyphen sequences, plus \"(\".",
+  "category": "heading and hyphen markup",
+  "coherent": true
+ },
+ "U153": {
+  "function": "Detects wikitext markup tokens such as \"=\" in section headings and \"@\" in @-@ hyphens, plus digits within large numbers.",
+  "category": "heading and hyphen markup",
+  "coherent": true
+ },
+ "U085": {
+  "function": "Fires on mid-phrase function words (his, of, the, as, a, for) in praise or purpose phrases like \"to serve his country as\"; mixed with \"raise money for\".",
+  "category": "phrase-internal function words",
+  "coherent": false
+ },
+ "U137": {
+  "function": "Fires on discourse or function words in quoted speech or lyrics (\"just\", \"if\", \"And\", \"my\") plus stray spaces after \"(\".",
+  "category": "quoted-speech function words",
+  "coherent": false
+ },
+ "U079": {
+  "function": "Fires on the first digit of a converted number after \"(\" following tons or knots.",
+  "category": "conversion digit",
+  "coherent": true
+ },
+ "U037": {
+  "function": "Mixed: apostrophes in contractions and possessives, and prepositions or conjunctions like \"by\", \"until\", \"unless\", \"under\".",
+  "category": "apostrophes and prepositions",
+  "coherent": false
+ },
+ "U180": {
+  "function": "Fires on the \"(\" or space that opens a conversion after a unit word (metres, tons, kilograms).",
+  "category": "conversion opening paren",
+  "coherent": true
+ },
+ "U098": {
+  "function": "Detects sentence-initial or second-sentence tokens (He, It, She, also, In addition) and heading \"=\" markers.",
+  "category": "sentence starters",
+  "coherent": false
+ },
+ "U177": {
+  "function": "Mixed: \"(\" after units and fragments of non-Latin or foreign name characters.",
+  "category": "paren after unit",
+  "coherent": false
+ },
+ "U096": {
+  "function": "Fires on nouns or adjectives after \"was/be/the\" (born, due, natural, life, range, center); no single theme.",
+  "category": "mixed mid-clause words",
+  "coherent": false
+ },
+ "U186": {
+  "function": "Mixed: relative or degree words (\"who\", \"least\", \"to\") and fragments of foreign names (shimа, Chū, Vevo).",
+  "category": "mixed name fragments",
+  "coherent": false
+ },
+ "U166": {
+  "function": "Mixed: articles, commas, \"and\", \"during\", and fragments of ship and place names.",
+  "category": "mixed function words",
+  "coherent": false
+ },
+ "U078": {
+  "function": "Fires on abstract head nouns after a determiner or possessive (reputation, practice, translations, period, power, actions).",
+  "category": "abstract head nouns",
+  "coherent": true
+ },
+ "U057": {
+  "function": "Detects \"even\" and the \"such an extent that\" intensifier construction, plus \"to be/that\" after result phrases.",
+  "category": "even and such-that",
+  "coherent": true
+ },
+ "U011": {
+  "function": "Fires on the first digit or space after \"(\" in conversions following tons, knots or km.",
+  "category": "conversion digit",
+  "coherent": true
+ },
+ "U045": {
+  "function": "Fires on \"@\" or \"-\" in @-@ hyphen markup and on closing \")\" or quote marks.",
+  "category": "hyphen and closing marks",
+  "coherent": false
+ },
+ "U146": {
+  "function": "Detects subordinating conjunctions that start a condition or time clause: \"until\", \"if\", \"when\", \"unless\", \"for\".",
+  "category": "subordinating conjunctions",
+  "coherent": true
+ },
+ "U129": {
+  "function": "Fires on sentence-end period, double space and \"=\" of a heading boundary.",
+  "category": "sentence and heading boundary",
+  "coherent": true
+ },
+ "U029": {
+  "function": "Fires on prepositions and linking words that introduce a complement (\"with\", \"by\", \"is\", \"was\", \"a\", \"of\", colon).",
+  "category": "linking prepositions",
+  "coherent": false
+ },
+ "U006": {
+  "function": "Detects prepositions and articles after verbs of participation or role (\"participated in\", \"served as the\", \"one of the\", \"part of\").",
+  "category": "role and participation phrases",
+  "coherent": true
+ },
+ "U016": {
+  "function": "Fires on digit pieces inside multi-digit numbers and page numbers, plus a few prepositions.",
+  "category": "digit pieces",
+  "coherent": false
+ },
+ "U073": {
+  "function": "Fires on digits inside years and day numbers (1[9]..), and the space before a year.",
+  "category": "digits in years",
+  "coherent": true
+ },
+ "U075": {
+  "function": "Mixed: \"to\", \"had\", \"not\", \"@\" and name fragments (Leont-i); no single theme.",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U184": {
+  "function": "Mixed prepositions and career nouns (in, of, season, operations, career, sports).",
+  "category": "mixed prepositions and nouns",
+  "coherent": false
+ },
+ "U013": {
+  "function": "Detects exception or limiting qualifiers such as \"except (for)\", \"particularly\", \"especially\", \"only\", \"almost\", \"some\" that narrow a statement.",
+  "category": "exception and qualifier words",
+  "coherent": true
+ },
+ "U136": {
+  "function": "Fires on the first digit inside a parenthetical inch or mm conversion after a metric measurement, and on \"Yes\" opening a quoted reply.",
+  "category": "conversion digit after paren",
+  "coherent": true
+ },
+ "U194": {
+  "function": "Mixed: \"(\" or first digit after metric units, plus fragments of names (Stroud, Tsukuba, Beach Boys, Tampa Bay) and the end of \"Hot 100\".",
+  "category": "conversion digits and name bits",
+  "coherent": false
+ },
+ "U163": {
+  "function": "Mixed formatting tokens: \"(\" after tons or kg, and \"=\" or spaces ending wiki section headings.",
+  "category": "paren and heading markup",
+  "coherent": false
+ },
+ "U051": {
+  "function": "Mostly detects the @ or - in \"@-@\" hyphen markup (re @-@ entered, sold @-@ out), plus verb stems like \"star\".",
+  "category": "hyphen markup tokens",
+  "coherent": false
+ },
+ "U065": {
+  "function": "Mixed punctuation: apostrophes in possessives and contractions, \"=\" in headings, \"@\" in hyphens, and a space after \"(\".",
+  "category": "apostrophes and markup",
+  "coherent": false
+ },
+ "U040": {
+  "function": "Fires on mid-word subword pieces of proper names (Hy-ū-ga, Penguins, Whalers, Direction, Ise, Yay-oi).",
+  "category": "proper name fragments",
+  "coherent": true
+ },
+ "U070": {
+  "function": "Detects date parts: day-of-month digits, \"winter of\", \"summer of\", month names, and the space before a day number.",
+  "category": "date components",
+  "coherent": true
+ },
+ "U047": {
+  "function": "Mixed: \"@\" or \"-\" in hyphen markup, second words of names (Du Fu, South of Heaven, New Zealand) and possessive apostrophes.",
+  "category": "hyphens and name second words",
+  "coherent": false
+ },
+ "U165": {
+  "function": "Fires on the final digit of a multi-digit number such as a chart position, year or measurement (46, 83, 1994).",
+  "category": "last digit of number",
+  "coherent": true
+ },
+ "U003": {
+  "function": "Fires on year digits in dates (\"November 20[1]\", \"19[9]\") and on \"of\" after \"winter\" or \"summer\".",
+  "category": "year digits and season of",
+  "coherent": true
+ },
+ "U021": {
+  "function": "Mixed: spaces after numbers in specs, noun heads like \"guns\", \"cruisers\", and words like \"every\", \"except\", \"allowed\".",
+  "category": "mixed spec and prose",
+  "coherent": false
+ },
+ "U001": {
+  "function": "Fires on the third digit of a four-digit year (20[1]x, 19[9]x), usually after a month or \"in\".",
+  "category": "year third digit",
+  "coherent": true
+ },
+ "U171": {
+  "function": "Detects the first fragment of a personal name, especially Chinese names (Pei Di, Mei Ya, Su Shi, Du Z), and some Egyptian names.",
+  "category": "personal name fragments",
+  "coherent": true
+ },
+ "U059": {
+  "function": "Fires on a number that gives a count of items before a noun, such as \"eight [4] cm guns\" or \"four [4]\" gun mounts.",
+  "category": "item count digits",
+  "coherent": true
+ },
+ "U191": {
+  "function": "Mixed function words and noun fragments inside quoted text (\"less accurately we know the\", \"a\", \"first\", \"more\").",
+  "category": "mixed quoted function words",
+  "coherent": false
+ },
+ "U159": {
+  "function": "Fires on \"and\" joining verb clauses (\"failed ... and\", \"collided with and sank\"), plus some digits; mixed.",
+  "category": "clause-joining and",
+  "coherent": false
+ },
+ "U187": {
+  "function": "Detects fragments of Japanese and foreign personal and place names (Satō Tetsutarō, Matsuo, Shizuo, Cattaro, Selivanov).",
+  "category": "foreign name fragments",
+  "coherent": true
+ },
+ "U099": {
+  "function": "Fires on wikitext heading boundaries (\"=\" and the double space after a heading) and on possessive apostrophes.",
+  "category": "heading boundary markup",
+  "coherent": true
+ },
+ "U141": {
+  "function": "Mixed: infinitive \"to\", \"for\" and \":\" or an opening quote after verbs of request, purpose or reporting (\"request to\", \"called for\", \"opened as follows :\").",
+  "category": "purpose and quote openers",
+  "coherent": false
+ },
+ "U189": {
+  "function": "Detects interior fragments of personal names (Zhen, Zh, Ju, Ya, Sywell) and opening quote marks after \"saying\" or \"noting\".",
+  "category": "name fragments and open quotes",
+  "coherent": false
+ },
+ "U068": {
+  "function": "Fires on the first or second digit of a day-of-month number in dates (2[7], 3[0], 1[8]).",
+  "category": "day-of-month digits",
+  "coherent": true
+ },
+ "U127": {
+  "function": "Mixed: double-space or sentence-end tokens and digits inside numbers; no single theme.",
+  "category": "spaces and digits",
+  "coherent": false
+ },
+ "U077": {
+  "function": "Detects contrast and negation words that turn a clause: \"but\", \"however\", \"no\", \"not\", \"just\", \"could\", and the comma before them.",
+  "category": "contrast and negation words",
+  "coherent": true
+ },
+ "U138": {
+  "function": "Mixed noun pieces and word endings (Jail, skiers, Turret, track, office, magazine, Donkey) inside lists or titles; no single theme.",
+  "category": "mixed noun fragments",
+  "coherent": false
+ },
+ "U123": {
+  "function": "Mixed: ASIN code letters, double space after a colon, \"or\" between numbers, and \"even\" or \"such\" in asides.",
+  "category": "mixed codes and connectors",
+  "coherent": false
+ },
+ "U030": {
+  "function": "Mixed: nouns or pronouns after a setup phrase (\"in normal times\", \"raised the stakes\", \"this time it\", \"hits it\").",
+  "category": "mixed phrase completions",
+  "coherent": false
+ },
+ "U183": {
+  "function": "Fires on the third digit of a year (20[1]3, 19[9]4, 19[8]8) and on Chinese character byte fragments.",
+  "category": "year digits",
+  "coherent": true
+ },
+ "U158": {
+  "function": "Fires on the first or second digit of a parenthetical conversion after mm, kg or metres, plus \"=\" of headings.",
+  "category": "conversion digits",
+  "coherent": true
+ },
+ "U133": {
+  "function": "Fires on prepositions and relatives after verbs of motion, place or time (\"stretched forward to\", \"died in\", \"myth in which\", \"before\").",
+  "category": "preposition after verb",
+  "coherent": true
+ },
+ "U169": {
+  "function": "Detects interior subword pieces of foreign names and titles (Mei Yaochen, Shūreishū, Donkey Punch, Bunshū, Wadj-Wer).",
+  "category": "name and title fragments",
+  "coherent": true
+ },
+ "U008": {
+  "function": "Fires on the space or first digit after \"(\" following a unit word (metres, tons, tonnes) in measurement conversions.",
+  "category": "conversion opening",
+  "coherent": true
+ },
+ "U043": {
+  "function": "Detects quantity words and numbers (\"more\", \"own\", \"three\", \"one\", \"few\", \"all three\", \"only 6\") that count or limit things.",
+  "category": "quantity words",
+  "coherent": true
+ },
+ "U107": {
+  "function": "Fires on the last digit of three-digit counts (of men, guns, points) such as 11[1], 63[4], 10[4], plus \"to\" and \"the\".",
+  "category": "count last digit",
+  "coherent": true
+ },
+ "U188": {
+  "function": "Detects the first token of a person's name, especially Chinese surnames and given names (Li, Wang, Wei, Zhang, Pe-i, Fang).",
+  "category": "personal name starts",
+  "coherent": true
+ },
+ "U027": {
+  "function": "Fires on closing punctuation after a clause or name: comma, period, closing parenthesis, closing quote.",
+  "category": "closing punctuation",
+  "coherent": true
+ },
+ "U161": {
+  "function": "Mixed: \"You\" in \"Kiss You\", hyphen markup \"@-@\", \"all\", \"be\", and name fragments; no single theme.",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U192": {
+  "function": "Detects the \"it is known that\" and \"except that it\" frames, and \"In any case ,\" asides that hedge or qualify a statement.",
+  "category": "known-that hedges",
+  "coherent": true
+ },
+ "U200": {
+  "function": "Mixed: verbs or modifiers after \"to\", \"as\", \"via\", \"for\" (\"to serve\", \"to maintain\", \"powerful enough\", \"using\").",
+  "category": "verbs after to",
+  "coherent": false
+ },
+ "U149": {
+  "function": "Detects interior subword pieces of titles and names (Merc-en-aries, Cas-ual-ty, Re-ign, W-aking, Unh-oly).",
+  "category": "title subword pieces",
+  "coherent": true
+ },
+ "U135": {
+  "function": "Mixed: main verbs and verb endings after a subject or \"to\" (\"failed to\", \"able to\", \"represented\", \"depicted\", \"saw\").",
+  "category": "verbs after subject",
+  "coherent": false
+ },
+ "U198": {
+  "function": "Fires on the last digit of a multi-digit number (chart ranks, counts) and on \"hundred\" or \"than\" in comparatives.",
+  "category": "number last digit",
+  "coherent": false
+ },
+ "U109": {
+  "function": "Detects ranking and quantity words in statistics (\"number two\", \"top ten\", \"per\", \"third\", \"set of\").",
+  "category": "rank and quantity words",
+  "coherent": true
+ },
+ "U071": {
+  "function": "Fires on month names and the day digit just before a month (\"10 December\", \"25 April\", \"11 March\").",
+  "category": "month and day",
+  "coherent": true
+ },
+ "U193": {
+  "function": "Mixed: prepositions and verbs of seeking or moving (\"search for\", \"find\", \"found\", \"to\", \"until\", \"reached\").",
+  "category": "search and motion words",
+  "coherent": false
+ },
+ "U151": {
+  "function": "Mixed: Chinese character byte pieces, name endings, and \"of the\" or \"that\" after a title.",
+  "category": "mixed foreign pieces",
+  "coherent": false
+ },
+ "U005": {
+  "function": "Detects interior and final fragments of Japanese and Egyptian personal names (Chiaki, Tetsutarō, Shirō, Shizuo, Amenhotep), plus a few small function words.",
+  "category": "foreign name fragments",
+  "coherent": true
+ },
+ "U112": {
+  "function": "Detects negation and denial words: \"not\", \"never\", \"none\", \"no\", \"unable to\", \"than\", \"lacked\".",
+  "category": "negation words",
+  "coherent": true
+ },
+ "U048": {
+  "function": "Mixed formatting tokens: \"@\" in \"@,@\" number separators, \"=\" and spaces of headings, and the unit \"mph\".",
+  "category": "number and heading markup",
+  "coherent": false
+ },
+ "U179": {
+  "function": "Mixed punctuation: \"(\" after units, \":\" after a language label, apostrophes, and \"=\" of headings.",
+  "category": "mixed punctuation",
+  "coherent": false
+ },
+ "U110": {
+  "function": "Fires on digits right after \"(\" in unit conversions after metres, kilograms or tonnes; also \"CA\" in ICAO.",
+  "category": "conversion digits",
+  "coherent": true
+ },
+ "U050": {
+  "function": "Detects attribution and estimate phrases: \"according to\", \"estimates\", \"it has been estimated\", and the comma after \"not available\".",
+  "category": "attribution and estimates",
+  "coherent": true
+ },
+ "U175": {
+  "function": "Fires on auxiliary verbs \"has been\", \"is\" and the word after them in perfect or passive statements, plus \"present\" and some year digits.",
+  "category": "has been auxiliaries",
+  "coherent": false
+ },
+ "U178": {
+  "function": "Fires on the space or first digit after \"(\" in unit conversions, and on dash ranges like \"7 –\".",
+  "category": "conversion opening",
+  "coherent": true
+ },
+ "U118": {
+  "function": "Fires on the last digits of years inside parenthetical date ranges (1926 – 1994, c. 2055 – 1650) and on \"in\" after feet.",
+  "category": "years in date ranges",
+  "coherent": true
+ },
+ "U026": {
+  "function": "Fires on clause-closing punctuation: comma, period, closing parenthesis, semicolon, and double space after a heading.",
+  "category": "closing punctuation",
+  "coherent": true
+ },
+ "U092": {
+  "function": "Fires on digits right after \"(\" in measurement conversions of armour, deck and ship sizes (mm, metres, inches).",
+  "category": "conversion digits",
+  "coherent": true
+ },
+ "U089": {
+  "function": "Detects prepositions and articles in chart-position statements (\"debut at number\", \"peaked on the\", \"entered at number 152 in the\") and \"has\".",
+  "category": "chart statement prepositions",
+  "coherent": false
+ },
+ "U181": {
+  "function": "Detects dimension terms after a measurement: \"wide\", \"high\", \"beam\", \"elevation\", \"feet\", \"metres\".",
+  "category": "dimension terms",
+  "coherent": true
+ },
+ "U154": {
+  "function": "Mixed nouns and adverbs after negation or determiners (translation, computer, exact, translators, fully, perfectly).",
+  "category": "mixed nouns after determiner",
+  "coherent": false
+ },
+ "U067": {
+  "function": "Mixed causal and purpose words (\"because\", \"due\", \"grounds\", \"in order to\", \"attributed\", \"for\", \"leading up to\") with some adjectives like \"mere\" and \"pure\".",
+  "category": "reason words mixed",
+  "coherent": false
+ },
+ "U172": {
+  "function": "Mixed: ASIN code characters, a space after \"km ;\", \":\" and \"=\" heading marks, and stray function words.",
+  "category": "codes and markup",
+  "coherent": false
+ },
+ "U095": {
+  "function": "Mixed: \"present\", ordinals, and hedging adverbs (\"especially\", \"particularly\", \"considered\", \"about\", \"called\").",
+  "category": "mixed adverbs",
+  "coherent": false
+ },
+ "U082": {
+  "function": "Fires on digits within years and ranges (20[1]3, 8 to [4]) and on \"@\" in number separators.",
+  "category": "number digits",
+  "coherent": false
+ },
+ "U087": {
+  "function": "Mixed: plural-possessive apostrophe after \"album\" or \"band\", sentence periods, and year digits.",
+  "category": "apostrophe and year digits",
+  "coherent": false
+ },
+ "U093": {
+  "function": "Fires on digits right after \"(\" in unit conversions after metres, and \"(\" after tons.",
+  "category": "conversion digits",
+  "coherent": true
+ },
+ "U164": {
+  "function": "Mixed punctuation: heading double space, \"(\" after units, commas in lists, closing quotes and sentence periods.",
+  "category": "mixed punctuation",
+  "coherent": false
+ },
+ "U044": {
+  "function": "Mixed: list commas and \"and\", modal words (\"might\", \"enough\"), \"know\", and fragments after \"However much\".",
+  "category": "mixed function words",
+  "coherent": false
+ },
+ "U022": {
+  "function": "Mixed: ordinal suffixes (1st, 2nd, 3rd), \"so\", \"and\" and digits in times.",
+  "category": "ordinal suffixes mixed",
+  "coherent": false
+ },
+ "U038": {
+  "function": "Mixed: dash in year ranges, final year digits, possessive \"his\" and \"continue to\"; no single theme.",
+  "category": "mixed dates and function words",
+  "coherent": false
+ },
+ "U042": {
+  "function": "Detects interior subword pieces of proper names and titles (Yamash-iro, Hy-ū-ga, Tsuk-uba, Sur-fer, Re-ign, Kal-am-azoo).",
+  "category": "name subword pieces",
+  "coherent": true
+ },
+ "U197": {
+  "function": "Mixed: head nouns and quantity words after determiners (remaining, pair, component, element, others, aircraft) plus ASIN digits.",
+  "category": "mixed nouns after determiner",
+  "coherent": false
+ },
+ "U121": {
+  "function": "Mostly fires on digits right after \"(\" in unit conversions, with a few name pieces (Ise) and a colon after a language label.",
+  "category": "conversion digits",
+  "coherent": true
+ },
+ "U148": {
+  "function": "Detects words inside multi-word titles and names (Where We Are, Take Me Home, Kiss You, South of Heaven, Day-light, Don-key).",
+  "category": "title and name words",
+  "coherent": true
+ },
+ "U139": {
+  "function": "Detects date-setting words: month names, \"winter of\", \"in October\", plus \"for\" after a time word and some name pieces.",
+  "category": "months and season of",
+  "coherent": true
+ },
+ "U117": {
+  "function": "Mixed: ordinals (\"sixth\"), duration nouns (\"years\"), participles and \"was\"; no single theme.",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U160": {
+  "function": "Detects the final noun or pronoun that ends a prepositional phrase (ships, carriers, deck, desk, bulkheads, him, her, his).",
+  "category": "phrase-final nouns",
+  "coherent": true
+ },
+ "U173": {
+  "function": "Mixed: opening quotes after colons, \"his\", \"and\", \"one\", \"its\", and verbs like \"pass into\"; no clear theme.",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U115": {
+  "function": "Mixed: year digits, \"issue\", \"important\", \"few\", sentence periods; no single theme.",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U100": {
+  "function": "Detects sentence and section boundaries: double space, \"=\" heading marks, first word of a heading, and the dash in year headings.",
+  "category": "boundary and heading markup",
+  "coherent": true
+ },
+ "U202": {
+  "function": "Detects time-setting and narrative words: season and month names after \"In the\", \"After\", and past-tense action verbs (arrived, loaded, took, succeeded).",
+  "category": "time words and narrative verbs",
+  "coherent": false
+ },
+ "U069": {
+  "function": "Mixed: unit-conversion digits, fragments of names (Mal-ik, Pet-), \"Home\" in Take Me Home, and \"for\" in quotes.",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U174": {
+  "function": "Mixed: \"of\", \"to\", \"than\", \"only\" in comparison and addition frames (\"Most of\", \"In addition to\", \"other than\", \"not only\").",
+  "category": "comparison and addition frames",
+  "coherent": false
+ },
+ "U142": {
+  "function": "Mixed: \"(\" after units, commas after introductory phrases, and \"and\" joining clauses.",
+  "category": "mixed punctuation and and",
+  "coherent": false
+ },
+ "U126": {
+  "function": "Detects modal and necessity words: \"should\", \"need(ed)\", \"necessary\", \"could\", \"will\", \"had to\", \"inevitably\".",
+  "category": "modal and necessity words",
+  "coherent": true
+ },
+ "U064": {
+  "function": "Detects apostrophes, quote marks and dashes that close or mark a possessive or title (his father ', Kiss You \", don ’, – ranges).",
+  "category": "apostrophes and closing quotes",
+  "coherent": true
+ },
+ "U201": {
+  "function": "Mixed: \"=\" heading marks, \"@\" in number separators, name pieces (voc-als, Pet-os) and \"star\".",
+  "category": "mixed markup and fragments",
+  "coherent": false
+ },
+ "U020": {
+  "function": "Detects interior pieces of proper names and titles (I-se, Sats-uma, Ts-ushima, Tu Fu, Kiss You, International Civil Aviation).",
+  "category": "name and title pieces",
+  "coherent": true
+ },
+ "U062": {
+  "function": "Mixed punctuation inside tokens: possessive \"'s\", the thousands comma in \"@,@\", periods in abbreviations, and clause words like \"who\", \"because it\".",
+  "category": "apostrophe and comma tokens",
+  "coherent": false
+ },
+ "U097": {
+  "function": "Mixed: the second part of a name or noun phrase (Chinese, Du, Presley, Mouth, Blood, water); no single theme.",
+  "category": "second name words",
+  "coherent": false
+ },
+ "U023": {
+  "function": "Mixed: opening quote after a colon, prepositions \"from/through/of\", \"just\", \"Yeah\", \"often\".",
+  "category": "quote openers and prepositions",
+  "coherent": false
+ },
+ "U060": {
+  "function": "Mixed: \"of\", \"for\", \"the\", \"known\", \"exact\", \"which\" after nouns; also lyric words \"did\", \"ever\", \"know\".",
+  "category": "mixed function words",
+  "coherent": false
+ },
+ "U086": {
+  "function": "Detects the second word of fixed proper phrases such as \"Imperial Japanese\", \"Second Sino-Japanese War\", \"World War\", \"2nd\".",
+  "category": "proper phrase words",
+  "coherent": true
+ },
+ "U131": {
+  "function": "Mixed: sentence-end period or closing quote with double space, and count words like \"one\", \"three\", \"six\".",
+  "category": "sentence end and counts",
+  "coherent": false
+ },
+ "U132": {
+  "function": "Mixed scope and limiting words (\"any\", \"enough\", \"never\", \"without\", \"little\", \"not\", \"smaller\") plus a few nouns.",
+  "category": "limiting words mixed",
+  "coherent": false
+ },
+ "U066": {
+  "function": "Fires on number-formatting pieces: \"@\" in \"@,@\" separators, en dash in ranges, digits and \"y\" in yd.",
+  "category": "number formatting pieces",
+  "coherent": true
+ },
+ "U017": {
+  "function": "Fires on the first digit or the \"(\" that opens a unit conversion after mm, metres, tons or centimetres.",
+  "category": "conversion digits",
+  "coherent": true
+ },
+ "U108": {
+  "function": "Mixed: later digits inside large numbers (36 @,@ 500; 7 @,@ 500) and reporting verbs like \"appreciated\", \"noted\", \"dismissed\".",
+  "category": "digits and reviewer verbs",
+  "coherent": false
+ },
+ "U113": {
+  "function": "Mixed: modifiers like \"new\", \"newly\", \"formed\", digits in years and spaces after \"to\"; no single theme.",
+  "category": "mixed modifiers and digits",
+  "coherent": false
+ },
+ "U103": {
+  "function": "Mixed: roles and verbs for critics and reporters (contributor, editor, commentary, favoured) and aviation training nouns.",
+  "category": "critic roles mixed",
+  "coherent": false
+ },
+ "U114": {
+  "function": "Mixed: verbs and prepositions after a subject (\"is noted for\", \"led\", \"includes\", \"would\", \"who\") and colons.",
+  "category": "verbs after subject",
+  "coherent": false
+ },
+ "U035": {
+  "function": "Fires on \"(\" after tons or tonnes, the first digit after it, and \"more\" or \"but\" in comparisons.",
+  "category": "conversion paren and more",
+  "coherent": true
+ },
+ "U150": {
+  "function": "Mixed: name endings (forerunner, Wolver-ines, Sab-res, IHL), possessive 's, and \"to\" or \"of\" in phrases.",
+  "category": "name endings and function words",
+  "coherent": false
+ },
+ "U190": {
+  "function": "Mixed: word ends (bulge, ne, of, to, exceeded, Hands) and \"@\"; no single theme.",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U090": {
+  "function": "Mixed: ASIN code characters and fragments of names (Fuk-ui, Sh-iz, Dim, Mon, Bill-board).",
+  "category": "codes and name fragments",
+  "coherent": false
+ },
+ "U084": {
+  "function": "Detects nouns and verbs of attitude that expect a complement (\"concern for\", \"loyalty to\", \"desire to\", \"emphasized the\", \"simplicity\").",
+  "category": "attitude word before complement",
+  "coherent": true
+ },
+ "U041": {
+  "function": "Detects interior subword pieces of names and team nouns (Cam Ran, Pet-rid, Wolver-ines, Spir-its, Fly-ers, Hy-ū).",
+  "category": "name subword pieces",
+  "coherent": true
+ },
+ "U009": {
+  "function": "Fires on the first digit right after \"(\" in a metres or feet conversion.",
+  "category": "conversion digits",
+  "coherent": true
+ },
+ "U019": {
+  "function": "Fires on the first digit right after \"(\" in a mm or cm armour and gun size conversion.",
+  "category": "conversion digits",
+  "coherent": true
+ },
+ "U015": {
+  "function": "Detects passive reporting frames: \"is thought to\", \"is noted for\", \"was first mentioned in\".",
+  "category": "passive reporting verbs",
+  "coherent": true
+ },
+ "U167": {
+  "function": "Detects subword pieces of foreign or technical terms (lǜshi, Sansh-ik, Stroud, Vickers, kans, Ba-rr).",
+  "category": "foreign term fragments",
+  "coherent": true
+ },
+ "U134": {
+  "function": "Mixed function words in a translation passage (\"need\", \"we\", \"why\", \"which\", \"complex\", \"with\"); no single theme.",
+  "category": "mixed function words",
+  "coherent": false
+ },
+ "U106": {
+  "function": "Mixed: unit words after numbers (\"second\", \"kW\", \"metres\") and abstract nouns (expense, time, desire); no single theme.",
+  "category": "units and abstract nouns",
+  "coherent": false
+ },
+ "U152": {
+  "function": "Detects wikitext markup: \"=\" of headings, \"@\" of @-@ hyphens and @.@ decimals.",
+  "category": "wikitext markup tokens",
+  "coherent": true
+ },
+ "U054": {
+  "function": "Fires on sentence-closing marks: period, comma, question mark, closing quote, apostrophe and \"=\" of headings.",
+  "category": "sentence closing punctuation",
+  "coherent": true
+ },
+ "U168": {
+  "function": "Detects prepositions that complete a noun or verb of origin or influence (\"from\", \"on\", \"in\", \"of\" after influential, traditions, copy).",
+  "category": "preposition after influence",
+  "coherent": true
+ },
+ "U147": {
+  "function": "Detects words inside song and album titles (Where We Are, Take Me Home, Kiss You, Mein Land, South of Heaven, Reign in Blood).",
+  "category": "title words",
+  "coherent": true
+ },
+ "U155": {
+  "function": "Detects coordinating words that offer alternatives or contrast (\"or\", \"but\", \"one\", \"and\") as in \"one or more\", \"6 or 8\", \"either ... or\".",
+  "category": "alternatives and contrast",
+  "coherent": true
+ },
+ "U111": {
+  "function": "Mixed: digits in ASIN codes and unit conversions, \"sh\" of romanized Chinese, and word endings (hangar, determinatives, Ogdoad).",
+  "category": "mixed digits and word ends",
+  "coherent": false
+ },
+ "U102": {
+  "function": "Mixed: word endings (watertight, hangar), \"=\" and open quote after a heading or \"stated\", and \"deck\"; no single theme.",
+  "category": "mixed word endings and quotes",
+  "coherent": false
+ },
+ "U002": {
+  "function": "Detects chart-statement words: \"Billboard\", \"week ending\", \"peaked at number ... on\", \"peaking at\".",
+  "category": "chart statement words",
+  "coherent": true
+ },
+ "U157": {
+  "function": "Mixed function words continuing a noun phrase (\"series of\", \"first of a\", \"whose\", \"as ... they\", \"its\", \"with\").",
+  "category": "noun-phrase function words",
+  "coherent": false
+ },
+ "U033": {
+  "function": "Fires on the \"(\" or first digit that opens a unit conversion after miles, tons, inches or mm.",
+  "category": "conversion opening",
+  "coherent": true
+ },
+ "U143": {
+  "function": "Detects adjectives and participles that modify a noun (\"qualified\", \"trained\", \"informed\", \"loose\", \"indirect\", \"smaller\", \"firm\").",
+  "category": "pre-noun modifiers",
+  "coherent": true
+ },
+ "U058": {
+  "function": "Mixed: section-title and noun-phrase starts (\"A second favourite\", \"Moral engagement\", \"The design\", \"In the fall\", \"accompanying\").",
+  "category": "title and phrase starts",
+  "coherent": false
+ },
+ "U199": {
+  "function": "Mixed: \"(\" after tons, double spaces, and past participles after \"was\" (born, died, captured, raised, intended).",
+  "category": "conversion and past participles",
+  "coherent": false
+ },
+ "U032": {
+  "function": "Detects prepositions that complete a verb or adjective (\"known for\", \"differed from\", \"range from\", \"on\"), and \"same\" in \"the same\".",
+  "category": "preposition after adjective",
+  "coherent": true
+ },
+ "U130": {
+  "function": "Mixed: double space after a heading, \"of\", \"'s\", \"which\" and name fragments (Kita, Jie).",
+  "category": "mixed boundary and fragments",
+  "coherent": false
+ },
+ "U140": {
+  "function": "Detects words inside titles and names (Cam Ran, What Makes You, Where We Are, Now That, Social 50, The Song of the).",
+  "category": "title and name words",
+  "coherent": true
+ },
+ "U120": {
+  "function": "Mixed: \"(\" after tons, spatial prepositions (\"at\", \"on\"), and nouns like \"course\", \"total\", \"magazines\".",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U039": {
+  "function": "Mixed: verbs and prepositions of seeking, request or purpose (\"begging help\", \"Should I\", \"funding to proceed with\", \"hoping for a\").",
+  "category": "seeking and purpose words",
+  "coherent": false
+ },
+ "U074": {
+  "function": "Fires on year digits and the space before a year (\"in 1926\", \"June 1[9]42\"), plus \"War\" in \"World War\".",
+  "category": "year digits",
+  "coherent": true
+ },
+ "U056": {
+  "function": "Fires on closing and boundary marks: \"=\" heading, \")\", dash, closing quote, double space and \"mph\".",
+  "category": "closing and boundary marks",
+  "coherent": true
+ },
+ "U145": {
+  "function": "Mixed: \"or\", \"exact\", \"enough\", \"any\", \"likely\", \"serve\" and a digit; limiting or alternative words.",
+  "category": "alternatives and limits",
+  "coherent": false
+ },
+ "U128": {
+  "function": "Mixed: sentence-start pronoun \"It\", sentence period or double space, and closing quote.",
+  "category": "sentence boundary and It",
+  "coherent": false
+ },
+ "U162": {
+  "function": "Mixed: month names, ordinals, passive past verbs (rejected, removed, failed) and \"number [1]\"; no single theme.",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U170": {
+  "function": "Detects interior pieces of person and place names (Shū, Shi, Arn-ell, Chat-room, Yao-oc, Shiz-uo, Loft-us).",
+  "category": "name pieces",
+  "coherent": true
+ },
+ "U116": {
+  "function": "Mixed: apostrophes after nouns or \"don\", \"(\" spaces, \"=\" heading marks and \";\".",
+  "category": "apostrophes and markup",
+  "coherent": false
+ },
+ "U055": {
+  "function": "Mixed: \"or\", \"only\", \"but\", \"not\" qualifiers and \"=\" after a heading space.",
+  "category": "qualifiers and heading",
+  "coherent": false
+ },
+ "U081": {
+  "function": "Fires on the first digit right after \"(\" in long-ton and tonne conversions.",
+  "category": "conversion digits",
+  "coherent": true
+ },
+ "U094": {
+  "function": "Detects time-period words and the preposition before them: season and month names, \"during\", \"normal times\", \"early November\", \"festival\", \"annual\".",
+  "category": "time-period words",
+  "coherent": true
+ },
+ "U185": {
+  "function": "Detects interior subword pieces of Japanese and other personal names (Fuk-ui, Ch-ū, Sh-ima, Tetsut-ar, Sh-ire, Esp-ito).",
+  "category": "name subword pieces",
+  "coherent": true
+ },
+ "U036": {
+  "function": "Fires on a possessive apostrophe or \"'s\" after a noun (One Direction 's, Beach Boys ', gods '), and on \"his\" or the noun after it.",
+  "category": "possessive apostrophes",
+  "coherent": true
+ },
+ "U052": {
+  "function": "Mixed: double space after a sentence, opening quote after \"said ,\", \"=\" of headings, and \"but\" or \"in\" mid-clause.",
+  "category": "sentence and quote boundaries",
+  "coherent": false
+ },
+ "U046": {
+  "function": "Fires on markup pieces inside numbers and hyphens: \"@\" and \".\" in @.@, \"-\" in @-@, plus \"of\" after \"velocity\".",
+  "category": "number and hyphen markup",
+  "coherent": true
+ },
+ "U083": {
+  "function": "Detects adjectives or participles that modify a following noun (favorable, creditable, modern, trained, qualified, expensive, better, unjust).",
+  "category": "pre-noun adjectives",
+  "coherent": true
+ },
+ "U144": {
+  "function": "Mixed: \"known\", \"experience\", feet digits, Hy-ū fragments and adjectives like \"scholarly\", \"latest\", \"current\".",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U088": {
+  "function": "Mixed: \"Selected\", \"accidentally\", \"that\", \"addition\", \"death\", \"present\", \"but\", \"used\", \"was\"; no single theme.",
+  "category": "mixed",
+  "coherent": false
+ },
+ "U007": {
+  "function": "Detects interior pieces of foreign proper names (Sai-h, Gah-ō, Chang, Bai Ju, Hy-ū, Szent Ist, Du-at).",
+  "category": "name fragments",
+  "coherent": true
+ },
+ "U031": {
+  "function": "Mixed nouns and prepositions that finish a place or route phrase (along, entrance, route, room, coast, home, installations, private).",
+  "category": "place phrase words",
+  "coherent": false
+ },
+ "U125": {
+  "function": "Mixed: phrase-final nouns (crowd, readers, sailors, Wales, family, amateur) and \"a\", \"of\", \"as\" before them.",
+  "category": "phrase nouns mixed",
+  "coherent": false
+ },
+ "U124": {
+  "function": "Fires on the last digit of a year (201[0], 200[4], 75[9]) and on \"always\", \"but\", \"has\" in other contexts.",
+  "category": "year last digit",
+  "coherent": true
+ },
+ "U076": {
+  "function": "Detects transitive verb stems awaiting an object (wounded, hoisted, counter, pepper, put forward, understand, release, top).",
+  "category": "transitive verbs",
+  "coherent": true
+ },
+ "U061": {
+  "function": "Fires on the first or second digit of a year (20[1]3, 1[9]23) and on apostrophes after nouns.",
+  "category": "year digits",
+  "coherent": true
+ },
+ "U104": {
+  "function": "Mixed: ASIN code digits, Chinese pinyin and name pieces (Li, rm), \"'s\" and \"=\" heading marks.",
+  "category": "codes and fragments",
+  "coherent": false
+ },
+ "U034": {
+  "function": "Fires on \"(\" after mm or tons, digits after it, and \"=\" ending wiki headings.",
+  "category": "conversion and heading marks",
+  "coherent": true
+ },
+ "U203": {
+  "function": "Mixed: digits after \"over\" or \"(\", the slash in \"km / h\", \"per\", \"of\", \"from\", \"Each\".",
+  "category": "units and numbers mixed",
+  "coherent": false
+ },
+ "U024": {
+  "function": "Fires on clause-closing punctuation: comma, period, semicolon, colon, closing parenthesis and double space.",
+  "category": "clause-closing punctuation",
+  "coherent": true
+ },
+ "U018": {
+  "function": "Fires on \"(\" and the first digits after it in conversions following kilograms, metres or tons.",
+  "category": "conversion digits",
+  "coherent": true
+ },
+ "U072": {
+  "function": "Detects date words: month names, \"of\" after a season, \"On\", and the final digits of season years like 1998 – 9[9].",
+  "category": "dates and seasons",
+  "coherent": true
+ },
+ "U014": {
+  "function": "Mixed function words after passive or modal verbs (\"held up by\", \"coupled with\", \"can be\", \"contend with\", \"complicated by\").",
+  "category": "mixed function words",
+  "coherent": false
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "python": "3.12.10",
+ "platform": "win32",
+ "cpus": 8,
+ "python_start_s": 0.077,
+ "python_import_cale_server_s": 0.309,
+ "python_import_numpy_s": 0.294,
+ "node_start_s": 0.083,
+ "create_files_per_s": 217,
+ "read_files_per_s": 2264,
+ "copy_files_per_s": 586,
+ "delete_files_per_s": 2880,
+ "disk_write_mb_s": 649,
+ "disk_read_cached_mb_s": 1251,
+ "python_loop_3M_s": 0.627,
+ "sha256_mb_s": 194,
+ "internet_mb_s": 28.9,
+ "internet_bytes": 33442553
+}

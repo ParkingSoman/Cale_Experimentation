@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 106,
+ "max": 7.43845272064209,
+ "min": -7.577133655548096,
+ "edits": {
+  "flip": 0.9996945858001709,
+  "rot90": 0.9979244470596313,
+  "rot180": 0.9997113347053528,
+  "gray": 1.0,
+  "blur1": 0.9998682737350464,
+  "blur3": 0.9997370839118958,
+  "shuf2": 1.0,
+  "shuf4": 0.9844486117362976,
+  "shuf8": 0.9970139861106873,
+  "hue": 1.0,
+  "invert": 0.9184092879295349,
+  "zoomout": 0.9027647972106934,
+  "zoomin": 0.9166589975357056
+ },
+ "top50_classes": {
+  "espresso maker": 2,
+  "iron": 2,
+  "can opener": 2,
+  "crash helmet": 2,
+  "cleaver": 1,
+  "mortar": 1,
+  "motor scooter": 1,
+  "ant": 1,
+  "nipple": 1,
+  "oscilloscope": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "green lizard": 1,
+  "white wolf": 1,
+  "pier": 1,
+  "chow": 1,
+  "pop bottle": 1,
+  "Greater Swiss Mountain dog": 1,
+  "Shetland sheepdog": 1,
+  "briard": 1,
+  "restaurant": 1
+ }
+}

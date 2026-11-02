@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 80,
+ "max": 9.528754234313965,
+ "min": -8.115104675292969,
+ "edits": {
+  "flip": 0.9324043989181519,
+  "rot90": 0.9378621578216553,
+  "rot180": 0.9425427913665771,
+  "gray": 1.0023667812347412,
+  "blur1": 0.9992076754570007,
+  "blur3": 0.8247202038764954,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9927985668182373,
+  "hue": 0.9997340440750122,
+  "invert": 0.9272473454475403,
+  "zoomout": 0.8909705877304077,
+  "zoomin": 0.9454596638679504
+ },
+ "top50_classes": {
+  "entertainment center": 2,
+  "gibbon": 1,
+  "crutch": 1,
+  "ruffed grouse": 1,
+  "grasshopper": 1,
+  "slide rule": 1,
+  "necklace": 1,
+  "polecat": 1,
+  "ocarina": 1,
+  "meerkat": 1
+ },
+ "neg50_classes": {
+  "bookshop": 2,
+  "espresso maker": 2,
+  "necklace": 1,
+  "bell cote": 1,
+  "kelpie": 1,
+  "spider monkey": 1,
+  "Madagascar cat": 1,
+  "Indian elephant": 1,
+  "Irish water spaniel": 1,
+  "whiptail": 1
+ }
+}

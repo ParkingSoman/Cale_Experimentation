@@ -1,0 +1,38 @@
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (46012 > 8192). Running this sequence through the model will result in indexing errors
+baseline {'ce': 3.0180184841156006, 'kl': 0.0, 'tokens': 51200}
+NESTING VIOLATIONS over 30 layers: 0  {'768>384': 0, '384>192': 0}  [21s]
+MAX ABS WEIGHT DIFF straight vs stacked (no refit), over all layers: {'768': 0.0, '384': 2.384185791015625e-07, '192': 2.384185791015625e-07}
+STORAGE (layer 0, numbers stored): {'original': 2654208, 'tree_average_parent': 2661884, 'tree_trained_parent': 3436028, 'note': 'average parent = original neurons + linkage table + signs; trained = that + one refit down matrix (576 x k) per level 768/384/192'}
+k= 768 straight_noref  ce=11.181 (+8.163) kl=8.004 layer_err=0.709 [49s]
+k= 768 straight_ref    ce=5.055 (+2.037) kl=2.038 layer_err=0.570 [63s]
+k= 768 chain_noref     ce=11.181 (+8.163) kl=8.004 layer_err=0.709 [73s]
+k= 768 chain_ref       ce=5.055 (+2.037) kl=2.038 layer_err=0.570 [87s]
+k= 768 chain_ref_once  ce=5.055 (+2.037) kl=2.038 layer_err=0.570 [100s]
+k= 384 straight_noref  ce=14.837 (+11.819) kl=11.764 layer_err=0.853 [110s]
+k= 384 straight_ref    ce=8.462 (+5.444) kl=5.380 layer_err=0.686 [121s]
+k= 384 chain_noref     ce=14.838 (+11.820) kl=11.764 layer_err=0.853 [131s]
+k= 384 chain_ref       ce=8.463 (+5.445) kl=5.381 layer_err=0.686 [146s]
+k= 384 chain_ref_once  ce=11.335 (+8.317) kl=8.200 layer_err=0.786 [159s]
+k= 192 straight_noref  ce=15.513 (+12.495) kl=12.446 layer_err=0.901 [168s]
+k= 192 straight_ref    ce=10.645 (+7.627) kl=7.544 layer_err=0.747 [178s]
+k= 192 chain_noref     ce=15.515 (+12.497) kl=12.449 layer_err=0.901 [188s]
+k= 192 chain_ref       ce=10.646 (+7.628) kl=7.545 layer_err=0.747 [203s]
+k= 192 chain_ref_once  ce=13.489 (+10.471) kl=10.348 layer_err=0.860 [217s]
+
+  k   variant          CE     dCE    KL    layer_err
+ 768  straight_noref  11.181 +8.163 8.004  0.709
+ 768  straight_ref    5.055 +2.037 2.038  0.570
+ 768  chain_noref     11.181 +8.163 8.004  0.709
+ 768  chain_ref       5.055 +2.037 2.038  0.570
+ 768  chain_ref_once  5.055 +2.037 2.038  0.570
+ 384  straight_noref  14.837 +11.819 11.764  0.853
+ 384  straight_ref    8.462 +5.444 5.380  0.686
+ 384  chain_noref     14.838 +11.820 11.764  0.853
+ 384  chain_ref       8.463 +5.445 5.381  0.686
+ 384  chain_ref_once  11.335 +8.317 8.200  0.786
+ 192  straight_noref  15.513 +12.495 12.446  0.901
+ 192  straight_ref    10.645 +7.627 7.544  0.747
+ 192  chain_noref     15.515 +12.497 12.449  0.901
+ 192  chain_ref       10.646 +7.628 7.545  0.747
+ 192  chain_ref_once  13.489 +10.471 10.348  0.860
+saved results/tree-z3.json

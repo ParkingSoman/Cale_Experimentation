@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 330,
+ "max": 4.1026458740234375,
+ "min": -4.120088577270508,
+ "edits": {
+  "flip": 0.9758995771408081,
+  "rot90": 0.6637636423110962,
+  "rot180": 0.761164128780365,
+  "gray": 0.354954332113266,
+  "blur1": 0.8205288648605347,
+  "blur3": 0.6048022508621216,
+  "shuf2": 0.9873020648956299,
+  "shuf4": 0.9562065601348877,
+  "shuf8": 0.7964063286781311,
+  "hue": 0.6812801957130432,
+  "invert": 0.6884925365447998,
+  "zoomout": 0.774232029914856,
+  "zoomin": 0.6916173696517944
+ },
+ "top50_classes": {
+  "tractor": 1,
+  "hand blower": 1,
+  "American egret": 1,
+  "toyshop": 1,
+  "tricycle": 1,
+  "capuchin": 1,
+  "howler monkey": 1,
+  "trolleybus": 1,
+  "barracouta": 1,
+  "eel": 1
+ },
+ "neg50_classes": {
+  "toyshop": 1,
+  "brassiere": 1,
+  "mantis": 1,
+  "football helmet": 1,
+  "barn": 1,
+  "school bus": 1,
+  "American black bear": 1,
+  "vine snake": 1,
+  "beaker": 1,
+  "butternut squash": 1
+ }
+}

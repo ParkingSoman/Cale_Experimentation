@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 1325,
+ "max": 3.27980637550354,
+ "min": -3.4161856174468994,
+ "edits": {
+  "flip": 0.97062087059021,
+  "rot90": 0.5775396823883057,
+  "rot180": 0.9034905433654785,
+  "gray": 0.9714640378952026,
+  "blur1": 1.0062273740768433,
+  "blur3": 0.8888742923736572,
+  "shuf2": 0.7655238509178162,
+  "shuf4": 0.6090455055236816,
+  "shuf8": 0.5174679756164551,
+  "hue": 0.9483625292778015,
+  "invert": 0.9344102144241333,
+  "zoomout": 0.6757891178131104,
+  "zoomin": 0.6288827657699585
+ },
+ "top50_classes": {
+  "bee eater": 2,
+  "monarch": 2,
+  "cleaver": 1,
+  "television": 1,
+  "little blue heron": 1,
+  "trailer truck": 1,
+  "trimaran": 1,
+  "grand piano": 1,
+  "whiskey jug": 1,
+  "gasmask": 1
+ },
+ "neg50_classes": {
+  "backpack": 2,
+  "monarch": 2,
+  "lab coat": 1,
+  "washbasin": 1,
+  "burrito": 1,
+  "parallel bars": 1,
+  "typewriter keyboard": 1,
+  "rocking chair": 1,
+  "studio couch": 1,
+  "alligator lizard": 1
+ }
+}

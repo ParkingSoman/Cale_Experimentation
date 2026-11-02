@@ -1,0 +1,8 @@
+G skipped (0s)
+S on dev-1000: 0.0517
+  it 1: train L_ex 276.8  held-out L_ex 274.8  dev-1000 KL 0.0481 (vs S -0.0037, se 0.0020)  |v-S|/|T-S| 17.3  halvings 0 beta 0.40 (68s)
+  it 2: train L_ex 262.2  held-out L_ex 266.9  dev-1000 KL 0.0478 (vs S -0.0040, se 0.0025)  |v-S|/|T-S| 23.8  halvings 0 beta 1.72 (127s)
+  it 3: train L_ex 248.8  held-out L_ex 259.6  dev-1000 KL 0.0441 (vs S -0.0076, se 0.0031)  |v-S|/|T-S| 31.3  halvings 0 beta 0.52 (191s)
+  it 4: train L_ex 235  held-out L_ex 251.1  dev-1000 KL 0.0441 (vs S -0.0076, se 0.0034)  |v-S|/|T-S| 38.4  halvings 0 beta 0.59 (259s)
+  it 5: train L_ex 221.7  held-out L_ex 251.4  dev-1000 KL 0.0440 (vs S -0.0077, se 0.0038)  |v-S|/|T-S| 45.5  halvings 0 beta 0.98 (320s)
+  it 6: train L_ex 209.2  held-out L_ex 252  dev-1000 KL 0.0446 (vs S -0.0072, se 0.0041)  |v-S|/|T-S| 49.4  halvings 0 beta 2.17 (379s)

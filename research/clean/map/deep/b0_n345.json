@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 345,
+ "max": 10.632213592529297,
+ "min": -9.693855285644531,
+ "edits": {
+  "flip": 0.9743284583091736,
+  "rot90": 0.9415557980537415,
+  "rot180": 0.9397732615470886,
+  "gray": 1.001192331314087,
+  "blur1": 1.0020923614501953,
+  "blur3": 0.9362274408340454,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9992088079452515,
+  "hue": 0.9963892102241516,
+  "invert": 0.9325198531150818,
+  "zoomout": 0.8362528085708618,
+  "zoomin": 0.973328709602356
+ },
+ "top50_classes": {
+  "espresso maker": 2,
+  "entertainment center": 2,
+  "leopard": 2,
+  "cleaver": 1,
+  "sorrel": 1,
+  "cup": 1,
+  "cradle": 1,
+  "Japanese spaniel": 1,
+  "Blenheim spaniel": 1,
+  "parallel bars": 1
+ },
+ "neg50_classes": {
+  "centipede": 2,
+  "snow leopard": 2,
+  "red wolf": 2,
+  "Eskimo dog": 1,
+  "ice bear": 1,
+  "entertainment center": 1,
+  "boa constrictor": 1,
+  "padlock": 1,
+  "hognose snake": 1,
+  "bobsled": 1
+ }
+}

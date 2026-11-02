@@ -1,0 +1,7 @@
+  step0 from boundary     (512): dev-5000 KL 10.0780 (se 0.1685)
+  step0 from real unsure  (512): dev-5000 KL 0.1517 (se 0.0070)
+  N spectrum boundary: top 7.745e+00; eigenvalues above 1e-3 x top: 448, above 1e-5 x top: 1048 of 1472; trace 7.766e+01
+  N spectrum real    : top 9.132e+00; eigenvalues above 1e-3 x top: 646, above 1e-5 x top: 1104 of 1472; trace 2.295e+02
+  boundary mass / real mass along the real top-200 directions: median 2.993e-01, 10th pct 1.694e-01
+boundary: per-reader (c-weighted metric mass) / (plain metric mass): median 193333.971, mean 314886.339; plain mass total 3.300e-04, c-weighted total 7.766e+01
+real    : per-reader (c-weighted metric mass) / (plain metric mass): median 832327.792, mean 1095921.583; plain mass total 2.459e-04, c-weighted total 2.295e+02

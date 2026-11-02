@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 1226,
+ "max": 6.679335594177246,
+ "min": -6.482932090759277,
+ "edits": {
+  "flip": 0.9539831876754761,
+  "rot90": 0.37888196110725403,
+  "rot180": 0.39910316467285156,
+  "gray": 0.9108861684799194,
+  "blur1": 0.9521441459655762,
+  "blur3": 0.5889537334442139,
+  "shuf2": 0.9527831077575684,
+  "shuf4": 0.7264838218688965,
+  "shuf8": 0.5324103832244873,
+  "hue": 0.8925405144691467,
+  "invert": 0.8915753364562988,
+  "zoomout": 0.6686961650848389,
+  "zoomin": 0.58487868309021
+ },
+ "top50_classes": {
+  "timber wolf": 2,
+  "Siberian husky": 2,
+  "polecat": 2,
+  "Cardigan": 1,
+  "English setter": 1,
+  "komondor": 1,
+  "kelpie": 1,
+  "briard": 1,
+  "groenendael": 1,
+  "ice bear": 1
+ },
+ "neg50_classes": {
+  "china cabinet": 2,
+  "abacus": 2,
+  "barometer": 1,
+  "slot": 1,
+  "traffic light": 1,
+  "envelope": 1,
+  "silky terrier": 1,
+  "electric fan": 1,
+  "nipple": 1,
+  "car wheel": 1
+ }
+}

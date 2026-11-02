@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1974,
+ "max": 7.268924236297607,
+ "min": -15.330404281616211,
+ "edits": {
+  "flip": 0.9717073440551758,
+  "rot90": 0.4144095182418823,
+  "rot180": 0.1730991005897522,
+  "gray": 0.9407453536987305,
+  "blur1": 0.9590694904327393,
+  "blur3": 0.9813774824142456,
+  "shuf2": 1.0245754718780518,
+  "shuf4": 1.0351884365081787,
+  "shuf8": 0.6549692153930664,
+  "hue": 0.9538723230361938,
+  "invert": 0.9166869521141052,
+  "zoomout": 0.6592687368392944,
+  "zoomin": 0.6925827264785767
+ },
+ "top50_classes": {
+  "toy terrier": 3,
+  "Siberian husky": 3,
+  "Arctic fox": 2,
+  "Pomeranian": 2,
+  "Samoyed": 2,
+  "Japanese spaniel": 2,
+  "clumber": 2,
+  "Blenheim spaniel": 2,
+  "papillon": 2,
+  "Norwegian elkhound": 1
+ },
+ "neg50_classes": {
+  "lesser panda": 2,
+  "robin": 2,
+  "German shepherd": 2,
+  "dowitcher": 2,
+  "impala": 2,
+  "standard schnauzer": 1,
+  "coucal": 1,
+  "quail": 1,
+  "mortarboard": 1,
+  "Airedale": 1
+ }
+}

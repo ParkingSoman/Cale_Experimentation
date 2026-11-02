@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 628,
+ "max": 4.951508522033691,
+ "min": -7.585015773773193,
+ "edits": {
+  "flip": 0.9828729629516602,
+  "rot90": 0.5921494960784912,
+  "rot180": 0.7067931294441223,
+  "gray": 0.9404521584510803,
+  "blur1": 0.9791775941848755,
+  "blur3": 0.7554749250411987,
+  "shuf2": 0.95183265209198,
+  "shuf4": 0.7135884761810303,
+  "shuf8": 0.6417316198348999,
+  "hue": 0.8198773264884949,
+  "invert": 0.9652724266052246,
+  "zoomout": 0.7638851404190063,
+  "zoomin": 0.6397327184677124
+ },
+ "top50_classes": {
+  "Doberman": 1,
+  "street sign": 1,
+  "Kerry blue terrier": 1,
+  "accordion": 1,
+  "slot": 1,
+  "sliding door": 1,
+  "fountain": 1,
+  "ski mask": 1,
+  "comic book": 1,
+  "traffic light": 1
+ },
+ "neg50_classes": {
+  "hammerhead": 2,
+  "American egret": 2,
+  "can opener": 2,
+  "parachute": 1,
+  "meerkat": 1,
+  "tree frog": 1,
+  "hatchet": 1,
+  "upright": 1,
+  "revolver": 1,
+  "American chameleon": 1
+ }
+}

@@ -1,0 +1,9 @@
+G skipped (0s)
+cos(d, photo-8000 dir) 0.492; step A 1.04e-11, step B 1.16e-11; curvature class/photo 22.04
+A_netmade_len: dev-5000 KL 0.0483 (se 0.0028)
+  A_netmade_len minus kbar(S)    -0.0008 (paired se 0.0003)
+  A_netmade_len minus T          +0.0078 (paired se 0.0013)
+B_photo_len_FITTED: dev-5000 KL 0.0482 (se 0.0028)
+  B_photo_len_FITTED minus kbar(S)    -0.0009 (paired se 0.0003)
+  B_photo_len_FITTED minus T          +0.0078 (paired se 0.0013)
+done (65s)

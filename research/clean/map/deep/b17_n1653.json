@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 1653,
+ "max": 6.433236122131348,
+ "min": -21.51795196533203,
+ "edits": {
+  "flip": 0.991585373878479,
+  "rot90": 0.8815094232559204,
+  "rot180": 0.607280433177948,
+  "gray": 0.49151813983917236,
+  "blur1": 1.0475716590881348,
+  "blur3": 0.5961901545524597,
+  "shuf2": 0.7574417591094971,
+  "shuf4": 0.4294750690460205,
+  "shuf8": -0.27430516481399536,
+  "hue": 0.5050057172775269,
+  "invert": 0.9491647481918335,
+  "zoomout": 0.2375057339668274,
+  "zoomin": 0.4015711843967438
+ },
+ "top50_classes": {
+  "oil filter": 2,
+  "toaster": 2,
+  "pencil box": 2,
+  "sunscreen": 2,
+  "hot pot": 1,
+  "mailbox": 1,
+  "hand blower": 1,
+  "rubber eraser": 1,
+  "rule": 1,
+  "tabby": 1
+ },
+ "neg50_classes": {
+  "mosque": 2,
+  "fire engine": 1,
+  "hornbill": 1,
+  "space shuttle": 1,
+  "Norwich terrier": 1,
+  "sliding door": 1,
+  "folding chair": 1,
+  "Sealyham terrier": 1,
+  "prayer rug": 1,
+  "spatula": 1
+ }
+}

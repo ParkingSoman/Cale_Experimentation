@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 1032,
+ "max": 3.7370262145996094,
+ "min": -4.452676773071289,
+ "edits": {
+  "flip": 0.9458919763565063,
+  "rot90": 0.3351939022541046,
+  "rot180": 0.849722146987915,
+  "gray": 0.8118915557861328,
+  "blur1": 0.4115636348724365,
+  "blur3": 0.0021171849220991135,
+  "shuf2": 1.012432336807251,
+  "shuf4": 0.8790651559829712,
+  "shuf8": 0.6587587594985962,
+  "hue": 0.8218454122543335,
+  "invert": 0.8910571336746216,
+  "zoomout": 0.4996808171272278,
+  "zoomin": 0.17872123420238495
+ },
+ "top50_classes": {
+  "electric fan": 2,
+  "pole": 1,
+  "drumstick": 1,
+  "standard schnauzer": 1,
+  "barn": 1,
+  "diamondback": 1,
+  "tiger beetle": 1,
+  "bagel": 1,
+  "packet": 1,
+  "apron": 1
+ },
+ "neg50_classes": {
+  "macaque": 2,
+  "lesser panda": 1,
+  "kelpie": 1,
+  "brass": 1,
+  "dam": 1,
+  "box turtle": 1,
+  "Indian elephant": 1,
+  "basset": 1,
+  "soap dispenser": 1,
+  "Welsh springer spaniel": 1
+ }
+}

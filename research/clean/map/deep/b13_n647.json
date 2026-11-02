@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 647,
+ "max": 3.7172937393188477,
+ "min": -6.609821796417236,
+ "edits": {
+  "flip": 0.953575849533081,
+  "rot90": 0.585244357585907,
+  "rot180": 0.7307430505752563,
+  "gray": 0.9603117108345032,
+  "blur1": 0.8857163190841675,
+  "blur3": 0.7040557861328125,
+  "shuf2": 0.8793396949768066,
+  "shuf4": 0.7074151635169983,
+  "shuf8": 0.23335346579551697,
+  "hue": 0.9518303871154785,
+  "invert": 0.9012506008148193,
+  "zoomout": 0.6342567205429077,
+  "zoomin": 0.8391067981719971
+ },
+ "top50_classes": {
+  "picket fence": 2,
+  "perfume": 2,
+  "street sign": 2,
+  "forklift": 1,
+  "eggnog": 1,
+  "cup": 1,
+  "trifle": 1,
+  "home theater": 1,
+  "boathouse": 1,
+  "goblet": 1
+ },
+ "neg50_classes": {
+  "manhole cover": 2,
+  "affenpinscher": 1,
+  "barrel": 1,
+  "centipede": 1,
+  "shower curtain": 1,
+  "ground beetle": 1,
+  "Band Aid": 1,
+  "oil filter": 1,
+  "green mamba": 1,
+  "drum": 1
+ }
+}

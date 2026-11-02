@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 1342,
+ "max": 4.004607677459717,
+ "min": -6.515873908996582,
+ "edits": {
+  "flip": 0.9709123969078064,
+  "rot90": 0.9247164726257324,
+  "rot180": 0.9089763760566711,
+  "gray": 1.0336861610412598,
+  "blur1": 0.9436773061752319,
+  "blur3": 0.45982277393341064,
+  "shuf2": 1.0119514465332031,
+  "shuf4": 0.9344914555549622,
+  "shuf8": 0.8168869018554688,
+  "hue": 0.8553013205528259,
+  "invert": 0.9526547193527222,
+  "zoomout": 0.6397067308425903,
+  "zoomin": 0.7487857341766357
+ },
+ "top50_classes": {
+  "cardoon": 2,
+  "black swan": 2,
+  "hen-of-the-woods": 2,
+  "snail": 2,
+  "gyromitra": 2,
+  "coral fungus": 2,
+  "mashed potato": 2,
+  "head cabbage": 2,
+  "anemone fish": 2,
+  "carbonara": 2
+ },
+ "neg50_classes": {
+  "prayer rug": 2,
+  "hatchet": 2,
+  "jackfruit": 2,
+  "Norfolk terrier": 1,
+  "book jacket": 1,
+  "file": 1,
+  "laptop": 1,
+  "ballpoint": 1,
+  "Indian cobra": 1,
+  "barn": 1
+ }
+}

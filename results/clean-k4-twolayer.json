@@ -1,0 +1,12 @@
+{
+ "dev_blocks": "test 0-39",
+ "dce": {
+  "('cut', None)": 0.054378755390644073,
+  "('trained', None)": 0.02777310647070408,
+  "(None, 'cut')": 0.1321309357881546,
+  "(None, 'trained')": 0.08621790260076523,
+  "('cut', 'cut')": 0.18577435612678528,
+  "('trained', 'trained')": 0.11526446044445038
+ },
+ "note": "parents trained one layer at a time with the rest original"
+}

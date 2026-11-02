@@ -1,0 +1,45 @@
+{
+ "block": 7,
+ "neuron": 604,
+ "max": 2.6832520961761475,
+ "min": -5.4334716796875,
+ "edits": {
+  "flip": 0.7935124039649963,
+  "rot90": 0.5930420160293579,
+  "rot180": 0.5383731126785278,
+  "gray": 0.9908959865570068,
+  "blur1": 0.9334913492202759,
+  "blur3": 0.8363795280456543,
+  "shuf2": 0.9739663600921631,
+  "shuf4": 0.7502210736274719,
+  "shuf8": 0.7068886756896973,
+  "hue": 0.9735987782478333,
+  "invert": 0.8885189294815063,
+  "zoomout": 0.4784166216850281,
+  "zoomin": 0.7004919052124023
+ },
+ "top50_classes": {
+  "African chameleon": 2,
+  "matchstick": 1,
+  "Afghan hound": 1,
+  "standard schnauzer": 1,
+  "hog": 1,
+  "drumstick": 1,
+  "marmoset": 1,
+  "bow": 1,
+  "hamper": 1,
+  "umbrella": 1
+ },
+ "neg50_classes": {
+  "Saint Bernard": 2,
+  "joystick": 2,
+  "ptarmigan": 1,
+  "redbone": 1,
+  "black swan": 1,
+  "hand blower": 1,
+  "hamper": 1,
+  "Italian greyhound": 1,
+  "hair spray": 1,
+  "monitor": 1
+ }
+}

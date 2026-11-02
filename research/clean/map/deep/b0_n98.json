@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 98,
+ "max": 9.146427154541016,
+ "min": -9.915908813476562,
+ "edits": {
+  "flip": 0.8259820938110352,
+  "rot90": 0.8242554068565369,
+  "rot180": 0.8173854351043701,
+  "gray": 1.0056406259536743,
+  "blur1": 0.8096898794174194,
+  "blur3": 0.30607879161834717,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.999520480632782,
+  "hue": 0.9979985952377319,
+  "invert": 0.8126311302185059,
+  "zoomout": 0.8081388473510742,
+  "zoomin": 0.8092905282974243
+ },
+ "top50_classes": {
+  "electric ray": 2,
+  "capuchin": 1,
+  "horned viper": 1,
+  "assault rifle": 1,
+  "fur coat": 1,
+  "lacewing": 1,
+  "folding chair": 1,
+  "standard schnauzer": 1,
+  "three-toed sloth": 1,
+  "ant": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "dial telephone": 1,
+  "harvestman": 1,
+  "trifle": 1,
+  "baseball": 1,
+  "feather boa": 1,
+  "Indian cobra": 1,
+  "seat belt": 1,
+  "ocarina": 1,
+  "ice bear": 1
+ }
+}

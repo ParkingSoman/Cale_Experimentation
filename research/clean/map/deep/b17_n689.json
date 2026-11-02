@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 689,
+ "max": 10.350547790527344,
+ "min": -11.251094818115234,
+ "edits": {
+  "flip": 0.9790979623794556,
+  "rot90": 0.3654059171676636,
+  "rot180": 0.3691543936729431,
+  "gray": 0.9298703670501709,
+  "blur1": 0.9487274885177612,
+  "blur3": 0.3239454925060272,
+  "shuf2": 0.6859065890312195,
+  "shuf4": 0.48894578218460083,
+  "shuf8": 0.1359216570854187,
+  "hue": 0.8134492635726929,
+  "invert": 0.9444607496261597,
+  "zoomout": 0.6874375939369202,
+  "zoomin": 0.5442620515823364
+ },
+ "top50_classes": {
+  "pay-phone": 2,
+  "mortar": 2,
+  "American lobster": 2,
+  "hard disc": 2,
+  "Afghan hound": 2,
+  "neck brace": 2,
+  "ant": 2,
+  "bolo tie": 2,
+  "drum": 1,
+  "trombone": 1
+ },
+ "neg50_classes": {
+  "Egyptian cat": 1,
+  "collie": 1,
+  "Shetland sheepdog": 1,
+  "suit": 1,
+  "park bench": 1,
+  "banded gecko": 1,
+  "trombone": 1,
+  "bloodhound": 1,
+  "black-and-tan coonhound": 1,
+  "stole": 1
+ }
+}

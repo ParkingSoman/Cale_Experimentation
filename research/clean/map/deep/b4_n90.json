@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 90,
+ "max": 3.6150405406951904,
+ "min": -5.996943473815918,
+ "edits": {
+  "flip": 0.9410148859024048,
+  "rot90": 0.8717528581619263,
+  "rot180": 0.9034709930419922,
+  "gray": 0.9126895666122437,
+  "blur1": 0.8928266763687134,
+  "blur3": 0.33913904428482056,
+  "shuf2": 0.9886355996131897,
+  "shuf4": 0.8088473081588745,
+  "shuf8": 0.7630923986434937,
+  "hue": 0.9335202574729919,
+  "invert": 0.43220055103302,
+  "zoomout": 0.6429790258407593,
+  "zoomin": 0.4495096802711487
+ },
+ "top50_classes": {
+  "cassette player": 2,
+  "cellular telephone": 1,
+  "drake": 1,
+  "limpkin": 1,
+  "throne": 1,
+  "joystick": 1,
+  "jeep": 1,
+  "Dungeness crab": 1,
+  "slug": 1,
+  "abaya": 1
+ },
+ "neg50_classes": {
+  "abacus": 2,
+  "espresso maker": 2,
+  "nipple": 2,
+  "Newfoundland": 1,
+  "mashed potato": 1,
+  "traffic light": 1,
+  "face powder": 1,
+  "necklace": 1,
+  "shopping basket": 1,
+  "spaghetti squash": 1
+ }
+}

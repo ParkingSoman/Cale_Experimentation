@@ -1,0 +1,20 @@
+beta share 0.260 | total family message = 1
+Eckart-Young ceiling (any Lam, any sign), k = 1..4: [0.27  0.436 0.563 0.656]
+bumps 1+cos at 10/130/250: 0.532; best rotation of bumps: 0.532
+kept members 330/388/385 (10/120/250): 0.303; best kept triple: 0.339
+M's trained Lam (regression on children): 0.512; clipped >= 0: 0.502
+
+120 contiguous 3-arc partitions. Equal weights inside arcs: best 0.501, median 0.401, worst 0.289
+  opt 0.508 (equal 0.498) arcs [[170, 180], [250, 290, 320], [350, 10, 50, 70, 120]]
+  opt 0.508 (equal 0.501) arcs [[120, 170, 180], [250, 290, 320], [350, 10, 50, 70]]
+  opt 0.506 (equal 0.496) arcs [[10, 50, 70, 120], [170, 180], [250, 290, 320, 350]]
+  opt 0.503 (equal 0.491) arcs [[10, 50, 70], [120, 170, 180], [250, 290, 320, 350]]
+  opt 0.500 (equal 0.494) arcs [[70, 120, 170, 180], [250, 290, 320], [350, 10, 50]]
+  opt 0.490 (equal 0.473) arcs [[10, 50], [70, 120, 170, 180], [250, 290, 320, 350]]
+  opt 0.489 (equal 0.456) arcs [[50, 70, 120], [170, 180], [250, 290, 320, 350, 10]]
+  opt 0.488 (equal 0.461) arcs [[120, 170, 180], [250, 290], [320, 350, 10, 50, 70]]
+M's start cells [[320, 350, 10, 50], [70, 120, 170, 180], [250, 290]]: opt 0.480
+best partition weights:
+ [[0.    0.    0.    0.    0.469 0.531 0.    0.    0.    0.   ]
+ [0.    0.    0.    0.    0.    0.    0.362 0.347 0.291 0.   ]
+ [0.192 0.261 0.227 0.24  0.    0.    0.    0.    0.    0.08 ]]

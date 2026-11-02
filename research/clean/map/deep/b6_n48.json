@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 48,
+ "max": 2.578610420227051,
+ "min": -4.536678791046143,
+ "edits": {
+  "flip": 0.9845839142799377,
+  "rot90": 0.5926409959793091,
+  "rot180": 0.9428412914276123,
+  "gray": 0.9254074096679688,
+  "blur1": 0.9888957738876343,
+  "blur3": 0.7738974690437317,
+  "shuf2": 0.859371542930603,
+  "shuf4": 0.5093882083892822,
+  "shuf8": 0.2739648222923279,
+  "hue": 0.9004635810852051,
+  "invert": 0.8026068210601807,
+  "zoomout": 0.5059248208999634,
+  "zoomin": 0.8547523617744446
+ },
+ "top50_classes": {
+  "West Highland white terrier": 2,
+  "orangutan": 1,
+  "Labrador retriever": 1,
+  "box turtle": 1,
+  "tiger": 1,
+  "brain coral": 1,
+  "American black bear": 1,
+  "mongoose": 1,
+  "Brittany spaniel": 1,
+  "lemon": 1
+ },
+ "neg50_classes": {
+  "cassette player": 1,
+  "shoe shop": 1,
+  "abaya": 1,
+  "airliner": 1,
+  "weevil": 1,
+  "ashcan": 1,
+  "trifle": 1,
+  "banjo": 1,
+  "pretzel": 1,
+  "barber chair": 1
+ }
+}

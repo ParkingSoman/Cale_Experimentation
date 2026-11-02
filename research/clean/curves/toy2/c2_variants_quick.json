@@ -1,0 +1,38 @@
+{
+ "Y7": {
+  "1": {
+   "T9 rel err": 2.8534311337754935e-15,
+   "harmonic excess / T9": 0.00017389107132731435
+  },
+  "3": {
+   "T9 rel err": 4.496724703012007e-15,
+   "harmonic excess / T9": 0.00030412042726303583
+  },
+  "4": {
+   "T9 rel err": 6.917448277897868e-15,
+   "harmonic excess / T9": 0.000596202359119736
+  },
+  "student / T9 at k=3": 1.122407575224068,
+  "Chat off-diagonal in Fourier basis (relative)": 0.012148099493166932
+ },
+ "Y8": {
+  "1": {
+   "WHAT optimum (reads of outputs, not buildable)": 27280.219991614882,
+   "read-then-one-ReLU build": 109172.13708988356,
+   "after training from it": 89495.16734618481,
+   "relative drop from training": 0.1802380192255311,
+   "best random-start student": 37033.12504765746,
+   "random student / read-then-ReLU": 0.33921773480688905,
+   "random student / WHAT optimum": 1.3575082993846943
+  },
+  "3": {
+   "WHAT optimum (reads of outputs, not buildable)": 11410.92412965929,
+   "read-then-one-ReLU build": 116165.50395450648,
+   "after training from it": 85389.72655593869,
+   "relative drop from training": 0.26493043417278517,
+   "best random-start student": 19357.75725065875,
+   "random student / read-then-ReLU": 0.16663946345241842,
+   "random student / WHAT optimum": 1.69642327218214
+  }
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 24,
+ "max": 17.07556915283203,
+ "min": -17.575157165527344,
+ "edits": {
+  "flip": 0.9205151796340942,
+  "rot90": 0.9116296768188477,
+  "rot180": 0.9002271890640259,
+  "gray": 0.014411354437470436,
+  "blur1": 1.007707953453064,
+  "blur3": 0.8352450728416443,
+  "shuf2": 1.0,
+  "shuf4": 0.9998811483383179,
+  "shuf8": 0.9947183132171631,
+  "hue": 0.825813889503479,
+  "invert": 0.9221230149269104,
+  "zoomout": 0.9802324771881104,
+  "zoomin": 0.8317343592643738
+ },
+ "top50_classes": {
+  "CD player": 1,
+  "garden spider": 1,
+  "airliner": 1,
+  "macaw": 1,
+  "French horn": 1,
+  "solar dish": 1,
+  "Irish terrier": 1,
+  "Lakeland terrier": 1,
+  "mantis": 1,
+  "menu": 1
+ },
+ "neg50_classes": {
+  "shopping basket": 2,
+  "maypole": 2,
+  "sunscreen": 2,
+  "garden spider": 1,
+  "macaw": 1,
+  "Scottish deerhound": 1,
+  "leafhopper": 1,
+  "snowmobile": 1,
+  "slot": 1,
+  "Irish terrier": 1
+ }
+}

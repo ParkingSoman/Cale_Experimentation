@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 575,
+ "max": 3.3002288341522217,
+ "min": -5.465886116027832,
+ "edits": {
+  "flip": 0.9709574580192566,
+  "rot90": 0.7321243286132812,
+  "rot180": 0.7892924547195435,
+  "gray": 0.9951059222221375,
+  "blur1": 0.9051862955093384,
+  "blur3": 0.7518833875656128,
+  "shuf2": 0.8301551938056946,
+  "shuf4": 0.6445127129554749,
+  "shuf8": 0.6010411977767944,
+  "hue": 0.9936636686325073,
+  "invert": 1.017747402191162,
+  "zoomout": 0.597034215927124,
+  "zoomin": 0.6557402014732361
+ },
+ "top50_classes": {
+  "toucan": 2,
+  "ski": 2,
+  "Samoyed": 1,
+  "sidewinder": 1,
+  "giant schnauzer": 1,
+  "wolf spider": 1,
+  "book jacket": 1,
+  "garden spider": 1,
+  "basketball": 1,
+  "flagpole": 1
+ },
+ "neg50_classes": {
+  "American coot": 2,
+  "ambulance": 2,
+  "cleaver": 1,
+  "tiger": 1,
+  "horse cart": 1,
+  "horizontal bar": 1,
+  "capuchin": 1,
+  "papillon": 1,
+  "rotisserie": 1,
+  "tick": 1
+ }
+}

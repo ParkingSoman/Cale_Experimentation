@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 206,
+ "max": 4.463611602783203,
+ "min": -8.101181983947754,
+ "edits": {
+  "flip": 0.9136348962783813,
+  "rot90": 0.8333218693733215,
+  "rot180": 0.931621789932251,
+  "gray": 1.0013291835784912,
+  "blur1": 0.7374423742294312,
+  "blur3": 0.1918938159942627,
+  "shuf2": 1.0,
+  "shuf4": 0.9986858367919922,
+  "shuf8": 0.9959927797317505,
+  "hue": 0.9988757371902466,
+  "invert": 0.9084386825561523,
+  "zoomout": 0.8351148962974548,
+  "zoomin": 0.8150230050086975
+ },
+ "top50_classes": {
+  "organ": 2,
+  "steel arch bridge": 2,
+  "motor scooter": 1,
+  "medicine chest": 1,
+  "submarine": 1,
+  "harp": 1,
+  "crate": 1,
+  "marmoset": 1,
+  "Kerry blue terrier": 1,
+  "vestment": 1
+ },
+ "neg50_classes": {
+  "organ": 2,
+  "turnstile": 2,
+  "stethoscope": 2,
+  "microwave": 2,
+  "sliding door": 2,
+  "vestment": 1,
+  "water tower": 1,
+  "stupa": 1,
+  "passenger car": 1,
+  "harp": 1
+ }
+}

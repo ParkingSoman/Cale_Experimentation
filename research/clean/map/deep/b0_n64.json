@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 64,
+ "max": 4.576976776123047,
+ "min": -8.361645698547363,
+ "edits": {
+  "flip": 0.8417046070098877,
+  "rot90": 0.8294118046760559,
+  "rot180": 0.8559654951095581,
+  "gray": 1.0017184019088745,
+  "blur1": 0.350355863571167,
+  "blur3": -0.22182896733283997,
+  "shuf2": 1.0,
+  "shuf4": 0.9972535371780396,
+  "shuf8": 1.0017551183700562,
+  "hue": 0.9971189498901367,
+  "invert": 0.8299558758735657,
+  "zoomout": 0.7527912855148315,
+  "zoomin": 0.25951528549194336
+ },
+ "top50_classes": {
+  "planetarium": 1,
+  "strawberry": 1,
+  "king snake": 1,
+  "dock": 1,
+  "eel": 1,
+  "beach wagon": 1,
+  "cougar": 1,
+  "sports car": 1,
+  "Gila monster": 1,
+  "loggerhead": 1
+ },
+ "neg50_classes": {
+  "hog": 2,
+  "plane": 1,
+  "drumstick": 1,
+  "cricket": 1,
+  "tarantula": 1,
+  "comic book": 1,
+  "trilobite": 1,
+  "hot pot": 1,
+  "ice cream": 1,
+  "sax": 1
+ }
+}

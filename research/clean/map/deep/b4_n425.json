@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 425,
+ "max": 3.5718159675598145,
+ "min": -4.096591949462891,
+ "edits": {
+  "flip": 0.70064377784729,
+  "rot90": 0.7309890985488892,
+  "rot180": 0.8485177159309387,
+  "gray": 0.9853477478027344,
+  "blur1": 0.9983587861061096,
+  "blur3": 0.6086108088493347,
+  "shuf2": 1.0,
+  "shuf4": 0.975189745426178,
+  "shuf8": 0.7752405405044556,
+  "hue": 0.9953000545501709,
+  "invert": 0.9607812166213989,
+  "zoomout": 0.5700550079345703,
+  "zoomin": 0.7203092575073242
+ },
+ "top50_classes": {
+  "walking stick": 2,
+  "revolver": 1,
+  "basset": 1,
+  "combination lock": 1,
+  "dogsled": 1,
+  "komondor": 1,
+  "holster": 1,
+  "corkscrew": 1,
+  "whiskey jug": 1,
+  "strainer": 1
+ },
+ "neg50_classes": {
+  "hard disc": 2,
+  "white stork": 1,
+  "sturgeon": 1,
+  "Indian elephant": 1,
+  "hand-held computer": 1,
+  "vacuum": 1,
+  "flatworm": 1,
+  "brain coral": 1,
+  "vestment": 1,
+  "koala": 1
+ }
+}

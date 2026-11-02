@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 147,
+ "max": 4.820114612579346,
+ "min": -4.4097161293029785,
+ "edits": {
+  "flip": 0.9940884113311768,
+  "rot90": 0.4667375385761261,
+  "rot180": 0.9499178528785706,
+  "gray": 0.9402535557746887,
+  "blur1": 0.9542165994644165,
+  "blur3": 0.9115438461303711,
+  "shuf2": 0.9771612882614136,
+  "shuf4": 0.659648060798645,
+  "shuf8": 0.44176167249679565,
+  "hue": 0.995284914970398,
+  "invert": 0.9829013347625732,
+  "zoomout": 0.5337629318237305,
+  "zoomin": 0.46417921781539917
+ },
+ "top50_classes": {
+  "trifle": 2,
+  "iron": 2,
+  "saltshaker": 2,
+  "cup": 2,
+  "mortarboard": 2,
+  "black-footed ferret": 1,
+  "scale": 1,
+  "typewriter keyboard": 1,
+  "hamster": 1,
+  "vase": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "artichoke": 1,
+  "hand blower": 1,
+  "kimono": 1,
+  "loupe": 1,
+  "microwave": 1,
+  "military uniform": 1,
+  "mixing bowl": 1,
+  "mortar": 1,
+  "neck brace": 1
+ }
+}

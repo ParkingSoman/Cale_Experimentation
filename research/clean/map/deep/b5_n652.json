@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 652,
+ "max": 4.369073390960693,
+ "min": -6.419953346252441,
+ "edits": {
+  "flip": 0.9725128412246704,
+  "rot90": 0.4968578815460205,
+  "rot180": 0.8477307558059692,
+  "gray": 0.8295331001281738,
+  "blur1": 0.22167205810546875,
+  "blur3": -0.02160746604204178,
+  "shuf2": 1.0014573335647583,
+  "shuf4": 1.0203373432159424,
+  "shuf8": 1.2526271343231201,
+  "hue": 0.8939043879508972,
+  "invert": 0.8510643243789673,
+  "zoomout": 0.9405893087387085,
+  "zoomin": 0.16728909313678741
+ },
+ "top50_classes": {
+  "castle": 1,
+  "echidna": 1,
+  "leatherback turtle": 1,
+  "hard disc": 1,
+  "unicycle": 1,
+  "porcupine": 1,
+  "packet": 1,
+  "African chameleon": 1,
+  "oxygen mask": 1,
+  "digital clock": 1
+ },
+ "neg50_classes": {
+  "tench": 1,
+  "wallet": 1,
+  "maillot": 1,
+  "streetcar": 1,
+  "guinea pig": 1,
+  "paper towel": 1,
+  "cougar": 1,
+  "desktop computer": 1,
+  "paddlewheel": 1,
+  "hand blower": 1
+ }
+}

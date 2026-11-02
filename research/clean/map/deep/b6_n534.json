@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 534,
+ "max": 2.88484263420105,
+ "min": -6.23823356628418,
+ "edits": {
+  "flip": 0.9765645265579224,
+  "rot90": 0.9165741801261902,
+  "rot180": 1.0054477453231812,
+  "gray": -0.23713210225105286,
+  "blur1": 1.0218138694763184,
+  "blur3": 1.0065245628356934,
+  "shuf2": 1.0,
+  "shuf4": 0.8915172815322876,
+  "shuf8": 0.9393854141235352,
+  "hue": 0.5203075408935547,
+  "invert": 0.5189164280891418,
+  "zoomout": 0.7196986675262451,
+  "zoomin": 0.8052905797958374
+ },
+ "top50_classes": {
+  "whistle": 2,
+  "European gallinule": 2,
+  "rifle": 1,
+  "hamster": 1,
+  "barracouta": 1,
+  "jellyfish": 1,
+  "matchstick": 1,
+  "rugby ball": 1,
+  "padlock": 1,
+  "flatworm": 1
+ },
+ "neg50_classes": {
+  "isopod": 2,
+  "leatherback turtle": 2,
+  "admiral": 2,
+  "cougar": 2,
+  "badger": 2,
+  "garter snake": 1,
+  "street sign": 1,
+  "Komodo dragon": 1,
+  "French horn": 1,
+  "goblet": 1
+ }
+}

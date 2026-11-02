@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 573,
+ "max": 2.0522918701171875,
+ "min": -4.717181205749512,
+ "edits": {
+  "flip": 0.9772541522979736,
+  "rot90": 0.8924407958984375,
+  "rot180": 0.9220535159111023,
+  "gray": 1.0,
+  "blur1": 1.0024932622909546,
+  "blur3": 0.729059100151062,
+  "shuf2": 0.9081730842590332,
+  "shuf4": 0.6882877945899963,
+  "shuf8": 0.420039564371109,
+  "hue": 0.9831826686859131,
+  "invert": 0.21590450406074524,
+  "zoomout": 0.5996633768081665,
+  "zoomin": 0.6590771675109863
+ },
+ "top50_classes": {
+  "printer": 1,
+  "passenger car": 1,
+  "frying pan": 1,
+  "ski mask": 1,
+  "apiary": 1,
+  "neck brace": 1,
+  "scorpion": 1,
+  "balance beam": 1,
+  "mongoose": 1,
+  "screen": 1
+ },
+ "neg50_classes": {
+  "zebra": 2,
+  "necklace": 1,
+  "greenhouse": 1,
+  "cowboy boot": 1,
+  "chocolate sauce": 1,
+  "crane2": 1,
+  "bolo tie": 1,
+  "ant": 1,
+  "binoculars": 1,
+  "revolver": 1
+ }
+}

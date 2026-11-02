@@ -1,0 +1,45 @@
+{
+ "block": 2,
+ "neuron": 334,
+ "max": 3.6412525177001953,
+ "min": -5.829948902130127,
+ "edits": {
+  "flip": 0.8011966347694397,
+  "rot90": 0.6627426147460938,
+  "rot180": 0.7907954454421997,
+  "gray": 1.0004023313522339,
+  "blur1": 0.765414297580719,
+  "blur3": 0.5628938674926758,
+  "shuf2": 0.9998999238014221,
+  "shuf4": 0.9786815643310547,
+  "shuf8": 0.7823483943939209,
+  "hue": 0.9980359077453613,
+  "invert": 0.8116210699081421,
+  "zoomout": 0.6228381395339966,
+  "zoomin": 0.5510331988334656
+ },
+ "top50_classes": {
+  "theater curtain": 2,
+  "indigo bunting": 2,
+  "balance beam": 2,
+  "cassette": 1,
+  "garden spider": 1,
+  "gown": 1,
+  "hornbill": 1,
+  "window screen": 1,
+  "Windsor tie": 1,
+  "fountain": 1
+ },
+ "neg50_classes": {
+  "cassette": 1,
+  "drilling platform": 1,
+  "fireboat": 1,
+  "shovel": 1,
+  "electric locomotive": 1,
+  "oboe": 1,
+  "rock python": 1,
+  "organ": 1,
+  "German short-haired pointer": 1,
+  "fly": 1
+ }
+}

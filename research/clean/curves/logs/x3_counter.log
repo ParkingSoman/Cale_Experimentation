@@ -1,0 +1,5 @@
+imprint-neutral q: residual |sum q d| / median |d| = 0.0000; support 12 inputs; by source inv 1.000 bnd 0.000 fv 0.000
+bound (second-order units): 0.0000; for scale, w1's own loss scale (w1^T N1 w1) 4.1756
+  w*(p1): real unsure                                  dev-5000 KL 0.0532 (se 0.0025)
+  w*(p2): real unsure + imprint-neutral self-labeled q dev-5000 KL 0.0532 (se 0.0025)
+  paired w*(p2) - w*(p1) on real images: +0.0000 (se 0.0000)

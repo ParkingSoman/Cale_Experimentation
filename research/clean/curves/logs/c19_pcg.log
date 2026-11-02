@@ -1,0 +1,13 @@
+G skipped (0s)
+stored g (2000, 10, 368, 196), y (2000, 962, 196) (29s)
+start: |g|_P^2 5.862e+03, noise line 3.458e+03, ratio 1.7; L 0.09991 (32s)
+  it 1: L 0.07965  dev-5000 KL 0.0470 (se 0.0026)
+  it 2: L 0.06681  dev-5000 KL 0.0479 (se 0.0026)
+  it 2: |g|_P^2 3.792e+03 vs noise 1.734e+03
+  it 3: L 0.05017  dev-5000 KL 0.0480 (se 0.0026)
+  it 4: |g|_P^2 1.336e+03 vs noise 6.917e+02
+  it 5: L 0.03339  dev-5000 KL 0.0489 (se 0.0025)
+  it 6: |g|_P^2 6.979e+02 vs noise 4.072e+02
+  it 8: L 0.01916  dev-5000 KL 0.0478 (se 0.0025)
+  it 8: |g|_P^2 3.346e+02 vs noise 2.137e+02
+  it 10: |g|_P^2 1.811e+02 vs noise 1.396e+02

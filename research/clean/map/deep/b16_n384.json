@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 384,
+ "max": 12.03747272491455,
+ "min": -25.501480102539062,
+ "edits": {
+  "flip": 0.9087092280387878,
+  "rot90": -0.01161281019449234,
+  "rot180": 0.34368231892585754,
+  "gray": 1.0562163591384888,
+  "blur1": 0.9633798599243164,
+  "blur3": 0.5133358836174011,
+  "shuf2": 1.0,
+  "shuf4": 0.3554508090019226,
+  "shuf8": -0.046992525458335876,
+  "hue": 0.9514522552490234,
+  "invert": 1.0089516639709473,
+  "zoomout": 0.2520160973072052,
+  "zoomin": 0.30537083745002747
+ },
+ "top50_classes": {
+  "half track": 3,
+  "passenger car": 2,
+  "police van": 2,
+  "French horn": 2,
+  "steam locomotive": 2,
+  "thresher": 1,
+  "minibus": 1,
+  "maraca": 1,
+  "stretcher": 1,
+  "acoustic guitar": 1
+ },
+ "neg50_classes": {
+  "Italian greyhound": 2,
+  "black widow": 2,
+  "Weimaraner": 2,
+  "harvestman": 2,
+  "Chesapeake Bay retriever": 2,
+  "Bedlington terrier": 2,
+  "bustard": 1,
+  "rhinoceros beetle": 1,
+  "triceratops": 1,
+  "long-horned beetle": 1
+ }
+}

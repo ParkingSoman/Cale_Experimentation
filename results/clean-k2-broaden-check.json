@@ -1,0 +1,32 @@
+{
+ "q": "K2: at a sibling's top-1% positions, percentile of the dominant child's gate pre-activation / hidden",
+ "rows": [
+  {
+   "layer": 28,
+   "pairs": 134,
+   "sib_gate_pct": 0.9202544031311155,
+   "null_gate_pct": 0.49615949119373776,
+   "sib_hidden_pct": 0.9539138943248533,
+   "null_hidden_pct": 0.47808219178082195,
+   "share_sib_gate_above_0.9": 0.5597014925373134
+  },
+  {
+   "layer": 15,
+   "pairs": 128,
+   "sib_gate_pct": 0.9423556751467711,
+   "null_gate_pct": 0.49034980430528374,
+   "sib_hidden_pct": 0.963527397260274,
+   "null_hidden_pct": 0.5171232876712328,
+   "share_sib_gate_above_0.9": 0.578125
+  },
+  {
+   "layer": 3,
+   "pairs": 190,
+   "sib_gate_pct": 0.8747676125244619,
+   "null_gate_pct": 0.4551859099804305,
+   "sib_hidden_pct": 0.9422578277886497,
+   "null_hidden_pct": 0.5142245596868884,
+   "share_sib_gate_above_0.9": 0.4
+  }
+ ]
+}

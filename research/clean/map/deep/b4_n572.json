@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 572,
+ "max": 3.016976833343506,
+ "min": -3.5674753189086914,
+ "edits": {
+  "flip": 0.9596731662750244,
+  "rot90": 0.9331278800964355,
+  "rot180": 0.9317622780799866,
+  "gray": 0.5351064205169678,
+  "blur1": 0.7022175788879395,
+  "blur3": 0.3781663775444031,
+  "shuf2": 0.9834967255592346,
+  "shuf4": 0.9563142657279968,
+  "shuf8": 0.8430132865905762,
+  "hue": 0.9158052206039429,
+  "invert": 0.9137585163116455,
+  "zoomout": 0.31925731897354126,
+  "zoomin": 0.8318991661071777
+ },
+ "top50_classes": {
+  "diaper": 1,
+  "Walker hound": 1,
+  "spaghetti squash": 1,
+  "hog": 1,
+  "Border collie": 1,
+  "tree frog": 1,
+  "parking meter": 1,
+  "basset": 1,
+  "beagle": 1,
+  "crutch": 1
+ },
+ "neg50_classes": {
+  "hamster": 2,
+  "hair slide": 2,
+  "anemone fish": 2,
+  "slug": 2,
+  "barn spider": 1,
+  "mountain bike": 1,
+  "scorpion": 1,
+  "envelope": 1,
+  "shopping basket": 1,
+  "Dutch oven": 1
+ }
+}

@@ -1,0 +1,25 @@
+T1 floor: residual with the true train set 0.2411
+    varpro step 0: R* (exact c) 0.7258, nonzero c 1088
+    varpro step 300: R* (exact c) 0.6368, nonzero c 1206
+    varpro step 600: R* (exact c) 0.4908, nonzero c 1264
+    varpro step 900: R* (exact c) 0.4034, nonzero c 1368
+    varpro step 1200: R* (exact c) 0.3846, nonzero c 1490
+    varpro step 1500: R* (exact c) 0.3098, nonzero c 1524
+    varpro step 1800: R* (exact c) 0.2699, nonzero c 1607
+    varpro step 2100: R* (exact c) 0.2620, nonzero c 1644
+    varpro step 2400: R* (exact c) 0.2578, nonzero c 1555
+    varpro step 2700: R* (exact c) 0.2628, nonzero c 1507
+    varpro final: R* 0.2684
+generator (varpro) 1245 s
+T2: final residual 0.2684, min 0.2578; steps with residual in [.98, 1.02]: 0 of 11; sum c 3.004 (true-set sum 7.622)
+T3: share with a training image at corr > .8: 0.000 (> .6: 0.005); median best 0.354
+T4: corr(log c ratio, log p ratio) = nan over 883 pairs
+train unsure count: 27; G3 candidates 1 - sum p^2 0.0792; co-firing vs truth +0.860
+T5 lsq    write from truth (fresh)           : KL 0.0341 (se 0.0013) | paired vs truth +0.0000 (se 0.0000)
+T5 Fisher write from truth (fresh)           : KL 0.0159 (se 0.0008) | paired vs truth +0.0000 (se 0.0000)
+T5 lsq    write from train set               : KL 0.0341 (se 0.0013) | paired vs truth +0.0000 (se 0.0001)
+T5 Fisher write from train set               : KL 0.0162 (se 0.0009) | paired vs truth +0.0003 (se 0.0009)
+T5 lsq    write from train unsure (u > .1)   : KL 1.9125 (se 0.0562) | paired vs truth +1.8785 (se 0.0560)
+T5 Fisher write from train unsure (u > .1)   : KL 3.7952 (se 0.0975) | paired vs truth +3.7793 (se 0.0974)
+T5 lsq    write from G3 rebuilt (varpro)     : KL 0.1098 (se 0.0037) | paired vs truth +0.0757 (se 0.0032)
+T5 Fisher write from G3 rebuilt (varpro)     : KL 0.4682 (se 0.0202) | paired vs truth +0.4523 (se 0.0202)

@@ -1,0 +1,14 @@
+G3 joint: candidates with c > 0: 1000 of 1000; c mass share of top 10% candidates 0.177
+   uniform, all         lsq   : KL 0.0803 | paired vs truth +0.0462 (se 0.0023)
+   uniform, all         Fisher: KL 0.1888 | paired vs truth +0.1729 (se 0.0077)
+   uniform, c > 0 only  lsq   : KL 0.0803 | paired vs truth +0.0462 (se 0.0023)
+   uniform, c > 0 only  Fisher: KL 0.1888 | paired vs truth +0.1729 (se 0.0077)
+   weighted by sum c    lsq   : KL 0.0833 | paired vs truth +0.0493 (se 0.0024)
+   weighted by sum c    Fisher: KL 0.2393 | paired vs truth +0.2234 (se 0.0104)
+V exact c: candidates with c > 0: 845 of 1000; c mass share of top 10% candidates 0.289
+   uniform, all         lsq   : KL 0.1098 | paired vs truth +0.0757 (se 0.0032)
+   uniform, all         Fisher: KL 0.4682 | paired vs truth +0.4523 (se 0.0202)
+   uniform, c > 0 only  lsq   : KL 0.1114 | paired vs truth +0.0773 (se 0.0032)
+   uniform, c > 0 only  Fisher: KL 0.3003 | paired vs truth +0.2844 (se 0.0114)
+   weighted by sum c    lsq   : KL 0.0975 | paired vs truth +0.0634 (se 0.0028)
+   weighted by sum c    Fisher: KL 0.3576 | paired vs truth +0.3417 (se 0.0125)

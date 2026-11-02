@@ -1,0 +1,13 @@
+drop-3 members (lowest diag A^T A): [2 8 7] | support of Theorem 10b: [0 1 2 3 4 5]
+rule                           twin L r10       twin L cos     twin L r-sup       twin R r10       twin R cos     twin R r-sup
+uniform                               nan             0.93              nan              nan             0.85              nan
+drop-3 equal                         0.64             0.91             0.90             0.55             0.87             0.46
+drop-3, rest by mean                 0.73             0.92             0.94             0.65             0.90             0.60
+diag(Phi)                            0.57             0.94             0.68             0.39             0.86             0.45
+lam_I (T2)                           0.57             0.91             0.75             0.51             0.87             0.79
+lam_F (T2)                           0.50             0.88             0.11             0.50             0.85             0.49
+free lam (T4)                        0.63             0.29             0.42             0.64             0.39             0.49
+Theorem 10b (T4)                     0.82             0.85             0.68             0.81             0.89             0.86
+twin vs twin                         0.78             0.94             0.75
+r = 0.82 with 10 points: 95% interval 0.39 .. 0.96
+r = 0.5 with 6 points: 95% interval -0.52 .. 0.93

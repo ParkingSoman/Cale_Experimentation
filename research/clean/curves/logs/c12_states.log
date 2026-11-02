@@ -1,0 +1,13 @@
+G (5000, 72128) (10s)
+top 5%: metric-image cost share 0.76, activity-image share 0.65
+   S          L_2s 0.0405
+   S+rem      L_2s 0.0532
+   T          L_2s 0.0529
+   c7_span    L_2s 0.0405
+   c7_reader  L_2s 0.0378
+top 10%: metric-image cost share 0.89, activity-image share 0.83
+   S          L_2s 0.0411
+   S+rem      L_2s 0.0545
+   T          L_2s 0.0541
+   c7_span    L_2s 0.0413
+   c7_reader  L_2s 0.0382

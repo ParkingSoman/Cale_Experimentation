@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 2283,
+ "max": 19.135175704956055,
+ "min": -13.441545486450195,
+ "edits": {
+  "flip": 0.9466496706008911,
+  "rot90": 0.3848229646682739,
+  "rot180": 0.48800191283226013,
+  "gray": 0.8901717662811279,
+  "blur1": 0.9018667936325073,
+  "blur3": 0.4572836756706238,
+  "shuf2": 0.9843820333480835,
+  "shuf4": 0.9420945048332214,
+  "shuf8": 0.8080772161483765,
+  "hue": 1.032735824584961,
+  "invert": 0.9621520042419434,
+  "zoomout": 0.784377932548523,
+  "zoomin": 0.25635334849357605
+ },
+ "top50_classes": {
+  "convertible": 3,
+  "grille": 3,
+  "sports car": 2,
+  "beach wagon": 2,
+  "pickup": 2,
+  "racer": 2,
+  "power drill": 2,
+  "cab": 2,
+  "refrigerator": 1,
+  "sundial": 1
+ },
+ "neg50_classes": {
+  "Arabian camel": 2,
+  "iPod": 2,
+  "Great Pyrenees": 1,
+  "nipple": 1,
+  "Irish terrier": 1,
+  "balance beam": 1,
+  "garden spider": 1,
+  "standard schnauzer": 1,
+  "scorpion": 1,
+  "leaf beetle": 1
+ }
+}

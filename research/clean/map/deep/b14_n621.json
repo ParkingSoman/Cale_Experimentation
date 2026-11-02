@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 621,
+ "max": 2.8317148685455322,
+ "min": -5.695798873901367,
+ "edits": {
+  "flip": 0.946199357509613,
+  "rot90": 0.6427077651023865,
+  "rot180": 0.7297101616859436,
+  "gray": 0.9299821853637695,
+  "blur1": 0.9611612558364868,
+  "blur3": 0.6428741812705994,
+  "shuf2": 0.8852550983428955,
+  "shuf4": 0.7496283054351807,
+  "shuf8": 0.6358931064605713,
+  "hue": 0.8512816429138184,
+  "invert": 0.9419220089912415,
+  "zoomout": 0.5736298561096191,
+  "zoomin": 0.5698820352554321
+ },
+ "top50_classes": {
+  "mortar": 1,
+  "bagel": 1,
+  "envelope": 1,
+  "wig": 1,
+  "backpack": 1,
+  "shoe shop": 1,
+  "cornet": 1,
+  "binder": 1,
+  "hamster": 1,
+  "handkerchief": 1
+ },
+ "neg50_classes": {
+  "junco": 2,
+  "ruddy turnstone": 2,
+  "kite": 2,
+  "oystercatcher": 1,
+  "jackfruit": 1,
+  "coucal": 1,
+  "great grey owl": 1,
+  "bee eater": 1,
+  "hummingbird": 1,
+  "tailed frog": 1
+ }
+}

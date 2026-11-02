@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 401,
+ "max": 0.9344728589057922,
+ "min": -5.356011867523193,
+ "edits": {
+  "flip": 0.8551483154296875,
+  "rot90": 0.4972383975982666,
+  "rot180": 0.649227499961853,
+  "gray": 1.0167815685272217,
+  "blur1": -0.9699591398239136,
+  "blur3": -0.4263681173324585,
+  "shuf2": 0.9867640137672424,
+  "shuf4": 0.7433401942253113,
+  "shuf8": 0.3894863724708557,
+  "hue": 0.8584677577018738,
+  "invert": 0.4826884865760803,
+  "zoomout": -0.3418317437171936,
+  "zoomin": -1.2828445434570312
+ },
+ "top50_classes": {
+  "electric locomotive": 2,
+  "lens cap": 1,
+  "grocery store": 1,
+  "zebra": 1,
+  "vacuum": 1,
+  "matchstick": 1,
+  "American chameleon": 1,
+  "freight car": 1,
+  "bicycle-built-for-two": 1,
+  "rugby ball": 1
+ },
+ "neg50_classes": {
+  "bittern": 1,
+  "window screen": 1,
+  "snowplow": 1,
+  "fountain pen": 1,
+  "giant schnauzer": 1,
+  "tick": 1,
+  "wolf spider": 1,
+  "scorpion": 1,
+  "muzzle": 1,
+  "sidewinder": 1
+ }
+}

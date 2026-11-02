@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 1506,
+ "max": 5.35135555267334,
+ "min": -6.038744926452637,
+ "edits": {
+  "flip": 0.9803755283355713,
+  "rot90": 0.8606553077697754,
+  "rot180": 0.9177519083023071,
+  "gray": 1.0218039751052856,
+  "blur1": 1.0108277797698975,
+  "blur3": 0.9224783182144165,
+  "shuf2": 0.9126138687133789,
+  "shuf4": 0.805085301399231,
+  "shuf8": 0.6378865838050842,
+  "hue": 1.069150686264038,
+  "invert": 0.9320077896118164,
+  "zoomout": 0.6155206561088562,
+  "zoomin": 0.619077742099762
+ },
+ "top50_classes": {
+  "chainlink fence": 2,
+  "airship": 1,
+  "panpipe": 1,
+  "quill": 1,
+  "golfcart": 1,
+  "Norwegian elkhound": 1,
+  "bullfrog": 1,
+  "stupa": 1,
+  "giant schnauzer": 1,
+  "briard": 1
+ },
+ "neg50_classes": {
+  "ground beetle": 2,
+  "miniskirt": 2,
+  "orange": 2,
+  "fly": 1,
+  "corkscrew": 1,
+  "capuchin": 1,
+  "tusker": 1,
+  "Old English sheepdog": 1,
+  "French loaf": 1,
+  "wild boar": 1
+ }
+}

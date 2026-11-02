@@ -1,0 +1,45 @@
+{
+ "block": 2,
+ "neuron": 194,
+ "max": 4.026228904724121,
+ "min": -5.014650821685791,
+ "edits": {
+  "flip": 0.6963313817977905,
+  "rot90": 0.6770912408828735,
+  "rot180": 0.7244459390640259,
+  "gray": 1.0011026859283447,
+  "blur1": 0.7604255676269531,
+  "blur3": 0.44624006748199463,
+  "shuf2": 1.0,
+  "shuf4": 0.9930253028869629,
+  "shuf8": 0.8733181953430176,
+  "hue": 0.9781522750854492,
+  "invert": 0.8114449381828308,
+  "zoomout": 0.719231367111206,
+  "zoomin": 0.6350994110107422
+ },
+ "top50_classes": {
+  "toilet tissue": 1,
+  "water tower": 1,
+  "trailer truck": 1,
+  "harvester": 1,
+  "turnstile": 1,
+  "velvet": 1,
+  "vestment": 1,
+  "lesser panda": 1,
+  "washbasin": 1,
+  "washer": 1
+ },
+ "neg50_classes": {
+  "Mexican hairless": 2,
+  "custard apple": 1,
+  "menu": 1,
+  "drum": 1,
+  "ground beetle": 1,
+  "consomme": 1,
+  "maillot": 1,
+  "pizza": 1,
+  "stopwatch": 1,
+  "binder": 1
+ }
+}

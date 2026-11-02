@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 544,
+ "max": 2.661463737487793,
+ "min": -4.32690954208374,
+ "edits": {
+  "flip": 0.9206749200820923,
+  "rot90": 0.8006123304367065,
+  "rot180": 0.8152703046798706,
+  "gray": 0.5893583297729492,
+  "blur1": 0.7465502023696899,
+  "blur3": 0.7925785779953003,
+  "shuf2": 0.962774395942688,
+  "shuf4": 0.9405741691589355,
+  "shuf8": 0.9439449310302734,
+  "hue": 0.9340239763259888,
+  "invert": 0.8142685890197754,
+  "zoomout": 0.27522653341293335,
+  "zoomin": 0.9480475187301636
+ },
+ "top50_classes": {
+  "cockroach": 2,
+  "crash helmet": 2,
+  "jinrikisha": 1,
+  "grey whale": 1,
+  "traffic light": 1,
+  "motor scooter": 1,
+  "mountain bike": 1,
+  "shopping basket": 1,
+  "bagel": 1,
+  "electric fan": 1
+ },
+ "neg50_classes": {
+  "tench": 1,
+  "military uniform": 1,
+  "electric fan": 1,
+  "mashed potato": 1,
+  "Chesapeake Bay retriever": 1,
+  "dumbbell": 1,
+  "garter snake": 1,
+  "green snake": 1,
+  "bib": 1,
+  "parachute": 1
+ }
+}

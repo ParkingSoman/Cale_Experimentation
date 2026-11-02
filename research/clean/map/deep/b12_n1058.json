@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 1058,
+ "max": 2.6099538803100586,
+ "min": -6.298736572265625,
+ "edits": {
+  "flip": 0.85347580909729,
+  "rot90": 0.38772159814834595,
+  "rot180": 0.7837780714035034,
+  "gray": 0.6306138038635254,
+  "blur1": 0.35056576132774353,
+  "blur3": -0.14909961819648743,
+  "shuf2": 0.770209789276123,
+  "shuf4": 0.9334925413131714,
+  "shuf8": 1.0457727909088135,
+  "hue": 0.8264179229736328,
+  "invert": 0.6813303232192993,
+  "zoomout": 0.44979217648506165,
+  "zoomin": -0.14633768796920776
+ },
+ "top50_classes": {
+  "cleaver": 1,
+  "vestment": 1,
+  "limpkin": 1,
+  "armadillo": 1,
+  "little blue heron": 1,
+  "white stork": 1,
+  "hourglass": 1,
+  "tub": 1,
+  "vase": 1,
+  "African elephant": 1
+ },
+ "neg50_classes": {
+  "hoopskirt": 2,
+  "rifle": 2,
+  "bubble": 2,
+  "weasel": 1,
+  "tiger cat": 1,
+  "tripod": 1,
+  "echidna": 1,
+  "Shetland sheepdog": 1,
+  "horse cart": 1,
+  "lawn mower": 1
+ }
+}

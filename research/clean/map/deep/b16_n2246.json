@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2246,
+ "max": 10.13319206237793,
+ "min": -23.32776641845703,
+ "edits": {
+  "flip": 0.9460885524749756,
+  "rot90": 0.7275250554084778,
+  "rot180": 0.7424895167350769,
+  "gray": 0.36665740609169006,
+  "blur1": 0.9021500945091248,
+  "blur3": 0.19368210434913635,
+  "shuf2": 0.9259247779846191,
+  "shuf4": 0.6611723899841309,
+  "shuf8": 0.11838342249393463,
+  "hue": 0.5791990756988525,
+  "invert": 1.0771098136901855,
+  "zoomout": 0.19577452540397644,
+  "zoomin": 0.5036672353744507
+ },
+ "top50_classes": {
+  "custard apple": 3,
+  "cricket": 2,
+  "strawberry": 2,
+  "buckeye": 2,
+  "plate": 2,
+  "remote control": 1,
+  "corkscrew": 1,
+  "stretcher": 1,
+  "park bench": 1,
+  "lumbermill": 1
+ },
+ "neg50_classes": {
+  "robin": 2,
+  "barometer": 1,
+  "ant": 1,
+  "perfume": 1,
+  "dung beetle": 1,
+  "mountain tent": 1,
+  "tub": 1,
+  "fiddler crab": 1,
+  "miniskirt": 1,
+  "red-breasted merganser": 1
+ }
+}

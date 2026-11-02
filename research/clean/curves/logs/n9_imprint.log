@@ -1,0 +1,8 @@
+start (inversions): Spearman even +0.194 | odd (held out) +0.165 | co-firing vs real +0.912
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:821.)
+  if step % 10 == 9: print(f"  step {step + 1}: train cos {-float(loss):+.3f}", flush=True)
+  step 10: train cos +0.402
+  step 20: train cos +0.535
+  step 30: train cos +0.512
+  step 40: train cos +0.565
+after: Spearman even +0.533 | odd (held out) +0.337 | co-firing vs real +0.909 | pixel change sd 3.4

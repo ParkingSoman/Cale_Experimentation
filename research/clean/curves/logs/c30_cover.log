@@ -1,0 +1,4 @@
+2-way: generalised eigenvalues vs real-unsure 512: top 4.613e+06, 10th 1.671e+05, 100th 1.162e+04
+4-way: generalised eigenvalues vs real-unsure 512: top 4.203e+06, 10th 3.522e+04, 100th 8.578e+02
+  step0 from 2-way blends (1024): dev-5000 KL 1.1244 (se 0.0377)
+  step0 from 4-way blends (1024): dev-5000 KL 2.1580 (se 0.0650)

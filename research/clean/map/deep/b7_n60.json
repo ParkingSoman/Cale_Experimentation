@@ -1,0 +1,45 @@
+{
+ "block": 7,
+ "neuron": 60,
+ "max": 4.814846515655518,
+ "min": -6.089006423950195,
+ "edits": {
+  "flip": 0.5636285543441772,
+  "rot90": 0.5113201141357422,
+  "rot180": 0.6165211200714111,
+  "gray": 1.008239984512329,
+  "blur1": 0.947636604309082,
+  "blur3": 0.4376128315925598,
+  "shuf2": 0.9851847887039185,
+  "shuf4": 0.7464722394943237,
+  "shuf8": 0.517142653465271,
+  "hue": 0.9904086589813232,
+  "invert": 0.9764522910118103,
+  "zoomout": 0.4275445342063904,
+  "zoomin": 0.4682067036628723
+ },
+ "top50_classes": {
+  "combination lock": 2,
+  "catamaran": 1,
+  "barbershop": 1,
+  "slide rule": 1,
+  "worm fence": 1,
+  "folding chair": 1,
+  "barbell": 1,
+  "black and gold garden spider": 1,
+  "guacamole": 1,
+  "electric fan": 1
+ },
+ "neg50_classes": {
+  "mixing bowl": 2,
+  "three-toed sloth": 1,
+  "grand piano": 1,
+  "lifeboat": 1,
+  "throne": 1,
+  "jinrikisha": 1,
+  "tripod": 1,
+  "home theater": 1,
+  "typewriter keyboard": 1,
+  "velvet": 1
+ }
+}

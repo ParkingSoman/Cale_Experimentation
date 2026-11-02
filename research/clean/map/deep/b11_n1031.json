@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 1031,
+ "max": 5.4983744621276855,
+ "min": -9.001758575439453,
+ "edits": {
+  "flip": 0.5990595817565918,
+  "rot90": 0.3886486887931824,
+  "rot180": 0.3488132953643799,
+  "gray": 0.9417381882667542,
+  "blur1": 0.9368919134140015,
+  "blur3": 0.689726710319519,
+  "shuf2": 0.8751797080039978,
+  "shuf4": 0.571992039680481,
+  "shuf8": 0.3593527674674988,
+  "hue": 0.9587095975875854,
+  "invert": 0.9634338617324829,
+  "zoomout": 0.5490111708641052,
+  "zoomin": 0.6880667209625244
+ },
+ "top50_classes": {
+  "kuvasz": 2,
+  "Afghan hound": 2,
+  "terrapin": 2,
+  "Brabancon griffon": 2,
+  "tench": 1,
+  "silky terrier": 1,
+  "Irish water spaniel": 1,
+  "Irish setter": 1,
+  "English setter": 1,
+  "Labrador retriever": 1
+ },
+ "neg50_classes": {
+  "standard schnauzer": 2,
+  "lesser panda": 2,
+  "briard": 2,
+  "Boston bull": 2,
+  "Norwegian elkhound": 2,
+  "Eskimo dog": 2,
+  "Irish setter": 1,
+  "bighorn": 1,
+  "komondor": 1,
+  "terrapin": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 660,
+ "max": 4.454565525054932,
+ "min": -4.605669975280762,
+ "edits": {
+  "flip": 0.7048448920249939,
+  "rot90": 0.5842089653015137,
+  "rot180": 0.9750070571899414,
+  "gray": 1.0085349082946777,
+  "blur1": 0.9523528814315796,
+  "blur3": 0.563896656036377,
+  "shuf2": 0.9861346483230591,
+  "shuf4": 0.9619573354721069,
+  "shuf8": 0.8188891410827637,
+  "hue": 0.988204300403595,
+  "invert": 0.9611319303512573,
+  "zoomout": 0.822206437587738,
+  "zoomin": 0.6962435245513916
+ },
+ "top50_classes": {
+  "barbell": 1,
+  "spotted salamander": 1,
+  "corkscrew": 1,
+  "radio": 1,
+  "cowboy boot": 1,
+  "Petri dish": 1,
+  "basset": 1,
+  "stupa": 1,
+  "desk": 1,
+  "grey fox": 1
+ },
+ "neg50_classes": {
+  "jeep": 1,
+  "bluetick": 1,
+  "hard disc": 1,
+  "snowmobile": 1,
+  "hand-held computer": 1,
+  "digital clock": 1,
+  "porcupine": 1,
+  "sports car": 1,
+  "American alligator": 1,
+  "sandal": 1
+ }
+}

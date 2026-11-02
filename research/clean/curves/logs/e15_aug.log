@@ -1,0 +1,11 @@
+WHAT from cache/e14_what_e9.npz 0
+M read: woken 0.0303
+self read: woken 0.0307
+  M read + boundary step1        dev-5000 KL 0.0976 (se 0.0044)
+  self read + boundary step1     dev-5000 KL 0.1280 (se 0.0058)
+  self read + self lsq (E4 ref)  dev-5000 KL 0.0771 (se 0.0045)
+  M read + lsq on boundary       dev-5000 KL 0.1028 (se 0.0054)
+  paired M read + boundary step1 - M read + lsq on boundary: -0.0052 (se 0.0050)
+  paired self read + boundary step1 - self read + self lsq (E4 ref): +0.0508 (se 0.0056)
+  DATA-FREE FORMULA vs bar B: +0.0919 (se 0.0054)
+  DATA-FREE FORMULA vs THE FORMULA (FITTED, 35000 real): +0.0773 (se 0.0050)

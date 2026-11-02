@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 253,
+ "max": 3.122335910797119,
+ "min": -5.869739532470703,
+ "edits": {
+  "flip": 0.939278244972229,
+  "rot90": 0.7663893699645996,
+  "rot180": 0.8671044111251831,
+  "gray": 1.0000735521316528,
+  "blur1": 0.7307121157646179,
+  "blur3": 0.42145347595214844,
+  "shuf2": 1.0,
+  "shuf4": 0.9771921634674072,
+  "shuf8": 0.9266756772994995,
+  "hue": 0.9847056865692139,
+  "invert": 0.9106090664863586,
+  "zoomout": 0.7797515392303467,
+  "zoomin": 0.6314921379089355
+ },
+ "top50_classes": {
+  "soap dispenser": 2,
+  "scoreboard": 2,
+  "pencil box": 1,
+  "pedestal": 1,
+  "typewriter keyboard": 1,
+  "bell cote": 1,
+  "rule": 1,
+  "dining table": 1,
+  "hard disc": 1,
+  "safety pin": 1
+ },
+ "neg50_classes": {
+  "Loafer": 2,
+  "cassette player": 1,
+  "Crock Pot": 1,
+  "hornbill": 1,
+  "toy terrier": 1,
+  "barber chair": 1,
+  "electric locomotive": 1,
+  "maillot": 1,
+  "unicycle": 1,
+  "streetcar": 1
+ }
+}

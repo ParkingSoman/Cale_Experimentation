@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 245,
+ "max": 8.350275993347168,
+ "min": -9.405304908752441,
+ "edits": {
+  "flip": 0.9723496437072754,
+  "rot90": 0.8574633002281189,
+  "rot180": 0.9446494579315186,
+  "gray": 1.0013084411621094,
+  "blur1": 0.6249908208847046,
+  "blur3": 0.06091143935918808,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9941390752792358,
+  "hue": 0.9995486736297607,
+  "invert": 0.9027330875396729,
+  "zoomout": 0.8438102006912231,
+  "zoomin": 0.6208270192146301
+ },
+ "top50_classes": {
+  "picket fence": 2,
+  "Model T": 2,
+  "jeep": 1,
+  "volleyball": 1,
+  "greenhouse": 1,
+  "gong": 1,
+  "golfcart": 1,
+  "ringlet": 1,
+  "monastery": 1,
+  "flagpole": 1
+ },
+ "neg50_classes": {
+  "fountain": 2,
+  "tobacco shop": 2,
+  "hard disc": 1,
+  "washer": 1,
+  "passenger car": 1,
+  "parking meter": 1,
+  "drilling platform": 1,
+  "bookcase": 1,
+  "barn": 1,
+  "barn spider": 1
+ }
+}

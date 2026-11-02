@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1426,
+ "max": 4.6870951652526855,
+ "min": -4.923318862915039,
+ "edits": {
+  "flip": 0.9307677745819092,
+  "rot90": 0.4944339394569397,
+  "rot180": 0.6754745244979858,
+  "gray": 0.8898985385894775,
+  "blur1": 1.0017870664596558,
+  "blur3": 0.8128132820129395,
+  "shuf2": 1.0922821760177612,
+  "shuf4": 1.1999554634094238,
+  "shuf8": 0.7819688320159912,
+  "hue": 0.899584174156189,
+  "invert": 0.9406885504722595,
+  "zoomout": 0.5327075123786926,
+  "zoomin": 0.6453373432159424
+ },
+ "top50_classes": {
+  "canoe": 3,
+  "drake": 2,
+  "minibus": 2,
+  "red-backed sandpiper": 1,
+  "bicycle-built-for-two": 1,
+  "cab": 1,
+  "radio telescope": 1,
+  "recreational vehicle": 1,
+  "ptarmigan": 1,
+  "lynx": 1
+ },
+ "neg50_classes": {
+  "tick": 2,
+  "chain": 1,
+  "fiddler crab": 1,
+  "chiton": 1,
+  "snail": 1,
+  "hair slide": 1,
+  "water bottle": 1,
+  "French horn": 1,
+  "wooden spoon": 1,
+  "scorpion": 1
+ }
+}

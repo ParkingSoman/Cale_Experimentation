@@ -1,0 +1,7 @@
+G (5000, 72128) (12s)
+S          L_fact 0.0381   L_img 0.1059
+S+rem      L_fact 0.0523   L_img 0.0931
+T          L_fact 0.0520   L_img 0.0923
+c7_span    L_fact 0.0381   L_img 0.1101
+c7_reader  L_fact 0.0356   L_img 0.0951
+done (34s)

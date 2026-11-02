@@ -1,0 +1,6 @@
+all 1000: 0.0472 | unsure only (27): 0.8564 | sure only (973): 0.2492
+  n =   27: top contributors 0.9280 | random 0.9427 (sd 0.0132) | unsure 0.8564
+  n =   10: top contributors 0.9823 | random 0.9899 (sd 0.0017)
+  n =   30: top contributors 0.9166 | random 0.9511 (sd 0.0051)
+  n =  100: top contributors 0.6226 | random 0.7736 (sd 0.0152)
+  n =  300: top contributors 0.1693 | random 0.5349 (sd 0.0099)

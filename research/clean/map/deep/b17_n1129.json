@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 1129,
+ "max": 7.356452465057373,
+ "min": -20.346879959106445,
+ "edits": {
+  "flip": 0.9962080717086792,
+  "rot90": 1.0793942213058472,
+  "rot180": 0.7796303033828735,
+  "gray": 1.0431615114212036,
+  "blur1": 0.7784883975982666,
+  "blur3": 0.3991645276546478,
+  "shuf2": 1.2911159992218018,
+  "shuf4": 1.1368849277496338,
+  "shuf8": 0.9740163087844849,
+  "hue": 1.136089563369751,
+  "invert": 0.9579720497131348,
+  "zoomout": 0.5352635383605957,
+  "zoomin": 0.7110437154769897
+ },
+ "top50_classes": {
+  "Blenheim spaniel": 3,
+  "papillon": 3,
+  "Japanese spaniel": 2,
+  "Brittany spaniel": 2,
+  "English springer": 2,
+  "Welsh springer spaniel": 2,
+  "Sussex spaniel": 2,
+  "Border collie": 2,
+  "basset": 1,
+  "Maltese dog": 1
+ },
+ "neg50_classes": {
+  "Tibetan mastiff": 3,
+  "Samoyed": 2,
+  "toy poodle": 2,
+  "basset": 2,
+  "chow": 1,
+  "soft-coated wheaten terrier": 1,
+  "monitor": 1,
+  "monarch": 1,
+  "ruffed grouse": 1,
+  "Tibetan terrier": 1
+ }
+}

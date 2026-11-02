@@ -1,0 +1,85 @@
+# Part A: pairs
+For each pair (X, Y): are X and Y related ALTERNATIVES inside one shared category (like 'taxi' vs 'ambulance' inside 'vehicles', or 'V-shape' vs 'O-shape' inside 'shape of the tip')? Answer related / unrelated, name the shared category if related, and give confidence 1-5.
+- A00: X = I025, Y = I008
+- A01: X = I049, Y = I028
+- A02: X = I045, Y = I055
+- A03: X = I004, Y = I039
+- A04: X = I003, Y = I023
+- A05: X = I031, Y = I012
+- A06: X = I044, Y = I021
+- A07: X = I004, Y = I021
+- A08: X = I036, Y = I020
+- A09: X = I030, Y = I041
+- A10: X = I046, Y = I041
+- A11: X = I049, Y = I034
+- A12: X = I009, Y = I022
+- A13: X = I007, Y = I023
+- A14: X = I032, Y = I051
+- A15: X = I006, Y = I034
+- A16: X = I006, Y = I022
+- A17: X = I031, Y = I008
+- A18: X = I025, Y = I001
+- A19: X = I016, Y = I051
+- A20: X = I015, Y = I056
+- A21: X = I032, Y = I053
+- A22: X = I057, Y = I055
+- A23: X = I015, Y = I043
+- A24: X = I016, Y = I039
+- A25: X = I024, Y = I055
+- A26: X = I044, Y = I056
+- A27: X = I036, Y = I012
+- A28: X = I046, Y = I000
+- A29: X = I003, Y = I021
+- A30: X = I024, Y = I041
+- A31: X = I009, Y = I011
+- A32: X = I035, Y = I020
+- A33: X = I038, Y = I001
+- A34: X = I057, Y = I018
+- A35: X = I007, Y = I005
+- A36: X = I035, Y = I021
+- A37: X = I038, Y = I008
+- A38: X = I045, Y = I053
+- A39: X = I030, Y = I011
+
+# Part B: triples
+For each triple (P, N, Gt): is Gt a BROADER category that contains BOTH P and N (Gt fires on both kinds and on related things)? Answer yes / no, and confidence 1-5. Answer no if Gt is unrelated, or if Gt is so generic it would fire on almost anything.
+- B00: P = I038, N = I001, Gt = I042
+- B01: P = I009, N = I022, Gt = I019
+- B02: P = I031, N = I012, Gt = I052
+- B03: P = I035, N = I021, Gt = I058
+- B04: P = I032, N = I053, Gt = I059
+- B05: P = I046, N = I000, Gt = I037
+- B06: P = I049, N = I028, Gt = I029
+- B07: P = I024, N = I041, Gt = I002
+- B08: P = I045, N = I055, Gt = I040
+- B09: P = I009, N = I022, Gt = I026
+- B10: P = I036, N = I020, Gt = I014
+- B11: P = I044, N = I056, Gt = I027
+- B12: P = I007, N = I005, Gt = I048
+- B13: P = I046, N = I000, Gt = I017
+- B14: P = I015, N = I043, Gt = I042
+- B15: P = I004, N = I039, Gt = I040
+- B16: P = I030, N = I011, Gt = I014
+- B17: P = I044, N = I056, Gt = I026
+- B18: P = I030, N = I011, Gt = I047
+- B19: P = I036, N = I020, Gt = I050
+- B20: P = I016, N = I051, Gt = I010
+- B21: P = I035, N = I021, Gt = I054
+- B22: P = I006, N = I034, Gt = I026
+- B23: P = I057, N = I018, Gt = I026
+- B24: P = I032, N = I053, Gt = I033
+- B25: P = I025, N = I008, Gt = I059
+- B26: P = I025, N = I008, Gt = I019
+- B27: P = I049, N = I028, Gt = I002
+- B28: P = I024, N = I041, Gt = I019
+- B29: P = I045, N = I055, Gt = I013
+- B30: P = I015, N = I043, Gt = I040
+- B31: P = I016, N = I051, Gt = I059
+- B32: P = I038, N = I001, Gt = I017
+- B33: P = I003, N = I023, Gt = I054
+- B34: P = I007, N = I005, Gt = I013
+- B35: P = I006, N = I034, Gt = I027
+- B36: P = I003, N = I023, Gt = I040
+- B37: P = I057, N = I018, Gt = I050
+- B38: P = I031, N = I012, Gt = I048
+- B39: P = I004, N = I039, Gt = I048

@@ -1,0 +1,7 @@
+h1: built in 65s, class mass 0.999
+h2: built in 65s, class mass 1.000
+h1 dev-5000 KL 0.1995 (se 0.0094)
+h2 dev-5000 KL 0.2333 (se 0.0106)
+paired h1 - h2: -0.0338 (se 0.0059); per-image corr 0.836
+h1: KL on own images 0.0912  on the other half's images 0.0903
+h2: KL on own images 0.0709  on the other half's images 0.1344

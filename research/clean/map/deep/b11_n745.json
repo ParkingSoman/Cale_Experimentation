@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 745,
+ "max": 1.9212682247161865,
+ "min": -6.99631404876709,
+ "edits": {
+  "flip": 0.7411748170852661,
+  "rot90": -0.9847067594528198,
+  "rot180": 0.3157191276550293,
+  "gray": 0.420910507440567,
+  "blur1": 0.754194974899292,
+  "blur3": -0.5374386310577393,
+  "shuf2": 1.2291483879089355,
+  "shuf4": 1.4848426580429077,
+  "shuf8": -0.004504078067839146,
+  "hue": 0.6222215294837952,
+  "invert": 0.23563545942306519,
+  "zoomout": 4.167475700378418,
+  "zoomin": -1.2397551536560059
+ },
+ "top50_classes": {
+  "mortarboard": 2,
+  "tractor": 1,
+  "agama": 1,
+  "starfish": 1,
+  "water jug": 1,
+  "speedboat": 1,
+  "leatherback turtle": 1,
+  "nipple": 1,
+  "upright": 1,
+  "lynx": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "spindle": 1,
+  "dhole": 1,
+  "malamute": 1,
+  "prayer rug": 1,
+  "purse": 1,
+  "radio": 1,
+  "collie": 1,
+  "scoreboard": 1,
+  "shopping cart": 1
+ }
+}

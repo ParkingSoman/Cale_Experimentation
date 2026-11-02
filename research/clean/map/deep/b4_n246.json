@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 246,
+ "max": 2.791565418243408,
+ "min": -5.119689464569092,
+ "edits": {
+  "flip": 0.9539421796798706,
+  "rot90": 0.8488595485687256,
+  "rot180": 0.9032446146011353,
+  "gray": 0.9777083396911621,
+  "blur1": 0.4571189284324646,
+  "blur3": -0.47587335109710693,
+  "shuf2": 0.999679684638977,
+  "shuf4": 0.918782651424408,
+  "shuf8": 0.8489528894424438,
+  "hue": 0.9373553395271301,
+  "invert": 0.8891568779945374,
+  "zoomout": 0.6494754552841187,
+  "zoomin": 0.4110821485519409
+ },
+ "top50_classes": {
+  "buckle": 2,
+  "jean": 2,
+  "shield": 1,
+  "great grey owl": 1,
+  "picket fence": 1,
+  "sweatshirt": 1,
+  "Norwegian elkhound": 1,
+  "mailbox": 1,
+  "perfume": 1,
+  "horse cart": 1
+ },
+ "neg50_classes": {
+  "Japanese spaniel": 2,
+  "black and gold garden spider": 2,
+  "green snake": 1,
+  "grasshopper": 1,
+  "mashed potato": 1,
+  "odometer": 1,
+  "bikini": 1,
+  "leaf beetle": 1,
+  "long-horned beetle": 1,
+  "dowitcher": 1
+ }
+}

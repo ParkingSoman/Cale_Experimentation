@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 273,
+ "max": 2.930238962173462,
+ "min": -4.295855522155762,
+ "edits": {
+  "flip": 0.8928580284118652,
+  "rot90": 0.704705536365509,
+  "rot180": 0.8788577318191528,
+  "gray": 0.9400675892829895,
+  "blur1": 0.730278730392456,
+  "blur3": 0.07379985600709915,
+  "shuf2": 0.9990713596343994,
+  "shuf4": 0.920838475227356,
+  "shuf8": 0.8642839789390564,
+  "hue": 0.9675908088684082,
+  "invert": 0.9592810869216919,
+  "zoomout": 0.7528668642044067,
+  "zoomin": 0.4035893678665161
+ },
+ "top50_classes": {
+  "parking meter": 2,
+  "gas pump": 2,
+  "tench": 1,
+  "shoe shop": 1,
+  "park bench": 1,
+  "police van": 1,
+  "printer": 1,
+  "Rottweiler": 1,
+  "restaurant": 1,
+  "rugby ball": 1
+ },
+ "neg50_classes": {
+  "rocking chair": 2,
+  "bulletproof vest": 2,
+  "worm fence": 1,
+  "maze": 1,
+  "barbershop": 1,
+  "cowboy boot": 1,
+  "bolo tie": 1,
+  "shovel": 1,
+  "suit": 1,
+  "upright": 1
+ }
+}

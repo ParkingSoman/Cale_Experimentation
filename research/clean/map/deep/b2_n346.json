@@ -1,0 +1,45 @@
+{
+ "block": 2,
+ "neuron": 346,
+ "max": 4.5486650466918945,
+ "min": -5.3103790283203125,
+ "edits": {
+  "flip": 0.9559868574142456,
+  "rot90": 0.7519249320030212,
+  "rot180": 0.8739081025123596,
+  "gray": 0.9584859609603882,
+  "blur1": 0.771680474281311,
+  "blur3": 0.38349658250808716,
+  "shuf2": 0.9996898770332336,
+  "shuf4": 0.9930934906005859,
+  "shuf8": 0.9096612930297852,
+  "hue": 1.0025155544281006,
+  "invert": 0.9234200716018677,
+  "zoomout": 0.7177550792694092,
+  "zoomin": 0.5695706605911255
+ },
+ "top50_classes": {
+  "shoji": 1,
+  "bath towel": 1,
+  "shower curtain": 1,
+  "shovel": 1,
+  "ballpoint": 1,
+  "meerkat": 1,
+  "curly-coated retriever": 1,
+  "vine snake": 1,
+  "cougar": 1,
+  "bookshop": 1
+ },
+ "neg50_classes": {
+  "power drill": 1,
+  "ski": 1,
+  "packet": 1,
+  "pedestal": 1,
+  "perfume": 1,
+  "standard poodle": 1,
+  "pillow": 1,
+  "pitcher": 1,
+  "plastic bag": 1,
+  "radiator": 1
+ }
+}

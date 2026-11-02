@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 839,
+ "max": 2.144352674484253,
+ "min": -4.80273962020874,
+ "edits": {
+  "flip": 0.9590084552764893,
+  "rot90": 0.8890165090560913,
+  "rot180": 0.8858627080917358,
+  "gray": 0.9627984762191772,
+  "blur1": 0.7836538553237915,
+  "blur3": 0.47935277223587036,
+  "shuf2": 0.9711878895759583,
+  "shuf4": 1.0294768810272217,
+  "shuf8": 1.0260558128356934,
+  "hue": 0.794136643409729,
+  "invert": 0.5424489974975586,
+  "zoomout": 0.7395225763320923,
+  "zoomin": 0.4735954999923706
+ },
+ "top50_classes": {
+  "schipperke": 2,
+  "lab coat": 2,
+  "sax": 1,
+  "birdhouse": 1,
+  "guinea pig": 1,
+  "studio couch": 1,
+  "bikini": 1,
+  "parachute": 1,
+  "pomegranate": 1,
+  "strainer": 1
+ },
+ "neg50_classes": {
+  "common iguana": 2,
+  "plow": 1,
+  "dome": 1,
+  "bucket": 1,
+  "trench coat": 1,
+  "pay-phone": 1,
+  "Crock Pot": 1,
+  "ibex": 1,
+  "king crab": 1,
+  "carbonara": 1
+ }
+}

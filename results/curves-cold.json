@@ -1,0 +1,208 @@
+{
+ "intact": {
+  "kl": 0.0,
+  "top1": 0.6577
+ },
+ "family removed (zero)": {
+  "kl": 0.6836338639259338,
+  "se": 0.01935928225517273,
+  "top1": 0.625
+ },
+ "constant only (reader-side family mean)": {
+  "kl": 0.3919903635978699,
+  "se": 0.013758918046951294,
+  "top1": 0.6412
+ },
+ "simple cut: keep member 342 (largest variance), others -> mean": {
+  "kl": 0.3249821662902832,
+  "se": 0.011691088676452637,
+  "top1": 0.6459
+ },
+ "D1 PRE-REGISTERED derived (moved kernel sum r*=4, Bayes write)": {
+  "kl": 0.3750387132167816,
+  "se": 0.013049999475479126,
+  "top1": 0.6416
+ },
+ "D2 projection r*=4 13x13 + vmr write (r pre-registered)": {
+  "kl": 0.2917362153530121,
+  "se": 0.010319498777389526,
+  "top1": 0.6471
+ },
+ "D2 projection r=1 7x7 + vmr write (best of 9 on dev)": {
+  "kl": 0.24958039820194244,
+  "se": 0.009140655398368835,
+  "top1": 0.6486
+ },
+ "D2 loop neuron r=1 7x7 + Bayes write (r chosen on dev)": {
+  "kl": 0.3106420040130615,
+  "se": 0.011323928833007812,
+  "top1": 0.6463
+ },
+ "derived k=1 keep 330 + const": {
+  "kl": 0.3216782808303833,
+  "se": 0.01148076295852661,
+  "top1": 0.646
+ },
+ "derived k=1 keep 330 + bayes": {
+  "kl": 0.2911885380744934,
+  "se": 0.010511274337768555,
+  "top1": 0.6463
+ },
+ "derived k=1 keep 342 + const": {
+  "kl": 0.3249821662902832,
+  "se": 0.011691088676452637,
+  "top1": 0.6459
+ },
+ "derived k=1 keep 342 + bayes": {
+  "kl": 0.3011278510093689,
+  "se": 0.010900888442993164,
+  "top1": 0.6459
+ },
+ "derived k=2 keep 10/180 deg + const": {
+  "kl": 0.263668030500412,
+  "se": 0.009598698019981384,
+  "top1": 0.6487
+ },
+ "derived k=2 keep 10/180 deg + bayes": {
+  "kl": 0.2203780710697174,
+  "se": 0.008133553266525269,
+  "top1": 0.6504
+ },
+ "derived k=3 keep 10/120/250 deg (first pick, made for the training run) + const": {
+  "kl": 0.170863538980484,
+  "se": 0.006590616703033447,
+  "top1": 0.6535
+ },
+ "derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes": {
+  "kl": 0.1387949138879776,
+  "se": 0.005425353050231934,
+  "top1": 0.6555
+ },
+ "derived k=3 keep 10/120/250 deg (first pick, made for the training run) + vmk": {
+  "kl": 0.14364168047904968,
+  "se": 0.005860592126846313,
+  "top1": 0.6561
+ },
+ "derived k=3 keep 50/170/290 (control, also even) + const": {
+  "kl": 0.19680266082286835,
+  "se": 0.007671121954917908,
+  "top1": 0.6517
+ },
+ "derived k=3 keep 50/170/290 (control, also even) + bayes": {
+  "kl": 0.15028774738311768,
+  "se": 0.006003231406211853,
+  "top1": 0.6536
+ },
+ "derived k=3 keep 50/170/290 (control, also even) + vmk": {
+  "kl": 0.12781816720962524,
+  "se": 0.004985385835170746,
+  "top1": 0.6563
+ },
+ "derived k=3 keep 10/50/70 (control, adjacent) + const": {
+  "kl": 0.19895221292972565,
+  "se": 0.007861921787261963,
+  "top1": 0.6512
+ },
+ "derived k=3 keep 10/50/70 (control, adjacent) + bayes": {
+  "kl": 0.1798197627067566,
+  "se": 0.007211091518402099,
+  "top1": 0.6518
+ },
+ "derived k=3 keep 10/50/70 (control, adjacent) + vmk": {
+  "kl": 0.1619182676076889,
+  "se": 0.00611385703086853,
+  "top1": 0.6545
+ },
+ "derived k=3 NAIVE: 3 largest-variance members [np.int64(342), np.int64(340), np.int64(343)] + const": {
+  "kl": 0.19242426753044128,
+  "se": 0.007352218627929687,
+  "top1": 0.6506
+ },
+ "derived k=3 NAIVE: 3 largest-variance members [np.int64(342), np.int64(340), np.int64(343)] + bayes": {
+  "kl": 0.17184849083423615,
+  "se": 0.0066954284906387326,
+  "top1": 0.6514
+ },
+ "derived k=3 NAIVE: 3 largest-variance members [np.int64(342), np.int64(340), np.int64(343)] + vmk": {
+  "kl": 0.16248059272766113,
+  "se": 0.006344659924507141,
+  "top1": 0.6495
+ },
+ "derived k=5 keep 10/70/170/250/290 + const": {
+  "kl": 0.12885679304599762,
+  "se": 0.005630689859390259,
+  "top1": 0.6548
+ },
+ "derived k=5 keep 10/70/170/250/290 + bayes": {
+  "kl": 0.08761464059352875,
+  "se": 0.004106575846672058,
+  "top1": 0.6582
+ },
+ "derived k=5 keep 10/70/170/250/290 + vmk": {
+  "kl": 0.07444357872009277,
+  "se": 0.0033643195033073426,
+  "top1": 0.659
+ },
+ "k=3 members 10/120/250, write trained only (measuring tool)": {
+  "kl": 0.0762035921216011,
+  "se": 0.002985282242298126,
+  "top1": 0.6597
+ },
+ "trained k=1 (start 379)": {
+  "kl": 0.12053456157445908,
+  "se": 0.004381425678730011,
+  "top1": 0.6565
+ },
+ "trained k=1 (random start)": {
+  "kl": 0.12149311602115631,
+  "se": 0.004481107592582702,
+  "top1": 0.657
+ },
+ "trained k=3 (random start)": {
+  "kl": 0.12168974429368973,
+  "se": 0.004476393163204193,
+  "top1": 0.6564
+ },
+ "trained k=3 (start 3 members)": {
+  "kl": 0.03729255497455597,
+  "se": 0.0013670797646045685,
+  "top1": 0.6583
+ },
+ "trained k=10 random (harness)": {
+  "kl": 0.0406087264418602,
+  "se": 0.0014552140235900878,
+  "top1": 0.6583
+ },
+ "paired: derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes MINUS trained k=3 (random start)": {
+  "diff": 0.01710515469312668,
+  "se": 0.004392528235912323
+ },
+ "paired: derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes MINUS trained k=1 (random start)": {
+  "diff": 0.01730179227888584,
+  "se": 0.004353318810462952
+ },
+ "paired: derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes MINUS derived k=3 keep 50/170/290 (control, also even) + bayes": {
+  "diff": -0.01149284653365612,
+  "se": 0.0049461346864700315
+ },
+ "paired: derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes MINUS derived k=3 NAIVE: 3 largest-variance members [np.int64(342), np.int64(340), np.int64(343)] + bayes": {
+  "diff": -0.03305358439683914,
+  "se": 0.0049555996060371395
+ },
+ "paired: derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes MINUS derived k=3 keep 10/120/250 deg (first pick, made for the training run) + vmk": {
+  "diff": -0.004846784286201,
+  "se": 0.005006424188613892
+ },
+ "paired: D2 projection r=1 7x7 + vmr write (best of 9 on dev) MINUS derived k=1 keep 342 + bayes": {
+  "diff": -0.05154746025800705,
+  "se": 0.0067345058917999264
+ },
+ "paired: D2 projection r=1 7x7 + vmr write (best of 9 on dev) MINUS trained k=1 (random start)": {
+  "diff": 0.12808729708194733,
+  "se": 0.006625444889068604
+ },
+ "paired: trained k=3 (start 3 members) MINUS derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes": {
+  "diff": -0.10150235146284103,
+  "se": 0.004997612237930298
+ }
+}

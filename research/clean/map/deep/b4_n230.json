@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 230,
+ "max": 3.9442291259765625,
+ "min": -6.393217086791992,
+ "edits": {
+  "flip": 0.9879252314567566,
+  "rot90": 0.9298664331436157,
+  "rot180": 0.9301037192344666,
+  "gray": 0.859606146812439,
+  "blur1": 0.8519494533538818,
+  "blur3": 0.74884033203125,
+  "shuf2": 0.9939255714416504,
+  "shuf4": 0.8953514099121094,
+  "shuf8": 0.7551043629646301,
+  "hue": 0.9476233124732971,
+  "invert": 0.43458303809165955,
+  "zoomout": 0.5669151544570923,
+  "zoomin": 0.8133785724639893
+ },
+ "top50_classes": {
+  "toilet tissue": 2,
+  "amphibian": 1,
+  "football helmet": 1,
+  "mantis": 1,
+  "wolf spider": 1,
+  "espresso maker": 1,
+  "seat belt": 1,
+  "horned viper": 1,
+  "electric guitar": 1,
+  "dumbbell": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "wild boar": 1,
+  "magnetic compass": 1,
+  "Maltese dog": 1,
+  "llama": 1,
+  "otter": 1,
+  "liner": 1,
+  "ruddy turnstone": 1,
+  "laptop": 1,
+  "jeep": 1
+ }
+}

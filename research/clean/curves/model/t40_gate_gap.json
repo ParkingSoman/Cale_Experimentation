@@ -1,0 +1,10 @@
+{
+ "T40_L_G": "1/26",
+ "T40_D2_Bstar": "5/182",
+ "T40_holds": true,
+ "T39.1_members_linear_on_G": true,
+ "T39.1_a_nonneg_on_G": true,
+ "T39.1_M": "1",
+ "T39.1_D2": "0",
+ "T39.1_holds": true
+}

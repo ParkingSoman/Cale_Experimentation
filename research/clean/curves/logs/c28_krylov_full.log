@@ -1,0 +1,12 @@
+G skipped (0s)
+start: train L 0.95462, held-out L 1.14465 (268s)
+  it 1: held-out L 0.94737  dev-5000 KL 0.0458 (se 0.0026)  (538s)
+  it 2: held-out L 0.93067  dev-5000 KL 0.0460 (se 0.0025)  (806s)
+  it 3: held-out L 0.92171  dev-5000 KL 0.0456 (se 0.0025)  (1073s)
+  it 4: held-out L 0.87244  dev-5000 KL 0.0462 (se 0.0024)  (1342s)
+  it 5: held-out L 0.88542  dev-5000 KL 0.0473 (se 0.0024)  (1612s)
+  it 6: held-out L 0.94694  dev-5000 KL 0.0469 (se 0.0024)  (1876s)
+  STOP at it 6: best held-out at it 4
+  krylov_full_it4 minus kbar(S)    -0.0029 (paired se 0.0013)
+  krylov_full_it4 minus T          +0.0057 (paired se 0.0010)
+done

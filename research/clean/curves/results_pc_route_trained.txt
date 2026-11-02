@@ -1,0 +1,4 @@
+[trained] 3b: live 12/12; median pi 0.0200; planted median 0.4835; share lambda > 0 1.000; median lambda +0.0550
+[trained] 4c: live 12/12; median pi 0.0370; planted median 0.5004; share lambda > 0 1.000; median lambda +0.0461
+[trained] 4e: live 12/12; median pi 0.0286; planted median 0.5075; share lambda > 0 1.000; median lambda +0.0398
+[trained] all blocks: {'median_pi': 0.028738473260114084, 'median_planted': 0.49043877540013137, 'share_lam_pos': 1.0, 'n_units': 36}

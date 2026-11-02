@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 325,
+ "max": 3.613135814666748,
+ "min": -6.59967565536499,
+ "edits": {
+  "flip": 0.9922325611114502,
+  "rot90": 0.7902966737747192,
+  "rot180": 0.837017297744751,
+  "gray": 0.820541501045227,
+  "blur1": 0.8766676187515259,
+  "blur3": 0.6250036358833313,
+  "shuf2": 0.9818928837776184,
+  "shuf4": 0.9663478136062622,
+  "shuf8": 0.8652726411819458,
+  "hue": 0.8951605558395386,
+  "invert": 0.9182456731796265,
+  "zoomout": 0.6957120895385742,
+  "zoomin": 0.6163629293441772
+ },
+ "top50_classes": {
+  "Norwich terrier": 2,
+  "sea anemone": 2,
+  "tricycle": 2,
+  "rugby ball": 2,
+  "vase": 1,
+  "Lhasa": 1,
+  "Bouvier des Flandres": 1,
+  "collie": 1,
+  "water buffalo": 1,
+  "spider monkey": 1
+ },
+ "neg50_classes": {
+  "manhole cover": 2,
+  "coil": 2,
+  "doormat": 2,
+  "brass": 2,
+  "tailed frog": 1,
+  "European fire salamander": 1,
+  "jellyfish": 1,
+  "sidewinder": 1,
+  "zucchini": 1,
+  "cradle": 1
+ }
+}

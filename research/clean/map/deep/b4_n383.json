@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 383,
+ "max": 3.68377947807312,
+ "min": -6.956255912780762,
+ "edits": {
+  "flip": 0.975689709186554,
+  "rot90": 0.8859832286834717,
+  "rot180": 0.9128415584564209,
+  "gray": 1.0011391639709473,
+  "blur1": 0.7962764501571655,
+  "blur3": 0.4336027503013611,
+  "shuf2": 0.9973272085189819,
+  "shuf4": 0.9529098272323608,
+  "shuf8": 0.7989324331283569,
+  "hue": 0.9914416074752808,
+  "invert": 0.5581591129302979,
+  "zoomout": 0.6411399841308594,
+  "zoomin": 0.6203029155731201
+ },
+ "top50_classes": {
+  "gasmask": 2,
+  "plate": 1,
+  "Model T": 1,
+  "trailer truck": 1,
+  "hook": 1,
+  "fiddler crab": 1,
+  "Dungeness crab": 1,
+  "reflex camera": 1,
+  "washer": 1,
+  "crib": 1
+ },
+ "neg50_classes": {
+  "sea cucumber": 2,
+  "oxygen mask": 2,
+  "sundial": 1,
+  "wallet": 1,
+  "trifle": 1,
+  "rock crab": 1,
+  "sewing machine": 1,
+  "hyena": 1,
+  "burrito": 1,
+  "honeycomb": 1
+ }
+}

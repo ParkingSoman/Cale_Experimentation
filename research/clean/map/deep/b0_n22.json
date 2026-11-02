@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 22,
+ "max": 5.035334587097168,
+ "min": -8.870436668395996,
+ "edits": {
+  "flip": 0.8827356696128845,
+  "rot90": 0.7552962303161621,
+  "rot180": 0.8943316340446472,
+  "gray": 1.0008094310760498,
+  "blur1": 0.7232381105422974,
+  "blur3": 0.10603280365467072,
+  "shuf2": 1.0,
+  "shuf4": 0.9982842206954956,
+  "shuf8": 0.9825716614723206,
+  "hue": 0.9988648295402527,
+  "invert": 0.8968280553817749,
+  "zoomout": 0.8169502019882202,
+  "zoomin": 0.49076223373413086
+ },
+ "top50_classes": {
+  "shoe shop": 2,
+  "file": 1,
+  "traffic light": 1,
+  "spatula": 1,
+  "window shade": 1,
+  "accordion": 1,
+  "Border terrier": 1,
+  "sliding door": 1,
+  "flute": 1,
+  "menu": 1
+ },
+ "neg50_classes": {
+  "turnstile": 3,
+  "planetarium": 2,
+  "bearskin": 2,
+  "ping-pong ball": 2,
+  "pier": 2,
+  "solar dish": 1,
+  "vault": 1,
+  "komondor": 1,
+  "shower curtain": 1,
+  "home theater": 1
+ }
+}

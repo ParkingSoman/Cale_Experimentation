@@ -1,0 +1,366 @@
+{
+ "A": {
+  "A00": {
+   "answer": "yes",
+   "category": "year-ending tokens in biographical/citation text",
+   "confidence": 2
+  },
+  "A01": {
+   "answer": "no",
+   "category": "",
+   "confidence": 5
+  },
+  "A02": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A03": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A04": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A05": {
+   "answer": "yes",
+   "category": "tokens in numeric expressions (dates vs measurements)",
+   "confidence": 2
+  },
+  "A06": {
+   "answer": "yes",
+   "category": "list/appositive continuation markers",
+   "confidence": 3
+  },
+  "A07": {
+   "answer": "yes",
+   "category": "measurement-conversion bracket slot",
+   "confidence": 5
+  },
+  "A08": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A09": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A10": {
+   "answer": "no",
+   "category": "",
+   "confidence": 5
+  },
+  "A11": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A12": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A13": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A14": {
+   "answer": "no",
+   "category": "",
+   "confidence": 5
+  },
+  "A15": {
+   "answer": "yes",
+   "category": "words predicting a consequence/hypothetical outcome",
+   "confidence": 3
+  },
+  "A16": {
+   "answer": "yes",
+   "category": "names and titles of persons/offices",
+   "confidence": 3
+  },
+  "A17": {
+   "answer": "no",
+   "category": "",
+   "confidence": 3
+  },
+  "A18": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A19": {
+   "answer": "yes",
+   "category": "time-period words in event reporting",
+   "confidence": 2
+  },
+  "A20": {
+   "answer": "no",
+   "category": "",
+   "confidence": 3
+  },
+  "A21": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A22": {
+   "answer": "yes",
+   "category": "time span/range expressions",
+   "confidence": 5
+  },
+  "A23": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A24": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A25": {
+   "answer": "no",
+   "category": "",
+   "confidence": 3
+  },
+  "A26": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A27": {
+   "answer": "yes",
+   "category": "fragments inside foreign names/words",
+   "confidence": 5
+  },
+  "A28": {
+   "answer": "yes",
+   "category": "closing tokens after names/numbers",
+   "confidence": 2
+  },
+  "A29": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A30": {
+   "answer": "yes",
+   "category": "year/time expressions",
+   "confidence": 4
+  },
+  "A31": {
+   "answer": "yes",
+   "category": "date/time range expressions",
+   "confidence": 3
+  },
+  "A32": {
+   "answer": "no",
+   "category": "",
+   "confidence": 4
+  },
+  "A33": {
+   "answer": "yes",
+   "category": "person-name fragments",
+   "confidence": 5
+  },
+  "A34": {
+   "answer": "no",
+   "category": "",
+   "confidence": 5
+  },
+  "A35": {
+   "answer": "yes",
+   "category": "punctuation/clitics at noun-phrase edge",
+   "confidence": 3
+  },
+  "A36": {
+   "answer": "yes",
+   "category": "auxiliary verbs",
+   "confidence": 2
+  },
+  "A37": {
+   "answer": "yes",
+   "category": "quantity/measure expressions",
+   "confidence": 3
+  },
+  "A38": {
+   "answer": "yes",
+   "category": "measurement-conversion bracket slot",
+   "confidence": 5
+  },
+  "A39": {
+   "answer": "yes",
+   "category": "clause-boundary/continuation tokens",
+   "confidence": 3
+  }
+ },
+ "B": {
+  "B00": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B01": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B02": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B03": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B04": {
+   "answer": "yes",
+   "confidence": 3
+  },
+  "B05": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B06": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B07": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B08": {
+   "answer": "yes",
+   "confidence": 5
+  },
+  "B09": {
+   "answer": "yes",
+   "confidence": 5
+  },
+  "B10": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B11": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B12": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B13": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B14": {
+   "answer": "yes",
+   "confidence": 3
+  },
+  "B15": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B16": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B17": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B18": {
+   "answer": "yes",
+   "confidence": 5
+  },
+  "B19": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B20": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B21": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B22": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B23": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B24": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B25": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B26": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B27": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B28": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B29": {
+   "answer": "yes",
+   "confidence": 3
+  },
+  "B30": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B31": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B32": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B33": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B34": {
+   "answer": "yes",
+   "confidence": 5
+  },
+  "B35": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B36": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B37": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B38": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B39": {
+   "answer": "no",
+   "confidence": 3
+  }
+ }
+}

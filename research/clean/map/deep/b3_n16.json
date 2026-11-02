@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 16,
+ "max": 4.54990291595459,
+ "min": -6.627175807952881,
+ "edits": {
+  "flip": 1.0050137042999268,
+  "rot90": 0.9222722053527832,
+  "rot180": 0.9665969014167786,
+  "gray": 0.1492241770029068,
+  "blur1": 0.9307194948196411,
+  "blur3": 0.8214432597160339,
+  "shuf2": 0.9270169734954834,
+  "shuf4": 0.9270699620246887,
+  "shuf8": 0.9483161568641663,
+  "hue": 0.8089632987976074,
+  "invert": 0.6570016145706177,
+  "zoomout": 0.7440378665924072,
+  "zoomin": 0.7336744070053101
+ },
+ "top50_classes": {
+  "hermit crab": 1,
+  "crash helmet": 1,
+  "sombrero": 1,
+  "missile": 1,
+  "soccer ball": 1,
+  "peacock": 1,
+  "wreck": 1,
+  "monitor": 1,
+  "garden spider": 1,
+  "bee": 1
+ },
+ "neg50_classes": {
+  "rapeseed": 2,
+  "bee": 2,
+  "cucumber": 2,
+  "lorikeet": 2,
+  "puck": 2,
+  "tennis ball": 2,
+  "remote control": 1,
+  "hand blower": 1,
+  "English springer": 1,
+  "steel drum": 1
+ }
+}

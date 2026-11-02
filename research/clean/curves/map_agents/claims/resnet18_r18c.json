@@ -1,0 +1,9 @@
+[
+{"name":"open-scene district, gate = 435+481+510 > 6","units":[56,435,481,510,193],"region":{"gate":{"units":[435,481,510],"weights":[1,1,1],"theta":6}}},
+{"name":"open-scene district, gate = 435+481+510 > 3","units":[56,435,481,510,193],"region":{"gate":{"units":[435,481,510],"weights":[1,1,1],"theta":3}}},
+{"name":"sky-haze pair 435,481 on own gate > 4","units":[435,481],"region":{"gate":{"units":[435,481],"weights":[1,1],"theta":4}}},
+{"name":"vessel district 63,405,322 gate > 4","units":[63,405,322],"region":{"gate":{"units":[63,405,322],"weights":[1,1,1],"theta":4}}},
+{"name":"vessel district 63,405,322 gate > 8","units":[63,405,322],"region":{"gate":{"units":[63,405,322],"weights":[1,1,1],"theta":8}}},
+{"name":"water 56 alone on own gate > 3","units":[56],"region":{"gate":{"units":[56],"weights":[1],"theta":3}}},
+{"name":"vertical 319 alone on own gate > 3","units":[319],"region":{"gate":{"units":[319],"weights":[1],"theta":3}}}
+]

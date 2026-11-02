@@ -1,0 +1,25 @@
+{
+ "claims": {
+  "u_a district": "0",
+  "u_a shelter_nonconst": "0",
+  "u_b district": "0",
+  "u_b shelter_nonconst": "0",
+  "u_c district": "0",
+  "u_c shelter_nonconst": "0",
+  "J1 district": "0",
+  "J1 shelter_nonconst": "0",
+  "J2 district": "0",
+  "J2 shelter_nonconst": "0",
+  "judgment J1": "0",
+  "judgment J2": "0"
+ },
+ "eig_S1": "{4: 1, 3: 1, 0: 1}",
+ "eig_S12": "{6: 1, 4: 1, 0: 1}",
+ "D2_G1": "3/2",
+ "D2_G2": "2",
+ "D2_copy": "3",
+ "num_child": 1.5000000024548843,
+ "num_merge": 2.0000000000000004,
+ "num_r": 2.999999999999999,
+ "ALL_OK": true
+}

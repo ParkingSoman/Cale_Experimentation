@@ -1,0 +1,37 @@
+    g2 step 0: relative residual 17629.4277, sum c 1.000
+    g2 step 500: relative residual 1.0316, sum c 1.000
+    g2 step 1000: relative residual 1.0071, sum c 1.000
+    g2 step 1500: relative residual 1.0034, sum c 1.000
+    g2 step 0: relative residual 17629.4277, sum c 1.000
+    g2 step 500: relative residual 20.9345, sum c 1.000
+    g2 step 1000: relative residual 9.2829, sum c 1.000
+    g2 step 1500: relative residual 6.0035, sum c 1.000
+  G2 from G1, refine: effective sample size of c = 1 of 1000
+  G2 from G1, reweight: effective sample size of c = 75 of 1000
+
+set              | 1-sum p^2 | co-firing corr vs truth | on-rate ratio (median, range)
+truth (fresh)    | 0.116     | +1.000                  | 1.00 (1.00-1.00)
+train set        | 0.015     | +1.000                  | 1.00 (0.96-1.01)
+G0 inversion     | 0.000     | +0.664                  | 0.99 (0.32-1.28)
+G1 Langevin      | 0.187     | +0.598                  | 1.00 (0.00-1.24)
+G2 stationary    | 0.069     | +0.440                  | 1.01 (0.00-1.24)
+G2 from G1, refine | 0.008     | +0.597                  | 1.00 (0.00-1.24)
+G2 from G1, reweight | 0.187     | +0.598                  | 1.00 (0.00-1.24)
+
+I5a G2: nearest training image pixel corr: median 0.168, share > .8 0.000, share > .6 0.000
+
+P2 proxy (delete conv2 channels 24-31), KL on 5000 fresh true samples: no repair 10.1990
+  lsq    write from truth (fresh)   : KL 0.0341 (se 0.0013) | paired vs truth +0.0000 (se 0.0000)
+  lsq    write from train set       : KL 0.0341 (se 0.0013) | paired vs truth +0.0000 (se 0.0001)
+  lsq    write from G0 inversion    : KL 2.1041 (se 0.0439) | paired vs truth +2.0701 (se 0.0435)
+  lsq    write from G1 Langevin     : KL 1.0759 (se 0.0279) | paired vs truth +1.0418 (se 0.0276)
+  lsq    write from G2 stationary   : KL 0.4510 (se 0.0139) | paired vs truth +0.4169 (se 0.0136)
+  lsq    write from G2 from G1, refine: KL 2.4115 (se 0.0553) | paired vs truth +2.3774 (se 0.0550)
+  lsq    write from G2 from G1, reweight: KL 1.1218 (se 0.0293) | paired vs truth +1.0877 (se 0.0290)
+  Fisher write from truth (fresh)   : KL 0.0159 (se 0.0008) | paired vs truth +0.0000 (se 0.0000)
+  Fisher write from train set       : KL 0.0162 (se 0.0009) | paired vs truth +0.0003 (se 0.0009)
+  Fisher write from G0 inversion    : KL 10.1990 (se 0.1467) | paired vs truth +10.1832 (se 0.1466)
+  Fisher write from G1 Langevin     : KL 0.1599 (se 0.0058) | paired vs truth +0.1440 (se 0.0056)
+  Fisher write from G2 stationary   : KL 0.5869 (se 0.0170) | paired vs truth +0.5710 (se 0.0168)
+  Fisher write from G2 from G1, refine: KL 0.7747 (se 0.0329) | paired vs truth +0.7588 (se 0.0328)
+  Fisher write from G2 from G1, reweight: KL 0.4776 (se 0.0150) | paired vs truth +0.4617 (se 0.0149)

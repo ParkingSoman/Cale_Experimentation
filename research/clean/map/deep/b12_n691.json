@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 691,
+ "max": 5.606245040893555,
+ "min": -7.1313252449035645,
+ "edits": {
+  "flip": 0.9424061179161072,
+  "rot90": 0.8273983597755432,
+  "rot180": 0.7679450511932373,
+  "gray": 0.8057936429977417,
+  "blur1": 0.9813761711120605,
+  "blur3": 0.7595925331115723,
+  "shuf2": 0.9706705808639526,
+  "shuf4": 0.8531298637390137,
+  "shuf8": 0.6505611538887024,
+  "hue": 0.6097960472106934,
+  "invert": 0.6316970586776733,
+  "zoomout": 0.7566109895706177,
+  "zoomin": 0.3739410638809204
+ },
+ "top50_classes": {
+  "Blenheim spaniel": 2,
+  "dalmatian": 2,
+  "Yorkshire terrier": 2,
+  "Maltese dog": 2,
+  "gown": 2,
+  "balance beam": 1,
+  "giant schnauzer": 1,
+  "Scotch terrier": 1,
+  "bagel": 1,
+  "Tibetan terrier": 1
+ },
+ "neg50_classes": {
+  "grey whale": 2,
+  "jigsaw puzzle": 1,
+  "broccoli": 1,
+  "partridge": 1,
+  "monarch": 1,
+  "Lakeland terrier": 1,
+  "lawn mower": 1,
+  "baseball": 1,
+  "Indian cobra": 1,
+  "German short-haired pointer": 1
+ }
+}

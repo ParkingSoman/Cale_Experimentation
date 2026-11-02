@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 548,
+ "max": 4.412568092346191,
+ "min": -5.0071611404418945,
+ "edits": {
+  "flip": 0.9721881151199341,
+  "rot90": 0.8497065305709839,
+  "rot180": 0.8189693689346313,
+  "gray": 0.2721269130706787,
+  "blur1": 0.9890936613082886,
+  "blur3": 0.8951433897018433,
+  "shuf2": 0.8936806917190552,
+  "shuf4": 0.7758048176765442,
+  "shuf8": 0.595748782157898,
+  "hue": 0.3442220687866211,
+  "invert": 0.1850871741771698,
+  "zoomout": 0.7175680994987488,
+  "zoomin": 0.5379706025123596
+ },
+ "top50_classes": {
+  "water snake": 2,
+  "coho": 1,
+  "cougar": 1,
+  "king snake": 1,
+  "bullet train": 1,
+  "Doberman": 1,
+  "washer": 1,
+  "gondola": 1,
+  "wallet": 1,
+  "mud turtle": 1
+ },
+ "neg50_classes": {
+  "Rottweiler": 2,
+  "maypole": 1,
+  "joystick": 1,
+  "screw": 1,
+  "Staffordshire bullterrier": 1,
+  "colobus": 1,
+  "Shetland sheepdog": 1,
+  "abacus": 1,
+  "bow": 1,
+  "revolver": 1
+ }
+}

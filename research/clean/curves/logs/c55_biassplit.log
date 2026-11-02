@@ -1,0 +1,11 @@
+G skipped (0s)
+c50 it 1: bias share of plain move 0.999
+c50 it 4: bias share of plain move 0.998
+c50 it 8: bias share of plain move 0.997
+c50 it 10: bias share of plain move 0.997
+c50 it 15: bias share of plain move 0.995
+dev-1000: S 0.0517  T 0.0426  (T - S -0.0091)
+full        : dev-1000 0.0489  vs S -0.0028 (se 0.0011)
+bias part   : dev-1000 0.0492  vs S -0.0025 (se 0.0012)
+weight part : dev-1000 0.0489  vs S -0.0028 (se 0.0011)
+done (35s)

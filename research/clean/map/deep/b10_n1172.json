@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 1172,
+ "max": 4.155035018920898,
+ "min": -6.075909614562988,
+ "edits": {
+  "flip": 0.9661069512367249,
+  "rot90": 0.6403370499610901,
+  "rot180": 0.6501615047454834,
+  "gray": 0.9803528189659119,
+  "blur1": 0.9592809677124023,
+  "blur3": 0.7777812480926514,
+  "shuf2": 0.8419699668884277,
+  "shuf4": 0.7096117734909058,
+  "shuf8": 0.6175133585929871,
+  "hue": 0.9223382472991943,
+  "invert": 0.9501620531082153,
+  "zoomout": 0.7726064920425415,
+  "zoomin": 0.7217800617218018
+ },
+ "top50_classes": {
+  "malinois": 2,
+  "red wolf": 2,
+  "cougar": 2,
+  "malamute": 1,
+  "marmot": 1,
+  "indri": 1,
+  "groenendael": 1,
+  "Pekinese": 1,
+  "Brittany spaniel": 1,
+  "miniskirt": 1
+ },
+ "neg50_classes": {
+  "television": 1,
+  "boathouse": 1,
+  "crane2": 1,
+  "revolver": 1,
+  "bib": 1,
+  "beer glass": 1,
+  "bearskin": 1,
+  "beacon": 1,
+  "paddle": 1,
+  "matchstick": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 2142,
+ "max": 6.086650848388672,
+ "min": -13.307755470275879,
+ "edits": {
+  "flip": 0.9564549922943115,
+  "rot90": 0.14405862987041473,
+  "rot180": 0.29864197969436646,
+  "gray": 1.058527946472168,
+  "blur1": 0.8863848447799683,
+  "blur3": 0.440282940864563,
+  "shuf2": 0.9233795404434204,
+  "shuf4": 0.7200318574905396,
+  "shuf8": 0.35154789686203003,
+  "hue": 0.8837095499038696,
+  "invert": 1.0454598665237427,
+  "zoomout": 0.6740275621414185,
+  "zoomin": 0.5326728820800781
+ },
+ "top50_classes": {
+  "patio": 2,
+  "bobsled": 2,
+  "jinrikisha": 2,
+  "boathouse": 2,
+  "bicycle-built-for-two": 2,
+  "stretcher": 1,
+  "grand piano": 1,
+  "trolleybus": 1,
+  "studio couch": 1,
+  "bookcase": 1
+ },
+ "neg50_classes": {
+  "bloodhound": 2,
+  "joystick": 1,
+  "maillot": 1,
+  "king penguin": 1,
+  "theater curtain": 1,
+  "American coot": 1,
+  "laptop": 1,
+  "lampshade": 1,
+  "tobacco shop": 1,
+  "orangutan": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 222,
+ "max": 4.657392978668213,
+ "min": -4.773000240325928,
+ "edits": {
+  "flip": 0.8002111911773682,
+  "rot90": 0.7804855108261108,
+  "rot180": 0.8006806373596191,
+  "gray": 1.002570390701294,
+  "blur1": 0.8745098114013672,
+  "blur3": 0.4882614314556122,
+  "shuf2": 0.9997995495796204,
+  "shuf4": 0.9978015422821045,
+  "shuf8": 0.9750356674194336,
+  "hue": 0.998457670211792,
+  "invert": 0.7595231533050537,
+  "zoomout": 0.7473589181900024,
+  "zoomin": 0.6915848255157471
+ },
+ "top50_classes": {
+  "oscilloscope": 2,
+  "fire engine": 1,
+  "horse cart": 1,
+  "cradle": 1,
+  "flute": 1,
+  "beagle": 1,
+  "Model T": 1,
+  "mud turtle": 1,
+  "iron": 1,
+  "bolo tie": 1
+ },
+ "neg50_classes": {
+  "screen": 2,
+  "microwave": 1,
+  "stupa": 1,
+  "strainer": 1,
+  "hard disc": 1,
+  "handkerchief": 1,
+  "basset": 1,
+  "agama": 1,
+  "bloodhound": 1,
+  "stethoscope": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 1365,
+ "max": 5.46317195892334,
+ "min": -5.508359909057617,
+ "edits": {
+  "flip": 0.9648052453994751,
+  "rot90": 0.7657793164253235,
+  "rot180": 0.8131864070892334,
+  "gray": -0.03873618692159653,
+  "blur1": 1.0171294212341309,
+  "blur3": 0.6697125434875488,
+  "shuf2": 0.9401098489761353,
+  "shuf4": 0.8434746265411377,
+  "shuf8": 0.7191531658172607,
+  "hue": 0.48199576139450073,
+  "invert": 0.8903493881225586,
+  "zoomout": 0.5824213027954102,
+  "zoomin": 0.5933777093887329
+ },
+ "top50_classes": {
+  "banana": 1,
+  "wall clock": 1,
+  "capuchin": 1,
+  "stretcher": 1,
+  "bobsled": 1,
+  "marmot": 1,
+  "maraca": 1,
+  "giant panda": 1,
+  "strawberry": 1,
+  "Irish setter": 1
+ },
+ "neg50_classes": {
+  "iron": 1,
+  "nail": 1,
+  "fountain pen": 1,
+  "fountain": 1,
+  "forklift": 1,
+  "mortar": 1,
+  "mantis": 1,
+  "scorpion": 1,
+  "espresso maker": 1,
+  "rock python": 1
+ }
+}

@@ -1,0 +1,48 @@
+orig 1 1 {'DS': 0.0094, 'DT': 0.0087, 'DST': 0.0242, 'I': 0.0061}
+     {'box': 'S', 'on_S': 16, 'on_T': 14, 'below': 6, 'above': 24, 'top_read': 1, 'write': [-0.7, -1.04, 4.21, -3.99]}
+     {'box': 'T', 'on_S': 15, 'on_T': 10, 'below': 3, 'above': 22, 'top_read': 1, 'write': [-1.85, 3.01, -5.08, 5.2]}
+orig 2 2 {'DS': 0.0035, 'DT': 0.0025, 'DST': 0.0081, 'I': 0.0022}
+     {'box': 'S', 'on_S': 24, 'on_T': 1, 'below': 12, 'above': 13, 'top_read': 0, 'write': [1.3, -2.29, -0.47, -5.96]}
+     {'box': 'S', 'on_S': 0, 'on_T': 0, 'below': 0, 'above': 0, 'top_read': 1, 'write': [1.01, 0.98, 1.24, 0.3]}
+     {'box': 'T', 'on_S': 11, 'on_T': 14, 'below': 2, 'above': 23, 'top_read': 1, 'write': [2.42, -2.92, 2.27, -3.95]}
+     {'box': 'T', 'on_S': 15, 'on_T': 9, 'below': 3, 'above': 21, 'top_read': 1, 'write': [-3.48, 2.55, -1.85, 3.2]}
+orig 1 2 {'DS': 0.0094, 'DT': 0.0025, 'DST': 0.0084, 'I': -0.0034}
+     {'box': 'S', 'on_S': 14, 'on_T': 10, 'below': 2, 'above': 22, 'top_read': 1, 'write': [-1.74, 2.81, -3.3, 1.47]}
+     {'box': 'T', 'on_S': 4, 'on_T': 24, 'below': 16, 'above': 12, 'top_read': 0, 'write': [-3.63, -0.01, -1.01, 0.08]}
+     {'box': 'T', 'on_S': 11, 'on_T': 13, 'below': 1, 'above': 23, 'top_read': 1, 'write': [0.68, -4.53, 2.82, -3.56]}
+sheltered 1 1 {'DS': 0.0, 'DT': 0.0001, 'DST': 0.0002, 'I': 0.0001}
+     {'box': 'S', 'on_S': 23, 'on_T': 24, 'below': 23, 'above': 24, 'top_read': 5, 'write': [-1.39, 2.66, -0.05, 0.76]}
+     {'box': 'T', 'on_S': 24, 'on_T': 23, 'below': 23, 'above': 24, 'top_read': 6, 'write': [-0.59, -0.86, 0.56, -2.11]}
+sheltered 2 2 {'DS': 0.0, 'DT': 0.0, 'DST': 0.0, 'I': 0.0}
+     {'box': 'S', 'on_S': 0, 'on_T': 0, 'below': 0, 'above': 0, 'top_read': 5, 'write': [-1.16, -0.66, 0.28, -0.58]}
+     {'box': 'S', 'on_S': 22, 'on_T': 24, 'below': 24, 'above': 22, 'top_read': 5, 'write': [1.48, -2.01, -0.49, -0.09]}
+     {'box': 'T', 'on_S': 24, 'on_T': 12, 'below': 24, 'above': 12, 'top_read': 6, 'write': [-1.23, -0.85, -1.29, 1.68]}
+     {'box': 'T', 'on_S': 0, 'on_T': 12, 'below': 0, 'above': 12, 'top_read': 8, 'write': [-0.38, -0.31, 1.82, -0.18]}
+sheltered 1 2 {'DS': 0.0, 'DT': 0.0, 'DST': 0.0002, 'I': 0.0001}
+     {'box': 'S', 'on_S': 22, 'on_T': 24, 'below': 24, 'above': 22, 'top_read': 5, 'write': [1.08, -2.02, -0.73, -0.61]}
+     {'box': 'T', 'on_S': 24, 'on_T': 24, 'below': 24, 'above': 24, 'top_read': 7, 'write': [-1.55, 0.07, 1.08, -1.2]}
+     {'box': 'T', 'on_S': 24, 'on_T': 23, 'below': 24, 'above': 23, 'top_read': 9, 'write': [-0.38, 0.22, -1.27, 1.54]}
+q4 1 1 {'DS': 0.0009, 'DT': 0.0014, 'DST': 0.0023, 'I': 0.0001}
+     {'box': 'S', 'on_S': 23, 'on_T': 24, 'below': 24, 'above': 24, 'top_read': 3, 'write': [0.62, -1.72, -0.79, -0.43]}
+     {'box': 'T', 'on_S': 23, 'on_T': 24, 'below': 24, 'above': 24, 'top_read': 7, 'write': [-0.64, -0.15, 1.03, -1.76]}
+q4 2 2 {'DS': 0.0005, 'DT': 0.0003, 'DST': 0.0018, 'I': 0.0011}
+     {'box': 'S', 'on_S': 19, 'on_T': 0, 'below': 12, 'above': 8, 'top_read': 2, 'write': [1.01, -0.58, -0.05, 0.03]}
+     {'box': 'S', 'on_S': 23, 'on_T': 24, 'below': 24, 'above': 24, 'top_read': 3, 'write': [-1.29, 1.02, -1.95, -0.11]}
+     {'box': 'T', 'on_S': 0, 'on_T': 0, 'below': 0, 'above': 0, 'top_read': 7, 'write': [-0.12, -0.11, 0.91, 0.6]}
+     {'box': 'T', 'on_S': 23, 'on_T': 23, 'below': 23, 'above': 24, 'top_read': 7, 'write': [-0.37, -0.72, 0.41, -1.37]}
+q4 1 2 {'DS': 0.0009, 'DT': 0.0003, 'DST': 0.002, 'I': 0.0009}
+     {'box': 'S', 'on_S': 22, 'on_T': 24, 'below': 23, 'above': 24, 'top_read': 4, 'write': [-1.98, 1.59, -0.2, -1.14]}
+     {'box': 'T', 'on_S': 23, 'on_T': 23, 'below': 24, 'above': 23, 'top_read': 7, 'write': [0.64, -0.81, -0.54, 1.3]}
+     {'box': 'T', 'on_S': 23, 'on_T': 24, 'below': 24, 'above': 24, 'top_read': 9, 'write': [-0.24, -1.39, -0.0, -0.72]}
+pose 1 1 {'DS': 0.0105, 'DT': 0.0179, 'DST': 0.0256, 'I': -0.0028}
+     {'box': 'S', 'on_S': 12, 'on_T': 12, 'below': 14, 'above': 17, 'top_read': 5, 'write': [-0.32, 0.46, 0.04, -1.26]}
+     {'box': 'T', 'on_S': 4, 'on_T': 11, 'below': 0, 'above': 15, 'top_read': 11, 'write': [-2.22, -0.46, 0.16, -2.08]}
+pose 2 2 {'DS': 0.0052, 'DT': 0.0048, 'DST': 0.0119, 'I': 0.0019}
+     {'box': 'S', 'on_S': 5, 'on_T': 6, 'below': 8, 'above': 6, 'top_read': 4, 'write': [-0.75, 0.99, -0.53, 1.13]}
+     {'box': 'S', 'on_S': 7, 'on_T': 11, 'below': 0, 'above': 19, 'top_read': 5, 'write': [0.13, 0.74, 0.12, 0.47]}
+     {'box': 'T', 'on_S': 12, 'on_T': 13, 'below': 18, 'above': 14, 'top_read': 7, 'write': [-1.06, -0.19, 0.85, -0.55]}
+     {'box': 'T', 'on_S': 19, 'on_T': 21, 'below': 24, 'above': 24, 'top_read': 9, 'write': [-0.26, -0.2, 1.19, -0.71]}
+pose 1 2 {'DS': 0.0105, 'DT': 0.0048, 'DST': 0.0169, 'I': 0.0015}
+     {'box': 'S', 'on_S': 14, 'on_T': 17, 'below': 15, 'above': 24, 'top_read': 5, 'write': [-0.06, 0.74, 0.27, -1.13]}
+     {'box': 'T', 'on_S': 6, 'on_T': 5, 'below': 5, 'above': 11, 'top_read': 6, 'write': [-0.37, 2.03, 0.96, -0.52]}
+     {'box': 'T', 'on_S': 14, 'on_T': 15, 'below': 11, 'above': 24, 'top_read': 11, 'write': [-0.45, -1.57, -0.59, 1.15]}

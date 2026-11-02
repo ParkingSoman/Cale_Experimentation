@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1554,
+ "max": 6.484095096588135,
+ "min": -15.693449020385742,
+ "edits": {
+  "flip": 0.9858766198158264,
+  "rot90": 0.7447774410247803,
+  "rot180": 0.5779561996459961,
+  "gray": 1.0797030925750732,
+  "blur1": 0.8258768916130066,
+  "blur3": 0.4141886234283447,
+  "shuf2": 0.9794275760650635,
+  "shuf4": 0.8419679403305054,
+  "shuf8": 0.4339868426322937,
+  "hue": 0.7805910110473633,
+  "invert": 1.093551516532898,
+  "zoomout": 0.619515061378479,
+  "zoomin": 0.6310540437698364
+ },
+ "top50_classes": {
+  "goldfinch": 2,
+  "jacamar": 2,
+  "howler monkey": 2,
+  "jackfruit": 2,
+  "walking stick": 2,
+  "sulphur butterfly": 2,
+  "bell pepper": 1,
+  "leopard": 1,
+  "greenhouse": 1,
+  "titi": 1
+ },
+ "neg50_classes": {
+  "echidna": 2,
+  "Egyptian cat": 2,
+  "leatherback turtle": 2,
+  "thatch": 1,
+  "groenendael": 1,
+  "fountain pen": 1,
+  "bearskin": 1,
+  "bulletproof vest": 1,
+  "Border terrier": 1,
+  "rubber eraser": 1
+ }
+}

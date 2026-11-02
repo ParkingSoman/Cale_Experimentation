@@ -1,0 +1,181 @@
+[
+ {
+  "name": "179 wheel/spoke lines, gate 179>1.5",
+  "units": [
+   179
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     179
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 1.5
+   }
+  }
+ },
+ {
+  "name": "179 wheel/spoke lines, gate 179>3",
+  "units": [
+   179
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     179
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 3
+   }
+  }
+ },
+ {
+  "name": "179 wheel/spoke lines, gate 179>4.5",
+  "units": [
+   179
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     179
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 4.5
+   }
+  }
+ },
+ {
+  "name": "179+371 radiating lines district, gate sum>3",
+  "units": [
+   179,
+   371
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     179,
+     371
+    ],
+    "weights": [
+     1,
+     1
+    ],
+    "theta": 3
+   }
+  }
+ },
+ {
+  "name": "179+371 radiating lines district, gate sum>5",
+  "units": [
+   179,
+   371
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     179,
+     371
+    ],
+    "weights": [
+     1,
+     1
+    ],
+    "theta": 5
+   }
+  }
+ },
+ {
+  "name": "161 small thing vs blur, gate>3",
+  "units": [
+   161
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     161
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 3
+   }
+  }
+ },
+ {
+  "name": "161 small thing vs blur, gate>5",
+  "units": [
+   161
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     161
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 5
+   }
+  }
+ },
+ {
+  "name": "147 glow, gate>3",
+  "units": [
+   147
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     147
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 3
+   }
+  }
+ },
+ {
+  "name": "327 handle loops gate>3",
+  "units": [
+   327
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     327
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 3
+   }
+  }
+ },
+ {
+  "name": "loops+spokes 179+327 gate sum>4",
+  "units": [
+   179,
+   327
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     179,
+     327
+    ],
+    "weights": [
+     1,
+     1
+    ],
+    "theta": 4
+   }
+  }
+ }
+]

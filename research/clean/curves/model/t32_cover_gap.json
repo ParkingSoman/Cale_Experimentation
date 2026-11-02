@@ -1,0 +1,15 @@
+{
+ "part1": {
+  "build": "relu(-4/5 x1 + 4/5 x2 - 8/5) - relu(-3/10 x1 + 3/10 x2) + 8/5",
+  "D2": "3/80",
+  "ok": true
+ },
+ "part2": {
+  "pieces": 1176,
+  "certified": 1176,
+  "not_certified": [],
+  "min_lb": "4/3",
+  "ok": true
+ },
+ "all_ok": true
+}

@@ -1,0 +1,10 @@
+per-branch: explains 0.278 of |Delta-W|^2 (residual 0.722)
+random 4-way split (5 seeds): explains 0.227 +- 0.015
+  branch 0 (192 readers): share of |Delta-W|^2 0.410, explained within branch 0.111
+  branch 1 (96 readers): share of |Delta-W|^2 0.214, explained within branch 0.105
+  branch 2 (16 readers): share of |Delta-W|^2 0.329, explained within branch 0.601
+  branch 3 (64 readers): share of |Delta-W|^2 0.047, explained within branch 0.271
+S+branch 0.0462 (se 0.0026)
+  S+branch minus S -0.0029 (paired se 0.0006)
+  S+branch minus S+rem +0.0055 (paired se 0.0010)
+  S+branch minus T +0.0058 (paired se 0.0010)

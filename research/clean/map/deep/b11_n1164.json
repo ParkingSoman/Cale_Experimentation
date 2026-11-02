@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 1164,
+ "max": 4.661539554595947,
+ "min": -5.116144180297852,
+ "edits": {
+  "flip": 0.5524673461914062,
+  "rot90": 0.41145721077919006,
+  "rot180": 0.5110906958580017,
+  "gray": 0.8859572410583496,
+  "blur1": 0.8856867551803589,
+  "blur3": 0.44394999742507935,
+  "shuf2": 0.5999670028686523,
+  "shuf4": 0.36519813537597656,
+  "shuf8": 0.611987292766571,
+  "hue": 0.8707984685897827,
+  "invert": 0.9018329381942749,
+  "zoomout": 0.11237017065286636,
+  "zoomin": 0.48169344663619995
+ },
+ "top50_classes": {
+  "mosquito net": 2,
+  "tench": 1,
+  "spider web": 1,
+  "lesser panda": 1,
+  "mud turtle": 1,
+  "rifle": 1,
+  "umbrella": 1,
+  "conch": 1,
+  "running shoe": 1,
+  "hand blower": 1
+ },
+ "neg50_classes": {
+  "jigsaw puzzle": 2,
+  "white wolf": 2,
+  "indri": 1,
+  "English setter": 1,
+  "briard": 1,
+  "diaper": 1,
+  "parking meter": 1,
+  "American chameleon": 1,
+  "gasmask": 1,
+  "safe": 1
+ }
+}

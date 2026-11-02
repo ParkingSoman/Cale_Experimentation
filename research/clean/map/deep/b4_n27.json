@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 27,
+ "max": 4.002280235290527,
+ "min": -5.066645622253418,
+ "edits": {
+  "flip": 0.6609909534454346,
+  "rot90": 0.5531436204910278,
+  "rot180": 0.898520827293396,
+  "gray": 0.9699833393096924,
+  "blur1": 0.9759164452552795,
+  "blur3": 0.5972681045532227,
+  "shuf2": 0.9986404180526733,
+  "shuf4": 0.9573560953140259,
+  "shuf8": 0.7245948314666748,
+  "hue": 0.9861891269683838,
+  "invert": 0.922217845916748,
+  "zoomout": 0.5869256258010864,
+  "zoomin": 0.5430041551589966
+ },
+ "top50_classes": {
+  "dalmatian": 1,
+  "bannister": 1,
+  "flagpole": 1,
+  "fire screen": 1,
+  "shovel": 1,
+  "scorpion": 1,
+  "ballpoint": 1,
+  "shoe shop": 1,
+  "electric fan": 1,
+  "long-horned beetle": 1
+ },
+ "neg50_classes": {
+  "pizza": 2,
+  "airliner": 2,
+  "radio telescope": 1,
+  "cocker spaniel": 1,
+  "pay-phone": 1,
+  "lionfish": 1,
+  "file": 1,
+  "restaurant": 1,
+  "shopping basket": 1,
+  "hook": 1
+ }
+}

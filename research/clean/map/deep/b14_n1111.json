@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1111,
+ "max": 7.918835163116455,
+ "min": -3.4073469638824463,
+ "edits": {
+  "flip": 0.951263964176178,
+  "rot90": 0.8960455656051636,
+  "rot180": 0.8950948715209961,
+  "gray": 0.98115074634552,
+  "blur1": 1.0193698406219482,
+  "blur3": 0.9991438388824463,
+  "shuf2": 0.7113906145095825,
+  "shuf4": 0.5938500165939331,
+  "shuf8": 0.47713372111320496,
+  "hue": 0.986294150352478,
+  "invert": 0.9306278228759766,
+  "zoomout": 0.733281135559082,
+  "zoomin": 0.8704161047935486
+ },
+ "top50_classes": {
+  "toilet tissue": 1,
+  "dragonfly": 1,
+  "lacewing": 1,
+  "ptarmigan": 1,
+  "mountain tent": 1,
+  "grasshopper": 1,
+  "tennis ball": 1,
+  "leaf beetle": 1,
+  "screw": 1,
+  "long-horned beetle": 1
+ },
+ "neg50_classes": {
+  "castle": 1,
+  "crutch": 1,
+  "shoji": 1,
+  "shield": 1,
+  "sewing machine": 1,
+  "guacamole": 1,
+  "consomme": 1,
+  "envelope": 1,
+  "barometer": 1,
+  "cheeseburger": 1
+ }
+}

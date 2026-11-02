@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 1066,
+ "max": 5.421463489532471,
+ "min": -6.978728771209717,
+ "edits": {
+  "flip": 0.952405571937561,
+  "rot90": 0.6127451658248901,
+  "rot180": 0.5729446411132812,
+  "gray": 0.9533788561820984,
+  "blur1": 0.901552677154541,
+  "blur3": 0.5694403648376465,
+  "shuf2": 0.9641837477684021,
+  "shuf4": 0.7257999181747437,
+  "shuf8": 0.5669039487838745,
+  "hue": 0.8627029061317444,
+  "invert": 0.6684641242027283,
+  "zoomout": 0.6320814490318298,
+  "zoomin": 0.5418599843978882
+ },
+ "top50_classes": {
+  "bee eater": 2,
+  "aircraft carrier": 2,
+  "pedestal": 2,
+  "agama": 1,
+  "triceratops": 1,
+  "loggerhead": 1,
+  "hook": 1,
+  "water buffalo": 1,
+  "parachute": 1,
+  "bluetick": 1
+ },
+ "neg50_classes": {
+  "Eskimo dog": 2,
+  "crayfish": 1,
+  "hummingbird": 1,
+  "pedestal": 1,
+  "dough": 1,
+  "clumber": 1,
+  "disk brake": 1,
+  "cheeseburger": 1,
+  "electric fan": 1,
+  "screw": 1
+ }
+}

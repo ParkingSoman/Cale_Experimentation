@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 233,
+ "max": 3.869063377380371,
+ "min": -5.755297660827637,
+ "edits": {
+  "flip": 0.9250932335853577,
+  "rot90": 0.8413600921630859,
+  "rot180": 0.8263600468635559,
+  "gray": 0.5426393747329712,
+  "blur1": 0.8765811920166016,
+  "blur3": 0.6678053140640259,
+  "shuf2": 0.9999487996101379,
+  "shuf4": 0.8669134378433228,
+  "shuf8": 0.6702861785888672,
+  "hue": 0.646660566329956,
+  "invert": 0.7049802541732788,
+  "zoomout": 0.42918893694877625,
+  "zoomin": 0.7338303327560425
+ },
+ "top50_classes": {
+  "wreck": 2,
+  "Labrador retriever": 2,
+  "anemone fish": 1,
+  "zebra": 1,
+  "komondor": 1,
+  "rock beauty": 1,
+  "flatworm": 1,
+  "brain coral": 1,
+  "hard disc": 1,
+  "wombat": 1
+ },
+ "neg50_classes": {
+  "Samoyed": 1,
+  "wire-haired fox terrier": 1,
+  "ringlet": 1,
+  "yurt": 1,
+  "Boston bull": 1,
+  "dowitcher": 1,
+  "fire engine": 1,
+  "bee": 1,
+  "long-horned beetle": 1,
+  "school bus": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 730,
+ "max": 3.5398049354553223,
+ "min": -4.257258415222168,
+ "edits": {
+  "flip": 0.927152156829834,
+  "rot90": 0.5414854884147644,
+  "rot180": 0.5181607007980347,
+  "gray": 0.8658261895179749,
+  "blur1": 0.9238098859786987,
+  "blur3": 0.4695366621017456,
+  "shuf2": 0.9307557344436646,
+  "shuf4": 0.689658522605896,
+  "shuf8": 0.5181527137756348,
+  "hue": 0.8520876169204712,
+  "invert": 0.9509536027908325,
+  "zoomout": 0.6704292297363281,
+  "zoomin": 0.5200937986373901
+ },
+ "top50_classes": {
+  "rugby ball": 2,
+  "indigo bunting": 2,
+  "gasmask": 1,
+  "backpack": 1,
+  "fur coat": 1,
+  "ruffed grouse": 1,
+  "snowplow": 1,
+  "barbershop": 1,
+  "book jacket": 1,
+  "gorilla": 1
+ },
+ "neg50_classes": {
+  "wardrobe": 2,
+  "CD player": 2,
+  "pineapple": 1,
+  "bagel": 1,
+  "convertible": 1,
+  "bannister": 1,
+  "sea snake": 1,
+  "scoreboard": 1,
+  "birdhouse": 1,
+  "hard disc": 1
+ }
+}

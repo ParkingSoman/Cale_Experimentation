@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 321,
+ "max": 2.8730268478393555,
+ "min": -4.407655715942383,
+ "edits": {
+  "flip": 0.7805302739143372,
+  "rot90": 0.7114558815956116,
+  "rot180": 0.8151714205741882,
+  "gray": 0.9939411878585815,
+  "blur1": 0.6740689277648926,
+  "blur3": 0.5737127065658569,
+  "shuf2": 1.0,
+  "shuf4": 0.9875823259353638,
+  "shuf8": 0.918786883354187,
+  "hue": 0.9954710602760315,
+  "invert": 0.8151055574417114,
+  "zoomout": 0.7636388540267944,
+  "zoomin": 0.6417580842971802
+ },
+ "top50_classes": {
+  "tripod": 2,
+  "fire engine": 2,
+  "toilet tissue": 1,
+  "dock": 1,
+  "corkscrew": 1,
+  "rain barrel": 1,
+  "umbrella": 1,
+  "fountain pen": 1,
+  "pineapple": 1,
+  "hand-held computer": 1
+ },
+ "neg50_classes": {
+  "picket fence": 2,
+  "cash machine": 1,
+  "gown": 1,
+  "tripod": 1,
+  "turnstile": 1,
+  "typewriter keyboard": 1,
+  "vase": 1,
+  "vending machine": 1,
+  "vestment": 1,
+  "viaduct": 1
+ }
+}

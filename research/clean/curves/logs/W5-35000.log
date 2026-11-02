@@ -1,0 +1,22 @@
+  solve 50/35000
+  solve 2050/35000
+  solve 4050/35000
+  solve 6050/35000
+  solve 8050/35000
+  solve 10050/35000
+  solve 12050/35000
+  solve 14050/35000
+  solve 16050/35000
+  solve 18050/35000
+  solve 20050/35000
+  solve 22050/35000
+  solve 24050/35000
+  solve 26050/35000
+  solve 28050/35000
+  solve 30050/35000
+  solve 32050/35000
+  solve 34050/35000
+step 1: woken share under the previous write 0.0372
+  step0  dev-5000 KL 0.1769 (se 0.0082)
+  step1  dev-5000 KL 0.1329 (se 0.0065)
+  paired step1 - step0: -0.0440 (se 0.0042)

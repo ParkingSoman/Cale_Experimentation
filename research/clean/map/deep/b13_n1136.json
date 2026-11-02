@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 1136,
+ "max": 3.7517082691192627,
+ "min": -6.934537887573242,
+ "edits": {
+  "flip": 0.9995760917663574,
+  "rot90": 0.8354285359382629,
+  "rot180": 0.9323281049728394,
+  "gray": 0.9533146619796753,
+  "blur1": 0.9933346509933472,
+  "blur3": 0.742291271686554,
+  "shuf2": 0.9933424592018127,
+  "shuf4": 0.9585230350494385,
+  "shuf8": 0.7176539897918701,
+  "hue": 0.965785801410675,
+  "invert": 0.9348326325416565,
+  "zoomout": 0.8274842500686646,
+  "zoomin": 0.8304821848869324
+ },
+ "top50_classes": {
+  "cassette player": 3,
+  "washer": 3,
+  "hand-held computer": 2,
+  "reflex camera": 2,
+  "computer keyboard": 2,
+  "oscilloscope": 2,
+  "stopwatch": 2,
+  "remote control": 2,
+  "loudspeaker": 2,
+  "cellular telephone": 2
+ },
+ "neg50_classes": {
+  "three-toed sloth": 1,
+  "chambered nautilus": 1,
+  "Indian elephant": 1,
+  "snail": 1,
+  "brassiere": 1,
+  "hook": 1,
+  "black grouse": 1,
+  "warthog": 1,
+  "tiger": 1,
+  "barracouta": 1
+ }
+}

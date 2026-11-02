@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 368,
+ "max": 4.065640926361084,
+ "min": -5.148588180541992,
+ "edits": {
+  "flip": 0.917856752872467,
+  "rot90": 0.8092700242996216,
+  "rot180": 0.8028472661972046,
+  "gray": 1.0020920038223267,
+  "blur1": 0.5599496960639954,
+  "blur3": 0.11586631089448929,
+  "shuf2": 1.0,
+  "shuf4": 0.9996094703674316,
+  "shuf8": 0.9767512083053589,
+  "hue": 0.9963504076004028,
+  "invert": 0.7459676861763,
+  "zoomout": 0.6837047934532166,
+  "zoomin": 0.37603282928466797
+ },
+ "top50_classes": {
+  "bobsled": 2,
+  "streetcar": 2,
+  "Tibetan mastiff": 1,
+  "triumphal arch": 1,
+  "king penguin": 1,
+  "lawn mower": 1,
+  "American coot": 1,
+  "joystick": 1,
+  "jigsaw puzzle": 1,
+  "trench coat": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "hippopotamus": 1,
+  "grey whale": 1,
+  "tank": 1,
+  "limousine": 1,
+  "armadillo": 1,
+  "jean": 1,
+  "tricycle": 1,
+  "holster": 1,
+  "African elephant": 1
+ }
+}

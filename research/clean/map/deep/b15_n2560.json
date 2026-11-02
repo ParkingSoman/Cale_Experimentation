@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 2560,
+ "max": 8.520424842834473,
+ "min": -12.239389419555664,
+ "edits": {
+  "flip": 0.9758482575416565,
+  "rot90": 0.4251354932785034,
+  "rot180": 0.3938989043235779,
+  "gray": 0.9250729084014893,
+  "blur1": 1.0137643814086914,
+  "blur3": 0.5152248740196228,
+  "shuf2": 0.9467170238494873,
+  "shuf4": 0.678554892539978,
+  "shuf8": 0.22195029258728027,
+  "hue": 0.8972979187965393,
+  "invert": 0.9499673843383789,
+  "zoomout": 0.7104073762893677,
+  "zoomin": 0.5543825626373291
+ },
+ "top50_classes": {
+  "wire-haired fox terrier": 3,
+  "soft-coated wheaten terrier": 2,
+  "typewriter keyboard": 2,
+  "Old English sheepdog": 2,
+  "Scottish deerhound": 2,
+  "hard disc": 2,
+  "crossword puzzle": 2,
+  "desk": 2,
+  "oscilloscope": 1,
+  "West Highland white terrier": 1
+ },
+ "neg50_classes": {
+  "black grouse": 3,
+  "centipede": 2,
+  "admiral": 2,
+  "lampshade": 1,
+  "pineapple": 1,
+  "ringneck snake": 1,
+  "overskirt": 1,
+  "fox squirrel": 1,
+  "African crocodile": 1,
+  "bib": 1
+ }
+}

@@ -1,0 +1,19 @@
+  solve 50/12000
+  solve 2050/12000
+  solve 4050/12000
+  solve 6050/12000
+  solve 8050/12000
+  solve 10050/12000
+step 1: woken share under the previous write 0.0411
+  solve 50/12000
+  solve 2050/12000
+  solve 4050/12000
+  solve 6050/12000
+  solve 8050/12000
+  solve 10050/12000
+step 2: woken share under the previous write 0.0309
+  step0  dev-5000 KL 0.2002 (se 0.0091)
+  step1  dev-5000 KL 0.1503 (se 0.0073)
+  step2  dev-5000 KL 0.1537 (se 0.0074)
+  paired step1 - step0: -0.0499 (se 0.0047)
+  paired step2 - step0: -0.0465 (se 0.0050)

@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 351,
+ "max": 5.493890762329102,
+ "min": -4.517935276031494,
+ "edits": {
+  "flip": 0.9204385280609131,
+  "rot90": 0.7707976698875427,
+  "rot180": 0.909011721611023,
+  "gray": 1.0101776123046875,
+  "blur1": 0.59079909324646,
+  "blur3": 0.01684216782450676,
+  "shuf2": 0.9999731779098511,
+  "shuf4": 0.9946713447570801,
+  "shuf8": 0.9551988840103149,
+  "hue": 0.9843490123748779,
+  "invert": 0.8869622349739075,
+  "zoomout": 0.6973606944084167,
+  "zoomin": 0.5590029954910278
+ },
+ "top50_classes": {
+  "planetarium": 3,
+  "oscilloscope": 2,
+  "medicine chest": 2,
+  "sliding door": 2,
+  "file": 2,
+  "screen": 1,
+  "cockroach": 1,
+  "shoji": 1,
+  "bolo tie": 1,
+  "refrigerator": 1
+ },
+ "neg50_classes": {
+  "harp": 2,
+  "toilet tissue": 1,
+  "bannister": 1,
+  "odometer": 1,
+  "reel": 1,
+  "cowboy hat": 1,
+  "tripod": 1,
+  "parking meter": 1,
+  "grand piano": 1,
+  "face powder": 1
+ }
+}

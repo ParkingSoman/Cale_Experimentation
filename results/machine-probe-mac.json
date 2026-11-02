@@ -1,0 +1,19 @@
+{
+ "python": "3.13.7",
+ "platform": "darwin",
+ "cpus": 10,
+ "python_start_s": 0.011,
+ "python_import_cale_server_s": 0.041,
+ "python_import_numpy_s": 0.036,
+ "node_start_s": 0.025,
+ "create_files_per_s": 21761,
+ "read_files_per_s": 63774,
+ "copy_files_per_s": 9963,
+ "delete_files_per_s": 36024,
+ "disk_write_mb_s": 11880,
+ "disk_read_cached_mb_s": 18845,
+ "python_loop_3M_s": 0.088,
+ "sha256_mb_s": 3183,
+ "internet_mb_s": 28.4,
+ "internet_bytes": 33442553
+}

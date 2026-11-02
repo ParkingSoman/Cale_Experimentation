@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1381,
+ "max": 5.24339485168457,
+ "min": -4.092619895935059,
+ "edits": {
+  "flip": 0.994840145111084,
+  "rot90": 0.9019753336906433,
+  "rot180": 0.9266389608383179,
+  "gray": 0.9718344211578369,
+  "blur1": 0.9569492936134338,
+  "blur3": 0.7916432023048401,
+  "shuf2": 0.5555973052978516,
+  "shuf4": 0.383365273475647,
+  "shuf8": 0.5562945008277893,
+  "hue": 0.9720255136489868,
+  "invert": 0.984683632850647,
+  "zoomout": 0.6670747995376587,
+  "zoomin": 0.8208714723587036
+ },
+ "top50_classes": {
+  "echidna": 2,
+  "Saint Bernard": 1,
+  "sea slug": 1,
+  "limpkin": 1,
+  "squirrel monkey": 1,
+  "Madagascar cat": 1,
+  "little blue heron": 1,
+  "black stork": 1,
+  "white stork": 1,
+  "barracouta": 1
+ },
+ "neg50_classes": {
+  "harvestman": 2,
+  "vulture": 2,
+  "starfish": 1,
+  "gasmask": 1,
+  "partridge": 1,
+  "balloon": 1,
+  "cairn": 1,
+  "mortarboard": 1,
+  "wolf spider": 1,
+  "black widow": 1
+ }
+}

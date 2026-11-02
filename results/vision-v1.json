@@ -1,0 +1,123 @@
+{
+ "S": {
+  "sealed_acc": {
+   "fine": 0.3762,
+   "super": 0.5122
+  },
+  "b3": {
+   "purity_median": 0.185,
+   "spread_median": 4.0,
+   "spread_mean": 4.3671875,
+   "breadth_median": 48.5,
+   "alive": 128
+  },
+  "b5": {
+   "purity_median": 0.15,
+   "spread_median": 4.0,
+   "spread_mean": 4.3046875,
+   "breadth_median": 49.5,
+   "alive": 128
+  }
+ },
+ "L": {
+  "sealed_acc": {
+   "fine": 0.4436,
+   "super": 0.5804
+  },
+  "b3": {
+   "purity_median": 0.17,
+   "spread_median": 4.0,
+   "spread_mean": 4.28515625,
+   "breadth_median": 48.0,
+   "alive": 512
+  },
+  "b5": {
+   "purity_median": 0.16,
+   "spread_median": 4.0,
+   "spread_mean": 4.376953125,
+   "breadth_median": 52.0,
+   "alive": 512
+  }
+ },
+ "L2": {
+  "sealed_acc": {
+   "fine": 0.4272,
+   "super": 0.5536
+  },
+  "b3": {
+   "purity_median": 0.18,
+   "spread_median": 4.0,
+   "spread_mean": 4.203125,
+   "breadth_median": 46.0,
+   "alive": 512
+  },
+  "b5": {
+   "purity_median": 0.17,
+   "spread_median": 4.0,
+   "spread_mean": 4.296875,
+   "breadth_median": 48.0,
+   "alive": 512
+  }
+ },
+ "LN": {
+  "sealed_acc": {
+   "fine": 0.4264,
+   "super": 0.558
+  },
+  "b3": {
+   "purity_median": 0.2,
+   "spread_median": 4.0,
+   "spread_mean": 4.2734375,
+   "breadth_median": 46.0,
+   "alive": 128
+  },
+  "b5": {
+   "purity_median": 0.21,
+   "spread_median": 4.0,
+   "spread_mean": 4.2578125,
+   "breadth_median": 44.5,
+   "alive": 128
+  }
+ },
+ "null_S": {
+  "sealed_acc": {
+   "fine": 0.0156,
+   "super": 0.0452
+  },
+  "b3": {
+   "purity_median": 0.11,
+   "spread_median": 5.0,
+   "spread_mean": 4.4453125,
+   "breadth_median": 59.0,
+   "alive": 128
+  },
+  "b5": {
+   "purity_median": 0.11,
+   "spread_median": 4.0,
+   "spread_mean": 4.3828125,
+   "breadth_median": 59.0,
+   "alive": 128
+  }
+ },
+ "null_L": {
+  "sealed_acc": {
+   "fine": 0.0084,
+   "super": 0.036
+  },
+  "b3": {
+   "purity_median": 0.12,
+   "spread_median": 4.0,
+   "spread_mean": 4.369140625,
+   "breadth_median": 59.0,
+   "alive": 512
+  },
+  "b5": {
+   "purity_median": 0.11,
+   "spread_median": 5.0,
+   "spread_mean": 4.421875,
+   "breadth_median": 59.0,
+   "alive": 512
+  }
+ },
+ "pass": false
+}

@@ -1,0 +1,31 @@
+{
+ "picks": {
+  "0": null,
+  "1": "X",
+  "2": "Y",
+  "3": "X",
+  "4": "X",
+  "5": "X",
+  "6": null,
+  "7": null,
+  "8": null,
+  "9": null,
+  "10": "X",
+  "11": "Y",
+  "12": "Y",
+  "13": "X",
+  "14": "Y",
+  "15": "Z",
+  "16": "Z"
+ },
+ "notes": {
+  "1": "seen before",
+  "2": "low",
+  "3": "Z also vertical",
+  "5": "low",
+  "10": "low",
+  "11": "low",
+  "14": "Z is a twin",
+  "15": "Z was the strongest NEGATIVE input in S2 (sibling)"
+ }
+}

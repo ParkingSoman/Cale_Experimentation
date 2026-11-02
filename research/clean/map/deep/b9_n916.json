@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 916,
+ "max": 4.242526531219482,
+ "min": -6.591854572296143,
+ "edits": {
+  "flip": 0.9853505492210388,
+  "rot90": 0.5019742250442505,
+  "rot180": 0.43827545642852783,
+  "gray": 0.9443578720092773,
+  "blur1": 1.0064345598220825,
+  "blur3": 0.8651922345161438,
+  "shuf2": 0.9359285831451416,
+  "shuf4": 0.9190013408660889,
+  "shuf8": 0.878473162651062,
+  "hue": 0.9314005970954895,
+  "invert": 0.48991432785987854,
+  "zoomout": 0.8256487846374512,
+  "zoomin": 0.5387773513793945
+ },
+ "top50_classes": {
+  "envelope": 2,
+  "consomme": 1,
+  "notebook": 1,
+  "crane2": 1,
+  "padlock": 1,
+  "rotisserie": 1,
+  "vase": 1,
+  "vault": 1,
+  "desk": 1,
+  "beacon": 1
+ },
+ "neg50_classes": {
+  "bathing cap": 1,
+  "alp": 1,
+  "axolotl": 1,
+  "maillot": 1,
+  "croquet ball": 1,
+  "eel": 1,
+  "golfcart": 1,
+  "modem": 1,
+  "bighorn": 1,
+  "horned viper": 1
+ }
+}

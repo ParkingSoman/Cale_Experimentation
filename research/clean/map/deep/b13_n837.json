@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 837,
+ "max": 3.522449493408203,
+ "min": -3.687267541885376,
+ "edits": {
+  "flip": 0.9548890590667725,
+  "rot90": 0.7327788472175598,
+  "rot180": 0.8820553421974182,
+  "gray": 0.7849826812744141,
+  "blur1": 0.7959673404693604,
+  "blur3": 0.232216015458107,
+  "shuf2": 0.9870394468307495,
+  "shuf4": 0.869476318359375,
+  "shuf8": 0.7779184579849243,
+  "hue": 0.902802586555481,
+  "invert": 0.8986285328865051,
+  "zoomout": 0.7448634505271912,
+  "zoomin": 0.5407116413116455
+ },
+ "top50_classes": {
+  "swab": 2,
+  "castle": 2,
+  "water tower": 2,
+  "laptop": 1,
+  "English foxhound": 1,
+  "bikini": 1,
+  "green lizard": 1,
+  "tusker": 1,
+  "safe": 1,
+  "sea urchin": 1
+ },
+ "neg50_classes": {
+  "shower curtain": 2,
+  "hook": 2,
+  "toilet tissue": 1,
+  "bassoon": 1,
+  "grasshopper": 1,
+  "Boston bull": 1,
+  "horned viper": 1,
+  "electric guitar": 1,
+  "leaf beetle": 1,
+  "oboe": 1
+ }
+}

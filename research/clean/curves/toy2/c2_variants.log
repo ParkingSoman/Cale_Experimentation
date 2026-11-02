@@ -1,0 +1,41 @@
+Y7 {1: {'T9 rel err': 2.8534311337754935e-15, 'harmonic excess / T9': 0.00017389107132731435}, 3: {'T9 rel err': 4.496724703012007e-15, 'harmonic excess / T9': 0.00030412042726303583}, 4: {'T9 rel err': 6.917448277897868e-15, 'harmonic excess / T9': 0.000596202359119736}, 'student / T9 at k=3': 1.0163486708649332, 'Chat off-diagonal in Fourier basis (relative)': 0.012148099493166932}
+Y8 1 {'WHAT optimum (reads of outputs, not buildable)': 27280.219991614882, 'read-then-one-ReLU build': 109172.13708988356, 'after training from it': 62607.724249176244, 'relative drop from training': 0.4265228663827467, 'best random-start student': 34833.56350957293, 'random student / read-then-ReLU': 0.31907008910976775, 'random student / WHAT optimum': 1.2768798609497913}
+Y8 3 {'WHAT optimum (reads of outputs, not buildable)': 11410.92412965929, 'read-then-one-ReLU build': 116165.50395450648, 'after training from it': 53956.24648782436, 'relative drop from training': 0.5355226409644375, 'best random-start student': 14982.417202665349, 'random student / read-then-ReLU': 0.1289747531980997, 'random student / WHAT optimum': 1.3129889422122287}
+{
+ "Y7": {
+  "1": {
+   "T9 rel err": 2.8534311337754935e-15,
+   "harmonic excess / T9": 0.00017389107132731435
+  },
+  "3": {
+   "T9 rel err": 4.496724703012007e-15,
+   "harmonic excess / T9": 0.00030412042726303583
+  },
+  "4": {
+   "T9 rel err": 6.917448277897868e-15,
+   "harmonic excess / T9": 0.000596202359119736
+  },
+  "student / T9 at k=3": 1.0163486708649332,
+  "Chat off-diagonal in Fourier basis (relative)": 0.012148099493166932
+ },
+ "Y8": {
+  "1": {
+   "WHAT optimum (reads of outputs, not buildable)": 27280.219991614882,
+   "read-then-one-ReLU build": 109172.13708988356,
+   "after training from it": 62607.724249176244,
+   "relative drop from training": 0.4265228663827467,
+   "best random-start student": 34833.56350957293,
+   "random student / read-then-ReLU": 0.31907008910976775,
+   "random student / WHAT optimum": 1.2768798609497913
+  },
+  "3": {
+   "WHAT optimum (reads of outputs, not buildable)": 11410.92412965929,
+   "read-then-one-ReLU build": 116165.50395450648,
+   "after training from it": 53956.24648782436,
+   "relative drop from training": 0.5355226409644375,
+   "best random-start student": 14982.417202665349,
+   "random student / read-then-ReLU": 0.1289747531980997,
+   "random student / WHAT optimum": 1.3129889422122287
+  }
+ }
+}

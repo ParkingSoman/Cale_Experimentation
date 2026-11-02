@@ -1,0 +1,332 @@
+{
+ "class": "sports car",
+ "chains": [
+  {
+   "image": 40850,
+   "chain": [
+    [
+     13,
+     540,
+     0.027
+    ],
+    [
+     14,
+     1056,
+     0.045
+    ],
+    [
+     15,
+     2031,
+     0.099
+    ],
+    [
+     16,
+     1522,
+     0.161
+    ],
+    [
+     17,
+     1594,
+     0.164
+    ]
+   ]
+  },
+  {
+   "image": 40852,
+   "chain": [
+    [
+     13,
+     370,
+     0.036
+    ],
+    [
+     14,
+     700,
+     0.063
+    ],
+    [
+     15,
+     2945,
+     0.083
+    ],
+    [
+     16,
+     2922,
+     0.11
+    ],
+    [
+     17,
+     2283,
+     0.189
+    ]
+   ]
+  },
+  {
+   "image": 40853,
+   "chain": [
+    [
+     13,
+     708,
+     0.033
+    ],
+    [
+     14,
+     121,
+     0.017
+    ],
+    [
+     15,
+     2023,
+     0.047
+    ],
+    [
+     16,
+     130,
+     0.115
+    ],
+    [
+     17,
+     2283,
+     0.201
+    ]
+   ]
+  },
+  {
+   "image": 40855,
+   "chain": [
+    [
+     13,
+     545,
+     0.041
+    ],
+    [
+     14,
+     321,
+     0.022
+    ],
+    [
+     15,
+     654,
+     0.09
+    ],
+    [
+     16,
+     365,
+     0.107
+    ],
+    [
+     17,
+     2283,
+     0.18
+    ]
+   ]
+  },
+  {
+   "image": 40856,
+   "chain": [
+    [
+     13,
+     417,
+     0.057
+    ],
+    [
+     14,
+     1227,
+     0.035
+    ],
+    [
+     15,
+     1572,
+     0.181
+    ],
+    [
+     16,
+     191,
+     0.071
+    ],
+    [
+     17,
+     2283,
+     0.245
+    ]
+   ]
+  },
+  {
+   "image": 40857,
+   "chain": [
+    [
+     13,
+     833,
+     0.052
+    ],
+    [
+     14,
+     550,
+     0.02
+    ],
+    [
+     15,
+     2182,
+     0.092
+    ],
+    [
+     16,
+     1522,
+     0.158
+    ],
+    [
+     17,
+     1594,
+     0.163
+    ]
+   ]
+  },
+  {
+   "image": 40858,
+   "chain": [
+    [
+     13,
+     764,
+     0.083
+    ],
+    [
+     14,
+     397,
+     0.016
+    ],
+    [
+     15,
+     2746,
+     0.054
+    ],
+    [
+     16,
+     2245,
+     0.096
+    ],
+    [
+     17,
+     1594,
+     0.177
+    ]
+   ]
+  },
+  {
+   "image": 40859,
+   "chain": [
+    [
+     13,
+     1080,
+     0.069
+    ],
+    [
+     14,
+     980,
+     0.092
+    ],
+    [
+     15,
+     2635,
+     0.072
+    ],
+    [
+     16,
+     1522,
+     0.237
+    ],
+    [
+     17,
+     1594,
+     0.114
+    ]
+   ]
+  }
+ ],
+ "described": [
+  {
+   "block": 13,
+   "neuron": 540,
+   "distinct_top50": 49,
+   "top_classes": [
+    "beaver",
+    "Cardigan",
+    "neck brace",
+    "web site"
+   ],
+   "bottom_classes": [
+    "timber wolf",
+    "wool",
+    "Boston bull",
+    "giant schnauzer"
+   ]
+  },
+  {
+   "block": 14,
+   "neuron": 1056,
+   "distinct_top50": 48,
+   "top_classes": [
+    "jean",
+    "Crock Pot",
+    "confectionery",
+    "sax"
+   ],
+   "bottom_classes": [
+    "mobile home",
+    "ladle",
+    "German shepherd",
+    "abaya"
+   ]
+  },
+  {
+   "block": 15,
+   "neuron": 2031,
+   "distinct_top50": 39,
+   "top_classes": [
+    "cab",
+    "canoe",
+    "ice lolly",
+    "toucan"
+   ],
+   "bottom_classes": [
+    "barn spider",
+    "Boston bull",
+    "comic book",
+    "traffic light"
+   ]
+  },
+  {
+   "block": 16,
+   "neuron": 1522,
+   "distinct_top50": 20,
+   "top_classes": [
+    "seat belt",
+    "sports car",
+    "minivan",
+    "car mirror"
+   ],
+   "bottom_classes": [
+    "vending machine",
+    "soap dispenser",
+    "grasshopper",
+    "water ouzel"
+   ]
+  },
+  {
+   "block": 17,
+   "neuron": 1594,
+   "distinct_top50": 35,
+   "top_classes": [
+    "sports car",
+    "grille",
+    "minivan",
+    "gown"
+   ],
+   "bottom_classes": [
+    "dingo",
+    "bulbul",
+    "white wolf",
+    "coyote"
+   ]
+  }
+ ]
+}

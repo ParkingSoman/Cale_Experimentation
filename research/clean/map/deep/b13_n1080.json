@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 1080,
+ "max": 3.6500585079193115,
+ "min": -6.249168395996094,
+ "edits": {
+  "flip": 0.9625698328018188,
+  "rot90": 0.8249508142471313,
+  "rot180": 0.8252773284912109,
+  "gray": -0.007719362620264292,
+  "blur1": 0.962119996547699,
+  "blur3": 0.9053550362586975,
+  "shuf2": 0.9944097995758057,
+  "shuf4": 0.8451489210128784,
+  "shuf8": 0.819564700126648,
+  "hue": 0.34237924218177795,
+  "invert": 0.8636887073516846,
+  "zoomout": 0.7484950423240662,
+  "zoomin": 0.677739143371582
+ },
+ "top50_classes": {
+  "oystercatcher": 2,
+  "Old English sheepdog": 1,
+  "whiptail": 1,
+  "academic gown": 1,
+  "trolleybus": 1,
+  "restaurant": 1,
+  "tiger cat": 1,
+  "Persian cat": 1,
+  "schipperke": 1,
+  "bookshop": 1
+ },
+ "neg50_classes": {
+  "nail": 2,
+  "sea slug": 2,
+  "tench": 1,
+  "Yorkshire terrier": 1,
+  "harvestman": 1,
+  "barbershop": 1,
+  "grasshopper": 1,
+  "ruddy turnstone": 1,
+  "sea snake": 1,
+  "moving van": 1
+ }
+}

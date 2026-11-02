@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 80,
+ "max": 5.088183879852295,
+ "min": -5.635844707489014,
+ "edits": {
+  "flip": 0.9881319999694824,
+  "rot90": 0.5113463401794434,
+  "rot180": 0.4842224717140198,
+  "gray": 0.9759573936462402,
+  "blur1": 0.948516845703125,
+  "blur3": 0.2652198076248169,
+  "shuf2": 0.9488306045532227,
+  "shuf4": 0.7993192672729492,
+  "shuf8": 0.7428925037384033,
+  "hue": 0.9798473119735718,
+  "invert": 0.8821653127670288,
+  "zoomout": 0.798552393913269,
+  "zoomin": 0.547357439994812
+ },
+ "top50_classes": {
+  "Irish water spaniel": 2,
+  "otterhound": 2,
+  "white wolf": 2,
+  "Tibetan mastiff": 2,
+  "golden retriever": 2,
+  "meerkat": 1,
+  "collie": 1,
+  "cougar": 1,
+  "lynx": 1,
+  "impala": 1
+ },
+ "neg50_classes": {
+  "isopod": 1,
+  "slide rule": 1,
+  "ashcan": 1,
+  "Boston bull": 1,
+  "traffic light": 1,
+  "file": 1,
+  "shoe shop": 1,
+  "shield": 1,
+  "barbershop": 1,
+  "sea snake": 1
+ }
+}

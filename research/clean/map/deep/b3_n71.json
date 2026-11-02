@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 71,
+ "max": 3.500464916229248,
+ "min": -4.762359142303467,
+ "edits": {
+  "flip": 0.9667713642120361,
+  "rot90": 0.6878685355186462,
+  "rot180": 0.9520121812820435,
+  "gray": 0.9793932437896729,
+  "blur1": 0.814608097076416,
+  "blur3": 0.32358789443969727,
+  "shuf2": 0.9992995262145996,
+  "shuf4": 0.8592226505279541,
+  "shuf8": 0.5736817121505737,
+  "hue": 0.9581661820411682,
+  "invert": 0.954706072807312,
+  "zoomout": 0.7054882049560547,
+  "zoomin": 0.6697618365287781
+ },
+ "top50_classes": {
+  "iron": 1,
+  "barn": 1,
+  "wooden spoon": 1,
+  "mosque": 1,
+  "forklift": 1,
+  "street sign": 1,
+  "fire engine": 1,
+  "barbell": 1,
+  "shield": 1,
+  "dumbbell": 1
+ },
+ "neg50_classes": {
+  "pencil sharpener": 2,
+  "barn": 2,
+  "power drill": 1,
+  "scoreboard": 1,
+  "packet": 1,
+  "ping-pong ball": 1,
+  "pinwheel": 1,
+  "Great Dane": 1,
+  "reel": 1,
+  "reflex camera": 1
+ }
+}

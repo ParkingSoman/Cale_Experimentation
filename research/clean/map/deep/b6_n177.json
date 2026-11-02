@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 177,
+ "max": 2.6199865341186523,
+ "min": -3.5929453372955322,
+ "edits": {
+  "flip": 0.9769665002822876,
+  "rot90": 0.7623124122619629,
+  "rot180": 0.821921706199646,
+  "gray": 0.8366506099700928,
+  "blur1": 0.667938232421875,
+  "blur3": 0.12032317370176315,
+  "shuf2": 0.8514255285263062,
+  "shuf4": 0.6895376443862915,
+  "shuf8": 0.4606611728668213,
+  "hue": 0.8489164113998413,
+  "invert": 0.9050173163414001,
+  "zoomout": 0.8439054489135742,
+  "zoomin": 0.24806398153305054
+ },
+ "top50_classes": {
+  "bustard": 2,
+  "kuvasz": 1,
+  "motor scooter": 1,
+  "mountain bike": 1,
+  "Egyptian cat": 1,
+  "Shetland sheepdog": 1,
+  "chambered nautilus": 1,
+  "leatherback turtle": 1,
+  "unicycle": 1,
+  "silky terrier": 1
+ },
+ "neg50_classes": {
+  "zebra": 2,
+  "orangutan": 1,
+  "trombone": 1,
+  "strainer": 1,
+  "conch": 1,
+  "umbrella": 1,
+  "lynx": 1,
+  "terrapin": 1,
+  "jaguar": 1,
+  "modem": 1
+ }
+}

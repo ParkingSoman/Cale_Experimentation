@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 98,
+ "max": 3.3211941719055176,
+ "min": -3.8887362480163574,
+ "edits": {
+  "flip": 0.9243888854980469,
+  "rot90": 0.6934216022491455,
+  "rot180": 0.9417449831962585,
+  "gray": 1.0032470226287842,
+  "blur1": 0.5978454351425171,
+  "blur3": 0.12069500237703323,
+  "shuf2": 1.0,
+  "shuf4": 0.9996612071990967,
+  "shuf8": 0.9409962892532349,
+  "hue": 0.9940929412841797,
+  "invert": 0.9327292442321777,
+  "zoomout": 0.760704517364502,
+  "zoomin": 0.6648973822593689
+ },
+ "top50_classes": {
+  "komondor": 2,
+  "chain": 1,
+  "muzzle": 1,
+  "spider web": 1,
+  "kit fox": 1,
+  "bow tie": 1,
+  "library": 1,
+  "fire screen": 1,
+  "zebra": 1,
+  "shovel": 1
+ },
+ "neg50_classes": {
+  "upright": 2,
+  "warplane": 2,
+  "catamaran": 1,
+  "Lhasa": 1,
+  "holster": 1,
+  "streetcar": 1,
+  "revolver": 1,
+  "birdhouse": 1,
+  "rotisserie": 1,
+  "pineapple": 1
+ }
+}

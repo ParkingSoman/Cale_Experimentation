@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 2207,
+ "max": 5.200266361236572,
+ "min": -6.691555500030518,
+ "edits": {
+  "flip": 1.0072576999664307,
+  "rot90": 0.43960511684417725,
+  "rot180": 0.32640647888183594,
+  "gray": 0.9114937782287598,
+  "blur1": 0.9052702188491821,
+  "blur3": 0.5252735614776611,
+  "shuf2": 0.8811547756195068,
+  "shuf4": 0.6589069366455078,
+  "shuf8": 0.5246914029121399,
+  "hue": 0.8379243016242981,
+  "invert": 0.994417667388916,
+  "zoomout": 0.6855961680412292,
+  "zoomin": 0.594772219657898
+ },
+ "top50_classes": {
+  "binoculars": 2,
+  "bobsled": 2,
+  "torch": 2,
+  "palace": 2,
+  "shield": 2,
+  "lakeside": 2,
+  "breakwater": 2,
+  "castle": 1,
+  "gasmask": 1,
+  "gondola": 1
+ },
+ "neg50_classes": {
+  "hourglass": 1,
+  "wall clock": 1,
+  "tub": 1,
+  "chocolate sauce": 1,
+  "maillot": 1,
+  "stethoscope": 1,
+  "paintbrush": 1,
+  "packet": 1,
+  "matchstick": 1,
+  "guillotine": 1
+ }
+}

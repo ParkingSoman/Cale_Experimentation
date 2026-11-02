@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 136,
+ "max": 9.079854011535645,
+ "min": -9.301164627075195,
+ "edits": {
+  "flip": 0.8682613372802734,
+  "rot90": 0.8508342504501343,
+  "rot180": 0.9105760455131531,
+  "gray": 1.0000746250152588,
+  "blur1": 0.9401594400405884,
+  "blur3": 0.30949991941452026,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9988356828689575,
+  "hue": 0.9944806098937988,
+  "invert": 0.9031900763511658,
+  "zoomout": 0.76316237449646,
+  "zoomin": 0.8737727403640747
+ },
+ "top50_classes": {
+  "croquet ball": 2,
+  "hognose snake": 2,
+  "ping-pong ball": 2,
+  "bassoon": 1,
+  "cicada": 1,
+  "football helmet": 1,
+  "slide rule": 1,
+  "cockroach": 1,
+  "black widow": 1,
+  "tennis ball": 1
+ },
+ "neg50_classes": {
+  "Indian elephant": 2,
+  "magnetic compass": 2,
+  "tiger": 2,
+  "rhinoceros beetle": 1,
+  "slug": 1,
+  "basset": 1,
+  "chocolate sauce": 1,
+  "mask": 1,
+  "cicada": 1,
+  "whiptail": 1
+ }
+}

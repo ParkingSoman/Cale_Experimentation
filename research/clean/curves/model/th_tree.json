@@ -1,0 +1,25 @@
+{
+ "claims": {
+  "L1 ['I3', 'I4', 'K1', 'K1p', 'K2', 'K2p'] dist": "0",
+  "L1 ['I3', 'I4', 'K1', 'K1p', 'K2', 'K2p'] shelter_nonconst": "0",
+  "L1 ['Dg'] dist": "0",
+  "L1 ['Dg'] shelter_nonconst": "0",
+  "L2 ['T1', 'T2'] dist": "0",
+  "L2 ['T1', 'T2'] shelter_nonconst": "0",
+  "L2 ['J1'] dist": "0",
+  "L2 ['J1'] shelter_nonconst": "0",
+  "L2 ['A1', 'A2'] dist": "0",
+  "L2 ['A1', 'A2'] shelter_nonconst": "0",
+  "L2 ['J2'] dist": "0",
+  "L2 ['J2'] shelter_nonconst": "0",
+  "L2 ['DD'] dist": "0",
+  "L2 ['DD'] shelter_nonconst": "0",
+  "judgment J1": "0",
+  "judgment J2": "0"
+ },
+ "assembly_ok": true,
+ "exact_G2": true,
+ "exact_G1": true,
+ "r_identity": true,
+ "ALL_OK": true
+}

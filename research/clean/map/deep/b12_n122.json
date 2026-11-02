@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 122,
+ "max": 4.717013359069824,
+ "min": -5.405772686004639,
+ "edits": {
+  "flip": 0.9379913210868835,
+  "rot90": 0.9186345338821411,
+  "rot180": 0.940238893032074,
+  "gray": 0.9711016416549683,
+  "blur1": 1.0120890140533447,
+  "blur3": 0.9742144346237183,
+  "shuf2": 0.8237905502319336,
+  "shuf4": 0.4367856979370117,
+  "shuf8": 0.3846423923969269,
+  "hue": 0.9577938914299011,
+  "invert": 0.9083410501480103,
+  "zoomout": 0.5177145004272461,
+  "zoomin": 0.8707349300384521
+ },
+ "top50_classes": {
+  "English springer": 2,
+  "sock": 2,
+  "plow": 1,
+  "necklace": 1,
+  "black widow": 1,
+  "badger": 1,
+  "sidewinder": 1,
+  "trifle": 1,
+  "horned viper": 1,
+  "sea snake": 1
+ },
+ "neg50_classes": {
+  "flamingo": 1,
+  "aircraft carrier": 1,
+  "American Staffordshire terrier": 1,
+  "macaw": 1,
+  "comic book": 1,
+  "lacewing": 1,
+  "mousetrap": 1,
+  "leafhopper": 1,
+  "muzzle": 1,
+  "standard schnauzer": 1
+ }
+}

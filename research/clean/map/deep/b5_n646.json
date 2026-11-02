@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 646,
+ "max": 4.196536064147949,
+ "min": -5.6513872146606445,
+ "edits": {
+  "flip": 0.9276333451271057,
+  "rot90": 0.5359107255935669,
+  "rot180": 0.48109596967697144,
+  "gray": 0.9823728203773499,
+  "blur1": 0.5786601305007935,
+  "blur3": 0.04614516720175743,
+  "shuf2": 0.9561110734939575,
+  "shuf4": 0.9577497243881226,
+  "shuf8": 0.7490535974502563,
+  "hue": 0.9262439012527466,
+  "invert": 0.8963448405265808,
+  "zoomout": 0.5459588170051575,
+  "zoomin": 0.39035481214523315
+ },
+ "top50_classes": {
+  "prayer rug": 2,
+  "obelisk": 2,
+  "umbrella": 1,
+  "passenger car": 1,
+  "slug": 1,
+  "rain barrel": 1,
+  "ice cream": 1,
+  "goblet": 1,
+  "pizza": 1,
+  "bonnet": 1
+ },
+ "neg50_classes": {
+  "soap dispenser": 2,
+  "pirate": 1,
+  "pretzel": 1,
+  "harmonica": 1,
+  "trolleybus": 1,
+  "space heater": 1,
+  "binder": 1,
+  "beaver": 1,
+  "meat loaf": 1,
+  "water bottle": 1
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "stem": "L15_input",
+ "detection_accuracy_mean": 0.8857142857142858,
+ "detection_per_parent": [
+  1.0,
+  0.8,
+  0.8,
+  0.8,
+  1.0,
+  0.8,
+  1.0
+ ],
+ "judge_right": 6,
+ "judge_n": 7,
+ "judge_right_confidence_mean": 4.833333333333333,
+ "share_coherent": {
+  "parent": 0.8571428571428571,
+  "child": 0.8695652173913043,
+  "decoy": 0.43478260869565216
+ },
+ "judge_p_value": 0.0625
+}

@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 138,
+ "max": 5.578641414642334,
+ "min": -6.651209354400635,
+ "edits": {
+  "flip": 0.941389262676239,
+  "rot90": 0.7605502605438232,
+  "rot180": 0.7145673036575317,
+  "gray": 0.9500131607055664,
+  "blur1": 0.8842925429344177,
+  "blur3": 0.39611685276031494,
+  "shuf2": 0.8522261381149292,
+  "shuf4": 0.7102369070053101,
+  "shuf8": 0.5854752659797668,
+  "hue": 0.855559766292572,
+  "invert": 0.8571645021438599,
+  "zoomout": 0.5857440829277039,
+  "zoomin": 0.5641942024230957
+ },
+ "top50_classes": {
+  "curly-coated retriever": 2,
+  "cougar": 2,
+  "pomegranate": 1,
+  "academic gown": 1,
+  "harp": 1,
+  "Old English sheepdog": 1,
+  "Boston bull": 1,
+  "Pekinese": 1,
+  "miniature schnauzer": 1,
+  "tiger cat": 1
+ },
+ "neg50_classes": {
+  "trilobite": 1,
+  "radiator": 1,
+  "strainer": 1,
+  "harp": 1,
+  "chiton": 1,
+  "remote control": 1,
+  "sea slug": 1,
+  "paintbrush": 1,
+  "binder": 1,
+  "rule": 1
+ }
+}

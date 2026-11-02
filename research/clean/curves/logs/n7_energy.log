@@ -1,0 +1,6 @@
+  real unsure                    Spearman(D weights, D set) = +0.704
+  real (all)                     Spearman(D weights, D set) = +0.665
+  class inversions               Spearman(D weights, D set) = +0.213
+  boundary                       Spearman(D weights, D set) = +0.264
+  reader pictures                Spearman(D weights, D set) = +0.239
+  combined (boundary + readers)  Spearman(D weights, D set) = +0.310

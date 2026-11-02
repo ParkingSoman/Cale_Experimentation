@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 579,
+ "max": 8.075027465820312,
+ "min": -17.101825714111328,
+ "edits": {
+  "flip": 0.964451253414154,
+  "rot90": 0.8461747169494629,
+  "rot180": 0.9865399599075317,
+  "gray": 0.8697583675384521,
+  "blur1": 0.7727592587471008,
+  "blur3": -0.042842186987400055,
+  "shuf2": 0.8422935009002686,
+  "shuf4": 0.47205811738967896,
+  "shuf8": 0.3519628643989563,
+  "hue": 0.5019756555557251,
+  "invert": 1.0214805603027344,
+  "zoomout": 0.6422111988067627,
+  "zoomin": 0.6919069290161133
+ },
+ "top50_classes": {
+  "apiary": 2,
+  "bagel": 2,
+  "vestment": 2,
+  "Madagascar cat": 1,
+  "safe": 1,
+  "parallel bars": 1,
+  "triumphal arch": 1,
+  "dough": 1,
+  "squirrel monkey": 1,
+  "pomegranate": 1
+ },
+ "neg50_classes": {
+  "lampshade": 2,
+  "chainlink fence": 1,
+  "American lobster": 1,
+  "mountain bike": 1,
+  "wild boar": 1,
+  "warthog": 1,
+  "ox": 1,
+  "bighorn": 1,
+  "maillot": 1,
+  "hermit crab": 1
+ }
+}

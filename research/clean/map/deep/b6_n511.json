@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 511,
+ "max": 3.264962673187256,
+ "min": -3.7243356704711914,
+ "edits": {
+  "flip": 1.0117651224136353,
+  "rot90": 0.6131399869918823,
+  "rot180": 0.6980751156806946,
+  "gray": 0.9967394471168518,
+  "blur1": 0.9275099635124207,
+  "blur3": 0.8588987588882446,
+  "shuf2": 0.9033788442611694,
+  "shuf4": 0.6106279492378235,
+  "shuf8": 0.4178376793861389,
+  "hue": 0.9562679529190063,
+  "invert": 0.9764533042907715,
+  "zoomout": 0.5209344625473022,
+  "zoomin": 0.5991542339324951
+ },
+ "top50_classes": {
+  "backpack": 2,
+  "face powder": 2,
+  "tricycle": 2,
+  "komondor": 1,
+  "Weimaraner": 1,
+  "bonnet": 1,
+  "bolo tie": 1,
+  "parking meter": 1,
+  "tiger cat": 1,
+  "streetcar": 1
+ },
+ "neg50_classes": {
+  "knot": 2,
+  "toilet tissue": 1,
+  "gar": 1,
+  "zebra": 1,
+  "mud turtle": 1,
+  "crib": 1,
+  "maypole": 1,
+  "worm fence": 1,
+  "Indian elephant": 1,
+  "porcupine": 1
+ }
+}

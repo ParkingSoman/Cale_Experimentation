@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 997,
+ "max": 2.4958889484405518,
+ "min": -4.308063507080078,
+ "edits": {
+  "flip": 0.8472957611083984,
+  "rot90": 0.786088228225708,
+  "rot180": 0.8312411308288574,
+  "gray": 0.9759947061538696,
+  "blur1": 0.9177371263504028,
+  "blur3": 0.8276836276054382,
+  "shuf2": 0.802257776260376,
+  "shuf4": 0.5684183239936829,
+  "shuf8": 0.4693480134010315,
+  "hue": 0.9384143948554993,
+  "invert": 0.8736335635185242,
+  "zoomout": 0.5602202415466309,
+  "zoomin": 0.8723475933074951
+ },
+ "top50_classes": {
+  "geyser": 2,
+  "mashed potato": 2,
+  "platypus": 2,
+  "lynx": 1,
+  "cardoon": 1,
+  "jaguar": 1,
+  "snow leopard": 1,
+  "birdhouse": 1,
+  "Dungeness crab": 1,
+  "gar": 1
+ },
+ "neg50_classes": {
+  "loudspeaker": 3,
+  "face powder": 2,
+  "police van": 2,
+  "red wine": 2,
+  "ballpoint": 1,
+  "necklace": 1,
+  "cowboy boot": 1,
+  "king crab": 1,
+  "ashcan": 1,
+  "revolver": 1
+ }
+}

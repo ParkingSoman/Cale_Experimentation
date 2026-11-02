@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2117,
+ "max": 13.18120002746582,
+ "min": -16.64927101135254,
+ "edits": {
+  "flip": 0.9675965905189514,
+  "rot90": 0.15105164051055908,
+  "rot180": 0.23291875422000885,
+  "gray": 0.9611404538154602,
+  "blur1": 0.8699161410331726,
+  "blur3": 0.3625051975250244,
+  "shuf2": 0.92043137550354,
+  "shuf4": 0.5500262975692749,
+  "shuf8": 0.03354300558567047,
+  "hue": 1.0167301893234253,
+  "invert": 0.9551206827163696,
+  "zoomout": 0.5066453218460083,
+  "zoomin": 0.5589991211891174
+ },
+ "top50_classes": {
+  "golden retriever": 2,
+  "Bernese mountain dog": 2,
+  "toy poodle": 2,
+  "miniature poodle": 2,
+  "otterhound": 2,
+  "trolleybus": 2,
+  "English springer": 2,
+  "Tibetan mastiff": 2,
+  "Model T": 1,
+  "Maltese dog": 1
+ },
+ "neg50_classes": {
+  "lion": 2,
+  "rhinoceros beetle": 2,
+  "Leonberg": 1,
+  "microwave": 1,
+  "breakwater": 1,
+  "malinois": 1,
+  "ox": 1,
+  "leatherback turtle": 1,
+  "lynx": 1,
+  "sax": 1
+ }
+}

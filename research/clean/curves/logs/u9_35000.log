@@ -1,0 +1,35 @@
+  pass step0 50/35000  0 s
+  pass step0 2550/35000  10 s
+  pass step0 5050/35000  20 s
+  pass step0 7550/35000  30 s
+  pass step0 10050/35000  40 s
+  pass step0 12550/35000  50 s
+  pass step0 15050/35000  60 s
+  pass step0 17550/35000  70 s
+  pass step0 20050/35000  80 s
+  pass step0 22550/35000  91 s
+  pass step0 25050/35000  102 s
+  pass step0 27550/35000  112 s
+  pass step0 30050/35000  123 s
+  pass step0 32550/35000  133 s
+  pass step1 50/35000  0 s
+  pass step1 2550/35000  12 s
+  pass step1 5050/35000  24 s
+  pass step1 7550/35000  36 s
+  pass step1 10050/35000  48 s
+  pass step1 12550/35000  60 s
+  pass step1 15050/35000  73 s
+  pass step1 17550/35000  85 s
+  pass step1 20050/35000  97 s
+  pass step1 22550/35000  110 s
+  pass step1 25050/35000  122 s
+  pass step1 27550/35000  135 s
+  pass step1 30050/35000  147 s
+  pass step1 32550/35000  160 s
+  M read + trained write   dev-5000 KL 0.0361 (se 0.0017) | paired vs bar B +0.0000 (se 0.0000)
+  M read + step0           dev-5000 KL 0.0514 (se 0.0024) | paired vs bar B +0.0153 (se 0.0016)
+  M read + step1           dev-5000 KL 0.0443 (se 0.0021) | paired vs bar B +0.0083 (se 0.0012)
+  arcs read + step0        dev-5000 KL 0.0563 (se 0.0027) | paired vs bar B +0.0202 (se 0.0024)
+  arcs read + step1        dev-5000 KL 0.0507 (se 0.0025) | paired vs bar B +0.0147 (se 0.0022)
+  kept read + step0        dev-5000 KL 0.1124 (se 0.0054) | paired vs bar B +0.0763 (se 0.0050)
+  kept read + step1        dev-5000 KL 0.0934 (se 0.0045) | paired vs bar B +0.0574 (se 0.0041)

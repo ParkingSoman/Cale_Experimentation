@@ -1,0 +1,106 @@
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (46012 > 8192). Running this sequence through the model will result in indexing errors
+L12 capture+bases 3.7s
+L12 keep0.75 fits 12.3s
+  L12 keep0.75 vo_svd      bytes 0.0312  prose +0.0019  code +0.0014
+  L12 keep0.75 vo_svd_ls   bytes 0.0312  prose +0.0018  code +0.0010
+  L12 keep0.75 vo_norm_ls  bytes 0.0312  prose +0.0024  code +0.0012
+  L12 keep0.75 qk_act      bytes 0.0312  prose +0.0034  code +0.0065
+  L12 keep0.75 qk_wnorm    bytes 0.0312  prose +0.0646  code +0.0391
+  L12 keep0.75 both        bytes 0.0625  prose +0.0032  code +0.0037
+  L12 keep0.75 vo_svd_ls - vo_norm_ls: prose [-0.0005, -0.0016, 0.0006] code [-0.0002, -0.0013, 0.001]
+  L12 keep0.75 qk_act - qk_wnorm: prose [-0.0613, -0.0676, -0.0549] code [-0.0326, -0.0391, -0.0262]
+  L12 keep0.75 vo_svd - vo_svd_ls: prose [0.0, -0.0004, 0.0005] code [0.0004, -0.0, 0.0008]
+L12 keep0.75 scored 15.4s
+L12 keep0.5 fits 13.5s
+  L12 keep0.5 vo_svd      bytes 0.0625  prose +0.0039  code +0.0048
+  L12 keep0.5 vo_svd_ls   bytes 0.0625  prose +0.0031  code +0.0034
+  L12 keep0.5 vo_norm_ls  bytes 0.0625  prose +0.0059  code +0.0032
+  L12 keep0.5 qk_act      bytes 0.0625  prose +0.0103  code +0.0168
+  L12 keep0.5 qk_wnorm    bytes 0.0625  prose +0.0818  code +0.0484
+  L12 keep0.5 both        bytes 0.1250  prose +0.0074  code +0.0095
+  L12 keep0.5 vo_svd_ls - vo_norm_ls: prose [-0.0029, -0.0043, -0.0015] code [0.0002, -0.0011, 0.0016]
+  L12 keep0.5 qk_act - qk_wnorm: prose [-0.0715, -0.0817, -0.062] code [-0.0316, -0.0393, -0.0237]
+  L12 keep0.5 vo_svd - vo_svd_ls: prose [0.0008, -0.0001, 0.0017] code [0.0014, 0.0005, 0.0022]
+L12 keep0.5 scored 15.2s
+L12 keep0.25 fits 12.2s
+  L12 keep0.25 vo_svd      bytes 0.0938  prose +0.0113  code +0.0079
+  L12 keep0.25 vo_svd_ls   bytes 0.0938  prose +0.0088  code +0.0065
+  L12 keep0.25 vo_norm_ls  bytes 0.0938  prose +0.0105  code +0.0088
+  L12 keep0.25 qk_act      bytes 0.0938  prose +0.0247  code +0.0315
+  L12 keep0.25 qk_wnorm    bytes 0.0938  prose +0.0920  code +0.0569
+  L12 keep0.25 both        bytes 0.1875  prose +0.0217  code +0.0168
+  L12 keep0.25 vo_svd_ls - vo_norm_ls: prose [-0.0018, -0.0035, -0.0001] code [-0.0023, -0.0034, -0.0012]
+  L12 keep0.25 qk_act - qk_wnorm: prose [-0.0673, -0.0767, -0.0578] code [-0.0254, -0.0336, -0.0167]
+  L12 keep0.25 vo_svd - vo_svd_ls: prose [0.0026, 0.0014, 0.0037] code [0.0014, 0.0003, 0.0025]
+L12 keep0.25 scored 16.0s
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s2-headsize.json
+L16 capture+bases 4.5s
+L16 keep0.75 fits 14.9s
+  L16 keep0.75 vo_svd      bytes 0.0312  prose +0.0019  code +0.0023
+  L16 keep0.75 vo_svd_ls   bytes 0.0312  prose +0.0013  code +0.0017
+  L16 keep0.75 vo_norm_ls  bytes 0.0312  prose +0.0018  code +0.0018
+  L16 keep0.75 qk_act      bytes 0.0312  prose -0.0008  code +0.0014
+  L16 keep0.75 qk_wnorm    bytes 0.0312  prose +0.1344  code +0.1087
+  L16 keep0.75 both        bytes 0.0625  prose +0.0019  code +0.0022
+  L16 keep0.75 vo_svd_ls - vo_norm_ls: prose [-0.0006, -0.0016, 0.0005] code [-0.0001, -0.0012, 0.001]
+  L16 keep0.75 qk_act - qk_wnorm: prose [-0.1352, -0.1527, -0.1196] code [-0.1073, -0.1221, -0.093]
+  L16 keep0.75 vo_svd - vo_svd_ls: prose [0.0006, 0.0, 0.0012] code [0.0006, 0.0001, 0.0012]
+L16 keep0.75 scored 16.3s
+L16 keep0.5 fits 13.8s
+  L16 keep0.5 vo_svd      bytes 0.0625  prose +0.0056  code +0.0057
+  L16 keep0.5 vo_svd_ls   bytes 0.0625  prose +0.0053  code +0.0042
+  L16 keep0.5 vo_norm_ls  bytes 0.0625  prose +0.0047  code +0.0026
+  L16 keep0.5 qk_act      bytes 0.0625  prose +0.0027  code +0.0073
+  L16 keep0.5 qk_wnorm    bytes 0.0625  prose +0.1468  code +0.1285
+  L16 keep0.5 both        bytes 0.1250  prose +0.0084  code +0.0064
+  L16 keep0.5 vo_svd_ls - vo_norm_ls: prose [0.0006, -0.001, 0.0023] code [0.0017, 0.0003, 0.0032]
+  L16 keep0.5 qk_act - qk_wnorm: prose [-0.1441, -0.1635, -0.1271] code [-0.1212, -0.1368, -0.1057]
+  L16 keep0.5 vo_svd - vo_svd_ls: prose [0.0004, -0.0007, 0.0014] code [0.0014, 0.0005, 0.0023]
+L16 keep0.5 scored 17.0s
+L16 keep0.25 fits 19.6s
+  L16 keep0.25 vo_svd      bytes 0.0938  prose +0.0254  code +0.0276
+  L16 keep0.25 vo_svd_ls   bytes 0.0938  prose +0.0233  code +0.0194
+  L16 keep0.25 vo_norm_ls  bytes 0.0938  prose +0.0266  code +0.0230
+  L16 keep0.25 qk_act      bytes 0.0938  prose +0.0820  code +0.0548
+  L16 keep0.25 qk_wnorm    bytes 0.0938  prose +0.1518  code +0.1281
+  L16 keep0.25 both        bytes 0.1875  prose +0.0606  code +0.0463
+  L16 keep0.25 vo_svd_ls - vo_norm_ls: prose [-0.0033, -0.0056, -0.0009] code [-0.0036, -0.0061, -0.0009]
+  L16 keep0.25 qk_act - qk_wnorm: prose [-0.0698, -0.0767, -0.0627] code [-0.0733, -0.0867, -0.0611]
+  L16 keep0.25 vo_svd - vo_svd_ls: prose [0.0021, 0.0004, 0.0039] code [0.0082, 0.0069, 0.0096]
+L16 keep0.25 scored 31.2s
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s2-headsize.json
+L22 capture+bases 6.4s
+L22 keep0.75 fits 29.4s
+  L22 keep0.75 vo_svd      bytes 0.0312  prose +0.0021  code +0.0020
+  L22 keep0.75 vo_svd_ls   bytes 0.0312  prose +0.0015  code +0.0018
+  L22 keep0.75 vo_norm_ls  bytes 0.0312  prose +0.0019  code +0.0023
+  L22 keep0.75 qk_act      bytes 0.0312  prose +0.0009  code +0.0033
+  L22 keep0.75 qk_wnorm    bytes 0.0312  prose +0.0111  code +0.0139
+  L22 keep0.75 both        bytes 0.0625  prose +0.0036  code +0.0036
+  L22 keep0.75 vo_svd_ls - vo_norm_ls: prose [-0.0004, -0.0016, 0.0008] code [-0.0005, -0.002, 0.0009]
+  L22 keep0.75 qk_act - qk_wnorm: prose [-0.0102, -0.0134, -0.007] code [-0.0106, -0.0133, -0.0078]
+  L22 keep0.75 vo_svd - vo_svd_ls: prose [0.0005, 0.0, 0.0011] code [0.0002, -0.0002, 0.0006]
+L22 keep0.75 scored 29.2s
+L22 keep0.5 fits 22.8s
+  L22 keep0.5 vo_svd      bytes 0.0625  prose +0.0052  code +0.0055
+  L22 keep0.5 vo_svd_ls   bytes 0.0625  prose +0.0041  code +0.0051
+  L22 keep0.5 vo_norm_ls  bytes 0.0625  prose +0.0085  code +0.0067
+  L22 keep0.5 qk_act      bytes 0.0625  prose +0.0083  code +0.0120
+  L22 keep0.5 qk_wnorm    bytes 0.0625  prose +0.0234  code +0.0259
+  L22 keep0.5 both        bytes 0.1250  prose +0.0116  code +0.0116
+  L22 keep0.5 vo_svd_ls - vo_norm_ls: prose [-0.0044, -0.0064, -0.0024] code [-0.0016, -0.0032, -0.0]
+  L22 keep0.5 qk_act - qk_wnorm: prose [-0.0151, -0.0176, -0.013] code [-0.0138, -0.0167, -0.011]
+  L22 keep0.5 vo_svd - vo_svd_ls: prose [0.0011, 0.0002, 0.002] code [0.0004, -0.0004, 0.0012]
+L22 keep0.5 scored 31.6s
+L22 keep0.25 fits 21.9s
+  L22 keep0.25 vo_svd      bytes 0.0938  prose +0.0148  code +0.0132
+  L22 keep0.25 vo_svd_ls   bytes 0.0938  prose +0.0124  code +0.0130
+  L22 keep0.25 vo_norm_ls  bytes 0.0938  prose +0.0179  code +0.0152
+  L22 keep0.25 qk_act      bytes 0.0938  prose +0.0278  code +0.0302
+  L22 keep0.25 qk_wnorm    bytes 0.0938  prose +0.0785  code +0.0419
+  L22 keep0.25 both        bytes 0.1875  prose +0.0311  code +0.0257
+  L22 keep0.25 vo_svd_ls - vo_norm_ls: prose [-0.0054, -0.0077, -0.0033] code [-0.0023, -0.0038, -0.0007]
+  L22 keep0.25 qk_act - qk_wnorm: prose [-0.0507, -0.0577, -0.0437] code [-0.0117, -0.018, -0.0056]
+  L22 keep0.25 vo_svd - vo_svd_ls: prose [0.0024, 0.0011, 0.0038] code [0.0002, -0.0007, 0.0011]
+L22 keep0.25 scored 28.8s
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s2-headsize.json

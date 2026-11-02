@@ -1,0 +1,180 @@
+{
+ "n=3 radii=[1.5, 3.0] centre=False w=[1, 1] d2": {
+  "least_all": 0.10677083333333334,
+  "least_axis": 0.10763888888888976,
+  "least_quiet": 0.10677083333333334,
+  "n_quiet": 3,
+  "D29": false,
+  "D30": false
+ },
+ "n=3 radii=[1.5, 3.0] centre=False w=[1, 1] kl": {
+  "least_all": 0.037765840038100365,
+  "least_axis": 0.0380115685296537,
+  "least_quiet": 0.037765840038100365,
+  "n_quiet": 3,
+  "D29": false,
+  "D30": false
+ },
+ "n=3 radii=[1.5, 3.0] centre=True w=[1, 1] d2": {
+  "least_all": 0.1083916083916084,
+  "least_axis": 0.10897435897435963,
+  "least_quiet": 0.1083916083916084,
+  "n_quiet": 4,
+  "D29": false,
+  "D30": false
+ },
+ "n=3 radii=[1.5, 3.0] centre=True w=[1, 1] kl": {
+  "least_all": 0.03850865412890457,
+  "least_axis": 0.03850865412890581,
+  "least_quiet": 0.03850865412890457,
+  "n_quiet": 4,
+  "D29": true,
+  "D30": false
+ },
+ "n=3 radii=[2.0] centre=True w=[1] d2": {
+  "least_all": 0.047619047619047575,
+  "least_axis": 0.04761904761904758,
+  "least_quiet": 0.04761904761904759,
+  "n_quiet": 4,
+  "D29": true,
+  "D30": false
+ },
+ "n=3 radii=[2.0] centre=True w=[1] kl": {
+  "least_all": 0.021488548327844633,
+  "least_axis": 0.021488548327844637,
+  "least_quiet": 0.021488548327844633,
+  "n_quiet": 4,
+  "D29": true,
+  "D30": false
+ },
+ "n=3 radii=[1.5, 3.0] centre=True w=[3, 1] d2": {
+  "least_all": 0.07178130511463862,
+  "least_axis": 0.07178130511463848,
+  "least_quiet": 0.07178130511463862,
+  "n_quiet": 4,
+  "D29": true,
+  "D30": false
+ },
+ "n=3 radii=[1.5, 3.0] centre=True w=[3, 1] kl": {
+  "least_all": 0.025746870752342017,
+  "least_axis": 0.025746870752341316,
+  "least_quiet": 0.025746870752342017,
+  "n_quiet": 4,
+  "D29": true,
+  "D30": false
+ },
+ "n=4 radii=[2.0] centre=True w=[1] d2": {
+  "least_all": 0.02057562784049885,
+  "least_axis": 0.020652949750222208,
+  "least_quiet": 0.02057562784049885,
+  "n_quiet": 1,
+  "D29": false,
+  "D30": false
+ },
+ "n=4 radii=[2.0] centre=True w=[1] kl": {
+  "least_all": 0.00964022685113175,
+  "least_axis": 0.009692144975076224,
+  "least_quiet": 0.00964022685113175,
+  "n_quiet": 1,
+  "D29": false,
+  "D30": false
+ },
+ "n=4 radii=[1.5] centre=True w=[1] d2": {
+  "least_all": 0.008783520449538763,
+  "least_axis": 0.008783520449538765,
+  "least_quiet": 0.008783520449538763,
+  "n_quiet": 1,
+  "D29": true,
+  "D30": false
+ },
+ "n=4 radii=[1.5] centre=True w=[1] kl": {
+  "least_all": 0.004269546498316247,
+  "least_axis": 0.004269546498316222,
+  "least_quiet": 0.004269546498316247,
+  "n_quiet": 1,
+  "D29": true,
+  "D30": false
+ },
+ "n=4 radii=[3.0] centre=True w=[2] d2": {
+  "least_all": 0.10565307896104945,
+  "least_axis": 0.1065045909918632,
+  "least_quiet": 0.10565307896104945,
+  "n_quiet": 1,
+  "D29": false,
+  "D30": false
+ },
+ "n=4 radii=[3.0] centre=True w=[2] kl": {
+  "least_all": 0.04000280149996888,
+  "least_axis": 0.040753501798710026,
+  "least_quiet": 0.04000280149996888,
+  "n_quiet": 1,
+  "D29": false,
+  "D30": false
+ },
+ "n=5 radii=[2.0] centre=True w=[1] d2": {
+  "least_all": 0.027404488650383214,
+  "least_axis": 0.027404488650383186,
+  "least_quiet": 0.02740448865038323,
+  "n_quiet": 1,
+  "D29": true,
+  "D30": false
+ },
+ "n=5 radii=[2.0] centre=True w=[1] kl": {
+  "least_all": 0.012385380308321016,
+  "least_axis": 0.012385380308320997,
+  "least_quiet": 0.012385380308321542,
+  "n_quiet": 1,
+  "D29": true,
+  "D30": false
+ },
+ "n=5 radii=[1.5] centre=False w=[1] d2": {
+  "least_all": 0.0002956421701695575,
+  "least_axis": 0.0002956421701695576,
+  "least_quiet": null,
+  "n_quiet": 0,
+  "D29": true,
+  "D30": null
+ },
+ "n=5 radii=[1.5] centre=False w=[1] kl": {
+  "least_all": 0.00014009185872380093,
+  "least_axis": 0.00014009185872392304,
+  "least_quiet": null,
+  "n_quiet": 0,
+  "D29": true,
+  "D30": null
+ },
+ "n=6 radii=[2.0] centre=False w=[1] d2": {
+  "least_all": 0.012238085748492729,
+  "least_axis": 0.012238085748492729,
+  "least_quiet": null,
+  "n_quiet": 0,
+  "D29": true,
+  "D30": null
+ },
+ "n=6 radii=[2.0] centre=False w=[1] kl": {
+  "least_all": 0.004242979995696431,
+  "least_axis": 0.004242979995696421,
+  "least_quiet": null,
+  "n_quiet": 0,
+  "D29": true,
+  "D30": null
+ },
+ "n=6 radii=[1.5] centre=False w=[1] d2": {
+  "least_all": 0.0005465308655352426,
+  "least_axis": 0.0005465308655352426,
+  "least_quiet": null,
+  "n_quiet": 0,
+  "D29": true,
+  "D30": null
+ },
+ "n=6 radii=[1.5] centre=False w=[1] kl": {
+  "least_all": 0.000253492690879394,
+  "least_axis": 0.0002534926908794125,
+  "least_quiet": null,
+  "n_quiet": 0,
+  "D29": true,
+  "D30": null
+ },
+ "D29_all": false,
+ "D30_all": false
+}

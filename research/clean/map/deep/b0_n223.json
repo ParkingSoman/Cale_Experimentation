@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 223,
+ "max": 3.059549570083618,
+ "min": -16.56977081298828,
+ "edits": {
+  "flip": 0.8891738653182983,
+  "rot90": 0.8595054745674133,
+  "rot180": 0.883609414100647,
+  "gray": 1.001371145248413,
+  "blur1": 0.2266443371772766,
+  "blur3": -0.8438481092453003,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9989938735961914,
+  "hue": 0.9999285936355591,
+  "invert": 0.8847407102584839,
+  "zoomout": 0.7197710275650024,
+  "zoomin": 0.448592871427536
+ },
+ "top50_classes": {
+  "orangutan": 1,
+  "ambulance": 1,
+  "peacock": 1,
+  "Model T": 1,
+  "airliner": 1,
+  "modem": 1,
+  "web site": 1,
+  "fountain pen": 1,
+  "crossword puzzle": 1,
+  "book jacket": 1
+ },
+ "neg50_classes": {
+  "photocopier": 2,
+  "garden spider": 1,
+  "banded gecko": 1,
+  "file": 1,
+  "barometer": 1,
+  "barrel": 1,
+  "long-horned beetle": 1,
+  "scoreboard": 1,
+  "ocarina": 1,
+  "English setter": 1
+ }
+}

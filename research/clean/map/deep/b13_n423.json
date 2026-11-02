@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 423,
+ "max": 5.693349838256836,
+ "min": -9.197370529174805,
+ "edits": {
+  "flip": 0.9822312593460083,
+  "rot90": 0.8797047138214111,
+  "rot180": 0.7304664850234985,
+  "gray": 0.09876129776239395,
+  "blur1": 0.9445158243179321,
+  "blur3": 0.839665412902832,
+  "shuf2": 0.9074801802635193,
+  "shuf4": 0.8427309393882751,
+  "shuf8": 0.7171468734741211,
+  "hue": 0.18829554319381714,
+  "invert": 0.7216924428939819,
+  "zoomout": 0.6202144026756287,
+  "zoomin": 0.5669282674789429
+ },
+ "top50_classes": {
+  "triumphal arch": 2,
+  "jacamar": 2,
+  "damselfly": 2,
+  "macaw": 2,
+  "indigo bunting": 2,
+  "beagle": 1,
+  "toucan": 1,
+  "drake": 1,
+  "kelpie": 1,
+  "rock python": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "container ship": 1,
+  "ice cream": 1,
+  "guinea pig": 1,
+  "sea slug": 1,
+  "shield": 1,
+  "harvester": 1,
+  "leatherback turtle": 1,
+  "umbrella": 1,
+  "kuvasz": 1
+ }
+}

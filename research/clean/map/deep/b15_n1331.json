@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1331,
+ "max": 7.823030471801758,
+ "min": -13.877952575683594,
+ "edits": {
+  "flip": 0.9921219348907471,
+  "rot90": 0.0782497227191925,
+  "rot180": 0.08020153641700745,
+  "gray": 0.9885371923446655,
+  "blur1": 0.9477195143699646,
+  "blur3": 0.7210680246353149,
+  "shuf2": 1.1215835809707642,
+  "shuf4": 1.028247356414795,
+  "shuf8": 0.46891629695892334,
+  "hue": 0.9447788596153259,
+  "invert": 0.9879249930381775,
+  "zoomout": 0.5877453088760376,
+  "zoomin": 0.906255841255188
+ },
+ "top50_classes": {
+  "beach wagon": 3,
+  "sports car": 3,
+  "convertible": 3,
+  "cab": 3,
+  "minivan": 3,
+  "pickup": 3,
+  "police van": 2,
+  "limousine": 2,
+  "feather boa": 1,
+  "bassinet": 1
+ },
+ "neg50_classes": {
+  "limpkin": 2,
+  "earthstar": 2,
+  "goldfinch": 2,
+  "harvestman": 2,
+  "warthog": 1,
+  "koala": 1,
+  "dogsled": 1,
+  "panpipe": 1,
+  "brown bear": 1,
+  "soft-coated wheaten terrier": 1
+ }
+}

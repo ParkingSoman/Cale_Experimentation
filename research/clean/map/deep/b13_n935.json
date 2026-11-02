@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 935,
+ "max": 5.123657703399658,
+ "min": -7.233285427093506,
+ "edits": {
+  "flip": 0.9403852820396423,
+  "rot90": 0.8871817588806152,
+  "rot180": 0.8657944202423096,
+  "gray": 0.7940928936004639,
+  "blur1": 0.9948360323905945,
+  "blur3": 0.6435722708702087,
+  "shuf2": 0.9571583271026611,
+  "shuf4": 0.7725523710250854,
+  "shuf8": 0.4935186505317688,
+  "hue": 0.9168683290481567,
+  "invert": 0.9069383144378662,
+  "zoomout": 0.6222061514854431,
+  "zoomin": 0.616451621055603
+ },
+ "top50_classes": {
+  "tick": 3,
+  "cricket": 2,
+  "shopping basket": 1,
+  "hay": 1,
+  "barrow": 1,
+  "scorpion": 1,
+  "trifle": 1,
+  "espresso maker": 1,
+  "fly": 1,
+  "weevil": 1
+ },
+ "neg50_classes": {
+  "Band Aid": 2,
+  "pizza": 2,
+  "schipperke": 2,
+  "Christmas stocking": 2,
+  "desk": 1,
+  "velvet": 1,
+  "digital clock": 1,
+  "dial telephone": 1,
+  "desktop computer": 1,
+  "letter opener": 1
+ }
+}

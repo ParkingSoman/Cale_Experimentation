@@ -1,0 +1,12 @@
+gated free 1 1 {'DS': 0.11989, 'DT': 0.12554, 'DST': 0.06702, 'joint_boxes_alone': [0.1871, 0.24177], 'singles_together': 0.24543, 'identity_gap': -0.36185, 'I_est': -0.17842, 'rel': -0.72694}
+gated free 2 2 {'DS': 0.01285, 'DT': 0.00249, 'DST': 0.01125, 'joint_boxes_alone': [1.62991, 1.29968], 'singles_together': 0.01534, 'identity_gap': -2.91834, 'I_est': -0.00409, 'rel': -0.2664}
+gated free 1 2 {'DS': 0.11991, 'DT': 0.00249, 'DST': 0.02703, 'joint_boxes_alone': [0.74255, 1.80427], 'singles_together': 0.12239, 'identity_gap': -2.51979, 'I_est': -0.09537, 'rel': -0.77917}
+gated cov 1 1 {'DS': 0.16139, 'DT': 0.155, 'DST': 0.32825, 'joint_boxes_alone': [0.17322, 0.15504], 'singles_together': 0.31639, 'identity_gap': 0.0, 'I_est': -0.0, 'rel': -0.0}
+gated cov 2 2 {'DS': 0.15188, 'DT': 0.15198, 'DST': 0.31704, 'joint_boxes_alone': [0.16177, 0.15528], 'singles_together': 0.30386, 'identity_gap': 0.0, 'I_est': -0.0, 'rel': -0.0}
+gated cov 1 2 {'DS': 0.25207, 'DT': 0.08671, 'DST': 0.34539, 'joint_boxes_alone': [0.16139, 0.184], 'singles_together': 0.33878, 'identity_gap': 0.0, 'I_est': 0.09067, 'rel': 0.36546}
+control free 1 1 {'DS': 0.26049, 'DT': 0.18408, 'DST': 0.261, 'joint_boxes_alone': [2.00356, 0.95891], 'singles_together': 0.44576, 'identity_gap': -2.70147, 'I_est': -0.18357, 'rel': -0.41292}
+control free 2 2 {'DS': 0.00165, 'DT': 0.00811, 'DST': 0.01262, 'joint_boxes_alone': [0.90419, 0.19185], 'singles_together': 0.01012, 'identity_gap': -1.08342, 'I_est': 0.00036, 'rel': 0.0368}
+control free 1 2 {'DS': 0.26049, 'DT': 0.00811, 'DST': 0.07315, 'joint_boxes_alone': [8.0117, 7.11235], 'singles_together': 0.26991, 'identity_gap': -15.0509, 'I_est': -0.19545, 'rel': -0.72767}
+control cov 1 1 {'DS': 0.26327, 'DT': 0.22144, 'DST': 0.46923, 'joint_boxes_alone': [0.2738, 0.22192], 'singles_together': 0.48005, 'identity_gap': -0.02649, 'I_est': -0.01548, 'rel': -0.03193}
+control cov 2 2 {'DS': 0.01248, 'DT': 0.11827, 'DST': 0.21802, 'joint_boxes_alone': [0.02233, 0.22185], 'singles_together': 0.12582, 'identity_gap': -0.02617, 'I_est': -0.00494, 'rel': -0.03775}
+control cov 1 2 {'DS': 0.26647, 'DT': 0.22144, 'DST': 0.46912, 'joint_boxes_alone': [0.27375, 0.22178], 'singles_together': 0.47776, 'identity_gap': -0.02641, 'I_est': -0.01879, 'rel': -0.03851}

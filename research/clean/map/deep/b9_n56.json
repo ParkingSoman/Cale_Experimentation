@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 56,
+ "max": 5.409969329833984,
+ "min": -5.777702331542969,
+ "edits": {
+  "flip": 0.9853308200836182,
+  "rot90": 0.6557831764221191,
+  "rot180": 0.5517114400863647,
+  "gray": 0.9634870886802673,
+  "blur1": 0.907390832901001,
+  "blur3": -0.06057005375623703,
+  "shuf2": 0.9233295917510986,
+  "shuf4": 0.7699394226074219,
+  "shuf8": 0.6526099443435669,
+  "hue": 1.0383955240249634,
+  "invert": 0.9732018709182739,
+  "zoomout": 0.7705551981925964,
+  "zoomin": 0.6468772888183594
+ },
+ "top50_classes": {
+  "Pomeranian": 2,
+  "Tibetan mastiff": 2,
+  "lion": 1,
+  "groenendael": 1,
+  "goose": 1,
+  "Siamese cat": 1,
+  "Egyptian cat": 1,
+  "otterhound": 1,
+  "collie": 1,
+  "Shetland sheepdog": 1
+ },
+ "neg50_classes": {
+  "sea slug": 2,
+  "television": 1,
+  "trimaran": 1,
+  "rain barrel": 1,
+  "honeycomb": 1,
+  "bookcase": 1,
+  "refrigerator": 1,
+  "tub": 1,
+  "Model T": 1,
+  "mailbox": 1
+ }
+}

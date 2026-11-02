@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 2323,
+ "max": 6.4252214431762695,
+ "min": -17.65269660949707,
+ "edits": {
+  "flip": 1.008430004119873,
+  "rot90": 0.7252905368804932,
+  "rot180": 0.8838276863098145,
+  "gray": 0.657683253288269,
+  "blur1": 1.0491855144500732,
+  "blur3": 0.6228625774383545,
+  "shuf2": 1.445165753364563,
+  "shuf4": 1.1482598781585693,
+  "shuf8": 0.5427032709121704,
+  "hue": 0.48760974407196045,
+  "invert": 1.0929927825927734,
+  "zoomout": 0.5916239619255066,
+  "zoomin": 0.875342607498169
+ },
+ "top50_classes": {
+  "custard apple": 3,
+  "fig": 3,
+  "pineapple": 3,
+  "artichoke": 3,
+  "guacamole": 2,
+  "cardoon": 2,
+  "buckeye": 2,
+  "head cabbage": 2,
+  "acorn": 2,
+  "rifle": 1
+ },
+ "neg50_classes": {
+  "kit fox": 2,
+  "limpkin": 2,
+  "guenon": 2,
+  "mongoose": 1,
+  "German shepherd": 1,
+  "trombone": 1,
+  "perfume": 1,
+  "titi": 1,
+  "Siamese cat": 1,
+  "Pekinese": 1
+ }
+}

@@ -1,0 +1,104 @@
+{
+ "seconds_to_measure_all": 380.4,
+ "sizes": 16,
+ "real": {
+  "e4b": [
+   26.6,
+   6.83
+  ],
+  "e3.79-layer": [
+   27.0,
+   7.41
+  ],
+  "e3.74-block": [
+   28.2,
+   7.37
+  ],
+  "e3.59-layer": [
+   28.1,
+   7.65
+  ],
+  "e3.49-block": [
+   29.4,
+   7.82
+  ],
+  "e3.39-layer": [
+   30.3,
+   7.87
+  ],
+  "e3.24-block": [
+   32.7,
+   8.23
+  ],
+  "e3.18-layer": [
+   31.2,
+   8.34
+  ],
+  "e2.98-block": [
+   31.2,
+   8.5
+  ],
+  "e2.98-layer": [
+   39.5,
+   8.89
+  ],
+  "e2.73-block": [
+   39.2,
+   9.59
+  ],
+  "e2.69-layer": [
+   39.5,
+   9.43
+  ],
+  "e2.54-layer": [
+   43.6,
+   9.95
+  ],
+  "e2.49-block": [
+   44.7,
+   9.91
+  ],
+  "e1.96-layer": [
+   43.1,
+   11.94
+  ],
+  "e2b": [
+   44.0,
+   10.74
+  ]
+ },
+ "subsets": {
+  "2": {
+   "measured": 2,
+   "left_out": 14,
+   "decode_mean_abs_err": 0.025,
+   "decode_max_abs_err": 0.1085,
+   "prompt_mean_abs_err": 0.0624,
+   "prompt_max_abs_err": 0.1241
+  },
+  "3": {
+   "measured": 3,
+   "left_out": 13,
+   "decode_mean_abs_err": 0.0268,
+   "decode_max_abs_err": 0.1085,
+   "prompt_mean_abs_err": 0.063,
+   "prompt_max_abs_err": 0.1597
+  },
+  "4": {
+   "measured": 4,
+   "left_out": 12,
+   "decode_mean_abs_err": 0.0242,
+   "decode_max_abs_err": 0.1065,
+   "prompt_mean_abs_err": 0.0478,
+   "prompt_max_abs_err": 0.1491
+  },
+  "5": {
+   "measured": 5,
+   "left_out": 11,
+   "decode_mean_abs_err": 0.0249,
+   "decode_max_abs_err": 0.1077,
+   "prompt_mean_abs_err": 0.05,
+   "prompt_max_abs_err": 0.125
+  }
+ }
+}

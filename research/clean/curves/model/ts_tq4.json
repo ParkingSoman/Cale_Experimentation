@@ -1,0 +1,10 @@
+{
+ "trials": 120,
+ "worst_relative_search_gap": 2.481401200802917e-13,
+ "counterexample": {
+  "eps": 0.001,
+  "reverse_pairing": 0.12649110640673517,
+  "first_form_balancing": 2.002
+ },
+ "fails": []
+}

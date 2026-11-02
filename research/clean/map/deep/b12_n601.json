@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 601,
+ "max": 3.1062917709350586,
+ "min": -6.2118353843688965,
+ "edits": {
+  "flip": 0.9640724658966064,
+  "rot90": 0.8125216960906982,
+  "rot180": 0.8202404975891113,
+  "gray": 0.34889811277389526,
+  "blur1": 0.9796168804168701,
+  "blur3": 0.8861734867095947,
+  "shuf2": 1.0078743696212769,
+  "shuf4": 0.9828988313674927,
+  "shuf8": 1.0600391626358032,
+  "hue": 0.42560920119285583,
+  "invert": 0.20986787974834442,
+  "zoomout": 0.8413498401641846,
+  "zoomin": 0.743131160736084
+ },
+ "top50_classes": {
+  "diaper": 2,
+  "basenji": 2,
+  "sorrel": 2,
+  "vizsla": 2,
+  "tennis ball": 1,
+  "volleyball": 1,
+  "maillot": 1,
+  "papillon": 1,
+  "banded gecko": 1,
+  "mask": 1
+ },
+ "neg50_classes": {
+  "centipede": 2,
+  "Tibetan mastiff": 2,
+  "tench": 1,
+  "armadillo": 1,
+  "swab": 1,
+  "Chihuahua": 1,
+  "sea lion": 1,
+  "Arabian camel": 1,
+  "king penguin": 1,
+  "otter": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 612,
+ "max": 3.264348030090332,
+ "min": -2.3173680305480957,
+ "edits": {
+  "flip": 0.9356513619422913,
+  "rot90": 0.8736255168914795,
+  "rot180": 0.8843443393707275,
+  "gray": 0.25223633646965027,
+  "blur1": 0.6065792441368103,
+  "blur3": 0.07879747450351715,
+  "shuf2": 0.9654874801635742,
+  "shuf4": 0.9617456793785095,
+  "shuf8": 0.936069130897522,
+  "hue": 0.8444777131080627,
+  "invert": 0.8419426679611206,
+  "zoomout": 0.44994568824768066,
+  "zoomin": 0.5276695489883423
+ },
+ "top50_classes": {
+  "agama": 2,
+  "hatchet": 1,
+  "tractor": 1,
+  "papillon": 1,
+  "potpie": 1,
+  "howler monkey": 1,
+  "briard": 1,
+  "triumphal arch": 1,
+  "groenendael": 1,
+  "common iguana": 1
+ },
+ "neg50_classes": {
+  "milk can": 2,
+  "thimble": 2,
+  "mantis": 1,
+  "macaw": 1,
+  "frying pan": 1,
+  "lycaenid": 1,
+  "cabbage butterfly": 1,
+  "monarch": 1,
+  "ringlet": 1,
+  "mouse": 1
+ }
+}

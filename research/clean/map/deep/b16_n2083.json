@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2083,
+ "max": 8.039817810058594,
+ "min": -21.715681076049805,
+ "edits": {
+  "flip": 0.944512128829956,
+  "rot90": 0.7274712324142456,
+  "rot180": 0.7820062637329102,
+  "gray": 0.9262571334838867,
+  "blur1": 0.8489435315132141,
+  "blur3": 0.05126109719276428,
+  "shuf2": 1.0,
+  "shuf4": 0.6384283900260925,
+  "shuf8": 0.1740187108516693,
+  "hue": 0.7861052751541138,
+  "invert": 0.880508542060852,
+  "zoomout": -0.24150702357292175,
+  "zoomin": 0.07323649525642395
+ },
+ "top50_classes": {
+  "buckle": 2,
+  "espresso maker": 2,
+  "projector": 2,
+  "hard disc": 2,
+  "loudspeaker": 2,
+  "worm fence": 1,
+  "bow": 1,
+  "toyshop": 1,
+  "ashcan": 1,
+  "doormat": 1
+ },
+ "neg50_classes": {
+  "Tibetan mastiff": 2,
+  "cornet": 2,
+  "Dandie Dinmont": 2,
+  "sax": 2,
+  "Pekinese": 2,
+  "orangutan": 1,
+  "Maltese dog": 1,
+  "mortarboard": 1,
+  "Ibizan hound": 1,
+  "English foxhound": 1
+ }
+}

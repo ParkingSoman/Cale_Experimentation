@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 318,
+ "max": 4.840158462524414,
+ "min": -6.226231575012207,
+ "edits": {
+  "flip": 0.9943792819976807,
+  "rot90": 0.8758604526519775,
+  "rot180": 0.8884279727935791,
+  "gray": 0.9880722165107727,
+  "blur1": 0.958789587020874,
+  "blur3": 0.5242341756820679,
+  "shuf2": 0.9297142624855042,
+  "shuf4": 0.8061017990112305,
+  "shuf8": 0.5974862575531006,
+  "hue": 0.9966266751289368,
+  "invert": 1.013503074645996,
+  "zoomout": 0.7200185060501099,
+  "zoomin": 0.39747852087020874
+ },
+ "top50_classes": {
+  "car mirror": 2,
+  "moped": 2,
+  "steel arch bridge": 2,
+  "gas pump": 2,
+  "Polaroid camera": 1,
+  "unicycle": 1,
+  "triumphal arch": 1,
+  "pay-phone": 1,
+  "sundial": 1,
+  "passenger car": 1
+ },
+ "neg50_classes": {
+  "tile roof": 2,
+  "birdhouse": 1,
+  "jaguar": 1,
+  "puffer": 1,
+  "Madagascar cat": 1,
+  "red wine": 1,
+  "rhinoceros beetle": 1,
+  "grey fox": 1,
+  "space heater": 1,
+  "basset": 1
+ }
+}

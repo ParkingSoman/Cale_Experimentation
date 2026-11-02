@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 268,
+ "max": 6.309176445007324,
+ "min": -8.219571113586426,
+ "edits": {
+  "flip": 0.6990246772766113,
+  "rot90": 0.6879288554191589,
+  "rot180": 0.675439715385437,
+  "gray": 1.0052976608276367,
+  "blur1": 0.6768085360527039,
+  "blur3": 0.14900442957878113,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9983185529708862,
+  "hue": 0.9989906549453735,
+  "invert": 0.5527350902557373,
+  "zoomout": 0.6780935525894165,
+  "zoomin": 0.5063894987106323
+ },
+ "top50_classes": {
+  "web site": 2,
+  "fountain pen": 1,
+  "barber chair": 1,
+  "schooner": 1,
+  "parking meter": 1,
+  "red wine": 1,
+  "African hunting dog": 1,
+  "loggerhead": 1,
+  "academic gown": 1,
+  "meat loaf": 1
+ },
+ "neg50_classes": {
+  "abaya": 2,
+  "tiger": 1,
+  "ant": 1,
+  "fire engine": 1,
+  "shoe shop": 1,
+  "seat belt": 1,
+  "Chesapeake Bay retriever": 1,
+  "king snake": 1,
+  "beacon": 1,
+  "gasmask": 1
+ }
+}

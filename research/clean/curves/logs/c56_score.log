@@ -1,0 +1,8 @@
+G skipped (0s)
+c54_gn_it6: dev-5000 0.0437
+  c54_gn_it6 minus kbar(S)    -0.0054 (paired se 0.0013)
+  c54_gn_it6 minus T          +0.0033 (paired se 0.0007)
+c50_photo2000_it8: dev-5000 0.0425
+  c50_photo2000_it8 minus kbar(S)    -0.0066 (paired se 0.0013)
+  c50_photo2000_it8 minus T          +0.0021 (paired se 0.0008)
+done

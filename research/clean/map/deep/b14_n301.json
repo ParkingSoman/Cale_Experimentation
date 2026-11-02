@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 301,
+ "max": 5.580379009246826,
+ "min": -7.676653861999512,
+ "edits": {
+  "flip": 0.9400889277458191,
+  "rot90": 0.9029110670089722,
+  "rot180": 0.8205000162124634,
+  "gray": 0.3941192328929901,
+  "blur1": 0.9373353719711304,
+  "blur3": 0.6661954522132874,
+  "shuf2": 0.902068018913269,
+  "shuf4": 0.8073233962059021,
+  "shuf8": 0.7155352830886841,
+  "hue": 0.46896177530288696,
+  "invert": 0.9046724438667297,
+  "zoomout": 0.7336708307266235,
+  "zoomin": 0.5725566148757935
+ },
+ "top50_classes": {
+  "neck brace": 1,
+  "sulphur butterfly": 1,
+  "titi": 1,
+  "broccoli": 1,
+  "squirrel monkey": 1,
+  "ibex": 1,
+  "sulphur-crested cockatoo": 1,
+  "meat loaf": 1,
+  "water buffalo": 1,
+  "long-horned beetle": 1
+ },
+ "neg50_classes": {
+  "backpack": 2,
+  "castle": 1,
+  "reflex camera": 1,
+  "yawl": 1,
+  "ski mask": 1,
+  "forklift": 1,
+  "shield": 1,
+  "tiger beetle": 1,
+  "screw": 1,
+  "screen": 1
+ }
+}

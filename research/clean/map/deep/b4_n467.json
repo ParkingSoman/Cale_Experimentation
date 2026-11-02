@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 467,
+ "max": 2.0146312713623047,
+ "min": -6.775437355041504,
+ "edits": {
+  "flip": 0.8714008927345276,
+  "rot90": 0.8134002089500427,
+  "rot180": 0.8429169654846191,
+  "gray": -0.9115361571311951,
+  "blur1": 0.9619004726409912,
+  "blur3": 0.7683849334716797,
+  "shuf2": 0.9916559457778931,
+  "shuf4": 0.9500125646591187,
+  "shuf8": 0.8072383403778076,
+  "hue": 0.51767897605896,
+  "invert": 0.8067834377288818,
+  "zoomout": 0.6036747694015503,
+  "zoomin": 0.5196405649185181
+ },
+ "top50_classes": {
+  "long-horned beetle": 1,
+  "safety pin": 1,
+  "tripod": 1,
+  "tailed frog": 1,
+  "bolo tie": 1,
+  "hoopskirt": 1,
+  "studio couch": 1,
+  "crib": 1,
+  "American chameleon": 1,
+  "bell cote": 1
+ },
+ "neg50_classes": {
+  "oxygen mask": 2,
+  "spotted salamander": 2,
+  "Border collie": 2,
+  "chocolate sauce": 2,
+  "American chameleon": 1,
+  "gown": 1,
+  "grand piano": 1,
+  "fire engine": 1,
+  "triumphal arch": 1,
+  "pay-phone": 1
+ }
+}

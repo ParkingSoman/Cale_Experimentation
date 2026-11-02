@@ -1,0 +1,5 @@
+gap, all generated:            0.4285
+gap, real N + generated m:     26.1740
+gap, generated N + real m:     19506.5314
+m cosine (NR^-1 metric) gen vs real +0.073; scale ratio 5.998
+N: trace ratio gen/real 0.725; cosine 0.327

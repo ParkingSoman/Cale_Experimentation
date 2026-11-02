@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 511,
+ "max": 7.209186553955078,
+ "min": -8.426626205444336,
+ "edits": {
+  "flip": 0.9883480072021484,
+  "rot90": 0.3512231111526489,
+  "rot180": 0.6053828597068787,
+  "gray": 0.9798004627227783,
+  "blur1": 0.9212863445281982,
+  "blur3": 0.6401768922805786,
+  "shuf2": 0.9635863900184631,
+  "shuf4": 0.9621174335479736,
+  "shuf8": 0.6524622440338135,
+  "hue": 0.8547109365463257,
+  "invert": 0.9598222374916077,
+  "zoomout": 0.9643626809120178,
+  "zoomin": 0.2711988091468811
+ },
+ "top50_classes": {
+  "boathouse": 3,
+  "American alligator": 2,
+  "paddle": 2,
+  "canoe": 2,
+  "lakeside": 2,
+  "water buffalo": 2,
+  "tench": 1,
+  "accordion": 1,
+  "vase": 1,
+  "viaduct": 1
+ },
+ "neg50_classes": {
+  "limousine": 2,
+  "bikini": 1,
+  "water bottle": 1,
+  "container ship": 1,
+  "golfcart": 1,
+  "malinois": 1,
+  "African hunting dog": 1,
+  "cowboy hat": 1,
+  "tailed frog": 1,
+  "leaf beetle": 1
+ }
+}

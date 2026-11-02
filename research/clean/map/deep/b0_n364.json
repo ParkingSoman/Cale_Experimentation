@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 364,
+ "max": 14.595332145690918,
+ "min": -14.839320182800293,
+ "edits": {
+  "flip": 0.8784001469612122,
+  "rot90": 0.8647952079772949,
+  "rot180": 0.9163854122161865,
+  "gray": 0.018546100705862045,
+  "blur1": 0.9850808382034302,
+  "blur3": 0.8112826347351074,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9949624538421631,
+  "hue": 0.7242306470870972,
+  "invert": 0.8774347305297852,
+  "zoomout": 0.9430333971977234,
+  "zoomin": 0.7241727113723755
+ },
+ "top50_classes": {
+  "lorikeet": 2,
+  "tennis ball": 2,
+  "bee": 2,
+  "stingray": 2,
+  "honeycomb": 1,
+  "boa constrictor": 1,
+  "admiral": 1,
+  "modem": 1,
+  "baseball": 1,
+  "basketball": 1
+ },
+ "neg50_classes": {
+  "tennis ball": 3,
+  "lorikeet": 2,
+  "stingray": 2,
+  "bee": 2,
+  "odometer": 1,
+  "solar dish": 1,
+  "monarch": 1,
+  "banjo": 1,
+  "miniature schnauzer": 1,
+  "green mamba": 1
+ }
+}

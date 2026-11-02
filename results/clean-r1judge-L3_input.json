@@ -1,0 +1,25 @@
+{
+ "stem": "L3_input",
+ "detection_accuracy_mean": 0.8600000000000001,
+ "detection_per_parent": [
+  0.8,
+  0.6,
+  1.0,
+  0.8,
+  1.0,
+  1.0,
+  0.8,
+  0.8,
+  1.0,
+  0.8
+ ],
+ "judge_right": 7,
+ "judge_n": 7,
+ "judge_right_confidence_mean": 4.571428571428571,
+ "share_coherent": {
+  "parent": 0.6,
+  "child": 0.39285714285714285,
+  "decoy": 0.2857142857142857
+ },
+ "judge_p_value": 0.0078125
+}

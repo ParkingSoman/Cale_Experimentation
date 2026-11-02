@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 58,
+ "max": 3.1568174362182617,
+ "min": -2.5668787956237793,
+ "edits": {
+  "flip": 0.9689443111419678,
+  "rot90": 0.7297943234443665,
+  "rot180": 0.7540745735168457,
+  "gray": 0.9061439037322998,
+  "blur1": 0.9262101650238037,
+  "blur3": 0.8394516706466675,
+  "shuf2": 0.883965253829956,
+  "shuf4": 0.7131971120834351,
+  "shuf8": 0.5212271213531494,
+  "hue": 0.8699182271957397,
+  "invert": 0.9246954321861267,
+  "zoomout": 0.547545313835144,
+  "zoomin": 0.7679190635681152
+ },
+ "top50_classes": {
+  "Arctic fox": 2,
+  "meerkat": 2,
+  "zebra": 2,
+  "German short-haired pointer": 1,
+  "red wine": 1,
+  "ox": 1,
+  "tabby": 1,
+  "Indian elephant": 1,
+  "Sussex spaniel": 1,
+  "cocker spaniel": 1
+ },
+ "neg50_classes": {
+  "moving van": 2,
+  "steam locomotive": 2,
+  "American egret": 2,
+  "drilling platform": 1,
+  "reel": 1,
+  "padlock": 1,
+  "oxygen mask": 1,
+  "hamper": 1,
+  "stage": 1,
+  "warplane": 1
+ }
+}

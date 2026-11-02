@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 623,
+ "max": 3.0079774856567383,
+ "min": -6.062630653381348,
+ "edits": {
+  "flip": 0.9075132608413696,
+  "rot90": 0.8971743583679199,
+  "rot180": 0.9099310636520386,
+  "gray": -0.05766041949391365,
+  "blur1": 0.9764823913574219,
+  "blur3": 0.7058926224708557,
+  "shuf2": 0.9930716753005981,
+  "shuf4": 0.9385453462600708,
+  "shuf8": 0.8411288857460022,
+  "hue": 0.6683111190795898,
+  "invert": 0.9026063084602356,
+  "zoomout": 0.46751177310943604,
+  "zoomin": 0.512276291847229
+ },
+ "top50_classes": {
+  "volleyball": 2,
+  "aircraft carrier": 1,
+  "crayfish": 1,
+  "horizontal bar": 1,
+  "lotion": 1,
+  "standard schnauzer": 1,
+  "horned viper": 1,
+  "cradle": 1,
+  "home theater": 1,
+  "ox": 1
+ },
+ "neg50_classes": {
+  "Bouvier des Flandres": 2,
+  "leopard": 2,
+  "cougar": 1,
+  "schooner": 1,
+  "Shetland sheepdog": 1,
+  "trombone": 1,
+  "bagel": 1,
+  "warthog": 1,
+  "otterhound": 1,
+  "umbrella": 1
+ }
+}

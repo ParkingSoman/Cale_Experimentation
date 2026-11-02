@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 1520,
+ "max": 5.995121955871582,
+ "min": -8.736492156982422,
+ "edits": {
+  "flip": 0.9689273238182068,
+  "rot90": 0.7499857544898987,
+  "rot180": 0.6955235600471497,
+  "gray": 0.5901016592979431,
+  "blur1": 0.9340519905090332,
+  "blur3": 0.6076109409332275,
+  "shuf2": 0.9941957592964172,
+  "shuf4": 0.8060876131057739,
+  "shuf8": 0.6602557897567749,
+  "hue": 0.5623704195022583,
+  "invert": 0.9461628198623657,
+  "zoomout": 0.47931551933288574,
+  "zoomin": 0.61147141456604
+ },
+ "top50_classes": {
+  "sulphur butterfly": 3,
+  "sulphur-crested cockatoo": 2,
+  "goldfinch": 2,
+  "howler monkey": 2,
+  "frilled lizard": 1,
+  "mushroom": 1,
+  "strawberry": 1,
+  "green lizard": 1,
+  "cheetah": 1,
+  "American chameleon": 1
+ },
+ "neg50_classes": {
+  "gong": 2,
+  "pug": 1,
+  "cauliflower": 1,
+  "ice cream": 1,
+  "oscilloscope": 1,
+  "entertainment center": 1,
+  "screw": 1,
+  "screen": 1,
+  "Chesapeake Bay retriever": 1,
+  "spaghetti squash": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 73,
+ "max": 4.670860290527344,
+ "min": -6.675541400909424,
+ "edits": {
+  "flip": 0.9606436491012573,
+  "rot90": 0.795605480670929,
+  "rot180": 0.8582721948623657,
+  "gray": 1.007911205291748,
+  "blur1": 0.9932483434677124,
+  "blur3": 0.8185375928878784,
+  "shuf2": 0.9376661777496338,
+  "shuf4": 0.6909138560295105,
+  "shuf8": 0.41297078132629395,
+  "hue": 0.9634932279586792,
+  "invert": 0.9567475318908691,
+  "zoomout": 0.62794029712677,
+  "zoomin": 0.7211024165153503
+ },
+ "top50_classes": {
+  "mortar": 3,
+  "reel": 1,
+  "corkscrew": 1,
+  "birdhouse": 1,
+  "revolver": 1,
+  "stopwatch": 1,
+  "matchstick": 1,
+  "bathtub": 1,
+  "diaper": 1,
+  "ringneck snake": 1
+ },
+ "neg50_classes": {
+  "Dandie Dinmont": 2,
+  "cleaver": 1,
+  "cauliflower": 1,
+  "remote control": 1,
+  "manhole cover": 1,
+  "umbrella": 1,
+  "Crock Pot": 1,
+  "analog clock": 1,
+  "handkerchief": 1,
+  "pineapple": 1
+ }
+}

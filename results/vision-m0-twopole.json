@@ -1,0 +1,80 @@
+{
+ "13": {
+  "both_n": 11,
+  "both_pos": 0.36363636363636365,
+  "posonly_n": 115,
+  "posonly_pos": 0.45217391304347826
+ },
+ "15": {
+  "both_n": 4,
+  "both_pos": 0.25,
+  "posonly_n": 144,
+  "posonly_pos": 0.4652777777777778
+ },
+ "16": {
+  "both_n": 4,
+  "both_pos": 0.25,
+  "posonly_n": 142,
+  "posonly_pos": 0.5492957746478874
+ },
+ "search_14": [
+  {
+   "neuron": 1408,
+   "cov_pos": 0.7272727272727273,
+   "cov_neg": 0.225,
+   "breadth": 102
+  },
+  {
+   "neuron": 520,
+   "cov_pos": 0.7272727272727273,
+   "cov_neg": 0.225,
+   "breadth": 101
+  },
+  {
+   "neuron": 871,
+   "cov_pos": 0.18181818181818182,
+   "cov_neg": 0.2,
+   "breadth": 118
+  }
+ ],
+ "search_15": [
+  {
+   "neuron": 2746,
+   "cov_pos": 0.45454545454545453,
+   "cov_neg": 0.2,
+   "breadth": 58
+  },
+  {
+   "neuron": 2324,
+   "cov_pos": 0.2727272727272727,
+   "cov_neg": 0.1,
+   "breadth": 88
+  },
+  {
+   "neuron": 1070,
+   "cov_pos": 0.45454545454545453,
+   "cov_neg": 0.1,
+   "breadth": 94
+  }
+ ],
+ "search_16": [
+  {
+   "neuron": 381,
+   "cov_pos": 0.2727272727272727,
+   "cov_neg": 0.2,
+   "breadth": 116
+  },
+  {
+   "neuron": 322,
+   "cov_pos": 0.18181818181818182,
+   "cov_neg": 0.125,
+   "breadth": 50
+  },
+  {
+   "neuron": 2673,
+   "cov_pos": 0.18181818181818182,
+   "cov_neg": 0.1,
+   "breadth": 40
+  }
+ ]
+}

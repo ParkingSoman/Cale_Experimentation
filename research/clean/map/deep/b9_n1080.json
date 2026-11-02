@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 1080,
+ "max": 3.9570252895355225,
+ "min": -6.634339332580566,
+ "edits": {
+  "flip": 0.941483736038208,
+  "rot90": 0.6887509822845459,
+  "rot180": 0.6656256914138794,
+  "gray": 0.9471781253814697,
+  "blur1": 1.0116772651672363,
+  "blur3": 0.33326077461242676,
+  "shuf2": 0.9425334930419922,
+  "shuf4": 0.8618193864822388,
+  "shuf8": 0.8047237396240234,
+  "hue": 0.9199497103691101,
+  "invert": 0.8965358734130859,
+  "zoomout": 0.7686423659324646,
+  "zoomin": 0.4215408265590668
+ },
+ "top50_classes": {
+  "rugby ball": 2,
+  "plane": 1,
+  "drilling platform": 1,
+  "apiary": 1,
+  "flagpole": 1,
+  "mouse": 1,
+  "Boston bull": 1,
+  "barn": 1,
+  "Labrador retriever": 1,
+  "sandal": 1
+ },
+ "neg50_classes": {
+  "banana": 1,
+  "cucumber": 1,
+  "beaker": 1,
+  "sax": 1,
+  "aircraft carrier": 1,
+  "spaghetti squash": 1,
+  "space heater": 1,
+  "space shuttle": 1,
+  "greenhouse": 1,
+  "stopwatch": 1
+ }
+}

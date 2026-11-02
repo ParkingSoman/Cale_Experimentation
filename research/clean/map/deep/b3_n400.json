@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 400,
+ "max": 5.468754768371582,
+ "min": -8.269529342651367,
+ "edits": {
+  "flip": 1.0004444122314453,
+  "rot90": 0.9914745688438416,
+  "rot180": 0.9955042600631714,
+  "gray": -0.07716846466064453,
+  "blur1": 0.9875361919403076,
+  "blur3": 0.9400173425674438,
+  "shuf2": 1.0000874996185303,
+  "shuf4": 0.9912662506103516,
+  "shuf8": 0.9609666466712952,
+  "hue": 0.2513176500797272,
+  "invert": 0.5132670402526855,
+  "zoomout": 0.9520683288574219,
+  "zoomin": 0.9589081406593323
+ },
+ "top50_classes": {
+  "great white shark": 2,
+  "tiger shark": 2,
+  "jellyfish": 2,
+  "wreck": 2,
+  "dugong": 2,
+  "trailer truck": 1,
+  "abacus": 1,
+  "sea anemone": 1,
+  "hand-held computer": 1,
+  "puffer": 1
+ },
+ "neg50_classes": {
+  "acorn squash": 2,
+  "orange": 2,
+  "carbonara": 2,
+  "Angora": 1,
+  "hand blower": 1,
+  "dishwasher": 1,
+  "mouse": 1,
+  "television": 1,
+  "radio": 1,
+  "corkscrew": 1
+ }
+}

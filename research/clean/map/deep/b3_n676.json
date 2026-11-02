@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 676,
+ "max": 3.3890981674194336,
+ "min": -4.7582292556762695,
+ "edits": {
+  "flip": 0.6849645376205444,
+  "rot90": 0.6760969161987305,
+  "rot180": 0.9442506432533264,
+  "gray": 0.9989669322967529,
+  "blur1": 0.9213962554931641,
+  "blur3": 0.6246680021286011,
+  "shuf2": 0.9975452423095703,
+  "shuf4": 0.9241431355476379,
+  "shuf8": 0.7440099716186523,
+  "hue": 0.9816246628761292,
+  "invert": 0.9370602369308472,
+  "zoomout": 0.6769272089004517,
+  "zoomin": 0.6266942024230957
+ },
+ "top50_classes": {
+  "tricycle": 2,
+  "CD player": 1,
+  "water jug": 1,
+  "spotted salamander": 1,
+  "harmonica": 1,
+  "puffer": 1,
+  "electric fan": 1,
+  "unicycle": 1,
+  "cheeseburger": 1,
+  "toy terrier": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "frilled lizard": 1,
+  "lawn mower": 1,
+  "American coot": 1,
+  "iPod": 1,
+  "chimpanzee": 1,
+  "king crab": 1,
+  "trombone": 1,
+  "vacuum": 1,
+  "volleyball": 1
+ }
+}

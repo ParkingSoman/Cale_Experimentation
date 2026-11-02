@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 158,
+ "max": 8.877272605895996,
+ "min": -8.835243225097656,
+ "edits": {
+  "flip": 0.8619034290313721,
+  "rot90": 0.8560318946838379,
+  "rot180": 0.9343942403793335,
+  "gray": 1.0030200481414795,
+  "blur1": 0.8916342854499817,
+  "blur3": 0.21902242302894592,
+  "shuf2": 1.0,
+  "shuf4": 0.9980196356773376,
+  "shuf8": 0.9948423504829407,
+  "hue": 0.9989708065986633,
+  "invert": 0.9232234358787537,
+  "zoomout": 0.7757916450500488,
+  "zoomin": 0.8056541681289673
+ },
+ "top50_classes": {
+  "jigsaw puzzle": 2,
+  "analog clock": 2,
+  "echidna": 2,
+  "harvestman": 1,
+  "handkerchief": 1,
+  "puffer": 1,
+  "lionfish": 1,
+  "binder": 1,
+  "hand-held computer": 1,
+  "cheetah": 1
+ },
+ "neg50_classes": {
+  "speedboat": 2,
+  "soap dispenser": 2,
+  "croquet ball": 1,
+  "space shuttle": 1,
+  "window shade": 1,
+  "apiary": 1,
+  "worm fence": 1,
+  "bakery": 1,
+  "flagpole": 1,
+  "ant": 1
+ }
+}

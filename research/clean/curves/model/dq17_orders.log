@@ -1,0 +1,3 @@
+no scales {'cases': 92, 'compatible_is_best': 92, 'worst_ratio': 1.0}
+shuffled tree {'cases': 92, 'compatible_is_best': 68, 'worst_ratio': 9.78164523353789}
+scales {'cases': 92, 'compatible_is_best': 69, 'worst_ratio': 2.0111123860082367}

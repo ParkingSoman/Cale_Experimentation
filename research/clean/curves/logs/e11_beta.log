@@ -1,0 +1,7 @@
+  boundary B, plain-mean beta from boundary      dev-5000 KL 6.4220 (se 0.1429)
+  boundary B, beta from class inversions         dev-5000 KL 3.8145 (se 0.1107)
+  boundary B, beta from real (diagnostic)        dev-5000 KL 5.0500 (se 0.1293)
+  conv 0: |beta| as used 71.9, boundary-mean 816.7, real 1540.5
+  conv 1: |beta| as used 65.4, boundary-mean 284.4, real 584.2
+  conv 2: |beta| as used 35.9, boundary-mean 78.3, real 159.9
+  conv 3: |beta| as used 33.4, boundary-mean 1630.1, real 2796.3

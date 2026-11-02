@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 2911,
+ "max": 10.93408203125,
+ "min": -15.163750648498535,
+ "edits": {
+  "flip": 0.9591569900512695,
+  "rot90": 0.314322829246521,
+  "rot180": 0.29438042640686035,
+  "gray": 0.6058501601219177,
+  "blur1": 0.8360289931297302,
+  "blur3": 0.46937477588653564,
+  "shuf2": 0.7847623825073242,
+  "shuf4": 0.42793095111846924,
+  "shuf8": 0.28744345903396606,
+  "hue": 0.44475212693214417,
+  "invert": 0.8726502060890198,
+  "zoomout": 0.2907405495643616,
+  "zoomin": 0.6050631999969482
+ },
+ "top50_classes": {
+  "swing": 2,
+  "bow": 2,
+  "cassette": 1,
+  "hoopskirt": 1,
+  "tobacco shop": 1,
+  "torch": 1,
+  "jean": 1,
+  "tricycle": 1,
+  "hermit crab": 1,
+  "horizontal bar": 1
+ },
+ "neg50_classes": {
+  "flute": 2,
+  "soft-coated wheaten terrier": 2,
+  "nipple": 2,
+  "vacuum": 2,
+  "fire screen": 2,
+  "CD player": 1,
+  "hot pot": 1,
+  "Border terrier": 1,
+  "cockroach": 1,
+  "cricket": 1
+ }
+}

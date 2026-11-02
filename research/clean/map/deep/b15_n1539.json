@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1539,
+ "max": 10.23196029663086,
+ "min": -15.43016242980957,
+ "edits": {
+  "flip": 0.9778017997741699,
+  "rot90": 0.07374760508537292,
+  "rot180": 0.15304172039031982,
+  "gray": 0.9846575260162354,
+  "blur1": 1.0112354755401611,
+  "blur3": 0.41001492738723755,
+  "shuf2": 0.9507838487625122,
+  "shuf4": 0.6770753860473633,
+  "shuf8": 0.1464802324771881,
+  "hue": 0.7732369899749756,
+  "invert": 0.9512749910354614,
+  "zoomout": 0.3921545147895813,
+  "zoomin": 0.4720807671546936
+ },
+ "top50_classes": {
+  "cab": 3,
+  "minivan": 3,
+  "convertible": 3,
+  "amphibian": 2,
+  "jeep": 2,
+  "limousine": 2,
+  "beach wagon": 2,
+  "car wheel": 2,
+  "refrigerator": 1,
+  "pickup": 1
+ },
+ "neg50_classes": {
+  "sea slug": 2,
+  "earthstar": 2,
+  "goldfinch": 2,
+  "panpipe": 1,
+  "eft": 1,
+  "home theater": 1,
+  "bulletproof vest": 1,
+  "tripod": 1,
+  "toucan": 1,
+  "beach wagon": 1
+ }
+}

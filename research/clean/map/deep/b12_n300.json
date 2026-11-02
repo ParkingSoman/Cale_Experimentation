@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 300,
+ "max": 5.882740020751953,
+ "min": -5.832715034484863,
+ "edits": {
+  "flip": 0.9822499752044678,
+  "rot90": 0.15954986214637756,
+  "rot180": 0.3648410439491272,
+  "gray": 1.018528938293457,
+  "blur1": 0.9627654552459717,
+  "blur3": 0.6203903555870056,
+  "shuf2": 0.8952475190162659,
+  "shuf4": 0.6384478807449341,
+  "shuf8": 0.43756306171417236,
+  "hue": 0.9300129413604736,
+  "invert": 0.9117693305015564,
+  "zoomout": 0.6908210515975952,
+  "zoomin": 0.49349087476730347
+ },
+ "top50_classes": {
+  "monastery": 3,
+  "mobile home": 2,
+  "triumphal arch": 2,
+  "trolleybus": 2,
+  "passenger car": 2,
+  "pedestal": 2,
+  "electric locomotive": 1,
+  "palace": 1,
+  "academic gown": 1,
+  "patio": 1
+ },
+ "neg50_classes": {
+  "wombat": 2,
+  "hot pot": 1,
+  "barber chair": 1,
+  "crossword puzzle": 1,
+  "Yorkshire terrier": 1,
+  "menu": 1,
+  "lawn mower": 1,
+  "trifle": 1,
+  "cairn": 1,
+  "sea snake": 1
+ }
+}

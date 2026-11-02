@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 103,
+ "max": 4.984861373901367,
+ "min": -7.439164161682129,
+ "edits": {
+  "flip": 0.9898315668106079,
+  "rot90": 0.5667555332183838,
+  "rot180": 0.5937987565994263,
+  "gray": 0.8643336296081543,
+  "blur1": 0.924511194229126,
+  "blur3": 0.5794064998626709,
+  "shuf2": 0.9402806162834167,
+  "shuf4": 0.7252843379974365,
+  "shuf8": 0.6546856164932251,
+  "hue": 0.9168332815170288,
+  "invert": 0.9160566329956055,
+  "zoomout": 0.7014073133468628,
+  "zoomin": 0.6011948585510254
+ },
+ "top50_classes": {
+  "cab": 2,
+  "electric locomotive": 2,
+  "notebook": 1,
+  "basset": 1,
+  "streetcar": 1,
+  "bobsled": 1,
+  "snowmobile": 1,
+  "diaper": 1,
+  "steam locomotive": 1,
+  "half track": 1
+ },
+ "neg50_classes": {
+  "flamingo": 1,
+  "hummingbird": 1,
+  "garbage truck": 1,
+  "analog clock": 1,
+  "frying pan": 1,
+  "snowmobile": 1,
+  "garden spider": 1,
+  "cricket": 1,
+  "motor scooter": 1,
+  "pelican": 1
+ }
+}

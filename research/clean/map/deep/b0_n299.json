@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 299,
+ "max": 3.784912347793579,
+ "min": -8.640256881713867,
+ "edits": {
+  "flip": 0.899097740650177,
+  "rot90": 0.7989839315414429,
+  "rot180": 0.8916270136833191,
+  "gray": 1.0013386011123657,
+  "blur1": 0.5797059535980225,
+  "blur3": -0.24533051252365112,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 1.0062952041625977,
+  "hue": 0.9996196031570435,
+  "invert": 0.9069792032241821,
+  "zoomout": 0.7980443835258484,
+  "zoomin": 0.5087395906448364
+ },
+ "top50_classes": {
+  "organ": 2,
+  "pay-phone": 2,
+  "suspension bridge": 2,
+  "bicycle-built-for-two": 1,
+  "unicycle": 1,
+  "cornet": 1,
+  "zebra": 1,
+  "marmoset": 1,
+  "nail": 1,
+  "loggerhead": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "isopod": 1,
+  "file": 1,
+  "guinea pig": 1,
+  "bonnet": 1,
+  "bolo tie": 1,
+  "missile": 1,
+  "whiskey jug": 1,
+  "refrigerator": 1,
+  "necklace": 1
+ }
+}

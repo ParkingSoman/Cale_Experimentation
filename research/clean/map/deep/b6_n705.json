@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 705,
+ "max": 3.297750234603882,
+ "min": -2.7023496627807617,
+ "edits": {
+  "flip": 0.9819025993347168,
+  "rot90": 0.8873777389526367,
+  "rot180": 0.9639135003089905,
+  "gray": 0.5403395891189575,
+  "blur1": 0.45343154668807983,
+  "blur3": -0.10627643764019012,
+  "shuf2": 0.9533329606056213,
+  "shuf4": 0.7867995500564575,
+  "shuf8": 0.6545464992523193,
+  "hue": 0.8855258226394653,
+  "invert": 0.9199967384338379,
+  "zoomout": 0.18782362341880798,
+  "zoomin": 0.45431220531463623
+ },
+ "top50_classes": {
+  "pineapple": 3,
+  "shower curtain": 2,
+  "printer": 1,
+  "seat belt": 1,
+  "rifle": 1,
+  "hand blower": 1,
+  "velvet": 1,
+  "vending machine": 1,
+  "overskirt": 1,
+  "vestment": 1
+ },
+ "neg50_classes": {
+  "planetarium": 2,
+  "organ": 2,
+  "toilet tissue": 1,
+  "jigsaw puzzle": 1,
+  "Italian greyhound": 1,
+  "milk can": 1,
+  "maze": 1,
+  "matchstick": 1,
+  "loudspeaker": 1,
+  "letter opener": 1
+ }
+}

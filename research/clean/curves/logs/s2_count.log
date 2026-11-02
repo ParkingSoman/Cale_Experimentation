@@ -1,0 +1,18 @@
+  solve 25/1000
+  solve 275/1000
+  solve 525/1000
+  solve 775/1000
+  active 50/1000
+n 1000: 30 s, woken 0.0606
+  solve 25/2000
+  solve 275/2000
+  solve 525/2000
+  solve 775/2000
+  solve 1025/2000
+  solve 1275/2000
+  solve 1525/2000
+  solve 1775/2000
+  active 50/2000
+n 2000: 59 s, woken 0.0454
+  exact step1 1000   dev-5000 KL 0.0824 (se 0.0039)
+  exact step1 2000   dev-5000 KL 0.0582 (se 0.0028)

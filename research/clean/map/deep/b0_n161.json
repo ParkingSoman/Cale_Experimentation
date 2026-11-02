@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 161,
+ "max": 4.191003799438477,
+ "min": -7.463761329650879,
+ "edits": {
+  "flip": 0.779619574546814,
+  "rot90": 0.7610430121421814,
+  "rot180": 0.7671449184417725,
+  "gray": 1.003157377243042,
+  "blur1": 1.0132174491882324,
+  "blur3": 0.9779977798461914,
+  "shuf2": 1.0,
+  "shuf4": 0.998935341835022,
+  "shuf8": 0.993828296661377,
+  "hue": 0.9931943416595459,
+  "invert": 0.7762412428855896,
+  "zoomout": 0.7802905440330505,
+  "zoomin": 0.9003810286521912
+ },
+ "top50_classes": {
+  "violin": 2,
+  "tusker": 2,
+  "Gila monster": 2,
+  "espresso maker": 2,
+  "rubber eraser": 1,
+  "shoe shop": 1,
+  "trilobite": 1,
+  "wig": 1,
+  "cup": 1,
+  "Blenheim spaniel": 1
+ },
+ "neg50_classes": {
+  "West Highland white terrier": 1,
+  "hotdog": 1,
+  "Australian terrier": 1,
+  "mantis": 1,
+  "motor scooter": 1,
+  "mountain bike": 1,
+  "horned viper": 1,
+  "espresso maker": 1,
+  "necklace": 1,
+  "garter snake": 1
+ }
+}

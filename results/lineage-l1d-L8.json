@@ -1,0 +1,87 @@
+{
+ "layer": 8,
+ "rows": [
+  {
+   "rev": "main",
+   "step": 143000,
+   "single": 0.9999880314599956,
+   "family": 0.999993858420555,
+   "random_group": 0.9999879480459546,
+   "fam_minus_rand": 5.910374600404111e-06,
+   "family_size_median": 4.0
+  },
+  {
+   "rev": "step0",
+   "step": 0,
+   "single": -0.19721352402271342,
+   "family": -0.153310078185939,
+   "random_group": -0.20006995582099552,
+   "fam_minus_rand": 0.04675987763505651,
+   "family_size_median": 4.0
+  },
+  {
+   "rev": "step1000",
+   "step": 1000,
+   "single": 0.22082672171833045,
+   "family": 0.31670868696280136,
+   "random_group": 0.2060379742768934,
+   "fam_minus_rand": 0.11067071268590795,
+   "family_size_median": 4.0
+  },
+  {
+   "rev": "step2000",
+   "step": 2000,
+   "single": 0.2897684818002667,
+   "family": 0.3906470647022025,
+   "random_group": 0.2676254257610719,
+   "fam_minus_rand": 0.1230216389411306,
+   "family_size_median": 4.0
+  },
+  {
+   "rev": "step4000",
+   "step": 4000,
+   "single": 0.3519493109302828,
+   "family": 0.4579824663129828,
+   "random_group": 0.33613383062481594,
+   "fam_minus_rand": 0.12184863568816684,
+   "family_size_median": 4.0
+  },
+  {
+   "rev": "step8000",
+   "step": 8000,
+   "single": 0.4074661052602795,
+   "family": 0.5173982181450747,
+   "random_group": 0.3884283433570596,
+   "fam_minus_rand": 0.12896987478801508,
+   "family_size_median": 4.0
+  },
+  {
+   "rev": "step16000",
+   "step": 16000,
+   "single": 0.4650038473397855,
+   "family": 0.5687987630702089,
+   "random_group": 0.44937598389869443,
+   "fam_minus_rand": 0.1194227791715145,
+   "family_size_median": 4.0
+  },
+  {
+   "rev": "step32000",
+   "step": 32000,
+   "single": 0.5408577785475445,
+   "family": 0.6357564189816887,
+   "random_group": 0.5310386975615933,
+   "fam_minus_rand": 0.10471772142009539,
+   "family_size_median": 4.0
+  },
+  {
+   "rev": "step64000",
+   "step": 64000,
+   "single": 0.6839346519817859,
+   "family": 0.7515918564439887,
+   "random_group": 0.6753940762101018,
+   "fam_minus_rand": 0.0761977802338869,
+   "family_size_median": 4.0
+  }
+ ],
+ "pass": false
+}

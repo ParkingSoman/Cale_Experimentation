@@ -1,0 +1,13 @@
+{
+ "joint_exact": true,
+ "zA(A), zC(A), zA(C), zC(C)": [
+  "1/40",
+  "-39/40",
+  "-39/40",
+  "1/40"
+ ],
+ "r>1/2": true,
+ "B,D off on A,midAC,C": true,
+ "numeric_D2star_AC_1": 0.33333333333009435,
+ "bound_1_over_8_respected": true
+}

@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 300,
+ "max": 4.426447868347168,
+ "min": -5.379420280456543,
+ "edits": {
+  "flip": 0.9494527578353882,
+  "rot90": 0.8001466393470764,
+  "rot180": 0.7651907205581665,
+  "gray": 0.895619809627533,
+  "blur1": 0.6180838942527771,
+  "blur3": 0.10258255898952484,
+  "shuf2": 0.9866154193878174,
+  "shuf4": 0.7353906631469727,
+  "shuf8": 0.6185428500175476,
+  "hue": 0.9465820789337158,
+  "invert": 0.8633024096488953,
+  "zoomout": 0.6210076212882996,
+  "zoomin": 0.39522597193717957
+ },
+ "top50_classes": {
+  "vulture": 2,
+  "oxcart": 2,
+  "toyshop": 1,
+  "loggerhead": 1,
+  "Crock Pot": 1,
+  "American chameleon": 1,
+  "whiptail": 1,
+  "mask": 1,
+  "sulphur-crested cockatoo": 1,
+  "alligator lizard": 1
+ },
+ "neg50_classes": {
+  "bull mastiff": 1,
+  "ground beetle": 1,
+  "cup": 1,
+  "green mamba": 1,
+  "patio": 1,
+  "hook": 1,
+  "toy terrier": 1,
+  "espresso maker": 1,
+  "reflex camera": 1,
+  "bow tie": 1
+ }
+}

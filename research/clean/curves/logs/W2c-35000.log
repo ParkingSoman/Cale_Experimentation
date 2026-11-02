@@ -1,0 +1,76 @@
+  solve 50/35000
+  solve 550/35000
+  solve 1050/35000
+  solve 1550/35000
+  solve 2050/35000
+  solve 2550/35000
+  solve 3050/35000
+  solve 3550/35000
+  solve 4050/35000
+  solve 4550/35000
+  solve 5050/35000
+  solve 5550/35000
+  solve 6050/35000
+  solve 6550/35000
+  solve 7050/35000
+  solve 7550/35000
+  solve 8050/35000
+  solve 8550/35000
+  solve 9050/35000
+  solve 9550/35000
+  solve 10050/35000
+  solve 10550/35000
+  solve 11050/35000
+  solve 11550/35000
+  solve 12050/35000
+  solve 12550/35000
+  solve 13050/35000
+  solve 13550/35000
+  solve 14050/35000
+  solve 14550/35000
+  solve 15050/35000
+  solve 15550/35000
+  solve 16050/35000
+  solve 16550/35000
+  solve 17050/35000
+  solve 17550/35000
+  solve 18050/35000
+  solve 18550/35000
+  solve 19050/35000
+  solve 19550/35000
+  solve 20050/35000
+  solve 20550/35000
+  solve 21050/35000
+  solve 21550/35000
+  solve 22050/35000
+  solve 22550/35000
+  solve 23050/35000
+  solve 23550/35000
+  solve 24050/35000
+  solve 24550/35000
+  solve 25050/35000
+  solve 25550/35000
+  solve 26050/35000
+  solve 26550/35000
+  solve 27050/35000
+  solve 27550/35000
+  solve 28050/35000
+  solve 28550/35000
+  solve 29050/35000
+  solve 29550/35000
+  solve 30050/35000
+  solve 30550/35000
+  solve 31050/35000
+  solve 31550/35000
+  solve 32050/35000
+  solve 32550/35000
+  solve 33050/35000
+  solve 33550/35000
+  solve 34050/35000
+  solve 34550/35000
+n=35000: predicted on solve images 0.0470, on fresh 0.0815 (real 0.1741)
+  fisher  dev-5000 KL 0.1769 (se 0.0082)
+  bayes   dev-5000 KL 0.3145 (se 0.0152)
+  vmr     dev-5000 KL 0.2482 (se 0.0123)
+  paired fisher - vmr: -0.0713 (se 0.0099)
+  paired fisher - bayes: -0.1376 (se 0.0132)

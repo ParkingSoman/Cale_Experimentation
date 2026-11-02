@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 217,
+ "max": 5.980754375457764,
+ "min": -6.7840118408203125,
+ "edits": {
+  "flip": 0.8143824338912964,
+  "rot90": 0.7005807161331177,
+  "rot180": 0.7992794513702393,
+  "gray": 1.0037510395050049,
+  "blur1": 0.4910687208175659,
+  "blur3": 0.1603168547153473,
+  "shuf2": 1.0,
+  "shuf4": 0.9931179285049438,
+  "shuf8": 0.979547381401062,
+  "hue": 1.0,
+  "invert": 0.7506836652755737,
+  "zoomout": 0.8999484181404114,
+  "zoomin": 0.6071798801422119
+ },
+ "top50_classes": {
+  "catamaran": 1,
+  "trailer truck": 1,
+  "viaduct": 1,
+  "abaya": 1,
+  "golfcart": 1,
+  "whiskey jug": 1,
+  "gas pump": 1,
+  "airliner": 1,
+  "web site": 1,
+  "comic book": 1
+ },
+ "neg50_classes": {
+  "plate rack": 1,
+  "combination lock": 1,
+  "confectionery": 1,
+  "borzoi": 1,
+  "bobsled": 1,
+  "file": 1,
+  "trolleybus": 1,
+  "toy terrier": 1,
+  "gown": 1,
+  "grand piano": 1
+ }
+}

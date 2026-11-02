@@ -1,0 +1,5 @@
+unit 0: |B_bnd| 6.0051 |B_real| 2.4863 |B_trained| 1.2955 | cos(bnd, real) +0.155 cos(real, trained) +0.462 cos(bnd, trained) +0.185
+unit 1: |B_bnd| 6.9504 |B_real| 2.6509 |B_trained| 1.3677 | cos(bnd, real) +0.150 cos(real, trained) +0.518 cos(bnd, trained) +0.147
+unit 2: |B_bnd| 5.7051 |B_real| 2.4752 |B_trained| 1.2741 | cos(bnd, real) +0.065 cos(real, trained) +0.455 cos(bnd, trained) +0.126
+  boundary   : coarse units mean [40.1 40.2 56.2], on-rate [0.166 0.161 0.223] | family mean 14.8
+  real unsure: coarse units mean [110.5  88.8 102.1], on-rate [0.281 0.227 0.275] | family mean 35.8

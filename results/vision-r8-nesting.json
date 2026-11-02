@@ -1,0 +1,2906 @@
+{
+ "0.5": [
+  {
+   "image": 40850,
+   "parent": [
+    13,
+    540
+   ],
+   "child": [
+    14,
+    1056
+   ],
+   "child_breadth": 20,
+   "parent_breadth": 23,
+   "containment": 0.0,
+   "null95": 0.25,
+   "nested": false,
+   "child_classes": [
+    "squirrel monkey",
+    "cab",
+    "canoe",
+    "carousel",
+    "cello",
+    "harp",
+    "honeycomb",
+    "lifeboat"
+   ],
+   "parent_classes": [
+    "coho",
+    "airliner",
+    "ambulance",
+    "amphibian",
+    "convertible",
+    "electric locomotive",
+    "garbage truck",
+    "go-kart"
+   ]
+  },
+  {
+   "image": 40850,
+   "parent": [
+    14,
+    1056
+   ],
+   "child": [
+    15,
+    2031
+   ],
+   "child_breadth": 13,
+   "parent_breadth": 20,
+   "containment": 0.462,
+   "null95": 0.231,
+   "nested": false,
+   "child_classes": [
+    "goldfinch",
+    "European fire salamander",
+    "sulphur-crested cockatoo",
+    "toucan",
+    "king penguin",
+    "rock beauty",
+    "cab",
+    "canoe"
+   ],
+   "parent_classes": [
+    "squirrel monkey",
+    "cab",
+    "canoe",
+    "carousel",
+    "cello",
+    "harp",
+    "honeycomb",
+    "lifeboat"
+   ]
+  },
+  {
+   "image": 40850,
+   "parent": [
+    15,
+    2031
+   ],
+   "child": [
+    16,
+    1522
+   ],
+   "child_breadth": 11,
+   "parent_breadth": 13,
+   "containment": 0.091,
+   "null95": 0.182,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "grille",
+    "limousine",
+    "minivan"
+   ],
+   "parent_classes": [
+    "goldfinch",
+    "European fire salamander",
+    "sulphur-crested cockatoo",
+    "toucan",
+    "king penguin",
+    "rock beauty",
+    "cab",
+    "canoe"
+   ],
+   "nested_parent": {
+    "neuron": 1331,
+    "breadth": 12,
+    "containment": 0.818,
+    "jaccard": 0.643,
+    "classes": [
+     "ambulance",
+     "beach wagon",
+     "cab",
+     "car mirror",
+     "convertible",
+     "grille",
+     "limousine",
+     "minivan"
+    ],
+    "contrib_rank": 3017,
+    "contrib_share": -0.0038
+   }
+  },
+  {
+   "image": 40850,
+   "parent": [
+    16,
+    1522
+   ],
+   "child": [
+    17,
+    1594
+   ],
+   "child_breadth": 12,
+   "parent_breadth": 11,
+   "containment": 0.75,
+   "null95": 0.083,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "gown",
+    "grille",
+    "limousine"
+   ],
+   "parent_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "grille",
+    "limousine",
+    "minivan"
+   ]
+  },
+  {
+   "image": 40852,
+   "parent": [
+    13,
+    370
+   ],
+   "child": [
+    14,
+    700
+   ],
+   "child_breadth": 40,
+   "parent_breadth": 8,
+   "containment": 0.05,
+   "null95": 0.251,
+   "nested": false,
+   "child_classes": [
+    "analog clock",
+    "banjo",
+    "barometer",
+    "beer bottle",
+    "bicycle-built-for-two",
+    "bottlecap",
+    "canoe",
+    "car wheel"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "car wheel",
+    "convertible",
+    "minibus",
+    "police van",
+    "recreational vehicle",
+    "cardoon",
+    "daisy"
+   ]
+  },
+  {
+   "image": 40852,
+   "parent": [
+    14,
+    700
+   ],
+   "child": [
+    15,
+    2945
+   ],
+   "child_breadth": 8,
+   "parent_breadth": 40,
+   "containment": 1.0,
+   "null95": 0.5,
+   "nested": true,
+   "child_classes": [
+    "bicycle-built-for-two",
+    "canoe",
+    "jinrikisha",
+    "Model T",
+    "moped",
+    "mountain bike",
+    "tricycle",
+    "unicycle"
+   ],
+   "parent_classes": [
+    "analog clock",
+    "banjo",
+    "barometer",
+    "beer bottle",
+    "bicycle-built-for-two",
+    "bottlecap",
+    "canoe",
+    "car wheel"
+   ],
+   "nested_parent": {
+    "neuron": 222,
+    "breadth": 25,
+    "containment": 1.0,
+    "jaccard": 0.32,
+    "classes": [
+     "barber chair",
+     "barrow",
+     "bicycle-built-for-two",
+     "canoe",
+     "desk",
+     "dining table",
+     "folding chair",
+     "golfcart"
+    ],
+    "contrib_rank": 162,
+    "contrib_share": 0.0012
+   }
+  },
+  {
+   "image": 40852,
+   "parent": [
+    15,
+    2945
+   ],
+   "child": [
+    16,
+    2922
+   ],
+   "child_breadth": 18,
+   "parent_breadth": 8,
+   "containment": 0.167,
+   "null95": 0.222,
+   "nested": false,
+   "child_classes": [
+    "ambulance",
+    "beach wagon",
+    "canoe",
+    "car wheel",
+    "convertible",
+    "fire engine",
+    "forklift",
+    "golfcart"
+   ],
+   "parent_classes": [
+    "bicycle-built-for-two",
+    "canoe",
+    "jinrikisha",
+    "Model T",
+    "moped",
+    "mountain bike",
+    "tricycle",
+    "unicycle"
+   ],
+   "nested_parent": {
+    "neuron": 1572,
+    "breadth": 38,
+    "containment": 0.889,
+    "jaccard": 0.4,
+    "classes": [
+     "ambulance",
+     "amphibian",
+     "beach wagon",
+     "cab",
+     "car mirror",
+     "car wheel",
+     "convertible",
+     "electric locomotive"
+    ],
+    "contrib_rank": 3064,
+    "contrib_share": -0.0658
+   }
+  },
+  {
+   "image": 40852,
+   "parent": [
+    16,
+    2922
+   ],
+   "child": [
+    17,
+    2283
+   ],
+   "child_breadth": 13,
+   "parent_breadth": 18,
+   "containment": 0.692,
+   "null95": 0.154,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jeep",
+    "limousine"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "beach wagon",
+    "canoe",
+    "car wheel",
+    "convertible",
+    "fire engine",
+    "forklift",
+    "golfcart"
+   ],
+   "nested_parent": {
+    "neuron": 2886,
+    "breadth": 15,
+    "containment": 1.0,
+    "jaccard": 0.867,
+    "classes": [
+     "beach wagon",
+     "bobsled",
+     "cab",
+     "car wheel",
+     "convertible",
+     "go-kart",
+     "golfcart",
+     "grille"
+    ],
+    "contrib_rank": 2612,
+    "contrib_share": -0.0004
+   }
+  },
+  {
+   "image": 40853,
+   "parent": [
+    13,
+    708
+   ],
+   "child": [
+    14,
+    121
+   ],
+   "child_breadth": 72,
+   "parent_breadth": 15,
+   "containment": 0.083,
+   "null95": 0.153,
+   "nested": false,
+   "child_classes": [
+    "Indian cobra",
+    "horned viper",
+    "tick",
+    "Japanese spaniel",
+    "Maltese dog",
+    "Shih-Tzu",
+    "Blenheim spaniel",
+    "papillon"
+   ],
+   "parent_classes": [
+    "green snake",
+    "macaw",
+    "ground beetle",
+    "lycaenid",
+    "bicycle-built-for-two",
+    "cannon",
+    "car wheel",
+    "convertible"
+   ]
+  },
+  {
+   "image": 40853,
+   "parent": [
+    14,
+    121
+   ],
+   "child": [
+    15,
+    2023
+   ],
+   "child_breadth": 67,
+   "parent_breadth": 72,
+   "containment": 0.164,
+   "null95": 0.269,
+   "nested": false,
+   "child_classes": [
+    "ambulance",
+    "amphibian",
+    "bannister",
+    "barn",
+    "barrow",
+    "beach wagon",
+    "bicycle-built-for-two",
+    "bullet train"
+   ],
+   "parent_classes": [
+    "Indian cobra",
+    "horned viper",
+    "tick",
+    "Japanese spaniel",
+    "Maltese dog",
+    "Shih-Tzu",
+    "Blenheim spaniel",
+    "papillon"
+   ],
+   "nested_parent": {
+    "neuron": 92,
+    "breadth": 185,
+    "containment": 0.806,
+    "jaccard": 0.273,
+    "classes": [
+     "aircraft carrier",
+     "airliner",
+     "altar",
+     "ambulance",
+     "amphibian",
+     "bannister",
+     "barber chair",
+     "barbershop"
+    ],
+    "contrib_rank": 71,
+    "contrib_share": 0.0029
+   }
+  },
+  {
+   "image": 40853,
+   "parent": [
+    15,
+    2023
+   ],
+   "child": [
+    16,
+    130
+   ],
+   "child_breadth": 15,
+   "parent_breadth": 67,
+   "containment": 0.8,
+   "null95": 0.067,
+   "nested": true,
+   "child_classes": [
+    "ambulance",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jeep",
+    "limousine",
+    "minibus"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "amphibian",
+    "bannister",
+    "barn",
+    "barrow",
+    "beach wagon",
+    "bicycle-built-for-two",
+    "bullet train"
+   ],
+   "nested_parent": {
+    "neuron": 286,
+    "breadth": 19,
+    "containment": 0.867,
+    "jaccard": 0.619,
+    "classes": [
+     "ambulance",
+     "beach wagon",
+     "car wheel",
+     "convertible",
+     "fire engine",
+     "golfcart",
+     "half track",
+     "jeep"
+    ],
+    "contrib_rank": 10,
+    "contrib_share": 0.0139
+   }
+  },
+  {
+   "image": 40853,
+   "parent": [
+    16,
+    130
+   ],
+   "child": [
+    17,
+    2283
+   ],
+   "child_breadth": 13,
+   "parent_breadth": 15,
+   "containment": 0.846,
+   "null95": 0.077,
+   "nested": true,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jeep",
+    "limousine"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jeep",
+    "limousine",
+    "minibus"
+   ],
+   "nested_parent": {
+    "neuron": 2886,
+    "breadth": 15,
+    "containment": 1.0,
+    "jaccard": 0.867,
+    "classes": [
+     "beach wagon",
+     "bobsled",
+     "cab",
+     "car wheel",
+     "convertible",
+     "go-kart",
+     "golfcart",
+     "grille"
+    ],
+    "contrib_rank": 2,
+    "contrib_share": 0.0634
+   }
+  },
+  {
+   "image": 40855,
+   "parent": [
+    13,
+    545
+   ],
+   "child": [
+    14,
+    321
+   ],
+   "child_breadth": 103,
+   "parent_breadth": 17,
+   "containment": 0.019,
+   "null95": 0.194,
+   "nested": false,
+   "child_classes": [
+    "electric ray",
+    "hen",
+    "axolotl",
+    "leatherback turtle",
+    "mud turtle",
+    "banded gecko",
+    "whiptail",
+    "Gila monster"
+   ],
+   "parent_classes": [
+    "wallaby",
+    "koala",
+    "Norwegian elkhound",
+    "malinois",
+    "bull mastiff",
+    "standard poodle",
+    "coyote",
+    "grey fox"
+   ]
+  },
+  {
+   "image": 40855,
+   "parent": [
+    14,
+    321
+   ],
+   "child": [
+    15,
+    654
+   ],
+   "child_breadth": 17,
+   "parent_breadth": 103,
+   "containment": 0.353,
+   "null95": 0.529,
+   "nested": false,
+   "child_classes": [
+    "ambulance",
+    "beach wagon",
+    "bullet train",
+    "car wheel",
+    "convertible",
+    "electric locomotive",
+    "grand piano",
+    "limousine"
+   ],
+   "parent_classes": [
+    "electric ray",
+    "hen",
+    "axolotl",
+    "leatherback turtle",
+    "mud turtle",
+    "banded gecko",
+    "whiptail",
+    "Gila monster"
+   ],
+   "nested_parent": {
+    "neuron": 1072,
+    "breadth": 49,
+    "containment": 0.882,
+    "jaccard": 0.294,
+    "classes": [
+     "airliner",
+     "ambulance",
+     "beach wagon",
+     "bicycle-built-for-two",
+     "bobsled",
+     "bullet train",
+     "cab",
+     "canoe"
+    ],
+    "contrib_rank": 207,
+    "contrib_share": 0.0015
+   }
+  },
+  {
+   "image": 40855,
+   "parent": [
+    15,
+    654
+   ],
+   "child": [
+    16,
+    365
+   ],
+   "child_breadth": 9,
+   "parent_breadth": 17,
+   "containment": 0.778,
+   "null95": 0.117,
+   "nested": true,
+   "child_classes": [
+    "beach wagon",
+    "convertible",
+    "jeep",
+    "limousine",
+    "minibus",
+    "minivan",
+    "Model T",
+    "pickup"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "beach wagon",
+    "bullet train",
+    "car wheel",
+    "convertible",
+    "electric locomotive",
+    "grand piano",
+    "limousine"
+   ],
+   "nested_parent": {
+    "neuron": 286,
+    "breadth": 19,
+    "containment": 1.0,
+    "jaccard": 0.474,
+    "classes": [
+     "ambulance",
+     "beach wagon",
+     "car wheel",
+     "convertible",
+     "fire engine",
+     "golfcart",
+     "half track",
+     "jeep"
+    ],
+    "contrib_rank": 3038,
+    "contrib_share": -0.0067
+   }
+  },
+  {
+   "image": 40855,
+   "parent": [
+    16,
+    365
+   ],
+   "child": [
+    17,
+    2283
+   ],
+   "child_breadth": 13,
+   "parent_breadth": 9,
+   "containment": 0.538,
+   "null95": 0.154,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jeep",
+    "limousine"
+   ],
+   "parent_classes": [
+    "beach wagon",
+    "convertible",
+    "jeep",
+    "limousine",
+    "minibus",
+    "minivan",
+    "Model T",
+    "pickup"
+   ],
+   "nested_parent": {
+    "neuron": 2886,
+    "breadth": 15,
+    "containment": 1.0,
+    "jaccard": 0.867,
+    "classes": [
+     "beach wagon",
+     "bobsled",
+     "cab",
+     "car wheel",
+     "convertible",
+     "go-kart",
+     "golfcart",
+     "grille"
+    ],
+    "contrib_rank": 46,
+    "contrib_share": 0.0035
+   }
+  },
+  {
+   "image": 40856,
+   "parent": [
+    13,
+    417
+   ],
+   "child": [
+    14,
+    1227
+   ],
+   "child_breadth": 17,
+   "parent_breadth": 24,
+   "containment": 0.941,
+   "null95": 0.412,
+   "nested": true,
+   "child_classes": [
+    "ambulance",
+    "beach wagon",
+    "convertible",
+    "fire engine",
+    "garbage truck",
+    "grille",
+    "jeep",
+    "limousine"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "convertible",
+    "electric locomotive",
+    "fire engine",
+    "garbage truck"
+   ],
+   "nested_parent": {
+    "neuron": 417,
+    "breadth": 24,
+    "containment": 0.941,
+    "jaccard": 0.64,
+    "classes": [
+     "ambulance",
+     "beach wagon",
+     "cab",
+     "car mirror",
+     "convertible",
+     "electric locomotive",
+     "fire engine",
+     "garbage truck"
+    ],
+    "contrib_rank": 1,
+    "contrib_share": 0.0566
+   }
+  },
+  {
+   "image": 40856,
+   "parent": [
+    14,
+    1227
+   ],
+   "child": [
+    15,
+    1572
+   ],
+   "child_breadth": 38,
+   "parent_breadth": 17,
+   "containment": 0.447,
+   "null95": 0.421,
+   "nested": false,
+   "child_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "electric locomotive"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "beach wagon",
+    "convertible",
+    "fire engine",
+    "garbage truck",
+    "grille",
+    "jeep",
+    "limousine"
+   ],
+   "nested_parent": {
+    "neuron": 798,
+    "breadth": 104,
+    "containment": 0.816,
+    "jaccard": 0.279,
+    "classes": [
+     "killer whale",
+     "aircraft carrier",
+     "airliner",
+     "amphibian",
+     "barber chair",
+     "basketball",
+     "beach wagon",
+     "bicycle-built-for-two"
+    ],
+    "contrib_rank": 1527,
+    "contrib_share": -0.0082
+   }
+  },
+  {
+   "image": 40856,
+   "parent": [
+    15,
+    1572
+   ],
+   "child": [
+    16,
+    191
+   ],
+   "child_breadth": 42,
+   "parent_breadth": 38,
+   "containment": 0.0,
+   "null95": 0.095,
+   "nested": false,
+   "child_classes": [
+    "indigo bunting",
+    "kite",
+    "hummingbird",
+    "white stork",
+    "damselfly",
+    "aircraft carrier",
+    "airliner",
+    "airship"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "electric locomotive"
+   ]
+  },
+  {
+   "image": 40856,
+   "parent": [
+    16,
+    191
+   ],
+   "child": [
+    17,
+    2283
+   ],
+   "child_breadth": 13,
+   "parent_breadth": 42,
+   "containment": 0.0,
+   "null95": 0.077,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jeep",
+    "limousine"
+   ],
+   "parent_classes": [
+    "indigo bunting",
+    "kite",
+    "hummingbird",
+    "white stork",
+    "damselfly",
+    "aircraft carrier",
+    "airliner",
+    "airship"
+   ],
+   "nested_parent": {
+    "neuron": 2886,
+    "breadth": 15,
+    "containment": 1.0,
+    "jaccard": 0.867,
+    "classes": [
+     "beach wagon",
+     "bobsled",
+     "cab",
+     "car wheel",
+     "convertible",
+     "go-kart",
+     "golfcart",
+     "grille"
+    ],
+    "contrib_rank": 24,
+    "contrib_share": 0.008
+   }
+  },
+  {
+   "image": 40857,
+   "parent": [
+    13,
+    833
+   ],
+   "child": [
+    14,
+    550
+   ],
+   "child_breadth": 25,
+   "parent_breadth": 21,
+   "containment": 0.52,
+   "null95": 0.402,
+   "nested": false,
+   "child_classes": [
+    "ambulance",
+    "beach wagon",
+    "cab",
+    "convertible",
+    "fire engine",
+    "forklift",
+    "garbage truck",
+    "go-kart"
+   ],
+   "parent_classes": [
+    "African hunting dog",
+    "airliner",
+    "amphibian",
+    "electric locomotive",
+    "fire engine",
+    "forklift",
+    "garbage truck",
+    "go-kart"
+   ],
+   "nested_parent": {
+    "neuron": 361,
+    "breadth": 37,
+    "containment": 0.96,
+    "jaccard": 0.632,
+    "classes": [
+     "ambulance",
+     "amphibian",
+     "beach wagon",
+     "bullet train",
+     "cab",
+     "canoe",
+     "car mirror",
+     "car wheel"
+    ],
+    "contrib_rank": 1535,
+    "contrib_share": -0.0295
+   }
+  },
+  {
+   "image": 40857,
+   "parent": [
+    14,
+    550
+   ],
+   "child": [
+    15,
+    2182
+   ],
+   "child_breadth": 23,
+   "parent_breadth": 25,
+   "containment": 0.957,
+   "null95": 0.565,
+   "nested": true,
+   "child_classes": [
+    "ambulance",
+    "beach wagon",
+    "cab",
+    "convertible",
+    "forklift",
+    "garbage truck",
+    "go-kart",
+    "golfcart"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "beach wagon",
+    "cab",
+    "convertible",
+    "fire engine",
+    "forklift",
+    "garbage truck",
+    "go-kart"
+   ],
+   "nested_parent": {
+    "neuron": 550,
+    "breadth": 25,
+    "containment": 0.957,
+    "jaccard": 0.846,
+    "classes": [
+     "ambulance",
+     "beach wagon",
+     "cab",
+     "convertible",
+     "fire engine",
+     "forklift",
+     "garbage truck",
+     "go-kart"
+    ],
+    "contrib_rank": 1,
+    "contrib_share": 0.02
+   }
+  },
+  {
+   "image": 40857,
+   "parent": [
+    15,
+    2182
+   ],
+   "child": [
+    16,
+    1522
+   ],
+   "child_breadth": 11,
+   "parent_breadth": 23,
+   "containment": 0.636,
+   "null95": 0.091,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "grille",
+    "limousine",
+    "minivan"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "beach wagon",
+    "cab",
+    "convertible",
+    "forklift",
+    "garbage truck",
+    "go-kart",
+    "golfcart"
+   ],
+   "nested_parent": {
+    "neuron": 1331,
+    "breadth": 12,
+    "containment": 0.818,
+    "jaccard": 0.643,
+    "classes": [
+     "ambulance",
+     "beach wagon",
+     "cab",
+     "car mirror",
+     "convertible",
+     "grille",
+     "limousine",
+     "minivan"
+    ],
+    "contrib_rank": 3071,
+    "contrib_share": -0.037
+   }
+  },
+  {
+   "image": 40857,
+   "parent": [
+    16,
+    1522
+   ],
+   "child": [
+    17,
+    1594
+   ],
+   "child_breadth": 12,
+   "parent_breadth": 11,
+   "containment": 0.75,
+   "null95": 0.167,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "gown",
+    "grille",
+    "limousine"
+   ],
+   "parent_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "grille",
+    "limousine",
+    "minivan"
+   ]
+  },
+  {
+   "image": 40858,
+   "parent": [
+    13,
+    764
+   ],
+   "child": [
+    14,
+    397
+   ],
+   "child_breadth": 34,
+   "parent_breadth": 80,
+   "containment": 0.176,
+   "null95": 0.176,
+   "nested": false,
+   "child_classes": [
+    "cock",
+    "ostrich",
+    "bald eagle",
+    "great grey owl",
+    "American chameleon",
+    "frilled lizard",
+    "thunder snake",
+    "hognose snake"
+   ],
+   "parent_classes": [
+    "cock",
+    "goldfinch",
+    "whiptail",
+    "Komodo dragon",
+    "African crocodile",
+    "diamondback",
+    "ptarmigan",
+    "peacock"
+   ]
+  },
+  {
+   "image": 40858,
+   "parent": [
+    14,
+    397
+   ],
+   "child": [
+    15,
+    2746
+   ],
+   "child_breadth": 65,
+   "parent_breadth": 34,
+   "containment": 0.046,
+   "null95": 0.2,
+   "nested": false,
+   "child_classes": [
+    "brambling",
+    "goldfinch",
+    "house finch",
+    "junco",
+    "indigo bunting",
+    "robin",
+    "bulbul",
+    "jay"
+   ],
+   "parent_classes": [
+    "cock",
+    "ostrich",
+    "bald eagle",
+    "great grey owl",
+    "American chameleon",
+    "frilled lizard",
+    "thunder snake",
+    "hognose snake"
+   ],
+   "nested_parent": {
+    "neuron": 1086,
+    "breadth": 409,
+    "containment": 0.8,
+    "jaccard": 0.123,
+    "classes": [
+     "tench",
+     "goldfish",
+     "tiger shark",
+     "hammerhead",
+     "cock",
+     "hen",
+     "ostrich",
+     "brambling"
+    ],
+    "contrib_rank": 325,
+    "contrib_share": 0.001
+   }
+  },
+  {
+   "image": 40858,
+   "parent": [
+    15,
+    2746
+   ],
+   "child": [
+    16,
+    2245
+   ],
+   "child_breadth": 86,
+   "parent_breadth": 65,
+   "containment": 0.0,
+   "null95": 0.116,
+   "nested": false,
+   "child_classes": [
+    "stingray",
+    "black widow",
+    "wolf spider",
+    "wallaby",
+    "basset",
+    "beagle",
+    "bloodhound",
+    "bluetick"
+   ],
+   "parent_classes": [
+    "brambling",
+    "goldfinch",
+    "house finch",
+    "junco",
+    "indigo bunting",
+    "robin",
+    "bulbul",
+    "jay"
+   ]
+  },
+  {
+   "image": 40858,
+   "parent": [
+    16,
+    2245
+   ],
+   "child": [
+    17,
+    1594
+   ],
+   "child_breadth": 12,
+   "parent_breadth": 86,
+   "containment": 0.167,
+   "null95": 0.083,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "gown",
+    "grille",
+    "limousine"
+   ],
+   "parent_classes": [
+    "stingray",
+    "black widow",
+    "wolf spider",
+    "wallaby",
+    "basset",
+    "beagle",
+    "bloodhound",
+    "bluetick"
+   ]
+  },
+  {
+   "image": 40859,
+   "parent": [
+    13,
+    1080
+   ],
+   "child": [
+    14,
+    980
+   ],
+   "child_breadth": 37,
+   "parent_breadth": 62,
+   "containment": 0.73,
+   "null95": 0.243,
+   "nested": true,
+   "child_classes": [
+    "hen",
+    "bulbul",
+    "black grouse",
+    "partridge",
+    "lorikeet",
+    "red-breasted merganser",
+    "black swan",
+    "white stork"
+   ],
+   "parent_classes": [
+    "goldfish",
+    "hen",
+    "partridge",
+    "red-breasted merganser",
+    "black swan",
+    "king crab",
+    "American lobster",
+    "white stork"
+   ]
+  },
+  {
+   "image": 40859,
+   "parent": [
+    14,
+    980
+   ],
+   "child": [
+    15,
+    2635
+   ],
+   "child_breadth": 31,
+   "parent_breadth": 37,
+   "containment": 0.645,
+   "null95": 0.129,
+   "nested": false,
+   "child_classes": [
+    "cock",
+    "hen",
+    "house finch",
+    "bulbul",
+    "black grouse",
+    "lorikeet",
+    "coucal",
+    "black swan"
+   ],
+   "parent_classes": [
+    "hen",
+    "bulbul",
+    "black grouse",
+    "partridge",
+    "lorikeet",
+    "red-breasted merganser",
+    "black swan",
+    "white stork"
+   ]
+  },
+  {
+   "image": 40859,
+   "parent": [
+    15,
+    2635
+   ],
+   "child": [
+    16,
+    1522
+   ],
+   "child_breadth": 11,
+   "parent_breadth": 31,
+   "containment": 0.0,
+   "null95": 0.091,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "grille",
+    "limousine",
+    "minivan"
+   ],
+   "parent_classes": [
+    "cock",
+    "hen",
+    "house finch",
+    "bulbul",
+    "black grouse",
+    "lorikeet",
+    "coucal",
+    "black swan"
+   ],
+   "nested_parent": {
+    "neuron": 1331,
+    "breadth": 12,
+    "containment": 0.818,
+    "jaccard": 0.643,
+    "classes": [
+     "ambulance",
+     "beach wagon",
+     "cab",
+     "car mirror",
+     "convertible",
+     "grille",
+     "limousine",
+     "minivan"
+    ],
+    "contrib_rank": 3068,
+    "contrib_share": -0.0592
+   }
+  },
+  {
+   "image": 40859,
+   "parent": [
+    16,
+    1522
+   ],
+   "child": [
+    17,
+    1594
+   ],
+   "child_breadth": 12,
+   "parent_breadth": 11,
+   "containment": 0.75,
+   "null95": 0.083,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "gown",
+    "grille",
+    "limousine"
+   ],
+   "parent_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "grille",
+    "limousine",
+    "minivan"
+   ]
+  }
+ ],
+ "0.3": [
+  {
+   "image": 40850,
+   "parent": [
+    13,
+    540
+   ],
+   "child": [
+    14,
+    1056
+   ],
+   "child_breadth": 96,
+   "parent_breadth": 114,
+   "containment": 0.052,
+   "null95": 0.375,
+   "nested": false,
+   "child_classes": [
+    "tench",
+    "goldfish",
+    "goldfinch",
+    "bulbul",
+    "axolotl",
+    "loggerhead",
+    "terrapin",
+    "box turtle"
+   ],
+   "parent_classes": [
+    "sulphur-crested cockatoo",
+    "drake",
+    "red-breasted merganser",
+    "American coot",
+    "red-backed sandpiper",
+    "dowitcher",
+    "oystercatcher",
+    "albatross"
+   ]
+  },
+  {
+   "image": 40850,
+   "parent": [
+    14,
+    1056
+   ],
+   "child": [
+    15,
+    2031
+   ],
+   "child_breadth": 40,
+   "parent_breadth": 96,
+   "containment": 0.575,
+   "null95": 0.35,
+   "nested": false,
+   "child_classes": [
+    "goldfinch",
+    "bald eagle",
+    "European fire salamander",
+    "ringneck snake",
+    "macaw",
+    "sulphur-crested cockatoo",
+    "toucan",
+    "drake"
+   ],
+   "parent_classes": [
+    "tench",
+    "goldfish",
+    "goldfinch",
+    "bulbul",
+    "axolotl",
+    "loggerhead",
+    "terrapin",
+    "box turtle"
+   ]
+  },
+  {
+   "image": 40850,
+   "parent": [
+    15,
+    2031
+   ],
+   "child": [
+    16,
+    1522
+   ],
+   "child_breadth": 16,
+   "parent_breadth": 40,
+   "containment": 0.062,
+   "null95": 0.438,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jinrikisha"
+   ],
+   "parent_classes": [
+    "goldfinch",
+    "bald eagle",
+    "European fire salamander",
+    "ringneck snake",
+    "macaw",
+    "sulphur-crested cockatoo",
+    "toucan",
+    "drake"
+   ],
+   "nested_parent": {
+    "neuron": 1331,
+    "breadth": 25,
+    "containment": 0.875,
+    "jaccard": 0.519,
+    "classes": [
+     "ambulance",
+     "amphibian",
+     "beach wagon",
+     "bullet train",
+     "cab",
+     "car mirror",
+     "car wheel",
+     "convertible"
+    ]
+   }
+  },
+  {
+   "image": 40850,
+   "parent": [
+    16,
+    1522
+   ],
+   "child": [
+    17,
+    1594
+   ],
+   "child_breadth": 55,
+   "parent_breadth": 16,
+   "containment": 0.236,
+   "null95": 0.291,
+   "nested": false,
+   "child_classes": [
+    "Maltese dog",
+    "abaya",
+    "apron",
+    "ashcan",
+    "backpack",
+    "beach wagon",
+    "binoculars",
+    "bonnet"
+   ],
+   "parent_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jinrikisha"
+   ]
+  },
+  {
+   "image": 40852,
+   "parent": [
+    13,
+    370
+   ],
+   "child": [
+    14,
+    700
+   ],
+   "child_breadth": 112,
+   "parent_breadth": 33,
+   "containment": 0.143,
+   "null95": 0.5,
+   "nested": false,
+   "child_classes": [
+    "ambulance",
+    "analog clock",
+    "banjo",
+    "barbell",
+    "barometer",
+    "beach wagon",
+    "beer bottle",
+    "bicycle-built-for-two"
+   ],
+   "parent_classes": [
+    "red-breasted merganser",
+    "grey whale",
+    "killer whale",
+    "leaf beetle",
+    "ambulance",
+    "analog clock",
+    "beach wagon",
+    "cab"
+   ]
+  },
+  {
+   "image": 40852,
+   "parent": [
+    14,
+    700
+   ],
+   "child": [
+    15,
+    2945
+   ],
+   "child_breadth": 11,
+   "parent_breadth": 112,
+   "containment": 0.909,
+   "null95": 0.727,
+   "nested": true,
+   "child_classes": [
+    "bicycle-built-for-two",
+    "canoe",
+    "electric fan",
+    "horse cart",
+    "jinrikisha",
+    "Model T",
+    "moped",
+    "mountain bike"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "analog clock",
+    "banjo",
+    "barbell",
+    "barometer",
+    "beach wagon",
+    "beer bottle",
+    "bicycle-built-for-two"
+   ],
+   "nested_parent": {
+    "neuron": 407,
+    "breadth": 49,
+    "containment": 0.909,
+    "jaccard": 0.2,
+    "classes": [
+     "ambulance",
+     "amphibian",
+     "barbell",
+     "barrow",
+     "beach wagon",
+     "bicycle-built-for-two",
+     "bottlecap",
+     "cab"
+    ]
+   }
+  },
+  {
+   "image": 40852,
+   "parent": [
+    15,
+    2945
+   ],
+   "child": [
+    16,
+    2922
+   ],
+   "child_breadth": 40,
+   "parent_breadth": 11,
+   "containment": 0.15,
+   "null95": 0.426,
+   "nested": false,
+   "child_classes": [
+    "tabby",
+    "tiger cat",
+    "Egyptian cat",
+    "lynx",
+    "dragonfly",
+    "ambulance",
+    "amphibian",
+    "barrow"
+   ],
+   "parent_classes": [
+    "bicycle-built-for-two",
+    "canoe",
+    "electric fan",
+    "horse cart",
+    "jinrikisha",
+    "Model T",
+    "moped",
+    "mountain bike"
+   ],
+   "nested_parent": {
+    "neuron": 592,
+    "breadth": 128,
+    "containment": 0.8,
+    "jaccard": 0.235,
+    "classes": [
+     "Scottish deerhound",
+     "ox",
+     "coho",
+     "abaya",
+     "academic gown",
+     "accordion",
+     "aircraft carrier",
+     "ambulance"
+    ]
+   }
+  },
+  {
+   "image": 40852,
+   "parent": [
+    16,
+    2922
+   ],
+   "child": [
+    17,
+    2283
+   ],
+   "child_breadth": 20,
+   "parent_breadth": 40,
+   "containment": 0.75,
+   "null95": 0.45,
+   "nested": true,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jeep",
+    "limousine"
+   ],
+   "parent_classes": [
+    "tabby",
+    "tiger cat",
+    "Egyptian cat",
+    "lynx",
+    "dragonfly",
+    "ambulance",
+    "amphibian",
+    "barrow"
+   ],
+   "nested_parent": {
+    "neuron": 2658,
+    "breadth": 22,
+    "containment": 0.8,
+    "jaccard": 0.615,
+    "classes": [
+     "capuchin",
+     "ambulance",
+     "beach wagon",
+     "cab",
+     "car wheel",
+     "convertible",
+     "crash helmet",
+     "go-kart"
+    ]
+   }
+  },
+  {
+   "image": 40853,
+   "parent": [
+    13,
+    708
+   ],
+   "child": [
+    14,
+    121
+   ],
+   "child_breadth": 185,
+   "parent_breadth": 100,
+   "containment": 0.157,
+   "null95": 0.303,
+   "nested": false,
+   "child_classes": [
+    "mud turtle",
+    "night snake",
+    "Indian cobra",
+    "horned viper",
+    "tick",
+    "hermit crab",
+    "isopod",
+    "limpkin"
+   ],
+   "parent_classes": [
+    "goldfinch",
+    "junco",
+    "indigo bunting",
+    "jay",
+    "bullfrog",
+    "tree frog",
+    "terrapin",
+    "box turtle"
+   ]
+  },
+  {
+   "image": 40853,
+   "parent": [
+    14,
+    121
+   ],
+   "child": [
+    15,
+    2023
+   ],
+   "child_breadth": 140,
+   "parent_breadth": 185,
+   "containment": 0.293,
+   "null95": 0.443,
+   "nested": false,
+   "child_classes": [
+    "triceratops",
+    "Arabian camel",
+    "academic gown",
+    "acoustic guitar",
+    "aircraft carrier",
+    "airliner",
+    "altar",
+    "ambulance"
+   ],
+   "parent_classes": [
+    "mud turtle",
+    "night snake",
+    "Indian cobra",
+    "horned viper",
+    "tick",
+    "hermit crab",
+    "isopod",
+    "limpkin"
+   ],
+   "nested_parent": {
+    "neuron": 92,
+    "breadth": 299,
+    "containment": 0.914,
+    "jaccard": 0.412,
+    "classes": [
+     "abacus",
+     "academic gown",
+     "accordion",
+     "acoustic guitar",
+     "aircraft carrier",
+     "airliner",
+     "airship",
+     "altar"
+    ]
+   }
+  },
+  {
+   "image": 40853,
+   "parent": [
+    15,
+    2023
+   ],
+   "child": [
+    16,
+    130
+   ],
+   "child_breadth": 39,
+   "parent_breadth": 140,
+   "containment": 0.667,
+   "null95": 0.436,
+   "nested": false,
+   "child_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "coffeepot",
+    "convertible",
+    "crash helmet"
+   ],
+   "parent_classes": [
+    "triceratops",
+    "Arabian camel",
+    "academic gown",
+    "acoustic guitar",
+    "aircraft carrier",
+    "airliner",
+    "altar",
+    "ambulance"
+   ],
+   "nested_parent": {
+    "neuron": 358,
+    "breadth": 105,
+    "containment": 0.821,
+    "jaccard": 0.286,
+    "classes": [
+     "affenpinscher",
+     "altar",
+     "ambulance",
+     "amphibian",
+     "barber chair",
+     "beach wagon",
+     "bookcase",
+     "bullet train"
+    ]
+   }
+  },
+  {
+   "image": 40853,
+   "parent": [
+    16,
+    130
+   ],
+   "child": [
+    17,
+    2283
+   ],
+   "child_breadth": 20,
+   "parent_breadth": 39,
+   "containment": 0.95,
+   "null95": 0.35,
+   "nested": true,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jeep",
+    "limousine"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "coffeepot",
+    "convertible",
+    "crash helmet"
+   ],
+   "nested_parent": {
+    "neuron": 2658,
+    "breadth": 22,
+    "containment": 0.8,
+    "jaccard": 0.615,
+    "classes": [
+     "capuchin",
+     "ambulance",
+     "beach wagon",
+     "cab",
+     "car wheel",
+     "convertible",
+     "crash helmet",
+     "go-kart"
+    ]
+   }
+  },
+  {
+   "image": 40855,
+   "parent": [
+    13,
+    545
+   ],
+   "child": [
+    14,
+    321
+   ],
+   "child_breadth": 253,
+   "parent_breadth": 103,
+   "containment": 0.142,
+   "null95": 0.372,
+   "nested": false,
+   "child_classes": [
+    "electric ray",
+    "stingray",
+    "cock",
+    "hen",
+    "European fire salamander",
+    "common newt",
+    "spotted salamander",
+    "axolotl"
+   ],
+   "parent_classes": [
+    "agama",
+    "frilled lizard",
+    "triceratops",
+    "African grey",
+    "tusker",
+    "wallaby",
+    "koala",
+    "wombat"
+   ]
+  },
+  {
+   "image": 40855,
+   "parent": [
+    14,
+    321
+   ],
+   "child": [
+    15,
+    654
+   ],
+   "child_breadth": 72,
+   "parent_breadth": 253,
+   "containment": 0.472,
+   "null95": 0.625,
+   "nested": false,
+   "child_classes": [
+    "airliner",
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "bicycle-built-for-two",
+    "bobsled",
+    "bullet train",
+    "cab"
+   ],
+   "parent_classes": [
+    "electric ray",
+    "stingray",
+    "cock",
+    "hen",
+    "European fire salamander",
+    "common newt",
+    "spotted salamander",
+    "axolotl"
+   ],
+   "nested_parent": {
+    "neuron": 444,
+    "breadth": 200,
+    "containment": 0.903,
+    "jaccard": 0.314,
+    "classes": [
+     "Ibizan hound",
+     "Saluki",
+     "Sussex spaniel",
+     "hartebeest",
+     "abacus",
+     "aircraft carrier",
+     "altar",
+     "ambulance"
+    ]
+   }
+  },
+  {
+   "image": 40855,
+   "parent": [
+    15,
+    654
+   ],
+   "child": [
+    16,
+    365
+   ],
+   "child_breadth": 18,
+   "parent_breadth": 72,
+   "containment": 1.0,
+   "null95": 0.444,
+   "nested": true,
+   "child_classes": [
+    "amphibian",
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "fire engine",
+    "jeep",
+    "limousine"
+   ],
+   "parent_classes": [
+    "airliner",
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "bicycle-built-for-two",
+    "bobsled",
+    "bullet train",
+    "cab"
+   ],
+   "nested_parent": {
+    "neuron": 1331,
+    "breadth": 25,
+    "containment": 0.833,
+    "jaccard": 0.536,
+    "classes": [
+     "ambulance",
+     "amphibian",
+     "beach wagon",
+     "bullet train",
+     "cab",
+     "car mirror",
+     "car wheel",
+     "convertible"
+    ]
+   }
+  },
+  {
+   "image": 40855,
+   "parent": [
+    16,
+    365
+   ],
+   "child": [
+    17,
+    2283
+   ],
+   "child_breadth": 20,
+   "parent_breadth": 18,
+   "containment": 0.65,
+   "null95": 0.35,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jeep",
+    "limousine"
+   ],
+   "parent_classes": [
+    "amphibian",
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "fire engine",
+    "jeep",
+    "limousine"
+   ],
+   "nested_parent": {
+    "neuron": 2658,
+    "breadth": 22,
+    "containment": 0.8,
+    "jaccard": 0.615,
+    "classes": [
+     "capuchin",
+     "ambulance",
+     "beach wagon",
+     "cab",
+     "car wheel",
+     "convertible",
+     "crash helmet",
+     "go-kart"
+    ]
+   }
+  },
+  {
+   "image": 40856,
+   "parent": [
+    13,
+    417
+   ],
+   "child": [
+    14,
+    1227
+   ],
+   "child_breadth": 43,
+   "parent_breadth": 39,
+   "containment": 0.605,
+   "null95": 0.651,
+   "nested": false,
+   "child_classes": [
+    "Staffordshire bullterrier",
+    "miniature pinscher",
+    "dhole",
+    "academic gown",
+    "ambulance",
+    "beach wagon",
+    "cab",
+    "car wheel"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "bullet train",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible"
+   ],
+   "nested_parent": {
+    "neuron": 440,
+    "breadth": 150,
+    "containment": 0.814,
+    "jaccard": 0.222,
+    "classes": [
+     "brambling",
+     "goldfinch",
+     "indigo bunting",
+     "robin",
+     "sulphur-crested cockatoo",
+     "hummingbird",
+     "Dungeness crab",
+     "fiddler crab"
+    ]
+   }
+  },
+  {
+   "image": 40856,
+   "parent": [
+    14,
+    1227
+   ],
+   "child": [
+    15,
+    1572
+   ],
+   "child_breadth": 53,
+   "parent_breadth": 43,
+   "containment": 0.547,
+   "null95": 0.756,
+   "nested": false,
+   "child_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "bicycle-built-for-two",
+    "bobsled",
+    "bullet train",
+    "cab",
+    "canoe"
+   ],
+   "parent_classes": [
+    "Staffordshire bullterrier",
+    "miniature pinscher",
+    "dhole",
+    "academic gown",
+    "ambulance",
+    "beach wagon",
+    "cab",
+    "car wheel"
+   ],
+   "nested_parent": {
+    "neuron": 1072,
+    "breadth": 135,
+    "containment": 0.943,
+    "jaccard": 0.362,
+    "classes": [
+     "jay",
+     "chickadee",
+     "bald eagle",
+     "hornbill",
+     "toucan",
+     "drake",
+     "red-breasted merganser",
+     "white stork"
+    ]
+   }
+  },
+  {
+   "image": 40856,
+   "parent": [
+    15,
+    1572
+   ],
+   "child": [
+    16,
+    191
+   ],
+   "child_breadth": 138,
+   "parent_breadth": 53,
+   "containment": 0.029,
+   "null95": 0.188,
+   "nested": false,
+   "child_classes": [
+    "hammerhead",
+    "cock",
+    "brambling",
+    "house finch",
+    "junco",
+    "indigo bunting",
+    "robin",
+    "jay"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "bicycle-built-for-two",
+    "bobsled",
+    "bullet train",
+    "cab",
+    "canoe"
+   ]
+  },
+  {
+   "image": 40856,
+   "parent": [
+    16,
+    191
+   ],
+   "child": [
+    17,
+    2283
+   ],
+   "child_breadth": 20,
+   "parent_breadth": 138,
+   "containment": 0.05,
+   "null95": 0.4,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jeep",
+    "limousine"
+   ],
+   "parent_classes": [
+    "hammerhead",
+    "cock",
+    "brambling",
+    "house finch",
+    "junco",
+    "indigo bunting",
+    "robin",
+    "jay"
+   ],
+   "nested_parent": {
+    "neuron": 2658,
+    "breadth": 22,
+    "containment": 0.8,
+    "jaccard": 0.615,
+    "classes": [
+     "capuchin",
+     "ambulance",
+     "beach wagon",
+     "cab",
+     "car wheel",
+     "convertible",
+     "crash helmet",
+     "go-kart"
+    ]
+   }
+  },
+  {
+   "image": 40857,
+   "parent": [
+    13,
+    833
+   ],
+   "child": [
+    14,
+    550
+   ],
+   "child_breadth": 38,
+   "parent_breadth": 68,
+   "containment": 0.921,
+   "null95": 0.816,
+   "nested": true,
+   "child_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "fire engine",
+    "forklift"
+   ],
+   "parent_classes": [
+    "tree frog",
+    "white stork",
+    "spoonbill",
+    "limpkin",
+    "American coot",
+    "redshank",
+    "oystercatcher",
+    "basenji"
+   ],
+   "nested_parent": {
+    "neuron": 212,
+    "breadth": 59,
+    "containment": 1.0,
+    "jaccard": 0.644,
+    "classes": [
+     "ambulance",
+     "amphibian",
+     "barrow",
+     "beach wagon",
+     "bicycle-built-for-two",
+     "cab",
+     "cannon",
+     "canoe"
+    ]
+   }
+  },
+  {
+   "image": 40857,
+   "parent": [
+    14,
+    550
+   ],
+   "child": [
+    15,
+    2182
+   ],
+   "child_breadth": 37,
+   "parent_breadth": 38,
+   "containment": 0.784,
+   "null95": 0.73,
+   "nested": true,
+   "child_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "bobsled",
+    "bullet train",
+    "cab",
+    "car wheel",
+    "convertible"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "cab",
+    "car wheel",
+    "convertible",
+    "fire engine",
+    "forklift"
+   ],
+   "nested_parent": {
+    "neuron": 167,
+    "breadth": 107,
+    "containment": 0.946,
+    "jaccard": 0.321,
+    "classes": [
+     "ambulance",
+     "amphibian",
+     "barber chair",
+     "beach wagon",
+     "bookshop",
+     "bullet train",
+     "butcher shop",
+     "cab"
+    ]
+   }
+  },
+  {
+   "image": 40857,
+   "parent": [
+    15,
+    2182
+   ],
+   "child": [
+    16,
+    1522
+   ],
+   "child_breadth": 16,
+   "parent_breadth": 37,
+   "containment": 0.625,
+   "null95": 0.438,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jinrikisha"
+   ],
+   "parent_classes": [
+    "ambulance",
+    "amphibian",
+    "beach wagon",
+    "bobsled",
+    "bullet train",
+    "cab",
+    "car wheel",
+    "convertible"
+   ],
+   "nested_parent": {
+    "neuron": 1331,
+    "breadth": 25,
+    "containment": 0.875,
+    "jaccard": 0.519,
+    "classes": [
+     "ambulance",
+     "amphibian",
+     "beach wagon",
+     "bullet train",
+     "cab",
+     "car mirror",
+     "car wheel",
+     "convertible"
+    ]
+   }
+  },
+  {
+   "image": 40857,
+   "parent": [
+    16,
+    1522
+   ],
+   "child": [
+    17,
+    1594
+   ],
+   "child_breadth": 55,
+   "parent_breadth": 16,
+   "containment": 0.236,
+   "null95": 0.327,
+   "nested": false,
+   "child_classes": [
+    "Maltese dog",
+    "abaya",
+    "apron",
+    "ashcan",
+    "backpack",
+    "beach wagon",
+    "binoculars",
+    "bonnet"
+   ],
+   "parent_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jinrikisha"
+   ]
+  },
+  {
+   "image": 40858,
+   "parent": [
+    13,
+    764
+   ],
+   "child": [
+    14,
+    397
+   ],
+   "child_breadth": 142,
+   "parent_breadth": 212,
+   "containment": 0.275,
+   "null95": 0.394,
+   "nested": false,
+   "child_classes": [
+    "cock",
+    "ostrich",
+    "brambling",
+    "goldfinch",
+    "house finch",
+    "junco",
+    "bulbul",
+    "jay"
+   ],
+   "parent_classes": [
+    "tench",
+    "cock",
+    "hen",
+    "goldfinch",
+    "great grey owl",
+    "whiptail",
+    "alligator lizard",
+    "Gila monster"
+   ]
+  },
+  {
+   "image": 40858,
+   "parent": [
+    14,
+    397
+   ],
+   "child": [
+    15,
+    2746
+   ],
+   "child_breadth": 184,
+   "parent_breadth": 142,
+   "containment": 0.228,
+   "null95": 0.408,
+   "nested": false,
+   "child_classes": [
+    "cock",
+    "hen",
+    "ostrich",
+    "brambling",
+    "goldfinch",
+    "house finch",
+    "junco",
+    "indigo bunting"
+   ],
+   "parent_classes": [
+    "cock",
+    "ostrich",
+    "brambling",
+    "goldfinch",
+    "house finch",
+    "junco",
+    "bulbul",
+    "jay"
+   ]
+  },
+  {
+   "image": 40858,
+   "parent": [
+    15,
+    2746
+   ],
+   "child": [
+    16,
+    2245
+   ],
+   "child_breadth": 209,
+   "parent_breadth": 184,
+   "containment": 0.196,
+   "null95": 0.225,
+   "nested": false,
+   "child_classes": [
+    "stingray",
+    "leatherback turtle",
+    "barn spider",
+    "black widow",
+    "tarantula",
+    "wolf spider",
+    "tick",
+    "wallaby"
+   ],
+   "parent_classes": [
+    "cock",
+    "hen",
+    "ostrich",
+    "brambling",
+    "goldfinch",
+    "house finch",
+    "junco",
+    "indigo bunting"
+   ]
+  },
+  {
+   "image": 40858,
+   "parent": [
+    16,
+    2245
+   ],
+   "child": [
+    17,
+    1594
+   ],
+   "child_breadth": 55,
+   "parent_breadth": 209,
+   "containment": 0.382,
+   "null95": 0.309,
+   "nested": false,
+   "child_classes": [
+    "Maltese dog",
+    "abaya",
+    "apron",
+    "ashcan",
+    "backpack",
+    "beach wagon",
+    "binoculars",
+    "bonnet"
+   ],
+   "parent_classes": [
+    "stingray",
+    "leatherback turtle",
+    "barn spider",
+    "black widow",
+    "tarantula",
+    "wolf spider",
+    "tick",
+    "wallaby"
+   ]
+  },
+  {
+   "image": 40859,
+   "parent": [
+    13,
+    1080
+   ],
+   "child": [
+    14,
+    980
+   ],
+   "child_breadth": 140,
+   "parent_breadth": 169,
+   "containment": 0.771,
+   "null95": 0.415,
+   "nested": true,
+   "child_classes": [
+    "cock",
+    "hen",
+    "house finch",
+    "bulbul",
+    "black grouse",
+    "partridge",
+    "macaw",
+    "lorikeet"
+   ],
+   "parent_classes": [
+    "goldfish",
+    "cock",
+    "hen",
+    "house finch",
+    "bulbul",
+    "partridge",
+    "African grey",
+    "macaw"
+   ]
+  },
+  {
+   "image": 40859,
+   "parent": [
+    14,
+    980
+   ],
+   "child": [
+    15,
+    2635
+   ],
+   "child_breadth": 77,
+   "parent_breadth": 140,
+   "containment": 0.753,
+   "null95": 0.338,
+   "nested": true,
+   "child_classes": [
+    "goldfish",
+    "cock",
+    "hen",
+    "house finch",
+    "bulbul",
+    "vulture",
+    "eft",
+    "black grouse"
+   ],
+   "parent_classes": [
+    "cock",
+    "hen",
+    "house finch",
+    "bulbul",
+    "black grouse",
+    "partridge",
+    "macaw",
+    "lorikeet"
+   ]
+  },
+  {
+   "image": 40859,
+   "parent": [
+    15,
+    2635
+   ],
+   "child": [
+    16,
+    1522
+   ],
+   "child_breadth": 16,
+   "parent_breadth": 77,
+   "containment": 0.25,
+   "null95": 0.5,
+   "nested": false,
+   "child_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jinrikisha"
+   ],
+   "parent_classes": [
+    "goldfish",
+    "cock",
+    "hen",
+    "house finch",
+    "bulbul",
+    "vulture",
+    "eft",
+    "black grouse"
+   ],
+   "nested_parent": {
+    "neuron": 1331,
+    "breadth": 25,
+    "containment": 0.875,
+    "jaccard": 0.519,
+    "classes": [
+     "ambulance",
+     "amphibian",
+     "beach wagon",
+     "bullet train",
+     "cab",
+     "car mirror",
+     "car wheel",
+     "convertible"
+    ]
+   }
+  },
+  {
+   "image": 40859,
+   "parent": [
+    16,
+    1522
+   ],
+   "child": [
+    17,
+    1594
+   ],
+   "child_breadth": 55,
+   "parent_breadth": 16,
+   "containment": 0.236,
+   "null95": 0.327,
+   "nested": false,
+   "child_classes": [
+    "Maltese dog",
+    "abaya",
+    "apron",
+    "ashcan",
+    "backpack",
+    "beach wagon",
+    "binoculars",
+    "bonnet"
+   ],
+   "parent_classes": [
+    "beach wagon",
+    "cab",
+    "car mirror",
+    "car wheel",
+    "convertible",
+    "golfcart",
+    "grille",
+    "jinrikisha"
+   ]
+  }
+ ]
+}

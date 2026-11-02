@@ -1,0 +1,56 @@
+{
+ "15_1162": {
+  "learned": 0.649,
+  "read_only": 0.091,
+  "write_only": 0.42,
+  "read_proj_only": 0.01,
+  "write_proj_only": 0.034,
+  "both_proj": 0.047,
+  "read_proj+write_full": 0.449
+ },
+ "15_2142": {
+  "learned": 0.129,
+  "read_only": 0.029,
+  "write_only": 0.071,
+  "read_proj_only": 0.014,
+  "write_proj_only": 0.016,
+  "both_proj": 0.031,
+  "read_proj+write_full": 0.096
+ },
+ "16_2886": {
+  "learned": 0.609,
+  "read_only": -0.194,
+  "write_only": 0.239,
+  "read_proj_only": -0.004,
+  "write_proj_only": -0.002,
+  "both_proj": 0.006,
+  "read_proj+write_full": 0.476
+ },
+ "13_78": {
+  "learned": 0.464,
+  "read_only": 0.064,
+  "write_only": 0.304,
+  "read_proj_only": 0.049,
+  "write_proj_only": -0.001,
+  "both_proj": 0.05,
+  "read_proj+write_full": 0.399
+ },
+ "10_1172": {
+  "learned": 0.449,
+  "read_only": -0.012,
+  "write_only": 0.463,
+  "read_proj_only": -0.011,
+  "write_proj_only": 0.004,
+  "both_proj": -0.004,
+  "read_proj+write_full": 0.465
+ },
+ "9_686": {
+  "learned": 0.319,
+  "read_only": 0.03,
+  "write_only": 0.243,
+  "read_proj_only": 0.014,
+  "write_proj_only": 0.09,
+  "both_proj": 0.136,
+  "read_proj+write_full": 0.305
+ }
+}

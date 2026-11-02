@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2886,
+ "max": 8.059097290039062,
+ "min": -16.847299575805664,
+ "edits": {
+  "flip": 0.9530258178710938,
+  "rot90": 0.01911715604364872,
+  "rot180": 0.1731274127960205,
+  "gray": 0.8518775701522827,
+  "blur1": 0.9211352467536926,
+  "blur3": 0.840519905090332,
+  "shuf2": 1.2945153713226318,
+  "shuf4": 0.96319580078125,
+  "shuf8": 0.6105029582977295,
+  "hue": 0.9698760509490967,
+  "invert": 0.9671577215194702,
+  "zoomout": 0.7068581581115723,
+  "zoomin": 0.6747671365737915
+ },
+ "top50_classes": {
+  "racer": 3,
+  "cab": 2,
+  "solar dish": 2,
+  "sports car": 2,
+  "minivan": 1,
+  "bobsled": 1,
+  "umbrella": 1,
+  "crate": 1,
+  "binoculars": 1,
+  "mosquito net": 1
+ },
+ "neg50_classes": {
+  "goldfinch": 2,
+  "harvestman": 2,
+  "iPod": 1,
+  "Lakeland terrier": 1,
+  "slide rule": 1,
+  "flute": 1,
+  "flagpole": 1,
+  "black widow": 1,
+  "traffic light": 1,
+  "standard schnauzer": 1
+ }
+}

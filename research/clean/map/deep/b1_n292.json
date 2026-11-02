@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 292,
+ "max": 4.930793285369873,
+ "min": -6.524477481842041,
+ "edits": {
+  "flip": 0.8073879480361938,
+  "rot90": 0.6705918312072754,
+  "rot180": 0.8070350289344788,
+  "gray": 1.010695219039917,
+  "blur1": 0.7157197594642639,
+  "blur3": 0.4325045943260193,
+  "shuf2": 1.0,
+  "shuf4": 0.9886884689331055,
+  "shuf8": 0.937778115272522,
+  "hue": 0.9963479042053223,
+  "invert": 0.7495111227035522,
+  "zoomout": 0.7863921523094177,
+  "zoomin": 0.4860469400882721
+ },
+ "top50_classes": {
+  "bulletproof vest": 2,
+  "cellular telephone": 2,
+  "grand piano": 2,
+  "tench": 1,
+  "stopwatch": 1,
+  "Chesapeake Bay retriever": 1,
+  "vizsla": 1,
+  "Granny Smith": 1,
+  "vase": 1,
+  "stove": 1
+ },
+ "neg50_classes": {
+  "nail": 2,
+  "theater curtain": 1,
+  "goose": 1,
+  "fox squirrel": 1,
+  "crib": 1,
+  "strainer": 1,
+  "modem": 1,
+  "padlock": 1,
+  "lynx": 1,
+  "packet": 1
+ }
+}

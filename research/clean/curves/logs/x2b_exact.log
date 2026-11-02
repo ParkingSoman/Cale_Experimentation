@@ -1,0 +1,19 @@
+removal FD check eps 1e-2 vs 1e-3: rel diff 0.03982242941856384
+level0 FD check eps 1e-2 vs 1e-3: rel diff 0.019209804013371468
+level0p FD check eps 1e-2 vs 1e-3: rel diff 0.016147036105394363
+level1 FD check eps 1e-2 vs 1e-3: rel diff 0.031621262431144714
+trained_zero_long FD check eps 1e-2 vs 1e-3: rel diff 0.02337978407740593
+trained_from_level0 FD check eps 1e-2 vs 1e-3: rel diff 0.031112242490053177
+build                        KL       L2       L3      L3p
+removal                  0.6581   0.0387   0.7360   0.7409
+level0                   0.0770   0.0092   0.0801   0.0870
+level0p                  0.0775   0.0090   0.0791   0.0864
+level1                   0.0728   0.0079   0.0595   0.0783
+trained_zero_long        0.0579   0.0203   0.0621   0.0676
+trained_from_level0      0.0501   0.0123   0.0546   0.0600
+paired differences, trained_from_level0 minus level1 (se):
+  KL   -0.0227 (0.0105)  ratio 0.688
+  L2   +0.0045 (0.0005)  ratio 1.566
+  L3   -0.0049 (0.0080)  ratio 0.917
+  L3p  -0.0183 (0.0111)  ratio 0.767
+per-image corr with KL across all builds: {'L2': 0.413, 'L3': 0.5, 'L3p': 0.503}

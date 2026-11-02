@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1138,
+ "max": 6.3701605796813965,
+ "min": -7.05686616897583,
+ "edits": {
+  "flip": 0.9662629961967468,
+  "rot90": 0.7731345891952515,
+  "rot180": 0.7535235285758972,
+  "gray": 1.0071771144866943,
+  "blur1": 0.9745088815689087,
+  "blur3": 0.48235899209976196,
+  "shuf2": 0.9287195205688477,
+  "shuf4": 0.7318664193153381,
+  "shuf8": 0.778173565864563,
+  "hue": 0.9645919799804688,
+  "invert": 0.9810522794723511,
+  "zoomout": 0.6534901857376099,
+  "zoomin": 0.2653946578502655
+ },
+ "top50_classes": {
+  "whiskey jug": 2,
+  "stethoscope": 2,
+  "cleaver": 1,
+  "scale": 1,
+  "crash helmet": 1,
+  "typewriter keyboard": 1,
+  "capuchin": 1,
+  "harvester": 1,
+  "rubber eraser": 1,
+  "French horn": 1
+ },
+ "neg50_classes": {
+  "Model T": 2,
+  "sidewinder": 1,
+  "upright": 1,
+  "safety pin": 1,
+  "dogsled": 1,
+  "spaghetti squash": 1,
+  "thunder snake": 1,
+  "spatula": 1,
+  "vacuum": 1,
+  "digital clock": 1
+ }
+}

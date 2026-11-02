@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 506,
+ "max": 5.634591102600098,
+ "min": -14.259122848510742,
+ "edits": {
+  "flip": 0.9171421527862549,
+  "rot90": 0.4395982623100281,
+  "rot180": 0.4247644245624542,
+  "gray": 0.7974675297737122,
+  "blur1": 0.9400822520256042,
+  "blur3": 0.46247977018356323,
+  "shuf2": 0.8198835849761963,
+  "shuf4": 0.5843369960784912,
+  "shuf8": 0.06645779311656952,
+  "hue": 0.9413982033729553,
+  "invert": 0.8881935477256775,
+  "zoomout": 0.45073410868644714,
+  "zoomin": 0.6542112827301025
+ },
+ "top50_classes": {
+  "handkerchief": 3,
+  "velvet": 3,
+  "buckle": 2,
+  "purse": 2,
+  "safety pin": 2,
+  "whistle": 1,
+  "hair slide": 1,
+  "tusker": 1,
+  "wall clock": 1,
+  "wallet": 1
+ },
+ "neg50_classes": {
+  "Scottish deerhound": 2,
+  "marmot": 2,
+  "ibex": 2,
+  "Kerry blue terrier": 1,
+  "Doberman": 1,
+  "fire engine": 1,
+  "Rottweiler": 1,
+  "loggerhead": 1,
+  "Indian cobra": 1,
+  "bloodhound": 1
+ }
+}

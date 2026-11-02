@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 1376,
+ "max": 3.1868081092834473,
+ "min": -6.086714744567871,
+ "edits": {
+  "flip": 0.9496586322784424,
+  "rot90": 0.9225664138793945,
+  "rot180": 0.8993310332298279,
+  "gray": -0.31178659200668335,
+  "blur1": 0.9877530932426453,
+  "blur3": 0.6903271079063416,
+  "shuf2": 0.9377796649932861,
+  "shuf4": 0.8470143675804138,
+  "shuf8": 0.8907815217971802,
+  "hue": 0.22311484813690186,
+  "invert": 0.9778869152069092,
+  "zoomout": 0.6379563808441162,
+  "zoomin": 0.637383222579956
+ },
+ "top50_classes": {
+  "jackfruit": 2,
+  "head cabbage": 2,
+  "cabbage butterfly": 2,
+  "sulphur butterfly": 2,
+  "slug": 2,
+  "vine snake": 1,
+  "lemon": 1,
+  "gar": 1,
+  "strawberry": 1,
+  "Irish setter": 1
+ },
+ "neg50_classes": {
+  "hair spray": 2,
+  "cleaver": 1,
+  "screwdriver": 1,
+  "grey fox": 1,
+  "patio": 1,
+  "pill bottle": 1,
+  "chow": 1,
+  "affenpinscher": 1,
+  "schipperke": 1,
+  "safety pin": 1
+ }
+}

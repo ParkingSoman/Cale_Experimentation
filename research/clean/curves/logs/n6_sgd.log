@@ -1,0 +1,5 @@
+  x = torch.from_numpy(np.ascontiguousarray(xb)).to(DEV).permute(0, 3, 1, 2).float()
+imbalance in^2/out^2: median 1.092; D_i sign: 0.82 positive
+N6 Spearman(D_i, E||g_u||^2 - E||g_v||^2) = +0.621
+   Spearman(D_i / (||u||^2 + ||v||^2), (E||g_u||^2 - E||g_v||^2) / (E||g_u||^2 + E||g_v||^2)) = +0.613
+   baseline Spearman(|D_i|, E[h^2]) = -0.265; Spearman(D_i, -E||g_v||^2) = +0.175; Spearman(D_i, E||g_u||^2) = +0.417

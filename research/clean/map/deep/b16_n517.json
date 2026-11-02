@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 517,
+ "max": 15.385355949401855,
+ "min": -22.943195343017578,
+ "edits": {
+  "flip": 0.898601233959198,
+  "rot90": 0.7457575798034668,
+  "rot180": 0.6033279895782471,
+  "gray": 0.29692304134368896,
+  "blur1": 0.9004703760147095,
+  "blur3": 0.16176189482212067,
+  "shuf2": 1.0,
+  "shuf4": 0.7183811664581299,
+  "shuf8": 0.3054497539997101,
+  "hue": -0.13677029311656952,
+  "invert": 0.8908290863037109,
+  "zoomout": -0.008853007107973099,
+  "zoomin": 0.40767449140548706
+ },
+ "top50_classes": {
+  "stinkhorn": 3,
+  "cleaver": 1,
+  "spaghetti squash": 1,
+  "Band Aid": 1,
+  "trilobite": 1,
+  "rhinoceros beetle": 1,
+  "dung beetle": 1,
+  "seat belt": 1,
+  "vine snake": 1,
+  "bathtub": 1
+ },
+ "neg50_classes": {
+  "Tibetan terrier": 1,
+  "Lhasa": 1,
+  "Border terrier": 1,
+  "Sealyham terrier": 1,
+  "leafhopper": 1,
+  "Dandie Dinmont": 1,
+  "soft-coated wheaten terrier": 1,
+  "flagpole": 1,
+  "golden retriever": 1,
+  "Ibizan hound": 1
+ }
+}

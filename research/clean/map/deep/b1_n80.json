@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 80,
+ "max": 7.263049125671387,
+ "min": -7.436753273010254,
+ "edits": {
+  "flip": 0.9926128387451172,
+  "rot90": 0.9873837232589722,
+  "rot180": 0.9783872365951538,
+  "gray": 1.0,
+  "blur1": 1.0,
+  "blur3": 1.0,
+  "shuf2": 0.9706636667251587,
+  "shuf4": 1.0,
+  "shuf8": 0.9515003561973572,
+  "hue": 1.0,
+  "invert": 0.7146276235580444,
+  "zoomout": 0.8190829753875732,
+  "zoomin": 0.9346109628677368
+ },
+ "top50_classes": {
+  "mantis": 2,
+  "jack-o'-lantern": 2,
+  "pole": 1,
+  "oxygen mask": 1,
+  "cicada": 1,
+  "ladybug": 1,
+  "bagel": 1,
+  "dumbbell": 1,
+  "meerkat": 1,
+  "beacon": 1
+ },
+ "neg50_classes": {
+  "upright": 2,
+  "loupe": 2,
+  "Eskimo dog": 1,
+  "hamper": 1,
+  "crash helmet": 1,
+  "crate": 1,
+  "groenendael": 1,
+  "desk": 1,
+  "desktop computer": 1,
+  "banana": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 8,
+ "neuron": 4,
+ "max": 4.018623352050781,
+ "min": -6.862026214599609,
+ "edits": {
+  "flip": 0.7994506359100342,
+  "rot90": 0.05358800292015076,
+  "rot180": 0.7189428806304932,
+  "gray": 0.8742966651916504,
+  "blur1": 0.028379080817103386,
+  "blur3": -0.25507786870002747,
+  "shuf2": 1.1898043155670166,
+  "shuf4": 1.0856668949127197,
+  "shuf8": 0.6375514268875122,
+  "hue": 0.8867000341415405,
+  "invert": 0.7376800179481506,
+  "zoomout": 2.5671229362487793,
+  "zoomin": -0.08376191556453705
+ },
+ "top50_classes": {
+  "menu": 2,
+  "joystick": 1,
+  "park bench": 1,
+  "confectionery": 1,
+  "trolleybus": 1,
+  "loudspeaker": 1,
+  "ice cream": 1,
+  "leatherback turtle": 1,
+  "cornet": 1,
+  "magnetic compass": 1
+ },
+ "neg50_classes": {
+  "can opener": 2,
+  "American egret": 2,
+  "saltshaker": 2,
+  "red-breasted merganser": 2,
+  "three-toed sloth": 1,
+  "digital clock": 1,
+  "zucchini": 1,
+  "thunder snake": 1,
+  "dishrag": 1,
+  "fig": 1
+ }
+}

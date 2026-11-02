@@ -1,0 +1,45 @@
+{
+ "block": 7,
+ "neuron": 570,
+ "max": 4.364545822143555,
+ "min": -5.355368614196777,
+ "edits": {
+  "flip": 0.9547982215881348,
+  "rot90": 0.08057987689971924,
+  "rot180": 0.7867072820663452,
+  "gray": 0.9332613945007324,
+  "blur1": 0.0523938350379467,
+  "blur3": -0.10090752691030502,
+  "shuf2": 0.9901353716850281,
+  "shuf4": 0.9375492334365845,
+  "shuf8": 0.44727107882499695,
+  "hue": 0.9216262102127075,
+  "invert": 0.908110499382019,
+  "zoomout": 0.9856114983558655,
+  "zoomin": -0.19903510808944702
+ },
+ "top50_classes": {
+  "speedboat": 2,
+  "American egret": 2,
+  "menu": 2,
+  "upright": 1,
+  "axolotl": 1,
+  "motor scooter": 1,
+  "water bottle": 1,
+  "reel": 1,
+  "lycaenid": 1,
+  "boathouse": 1
+ },
+ "neg50_classes": {
+  "vending machine": 2,
+  "CD player": 1,
+  "monarch": 1,
+  "leopard": 1,
+  "sarong": 1,
+  "stethoscope": 1,
+  "bearskin": 1,
+  "jellyfish": 1,
+  "beacon": 1,
+  "American black bear": 1
+ }
+}

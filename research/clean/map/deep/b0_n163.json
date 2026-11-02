@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 163,
+ "max": 12.675836563110352,
+ "min": -13.248619079589844,
+ "edits": {
+  "flip": 0.9731934070587158,
+  "rot90": 0.7700853943824768,
+  "rot180": 1.0024561882019043,
+  "gray": 1.0020780563354492,
+  "blur1": 0.2631433308124542,
+  "blur3": 0.032870516180992126,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9993604421615601,
+  "hue": 0.9997690320014954,
+  "invert": 0.9614797830581665,
+  "zoomout": 0.6484805941581726,
+  "zoomin": 0.40634334087371826
+ },
+ "top50_classes": {
+  "chain": 2,
+  "tile roof": 2,
+  "Scottish deerhound": 2,
+  "redshank": 1,
+  "curly-coated retriever": 1,
+  "sorrel": 1,
+  "American chameleon": 1,
+  "harmonica": 1,
+  "conch": 1,
+  "brain coral": 1
+ },
+ "neg50_classes": {
+  "broom": 2,
+  "American chameleon": 1,
+  "aircraft carrier": 1,
+  "sock": 1,
+  "slide rule": 1,
+  "bee": 1,
+  "dowitcher": 1,
+  "shower curtain": 1,
+  "necklace": 1,
+  "chain": 1
+ }
+}

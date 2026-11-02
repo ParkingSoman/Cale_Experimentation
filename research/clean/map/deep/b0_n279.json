@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 279,
+ "max": 23.784128189086914,
+ "min": -19.523365020751953,
+ "edits": {
+  "flip": 0.9279066920280457,
+  "rot90": 0.9165626764297485,
+  "rot180": 0.925091028213501,
+  "gray": 0.09808602929115295,
+  "blur1": 1.0038111209869385,
+  "blur3": 0.9958072304725647,
+  "shuf2": 1.0,
+  "shuf4": 0.999312162399292,
+  "shuf8": 1.0439882278442383,
+  "hue": 0.4426192045211792,
+  "invert": 0.7971905469894409,
+  "zoomout": 0.9835817813873291,
+  "zoomin": 0.9285330772399902
+ },
+ "top50_classes": {
+  "hair slide": 2,
+  "boathouse": 1,
+  "red wine": 1,
+  "crate": 1,
+  "mailbox": 1,
+  "bonnet": 1,
+  "guinea pig": 1,
+  "jellyfish": 1,
+  "paddle": 1,
+  "packet": 1
+ },
+ "neg50_classes": {
+  "ice lolly": 3,
+  "orange": 2,
+  "acorn squash": 2,
+  "crayfish": 2,
+  "hair slide": 2,
+  "fig": 1,
+  "bicycle-built-for-two": 1,
+  "green lizard": 1,
+  "sandal": 1,
+  "bathing cap": 1
+ }
+}

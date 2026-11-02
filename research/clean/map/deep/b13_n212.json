@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 212,
+ "max": 5.908291816711426,
+ "min": -8.83260440826416,
+ "edits": {
+  "flip": 0.9890271425247192,
+  "rot90": 0.29746013879776,
+  "rot180": 0.6707942485809326,
+  "gray": 1.0141125917434692,
+  "blur1": 1.0219409465789795,
+  "blur3": 0.8435755968093872,
+  "shuf2": 1.0066038370132446,
+  "shuf4": 0.9156440496444702,
+  "shuf8": 0.5974651575088501,
+  "hue": 0.9904500842094421,
+  "invert": 0.9294921159744263,
+  "zoomout": 0.8360835313796997,
+  "zoomin": 0.7574089169502258
+ },
+ "top50_classes": {
+  "half track": 3,
+  "tow truck": 3,
+  "police van": 2,
+  "Model T": 2,
+  "garbage truck": 2,
+  "go-kart": 2,
+  "golfcart": 2,
+  "harvester": 2,
+  "trolleybus": 2,
+  "cab": 2
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "spider monkey": 1,
+  "sorrel": 1,
+  "suit": 1,
+  "sunscreen": 1,
+  "switch": 1,
+  "thimble": 1,
+  "skunk": 1,
+  "knee pad": 1,
+  "kimono": 1
+ }
+}

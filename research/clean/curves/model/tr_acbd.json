@@ -1,0 +1,61 @@
+{
+ "rows": [
+  {
+   "point": "A",
+   "gapN": "2",
+   "pre1": "16",
+   "pre2": "4",
+   "gapB": "2"
+  },
+  {
+   "point": "B",
+   "gapN": "2",
+   "pre1": "20",
+   "pre2": "-4",
+   "gapB": "2"
+  },
+  {
+   "point": "C",
+   "gapN": "2",
+   "pre1": "-4",
+   "pre2": "20",
+   "gapB": "2"
+  },
+  {
+   "point": "D",
+   "gapN": "2",
+   "pre1": "4",
+   "pre2": "16",
+   "gapB": "2"
+  },
+  {
+   "point": "midAB",
+   "gapN": "0",
+   "pre1": "18",
+   "pre2": "0",
+   "gapB": "0"
+  },
+  {
+   "point": "midCD",
+   "gapN": "0",
+   "pre1": "0",
+   "pre2": "18",
+   "gapB": "0"
+  },
+  {
+   "point": "midAC",
+   "gapN": "0",
+   "pre1": "6",
+   "pre2": "12",
+   "gapB": "0"
+  },
+  {
+   "point": "midBD",
+   "gapN": "0",
+   "pre1": "12",
+   "pre2": "6",
+   "gapB": "0"
+  }
+ ],
+ "ALL_OK": true
+}

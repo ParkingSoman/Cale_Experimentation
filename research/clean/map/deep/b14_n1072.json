@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1072,
+ "max": 5.8061909675598145,
+ "min": -6.6634111404418945,
+ "edits": {
+  "flip": 0.9748454689979553,
+  "rot90": 0.5036197900772095,
+  "rot180": 0.41080203652381897,
+  "gray": 0.8937362432479858,
+  "blur1": 0.9388357400894165,
+  "blur3": 0.5972272157669067,
+  "shuf2": 0.9060550928115845,
+  "shuf4": 0.7994076013565063,
+  "shuf8": 0.62451171875,
+  "hue": 0.8605035543441772,
+  "invert": 0.9969230890274048,
+  "zoomout": 0.5368109941482544,
+  "zoomin": 0.5743012428283691
+ },
+ "top50_classes": {
+  "bobsled": 2,
+  "pitcher": 2,
+  "snowmobile": 2,
+  "croquet ball": 1,
+  "space bar": 1,
+  "sunglass": 1,
+  "go-kart": 1,
+  "sombrero": 1,
+  "barbershop": 1,
+  "upright": 1
+ },
+ "neg50_classes": {
+  "notebook": 3,
+  "canoe": 2,
+  "lawn mower": 1,
+  "beach wagon": 1,
+  "leatherback turtle": 1,
+  "stretcher": 1,
+  "refrigerator": 1,
+  "remote control": 1,
+  "stove": 1,
+  "guinea pig": 1
+ }
+}

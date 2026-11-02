@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 819,
+ "max": 11.244577407836914,
+ "min": -17.1894588470459,
+ "edits": {
+  "flip": 1.026106595993042,
+  "rot90": 0.884976863861084,
+  "rot180": 0.8788392543792725,
+  "gray": 0.8836219906806946,
+  "blur1": 1.0692555904388428,
+  "blur3": 0.4926255941390991,
+  "shuf2": 1.0,
+  "shuf4": 1.0716915130615234,
+  "shuf8": 0.5069272518157959,
+  "hue": 0.5097929239273071,
+  "invert": 0.8206381797790527,
+  "zoomout": 0.3183891177177429,
+  "zoomin": 0.47773611545562744
+ },
+ "top50_classes": {
+  "bagel": 3,
+  "pretzel": 3,
+  "cheeseburger": 2,
+  "acorn squash": 2,
+  "hatchet": 1,
+  "pizza": 1,
+  "French loaf": 1,
+  "ringneck snake": 1,
+  "Chesapeake Bay retriever": 1,
+  "bell pepper": 1
+ },
+ "neg50_classes": {
+  "grasshopper": 2,
+  "goldfinch": 2,
+  "harvestman": 1,
+  "beagle": 1,
+  "pencil sharpener": 1,
+  "mailbox": 1,
+  "hummingbird": 1,
+  "tree frog": 1,
+  "Bedlington terrier": 1,
+  "suit": 1
+ }
+}

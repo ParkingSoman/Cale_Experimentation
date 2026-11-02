@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 28,
+ "max": 4.046010494232178,
+ "min": -5.428739070892334,
+ "edits": {
+  "flip": 0.9696676731109619,
+  "rot90": 0.9135937690734863,
+  "rot180": 0.8615116477012634,
+  "gray": 0.998874843120575,
+  "blur1": 0.9167704582214355,
+  "blur3": 0.44326695799827576,
+  "shuf2": 0.9907420873641968,
+  "shuf4": 0.8767739534378052,
+  "shuf8": 0.8532428741455078,
+  "hue": 0.9596747159957886,
+  "invert": 0.9338521361351013,
+  "zoomout": 0.5518044829368591,
+  "zoomin": 0.5120037198066711
+ },
+ "top50_classes": {
+  "hen-of-the-woods": 2,
+  "toyshop": 2,
+  "joystick": 1,
+  "orange": 1,
+  "anemone fish": 1,
+  "grocery store": 1,
+  "rock beauty": 1,
+  "mushroom": 1,
+  "strawberry": 1,
+  "cicada": 1
+ },
+ "neg50_classes": {
+  "ballpoint": 1,
+  "yawl": 1,
+  "fireboat": 1,
+  "file": 1,
+  "menu": 1,
+  "Band Aid": 1,
+  "trifle": 1,
+  "West Highland white terrier": 1,
+  "dumbbell": 1,
+  "scoreboard": 1
+ }
+}

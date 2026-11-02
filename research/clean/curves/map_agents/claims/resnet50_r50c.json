@@ -1,0 +1,8 @@
+[
+{"name":"1258 flat panel alone, gate own>1.5","units":[1258],"region":{"gate":{"units":[1258],"weights":[1],"theta":1.5}}},
+{"name":"1934 thatch alone, gate own>1.5","units":[1934],"region":{"gate":{"units":[1934],"weights":[1],"theta":1.5}}},
+{"name":"1254 round solid alone, gate own>1.5","units":[1254],"region":{"gate":{"units":[1254],"weights":[1],"theta":1.5}}},
+{"name":"coat texture district 214,1113 gated by 214+1113>3","units":[214,1113],"region":{"gate":{"units":[214,1113],"weights":[1,1],"theta":3}}},
+{"name":"surfaces district 1254,1256,1258 gated sum>4","units":[1254,1256,1258],"region":{"gate":{"units":[1254,1256,1258],"weights":[1,1,1],"theta":4}}},
+{"name":"surfaces district 1254,1256,1258 gated sum>2.5","units":[1254,1256,1258],"region":{"gate":{"units":[1254,1256,1258],"weights":[1,1,1],"theta":2.5}}}
+]

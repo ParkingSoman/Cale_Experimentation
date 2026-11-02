@@ -1,0 +1,366 @@
+{
+ "A": {
+  "A00": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A01": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A02": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A03": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A04": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A05": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A06": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A07": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A08": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A09": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A10": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A11": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A12": {
+   "answer": "related",
+   "category": "position within a person name",
+   "confidence": 4
+  },
+  "A13": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A14": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A15": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 3
+  },
+  "A16": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A17": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A18": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A19": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A20": {
+   "answer": "related",
+   "category": "year/time expression tokens",
+   "confidence": 3
+  },
+  "A21": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 3
+  },
+  "A22": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A23": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A24": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A25": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A26": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A27": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A28": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A29": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A30": {
+   "answer": "related",
+   "category": "foreign name fragments",
+   "confidence": 3
+  },
+  "A31": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A32": {
+   "answer": "related",
+   "category": "clause-end punctuation",
+   "confidence": 2
+  },
+  "A33": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A34": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A35": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 3
+  },
+  "A36": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A37": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A38": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  },
+  "A39": {
+   "answer": "unrelated",
+   "category": "",
+   "confidence": 4
+  }
+ },
+ "B": {
+  "B00": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B01": {
+   "answer": "yes",
+   "confidence": 3
+  },
+  "B02": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B03": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B04": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B05": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B06": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B07": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B08": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B09": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B10": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B11": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B12": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B13": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B14": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B15": {
+   "answer": "yes",
+   "confidence": 3
+  },
+  "B16": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B17": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B18": {
+   "answer": "yes",
+   "confidence": 3
+  },
+  "B19": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B20": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B21": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B22": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B23": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B24": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B25": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B26": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B27": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B28": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B29": {
+   "answer": "no",
+   "confidence": 3
+  },
+  "B30": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B31": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B32": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B33": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B34": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B35": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B36": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B37": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B38": {
+   "answer": "no",
+   "confidence": 4
+  },
+  "B39": {
+   "answer": "no",
+   "confidence": 4
+  }
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 82,
+ "max": 3.5449154376983643,
+ "min": -3.8681275844573975,
+ "edits": {
+  "flip": 1.0032808780670166,
+  "rot90": 0.9467551708221436,
+  "rot180": 0.966862142086029,
+  "gray": 1.009761929512024,
+  "blur1": 0.7615236043930054,
+  "blur3": 0.04286915808916092,
+  "shuf2": 0.9208630323410034,
+  "shuf4": 0.8779560923576355,
+  "shuf8": 0.8599059581756592,
+  "hue": 0.9504213929176331,
+  "invert": 0.3066609501838684,
+  "zoomout": 0.6701582074165344,
+  "zoomin": 0.6639881134033203
+ },
+ "top50_classes": {
+  "bittern": 2,
+  "spotted salamander": 2,
+  "chainlink fence": 1,
+  "gar": 1,
+  "ruddy turnstone": 1,
+  "European gallinule": 1,
+  "little blue heron": 1,
+  "guenon": 1,
+  "Newfoundland": 1,
+  "colobus": 1
+ },
+ "neg50_classes": {
+  "shoe shop": 1,
+  "moving van": 1,
+  "howler monkey": 1,
+  "bottlecap": 1,
+  "Rhodesian ridgeback": 1,
+  "reflex camera": 1,
+  "umbrella": 1,
+  "pineapple": 1,
+  "barracouta": 1,
+  "grocery store": 1
+ }
+}

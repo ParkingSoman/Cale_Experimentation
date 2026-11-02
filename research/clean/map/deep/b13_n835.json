@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 835,
+ "max": 5.133552551269531,
+ "min": -6.185788631439209,
+ "edits": {
+  "flip": 0.9918348789215088,
+  "rot90": 0.6964771747589111,
+  "rot180": 0.5028332471847534,
+  "gray": 1.0385406017303467,
+  "blur1": 0.9490102529525757,
+  "blur3": 0.758071780204773,
+  "shuf2": 0.9220187664031982,
+  "shuf4": 0.7943179607391357,
+  "shuf8": 0.5919537544250488,
+  "hue": 0.9757771492004395,
+  "invert": 0.9449546337127686,
+  "zoomout": 0.7545998096466064,
+  "zoomin": 0.4234422445297241
+ },
+ "top50_classes": {
+  "yurt": 2,
+  "bookshop": 2,
+  "hoopskirt": 2,
+  "patio": 2,
+  "Sussex spaniel": 2,
+  "beer bottle": 2,
+  "Chesapeake Bay retriever": 2,
+  "sewing machine": 1,
+  "hyena": 1,
+  "refrigerator": 1
+ },
+ "neg50_classes": {
+  "puck": 2,
+  "binder": 1,
+  "doormat": 1,
+  "manhole cover": 1,
+  "yawl": 1,
+  "beaver": 1,
+  "black-and-tan coonhound": 1,
+  "Brittany spaniel": 1,
+  "fig": 1,
+  "beer glass": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 347,
+ "max": 6.038215160369873,
+ "min": -8.531474113464355,
+ "edits": {
+  "flip": 0.7880254983901978,
+  "rot90": 0.5356899499893188,
+  "rot180": 0.7960118055343628,
+  "gray": 1.0278056859970093,
+  "blur1": 0.5138518810272217,
+  "blur3": 0.4202885627746582,
+  "shuf2": 0.9999469518661499,
+  "shuf4": 0.8116211891174316,
+  "shuf8": 0.7216774225234985,
+  "hue": 0.9585977792739868,
+  "invert": 0.7784626483917236,
+  "zoomout": 0.4695483148097992,
+  "zoomin": 0.47816410660743713
+ },
+ "top50_classes": {
+  "iron": 1,
+  "dugong": 1,
+  "teddy": 1,
+  "polecat": 1,
+  "knee pad": 1,
+  "jean": 1,
+  "siamang": 1,
+  "turnstile": 1,
+  "upright": 1,
+  "indri": 1
+ },
+ "neg50_classes": {
+  "spider web": 2,
+  "castle": 1,
+  "suspension bridge": 1,
+  "ox": 1,
+  "lens cap": 1,
+  "Arabian camel": 1,
+  "toaster": 1,
+  "knee pad": 1,
+  "skunk": 1,
+  "jeep": 1
+ }
+}

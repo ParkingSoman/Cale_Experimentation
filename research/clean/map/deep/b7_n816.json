@@ -1,0 +1,45 @@
+{
+ "block": 7,
+ "neuron": 816,
+ "max": 2.9197998046875,
+ "min": -5.581637382507324,
+ "edits": {
+  "flip": 0.8302431106567383,
+  "rot90": 0.6273664832115173,
+  "rot180": 0.6507223844528198,
+  "gray": 0.9145393967628479,
+  "blur1": 1.012343406677246,
+  "blur3": 0.7930302619934082,
+  "shuf2": 0.9530441761016846,
+  "shuf4": 0.8194699883460999,
+  "shuf8": 0.723373532295227,
+  "hue": 0.9597055912017822,
+  "invert": 0.8808866739273071,
+  "zoomout": 0.5240651965141296,
+  "zoomin": 0.6670423150062561
+ },
+ "top50_classes": {
+  "plate rack": 1,
+  "wall clock": 1,
+  "bikini": 1,
+  "jackfruit": 1,
+  "wine bottle": 1,
+  "fig": 1,
+  "desk": 1,
+  "strawberry": 1,
+  "spatula": 1,
+  "Italian greyhound": 1
+ },
+ "neg50_classes": {
+  "West Highland white terrier": 2,
+  "torch": 2,
+  "maillot": 2,
+  "whistle": 1,
+  "radiator": 1,
+  "passenger car": 1,
+  "parking meter": 1,
+  "triumphal arch": 1,
+  "parallel bars": 1,
+  "dhole": 1
+ }
+}

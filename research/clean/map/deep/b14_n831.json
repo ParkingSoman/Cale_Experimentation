@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 831,
+ "max": 5.341545104980469,
+ "min": -6.79804801940918,
+ "edits": {
+  "flip": 0.9481722116470337,
+  "rot90": 0.8176842927932739,
+  "rot180": 0.8716094493865967,
+  "gray": -0.03280778229236603,
+  "blur1": 0.9035401344299316,
+  "blur3": 0.7379375696182251,
+  "shuf2": 0.9123328924179077,
+  "shuf4": 0.6044367551803589,
+  "shuf8": 0.6249045133590698,
+  "hue": 0.34088048338890076,
+  "invert": 0.9657295942306519,
+  "zoomout": 0.486554890871048,
+  "zoomin": 0.3454320728778839
+ },
+ "top50_classes": {
+  "Bouvier des Flandres": 2,
+  "green snake": 2,
+  "spider monkey": 2,
+  "impala": 2,
+  "pomegranate": 1,
+  "wallaby": 1,
+  "bulletproof vest": 1,
+  "bullfrog": 1,
+  "grey fox": 1,
+  "shower curtain": 1
+ },
+ "neg50_classes": {
+  "water tower": 2,
+  "green mamba": 2,
+  "rock beauty": 1,
+  "Gila monster": 1,
+  "vulture": 1,
+  "water buffalo": 1,
+  "dung beetle": 1,
+  "accordion": 1,
+  "bucket": 1,
+  "red wine": 1
+ }
+}

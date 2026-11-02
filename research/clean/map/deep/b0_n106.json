@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 106,
+ "max": 10.788204193115234,
+ "min": -9.927007675170898,
+ "edits": {
+  "flip": 0.9843711853027344,
+  "rot90": 0.9454889297485352,
+  "rot180": 0.9559714794158936,
+  "gray": 1.0007047653198242,
+  "blur1": 1.0031788349151611,
+  "blur3": 0.9354603290557861,
+  "shuf2": 1.0,
+  "shuf4": 0.9999552369117737,
+  "shuf8": 0.9998964071273804,
+  "hue": 0.990106463432312,
+  "invert": 0.9445943832397461,
+  "zoomout": 0.8948919773101807,
+  "zoomin": 0.9576719999313354
+ },
+ "top50_classes": {
+  "mouse": 2,
+  "snow leopard": 2,
+  "West Highland white terrier": 1,
+  "ice bear": 1,
+  "bath towel": 1,
+  "entertainment center": 1,
+  "boa constrictor": 1,
+  "beaker": 1,
+  "hognose snake": 1,
+  "dogsled": 1
+ },
+ "neg50_classes": {
+  "espresso maker": 2,
+  "entertainment center": 2,
+  "plunger": 1,
+  "odometer": 1,
+  "otter": 1,
+  "face powder": 1,
+  "notebook": 1,
+  "shoe shop": 1,
+  "artichoke": 1,
+  "kuvasz": 1
+ }
+}

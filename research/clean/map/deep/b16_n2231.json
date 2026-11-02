@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2231,
+ "max": 6.69662618637085,
+ "min": -20.888086318969727,
+ "edits": {
+  "flip": 0.9401034116744995,
+  "rot90": 0.5845668315887451,
+  "rot180": 0.6100488901138306,
+  "gray": 0.8925767540931702,
+  "blur1": 0.698876142501831,
+  "blur3": 0.05732452869415283,
+  "shuf2": 0.8839573264122009,
+  "shuf4": 0.5587364435195923,
+  "shuf8": 0.46055853366851807,
+  "hue": 0.7637847661972046,
+  "invert": 0.935418426990509,
+  "zoomout": 0.2088041603565216,
+  "zoomin": 0.5180970430374146
+ },
+ "top50_classes": {
+  "orangutan": 2,
+  "basset": 2,
+  "Appenzeller": 2,
+  "English foxhound": 2,
+  "Walker hound": 2,
+  "basenji": 2,
+  "miniature pinscher": 2,
+  "Chesapeake Bay retriever": 1,
+  "Labrador retriever": 1,
+  "flat-coated retriever": 1
+ },
+ "neg50_classes": {
+  "grasshopper": 3,
+  "Norwich terrier": 2,
+  "harvestman": 2,
+  "bustard": 1,
+  "soft-coated wheaten terrier": 1,
+  "warthog": 1,
+  "balloon": 1,
+  "violin": 1,
+  "tiger beetle": 1,
+  "steel drum": 1
+ }
+}

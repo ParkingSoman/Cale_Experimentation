@@ -1,0 +1,296 @@
+{
+ "15_1162": {
+  "parent": [
+   15,
+   1162
+  ],
+  "children": [
+   [
+    16,
+    384
+   ]
+  ],
+  "kl_naive_cut": 0.0017808583797886968,
+  "kl_cut_both": 0.0019411719404160976,
+  "kl_learned": 0.0006255093030631542,
+  "share_won_back": 0.648759663105011,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   0.0004188995695926678,
+   0.0001744428910114948
+  ],
+  "corr_learned_parent": 0.947698549327234,
+  "corr_learned_children_sum": 0.21536998736167962,
+  "partial_corr_children_given_parent": 0.2808679171213362,
+  "partial_corr_each_child": [
+   0.2808679171213362
+  ],
+  "cos_read_vs_parent": 0.981048583984375,
+  "cos_write_vs_parent": 0.9569352269172668,
+  "write_norm_ratio": 1.0238186120986938,
+  "write_change_cos_children": [
+   NaN
+  ],
+  "bias_change": 0.008559703826904297,
+  "share_ci": [
+   0.03310447558760643,
+   1.43217933177948
+  ]
+ },
+ "15_2142": {
+  "parent": [
+   15,
+   2142
+  ],
+  "children": [
+   [
+    16,
+    26
+   ]
+  ],
+  "kl_naive_cut": 0.0010134479962289333,
+  "kl_cut_both": 0.0027977318968623877,
+  "kl_learned": 0.0008824433898553252,
+  "share_won_back": 0.12926623225212097,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   0.00040441619166813324,
+   0.00043121114886162103
+  ],
+  "corr_learned_parent": 0.9850659743764438,
+  "corr_learned_children_sum": 0.3339646766343133,
+  "partial_corr_children_given_parent": 0.3751494511585782,
+  "partial_corr_each_child": [
+   0.3751494511585782
+  ],
+  "cos_read_vs_parent": 0.98619145154953,
+  "cos_write_vs_parent": 0.9798440933227539,
+  "write_norm_ratio": 1.014519214630127,
+  "write_change_cos_children": [
+   NaN
+  ],
+  "bias_change": 0.0024117231369018555,
+  "share_ci": [
+   0.0309197586029768,
+   0.2644723057746887
+  ]
+ },
+ "16_2886": {
+  "parent": [
+   16,
+   2886
+  ],
+  "children": [
+   [
+    17,
+    2283
+   ],
+   [
+    17,
+    2571
+   ]
+  ],
+  "kl_naive_cut": 0.005840565077960491,
+  "kl_cut_both": 0.006669740658253431,
+  "kl_learned": 0.0022839249577373266,
+  "share_won_back": 0.6089547872543335,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   0.008321164338849486,
+   0.003075242380145937
+  ],
+  "corr_learned_parent": 0.7979130490901702,
+  "corr_learned_children_sum": 0.4708620741979126,
+  "partial_corr_children_given_parent": 0.22931000381867012,
+  "partial_corr_each_child": [
+   0.18573918881058382,
+   0.13862890210522877
+  ],
+  "cos_read_vs_parent": 0.9662150740623474,
+  "cos_write_vs_parent": 0.8469191193580627,
+  "write_norm_ratio": 1.1060227155685425,
+  "write_change_cos_children": [
+   NaN,
+   NaN
+  ],
+  "bias_change": 0.021637260913848877,
+  "share_ci": [
+   0.422004759311676,
+   0.8416526913642883
+  ]
+ },
+ "13_78": {
+  "parent": [
+   13,
+   78
+  ],
+  "children": [
+   [
+    14,
+    1326
+   ],
+   [
+    14,
+    284
+   ],
+   [
+    14,
+    780
+   ]
+  ],
+  "kl_naive_cut": 0.0004447848768904805,
+  "kl_cut_both": 0.0007025405066087842,
+  "kl_learned": 0.00023774254077579826,
+  "share_won_back": 0.4654887020587921,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   0.0005241141618171242,
+   0.00016709716437617316
+  ],
+  "corr_learned_parent": 0.9658051654150089,
+  "corr_learned_children_sum": 0.6501551498258844,
+  "partial_corr_children_given_parent": 0.4597658682908831,
+  "partial_corr_each_child": [
+   0.3588882682150836,
+   0.31679391801813184,
+   0.18477564361038318
+  ],
+  "cos_read_vs_parent": 0.9758882522583008,
+  "cos_write_vs_parent": 0.950964093208313,
+  "write_norm_ratio": 1.0411128997802734,
+  "write_change_cos_children": [
+   NaN,
+   NaN,
+   NaN
+  ],
+  "bias_change": 0.005964875221252441,
+  "share_ci": [
+   0.17308436334133148,
+   0.8445296883583069
+  ]
+ },
+ "10_1172": {
+  "parent": [
+   10,
+   1172
+  ],
+  "children": [
+   [
+    11,
+    1031
+   ],
+   [
+    11,
+    1116
+   ],
+   [
+    11,
+    269
+   ],
+   [
+    11,
+    1367
+   ],
+   [
+    11,
+    695
+   ]
+  ],
+  "kl_naive_cut": 0.0005402590031735599,
+  "kl_cut_both": 0.0007547438144683838,
+  "kl_learned": 0.0002981283760163933,
+  "share_won_back": 0.4481751024723053,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   0.0005558827950153499,
+   0.0002753863685938995
+  ],
+  "corr_learned_parent": 0.9804562051792001,
+  "corr_learned_children_sum": 0.4220146689775229,
+  "partial_corr_children_given_parent": 0.060014928017436416,
+  "partial_corr_each_child": [
+   0.05679758147658654,
+   0.04212203643839579,
+   0.06502102558611689,
+   -0.054690985548480495,
+   0.02671374865582184
+  ],
+  "cos_read_vs_parent": 0.9782851338386536,
+  "cos_write_vs_parent": 0.958678662776947,
+  "write_norm_ratio": 1.0075067281723022,
+  "write_change_cos_children": [
+   NaN,
+   NaN,
+   NaN,
+   NaN,
+   NaN
+  ],
+  "bias_change": 0.010004281997680664,
+  "share_ci": [
+   0.27158981561660767,
+   0.7021408081054688
+  ]
+ },
+ "9_686": {
+  "parent": [
+   9,
+   686
+  ],
+  "children": [
+   [
+    10,
+    1316
+   ],
+   [
+    10,
+    665
+   ],
+   [
+    10,
+    819
+   ],
+   [
+    10,
+    298
+   ],
+   [
+    10,
+    758
+   ]
+  ],
+  "kl_naive_cut": 0.0002058450336335227,
+  "kl_cut_both": 0.0002789506979752332,
+  "kl_learned": 0.0001401220797561109,
+  "share_won_back": 0.319283664226532,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   0.00021553403421421536,
+   0.00011194610269740223
+  ],
+  "corr_learned_parent": 0.9664238515900614,
+  "corr_learned_children_sum": 0.6637336328831991,
+  "partial_corr_children_given_parent": 0.2754338448792805,
+  "partial_corr_each_child": [
+   0.0486920230901095,
+   -0.05103456225777034,
+   0.39832543722093516,
+   0.24697065602925294,
+   0.0631698910792906
+  ],
+  "cos_read_vs_parent": 0.9688262939453125,
+  "cos_write_vs_parent": 0.9211295247077942,
+  "write_norm_ratio": 1.0831552743911743,
+  "write_change_cos_children": [
+   NaN,
+   NaN,
+   NaN,
+   NaN,
+   NaN
+  ],
+  "bias_change": 0.01130056381225586,
+  "share_ci": [
+   0.19562287628650665,
+   0.4692964255809784
+  ]
+ }
+}

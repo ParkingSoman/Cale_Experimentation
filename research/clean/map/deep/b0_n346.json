@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 346,
+ "max": 18.75041389465332,
+ "min": -18.699941635131836,
+ "edits": {
+  "flip": 0.9513459801673889,
+  "rot90": 0.9916949272155762,
+  "rot180": 0.9693026542663574,
+  "gray": 0.09142079204320908,
+  "blur1": 1.0014557838439941,
+  "blur3": 1.0034236907958984,
+  "shuf2": 0.9947400093078613,
+  "shuf4": 0.9923092722892761,
+  "shuf8": 1.0018070936203003,
+  "hue": 0.9503077268600464,
+  "invert": 1.0123634338378906,
+  "zoomout": 0.9260860681533813,
+  "zoomin": 0.9887199401855469
+ },
+ "top50_classes": {
+  "American chameleon": 3,
+  "sulphur butterfly": 2,
+  "cockroach": 2,
+  "tractor": 1,
+  "leaf beetle": 1,
+  "magnetic compass": 1,
+  "paper towel": 1,
+  "monarch": 1,
+  "sea anemone": 1,
+  "green lizard": 1
+ },
+ "neg50_classes": {
+  "American chameleon": 3,
+  "ringlet": 2,
+  "cockroach": 2,
+  "leafhopper": 2,
+  "cabbage butterfly": 2,
+  "tray": 1,
+  "honeycomb": 1,
+  "golf ball": 1,
+  "lorikeet": 1,
+  "sulphur-crested cockatoo": 1
+ }
+}

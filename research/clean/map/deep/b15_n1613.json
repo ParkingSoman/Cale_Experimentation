@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1613,
+ "max": 6.3559064865112305,
+ "min": -13.9207763671875,
+ "edits": {
+  "flip": 1.0122936964035034,
+  "rot90": 0.05509275943040848,
+  "rot180": 0.17376083135604858,
+  "gray": 0.5384473204612732,
+  "blur1": 1.0370755195617676,
+  "blur3": 0.6507159471511841,
+  "shuf2": 0.8816465139389038,
+  "shuf4": 0.7330023646354675,
+  "shuf8": 0.27924877405166626,
+  "hue": 0.5793286561965942,
+  "invert": 0.8909084796905518,
+  "zoomout": 0.4652179479598999,
+  "zoomin": 0.6006751656532288
+ },
+ "top50_classes": {
+  "lakeside": 2,
+  "cliff": 2,
+  "gondola": 2,
+  "tench": 1,
+  "giant panda": 1,
+  "totem pole": 1,
+  "plunger": 1,
+  "trench coat": 1,
+  "rock crab": 1,
+  "holster": 1
+ },
+ "neg50_classes": {
+  "Yorkshire terrier": 2,
+  "harvestman": 2,
+  "Gordon setter": 2,
+  "Doberman": 2,
+  "goldfinch": 2,
+  "grasshopper": 2,
+  "bearskin": 1,
+  "silky terrier": 1,
+  "soft-coated wheaten terrier": 1,
+  "golden retriever": 1
+ }
+}

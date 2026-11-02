@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 30,
+ "max": 3.5417823791503906,
+ "min": -8.971762657165527,
+ "edits": {
+  "flip": 1.002063512802124,
+  "rot90": 0.9861434102058411,
+  "rot180": 0.9870898723602295,
+  "gray": 0.05763942003250122,
+  "blur1": 0.963654637336731,
+  "blur3": 0.9117501974105835,
+  "shuf2": 0.9971175193786621,
+  "shuf4": 0.960207998752594,
+  "shuf8": 0.879113495349884,
+  "hue": -0.09658502042293549,
+  "invert": 0.27491557598114014,
+  "zoomout": 0.8770319223403931,
+  "zoomin": 0.9179053902626038
+ },
+ "top50_classes": {
+  "great white shark": 2,
+  "pirate": 2,
+  "castle": 1,
+  "mountain tent": 1,
+  "lotion": 1,
+  "hand-held computer": 1,
+  "hay": 1,
+  "boathouse": 1,
+  "sleeping bag": 1,
+  "paddle": 1
+ },
+ "neg50_classes": {
+  "orange": 3,
+  "acorn squash": 2,
+  "crayfish": 2,
+  "bell pepper": 2,
+  "tub": 1,
+  "screw": 1,
+  "sandal": 1,
+  "fig": 1,
+  "sombrero": 1,
+  "mouse": 1
+ }
+}

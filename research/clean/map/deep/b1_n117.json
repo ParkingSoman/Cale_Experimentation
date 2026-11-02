@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 117,
+ "max": 2.059501886367798,
+ "min": -4.872897624969482,
+ "edits": {
+  "flip": 0.8516018986701965,
+  "rot90": 0.7647397518157959,
+  "rot180": 0.8646262884140015,
+  "gray": 0.9755791425704956,
+  "blur1": 0.8232223987579346,
+  "blur3": 0.6863210201263428,
+  "shuf2": 1.0,
+  "shuf4": 0.9893481731414795,
+  "shuf8": 0.9235517978668213,
+  "hue": 0.9693954586982727,
+  "invert": 0.883733332157135,
+  "zoomout": 0.7072045803070068,
+  "zoomin": 0.796159029006958
+ },
+ "top50_classes": {
+  "European gallinule": 2,
+  "hermit crab": 1,
+  "bib": 1,
+  "green snake": 1,
+  "anemone fish": 1,
+  "cucumber": 1,
+  "oxcart": 1,
+  "cardoon": 1,
+  "Brittany spaniel": 1,
+  "measuring cup": 1
+ },
+ "neg50_classes": {
+  "swimming trunks": 2,
+  "tow truck": 1,
+  "scale": 1,
+  "mountain bike": 1,
+  "folding chair": 1,
+  "fire engine": 1,
+  "ladybug": 1,
+  "barber chair": 1,
+  "schooner": 1,
+  "dome": 1
+ }
+}

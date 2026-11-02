@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 230,
+ "max": 2.927682399749756,
+ "min": -4.948462009429932,
+ "edits": {
+  "flip": 0.9518758058547974,
+  "rot90": 0.8507426977157593,
+  "rot180": 0.885612964630127,
+  "gray": 0.28437143564224243,
+  "blur1": 0.9761001467704773,
+  "blur3": 0.7774856090545654,
+  "shuf2": 0.955453634262085,
+  "shuf4": 0.7271429300308228,
+  "shuf8": 0.6329928040504456,
+  "hue": 0.39127445220947266,
+  "invert": 0.41365551948547363,
+  "zoomout": 0.5984460115432739,
+  "zoomin": 0.4910452365875244
+ },
+ "top50_classes": {
+  "tench": 1,
+  "snowmobile": 1,
+  "recreational vehicle": 1,
+  "rifle": 1,
+  "rubber eraser": 1,
+  "Chesapeake Bay retriever": 1,
+  "seat belt": 1,
+  "sewing machine": 1,
+  "ski": 1,
+  "Lakeland terrier": 1
+ },
+ "neg50_classes": {
+  "sulphur butterfly": 2,
+  "tench": 1,
+  "wok": 1,
+  "European gallinule": 1,
+  "limpkin": 1,
+  "Madagascar cat": 1,
+  "sea anemone": 1,
+  "bee eater": 1,
+  "sulphur-crested cockatoo": 1,
+  "macaw": 1
+ }
+}

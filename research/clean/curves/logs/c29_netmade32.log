@@ -1,0 +1,5 @@
+c29_build_netmade32: 0.0489 (se 0.0028)
+  netmade32 minus level0p    -0.0144 (paired se 0.0014)
+  netmade32 minus wmetric    -0.0080 (paired se 0.0008)
+  netmade32 minus kbar       -0.0001 (paired se 0.0003)
+  netmade32 minus netmade256 -0.0002 (paired se 0.0002)

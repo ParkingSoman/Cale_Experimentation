@@ -1,0 +1,45 @@
+{
+ "block": 8,
+ "neuron": 175,
+ "max": 2.831521511077881,
+ "min": -5.368813514709473,
+ "edits": {
+  "flip": 0.7715563774108887,
+  "rot90": 0.5682528018951416,
+  "rot180": 0.7236566543579102,
+  "gray": 0.953648567199707,
+  "blur1": 0.8962142467498779,
+  "blur3": 0.5393410325050354,
+  "shuf2": 0.9133850932121277,
+  "shuf4": 0.7918645143508911,
+  "shuf8": 0.7212849855422974,
+  "hue": 0.9112386703491211,
+  "invert": 0.8261376619338989,
+  "zoomout": 0.7474899291992188,
+  "zoomin": 0.6328542232513428
+ },
+ "top50_classes": {
+  "hoopskirt": 1,
+  "breastplate": 1,
+  "stupa": 1,
+  "American lobster": 1,
+  "stretcher": 1,
+  "kelpie": 1,
+  "bolo tie": 1,
+  "golden retriever": 1,
+  "dial telephone": 1,
+  "English foxhound": 1
+ },
+ "neg50_classes": {
+  "green mamba": 2,
+  "wild boar": 1,
+  "croquet ball": 1,
+  "oil filter": 1,
+  "mouse": 1,
+  "mousetrap": 1,
+  "badger": 1,
+  "ox": 1,
+  "kelpie": 1,
+  "hippopotamus": 1
+ }
+}

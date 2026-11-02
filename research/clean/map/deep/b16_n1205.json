@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 1205,
+ "max": 5.011157035827637,
+ "min": -18.764495849609375,
+ "edits": {
+  "flip": 0.9549729824066162,
+  "rot90": 0.809556245803833,
+  "rot180": 0.760266900062561,
+  "gray": 0.34953784942626953,
+  "blur1": 0.9231133460998535,
+  "blur3": 0.4837757647037506,
+  "shuf2": 1.1029267311096191,
+  "shuf4": 0.6681526899337769,
+  "shuf8": 0.18086788058280945,
+  "hue": 0.5355703234672546,
+  "invert": 0.8868508338928223,
+  "zoomout": 0.9599986672401428,
+  "zoomin": 0.4153064787387848
+ },
+ "top50_classes": {
+  "velvet": 3,
+  "wallet": 3,
+  "pillow": 3,
+  "pencil box": 3,
+  "purse": 2,
+  "bath towel": 2,
+  "pencil sharpener": 2,
+  "handkerchief": 2,
+  "dishrag": 1,
+  "bow tie": 1
+ },
+ "neg50_classes": {
+  "sea lion": 2,
+  "black widow": 2,
+  "goldfinch": 2,
+  "brown bear": 1,
+  "bullfrog": 1,
+  "West Highland white terrier": 1,
+  "toucan": 1,
+  "water buffalo": 1,
+  "horned viper": 1,
+  "bluetick": 1
+ }
+}

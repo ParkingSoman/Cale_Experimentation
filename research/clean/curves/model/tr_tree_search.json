@@ -1,0 +1,218 @@
+{
+ "instance": "D40 kappa=2 m=2, H = one edge; good pairs A-D, B-C; objective D2 (vertex weight 1, midpoint weight M)",
+ "M": 138240,
+ "least_any_unit_a": 1.9999927662298502,
+ "least_b_top": 1.9999927662298618,
+ "b_equals_a": true,
+ "first_merge_cost": {
+  "(AB)": 0.9999981915541964,
+  "(AC)": 0.9999981915541964,
+  "(AD)": 9.955274546954898e-17,
+  "(BC)": 9.95527454695577e-17,
+  "(BD)": 0.9999981915541964,
+  "(CD)": 0.9999981915541964
+ },
+ "zooms": [
+  {
+   "zoom": "(AB) -> (C(AB)) -> (D(C(AB)))",
+   "branches": 9,
+   "best_top": 1.9999927662298675,
+   "worst_top": 2.9999837240466367,
+   "reaches_least": true,
+   "always_reaches": false,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(AB) -> (CD) -> ((AB)(CD))",
+   "branches": 8,
+   "best_top": 1.9999927662298675,
+   "worst_top": 2.9999837240466367,
+   "reaches_least": true,
+   "always_reaches": false,
+   "eps_levels_best_branch": 7.233717817634044e-06,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(AB) -> (D(AB)) -> (C(D(AB)))",
+   "branches": 9,
+   "best_top": 1.9999927662298675,
+   "worst_top": 2.9999837240466367,
+   "reaches_least": true,
+   "always_reaches": false,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(AC) -> (B(AC)) -> (D(B(AC)))",
+   "branches": 4,
+   "best_top": 1.9999927662298675,
+   "worst_top": 1.9999927662298675,
+   "reaches_least": true,
+   "always_reaches": true,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(AC) -> (BD) -> ((AC)(BD))",
+   "branches": 16,
+   "best_top": 1.9999927662298675,
+   "worst_top": 2.9999837240466367,
+   "reaches_least": true,
+   "always_reaches": false,
+   "eps_levels_best_branch": 1.9999927662298675,
+   "every_level_optimal": false
+  },
+  {
+   "zoom": "(AC) -> (D(AC)) -> (B(D(AC)))",
+   "branches": 4,
+   "best_top": 1.9999927662298675,
+   "worst_top": 1.9999927662298675,
+   "reaches_least": true,
+   "always_reaches": true,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(AD) -> (B(AD)) -> (C(B(AD)))",
+   "branches": 10,
+   "best_top": 1.9999927662298675,
+   "worst_top": 1.9999927662298675,
+   "reaches_least": true,
+   "always_reaches": true,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(AD) -> (BC) -> ((AD)(BC))",
+   "branches": 30,
+   "best_top": 1.9999927662298675,
+   "worst_top": 1.9999927662298675,
+   "reaches_least": true,
+   "always_reaches": true,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(AD) -> (C(AD)) -> (B(C(AD)))",
+   "branches": 10,
+   "best_top": 1.9999927662298675,
+   "worst_top": 1.9999927662298675,
+   "reaches_least": true,
+   "always_reaches": true,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(BC) -> (A(BC)) -> (D(A(BC)))",
+   "branches": 8,
+   "best_top": 1.9999927662298675,
+   "worst_top": 1.9999927662298675,
+   "reaches_least": true,
+   "always_reaches": true,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(BC) -> (AD) -> ((BC)(AD))",
+   "branches": 22,
+   "best_top": 1.9999927662298675,
+   "worst_top": 1.9999927662298675,
+   "reaches_least": true,
+   "always_reaches": true,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(BC) -> (D(BC)) -> (A(D(BC)))",
+   "branches": 8,
+   "best_top": 1.9999927662298675,
+   "worst_top": 1.9999927662298675,
+   "reaches_least": true,
+   "always_reaches": true,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(BD) -> (A(BD)) -> (C(A(BD)))",
+   "branches": 4,
+   "best_top": 1.9999927662298675,
+   "worst_top": 1.9999927662298678,
+   "reaches_least": true,
+   "always_reaches": true,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(BD) -> (AC) -> ((BD)(AC))",
+   "branches": 16,
+   "best_top": 1.9999927662298675,
+   "worst_top": 2.9999837240466367,
+   "reaches_least": true,
+   "always_reaches": false,
+   "eps_levels_best_branch": 1.9999927662298675,
+   "every_level_optimal": false
+  },
+  {
+   "zoom": "(BD) -> (C(BD)) -> (A(C(BD)))",
+   "branches": 4,
+   "best_top": 1.9999927662298675,
+   "worst_top": 1.9999927662298675,
+   "reaches_least": true,
+   "always_reaches": true,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(CD) -> (A(CD)) -> (B(A(CD)))",
+   "branches": 9,
+   "best_top": 1.9999927662298675,
+   "worst_top": 2.9999837240466367,
+   "reaches_least": true,
+   "always_reaches": false,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(CD) -> (AB) -> ((CD)(AB))",
+   "branches": 8,
+   "best_top": 1.9999927662298675,
+   "worst_top": 2.9999837240466367,
+   "reaches_least": true,
+   "always_reaches": false,
+   "eps_levels_best_branch": 7.233717817634044e-06,
+   "every_level_optimal": true
+  },
+  {
+   "zoom": "(CD) -> (B(CD)) -> (A(B(CD)))",
+   "branches": 9,
+   "best_top": 1.9999927662298675,
+   "worst_top": 2.9999837240466367,
+   "reaches_least": true,
+   "always_reaches": false,
+   "eps_levels_best_branch": 5.773159728050814e-15,
+   "every_level_optimal": true
+  }
+ ],
+ "n_zooms_some_branch_reaches": 18,
+ "n_zooms_every_branch_reaches": 10,
+ "n_zooms": 18,
+ "vb_by_grouping": {
+  "AB": 0.9999981915541961,
+  "AB CD": 1.99998553251205,
+  "ABCD": 1.9999927662298618,
+  "ABC": 0.999998191554194,
+  "ABD": 0.9999981915541906,
+  "AC": 0.9999981915541954,
+  "AC BD": 5.911204409854211e-25,
+  "ACD": 0.9999981915541949,
+  "AD": 9.955274489233057e-17,
+  "AD BC": 3.50060993985258e-30,
+  "BC": 9.955274451710155e-17,
+  "BCD": 0.9999981915541932,
+  "BD": 0.999998191554195,
+  "CD": 0.9999981915541961
+ },
+ "n_zooms_every_level_optimal": 16,
+ "eps_recur": 5.773159728050814e-15
+}

@@ -1,0 +1,13 @@
+{
+ "gapN": [
+  "0",
+  "1",
+  "0",
+  "1"
+ ],
+ "exact_G3": true,
+ "exact_r_at_G3": true,
+ "least_D2_monotone": "1/32",
+ "numeric_least_DP_G1": 0.018802479786863963,
+ "ALL_OK": true
+}

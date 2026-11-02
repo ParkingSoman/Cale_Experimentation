@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 395,
+ "max": 1.4341926574707031,
+ "min": -6.57279109954834,
+ "edits": {
+  "flip": 0.8337500691413879,
+  "rot90": 0.5387662053108215,
+  "rot180": 0.46396970748901367,
+  "gray": 1.0054301023483276,
+  "blur1": 0.42423948645591736,
+  "blur3": 0.4567253589630127,
+  "shuf2": 0.9946563243865967,
+  "shuf4": 0.676612377166748,
+  "shuf8": 0.14399629831314087,
+  "hue": 1.0,
+  "invert": 0.5803552865982056,
+  "zoomout": -0.08463826775550842,
+  "zoomin": -0.03015069290995598
+ },
+ "top50_classes": {
+  "water bottle": 2,
+  "radio telescope": 2,
+  "whistle": 2,
+  "washer": 1,
+  "plastic bag": 1,
+  "trench coat": 1,
+  "sea slug": 1,
+  "hair slide": 1,
+  "waffle iron": 1,
+  "wall clock": 1
+ },
+ "neg50_classes": {
+  "common iguana": 2,
+  "sidewinder": 2,
+  "valley": 2,
+  "apron": 2,
+  "bikini": 1,
+  "running shoe": 1,
+  "African chameleon": 1,
+  "paddle": 1,
+  "bonnet": 1,
+  "baseball": 1
+ }
+}

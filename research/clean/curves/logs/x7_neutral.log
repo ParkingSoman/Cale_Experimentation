@@ -1,0 +1,6 @@
+q mean 1 - sum p^2 0.500
+q: support 9, imprint residual 1.192e-02, mean 1 - sum p^2 0.459
+  w*(p1)               dev-5000 KL 0.0532 | paired vs w*(p1) +0.0000 (se 0.0000)
+  w*(p1 + 10 q)        dev-5000 KL 0.0532 | paired vs w*(p1) -0.0000 (se 0.0004)
+  w*(p1 + 100 q)       dev-5000 KL 0.0534 | paired vs w*(p1) +0.0002 (se 0.0005)
+  w*(p1 + 1000 q)      dev-5000 KL 0.0532 | paired vs w*(p1) -0.0001 (se 0.0006)

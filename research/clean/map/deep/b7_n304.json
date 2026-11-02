@@ -1,0 +1,45 @@
+{
+ "block": 7,
+ "neuron": 304,
+ "max": 3.756767511367798,
+ "min": -6.682271957397461,
+ "edits": {
+  "flip": 0.5929563045501709,
+  "rot90": 0.5604127049446106,
+  "rot180": 0.611474871635437,
+  "gray": 0.2618551552295685,
+  "blur1": 0.934670090675354,
+  "blur3": 0.8232485055923462,
+  "shuf2": 0.9594208002090454,
+  "shuf4": 0.709865927696228,
+  "shuf8": 0.685819685459137,
+  "hue": 0.3883591890335083,
+  "invert": 0.5368726253509521,
+  "zoomout": 0.4814094007015228,
+  "zoomin": 0.6009559631347656
+ },
+ "top50_classes": {
+  "quail": 2,
+  "Doberman": 2,
+  "hand-held computer": 1,
+  "wombat": 1,
+  "Tibetan terrier": 1,
+  "space heater": 1,
+  "umbrella": 1,
+  "maypole": 1,
+  "stole": 1,
+  "stethoscope": 1
+ },
+ "neg50_classes": {
+  "maillot": 2,
+  "toyshop": 1,
+  "Airedale": 1,
+  "web site": 1,
+  "comic book": 1,
+  "tarantula": 1,
+  "book jacket": 1,
+  "fly": 1,
+  "sleeping bag": 1,
+  "lampshade": 1
+ }
+}

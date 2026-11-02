@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1306,
+ "max": 5.071633338928223,
+ "min": -6.633273124694824,
+ "edits": {
+  "flip": 0.9487508535385132,
+  "rot90": 0.4416520595550537,
+  "rot180": 0.5283858776092529,
+  "gray": 1.0071890354156494,
+  "blur1": 0.929752767086029,
+  "blur3": 0.7474304437637329,
+  "shuf2": 0.961058497428894,
+  "shuf4": 0.7879358530044556,
+  "shuf8": 0.4500102996826172,
+  "hue": 0.9932535886764526,
+  "invert": 0.9827911257743835,
+  "zoomout": 0.6105812788009644,
+  "zoomin": 0.6885977983474731
+ },
+ "top50_classes": {
+  "viaduct": 2,
+  "scabbard": 1,
+  "horizontal bar": 1,
+  "Maltese dog": 1,
+  "dough": 1,
+  "studio couch": 1,
+  "stretcher": 1,
+  "croquet ball": 1,
+  "Blenheim spaniel": 1,
+  "diaper": 1
+ },
+ "neg50_classes": {
+  "tench": 2,
+  "red-backed sandpiper": 2,
+  "hamster": 2,
+  "paintbrush": 1,
+  "spotlight": 1,
+  "English springer": 1,
+  "oxygen mask": 1,
+  "saltshaker": 1,
+  "academic gown": 1,
+  "American black bear": 1
+ }
+}

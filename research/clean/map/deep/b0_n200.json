@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 200,
+ "max": 10.044209480285645,
+ "min": -12.134406089782715,
+ "edits": {
+  "flip": 0.947422981262207,
+  "rot90": 0.8484302163124084,
+  "rot180": 0.9508736729621887,
+  "gray": 0.10336814820766449,
+  "blur1": 1.000889539718628,
+  "blur3": 1.0026224851608276,
+  "shuf2": 0.9971460103988647,
+  "shuf4": 1.0,
+  "shuf8": 0.9886488914489746,
+  "hue": 0.758293867111206,
+  "invert": 0.9205477237701416,
+  "zoomout": 0.8799549341201782,
+  "zoomin": 0.978912353515625
+ },
+ "top50_classes": {
+  "banana": 2,
+  "lemon": 2,
+  "sea anemone": 2,
+  "tennis ball": 2,
+  "bee": 1,
+  "obelisk": 1,
+  "harvestman": 1,
+  "wire-haired fox terrier": 1,
+  "menu": 1,
+  "green mamba": 1
+ },
+ "neg50_classes": {
+  "tennis ball": 3,
+  "lorikeet": 2,
+  "vine snake": 1,
+  "typewriter keyboard": 1,
+  "slug": 1,
+  "paper towel": 1,
+  "bonnet": 1,
+  "banana": 1,
+  "lynx": 1,
+  "jellyfish": 1
+ }
+}

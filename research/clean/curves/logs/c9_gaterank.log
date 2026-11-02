@@ -1,0 +1,9 @@
+image 0: eff rank single 1714.3, running average 1714.3
+image 1: eff rank single 1739.7, running average 2331.6
+image 2: eff rank single 1721.0, running average 2642.1
+image 3: eff rank single 1931.3, running average 2873.6
+image 4: eff rank single 1615.9, running average 2990.5
+image 5: eff rank single 1843.4, running average 3105.5
+image 6: eff rank single 1566.4, running average 3160.8
+image 7: eff rank single 1873.6, running average 3223.4
+TRUE-gated E_x A_x^T A_x at 5b (8 images): effective rank 3223.4; gate-free 5b was 23.5

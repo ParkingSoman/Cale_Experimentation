@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 629,
+ "max": 4.4561309814453125,
+ "min": -3.207955837249756,
+ "edits": {
+  "flip": 0.8762754201889038,
+  "rot90": 0.5204409956932068,
+  "rot180": 0.733561098575592,
+  "gray": 0.7782300710678101,
+  "blur1": 0.9777601957321167,
+  "blur3": 0.7752617597579956,
+  "shuf2": 0.6850539445877075,
+  "shuf4": 0.5029406547546387,
+  "shuf8": 0.527714192867279,
+  "hue": 0.7528666257858276,
+  "invert": 0.31431394815444946,
+  "zoomout": 0.32642439007759094,
+  "zoomin": 0.6439715027809143
+ },
+ "top50_classes": {
+  "dam": 2,
+  "toilet tissue": 1,
+  "chimpanzee": 1,
+  "trench coat": 1,
+  "slug": 1,
+  "guillotine": 1,
+  "airship": 1,
+  "water tower": 1,
+  "golf ball": 1,
+  "peacock": 1
+ },
+ "neg50_classes": {
+  "breakwater": 1,
+  "matchstick": 1,
+  "cup": 1,
+  "proboscis monkey": 1,
+  "bow tie": 1,
+  "studio couch": 1,
+  "space shuttle": 1,
+  "abaya": 1,
+  "muzzle": 1,
+  "nematode": 1
+ }
+}

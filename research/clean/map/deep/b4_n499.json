@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 499,
+ "max": 4.5054030418396,
+ "min": -7.2669548988342285,
+ "edits": {
+  "flip": 0.9786516427993774,
+  "rot90": 0.6930528879165649,
+  "rot180": 0.7249364852905273,
+  "gray": 0.1661793738603592,
+  "blur1": 0.9171628952026367,
+  "blur3": 0.6139353513717651,
+  "shuf2": 0.9624107480049133,
+  "shuf4": 0.9174284338951111,
+  "shuf8": 0.8765236139297485,
+  "hue": 0.5205522775650024,
+  "invert": 0.6474773287773132,
+  "zoomout": 0.6828811168670654,
+  "zoomin": 0.7466681599617004
+ },
+ "top50_classes": {
+  "yawl": 2,
+  "dalmatian": 1,
+  "fire screen": 1,
+  "wine bottle": 1,
+  "wool": 1,
+  "freight car": 1,
+  "four-poster": 1,
+  "fountain pen": 1,
+  "apron": 1,
+  "shower curtain": 1
+ },
+ "neg50_classes": {
+  "bluetick": 2,
+  "horned viper": 1,
+  "soap dispenser": 1,
+  "black grouse": 1,
+  "cairn": 1,
+  "Australian terrier": 1,
+  "barbell": 1,
+  "West Highland white terrier": 1,
+  "bee": 1,
+  "soup bowl": 1
+ }
+}

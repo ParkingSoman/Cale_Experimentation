@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 731,
+ "max": 0.6452639102935791,
+ "min": -6.675049781799316,
+ "edits": {
+  "flip": 0.12068653851747513,
+  "rot90": -0.14441239833831787,
+  "rot180": 0.13923223316669464,
+  "gray": -0.811347484588623,
+  "blur1": -3.2350826263427734,
+  "blur3": -4.4461469650268555,
+  "shuf2": 0.8940057754516602,
+  "shuf4": 0.03489209711551666,
+  "shuf8": -0.10123705118894577,
+  "hue": -1.270014762878418,
+  "invert": -0.8657090663909912,
+  "zoomout": -4.1599345207214355,
+  "zoomin": -4.451416015625
+ },
+ "top50_classes": {
+  "plow": 1,
+  "tailed frog": 1,
+  "solar dish": 1,
+  "monastery": 1,
+  "apron": 1,
+  "fountain pen": 1,
+  "fountain": 1,
+  "football helmet": 1,
+  "book jacket": 1,
+  "Boston bull": 1
+ },
+ "neg50_classes": {
+  "jack-o'-lantern": 2,
+  "bassoon": 2,
+  "mantis": 2,
+  "digital watch": 1,
+  "digital clock": 1,
+  "dumbbell": 1,
+  "hotdog": 1,
+  "black and gold garden spider": 1,
+  "crossword puzzle": 1,
+  "maillot": 1
+ }
+}

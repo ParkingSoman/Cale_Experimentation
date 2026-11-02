@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 320,
+ "max": 3.2406115531921387,
+ "min": -5.882859706878662,
+ "edits": {
+  "flip": 0.6668252348899841,
+  "rot90": 0.5684329271316528,
+  "rot180": 0.8324426412582397,
+  "gray": 0.9441746473312378,
+  "blur1": 0.9144728183746338,
+  "blur3": 0.47476309537887573,
+  "shuf2": 0.9524151086807251,
+  "shuf4": 0.8378883600234985,
+  "shuf8": 0.6772723197937012,
+  "hue": 1.0197007656097412,
+  "invert": 0.9725209474563599,
+  "zoomout": 0.5916023254394531,
+  "zoomin": 0.6529327034950256
+ },
+ "top50_classes": {
+  "walking stick": 1,
+  "bicycle-built-for-two": 1,
+  "teddy": 1,
+  "tree frog": 1,
+  "honeycomb": 1,
+  "bonnet": 1,
+  "barbell": 1,
+  "crash helmet": 1,
+  "chocolate sauce": 1,
+  "birdhouse": 1
+ },
+ "neg50_classes": {
+  "hand blower": 2,
+  "gong": 2,
+  "toilet tissue": 1,
+  "grille": 1,
+  "measuring cup": 1,
+  "squirrel monkey": 1,
+  "indri": 1,
+  "banana": 1,
+  "English foxhound": 1,
+  "steel arch bridge": 1
+ }
+}

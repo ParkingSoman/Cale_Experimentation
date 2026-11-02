@@ -1,0 +1,55 @@
+  solve 25/9024
+  solve 275/9024
+  solve 525/9024
+  solve 775/9024
+  solve 1025/9024
+  solve 1275/9024
+  solve 1525/9024
+  solve 1775/9024
+  solve 2025/9024
+  solve 2275/9024
+  solve 2525/9024
+  solve 2775/9024
+  solve 3025/9024
+  solve 3275/9024
+  solve 3525/9024
+  solve 3775/9024
+  solve 4025/9024
+  solve 4275/9024
+  solve 4525/9024
+  solve 4775/9024
+  solve 5025/9024
+  solve 5275/9024
+  solve 5525/9024
+  solve 5775/9024
+  solve 6025/9024
+  solve 6275/9024
+  solve 6525/9024
+  solve 6775/9024
+  solve 7025/9024
+  solve 7275/9024
+  solve 7525/9024
+  solve 7775/9024
+  solve 8025/9024
+  solve 8275/9024
+  solve 8525/9024
+  solve 8775/9024
+  solve 9024/9024
+  active 50/9024
+  active 2050/9024
+  active 4050/9024
+  active 6050/9024
+  active 8050/9024
+done self read (fit on the set)
+  self read (fit on the set): step0 + plain beta dev-5000 KL 0.1130 (se 0.0057)
+  self read (fit on the set): step1 + plain beta dev-5000 KL 0.0984 (se 0.0048)
+  self read (fit on the set): lsq on the set dev-5000 KL 0.1104 (se 0.0063)
+  self read (fit on the set): lsq on class inversions dev-5000 KL 0.0800 (se 0.0047)
+  paired self read (fit on the set): step0 + plain beta - E4 (.0771): +0.0359 (se 0.0048)
+  paired self read (fit on the set): step1 + plain beta - E4 (.0771): +0.0212 (se 0.0043)
+  paired self read (fit on the set): lsq on the set - E4 (.0771): +0.0333 (se 0.0025)
+  paired self read (fit on the set): lsq on class inversions - E4 (.0771): +0.0028 (se 0.0007)
+  self read (fit on the set): step0 + plain beta vs bar B +0.0770 (se 0.0052); vs THE FORMULA (FITTED) +0.0623
+  self read (fit on the set): step1 + plain beta vs bar B +0.0623 (se 0.0044); vs THE FORMULA (FITTED) +0.0477
+  self read (fit on the set): lsq on the set vs bar B +0.0743 (se 0.0060); vs THE FORMULA (FITTED) +0.0597
+  self read (fit on the set): lsq on class inversions vs bar B +0.0439 (se 0.0044); vs THE FORMULA (FITTED) +0.0293

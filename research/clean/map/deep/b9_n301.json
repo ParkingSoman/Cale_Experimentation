@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 301,
+ "max": 4.309755802154541,
+ "min": -5.9123101234436035,
+ "edits": {
+  "flip": 1.0014530420303345,
+  "rot90": 0.6627621650695801,
+  "rot180": 0.5355772972106934,
+  "gray": 1.0004438161849976,
+  "blur1": 0.9496070146560669,
+  "blur3": 0.7872446775436401,
+  "shuf2": 0.915244460105896,
+  "shuf4": 0.8961496353149414,
+  "shuf8": 0.7444654703140259,
+  "hue": 0.9713343977928162,
+  "invert": 0.12389970570802689,
+  "zoomout": 0.45180806517601013,
+  "zoomin": 0.32312703132629395
+ },
+ "top50_classes": {
+  "fountain": 2,
+  "toilet tissue": 1,
+  "carbonara": 1,
+  "king crab": 1,
+  "trench coat": 1,
+  "hand blower": 1,
+  "altar": 1,
+  "French horn": 1,
+  "four-poster": 1,
+  "balance beam": 1
+ },
+ "neg50_classes": {
+  "nematode": 2,
+  "spiny lobster": 1,
+  "zucchini": 1,
+  "wreck": 1,
+  "Lakeland terrier": 1,
+  "ski mask": 1,
+  "cricket": 1,
+  "grasshopper": 1,
+  "diamondback": 1,
+  "barometer": 1
+ }
+}

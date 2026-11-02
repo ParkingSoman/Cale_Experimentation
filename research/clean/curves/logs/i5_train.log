@@ -1,0 +1,7 @@
+  return float(torch.sqrt(sum((a ** 2).sum() for a in g)) / (LAM * torch.sqrt(sum((p ** 2).sum() for p in net.parameters()))))
+adam 1000: obj 0.1837 residual 8.987
+adam 2000: obj 0.1367 residual 4.106
+adam 3000: obj 0.1101 residual 2.281
+adam 4000: obj 0.0945 residual 1.346
+final: residual 0.2411 | train acc 1.000 test acc 0.838 | 1-sum p^2 train 0.015 test 0.122
+balance in^2/out^2 median: conv1 0.996, conv2 1.000

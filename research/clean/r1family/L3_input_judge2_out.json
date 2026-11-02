@@ -1,0 +1,12 @@
+{
+"F1": {"choice": "Y", "confidence": 5, "relation": "same", "why": "Y units are contraction and possessive endings plus heading =, matching the parent."},
+"F2": {"choice": "Y", "confidence": 5, "relation": "same", "why": "Y units fire on the @ of @-@ and heading = markers like the parent."},
+"F3": {"choice": "Y", "confidence": 5, "relation": "broader", "why": "The parent mixes @-@ hyphen, CJK bytes, headings and name fragments, each of which is one Y unit."},
+"F4": {"choice": "Y", "confidence": 3, "relation": "same", "why": "Y has the unit word after a number (ft, metres) which matches the parent's ft part."},
+"F5": {"choice": "Y", "confidence": 5, "relation": "same", "why": "Y units are closing quotes, apostrophes and possessive 's."},
+"F6": {"choice": "Y", "confidence": 5, "relation": "same", "why": "Y units are the unit word after a number in measurements."},
+"F7": {"choice": "Y", "confidence": 4, "relation": "broader", "why": "Y units cover @ in numbers and hyphens and rare-word fragments, which the parent combines."},
+"F8": {"choice": "X", "confidence": 1, "relation": "unclear", "why": "Both sets empty."},
+"F9": {"choice": "X", "confidence": 1, "relation": "unclear", "why": "Both sets empty."},
+"F10": {"choice": "X", "confidence": 1, "relation": "unclear", "why": "Both sets empty."}
+}

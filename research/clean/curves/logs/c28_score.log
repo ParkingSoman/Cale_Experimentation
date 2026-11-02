@@ -1,0 +1,4 @@
+real unsure, contrast x0.5 : score 0.8559 (halves 0.8348 / 0.8095; split-half rel 0.840)
+real unsure, contrast x0.75: score 0.8523 (halves 0.8290 / 0.8001; split-half rel 0.823)
+real unsure, contrast x1.0 : score 0.8543 (halves 0.8304 / 0.8066; split-half rel 0.831)
+real unsure, contrast x1.33: score 0.8626 (halves 0.8331 / 0.8334; split-half rel 0.864)

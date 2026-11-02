@@ -1,0 +1,10552 @@
+{
+ "detector": [
+  {
+   "grouping": "AC BD",
+   "zero_loss_pieces": 8,
+   "any_all_presence": false,
+   "every_build_has_split": true,
+   "pieces": [
+    [
+     {
+      "group": "AC",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       1,
+       3,
+       4,
+       5,
+       6
+      ]
+     },
+     {
+      "group": "BD",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       2,
+       3,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AC",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       1,
+       3,
+       4,
+       5,
+       6
+      ]
+     },
+     {
+      "group": "BD",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       2,
+       3,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AC",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       1,
+       2,
+       3,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BD",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       1,
+       2,
+       4,
+       5,
+       6
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AC",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       1,
+       2,
+       3,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BD",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       1,
+       2,
+       4,
+       5,
+       6
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AC",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       1,
+       3,
+       4,
+       5,
+       6
+      ]
+     },
+     {
+      "group": "BD",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       2,
+       3,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AC",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       1,
+       3,
+       4,
+       5,
+       6
+      ]
+     },
+     {
+      "group": "BD",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       2,
+       3,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AC",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       1,
+       2,
+       3,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BD",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       1,
+       2,
+       4,
+       5,
+       6
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AC",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       1,
+       2,
+       3,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BD",
+      "sign": 1,
+      "presence": false,
+      "split": true,
+      "dial": true,
+      "firing_share": 0.75,
+      "fires_on": [
+       0,
+       1,
+       2,
+       4,
+       5,
+       6
+      ]
+     }
+    ]
+   ]
+  },
+  {
+   "grouping": "AB CD",
+   "zero_loss_pieces": 0,
+   "least_value_vertex_units": 1.9999855325120601,
+   "least_build_units": [
+    {
+     "group": "AB",
+     "sign": 1,
+     "presence": false,
+     "split": true,
+     "dial": true,
+     "firing_share": 0.5,
+     "fires_on": [
+      0,
+      2,
+      3,
+      5,
+      7
+     ]
+    },
+    {
+     "group": "CD",
+     "sign": 1,
+     "presence": false,
+     "split": true,
+     "dial": true,
+     "firing_share": 0.5,
+     "fires_on": [
+      0,
+      1,
+      3,
+      4,
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "grouping": "AD BC",
+   "zero_loss_pieces": 352,
+   "any_all_presence": true,
+   "every_build_has_split": false,
+   "pieces": [
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       1,
+       2,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": false,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       0,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "group": "AD",
+      "sign": -1,
+      "presence": false,
+      "split": false,
+      "dial": true,
+      "firing_share": 1.0,
+      "fires_on": [
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7
+      ]
+     },
+     {
+      "group": "BC",
+      "sign": 1,
+      "presence": true,
+      "split": false,
+      "dial": false,
+      "firing_share": 0.0,
+      "fires_on": [
+       1,
+       2
+      ]
+     }
+    ]
+   ]
+  },
+  {
+   "grouping": "ABC",
+   "zero_loss_pieces": 0,
+   "least_value_vertex_units": 0.9999981915541947,
+   "least_build_units": [
+    {
+     "group": "ABC",
+     "sign": 1,
+     "presence": true,
+     "split": true,
+     "dial": false,
+     "firing_share": 0.0,
+     "fires_on": [
+      1,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "grouping": "ABD",
+   "zero_loss_pieces": 0,
+   "least_value_vertex_units": 0.9999981915541906,
+   "least_build_units": [
+    {
+     "group": "ABD",
+     "sign": 1,
+     "presence": true,
+     "split": true,
+     "dial": false,
+     "firing_share": 0.0,
+     "fires_on": [
+      0,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "grouping": "ACD",
+   "zero_loss_pieces": 0,
+   "least_value_vertex_units": 0.9999981915541956,
+   "least_build_units": [
+    {
+     "group": "ACD",
+     "sign": 1,
+     "presence": true,
+     "split": true,
+     "dial": false,
+     "firing_share": 0.0,
+     "fires_on": [
+      0,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "grouping": "BCD",
+   "zero_loss_pieces": 0,
+   "least_value_vertex_units": 0.9999981915541936,
+   "least_build_units": [
+    {
+     "group": "BCD",
+     "sign": 1,
+     "presence": true,
+     "split": true,
+     "dial": false,
+     "firing_share": 0.0,
+     "fires_on": [
+      1,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "grouping": "ABCD",
+   "zero_loss_pieces": 0,
+   "least_value_vertex_units": 1.9999927662298618,
+   "least_build_units": [
+    {
+     "group": "ABCD",
+     "sign": 1,
+     "presence": true,
+     "split": true,
+     "dial": false,
+     "firing_share": 0.0,
+     "fires_on": [
+      0,
+      3
+     ]
+    }
+   ]
+  }
+ ],
+ "t20": {
+  "instance": "T20, least D2 width-1 unit relu(x - 8/5)",
+  "presence": true,
+  "split": true,
+  "dial": false,
+  "firing_share": 0.2857,
+  "fires_on": [
+   5,
+   6
+  ]
+ },
+ "t33": {
+  "instance": "T33, least width-1 unit with gap 1 - relu(-x_3 / 2)",
+  "presence": false,
+  "split": false,
+  "dial": true,
+  "firing_share": 0.6667,
+  "fires_on": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ }
+}

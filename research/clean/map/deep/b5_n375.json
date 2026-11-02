@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 375,
+ "max": 5.171505451202393,
+ "min": -7.084688663482666,
+ "edits": {
+  "flip": 0.9501901268959045,
+  "rot90": 0.5555078983306885,
+  "rot180": 0.5917260050773621,
+  "gray": 0.08525364100933075,
+  "blur1": 0.8918192386627197,
+  "blur3": 0.7683354616165161,
+  "shuf2": 0.998031735420227,
+  "shuf4": 0.8438854217529297,
+  "shuf8": 0.723447322845459,
+  "hue": 0.4522356688976288,
+  "invert": 0.6104450225830078,
+  "zoomout": 0.4296228289604187,
+  "zoomin": 0.6808590888977051
+ },
+ "top50_classes": {
+  "parking meter": 1,
+  "Dungeness crab": 1,
+  "honeycomb": 1,
+  "espresso": 1,
+  "trolleybus": 1,
+  "trombone": 1,
+  "holster": 1,
+  "leatherback turtle": 1,
+  "hatchet": 1,
+  "space shuttle": 1
+ },
+ "neg50_classes": {
+  "espresso": 2,
+  "bonnet": 2,
+  "sidewinder": 1,
+  "malinois": 1,
+  "Sussex spaniel": 1,
+  "Walker hound": 1,
+  "dining table": 1,
+  "redbone": 1,
+  "pajama": 1,
+  "jellyfish": 1
+ }
+}

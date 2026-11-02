@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 1137,
+ "max": 4.772243499755859,
+ "min": -5.1396484375,
+ "edits": {
+  "flip": 0.9400308132171631,
+  "rot90": 0.7559138536453247,
+  "rot180": 0.8248785734176636,
+  "gray": 0.9995089769363403,
+  "blur1": 0.9358256459236145,
+  "blur3": 0.7849680185317993,
+  "shuf2": 1.0042808055877686,
+  "shuf4": 0.8208070397377014,
+  "shuf8": 0.7250490188598633,
+  "hue": 1.0,
+  "invert": 0.2322618067264557,
+  "zoomout": 0.6805033683776855,
+  "zoomin": 0.41282951831817627
+ },
+ "top50_classes": {
+  "spoonbill": 2,
+  "magpie": 2,
+  "tick": 2,
+  "fire screen": 2,
+  "lumbermill": 1,
+  "common newt": 1,
+  "crane2": 1,
+  "mousetrap": 1,
+  "barrow": 1,
+  "ram": 1
+ },
+ "neg50_classes": {
+  "tractor": 1,
+  "spider web": 1,
+  "missile": 1,
+  "space shuttle": 1,
+  "mobile home": 1,
+  "Model T": 1,
+  "cicada": 1,
+  "flagpole": 1,
+  "muzzle": 1,
+  "weevil": 1
+ }
+}

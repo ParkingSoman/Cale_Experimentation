@@ -1,0 +1,4 @@
+  identity lsq     dev-5000 KL 0.0798 (se 0.0042)
+  s-weighted lsq   dev-5000 KL 0.0754 (se 0.0039)
+  Fisher step0     dev-5000 KL 0.0681 (se 0.0031)
+  share of the lsq -> Fisher gap recovered by the scalar weighting: 0.38

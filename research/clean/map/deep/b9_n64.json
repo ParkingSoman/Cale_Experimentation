@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 64,
+ "max": 3.028364419937134,
+ "min": -5.297109127044678,
+ "edits": {
+  "flip": 0.8973250389099121,
+  "rot90": 0.5379484295845032,
+  "rot180": 0.5406006574630737,
+  "gray": 0.9221644401550293,
+  "blur1": 1.0091123580932617,
+  "blur3": 0.9682122468948364,
+  "shuf2": 0.9359452724456787,
+  "shuf4": 0.7567274570465088,
+  "shuf8": 0.661043643951416,
+  "hue": 0.8864307999610901,
+  "invert": 0.4265812039375305,
+  "zoomout": 0.3718966245651245,
+  "zoomin": 0.6093418598175049
+ },
+ "top50_classes": {
+  "marmoset": 2,
+  "cassette": 2,
+  "lorikeet": 1,
+  "Madagascar cat": 1,
+  "tub": 1,
+  "slug": 1,
+  "conch": 1,
+  "velvet": 1,
+  "hair slide": 1,
+  "abaya": 1
+ },
+ "neg50_classes": {
+  "shopping basket": 2,
+  "buckle": 2,
+  "espresso maker": 1,
+  "crossword puzzle": 1,
+  "plate": 1,
+  "consomme": 1,
+  "Dutch oven": 1,
+  "dogsled": 1,
+  "cucumber": 1,
+  "king crab": 1
+ }
+}

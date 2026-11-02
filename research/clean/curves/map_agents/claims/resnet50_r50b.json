@@ -1,0 +1,8 @@
+[
+{"name":"pale-soft-coat theta=p80","units":[734,342,1435,214],"region":{"gate":{"units":[734,342,1435,214],"weights":[1,1,1,1],"theta":2.3}}},
+{"name":"pale-soft-coat theta=p90","units":[734,342,1435,214],"region":{"gate":{"units":[734,342,1435,214],"weights":[1,1,1,1],"theta":3.0}}},
+{"name":"thin-pale-lattice theta=p80","units":[1852,1994],"region":{"gate":{"units":[1852,1994],"weights":[1,1],"theta":1.36}}},
+{"name":"thin-pale-lattice theta=p90","units":[1852,1994],"region":{"gate":{"units":[1852,1994],"weights":[1,1],"theta":1.86}}},
+{"name":"flower-insect theta=p80","units":[432,911,898,617],"region":{"gate":{"units":[432,911,898,617],"weights":[1,1,1,1],"theta":4.0}}},
+{"name":"flower-insect theta=p90","units":[432,911,898,617],"region":{"gate":{"units":[432,911,898,617],"weights":[1,1,1,1],"theta":5.8}}}
+]

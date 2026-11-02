@@ -1,0 +1,37 @@
+G0 done 5 s
+G1 done 23 s
+    g2 step 0: relative residual 25519.6133, sum c 0.911
+    g2 step 500: relative residual 240.0934, sum c 0.682
+    g2 step 1000: relative residual 192.1521, sum c 0.632
+    g2 step 1500: relative residual 137.9247, sum c 0.601
+G2 done 213 s
+
+set              | 1-sum p^2 | co-firing corr vs truth | on-rate ratio (median, range)
+truth (fresh)    | 0.116     | +1.000                  | 1.00 (1.00-1.00)
+train set        | 0.015     | +1.000                  | 1.00 (0.96-1.01)
+G0 inversion     | 0.000     | +0.664                  | 0.99 (0.32-1.28)
+G1 Langevin      | 0.187     | +0.598                  | 1.00 (0.00-1.24)
+G2 stationary    | 0.069     | +0.440                  | 1.01 (0.00-1.24)
+
+I5a G2: nearest training image pixel corr: median 0.168, share > .8 0.000, share > .6 0.000
+
+P2 proxy (delete conv2 channels 16-31), KL on 5000 fresh true samples: no repair 28.1429
+Traceback (most recent call last):
+  File "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/toy/i5_run.py", line 51, in <module>
+    kl = score(fit(X, fisher)); ref[(k, fisher)] = kl
+               ^^^^^^^^^^^^^^
+  File "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/toy/i5_run.py", line 42, in fit
+    return torch.linalg.solve(A + 1e-8 * torch.trace(A) / A.shape[0] * torch.eye(A.shape[0], device=DEV), b).reshape(16, 17)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch._C._LinAlgError: torch.linalg.solve: The solver failed because the input matrix is singular.
+P2 proxy (delete conv2 channels 24-31), KL on 5000 fresh true samples: no repair 10.1990
+  lsq    write from truth (fresh)   : KL 0.0341 (se 0.0013) | paired vs truth +0.0000 (se 0.0000)
+  lsq    write from train set       : KL 0.0341 (se 0.0013) | paired vs truth +0.0000 (se 0.0001)
+  lsq    write from G0 inversion    : KL 2.1041 (se 0.0439) | paired vs truth +2.0701 (se 0.0435)
+  lsq    write from G1 Langevin     : KL 1.0759 (se 0.0279) | paired vs truth +1.0418 (se 0.0276)
+  lsq    write from G2 stationary   : KL 0.4510 (se 0.0139) | paired vs truth +0.4169 (se 0.0136)
+  Fisher write from truth (fresh)   : KL 0.0159 (se 0.0008) | paired vs truth +0.0000 (se 0.0000)
+  Fisher write from train set       : KL 0.0162 (se 0.0009) | paired vs truth +0.0003 (se 0.0009)
+  Fisher write from G0 inversion    : KL 10.1990 (se 0.1467) | paired vs truth +10.1832 (se 0.1466)
+  Fisher write from G1 Langevin     : KL 0.1599 (se 0.0058) | paired vs truth +0.1440 (se 0.0056)
+  Fisher write from G2 stationary   : KL 0.5869 (se 0.0170) | paired vs truth +0.5710 (se 0.0168)

@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 2722,
+ "max": 7.939541339874268,
+ "min": -15.982865333557129,
+ "edits": {
+  "flip": 0.9861056804656982,
+  "rot90": 0.2712007164955139,
+  "rot180": 0.581028163433075,
+  "gray": 0.5736606121063232,
+  "blur1": 0.8497471809387207,
+  "blur3": 0.2977549135684967,
+  "shuf2": 1.0368517637252808,
+  "shuf4": 0.8605340719223022,
+  "shuf8": 0.4054548740386963,
+  "hue": 0.3893823027610779,
+  "invert": 0.8936092257499695,
+  "zoomout": 0.4799036979675293,
+  "zoomin": 0.04932486265897751
+ },
+ "top50_classes": {
+  "carousel": 3,
+  "menu": 2,
+  "knot": 2,
+  "suspension bridge": 2,
+  "bullet train": 2,
+  "plate rack": 1,
+  "abaya": 1,
+  "acoustic guitar": 1,
+  "cricket": 1,
+  "comic book": 1
+ },
+ "neg50_classes": {
+  "bluetick": 2,
+  "toy poodle": 2,
+  "goldfinch": 2,
+  "tow truck": 1,
+  "bee": 1,
+  "sock": 1,
+  "frying pan": 1,
+  "crossword puzzle": 1,
+  "Airedale": 1,
+  "black widow": 1
+ }
+}

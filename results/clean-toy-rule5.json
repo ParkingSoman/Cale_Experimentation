@@ -1,0 +1,61 @@
+{
+ "own_families": {
+  "1": [
+   "638+",
+   "646-"
+  ],
+  "2": [
+   "833+",
+   "1077+",
+   "116-",
+   "50+",
+   "940-",
+   "994+",
+   "655+",
+   "168-",
+   "131+",
+   "653+",
+   "297-",
+   "865-",
+   "16+",
+   "717-",
+   "365+",
+   "184-"
+  ],
+  "3": [
+   "410+"
+  ],
+  "4": [
+   "1402+"
+  ]
+ },
+ "kl": {
+  "remove": 0.00245,
+  "dominant_hand": 0.00178,
+  "recipe_hand": 0.00161,
+  "upstream_hand": 0.00158,
+  "upstream_own": 0.00152
+ },
+ "upstream_own-dominant_hand": [
+  -0.000256,
+  -0.000498,
+  -2.79e-05
+ ],
+ "upstream_own-recipe_hand": [
+  -8.66e-05,
+  -0.000268,
+  7.39e-05
+ ],
+ "upstream_hand-recipe_hand": [
+  -2.74e-05,
+  -4.47e-05,
+  -9.7e-06
+ ],
+ "upstream_own-upstream_hand": [
+  -5.92e-05,
+  -0.000233,
+  8.92e-05
+ ],
+ "rule5": false,
+ "note": "copied from the run log (json dump failed on int32 keys); fixed in the script"
+}

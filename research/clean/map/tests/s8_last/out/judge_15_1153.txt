@@ -1,0 +1,31 @@
+target (15, 1153): on frac 0.00041 (61 spots), neg frac 0.06192
+cand  block,n      fwd   offside  rev   breadth  lift  negfwd  negoff | mean z/max at targ-on
+C1   (14, 1306)   0.11   0.07    0.01  0.0051   22.5   0.00   0.36  | +0.13
+        loose: fwd25 0.295  rev25 0.005  br25 0.025  fwd25dil 0.508  fwdpos 0.705  brpos 0.109  loose_fwd 0.226  loose_rev 0.019  tloose_br 0.002  negbr 0.320  negrev 0.000  negrev_loose 0.001  corr 0.067
+C2   (14, 1101)   0.34   0.03    0.02  0.0077   44.6   0.00   0.21  | +0.40
+        loose: fwd25 0.590  rev25 0.004  br25 0.057  fwd25dil 0.738  fwdpos 0.885  brpos 0.255  loose_fwd 0.498  loose_rev 0.018  tloose_br 0.002  negbr 0.230  negrev 0.000  negrev_loose 0.001  corr 0.012
+C3   (14, 736)    0.00   0.18    0.00  0.0014    0.0   0.00   0.37  | -0.16
+        loose: fwd25 0.049  rev25 0.002  br25 0.010  fwd25dil 0.131  fwdpos 0.295  brpos 0.077  loose_fwd 0.030  loose_rev 0.006  tloose_br 0.002  negbr 0.363  negrev 0.000  negrev_loose 0.001  corr -0.035
+C4   (14, 1411)   0.16   0.05    0.02  0.0032   50.5   0.00   0.31  | +0.23
+        loose: fwd25 0.459  rev25 0.006  br25 0.032  fwd25dil 0.557  fwdpos 0.820  brpos 0.182  loose_fwd 0.336  loose_rev 0.022  tloose_br 0.002  negbr 0.262  negrev 0.000  negrev_loose 0.001  corr 0.121
+C5   (14, 707)    0.21   0.07    0.02  0.0053   40.2   0.00   0.28  | +0.29
+        loose: fwd25 0.541  rev25 0.007  br25 0.031  fwd25dil 0.672  fwdpos 0.770  brpos 0.157  loose_fwd 0.392  loose_rev 0.025  tloose_br 0.002  negbr 0.218  negrev 0.000  negrev_loose 0.001  corr 0.132
+C6   (10, 1066)   0.15   0.10    0.01  0.0050   29.6   0.00   0.45  | +0.25
+        loose: fwd25 0.492  rev25 0.008  br25 0.027  fwd25dil 0.705  fwdpos 0.803  brpos 0.118  loose_fwd 0.419  loose_rev 0.032  tloose_br 0.002  negbr 0.390  negrev 0.000  negrev_loose 0.001  corr 0.135
+C7   (13, 647)    0.03   0.18    0.00  0.0131    2.5   0.02   0.11  | -0.07
+        loose: fwd25 0.148  rev25 0.001  br25 0.067  fwd25dil 0.525  fwdpos 0.443  brpos 0.194  loose_fwd 0.110  loose_rev 0.003  tloose_br 0.002  negbr 0.315  negrev 0.000  negrev_loose 0.002  corr -0.172
+C8   (13, 1460)   0.23   0.05    0.01  0.0080   28.7   0.00   0.28  | +0.36
+        loose: fwd25 0.607  rev25 0.005  br25 0.052  fwd25dil 0.721  fwdpos 0.852  brpos 0.208  loose_fwd 0.512  loose_rev 0.020  tloose_br 0.002  negbr 0.312  negrev 0.000  negrev_loose 0.000  corr 0.062
+C9   (10, 105)    0.00   0.26    0.00  0.0027    0.0   0.00   0.36  | -0.13
+        loose: fwd25 0.016  rev25 0.000  br25 0.019  fwd25dil 0.180  fwdpos 0.230  brpos 0.120  loose_fwd 0.027  loose_rev 0.003  tloose_br 0.002  negbr 0.394  negrev 0.000  negrev_loose 0.002  corr -0.047
+
+ablation: median fractional change of target z at its top-20 spots / at its neg-20 spots (all paths)
+C1   (14, 1306)  top drop +0.001   neg change -0.001 (positive = neg spot became less negative)
+C2   (14, 1101)  top drop +0.010   neg change -0.002 (positive = neg spot became less negative)
+C3   (14, 736)   top drop +0.000   neg change +0.000 (positive = neg spot became less negative)
+C4   (14, 1411)  top drop +0.012   neg change -0.003 (positive = neg spot became less negative)
+C5   (14, 707)   top drop +0.009   neg change -0.001 (positive = neg spot became less negative)
+C6   (10, 1066)  top drop -0.001   neg change -0.001 (positive = neg spot became less negative)
+C7   (13, 647)   top drop +0.001   neg change -0.000 (positive = neg spot became less negative)
+C8   (13, 1460)  top drop +0.026   neg change -0.002 (positive = neg spot became less negative)
+C9   (10, 105)   top drop -0.001   neg change -0.000 (positive = neg spot became less negative)

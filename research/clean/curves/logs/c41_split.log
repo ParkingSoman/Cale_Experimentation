@@ -1,0 +1,5 @@
+G skipped (0s)
+photo256: |g_fact|/|g| (M-norm) 0.181   |g_cov|/|g| 1.041   cos vs photo-8000: raw 0.938  fact -0.198  cov 0.929  (21s)
+class256: |g_fact|/|g| (M-norm) 0.478   |g_cov|/|g| 0.904   cos vs photo-8000: raw 0.313  fact -0.425  cov 0.589  (41s)
+cos(cov photo-256, cov class-256) 0.634
+done (41s)

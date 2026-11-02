@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 194,
+ "max": 7.172023773193359,
+ "min": -13.708686828613281,
+ "edits": {
+  "flip": 0.9385786056518555,
+  "rot90": 0.4291211664676666,
+  "rot180": 0.20317545533180237,
+  "gray": 0.9182926416397095,
+  "blur1": 0.8760242462158203,
+  "blur3": 0.4486536979675293,
+  "shuf2": 0.8744138479232788,
+  "shuf4": 0.5462909936904907,
+  "shuf8": 0.1833345741033554,
+  "hue": 1.0106743574142456,
+  "invert": 0.9850066900253296,
+  "zoomout": 0.3281364440917969,
+  "zoomin": 0.4133869707584381
+ },
+ "top50_classes": {
+  "bicycle-built-for-two": 2,
+  "pinwheel": 2,
+  "umbrella": 2,
+  "mosquito net": 2,
+  "mountain tent": 2,
+  "African elephant": 1,
+  "tile roof": 1,
+  "tractor": 1,
+  "orangutan": 1,
+  "vault": 1
+ },
+ "neg50_classes": {
+  "badger": 2,
+  "curly-coated retriever": 1,
+  "Brittany spaniel": 1,
+  "toucan": 1,
+  "hornbill": 1,
+  "Lakeland terrier": 1,
+  "flute": 1,
+  "gibbon": 1,
+  "Gordon setter": 1,
+  "Indian cobra": 1
+ }
+}

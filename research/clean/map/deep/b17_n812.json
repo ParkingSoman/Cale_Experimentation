@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 812,
+ "max": 10.901534080505371,
+ "min": -16.37668800354004,
+ "edits": {
+  "flip": 0.9849813580513,
+  "rot90": 0.4560154676437378,
+  "rot180": 0.34456658363342285,
+  "gray": 0.8111671209335327,
+  "blur1": 0.9272826910018921,
+  "blur3": 0.25260937213897705,
+  "shuf2": 1.0992650985717773,
+  "shuf4": 0.8698815107345581,
+  "shuf8": 0.5725176930427551,
+  "hue": 0.8585236072540283,
+  "invert": 0.9225485324859619,
+  "zoomout": 0.9113524556159973,
+  "zoomin": 0.3624328374862671
+ },
+ "top50_classes": {
+  "patio": 2,
+  "dining table": 2,
+  "hoopskirt": 2,
+  "restaurant": 2,
+  "library": 2,
+  "window shade": 2,
+  "paper towel": 2,
+  "barber chair": 2,
+  "park bench": 1,
+  "red wine": 1
+ },
+ "neg50_classes": {
+  "cocker spaniel": 1,
+  "loggerhead": 1,
+  "paintbrush": 1,
+  "vacuum": 1,
+  "rifle": 1,
+  "rugby ball": 1,
+  "digital watch": 1,
+  "harmonica": 1,
+  "Granny Smith": 1,
+  "mushroom": 1
+ }
+}

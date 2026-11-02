@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 283,
+ "max": 3.465977668762207,
+ "min": -3.3799965381622314,
+ "edits": {
+  "flip": 0.9710725545883179,
+  "rot90": 0.9632553458213806,
+  "rot180": 0.9574401378631592,
+  "gray": 1.0003461837768555,
+  "blur1": 0.9243317246437073,
+  "blur3": 0.5485758781433105,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 1.0153040885925293,
+  "hue": 1.0,
+  "invert": 0.8707873821258545,
+  "zoomout": 0.9145582914352417,
+  "zoomin": 0.9154434204101562
+ },
+ "top50_classes": {
+  "lens cap": 1,
+  "bottlecap": 1,
+  "bookshop": 1,
+  "bookcase": 1,
+  "turnstile": 1,
+  "chocolate sauce": 1,
+  "panpipe": 1,
+  "restaurant": 1,
+  "Siamese cat": 1,
+  "steel arch bridge": 1
+ },
+ "neg50_classes": {
+  "stethoscope": 2,
+  "cockroach": 2,
+  "mosquito net": 2,
+  "ping-pong ball": 2,
+  "leafhopper": 1,
+  "long-horned beetle": 1,
+  "sulphur butterfly": 1,
+  "cup": 1,
+  "neck brace": 1,
+  "zebra": 1
+ }
+}

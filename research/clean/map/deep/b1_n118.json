@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 118,
+ "max": 3.393550157546997,
+ "min": -4.778800010681152,
+ "edits": {
+  "flip": 0.9423114061355591,
+  "rot90": 0.7417250275611877,
+  "rot180": 0.7496342062950134,
+  "gray": 0.9898011088371277,
+  "blur1": 0.7862814664840698,
+  "blur3": 0.41474470496177673,
+  "shuf2": 1.0,
+  "shuf4": 0.9916538000106812,
+  "shuf8": 0.9178066849708557,
+  "hue": 0.992806077003479,
+  "invert": 0.9885909557342529,
+  "zoomout": 0.7810648679733276,
+  "zoomin": 0.8016049861907959
+ },
+ "top50_classes": {
+  "ski": 1,
+  "oxygen mask": 1,
+  "bee eater": 1,
+  "window shade": 1,
+  "solar dish": 1,
+  "fur coat": 1,
+  "partridge": 1,
+  "dragonfly": 1,
+  "aircraft carrier": 1,
+  "Kerry blue terrier": 1
+ },
+ "neg50_classes": {
+  "panpipe": 2,
+  "water tower": 2,
+  "toilet tissue": 1,
+  "wallaby": 1,
+  "Afghan hound": 1,
+  "crane2": 1,
+  "bolo tie": 1,
+  "ringlet": 1,
+  "stove": 1,
+  "binoculars": 1
+ }
+}

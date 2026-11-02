@@ -1,0 +1,15 @@
+(a) real           LSE mean   55.41 sd 17.94 | max-logit  55.29 | 1-sum p^2 0.122
+(a) shuffled real  LSE mean   25.83 sd  3.65 | max-logit  25.63 | 1-sum p^2 0.230
+(a) uniform noise  LSE mean   17.56 sd  0.80 | max-logit  17.06 | 1-sum p^2 0.524
+(a) self-made (E)  LSE mean  491.30 sd 118.60 | max-logit 491.29 | 1-sum p^2 0.005
+Traceback (most recent call last):
+  File "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/i4_prior.py", line 23, in <module>
+    x = prep(R[:64]); P = F.unfold(x, 7, stride=4).transpose(1, 2).reshape(-1, 147).double().cpu()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Cannot convert a MPS Tensor to float64 dtype as the MPS framework doesn't support float64. Please use float32 instead.
+(b) conv1 energy vs patch eigenvalue: log-log slope -0.043, Spearman +0.204 (147 directions)
+    energy share of top 10 / top 50 eigen-directions: 0.074 / 0.437 (uniform would be 0.068 / 0.340)
+    cos(K^T K, C^-1.0) = 0.129
+    cos(K^T K, C^-0.5) = 0.159
+    cos(K^T K, C^+0.0) = 0.302
+    cos(K^T K, C^+0.5) = 0.076

@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 550,
+ "max": 8.746077537536621,
+ "min": -9.433394432067871,
+ "edits": {
+  "flip": 0.9843637347221375,
+  "rot90": 0.238652765750885,
+  "rot180": 0.33333632349967957,
+  "gray": 0.9701240062713623,
+  "blur1": 0.9776061773300171,
+  "blur3": 0.7173052430152893,
+  "shuf2": 0.9540777802467346,
+  "shuf4": 0.8390888571739197,
+  "shuf8": 0.6945095062255859,
+  "hue": 1.0241910219192505,
+  "invert": 0.9902487993240356,
+  "zoomout": 0.7143406271934509,
+  "zoomin": 0.5612531900405884
+ },
+ "top50_classes": {
+  "moving van": 3,
+  "tow truck": 3,
+  "minibus": 3,
+  "trolleybus": 3,
+  "ambulance": 2,
+  "cab": 2,
+  "golfcart": 2,
+  "pickup": 2,
+  "jeep": 2,
+  "go-kart": 2
+ },
+ "neg50_classes": {
+  "analog clock": 3,
+  "tarantula": 2,
+  "black and gold garden spider": 1,
+  "quail": 1,
+  "wild boar": 1,
+  "microwave": 1,
+  "bee eater": 1,
+  "sulphur-crested cockatoo": 1,
+  "beaver": 1,
+  "peacock": 1
+ }
+}

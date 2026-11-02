@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2558,
+ "max": 12.533534049987793,
+ "min": -18.932586669921875,
+ "edits": {
+  "flip": 0.9729820489883423,
+  "rot90": 0.371016263961792,
+  "rot180": 0.0177203007042408,
+  "gray": 0.9318307042121887,
+  "blur1": 0.9187557697296143,
+  "blur3": 0.36853811144828796,
+  "shuf2": 1.0047900676727295,
+  "shuf4": 0.8932297825813293,
+  "shuf8": 0.010493883863091469,
+  "hue": 1.0320587158203125,
+  "invert": 0.8622991442680359,
+  "zoomout": 0.4970473647117615,
+  "zoomin": 0.35784709453582764
+ },
+ "top50_classes": {
+  "beach wagon": 3,
+  "police van": 3,
+  "limousine": 3,
+  "minivan": 3,
+  "minibus": 2,
+  "cab": 2,
+  "ambulance": 2,
+  "seat belt": 2,
+  "oxygen mask": 1,
+  "shield": 1
+ },
+ "neg50_classes": {
+  "ringneck snake": 2,
+  "guenon": 2,
+  "gorilla": 1,
+  "hornbill": 1,
+  "hare": 1,
+  "balloon": 1,
+  "quail": 1,
+  "sulphur butterfly": 1,
+  "ptarmigan": 1,
+  "monarch": 1
+ }
+}

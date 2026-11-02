@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 1479,
+ "max": 12.393179893493652,
+ "min": -11.334430694580078,
+ "edits": {
+  "flip": 0.9906628131866455,
+  "rot90": 0.43134409189224243,
+  "rot180": 0.5447413921356201,
+  "gray": 0.8974827527999878,
+  "blur1": 0.9409639239311218,
+  "blur3": 0.33078914880752563,
+  "shuf2": 0.7847257852554321,
+  "shuf4": 0.551303505897522,
+  "shuf8": 0.09307929873466492,
+  "hue": 0.8190332651138306,
+  "invert": 0.948567271232605,
+  "zoomout": 0.6475188136100769,
+  "zoomin": 0.6501823663711548
+ },
+ "top50_classes": {
+  "neck brace": 2,
+  "cornet": 2,
+  "tick": 2,
+  "Afghan hound": 2,
+  "bolo tie": 2,
+  "American lobster": 2,
+  "milk can": 1,
+  "horizontal bar": 1,
+  "trombone": 1,
+  "bloodhound": 1
+ },
+ "neg50_classes": {
+  "banjo": 2,
+  "cello": 2,
+  "sax": 2,
+  "flute": 2,
+  "suit": 2,
+  "trifle": 1,
+  "slide rule": 1,
+  "folding chair": 1,
+  "mountain bike": 1,
+  "shower cap": 1
+ }
+}

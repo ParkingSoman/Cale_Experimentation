@@ -1,0 +1,9 @@
+2 70m {'has_parent': 0.17610677083333334, 'split_share': 0.06380208333333333, 'kids_per_parent_mean': 1.2973621103117505, 'parents_used': 417, 'best_cov_median': 0.30000001192092896, 'parent_layer_counts': [251, 162, 60, 49, 14, 5, 0, 0, 0, 0, 0, 0]}
+2 seed1 {'has_parent': 0.15625, 'split_share': 0.061197916666666664, 'kids_per_parent_mean': 1.3407821229050279, 'parents_used': 358, 'best_cov_median': 0.30000001192092896, 'parent_layer_counts': [183, 86, 83, 50, 15, 16, 27, 11, 5, 2, 1, 1]}
+2 pass False
+5 70m {'has_parent': 0.12565104166666666, 'split_share': 0.050455729166666664, 'kids_per_parent_mean': 1.3402777777777777, 'parents_used': 288, 'best_cov_median': 0.2800000011920929, 'parent_layer_counts': [114, 38, 53, 88, 74, 19, 0, 0, 0, 0, 0, 0]}
+5 seed1 {'has_parent': 0.13671875, 'split_share': 0.05078125, 'kids_per_parent_mean': 1.2962962962962963, 'parents_used': 324, 'best_cov_median': 0.2800000011920929, 'parent_layer_counts': [76, 23, 22, 44, 53, 74, 44, 22, 26, 18, 8, 10]}
+5 pass False
+8 70m {'has_parent': 0.142578125, 'split_share': 0.059244791666666664, 'kids_per_parent_mean': 1.319277108433735, 'parents_used': 332, 'best_cov_median': 0.30000001192092896, 'parent_layer_counts': [82, 18, 20, 77, 170, 71, 0, 0, 0, 0, 0, 0]}
+8 seed1 {'has_parent': 0.16243489583333334, 'split_share': 0.06640625, 'kids_per_parent_mean': 1.313157894736842, 'parents_used': 380, 'best_cov_median': 0.30000001192092896, 'parent_layer_counts': [52, 7, 7, 13, 11, 22, 43, 60, 92, 88, 70, 34]}
+8 pass False

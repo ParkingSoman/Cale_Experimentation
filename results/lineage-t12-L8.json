@@ -1,0 +1,157 @@
+{
+ "layer": 8,
+ "rows": [
+  {
+   "rev": "main",
+   "step": 143000,
+   "core_ident_median": 1.0,
+   "core_ident_q25_q75": [
+    1.0,
+    1.0
+   ],
+   "self_ancestor_share": 0.9996744791666666,
+   "has_parent": 1.0,
+   "split_share": 0.0006510416666666666,
+   "kids_per_parent_mean": 1.000325626831651,
+   "parents_used": 3071,
+   "best_cov_median": 1.0
+  },
+  {
+   "rev": "step0",
+   "step": 0,
+   "core_ident_median": 0.0,
+   "core_ident_q25_q75": [
+    0.0,
+    0.0
+   ],
+   "self_ancestor_share": 0.0,
+   "has_parent": 0.030598958333333332,
+   "split_share": 0.018880208333333332,
+   "kids_per_parent_mean": 1.7407407407407407,
+   "parents_used": 54,
+   "best_cov_median": 0.1599999964237213
+  },
+  {
+   "rev": "step512",
+   "step": 512,
+   "core_ident_median": 0.0,
+   "core_ident_q25_q75": [
+    0.0,
+    0.019999999552965164
+   ],
+   "self_ancestor_share": 0.0006510416666666666,
+   "has_parent": 0.037760416666666664,
+   "split_share": 0.019856770833333332,
+   "kids_per_parent_mean": 1.5675675675675675,
+   "parents_used": 74,
+   "best_cov_median": 0.20000000298023224
+  },
+  {
+   "rev": "step1000",
+   "step": 1000,
+   "core_ident_median": 0.019999999552965164,
+   "core_ident_q25_q75": [
+    0.0,
+    0.03999999910593033
+   ],
+   "self_ancestor_share": 0.0029296875,
+   "has_parent": 0.033528645833333336,
+   "split_share": 0.0166015625,
+   "kids_per_parent_mean": 1.4714285714285715,
+   "parents_used": 70,
+   "best_cov_median": 0.20000000298023224
+  },
+  {
+   "rev": "step2000",
+   "step": 2000,
+   "core_ident_median": 0.03999999910593033,
+   "core_ident_q25_q75": [
+    0.0,
+    0.07999999821186066
+   ],
+   "self_ancestor_share": 0.015950520833333332,
+   "has_parent": 0.046875,
+   "split_share": 0.0224609375,
+   "kids_per_parent_mean": 1.44,
+   "parents_used": 100,
+   "best_cov_median": 0.2199999988079071
+  },
+  {
+   "rev": "step4000",
+   "step": 4000,
+   "core_ident_median": 0.05999999865889549,
+   "core_ident_q25_q75": [
+    0.019999999552965164,
+    0.11999999731779099
+   ],
+   "self_ancestor_share": 0.054036458333333336,
+   "has_parent": 0.0908203125,
+   "split_share": 0.032877604166666664,
+   "kids_per_parent_mean": 1.268181818181818,
+   "parents_used": 220,
+   "best_cov_median": 0.25999999046325684
+  },
+  {
+   "rev": "step8000",
+   "step": 8000,
+   "core_ident_median": 0.11999999731779099,
+   "core_ident_q25_q75": [
+    0.05999999865889549,
+    0.20000000298023224
+   ],
+   "self_ancestor_share": 0.14876302083333334,
+   "has_parent": 0.18229166666666666,
+   "split_share": 0.033854166666666664,
+   "kids_per_parent_mean": 1.1382113821138211,
+   "parents_used": 492,
+   "best_cov_median": 0.3199999928474426
+  },
+  {
+   "rev": "step16000",
+   "step": 16000,
+   "core_ident_median": 0.18000000715255737,
+   "core_ident_q25_q75": [
+    0.10000000149011612,
+    0.2800000011920929
+   ],
+   "self_ancestor_share": 0.3098958333333333,
+   "has_parent": 0.34375,
+   "split_share": 0.0400390625,
+   "kids_per_parent_mean": 1.0797546012269938,
+   "parents_used": 978,
+   "best_cov_median": 0.41999998688697815
+  },
+  {
+   "rev": "step32000",
+   "step": 32000,
+   "core_ident_median": 0.25999999046325684,
+   "core_ident_q25_q75": [
+    0.18000000715255737,
+    0.3799999952316284
+   ],
+   "self_ancestor_share": 0.5904947916666666,
+   "has_parent": 0.6165364583333334,
+   "split_share": 0.032877604166666664,
+   "kids_per_parent_mean": 1.036105032822757,
+   "parents_used": 1828,
+   "best_cov_median": 0.5400000214576721
+  },
+  {
+   "rev": "step64000",
+   "step": 64000,
+   "core_ident_median": 0.41999998688697815,
+   "core_ident_q25_q75": [
+    0.3199999928474426,
+    0.5400000214576721
+   ],
+   "self_ancestor_share": 0.9309895833333334,
+   "has_parent": 0.9407552083333334,
+   "split_share": 0.014973958333333334,
+   "kids_per_parent_mean": 1.0094306671323787,
+   "parents_used": 2863,
+   "best_cov_median": 0.7599999904632568
+  }
+ ],
+ "T1_pass": false,
+ "T2_pass": false
+}

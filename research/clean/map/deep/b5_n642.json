@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 642,
+ "max": 4.332417011260986,
+ "min": -5.34186315536499,
+ "edits": {
+  "flip": 0.9480082988739014,
+  "rot90": 0.5306680202484131,
+  "rot180": 0.5586329698562622,
+  "gray": 0.8427261114120483,
+  "blur1": 0.4766388535499573,
+  "blur3": 0.39187657833099365,
+  "shuf2": 0.999626874923706,
+  "shuf4": 1.0184252262115479,
+  "shuf8": 1.0610265731811523,
+  "hue": 0.9788116216659546,
+  "invert": 0.8509207367897034,
+  "zoomout": 0.8572674989700317,
+  "zoomin": 0.34527209401130676
+ },
+ "top50_classes": {
+  "web site": 2,
+  "ice cream": 2,
+  "motor scooter": 2,
+  "ladle": 1,
+  "pineapple": 1,
+  "packet": 1,
+  "bluetick": 1,
+  "hard disc": 1,
+  "pajama": 1,
+  "schipperke": 1
+ },
+ "neg50_classes": {
+  "Chesapeake Bay retriever": 2,
+  "ladle": 1,
+  "ice bear": 1,
+  "dough": 1,
+  "unicycle": 1,
+  "bobsled": 1,
+  "boathouse": 1,
+  "wire-haired fox terrier": 1,
+  "brain coral": 1,
+  "rocking chair": 1
+ }
+}

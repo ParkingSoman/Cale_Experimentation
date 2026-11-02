@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 52,
+ "max": 15.080782890319824,
+ "min": -15.724801063537598,
+ "edits": {
+  "flip": 0.9979758262634277,
+  "rot90": 0.9643294811248779,
+  "rot180": 0.9050899744033813,
+  "gray": 0.09168821573257446,
+  "blur1": 1.000359058380127,
+  "blur3": 1.000969409942627,
+  "shuf2": 1.0086827278137207,
+  "shuf4": 0.9937381744384766,
+  "shuf8": 1.0334396362304688,
+  "hue": 0.5279914140701294,
+  "invert": 0.6787796020507812,
+  "zoomout": 0.9503861665725708,
+  "zoomin": 0.979843258857727
+ },
+ "top50_classes": {
+  "tennis ball": 3,
+  "leafhopper": 2,
+  "bee": 1,
+  "harvestman": 1,
+  "sock": 1,
+  "yawl": 1,
+  "soap dispenser": 1,
+  "monitor": 1,
+  "mantis": 1,
+  "cockroach": 1
+ },
+ "neg50_classes": {
+  "feather boa": 2,
+  "lorikeet": 2,
+  "speedboat": 1,
+  "crib": 1,
+  "desktop computer": 1,
+  "jellyfish": 1,
+  "redbone": 1,
+  "ice bear": 1,
+  "strawberry": 1,
+  "maypole": 1
+ }
+}

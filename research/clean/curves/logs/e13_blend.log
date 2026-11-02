@@ -1,0 +1,3 @@
+real unsure    : 1-sum p^2 0.410 | family mean 41.8 | coarse units [122.9 118.3 125.1] | LSE 41.9
+blend at 50/50 : 1-sum p^2 0.377 | family mean 26.9 | coarse units [61.9 87.5 75.3] | LSE 85.8
+member co-firing blend vs real unsure: +0.897; alpha median 0.50; pixel sd 31.5

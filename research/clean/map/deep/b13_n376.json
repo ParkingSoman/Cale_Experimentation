@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 376,
+ "max": 5.455005168914795,
+ "min": -6.872409343719482,
+ "edits": {
+  "flip": 0.9889495968818665,
+  "rot90": 0.5260661840438843,
+  "rot180": 0.6592382192611694,
+  "gray": 0.8919028639793396,
+  "blur1": 0.8842793703079224,
+  "blur3": 0.6069064140319824,
+  "shuf2": 0.9277999401092529,
+  "shuf4": 0.7750451564788818,
+  "shuf8": 0.529889702796936,
+  "hue": 0.8660304546356201,
+  "invert": 0.9454442262649536,
+  "zoomout": 0.7168152332305908,
+  "zoomin": 0.5679851174354553
+ },
+ "top50_classes": {
+  "Newfoundland": 2,
+  "Norwegian elkhound": 2,
+  "cardigan": 2,
+  "hatchet": 1,
+  "king penguin": 1,
+  "Loafer": 1,
+  "lawn mower": 1,
+  "triumphal arch": 1,
+  "horse cart": 1,
+  "unicycle": 1
+ },
+ "neg50_classes": {
+  "jacamar": 2,
+  "vizsla": 2,
+  "toilet tissue": 1,
+  "miniature schnauzer": 1,
+  "Appenzeller": 1,
+  "revolver": 1,
+  "rubber eraser": 1,
+  "Irish setter": 1,
+  "Labrador retriever": 1,
+  "screw": 1
+ }
+}

@@ -1,0 +1,10 @@
+reader modes K=  5: S 0.0162  S+rem/S 1.119  T/S 1.111  4d/S 1.059
+reader modes K= 10: S 0.0164  S+rem/S 1.162  T/S 1.147  4d/S 1.074
+reader modes K= 20: S 0.0164  S+rem/S 1.282  T/S 1.267  4d/S 1.087
+reader modes K= 40: S 0.0177  S+rem/S 1.163  T/S 1.152  4d/S 1.051
+reader modes K= 80: S 0.0256  S+rem/S 1.078  T/S 1.090  4d/S 1.060
+activity modes K=  5: S 0.0159  S+rem/S 1.127  T/S 1.112  4d/S 1.058
+activity modes K= 10: S 0.0160  S+rem/S 1.124  T/S 1.118  4d/S 1.062
+activity modes K= 20: S 0.0160  S+rem/S 1.131  T/S 1.124  4d/S 1.059
+activity modes K= 40: S 0.0168  S+rem/S 1.240  T/S 1.206  4d/S 1.081
+activity modes K= 80: S 0.0176  S+rem/S 1.206  T/S 1.199  4d/S 1.065

@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 236,
+ "max": 3.5222840309143066,
+ "min": -3.39648175239563,
+ "edits": {
+  "flip": 0.982586681842804,
+  "rot90": 0.9992483854293823,
+  "rot180": 0.9982931613922119,
+  "gray": 1.0167580842971802,
+  "blur1": 0.9991856217384338,
+  "blur3": 0.9932869672775269,
+  "shuf2": 0.9356646537780762,
+  "shuf4": 0.8597034811973572,
+  "shuf8": 0.7034701704978943,
+  "hue": 0.9738057851791382,
+  "invert": 0.9528973698616028,
+  "zoomout": 0.981167733669281,
+  "zoomin": 0.8260083198547363
+ },
+ "top50_classes": {
+  "scorpion": 2,
+  "bobsled": 1,
+  "African grey": 1,
+  "wing": 1,
+  "wool": 1,
+  "modem": 1,
+  "apron": 1,
+  "mortar": 1,
+  "black and gold garden spider": 1,
+  "ice cream": 1
+ },
+ "neg50_classes": {
+  "black and gold garden spider": 2,
+  "whistle": 1,
+  "bassoon": 1,
+  "king penguin": 1,
+  "fire engine": 1,
+  "Bedlington terrier": 1,
+  "toucan": 1,
+  "drake": 1,
+  "academic gown": 1,
+  "stethoscope": 1
+ }
+}

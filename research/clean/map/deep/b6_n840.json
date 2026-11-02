@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 840,
+ "max": 2.9031834602355957,
+ "min": -2.5545506477355957,
+ "edits": {
+  "flip": 0.9318897724151611,
+  "rot90": 0.7669559717178345,
+  "rot180": 0.9072835445404053,
+  "gray": 0.8376469612121582,
+  "blur1": 0.9953969717025757,
+  "blur3": 1.02736234664917,
+  "shuf2": 0.8716112375259399,
+  "shuf4": 0.8327958583831787,
+  "shuf8": 0.7897809743881226,
+  "hue": 0.9698271155357361,
+  "invert": 0.9275164604187012,
+  "zoomout": 0.718738317489624,
+  "zoomin": 0.8474855422973633
+ },
+ "top50_classes": {
+  "pineapple": 1,
+  "bullfrog": 1,
+  "tailed frog": 1,
+  "bow tie": 1,
+  "meat loaf": 1,
+  "papillon": 1,
+  "dam": 1,
+  "bobsled": 1,
+  "Windsor tie": 1,
+  "fig": 1
+ },
+ "neg50_classes": {
+  "hay": 2,
+  "frying pan": 1,
+  "balloon": 1,
+  "yurt": 1,
+  "cairn": 1,
+  "forklift": 1,
+  "Boston bull": 1,
+  "dung beetle": 1,
+  "night snake": 1,
+  "black stork": 1
+ }
+}

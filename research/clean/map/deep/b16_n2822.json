@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2822,
+ "max": 6.695944309234619,
+ "min": -17.95185661315918,
+ "edits": {
+  "flip": 1.0036906003952026,
+  "rot90": 0.5452534556388855,
+  "rot180": 0.7057293653488159,
+  "gray": 1.0,
+  "blur1": 0.9014366865158081,
+  "blur3": 0.11341920495033264,
+  "shuf2": 1.080856204032898,
+  "shuf4": 0.7219209671020508,
+  "shuf8": 0.06830455362796783,
+  "hue": 1.0,
+  "invert": 0.9444612860679626,
+  "zoomout": 0.49063634872436523,
+  "zoomin": 0.1301092505455017
+ },
+ "top50_classes": {
+  "washbasin": 2,
+  "bathtub": 2,
+  "bull mastiff": 1,
+  "bell pepper": 1,
+  "African chameleon": 1,
+  "orange": 1,
+  "beaver": 1,
+  "fig": 1,
+  "bikini": 1,
+  "harmonica": 1
+ },
+ "neg50_classes": {
+  "goldfinch": 2,
+  "redshank": 1,
+  "cricket": 1,
+  "violin": 1,
+  "puffer": 1,
+  "frilled lizard": 1,
+  "borzoi": 1,
+  "Sussex spaniel": 1,
+  "academic gown": 1,
+  "steel drum": 1
+ }
+}

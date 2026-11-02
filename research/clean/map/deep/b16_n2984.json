@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2984,
+ "max": 9.823051452636719,
+ "min": -9.79925537109375,
+ "edits": {
+  "flip": 0.9889878034591675,
+  "rot90": 0.8904001712799072,
+  "rot180": 0.8901516199111938,
+  "gray": 0.9578437805175781,
+  "blur1": 0.9653604626655579,
+  "blur3": 0.6934297680854797,
+  "shuf2": 0.771316647529602,
+  "shuf4": 0.6910573244094849,
+  "shuf8": 0.6198467016220093,
+  "hue": 0.9378476142883301,
+  "invert": 0.9739593267440796,
+  "zoomout": 0.6051616668701172,
+  "zoomin": 0.8172281980514526
+ },
+ "top50_classes": {
+  "barracouta": 2,
+  "silky terrier": 1,
+  "night snake": 1,
+  "balloon": 1,
+  "yawl": 1,
+  "barbell": 1,
+  "crossword puzzle": 1,
+  "mousetrap": 1,
+  "sea snake": 1,
+  "Indian cobra": 1
+ },
+ "neg50_classes": {
+  "lens cap": 2,
+  "sturgeon": 2,
+  "cornet": 2,
+  "Norwegian elkhound": 2,
+  "Norfolk terrier": 2,
+  "Afghan hound": 1,
+  "Staffordshire bullterrier": 1,
+  "pedestal": 1,
+  "flute": 1,
+  "lynx": 1
+ }
+}

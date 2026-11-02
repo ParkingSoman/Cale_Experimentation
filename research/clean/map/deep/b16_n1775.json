@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 1775,
+ "max": 6.880244731903076,
+ "min": -14.682958602905273,
+ "edits": {
+  "flip": 0.97998046875,
+  "rot90": 0.7366650700569153,
+  "rot180": 0.651089072227478,
+  "gray": 0.7150928974151611,
+  "blur1": 0.6426630020141602,
+  "blur3": 0.18297350406646729,
+  "shuf2": 0.7719441056251526,
+  "shuf4": 0.50742506980896,
+  "shuf8": -0.017903488129377365,
+  "hue": 0.8685153722763062,
+  "invert": 0.8069173693656921,
+  "zoomout": -0.08638794720172882,
+  "zoomin": 0.506777286529541
+ },
+ "top50_classes": {
+  "slug": 3,
+  "swab": 2,
+  "basset": 2,
+  "whippet": 1,
+  "pencil sharpener": 1,
+  "Windsor tie": 1,
+  "kelpie": 1,
+  "window shade": 1,
+  "umbrella": 1,
+  "holster": 1
+ },
+ "neg50_classes": {
+  "soft-coated wheaten terrier": 2,
+  "pretzel": 1,
+  "yurt": 1,
+  "Lakeland terrier": 1,
+  "flute": 1,
+  "Australian terrier": 1,
+  "Dandie Dinmont": 1,
+  "guacamole": 1,
+  "limpkin": 1,
+  "jean": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 59,
+ "max": 5.5825934410095215,
+ "min": -7.765951633453369,
+ "edits": {
+  "flip": 0.9389215111732483,
+  "rot90": 0.908882737159729,
+  "rot180": 0.9059748649597168,
+  "gray": 0.6389321088790894,
+  "blur1": 0.9479665756225586,
+  "blur3": 0.5805351734161377,
+  "shuf2": 0.9983830451965332,
+  "shuf4": 0.8861145973205566,
+  "shuf8": 0.9283359050750732,
+  "hue": 0.7676570415496826,
+  "invert": 0.9221118092536926,
+  "zoomout": 0.7908216714859009,
+  "zoomin": 0.6786609888076782
+ },
+ "top50_classes": {
+  "cabbage butterfly": 2,
+  "EntleBucher": 2,
+  "goldfinch": 2,
+  "slug": 2,
+  "vine snake": 1,
+  "gar": 1,
+  "jacamar": 1,
+  "wig": 1,
+  "quail": 1,
+  "frying pan": 1
+ },
+ "neg50_classes": {
+  "fire engine": 1,
+  "hourglass": 1,
+  "reflex camera": 1,
+  "bookcase": 1,
+  "remote control": 1,
+  "binoculars": 1,
+  "altar": 1,
+  "dial telephone": 1,
+  "stopwatch": 1,
+  "rule": 1
+ }
+}

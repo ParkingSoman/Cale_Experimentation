@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 2426,
+ "max": 27.337223052978516,
+ "min": -17.964147567749023,
+ "edits": {
+  "flip": 0.9954940676689148,
+  "rot90": 0.4790186882019043,
+  "rot180": 0.663371741771698,
+  "gray": 0.1649477183818817,
+  "blur1": 0.9283021092414856,
+  "blur3": 0.3757741451263428,
+  "shuf2": 0.971686840057373,
+  "shuf4": 0.6124905943870544,
+  "shuf8": 0.3257175385951996,
+  "hue": 0.22486662864685059,
+  "invert": 0.8975326418876648,
+  "zoomout": 0.3894192576408386,
+  "zoomin": 0.20245811343193054
+ },
+ "top50_classes": {
+  "tennis ball": 3,
+  "safety pin": 1,
+  "plate": 1,
+  "television": 1,
+  "rock python": 1,
+  "vine snake": 1,
+  "Chesapeake Bay retriever": 1,
+  "beacon": 1,
+  "dishrag": 1,
+  "Australian terrier": 1
+ },
+ "neg50_classes": {
+  "mink": 1,
+  "maraca": 1,
+  "crutch": 1,
+  "cuirass": 1,
+  "rifle": 1,
+  "guinea pig": 1,
+  "whiptail": 1,
+  "frilled lizard": 1,
+  "Sussex spaniel": 1,
+  "fox squirrel": 1
+ }
+}

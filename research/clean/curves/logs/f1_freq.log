@@ -1,0 +1,14 @@
+  x = torch.from_numpy(np.ascontiguousarray(xb)).to(DEV).permute(0, 3, 1, 2).float()
+F1  layer | neurons | Spearman on-rate | Spearman mean act | on-rate ratio self/real: median (IQR) | share within x2
+    3a   |  256 | +0.594 | +0.494 | 1.02 (0.85-1.17) | 0.91
+    3b   |  480 | +0.454 | +0.223 | 1.20 (0.87-1.61) | 0.82
+    4a   |  508 | +0.527 | +0.349 | 1.12 (0.90-1.44) | 0.83
+    4d   |  528 | +0.526 | +0.229 | 1.24 (0.91-1.66) | 0.82
+    5b   | 1024 | +0.325 | +0.234 | 1.52 (1.24-1.90) | 0.78
+F2  3b co-firing (480 x 480, 114960 pairs): Pearson +0.780, Spearman +0.742
+ceiling layer | split-half Spearman self | real | ceiling sqrt(rel_s rel_r) (Spearman-Brown to 256) | observed | observed / ceiling
+        3a   | +0.997 | +0.937 | 0.983 | +0.594 | 0.60
+        3b   | +0.992 | +0.904 | 0.973 | +0.454 | 0.47
+        4a   | +0.972 | +0.844 | 0.950 | +0.527 | 0.55
+        4d   | +0.861 | +0.775 | 0.899 | +0.526 | 0.59
+        5b   | +0.550 | +0.517 | 0.696 | +0.325 | 0.47

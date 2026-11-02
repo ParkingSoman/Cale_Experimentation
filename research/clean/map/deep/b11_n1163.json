@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 1163,
+ "max": 3.4885706901550293,
+ "min": -5.432689189910889,
+ "edits": {
+  "flip": 0.6772949695587158,
+  "rot90": 0.6428415775299072,
+  "rot180": 0.7220891118049622,
+  "gray": 0.8768942356109619,
+  "blur1": 0.8978509902954102,
+  "blur3": 0.7125051021575928,
+  "shuf2": 0.8045188784599304,
+  "shuf4": 0.6385058760643005,
+  "shuf8": 0.5142143964767456,
+  "hue": 0.937036395072937,
+  "invert": 0.8110719323158264,
+  "zoomout": 0.5465880632400513,
+  "zoomin": 0.6543067097663879
+ },
+ "top50_classes": {
+  "miniature schnauzer": 2,
+  "measuring cup": 2,
+  "dung beetle": 1,
+  "Staffordshire bullterrier": 1,
+  "banjo": 1,
+  "muzzle": 1,
+  "barrow": 1,
+  "feather boa": 1,
+  "Indian cobra": 1,
+  "oboe": 1
+ },
+ "neg50_classes": {
+  "aircraft carrier": 2,
+  "file": 1,
+  "weevil": 1,
+  "garden spider": 1,
+  "dogsled": 1,
+  "home theater": 1,
+  "snowmobile": 1,
+  "scorpion": 1,
+  "chiton": 1,
+  "mosque": 1
+ }
+}

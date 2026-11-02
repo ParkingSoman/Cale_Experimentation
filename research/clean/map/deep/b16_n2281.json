@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2281,
+ "max": 7.653486728668213,
+ "min": -16.060001373291016,
+ "edits": {
+  "flip": 1.0038042068481445,
+  "rot90": 0.733712375164032,
+  "rot180": 0.8629688024520874,
+  "gray": 1.1150761842727661,
+  "blur1": 0.9620161056518555,
+  "blur3": 0.39280372858047485,
+  "shuf2": 1.1360684633255005,
+  "shuf4": 0.8533731698989868,
+  "shuf8": 0.7625425457954407,
+  "hue": 1.0772128105163574,
+  "invert": 1.0296359062194824,
+  "zoomout": 0.7546906471252441,
+  "zoomin": 0.6347942352294922
+ },
+ "top50_classes": {
+  "Irish setter": 3,
+  "English setter": 3,
+  "golden retriever": 3,
+  "English springer": 2,
+  "flat-coated retriever": 2,
+  "clumber": 2,
+  "borzoi": 2,
+  "curly-coated retriever": 2,
+  "Gordon setter": 2,
+  "papillon": 2
+ },
+ "neg50_classes": {
+  "komondor": 2,
+  "harvestman": 2,
+  "chain": 1,
+  "shield": 1,
+  "dragonfly": 1,
+  "wolf spider": 1,
+  "black widow": 1,
+  "cairn": 1,
+  "standard schnauzer": 1,
+  "ice lolly": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 7,
+ "neuron": 984,
+ "max": 4.121278762817383,
+ "min": -7.116252899169922,
+ "edits": {
+  "flip": 0.5941450595855713,
+  "rot90": 0.5739449262619019,
+  "rot180": 0.652313232421875,
+  "gray": 1.038374900817871,
+  "blur1": 0.6603794693946838,
+  "blur3": 0.21289238333702087,
+  "shuf2": 0.9708027839660645,
+  "shuf4": 0.7036126852035522,
+  "shuf8": 0.7641590237617493,
+  "hue": 0.9584652781486511,
+  "invert": 0.9360495209693909,
+  "zoomout": 0.492843896150589,
+  "zoomin": 0.4401587247848511
+ },
+ "top50_classes": {
+  "convertible": 2,
+  "boathouse": 1,
+  "modem": 1,
+  "abaya": 1,
+  "gown": 1,
+  "accordion": 1,
+  "acoustic guitar": 1,
+  "Kerry blue terrier": 1,
+  "cockroach": 1,
+  "isopod": 1
+ },
+ "neg50_classes": {
+  "jackfruit": 2,
+  "Eskimo dog": 1,
+  "hognose snake": 1,
+  "horned viper": 1,
+  "ice lolly": 1,
+  "Indian cobra": 1,
+  "rock python": 1,
+  "garter snake": 1,
+  "king snake": 1,
+  "dishrag": 1
+ }
+}

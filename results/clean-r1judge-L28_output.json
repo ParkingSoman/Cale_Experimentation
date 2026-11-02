@@ -1,0 +1,23 @@
+{
+ "stem": "L28_output",
+ "detection_accuracy_mean": 0.8500000000000001,
+ "detection_per_parent": [
+  0.8,
+  0.8,
+  1.0,
+  1.0,
+  0.4,
+  1.0,
+  0.8,
+  1.0
+ ],
+ "judge_right": 8,
+ "judge_n": 8,
+ "judge_right_confidence_mean": 3.75,
+ "share_coherent": {
+  "parent": 0.125,
+  "child": 0.5384615384615384,
+  "decoy": 0.2413793103448276
+ },
+ "judge_p_value": 0.00390625
+}

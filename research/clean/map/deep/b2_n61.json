@@ -1,0 +1,45 @@
+{
+ "block": 2,
+ "neuron": 61,
+ "max": 3.0997934341430664,
+ "min": -3.4078149795532227,
+ "edits": {
+  "flip": 0.9958761930465698,
+  "rot90": 0.8898422122001648,
+  "rot180": 0.9125840663909912,
+  "gray": 0.7174635529518127,
+  "blur1": 0.9970754384994507,
+  "blur3": 0.9808676838874817,
+  "shuf2": 0.9793997406959534,
+  "shuf4": 0.9822700619697571,
+  "shuf8": 0.9252177476882935,
+  "hue": 0.950397253036499,
+  "invert": 0.9548720121383667,
+  "zoomout": 0.9265192747116089,
+  "zoomin": 0.7759310007095337
+ },
+ "top50_classes": {
+  "cleaver": 1,
+  "window screen": 1,
+  "upright": 1,
+  "half track": 1,
+  "barracouta": 1,
+  "gong": 1,
+  "gondola": 1,
+  "hummingbird": 1,
+  "abacus": 1,
+  "whistle": 1
+ },
+ "neg50_classes": {
+  "radio": 2,
+  "minivan": 2,
+  "web site": 2,
+  "notebook": 1,
+  "screen": 1,
+  "modem": 1,
+  "neck brace": 1,
+  "bobsled": 1,
+  "hard disc": 1,
+  "park bench": 1
+ }
+}

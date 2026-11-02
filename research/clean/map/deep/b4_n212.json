@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 212,
+ "max": 4.305775165557861,
+ "min": -4.638586521148682,
+ "edits": {
+  "flip": 0.7720474004745483,
+  "rot90": 0.7295135259628296,
+  "rot180": 0.9325017929077148,
+  "gray": 0.999396562576294,
+  "blur1": 0.9580536484718323,
+  "blur3": 0.6514648795127869,
+  "shuf2": 0.9978910684585571,
+  "shuf4": 0.9844030141830444,
+  "shuf8": 0.8092904686927795,
+  "hue": 0.9893538355827332,
+  "invert": 0.9483259916305542,
+  "zoomout": 0.6425230503082275,
+  "zoomin": 0.7603518962860107
+ },
+ "top50_classes": {
+  "analog clock": 2,
+  "espresso maker": 2,
+  "Model T": 2,
+  "lacewing": 1,
+  "parking meter": 1,
+  "bolo tie": 1,
+  "squirrel monkey": 1,
+  "running shoe": 1,
+  "lemon": 1,
+  "paddlewheel": 1
+ },
+ "neg50_classes": {
+  "scorpion": 1,
+  "drum": 1,
+  "eggnog": 1,
+  "confectionery": 1,
+  "spiny lobster": 1,
+  "passenger car": 1,
+  "black-and-tan coonhound": 1,
+  "stone wall": 1,
+  "manhole cover": 1,
+  "crane2": 1
+ }
+}

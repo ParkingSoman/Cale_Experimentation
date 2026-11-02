@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 1514,
+ "max": 5.689340591430664,
+ "min": -6.722035884857178,
+ "edits": {
+  "flip": 0.9997156858444214,
+  "rot90": 0.49065274000167847,
+  "rot180": 0.6951766014099121,
+  "gray": 0.9523278474807739,
+  "blur1": 0.9688223600387573,
+  "blur3": 0.5880873203277588,
+  "shuf2": 0.9547868967056274,
+  "shuf4": 0.800927996635437,
+  "shuf8": 0.6630731821060181,
+  "hue": 0.996055006980896,
+  "invert": 0.8709417581558228,
+  "zoomout": 0.8302572965621948,
+  "zoomin": 0.6757489442825317
+ },
+ "top50_classes": {
+  "sports car": 3,
+  "moving van": 3,
+  "police van": 3,
+  "minibus": 3,
+  "beach wagon": 3,
+  "cab": 3,
+  "ambulance": 3,
+  "trolleybus": 2,
+  "half track": 2,
+  "electric locomotive": 2
+ },
+ "neg50_classes": {
+  "maillot": 1,
+  "lorikeet": 1,
+  "Bouvier des Flandres": 1,
+  "bee eater": 1,
+  "slug": 1,
+  "grasshopper": 1,
+  "pizza": 1,
+  "lynx": 1,
+  "kelpie": 1,
+  "mud turtle": 1
+ }
+}

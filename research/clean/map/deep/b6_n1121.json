@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 1121,
+ "max": 3.1482276916503906,
+ "min": -3.4614830017089844,
+ "edits": {
+  "flip": 0.9612173438072205,
+  "rot90": 0.6353712677955627,
+  "rot180": 0.6769602298736572,
+  "gray": 0.9829310178756714,
+  "blur1": 0.90093994140625,
+  "blur3": 0.69313645362854,
+  "shuf2": 0.9223047494888306,
+  "shuf4": 0.9096620082855225,
+  "shuf8": 1.079022765159607,
+  "hue": 0.9209107160568237,
+  "invert": 0.9766956567764282,
+  "zoomout": 0.2211112231016159,
+  "zoomin": 0.6438274383544922
+ },
+ "top50_classes": {
+  "hand-held computer": 2,
+  "toilet tissue": 1,
+  "Norwich terrier": 1,
+  "sliding door": 1,
+  "comic book": 1,
+  "balance beam": 1,
+  "shield": 1,
+  "pretzel": 1,
+  "hotdog": 1,
+  "electric locomotive": 1
+ },
+ "neg50_classes": {
+  "whiptail": 2,
+  "wool": 2,
+  "basenji": 2,
+  "ringneck snake": 2,
+  "garter snake": 1,
+  "cougar": 1,
+  "leatherback turtle": 1,
+  "conch": 1,
+  "banded gecko": 1,
+  "rock beauty": 1
+ }
+}

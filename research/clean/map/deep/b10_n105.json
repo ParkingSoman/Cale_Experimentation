@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 105,
+ "max": 6.089442253112793,
+ "min": -6.204939842224121,
+ "edits": {
+  "flip": 0.9603238701820374,
+  "rot90": 0.6442880630493164,
+  "rot180": 0.8372244238853455,
+  "gray": 0.9744167327880859,
+  "blur1": 0.9875736236572266,
+  "blur3": 0.8238368630409241,
+  "shuf2": 0.9258377552032471,
+  "shuf4": 0.6950171589851379,
+  "shuf8": 0.43057435750961304,
+  "hue": 0.987890899181366,
+  "invert": 1.0075268745422363,
+  "zoomout": 0.3682720959186554,
+  "zoomin": 0.667354941368103
+ },
+ "top50_classes": {
+  "cassette player": 2,
+  "barrow": 2,
+  "prison": 1,
+  "rock python": 1,
+  "tripod": 1,
+  "bookshop": 1,
+  "agama": 1,
+  "turnstile": 1,
+  "African chameleon": 1,
+  "dishrag": 1
+ },
+ "neg50_classes": {
+  "prison": 1,
+  "fox squirrel": 1,
+  "maraca": 1,
+  "loupe": 1,
+  "black-footed ferret": 1,
+  "jean": 1,
+  "tray": 1,
+  "horizontal bar": 1,
+  "turnstile": 1,
+  "nematode": 1
+ }
+}

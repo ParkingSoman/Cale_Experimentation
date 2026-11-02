@@ -1,0 +1,37 @@
+{
+ "F1": {
+  "choice": "Y",
+  "confidence": 5,
+  "why": "Y units fire on parenthesis conversions."
+ },
+ "F2": {
+  "choice": "Y",
+  "confidence": 5,
+  "why": "Y units fire on sentence-end punctuation."
+ },
+ "F3": {
+  "choice": "Y",
+  "confidence": 5,
+  "why": "Y units fire on possessive apostrophes."
+ },
+ "F4": {
+  "choice": "Y",
+  "confidence": 5,
+  "why": "Y units fire on year digits after months."
+ },
+ "F5": {
+  "choice": "Y",
+  "confidence": 5,
+  "why": "Y units fire on converted values in parentheses."
+ },
+ "F6": {
+  "choice": "X",
+  "confidence": 2,
+  "why": "X includes year digit 4 of 194x; Y is month names."
+ },
+ "F7": {
+  "choice": "Y",
+  "confidence": 4,
+  "why": "Y units fire on pieces inside a title, which broadens the first-word unit."
+ }
+}

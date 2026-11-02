@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 576,
+ "max": 3.6344430446624756,
+ "min": -5.424261093139648,
+ "edits": {
+  "flip": 0.905437171459198,
+  "rot90": 0.7613311409950256,
+  "rot180": 0.9444389343261719,
+  "gray": 0.9978231191635132,
+  "blur1": 0.9445537328720093,
+  "blur3": 0.6930043697357178,
+  "shuf2": 0.9252411127090454,
+  "shuf4": 0.7749017477035522,
+  "shuf8": 0.5909149646759033,
+  "hue": 0.9379496574401855,
+  "invert": 0.9766802787780762,
+  "zoomout": 0.6532254219055176,
+  "zoomin": 0.6306714415550232
+ },
+ "top50_classes": {
+  "revolver": 2,
+  "shield": 2,
+  "sarong": 1,
+  "parking meter": 1,
+  "toy terrier": 1,
+  "paper towel": 1,
+  "tiger cat": 1,
+  "magnetic compass": 1,
+  "croquet ball": 1,
+  "rugby ball": 1
+ },
+ "neg50_classes": {
+  "rapeseed": 2,
+  "fountain": 2,
+  "jack-o'-lantern": 2,
+  "volcano": 2,
+  "dock": 1,
+  "pizza": 1,
+  "stupa": 1,
+  "parallel bars": 1,
+  "reel": 1,
+  "carbonara": 1
+ }
+}

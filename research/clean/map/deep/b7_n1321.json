@@ -1,0 +1,45 @@
+{
+ "block": 7,
+ "neuron": 1321,
+ "max": 4.48102331161499,
+ "min": -5.426753044128418,
+ "edits": {
+  "flip": 0.4889957308769226,
+  "rot90": 0.47546523809432983,
+  "rot180": 0.5508612990379333,
+  "gray": 0.9950207471847534,
+  "blur1": 0.9396273493766785,
+  "blur3": 0.6296353936195374,
+  "shuf2": 0.9550937414169312,
+  "shuf4": 0.6316484212875366,
+  "shuf8": 0.6197229623794556,
+  "hue": 0.9724664688110352,
+  "invert": 0.9455640316009521,
+  "zoomout": 0.610694408416748,
+  "zoomin": 0.6109721660614014
+ },
+ "top50_classes": {
+  "drum": 2,
+  "cello": 1,
+  "revolver": 1,
+  "shopping basket": 1,
+  "barber chair": 1,
+  "barometer": 1,
+  "basketball": 1,
+  "sandal": 1,
+  "ringneck snake": 1,
+  "bearskin": 1
+ },
+ "neg50_classes": {
+  "banjo": 1,
+  "zebra": 1,
+  "manhole cover": 1,
+  "brain coral": 1,
+  "paddlewheel": 1,
+  "frilled lizard": 1,
+  "oxygen mask": 1,
+  "beer bottle": 1,
+  "Granny Smith": 1,
+  "vizsla": 1
+ }
+}

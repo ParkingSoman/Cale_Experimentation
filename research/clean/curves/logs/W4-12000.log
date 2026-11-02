@@ -1,0 +1,29 @@
+sigma / sd(pre-activation) per conv (median): [0.066, 0.085, 0.128, 0.093]
+exact case (sigma=0) max rel diff: 0.0
+  solve 50/12000
+  solve 550/12000
+  solve 1050/12000
+  solve 1550/12000
+  solve 2050/12000
+  solve 2550/12000
+  solve 3050/12000
+  solve 3550/12000
+  solve 4050/12000
+  solve 4550/12000
+  solve 5050/12000
+  solve 5550/12000
+  solve 6050/12000
+  solve 6550/12000
+  solve 7050/12000
+  solve 7550/12000
+  solve 8050/12000
+  solve 8550/12000
+  solve 9050/12000
+  solve 9550/12000
+  solve 10050/12000
+  solve 10550/12000
+  solve 11050/12000
+  solve 11550/12000
+  smooth  dev-5000 KL 0.2015 (se 0.0091)
+  fisher  dev-5000 KL 0.2002 (se 0.0091)
+  paired smooth - fisher: +0.0013 (se 0.0008)

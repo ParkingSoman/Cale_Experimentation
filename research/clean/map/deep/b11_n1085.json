@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 1085,
+ "max": 3.7971556186676025,
+ "min": -4.391639232635498,
+ "edits": {
+  "flip": 0.9717020988464355,
+  "rot90": 0.7129417061805725,
+  "rot180": 0.7431247234344482,
+  "gray": 0.9571153521537781,
+  "blur1": 1.011584758758545,
+  "blur3": 0.8301146030426025,
+  "shuf2": 0.9214979410171509,
+  "shuf4": 0.8439765572547913,
+  "shuf8": 0.8078626990318298,
+  "hue": 0.9796678423881531,
+  "invert": 0.8629839420318604,
+  "zoomout": 0.8274708986282349,
+  "zoomin": 0.8004592657089233
+ },
+ "top50_classes": {
+  "photocopier": 2,
+  "tape player": 2,
+  "oscilloscope": 2,
+  "half track": 2,
+  "beach wagon": 2,
+  "minibus": 2,
+  "trailer truck": 2,
+  "screen": 1,
+  "refrigerator": 1,
+  "pay-phone": 1
+ },
+ "neg50_classes": {
+  "yellow lady's slipper": 2,
+  "Great Pyrenees": 1,
+  "boa constrictor": 1,
+  "damselfly": 1,
+  "leafhopper": 1,
+  "mousetrap": 1,
+  "horned viper": 1,
+  "ant": 1,
+  "soft-coated wheaten terrier": 1,
+  "bee": 1
+ }
+}

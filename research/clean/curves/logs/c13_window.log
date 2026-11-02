@@ -1,0 +1,4 @@
+window o: S 1991391.7071  S+rem 2723756.9004  T 2705731.8789  c7_span 1984727.8756  c7_reader 1929170.1248   S+rem/S 1.368
+window h: S 1333548.0238  S+rem 1519476.4083  T 1547363.2870  c7_span 1364470.0058  c7_reader 1320367.4235   S+rem/S 1.139
+window r: S 527802.6629  S+rem 747611.2261  T 743287.4230  c7_span 528728.5555  c7_reader 511316.6561   S+rem/S 1.416
+corr of windows with the oracle: family signal 0.081, reader outputs 0.103

@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 241,
+ "max": 6.936147689819336,
+ "min": -9.554792404174805,
+ "edits": {
+  "flip": 0.9945331811904907,
+  "rot90": 0.999264657497406,
+  "rot180": 0.9854539036750793,
+  "gray": -0.021594692021608353,
+  "blur1": 0.9761759042739868,
+  "blur3": 0.9388036727905273,
+  "shuf2": 0.9999646544456482,
+  "shuf4": 0.9987607002258301,
+  "shuf8": 0.9983222484588623,
+  "hue": 0.7278156280517578,
+  "invert": 0.4775935113430023,
+  "zoomout": 0.9462164640426636,
+  "zoomin": 0.9290616512298584
+ },
+ "top50_classes": {
+  "cabbage butterfly": 2,
+  "cardoon": 2,
+  "feather boa": 2,
+  "jellyfish": 1,
+  "meerkat": 1,
+  "tusker": 1,
+  "volleyball": 1,
+  "stage": 1,
+  "borzoi": 1,
+  "beacon": 1
+ },
+ "neg50_classes": {
+  "tennis ball": 2,
+  "rapeseed": 2,
+  "puck": 2,
+  "weevil": 1,
+  "measuring cup": 1,
+  "American black bear": 1,
+  "butternut squash": 1,
+  "cucumber": 1,
+  "bee eater": 1,
+  "wood rabbit": 1
+ }
+}

@@ -1,0 +1,9 @@
+/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+  32/256  190 s
+  64/256  555 s
+  96/256  961 s
+  128/256  2006 s
+  160/256  3030 s
+  192/256  3419 s
+  224/256  3894 s

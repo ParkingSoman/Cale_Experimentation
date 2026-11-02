@@ -1,0 +1,16 @@
+{
+ "L16": {
+  "L": 16,
+  "n_tokens_per_child": 327,
+  "modal_parent_share_median": 0.10091743119266056,
+  "distinct_top_parents_median": 131.0,
+  "top_parent_share_of_attr_mass_median": 0.006115765882484435
+ },
+ "L22": {
+  "L": 22,
+  "n_tokens_per_child": 327,
+  "modal_parent_share_median": 0.12538226299694188,
+  "distinct_top_parents_median": 110.0,
+  "top_parent_share_of_attr_mass_median": 0.007628420991293771
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 1322,
+ "max": 5.807251453399658,
+ "min": -15.880300521850586,
+ "edits": {
+  "flip": 0.942674994468689,
+  "rot90": 0.7276990413665771,
+  "rot180": 0.6822389364242554,
+  "gray": 0.8879690766334534,
+  "blur1": 0.9983267784118652,
+  "blur3": 0.6942367553710938,
+  "shuf2": 0.9164830446243286,
+  "shuf4": 0.48932480812072754,
+  "shuf8": 0.16293643414974213,
+  "hue": 0.6770763397216797,
+  "invert": 0.9258260726928711,
+  "zoomout": 0.3972679674625397,
+  "zoomin": 0.5502685308456421
+ },
+ "top50_classes": {
+  "buckle": 3,
+  "throne": 2,
+  "toaster": 2,
+  "pencil sharpener": 2,
+  "plate rack": 1,
+  "parallel bars": 1,
+  "radio": 1,
+  "spider web": 1,
+  "spiny lobster": 1,
+  "recreational vehicle": 1
+ },
+ "neg50_classes": {
+  "bearskin": 3,
+  "groenendael": 2,
+  "iPod": 2,
+  "black stork": 1,
+  "soft-coated wheaten terrier": 1,
+  "parking meter": 1,
+  "reflex camera": 1,
+  "slug": 1,
+  "eel": 1,
+  "violin": 1
+ }
+}

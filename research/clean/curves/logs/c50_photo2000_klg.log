@@ -1,0 +1,5 @@
+G skipped (0s)
+self-check: cos(exact, sampled-50) -0.080, norm ratio 2865.375
+start: train L 0.054106, held-out L 0.04497 (238s)
+  it 1: held-out L 0.042854  dev-5000 KL 0.0493 (se 0.0027)  (497s)
+  it 2: held-out L 0.04235  dev-5000 KL 0.0504 (se 0.0027)  (773s)

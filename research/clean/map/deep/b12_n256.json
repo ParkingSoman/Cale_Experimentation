@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 256,
+ "max": 4.681267738342285,
+ "min": -6.573389530181885,
+ "edits": {
+  "flip": 0.978339433670044,
+  "rot90": 0.5710474252700806,
+  "rot180": 0.6524358987808228,
+  "gray": 0.8849874138832092,
+  "blur1": 1.0391159057617188,
+  "blur3": 0.6119555234909058,
+  "shuf2": 0.9993695020675659,
+  "shuf4": 0.9467787742614746,
+  "shuf8": 0.6382144689559937,
+  "hue": 0.8676759004592896,
+  "invert": 0.8997918367385864,
+  "zoomout": 0.9648966789245605,
+  "zoomin": 0.744493842124939
+ },
+ "top50_classes": {
+  "horse cart": 3,
+  "thresher": 2,
+  "tow truck": 2,
+  "jeep": 2,
+  "drilling platform": 2,
+  "pirate": 2,
+  "amphibian": 2,
+  "snowmobile": 2,
+  "canoe": 2,
+  "catamaran": 2
+ },
+ "neg50_classes": {
+  "Welsh springer spaniel": 2,
+  "white stork": 2,
+  "keeshond": 2,
+  "Samoyed": 1,
+  "shower cap": 1,
+  "American Staffordshire terrier": 1,
+  "Bedlington terrier": 1,
+  "comic book": 1,
+  "traffic light": 1,
+  "gorilla": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 1328,
+ "max": 9.16453742980957,
+ "min": -13.06662654876709,
+ "edits": {
+  "flip": 0.9971014261245728,
+  "rot90": 0.24410516023635864,
+  "rot180": 0.3616718053817749,
+  "gray": 0.907647967338562,
+  "blur1": 0.8680850267410278,
+  "blur3": 0.39950117468833923,
+  "shuf2": 0.9301546812057495,
+  "shuf4": 0.8898338079452515,
+  "shuf8": -0.07412666082382202,
+  "hue": 1.0152784585952759,
+  "invert": 0.9379215240478516,
+  "zoomout": 0.5630962252616882,
+  "zoomin": 0.24107366800308228
+ },
+ "top50_classes": {
+  "ashcan": 3,
+  "teapot": 3,
+  "rain barrel": 3,
+  "pitcher": 3,
+  "piggy bank": 3,
+  "pot": 2,
+  "cup": 2,
+  "barrow": 2,
+  "barrel": 2,
+  "bucket": 2
+ },
+ "neg50_classes": {
+  "baboon": 2,
+  "boxer": 2,
+  "accordion": 2,
+  "vending machine": 2,
+  "digital clock": 1,
+  "horse cart": 1,
+  "king crab": 1,
+  "pencil box": 1,
+  "water buffalo": 1,
+  "maillot": 1
+ }
+}

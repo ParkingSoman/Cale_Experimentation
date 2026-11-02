@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 630,
+ "max": 8.660504341125488,
+ "min": -25.2356014251709,
+ "edits": {
+  "flip": 1.0070207118988037,
+  "rot90": 0.527198851108551,
+  "rot180": 0.672662615776062,
+  "gray": 0.8693923950195312,
+  "blur1": 1.014190435409546,
+  "blur3": 0.4763907194137573,
+  "shuf2": 1.0119436979293823,
+  "shuf4": 1.1202137470245361,
+  "shuf8": 0.32213205099105835,
+  "hue": 0.14148059487342834,
+  "invert": 0.9421103596687317,
+  "zoomout": 0.10186305642127991,
+  "zoomin": 0.30979710817337036
+ },
+ "top50_classes": {
+  "Doberman": 2,
+  "Appenzeller": 2,
+  "pug": 2,
+  "Australian terrier": 2,
+  "sea lion": 1,
+  "German shepherd": 1,
+  "bluetick": 1,
+  "soap dispenser": 1,
+  "marmoset": 1,
+  "rocking chair": 1
+ },
+ "neg50_classes": {
+  "redshank": 2,
+  "Scottish deerhound": 2,
+  "groenendael": 2,
+  "milk can": 2,
+  "English springer": 1,
+  "soft-coated wheaten terrier": 1,
+  "dung beetle": 1,
+  "Dandie Dinmont": 1,
+  "black widow": 1,
+  "giant schnauzer": 1
+ }
+}

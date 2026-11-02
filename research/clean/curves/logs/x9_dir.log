@@ -1,0 +1,8 @@
+rel 0.02: max write mass nan (status 2); support 0
+rel 0.05: max write mass nan (status 2); support 0
+rel 0.1: max write mass nan (status 2); support 0
+rel 0.2: max write mass nan (status 4); support 0
+rel 0.02: no direction-consistent mixture with write mass >= 1
+rel 0.05: no direction-consistent mixture with write mass >= 1
+rel 0.1: no direction-consistent mixture with write mass >= 1
+rel 0.2: no direction-consistent mixture with write mass >= 1

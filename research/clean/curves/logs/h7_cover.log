@@ -1,0 +1,3 @@
+real(512) vs independent real(512): top 3.010e+02, 10th 1.917e+02, 100th 4.870e+01
+real(512) vs combined network-made: top 1.212e+03, 10th 4.812e+02, 100th 5.337e+01
+top-20 directions: share on unit columns 0.012 (per unit [0.006 0.003 0.003]), on the constant 0.988

@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 422,
+ "max": 4.425955772399902,
+ "min": -2.1013545989990234,
+ "edits": {
+  "flip": 1.0035358667373657,
+  "rot90": 0.9959938526153564,
+  "rot180": 0.9994802474975586,
+  "gray": 0.9995340704917908,
+  "blur1": 0.9985709190368652,
+  "blur3": 0.9973874092102051,
+  "shuf2": 0.9981684684753418,
+  "shuf4": 0.9388239979743958,
+  "shuf8": 0.6798219084739685,
+  "hue": 0.9999698400497437,
+  "invert": 1.001406192779541,
+  "zoomout": 0.9783025979995728,
+  "zoomin": 0.9490193724632263
+ },
+ "top50_classes": {
+  "can opener": 3,
+  "iron": 2,
+  "toilet tissue": 1,
+  "drilling platform": 1,
+  "red wine": 1,
+  "crane2": 1,
+  "revolver": 1,
+  "bolo tie": 1,
+  "pencil box": 1,
+  "maraca": 1
+ },
+ "neg50_classes": {
+  "pineapple": 2,
+  "bolo tie": 2,
+  "maze": 1,
+  "sidewinder": 1,
+  "rock beauty": 1,
+  "toucan": 1,
+  "brassiere": 1,
+  "pedestal": 1,
+  "rotisserie": 1,
+  "tub": 1
+ }
+}

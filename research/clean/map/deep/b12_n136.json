@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 136,
+ "max": 2.525789737701416,
+ "min": -6.819410800933838,
+ "edits": {
+  "flip": 0.8995023965835571,
+  "rot90": 0.7253416776657104,
+  "rot180": 0.8509790897369385,
+  "gray": 0.872826337814331,
+  "blur1": 0.8385206460952759,
+  "blur3": 0.4318036437034607,
+  "shuf2": 0.9780762195587158,
+  "shuf4": 0.6975094079971313,
+  "shuf8": 0.7268399000167847,
+  "hue": 0.890727162361145,
+  "invert": 0.7653555870056152,
+  "zoomout": 0.4977235794067383,
+  "zoomin": 0.4334157407283783
+ },
+ "top50_classes": {
+  "projector": 2,
+  "ski": 1,
+  "sea anemone": 1,
+  "wall clock": 1,
+  "school bus": 1,
+  "sea cucumber": 1,
+  "maze": 1,
+  "oxygen mask": 1,
+  "paddlewheel": 1,
+  "grille": 1
+ },
+ "neg50_classes": {
+  "jaguar": 1,
+  "spiny lobster": 1,
+  "king crab": 1,
+  "muzzle": 1,
+  "ibex": 1,
+  "brassiere": 1,
+  "remote control": 1,
+  "mud turtle": 1,
+  "dowitcher": 1,
+  "tub": 1
+ }
+}

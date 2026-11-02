@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 1190,
+ "max": 4.69547176361084,
+ "min": -5.914669990539551,
+ "edits": {
+  "flip": 0.9849932789802551,
+  "rot90": 0.7339017391204834,
+  "rot180": 0.8920724391937256,
+  "gray": 1.0018439292907715,
+  "blur1": 0.9430827498435974,
+  "blur3": 0.6560885906219482,
+  "shuf2": 0.9516283273696899,
+  "shuf4": 0.8811253309249878,
+  "shuf8": 0.8570922613143921,
+  "hue": 1.0147309303283691,
+  "invert": 0.9473500847816467,
+  "zoomout": 0.7376968860626221,
+  "zoomin": 0.790172278881073
+ },
+ "top50_classes": {
+  "Polaroid camera": 2,
+  "minibus": 2,
+  "fire engine": 2,
+  "ambulance": 2,
+  "passenger car": 2,
+  "loudspeaker": 2,
+  "oscilloscope": 2,
+  "harvester": 1,
+  "hard disc": 1,
+  "vending machine": 1
+ },
+ "neg50_classes": {
+  "isopod": 2,
+  "alp": 1,
+  "espresso": 1,
+  "baseball": 1,
+  "tailed frog": 1,
+  "green mamba": 1,
+  "lynx": 1,
+  "barracouta": 1,
+  "Lhasa": 1,
+  "upright": 1
+ }
+}

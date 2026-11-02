@@ -1,0 +1,174 @@
+{
+ "t63": {
+  "trials": 300,
+  "total_kinks": 765,
+  "ALL_OK": true
+ },
+ "t66": {
+  "rows": [
+   {
+    "k": 1,
+    "units_deep": 2,
+    "exact": true,
+    "disjoint_strict_dip_lines": 0
+   },
+   {
+    "k": 2,
+    "units_deep": 4,
+    "exact": true,
+    "disjoint_strict_dip_lines": 1
+   },
+   {
+    "k": 3,
+    "units_deep": 6,
+    "exact": true,
+    "disjoint_strict_dip_lines": 3
+   },
+   {
+    "k": 4,
+    "units_deep": 8,
+    "exact": true,
+    "disjoint_strict_dip_lines": 7
+   },
+   {
+    "k": 5,
+    "units_deep": 10,
+    "exact": true,
+    "disjoint_strict_dip_lines": 15
+   },
+   {
+    "k": 6,
+    "units_deep": 12,
+    "exact": true,
+    "disjoint_strict_dip_lines": 31
+   }
+  ],
+  "ALL_OK": true
+ },
+ "t20_dip_lines": [
+  {
+   "x": -3,
+   "xp": 1,
+   "dip": "-1"
+  },
+  {
+   "x": -3,
+   "xp": 3,
+   "dip": "-2"
+  },
+  {
+   "x": -2,
+   "xp": 0,
+   "dip": "-1/2"
+  },
+  {
+   "x": -2,
+   "xp": 2,
+   "dip": "-1"
+  },
+  {
+   "x": -1,
+   "xp": 3,
+   "dip": "-1"
+  },
+  {
+   "x": 0,
+   "xp": 2,
+   "dip": "-1/2"
+  }
+ ],
+ "t61_profile": [
+  {
+   "line": "A-B",
+   "dip": "-2",
+   "clique (T59.2)": [
+    {
+     "unit": 1,
+     "jump": "4",
+     "t": "1/2"
+    },
+    {
+     "unit": 2,
+     "jump": "4",
+     "t": "1/2"
+    }
+   ],
+   "split dials (T61)": [
+    {
+     "unit": 2,
+     "jump": "8",
+     "t": "1/2"
+    }
+   ]
+  },
+  {
+   "line": "C-D",
+   "dip": "-2",
+   "clique (T59.2)": [
+    {
+     "unit": 1,
+     "jump": "4",
+     "t": "1/2"
+    },
+    {
+     "unit": 2,
+     "jump": "4",
+     "t": "1/2"
+    }
+   ],
+   "split dials (T61)": [
+    {
+     "unit": 1,
+     "jump": "8",
+     "t": "1/2"
+    }
+   ]
+  },
+  {
+   "line": "A-C",
+   "dip": "-2",
+   "clique (T59.2)": [
+    {
+     "unit": 1,
+     "jump": "4",
+     "t": "1/2"
+    },
+    {
+     "unit": 2,
+     "jump": "4",
+     "t": "1/2"
+    }
+   ],
+   "split dials (T61)": [
+    {
+     "unit": 1,
+     "jump": "20",
+     "t": "4/5"
+    }
+   ]
+  },
+  {
+   "line": "B-D",
+   "dip": "-2",
+   "clique (T59.2)": [
+    {
+     "unit": 1,
+     "jump": "4",
+     "t": "1/2"
+    },
+    {
+     "unit": 2,
+     "jump": "4",
+     "t": "1/2"
+    }
+   ],
+   "split dials (T61)": [
+    {
+     "unit": 2,
+     "jump": "20",
+     "t": "1/5"
+    }
+   ]
+  }
+ ]
+}

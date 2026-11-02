@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 156,
+ "max": 4.121460914611816,
+ "min": -6.3599090576171875,
+ "edits": {
+  "flip": 0.9854463934898376,
+  "rot90": 0.8159101009368896,
+  "rot180": 0.9640852212905884,
+  "gray": 0.7798106670379639,
+  "blur1": 0.9188413619995117,
+  "blur3": 0.5078315734863281,
+  "shuf2": 0.984459400177002,
+  "shuf4": 0.8193410634994507,
+  "shuf8": 0.5570799708366394,
+  "hue": 0.860734224319458,
+  "invert": 0.9871300458908081,
+  "zoomout": 0.6014018058776855,
+  "zoomin": 0.6718822717666626
+ },
+ "top50_classes": {
+  "miniature schnauzer": 2,
+  "Labrador retriever": 2,
+  "Afghan hound": 2,
+  "Eskimo dog": 1,
+  "Norfolk terrier": 1,
+  "Bedlington terrier": 1,
+  "Weimaraner": 1,
+  "hamster": 1,
+  "borzoi": 1,
+  "papillon": 1
+ },
+ "neg50_classes": {
+  "parachute": 3,
+  "crane2": 2,
+  "steam locomotive": 2,
+  "drilling platform": 1,
+  "wing": 1,
+  "fountain pen": 1,
+  "balloon": 1,
+  "flagpole": 1,
+  "ocarina": 1,
+  "head cabbage": 1
+ }
+}

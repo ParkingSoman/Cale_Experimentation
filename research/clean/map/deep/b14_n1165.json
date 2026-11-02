@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1165,
+ "max": 6.659034729003906,
+ "min": -7.365734577178955,
+ "edits": {
+  "flip": 0.9773049354553223,
+  "rot90": 0.26495975255966187,
+  "rot180": 0.35181087255477905,
+  "gray": 0.9657289385795593,
+  "blur1": 0.873422384262085,
+  "blur3": 0.5206838846206665,
+  "shuf2": 0.9475224018096924,
+  "shuf4": 0.6434485912322998,
+  "shuf8": 0.3999826908111572,
+  "hue": 0.8891125917434692,
+  "invert": 0.935520350933075,
+  "zoomout": 0.5900976657867432,
+  "zoomin": 0.33056777715682983
+ },
+ "top50_classes": {
+  "teapot": 2,
+  "shoji": 2,
+  "boathouse": 2,
+  "collie": 1,
+  "guillotine": 1,
+  "Maltese dog": 1,
+  "electric fan": 1,
+  "water jug": 1,
+  "park bench": 1,
+  "bonnet": 1
+ },
+ "neg50_classes": {
+  "police van": 2,
+  "cab": 2,
+  "tench": 1,
+  "squirrel monkey": 1,
+  "corkscrew": 1,
+  "Italian greyhound": 1,
+  "ice lolly": 1,
+  "stupa": 1,
+  "pizza": 1,
+  "bee eater": 1
+ }
+}

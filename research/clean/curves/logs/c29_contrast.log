@@ -1,0 +1,5 @@
+unit 0: cos(x1, x.5) +0.537, norm ratio 0.97
+unit 1: cos(x1, x.5) +0.549, norm ratio 0.94
+unit 2: cos(x1, x.5) +0.637, norm ratio 1.02
+  step0 from real unsure contrast x1.0: dev-5000 KL 0.1517 (se 0.0070)
+  step0 from real unsure contrast x0.5: dev-5000 KL 0.1548 (se 0.0074)

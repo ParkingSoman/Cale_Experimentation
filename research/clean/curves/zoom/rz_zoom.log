@@ -1,0 +1,20 @@
+[     3s] loaded (35000, 512, 49) (10000, 512, 49)
+[     4s] read members 512 of 512
+[     4s] tree built, nodes 1023
+[     4s] DP done
+[     9s] k=512 bound 0 | merge kl 0.000 | merge* 0.000 agree 1.000 | prune* 0.000 | random* 0.000
+[    22s] k=384 bound 6.54e+04 | merge kl 0.228 | merge* 0.039 agree 0.918 | prune* 0.036 | random* 0.041
+[    42s] k=256 bound 2.68e+05 | merge kl 0.834 | merge* 0.131 agree 0.848 | prune* 0.124 | random* 0.128 | trained 0.098
+[    52s] k=192 bound 4.26e+05 | merge kl 1.333 | merge* 0.221 agree 0.807 | prune* 0.215 | random* 0.225
+[    61s] k=128 bound 6.24e+05 | merge kl 2.196 | merge* 0.432 agree 0.730 | prune* 0.419 | random* 0.432
+[    71s] k= 96 bound 7.42e+05 | merge kl 2.648 | merge* 0.649 agree 0.669 | prune* 0.627 | random* 0.666
+[    85s] k= 64 bound 8.73e+05 | merge kl 3.183 | merge* 1.022 agree 0.579 | prune* 1.046 | random* 1.095 | trained 0.749
+[    93s] k= 48 bound 9.45e+05 | merge kl 3.410 | merge* 1.268 agree 0.524 | prune* 1.426 | random* 1.419
+[   102s] k= 32 bound 1.02e+06 | merge kl 3.832 | merge* 1.631 agree 0.450 | prune* 2.066 | random* 1.912
+[   110s] k= 24 bound 1.06e+06 | merge kl 3.970 | merge* 1.875 agree 0.390 | prune* 2.512 | random* 2.350
+[   123s] k= 16 bound 1.1e+06 | merge kl 4.362 | merge* 2.421 agree 0.286 | prune* 3.156 | random* 2.977 | trained 2.002
+[   134s] k=  8 bound 1.15e+06 | merge kl 5.270 | merge* 4.021 agree 0.084 | prune* 4.137 | random* 4.250
+[   143s] k=  4 bound 1.18e+06 | merge kl 5.629 | merge* 5.041 agree 0.016 | prune* 4.791 | random* 5.061
+[   151s] k=  2 bound 1.19e+06 | merge kl 5.755 | merge* 5.487 agree 0.006 | prune* 5.257 | random* 5.342
+[   158s] k=  1 bound 1.19e+06 | merge kl 5.786 | merge* 5.582 agree 0.003 | prune* 5.599 | random* 5.582
+[   158s] done

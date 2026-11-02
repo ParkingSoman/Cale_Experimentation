@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 169,
+ "max": 5.39357852935791,
+ "min": -6.928097248077393,
+ "edits": {
+  "flip": 0.9966710805892944,
+  "rot90": 0.9846715331077576,
+  "rot180": 0.9901435375213623,
+  "gray": -0.08846204727888107,
+  "blur1": 0.9549016356468201,
+  "blur3": 0.8824955224990845,
+  "shuf2": 0.9987936019897461,
+  "shuf4": 0.9899940490722656,
+  "shuf8": 0.940825343132019,
+  "hue": -0.10921114683151245,
+  "invert": -0.0485672727227211,
+  "zoomout": 0.9595134258270264,
+  "zoomin": 0.9411152601242065
+ },
+ "top50_classes": {
+  "yellow lady's slipper": 3,
+  "tennis ball": 2,
+  "carbonara": 2,
+  "cucumber": 2,
+  "rapeseed": 2,
+  "leafhopper": 1,
+  "weevil": 1,
+  "paper towel": 1,
+  "monitor": 1,
+  "jackfruit": 1
+ },
+ "neg50_classes": {
+  "castle": 1,
+  "solar dish": 1,
+  "soap dispenser": 1,
+  "gasmask": 1,
+  "peacock": 1,
+  "wreck": 1,
+  "backpack": 1,
+  "shower curtain": 1,
+  "Australian terrier": 1,
+  "garden spider": 1
+ }
+}

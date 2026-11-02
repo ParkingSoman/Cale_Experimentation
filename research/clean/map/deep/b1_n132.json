@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 132,
+ "max": 5.364958763122559,
+ "min": -6.983165740966797,
+ "edits": {
+  "flip": 0.7730144262313843,
+  "rot90": 0.7130251526832581,
+  "rot180": 0.7601035833358765,
+  "gray": 0.986385703086853,
+  "blur1": 0.6132080554962158,
+  "blur3": 0.1973237842321396,
+  "shuf2": 1.0,
+  "shuf4": 1.0036795139312744,
+  "shuf8": 0.9854357242584229,
+  "hue": 0.9854316711425781,
+  "invert": 0.7797596454620361,
+  "zoomout": 0.9177491664886475,
+  "zoomin": 0.6775126457214355
+ },
+ "top50_classes": {
+  "bell cote": 2,
+  "obelisk": 2,
+  "trailer truck": 2,
+  "barometer": 2,
+  "file": 2,
+  "tow truck": 1,
+  "shovel": 1,
+  "web site": 1,
+  "comic book": 1,
+  "sliding door": 1
+ },
+ "neg50_classes": {
+  "tray": 2,
+  "gas pump": 2,
+  "viaduct": 1,
+  "streetcar": 1,
+  "mailbox": 1,
+  "hatchet": 1,
+  "turnstile": 1,
+  "padlock": 1,
+  "marimba": 1,
+  "upright": 1
+ }
+}

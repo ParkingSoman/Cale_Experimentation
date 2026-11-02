@@ -1,0 +1,45 @@
+{
+ "block": 8,
+ "neuron": 1026,
+ "max": 3.532243490219116,
+ "min": -5.310247421264648,
+ "edits": {
+  "flip": 0.6365237832069397,
+  "rot90": 0.5800845623016357,
+  "rot180": 0.6019829511642456,
+  "gray": 0.5410144329071045,
+  "blur1": 0.9760830402374268,
+  "blur3": 0.9616236090660095,
+  "shuf2": 0.9475624561309814,
+  "shuf4": 0.7148061990737915,
+  "shuf8": 0.5655089616775513,
+  "hue": 0.4227091372013092,
+  "invert": 0.4101310074329376,
+  "zoomout": 0.6213060617446899,
+  "zoomin": 0.6486144065856934
+ },
+ "top50_classes": {
+  "cleaver": 2,
+  "lab coat": 2,
+  "hermit crab": 2,
+  "American alligator": 2,
+  "broccoli": 1,
+  "Dungeness crab": 1,
+  "remote control": 1,
+  "turnstile": 1,
+  "bonnet": 1,
+  "holster": 1
+ },
+ "neg50_classes": {
+  "agaric": 2,
+  "chimpanzee": 1,
+  "lionfish": 1,
+  "shield": 1,
+  "airship": 1,
+  "king snake": 1,
+  "tusker": 1,
+  "beaver": 1,
+  "sloth bear": 1,
+  "violin": 1
+ }
+}

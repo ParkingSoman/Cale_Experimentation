@@ -1,0 +1,470 @@
+{
+ "layer": 15,
+ "axis": "input",
+ "K": 10,
+ "tag": "local_rand",
+ "units": {
+  "U001": {
+   "kind": "parent",
+   "which": 0,
+   "sign": -1
+  },
+  "U002": {
+   "kind": "child",
+   "which": 1486,
+   "sign": 1
+  },
+  "U003": {
+   "kind": "child",
+   "which": 1303,
+   "sign": 1
+  },
+  "U004": {
+   "kind": "child",
+   "which": 653,
+   "sign": 1
+  },
+  "U005": {
+   "kind": "child",
+   "which": 655,
+   "sign": 1
+  },
+  "U006": {
+   "kind": "decoy",
+   "which": 14,
+   "sign": 1
+  },
+  "U007": {
+   "kind": "decoy",
+   "which": 1323,
+   "sign": -1
+  },
+  "U008": {
+   "kind": "decoy",
+   "which": 235,
+   "sign": -1
+  },
+  "U009": {
+   "kind": "decoy",
+   "which": 68,
+   "sign": -1
+  },
+  "U010": {
+   "kind": "parent",
+   "which": 2,
+   "sign": 1
+  },
+  "U011": {
+   "kind": "child",
+   "which": 1317,
+   "sign": -1
+  },
+  "U012": {
+   "kind": "child",
+   "which": 1112,
+   "sign": 1
+  },
+  "U013": {
+   "kind": "child",
+   "which": 964,
+   "sign": -1
+  },
+  "U014": {
+   "kind": "child",
+   "which": 645,
+   "sign": -1
+  },
+  "U015": {
+   "kind": "decoy",
+   "which": 1024,
+   "sign": 1
+  },
+  "U016": {
+   "kind": "decoy",
+   "which": 685,
+   "sign": -1
+  },
+  "U017": {
+   "kind": "decoy",
+   "which": 762,
+   "sign": 1
+  },
+  "U018": {
+   "kind": "decoy",
+   "which": 570,
+   "sign": -1
+  },
+  "U019": {
+   "kind": "parent",
+   "which": 3,
+   "sign": 1
+  },
+  "U020": {
+   "kind": "child",
+   "which": 482,
+   "sign": 1
+  },
+  "U021": {
+   "kind": "child",
+   "which": 1033,
+   "sign": -1
+  },
+  "U022": {
+   "kind": "child",
+   "which": 410,
+   "sign": -1
+  },
+  "U023": {
+   "kind": "child",
+   "which": 1065,
+   "sign": 1
+  },
+  "U024": {
+   "kind": "decoy",
+   "which": 179,
+   "sign": 1
+  },
+  "U025": {
+   "kind": "decoy",
+   "which": 328,
+   "sign": 1
+  },
+  "U026": {
+   "kind": "decoy",
+   "which": 947,
+   "sign": 1
+  },
+  "U027": {
+   "kind": "decoy",
+   "which": 331,
+   "sign": -1
+  },
+  "U028": {
+   "kind": "parent",
+   "which": 5,
+   "sign": -1
+  },
+  "U029": {
+   "kind": "child",
+   "which": 469,
+   "sign": 1
+  },
+  "U030": {
+   "kind": "child",
+   "which": 940,
+   "sign": -1
+  },
+  "U031": {
+   "kind": "child",
+   "which": 50,
+   "sign": 1
+  },
+  "U032": {
+   "kind": "child",
+   "which": 116,
+   "sign": -1
+  },
+  "U033": {
+   "kind": "decoy",
+   "which": 340,
+   "sign": -1
+  },
+  "U034": {
+   "kind": "decoy",
+   "which": 1280,
+   "sign": -1
+  },
+  "U035": {
+   "kind": "decoy",
+   "which": 287,
+   "sign": -1
+  },
+  "U036": {
+   "kind": "decoy",
+   "which": 158,
+   "sign": -1
+  },
+  "U037": {
+   "kind": "parent",
+   "which": 6,
+   "sign": 1
+  },
+  "U038": {
+   "kind": "child",
+   "which": 131,
+   "sign": 1
+  },
+  "U039": {
+   "kind": "child",
+   "which": 1445,
+   "sign": -1
+  },
+  "U040": {
+   "kind": "child",
+   "which": 168,
+   "sign": -1
+  },
+  "U041": {
+   "kind": "child",
+   "which": 297,
+   "sign": -1
+  },
+  "U042": {
+   "kind": "decoy",
+   "which": 900,
+   "sign": 1
+  },
+  "U043": {
+   "kind": "decoy",
+   "which": 489,
+   "sign": 1
+  },
+  "U044": {
+   "kind": "decoy",
+   "which": 907,
+   "sign": -1
+  },
+  "U045": {
+   "kind": "decoy",
+   "which": 1160,
+   "sign": 1
+  },
+  "U046": {
+   "kind": "parent",
+   "which": 8,
+   "sign": -1
+  },
+  "U047": {
+   "kind": "child",
+   "which": 833,
+   "sign": 1
+  },
+  "U048": {
+   "kind": "decoy",
+   "which": 245,
+   "sign": -1
+  },
+  "U049": {
+   "kind": "parent",
+   "which": 9,
+   "sign": 1
+  },
+  "U050": {
+   "kind": "child",
+   "which": 1262,
+   "sign": 1
+  },
+  "U051": {
+   "kind": "child",
+   "which": 1490,
+   "sign": -1
+  },
+  "U052": {
+   "kind": "decoy",
+   "which": 1457,
+   "sign": -1
+  },
+  "U053": {
+   "kind": "decoy",
+   "which": 1389,
+   "sign": -1
+  }
+ },
+ "families": [
+  {
+   "parent": "U001",
+   "trained_unit": 0,
+   "pole": "-",
+   "children": [
+    "U002",
+    "U003",
+    "U004",
+    "U005"
+   ],
+   "decoys": [
+    "U006",
+    "U007",
+    "U008",
+    "U009"
+   ]
+  },
+  {
+   "parent": "U010",
+   "trained_unit": 2,
+   "pole": "+",
+   "children": [
+    "U011",
+    "U012",
+    "U013",
+    "U014"
+   ],
+   "decoys": [
+    "U015",
+    "U016",
+    "U017",
+    "U018"
+   ]
+  },
+  {
+   "parent": "U019",
+   "trained_unit": 3,
+   "pole": "+",
+   "children": [
+    "U020",
+    "U021",
+    "U022",
+    "U023"
+   ],
+   "decoys": [
+    "U024",
+    "U025",
+    "U026",
+    "U027"
+   ]
+  },
+  {
+   "parent": "U028",
+   "trained_unit": 5,
+   "pole": "-",
+   "children": [
+    "U029",
+    "U030",
+    "U031",
+    "U032"
+   ],
+   "decoys": [
+    "U033",
+    "U034",
+    "U035",
+    "U036"
+   ]
+  },
+  {
+   "parent": "U037",
+   "trained_unit": 6,
+   "pole": "+",
+   "children": [
+    "U038",
+    "U039",
+    "U040",
+    "U041"
+   ],
+   "decoys": [
+    "U042",
+    "U043",
+    "U044",
+    "U045"
+   ]
+  },
+  {
+   "parent": "U046",
+   "trained_unit": 8,
+   "pole": "-",
+   "children": [
+    "U047"
+   ],
+   "decoys": [
+    "U048"
+   ]
+  },
+  {
+   "parent": "U049",
+   "trained_unit": 9,
+   "pole": "+",
+   "children": [
+    "U050",
+    "U051"
+   ],
+   "decoys": [
+    "U052",
+    "U053"
+   ]
+  }
+ ],
+ "detect_key": {
+  "U001": [
+   false,
+   true,
+   true,
+   false,
+   false,
+   false,
+   true,
+   false,
+   true,
+   true
+  ],
+  "U010": [
+   true,
+   true,
+   true,
+   false,
+   false,
+   false,
+   false,
+   true,
+   true,
+   false
+  ],
+  "U019": [
+   false,
+   false,
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   true,
+   true
+  ],
+  "U028": [
+   false,
+   true,
+   false,
+   true,
+   true,
+   false,
+   true,
+   false,
+   false,
+   true
+  ],
+  "U037": [
+   false,
+   false,
+   true,
+   true,
+   false,
+   true,
+   false,
+   true,
+   false,
+   true
+  ],
+  "U046": [
+   true,
+   true,
+   true,
+   false,
+   true,
+   false,
+   false,
+   true,
+   false,
+   false
+  ],
+  "U049": [
+   false,
+   true,
+   true,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true,
+   false
+  ]
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 992,
+ "max": 4.0454020500183105,
+ "min": -4.842690944671631,
+ "edits": {
+  "flip": 0.9362831115722656,
+  "rot90": 0.9400851130485535,
+  "rot180": 0.9128267765045166,
+  "gray": 0.9858510494232178,
+  "blur1": 0.960045576095581,
+  "blur3": 0.7515503168106079,
+  "shuf2": 0.9601768255233765,
+  "shuf4": 0.7523461580276489,
+  "shuf8": 0.43775516748428345,
+  "hue": 1.0586395263671875,
+  "invert": 0.9492026567459106,
+  "zoomout": 0.604706346988678,
+  "zoomin": 0.6318561434745789
+ },
+ "top50_classes": {
+  "harvestman": 2,
+  "plastic bag": 1,
+  "pomegranate": 1,
+  "coho": 1,
+  "Granny Smith": 1,
+  "maraca": 1,
+  "frilled lizard": 1,
+  "agama": 1,
+  "pineapple": 1,
+  "mailbag": 1
+ },
+ "neg50_classes": {
+  "perfume": 2,
+  "canoe": 2,
+  "whiskey jug": 2,
+  "radiator": 2,
+  "cleaver": 1,
+  "sulphur butterfly": 1,
+  "spotlight": 1,
+  "screw": 1,
+  "minivan": 1,
+  "barracouta": 1
+ }
+}

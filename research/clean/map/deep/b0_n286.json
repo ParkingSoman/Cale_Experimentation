@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 286,
+ "max": 15.758169174194336,
+ "min": -15.696043014526367,
+ "edits": {
+  "flip": 0.8646653890609741,
+  "rot90": 0.7842572927474976,
+  "rot180": 0.8491760492324829,
+  "gray": 0.0275300070643425,
+  "blur1": 0.9622610807418823,
+  "blur3": 0.7200808525085449,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9977633953094482,
+  "hue": 0.7568225860595703,
+  "invert": 0.8618516325950623,
+  "zoomout": 0.9098397493362427,
+  "zoomin": 0.7209148406982422
+ },
+ "top50_classes": {
+  "tennis ball": 3,
+  "European gallinule": 2,
+  "lorikeet": 2,
+  "stingray": 2,
+  "jackfruit": 1,
+  "borzoi": 1,
+  "anemone fish": 1,
+  "strawberry": 1,
+  "lynx": 1,
+  "desktop computer": 1
+ },
+ "neg50_classes": {
+  "tennis ball": 3,
+  "stingray": 2,
+  "tractor": 1,
+  "meerkat": 1,
+  "cabbage butterfly": 1,
+  "wire-haired fox terrier": 1,
+  "web site": 1,
+  "garden spider": 1,
+  "beacon": 1,
+  "vine snake": 1
+ }
+}

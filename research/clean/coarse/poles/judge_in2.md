@@ -1,0 +1,87 @@
+Background: in a language model, a detector's positive and negative sides are often NOT opposites. The negative side often separates out things that an EARLIER stage grouped together with the positive side (e.g. a detector for 'cars' whose negative side is 'dogs' because an earlier stage grouped cars and dogs by their pose). The shared grouping can be abstract (e.g. 'a token right after a number', 'text about quantities').
+
+# Part A: pairs (X, Y)
+Is there a plausible EARLIER GROUPING that contains both X and Y as two kinds within it (not something generic like 'any text' or 'any token')? Answer yes / no, name the grouping, confidence 1-5. Some pairs are deliberately mismatched.
+- A00: X = I036, Y = I020
+- A01: X = I006, Y = I043
+- A02: X = I049, Y = I028
+- A03: X = I015, Y = I043
+- A04: X = I045, Y = I001
+- A05: X = I003, Y = I023
+- A06: X = I007, Y = I005
+- A07: X = I016, Y = I028
+- A08: X = I035, Y = I018
+- A09: X = I044, Y = I056
+- A10: X = I024, Y = I018
+- A11: X = I038, Y = I001
+- A12: X = I036, Y = I055
+- A13: X = I044, Y = I020
+- A14: X = I049, Y = I023
+- A15: X = I057, Y = I018
+- A16: X = I009, Y = I043
+- A17: X = I016, Y = I051
+- A18: X = I057, Y = I008
+- A19: X = I031, Y = I012
+- A20: X = I007, Y = I020
+- A21: X = I038, Y = I043
+- A22: X = I031, Y = I034
+- A23: X = I025, Y = I008
+- A24: X = I046, Y = I020
+- A25: X = I025, Y = I005
+- A26: X = I045, Y = I055
+- A27: X = I024, Y = I041
+- A28: X = I032, Y = I053
+- A29: X = I004, Y = I039
+- A30: X = I015, Y = I056
+- A31: X = I006, Y = I034
+- A32: X = I003, Y = I028
+- A33: X = I009, Y = I022
+- A34: X = I004, Y = I023
+- A35: X = I035, Y = I021
+- A36: X = I046, Y = I000
+- A37: X = I030, Y = I011
+- A38: X = I030, Y = I028
+- A39: X = I032, Y = I001
+
+# Part B: triples (P, N, R)
+R describes the REGION where a detector is switched on. Is R a grouping that contains BOTH P and N (R covers both kinds and related things, and is not so generic it covers almost all text)? Answer yes / no, confidence 1-5. Some triples are deliberately mismatched.
+- B00: P = I031, N = I012, R = R007
+- B01: P = I057, N = I018, R = R009
+- B02: P = I030, N = I011, R = R017
+- B03: P = I046, N = I000, R = R017
+- B04: P = I036, N = I020, R = R012
+- B05: P = I015, N = I043, R = R002
+- B06: P = I044, N = I056, R = R003
+- B07: P = I006, N = I034, R = R017
+- B08: P = I035, N = I021, R = R014
+- B09: P = I016, N = I051, R = R010
+- B10: P = I009, N = I022, R = R002
+- B11: P = I024, N = I041, R = R018
+- B12: P = I049, N = I028, R = R008
+- B13: P = I025, N = I008, R = R011
+- B14: P = I007, N = I005, R = R013
+- B15: P = I016, N = I051, R = R019
+- B16: P = I032, N = I053, R = R011
+- B17: P = I049, N = I028, R = R001
+- B18: P = I009, N = I022, R = R004
+- B19: P = I038, N = I001, R = R018
+- B20: P = I025, N = I008, R = R014
+- B21: P = I036, N = I020, R = R011
+- B22: P = I031, N = I012, R = R006
+- B23: P = I032, N = I053, R = R006
+- B24: P = I004, N = I039, R = R002
+- B25: P = I007, N = I005, R = R019
+- B26: P = I046, N = I000, R = R000
+- B27: P = I003, N = I023, R = R006
+- B28: P = I003, N = I023, R = R000
+- B29: P = I006, N = I034, R = R001
+- B30: P = I004, N = I039, R = R019
+- B31: P = I015, N = I043, R = R016
+- B32: P = I038, N = I001, R = R014
+- B33: P = I044, N = I056, R = R004
+- B34: P = I024, N = I041, R = R015
+- B35: P = I057, N = I018, R = R005
+- B36: P = I035, N = I021, R = R004
+- B37: P = I045, N = I055, R = R008
+- B38: P = I045, N = I055, R = R009
+- B39: P = I030, N = I011, R = R016

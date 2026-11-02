@@ -1,0 +1,119 @@
+{
+ "V1-V3 centred": {
+  "D2(B_V)": 12434.231731402957,
+  "max |E e| (linear-seen => 0)": 0.0,
+  "max |Cov(e, w)|": 9.39923074702742e-15,
+  "max |E (y_B - y)|": 2.5461114698070258e-14,
+  "max |Cov(residual_p, h(w_p))| / scale": 2.895933122557387e-17,
+  "max |E residual_p| / scale": 7.206315061919422e-19,
+  "value at q = Gamma^T s with best head (should equal D2(B_V))": 12434.23173140296,
+  "min over 300 random reads": 12440.606910986287,
+  "min over 20 local minimisations": 12434.231731402959,
+  "V2 max (D2(B_V) - value)/D2(B_V) (<= ~0 expected)": -1.4628884540988199e-16,
+  "V3 |C_e s| with s in V": 3.552713678800501e-15,
+  "V3 |(K' q') - s| (read equals s)": 0.0
+ },
+ "V1-V2 mean + constant entry": {
+  "D2(B_V)": 162.99358389890153,
+  "max |E e| (linear-seen => 0)": 2.2230220587687844e-16,
+  "max |Cov(e, w)|": 1.0199194172640487e-15,
+  "max |E (y_B - y)|": 7.475501699142722e-15,
+  "max |Cov(residual_p, h(w_p))| / scale": 5.09702593910028e-17,
+  "max |E residual_p| / scale": 9.649709302180142e-18,
+  "value at q = Gamma^T s with best head (should equal D2(B_V))": 162.99358389890168,
+  "min over 300 random reads": 162.99358389886027,
+  "min over 20 local minimisations": 162.99358389857383,
+  "V2 max (D2(B_V) - value)/D2(B_V) (<= ~0 expected)": 2.0105227573609213e-12
+ },
+ "V4 width 1": {
+  "max rel err D2 vs (rho_2/2)(f_tot - f(u))": 2.044035181864028e-15,
+  "n distinct eigenvalues": 3,
+  "polynomial degree": 7,
+  "3n - 2": 7,
+  "real roots not eigenvalues": 4,
+  "best root value": 7693.410291221673,
+  "best mu": 142.11788280677493,
+  "eigenvalues of Q": [
+   -2.8070323775990905e-15,
+   22.056896961055067,
+   83.1312093039156
+  ],
+  "brute-force max of f": 7693.410291221676,
+  "rel gap root vs brute": 3.546520986190007e-16,
+  "copy f(stilde/|stilde|)": 6241.67564547187,
+  "top eigenvector f": 5051.005252961205
+ },
+ "V5 width 2": {
+  "max rel err D2 vs (rho_2/2)(f(I) - f(Pi))": 3.738013686800976e-15,
+  "best f over rank-2 projections": 9473.05748650904,
+  "|Pi G - G Pi| / |G|": 1.9419674472888667e-08,
+  "max distance of kept eigenvectors from the resolvent span": 7.419426705308717e-16,
+  "fixed-point iteration values from 10 starts (report only)": [
+   9473.057486509031,
+   9473.057486509033,
+   9473.057486509035,
+   9473.057486509033,
+   9473.057486509038,
+   9473.057486509035,
+   9473.057486509028,
+   9473.057486509024,
+   9473.057486509026,
+   9473.057486509035
+  ],
+  "T17.2 width-1 best, for comparison": 7693.410291221673
+ },
+ "V7 one-vector reduction": {
+  "max rel err of the p-formula": 1.1933944607652815e-15,
+  "max of h over the sphere": 9473.057486509044,
+  "value at p = 0": 26.278452277477648,
+  "best f of V5": 9473.05748650904,
+  "rel gap max(h, p0) vs best f": 3.840342795631404e-16
+ },
+ "V6 softplus": {
+  "angle 1.2": {
+   "sigma": 2.8317152522495137,
+   "orth": 4.95472380928562e-12,
+   "F": 13.515485683073388,
+   "D2B": 14.277714199662682,
+   "identity_err": 8.195815181554489e-12,
+   "price": 0.7622285165892944,
+   "bound": 30.584920810670603
+  },
+  "angle 0.6": {
+   "sigma": 1.7144148102133523,
+   "orth": 1.0364268318955201e-13,
+   "F": 8.142533952231652,
+   "D2B": 8.39944927823207,
+   "identity_err": 1.2515677429965225e-12,
+   "price": 0.2569153260004189,
+   "bound": 11.184315533726304
+  },
+  "angle 0.3": {
+   "sigma": 0.6248923844174783,
+   "orth": 8.653046845935118e-14,
+   "F": 3.1558802888092137,
+   "D2B": 3.179928684740171,
+   "identity_err": 1.5473644012053508e-13,
+   "price": 0.024048395930957422,
+   "bound": 1.4217473712724917
+  },
+  "angle 0.1": {
+   "sigma": 0.17619979770496066,
+   "orth": 1.5045570197945887e-12,
+   "F": 2.063449303150863,
+   "D2B": 2.0650446249556813,
+   "identity_err": 2.72469186418722e-13,
+   "price": 0.0015953218048183615,
+   "bound": 0.11160005943503482
+  },
+  "angle 0.0": {
+   "sigma": 6.8879652129261064e-09,
+   "orth": 6.4195606186377045e-12,
+   "F": 1.834346913681391,
+   "D2B": 1.834346913681391,
+   "identity_err": 0.0,
+   "price": 0.0,
+   "bound": 1.698791098282789e-16
+  }
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 1316,
+ "max": 4.789569854736328,
+ "min": -5.721838474273682,
+ "edits": {
+  "flip": 0.9284665584564209,
+  "rot90": 0.4743824303150177,
+  "rot180": 0.584147572517395,
+  "gray": 0.8854535818099976,
+  "blur1": 0.9335770010948181,
+  "blur3": 0.8397681713104248,
+  "shuf2": 0.8225501775741577,
+  "shuf4": 0.6448208093643188,
+  "shuf8": 0.6291782855987549,
+  "hue": 0.8298083543777466,
+  "invert": 0.38532501459121704,
+  "zoomout": 0.5888621211051941,
+  "zoomin": 0.45495688915252686
+ },
+ "top50_classes": {
+  "harvestman": 1,
+  "crutch": 1,
+  "mailbox": 1,
+  "bassoon": 1,
+  "horizontal bar": 1,
+  "file": 1,
+  "toucan": 1,
+  "necklace": 1,
+  "loggerhead": 1,
+  "refrigerator": 1
+ },
+ "neg50_classes": {
+  "tench": 1,
+  "water bottle": 1,
+  "sea anemone": 1,
+  "upright": 1,
+  "frilled lizard": 1,
+  "redbone": 1,
+  "beaker": 1,
+  "giant panda": 1,
+  "cardoon": 1,
+  "tiger": 1
+ }
+}

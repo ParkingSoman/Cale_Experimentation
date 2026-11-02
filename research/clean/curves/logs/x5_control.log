@@ -1,0 +1,12 @@
+q mean 1 - sum p^2 0.500
+C1 only: LP status 0; support 1; share real 0.00; imprint residual 5.695
+   eps 1.0: bound 0.0023
+   eps 10.0: bound 0.0031
+C1 + C2: LP status 0; support 25; share real 0.99; imprint residual 0.019
+   eps 1.0: bound 0.0016
+   eps 10.0: bound 0.0035
+  w*(p1)             dev-5000 KL 0.0532 | paired vs w*(p1) +0.0000 (se 0.0000)
+  C1 only, eps 1.0   dev-5000 KL 0.0540 | paired vs w*(p1) +0.0008 (se 0.0003)
+  C1 only, eps 10.0  dev-5000 KL 0.0542 | paired vs w*(p1) +0.0009 (se 0.0004)
+  C1 + C2, eps 1.0   dev-5000 KL 0.0534 | paired vs w*(p1) +0.0002 (se 0.0003)
+  C1 + C2, eps 10.0  dev-5000 KL 0.0548 | paired vs w*(p1) +0.0016 (se 0.0006)

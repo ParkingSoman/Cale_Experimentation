@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 853,
+ "max": 2.5158987045288086,
+ "min": -4.186583042144775,
+ "edits": {
+  "flip": 0.8815050721168518,
+  "rot90": 0.2940470278263092,
+  "rot180": 0.8470162153244019,
+  "gray": 1.0139274597167969,
+  "blur1": 0.6655899882316589,
+  "blur3": 0.38210350275039673,
+  "shuf2": 0.6952089071273804,
+  "shuf4": 0.5740257501602173,
+  "shuf8": 0.6745049357414246,
+  "hue": 0.9545396566390991,
+  "invert": 0.9087925553321838,
+  "zoomout": -0.01442778017371893,
+  "zoomin": 0.5241448879241943
+ },
+ "top50_classes": {
+  "Polaroid camera": 1,
+  "bib": 1,
+  "gown": 1,
+  "gong": 1,
+  "jacamar": 1,
+  "solar dish": 1,
+  "Windsor tie": 1,
+  "abaya": 1,
+  "aircraft carrier": 1,
+  "cricket": 1
+ },
+ "neg50_classes": {
+  "plunger": 2,
+  "monastery": 2,
+  "cleaver": 1,
+  "passenger car": 1,
+  "jersey": 1,
+  "library": 1,
+  "mailbag": 1,
+  "maraca": 1,
+  "marimba": 1,
+  "medicine chest": 1
+ }
+}

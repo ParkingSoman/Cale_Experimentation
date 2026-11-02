@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 811,
+ "max": 6.23086404800415,
+ "min": -6.796070575714111,
+ "edits": {
+  "flip": 0.9509797692298889,
+  "rot90": 0.9426261186599731,
+  "rot180": 0.9233705997467041,
+  "gray": 1.0164978504180908,
+  "blur1": 0.9194424152374268,
+  "blur3": 0.7491379976272583,
+  "shuf2": 0.9417988061904907,
+  "shuf4": 0.7992831468582153,
+  "shuf8": 0.5527129769325256,
+  "hue": 0.986855685710907,
+  "invert": 0.9333488345146179,
+  "zoomout": 0.5499135851860046,
+  "zoomin": 0.5217324495315552
+ },
+ "top50_classes": {
+  "ground beetle": 2,
+  "tick": 2,
+  "bicycle-built-for-two": 2,
+  "pitcher": 2,
+  "joystick": 2,
+  "revolver": 2,
+  "vacuum": 2,
+  "jacamar": 1,
+  "cowboy hat": 1,
+  "spotted salamander": 1
+ },
+ "neg50_classes": {
+  "indigo bunting": 2,
+  "bee eater": 2,
+  "hotdog": 1,
+  "football helmet": 1,
+  "Band Aid": 1,
+  "plate": 1,
+  "file": 1,
+  "long-horned beetle": 1,
+  "screwdriver": 1,
+  "worm fence": 1
+ }
+}

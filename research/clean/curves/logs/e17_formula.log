@@ -1,0 +1,97 @@
+  solve 25/9024
+  solve 275/9024
+  solve 525/9024
+  solve 775/9024
+  solve 1025/9024
+  solve 1275/9024
+  solve 1525/9024
+  solve 1775/9024
+  solve 2025/9024
+  solve 2275/9024
+  solve 2525/9024
+  solve 2775/9024
+  solve 3025/9024
+  solve 3275/9024
+  solve 3525/9024
+  solve 3775/9024
+  solve 4025/9024
+  solve 4275/9024
+  solve 4525/9024
+  solve 4775/9024
+  solve 5025/9024
+  solve 5275/9024
+  solve 5525/9024
+  solve 5775/9024
+  solve 6025/9024
+  solve 6275/9024
+  solve 6525/9024
+  solve 6775/9024
+  solve 7025/9024
+  solve 7275/9024
+  solve 7525/9024
+  solve 7775/9024
+  solve 8025/9024
+  solve 8275/9024
+  solve 8525/9024
+  solve 8775/9024
+  solve 9024/9024
+  active 50/9024
+  active 2050/9024
+  active 4050/9024
+  active 6050/9024
+  active 8050/9024
+done M read
+  solve 25/9024
+  solve 275/9024
+  solve 525/9024
+  solve 775/9024
+  solve 1025/9024
+  solve 1275/9024
+  solve 1525/9024
+  solve 1775/9024
+  solve 2025/9024
+  solve 2275/9024
+  solve 2525/9024
+  solve 2775/9024
+  solve 3025/9024
+  solve 3275/9024
+  solve 3525/9024
+  solve 3775/9024
+  solve 4025/9024
+  solve 4275/9024
+  solve 4525/9024
+  solve 4775/9024
+  solve 5025/9024
+  solve 5275/9024
+  solve 5525/9024
+  solve 5775/9024
+  solve 6025/9024
+  solve 6275/9024
+  solve 6525/9024
+  solve 6775/9024
+  solve 7025/9024
+  solve 7275/9024
+  solve 7525/9024
+  solve 7775/9024
+  solve 8025/9024
+  solve 8275/9024
+  solve 8525/9024
+  solve 8775/9024
+  solve 9024/9024
+  active 50/9024
+  active 2050/9024
+  active 4050/9024
+  active 6050/9024
+  active 8050/9024
+done self read
+  M read: step0 + plain beta                 dev-5000 KL 0.0942 (se 0.0045)
+  M read: step1 + plain beta                 dev-5000 KL 0.0807 (se 0.0037)
+  M read: lsq on the set                     dev-5000 KL 0.1070 (se 0.0056)
+  self read: step0 + plain beta              dev-5000 KL 0.1098 (se 0.0054)
+  self read: step1 + plain beta              dev-5000 KL 0.0984 (se 0.0046)
+  self read: lsq on the set                  dev-5000 KL 0.1048 (se 0.0060)
+  self read: lsq on class inversions (E4)    dev-5000 KL 0.0771 (se 0.0045)
+  paired M read: step1 + plain beta - M read: lsq on the set: -0.0263 (se 0.0042)
+  paired self read: step1 + plain beta - self read: lsq on class inversions (E4): +0.0213 (se 0.0042)
+  paired self read: step1 + plain beta - self read: lsq on the set: -0.0064 (se 0.0051)
+  best data-free build: self read: lsq on class inversions (E4) 0.0771; vs bar B +0.0411 (se 0.0042); vs THE FORMULA (FITTED) +0.0264

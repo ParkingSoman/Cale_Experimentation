@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 827,
+ "max": 7.229400157928467,
+ "min": -10.019035339355469,
+ "edits": {
+  "flip": 1.003662347793579,
+  "rot90": 1.002007246017456,
+  "rot180": 0.9003458023071289,
+  "gray": 0.8929027318954468,
+  "blur1": 0.9273059964179993,
+  "blur3": 0.477908194065094,
+  "shuf2": 1.239562749862671,
+  "shuf4": 1.1276262998580933,
+  "shuf8": 0.8986009359359741,
+  "hue": 0.849606990814209,
+  "invert": 0.9820559024810791,
+  "zoomout": 0.8487944602966309,
+  "zoomin": 0.6239677667617798
+ },
+ "top50_classes": {
+  "Pomeranian": 3,
+  "Maltese dog": 3,
+  "Pekinese": 3,
+  "Shih-Tzu": 2,
+  "polecat": 2,
+  "hamster": 2,
+  "Pembroke": 2,
+  "Persian cat": 2,
+  "West Highland white terrier": 2,
+  "papillon": 2
+ },
+ "neg50_classes": {
+  "redshank": 3,
+  "hummingbird": 3,
+  "red-breasted merganser": 2,
+  "ruffed grouse": 1,
+  "Indian cobra": 1,
+  "spiny lobster": 1,
+  "soft-coated wheaten terrier": 1,
+  "Rottweiler": 1,
+  "magnetic compass": 1,
+  "Dungeness crab": 1
+ }
+}

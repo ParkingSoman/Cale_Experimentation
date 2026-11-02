@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 477,
+ "max": 5.344858169555664,
+ "min": -4.734865188598633,
+ "edits": {
+  "flip": 0.6474212408065796,
+  "rot90": 0.6247105598449707,
+  "rot180": 0.9674772620201111,
+  "gray": 1.000584363937378,
+  "blur1": 0.9250091314315796,
+  "blur3": 0.4326764941215515,
+  "shuf2": 0.9999852180480957,
+  "shuf4": 0.9588484764099121,
+  "shuf8": 0.8261910676956177,
+  "hue": 0.993744969367981,
+  "invert": 0.9738467335700989,
+  "zoomout": 0.8155487775802612,
+  "zoomin": 0.6274517774581909
+ },
+ "top50_classes": {
+  "projectile": 1,
+  "cabbage butterfly": 1,
+  "gasmask": 1,
+  "worm fence": 1,
+  "backpack": 1,
+  "snowplow": 1,
+  "mountain bike": 1,
+  "book jacket": 1,
+  "otter": 1,
+  "sidewinder": 1
+ },
+ "neg50_classes": {
+  "reel": 2,
+  "sorrel": 2,
+  "horse cart": 2,
+  "volleyball": 2,
+  "dowitcher": 1,
+  "remote control": 1,
+  "bottlecap": 1,
+  "proboscis monkey": 1,
+  "rock crab": 1,
+  "zebra": 1
+ }
+}

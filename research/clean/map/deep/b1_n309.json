@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 309,
+ "max": 7.483788013458252,
+ "min": -7.951104164123535,
+ "edits": {
+  "flip": 0.9986544847488403,
+  "rot90": 0.9634865522384644,
+  "rot180": 0.8755408525466919,
+  "gray": 0.08008040487766266,
+  "blur1": 1.0098562240600586,
+  "blur3": 1.0149778127670288,
+  "shuf2": 0.999990701675415,
+  "shuf4": 0.99070805311203,
+  "shuf8": 0.9722353219985962,
+  "hue": 0.7333859205245972,
+  "invert": 0.6075059175491333,
+  "zoomout": 0.8794424533843994,
+  "zoomin": 0.961621880531311
+ },
+ "top50_classes": {
+  "feather boa": 2,
+  "desktop computer": 1,
+  "vine snake": 1,
+  "crib": 1,
+  "redbone": 1,
+  "ice bear": 1,
+  "lemon": 1,
+  "sea anemone": 1,
+  "jellyfish": 1,
+  "meerkat": 1
+ },
+ "neg50_classes": {
+  "tennis ball": 3,
+  "monarch": 2,
+  "leafhopper": 2,
+  "bee": 2,
+  "wire-haired fox terrier": 1,
+  "harvestman": 1,
+  "yawl": 1,
+  "soap dispenser": 1,
+  "garden spider": 1,
+  "menu": 1
+ }
+}

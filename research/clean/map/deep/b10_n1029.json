@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 1029,
+ "max": 3.5945351123809814,
+ "min": -4.352410793304443,
+ "edits": {
+  "flip": 0.9304677248001099,
+  "rot90": 0.5490869879722595,
+  "rot180": 0.53989577293396,
+  "gray": 0.9674612283706665,
+  "blur1": 0.9445668458938599,
+  "blur3": 0.674384355545044,
+  "shuf2": 0.887776255607605,
+  "shuf4": 0.803860068321228,
+  "shuf8": 0.8482544422149658,
+  "hue": 0.97083580493927,
+  "invert": 0.938230037689209,
+  "zoomout": 0.601233184337616,
+  "zoomin": 0.6542558670043945
+ },
+ "top50_classes": {
+  "Pomeranian": 2,
+  "macaque": 1,
+  "orangutan": 1,
+  "otterhound": 1,
+  "quail": 1,
+  "street sign": 1,
+  "fur coat": 1,
+  "Sealyham terrier": 1,
+  "miniature schnauzer": 1,
+  "West Highland white terrier": 1
+ },
+ "neg50_classes": {
+  "radiator": 2,
+  "hog": 1,
+  "German shepherd": 1,
+  "eggnog": 1,
+  "Bedlington terrier": 1,
+  "espresso": 1,
+  "pencil sharpener": 1,
+  "Scotch terrier": 1,
+  "weevil": 1,
+  "Model T": 1
+ }
+}

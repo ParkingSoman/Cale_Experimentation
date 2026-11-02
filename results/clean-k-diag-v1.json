@@ -1,0 +1,14 @@
+{
+ "15": {
+  "V1 recipe gate + family-fit value": 0.059542544186115265,
+  "V2 dominant gate + family-fit value": 0.05839578062295914,
+  "V3 dominant neuron as-is": 0.05867549031972885,
+  "V5 cut_ls": 0.05433497577905655
+ },
+ "28": {
+  "V1 recipe gate + family-fit value": 0.13422496616840363,
+  "V2 dominant gate + family-fit value": 0.14453351497650146,
+  "V3 dominant neuron as-is": 0.13801880180835724,
+  "V5 cut_ls": 0.1321321427822113
+ }
+}

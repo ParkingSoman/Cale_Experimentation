@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 550,
+ "max": 3.0783092975616455,
+ "min": -5.311966896057129,
+ "edits": {
+  "flip": 0.9783908128738403,
+  "rot90": 0.9366927146911621,
+  "rot180": 0.9846725463867188,
+  "gray": 0.06276558339595795,
+  "blur1": 0.9966068863868713,
+  "blur3": 0.9895386695861816,
+  "shuf2": 1.0018279552459717,
+  "shuf4": 1.0112015008926392,
+  "shuf8": 0.8915466070175171,
+  "hue": 0.415351003408432,
+  "invert": 0.6641806364059448,
+  "zoomout": 0.6937925815582275,
+  "zoomin": 0.8841508626937866
+ },
+ "top50_classes": {
+  "space shuttle": 2,
+  "catamaran": 1,
+  "oxcart": 1,
+  "web site": 1,
+  "mountain tent": 1,
+  "mouse": 1,
+  "file": 1,
+  "schooner": 1,
+  "packet": 1,
+  "Norfolk terrier": 1
+ },
+ "neg50_classes": {
+  "goldfish": 2,
+  "apron": 2,
+  "papillon": 2,
+  "orange": 2,
+  "prison": 1,
+  "bell pepper": 1,
+  "crib": 1,
+  "meat loaf": 1,
+  "terrapin": 1,
+  "carbonara": 1
+ }
+}

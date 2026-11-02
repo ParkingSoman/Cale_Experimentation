@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1101,
+ "max": 5.276341438293457,
+ "min": -5.887105941772461,
+ "edits": {
+  "flip": 0.9406114220619202,
+  "rot90": 0.4923263192176819,
+  "rot180": 0.6762609481811523,
+  "gray": 0.9385443925857544,
+  "blur1": 0.9694855213165283,
+  "blur3": 0.7796990871429443,
+  "shuf2": 0.8067432641983032,
+  "shuf4": 0.6746276617050171,
+  "shuf8": 0.529383659362793,
+  "hue": 0.9603753685951233,
+  "invert": 0.9753420352935791,
+  "zoomout": 0.6637543439865112,
+  "zoomin": 0.5702459216117859
+ },
+ "top50_classes": {
+  "agaric": 2,
+  "gar": 2,
+  "cello": 1,
+  "aircraft carrier": 1,
+  "capuchin": 1,
+  "harvester": 1,
+  "Madagascar cat": 1,
+  "jellyfish": 1,
+  "wall clock": 1,
+  "water tower": 1
+ },
+ "neg50_classes": {
+  "Doberman": 2,
+  "toilet tissue": 1,
+  "school bus": 1,
+  "umbrella": 1,
+  "unicycle": 1,
+  "panpipe": 1,
+  "pajama": 1,
+  "running shoe": 1,
+  "bell cote": 1,
+  "cougar": 1
+ }
+}

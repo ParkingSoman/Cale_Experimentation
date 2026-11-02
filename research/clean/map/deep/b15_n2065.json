@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 2065,
+ "max": 10.658575057983398,
+ "min": -15.42836856842041,
+ "edits": {
+  "flip": 1.0125281810760498,
+  "rot90": 0.8207594156265259,
+  "rot180": 0.9339643716812134,
+  "gray": 0.993832528591156,
+  "blur1": 0.9586265683174133,
+  "blur3": 0.5972886681556702,
+  "shuf2": 0.9542309045791626,
+  "shuf4": 0.7199259400367737,
+  "shuf8": 0.20293983817100525,
+  "hue": 0.9357118606567383,
+  "invert": 0.988648533821106,
+  "zoomout": 0.6222467422485352,
+  "zoomin": 0.6486805081367493
+ },
+ "top50_classes": {
+  "disk brake": 2,
+  "wall clock": 2,
+  "earthstar": 2,
+  "oil filter": 2,
+  "dial telephone": 2,
+  "electric fan": 2,
+  "iPod": 2,
+  "bottlecap": 1,
+  "sewing machine": 1,
+  "trombone": 1
+ },
+ "neg50_classes": {
+  "langur": 2,
+  "crane": 2,
+  "ostrich": 2,
+  "bee": 2,
+  "siamang": 1,
+  "hamper": 1,
+  "maillot": 1,
+  "bullet train": 1,
+  "brown bear": 1,
+  "frilled lizard": 1
+ }
+}

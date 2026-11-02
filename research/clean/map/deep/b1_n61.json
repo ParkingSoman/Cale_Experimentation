@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 61,
+ "max": 2.720633029937744,
+ "min": -4.4935832023620605,
+ "edits": {
+  "flip": 0.9239985346794128,
+  "rot90": 0.8125345706939697,
+  "rot180": 0.8542405366897583,
+  "gray": 0.9610220193862915,
+  "blur1": 0.9941776990890503,
+  "blur3": 0.859122097492218,
+  "shuf2": 1.0,
+  "shuf4": 0.9968863725662231,
+  "shuf8": 0.9177347421646118,
+  "hue": 0.9626327753067017,
+  "invert": 0.8801879286766052,
+  "zoomout": 0.7720499038696289,
+  "zoomin": 0.7941880226135254
+ },
+ "top50_classes": {
+  "kimono": 2,
+  "toilet tissue": 1,
+  "tractor": 1,
+  "lotion": 1,
+  "lipstick": 1,
+  "dowitcher": 1,
+  "lens cap": 1,
+  "lampshade": 1,
+  "knot": 1,
+  "spoonbill": 1
+ },
+ "neg50_classes": {
+  "jackfruit": 2,
+  "garter snake": 2,
+  "tench": 1,
+  "oboe": 1,
+  "ptarmigan": 1,
+  "Boston bull": 1,
+  "shovel": 1,
+  "tennis ball": 1,
+  "sidewinder": 1,
+  "seat belt": 1
+ }
+}

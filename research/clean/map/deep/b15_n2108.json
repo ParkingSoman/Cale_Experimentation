@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 2108,
+ "max": 9.104716300964355,
+ "min": -14.904510498046875,
+ "edits": {
+  "flip": 0.940168023109436,
+  "rot90": 0.4659409523010254,
+  "rot180": 0.4200971722602844,
+  "gray": 0.7172611951828003,
+  "blur1": 0.9081190824508667,
+  "blur3": 0.37396034598350525,
+  "shuf2": 1.036421775817871,
+  "shuf4": 0.8885028958320618,
+  "shuf8": 0.566568911075592,
+  "hue": 0.6321840286254883,
+  "invert": 0.8577368855476379,
+  "zoomout": 0.7275124788284302,
+  "zoomin": 0.7619141936302185
+ },
+ "top50_classes": {
+  "half track": 3,
+  "tank": 3,
+  "amphibian": 2,
+  "rifle": 2,
+  "jeep": 2,
+  "garbage truck": 2,
+  "snowplow": 2,
+  "assault rifle": 2,
+  "thresher": 2,
+  "carpenter's kit": 1
+ },
+ "neg50_classes": {
+  "Blenheim spaniel": 2,
+  "Great Pyrenees": 2,
+  "beagle": 2,
+  "American lobster": 1,
+  "sea anemone": 1,
+  "triumphal arch": 1,
+  "silky terrier": 1,
+  "Bedlington terrier": 1,
+  "Dungeness crab": 1,
+  "toy terrier": 1
+ }
+}

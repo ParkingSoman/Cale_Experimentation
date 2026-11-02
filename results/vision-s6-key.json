@@ -1,0 +1,262 @@
+{
+ "2_194": {
+  "C1": {
+   "src": "rule",
+   "neuron": [
+    1,
+    253
+   ]
+  },
+  "C2": {
+   "src": "random",
+   "neuron": [
+    1,
+    198
+   ]
+  },
+  "C3": {
+   "src": "edge",
+   "neuron": [
+    0,
+    158
+   ]
+  },
+  "C4": {
+   "src": "rule",
+   "neuron": [
+    1,
+    123
+   ]
+  },
+  "C5": {
+   "src": "edge",
+   "neuron": [
+    0,
+    98
+   ]
+  },
+  "C6": {
+   "src": "edge",
+   "neuron": [
+    0,
+    181
+   ]
+  },
+  "C7": {
+   "src": "random",
+   "neuron": [
+    1,
+    293
+   ]
+  },
+  "C8": {
+   "src": "random",
+   "neuron": [
+    1,
+    368
+   ]
+  },
+  "C9": {
+   "src": "rule",
+   "neuron": [
+    1,
+    222
+   ]
+  }
+ },
+ "9_851": {
+  "C1": {
+   "src": "edge",
+   "neuron": [
+    8,
+    77
+   ]
+  },
+  "C2": {
+   "src": "random",
+   "neuron": [
+    8,
+    440
+   ]
+  },
+  "C3": {
+   "src": "edge",
+   "neuron": [
+    6,
+    612
+   ]
+  },
+  "C4": {
+   "src": "random",
+   "neuron": [
+    3,
+    739
+   ]
+  },
+  "C5": {
+   "src": "random",
+   "neuron": [
+    6,
+    853
+   ]
+  },
+  "C6": {
+   "src": "rule",
+   "neuron": [
+    8,
+    175
+   ]
+  },
+  "C7": {
+   "src": "rule",
+   "neuron": [
+    3,
+    71
+   ]
+  },
+  "C8": {
+   "src": "edge",
+   "neuron": [
+    8,
+    938
+   ]
+  },
+  "C9": {
+   "src": "rule",
+   "neuron": [
+    6,
+    200
+   ]
+  }
+ },
+ "12_122": {
+  "C1": {
+   "src": "random",
+   "neuron": [
+    3,
+    697
+   ]
+  },
+  "C2": {
+   "src": "edge",
+   "neuron": [
+    1,
+    342
+   ]
+  },
+  "C3": {
+   "src": "random",
+   "neuron": [
+    6,
+    1188
+   ]
+  },
+  "C4": {
+   "src": "rule",
+   "neuron": [
+    6,
+    546
+   ]
+  },
+  "C5": {
+   "src": "edge",
+   "neuron": [
+    6,
+    422
+   ]
+  },
+  "C6": {
+   "src": "rule",
+   "neuron": [
+    6,
+    596
+   ]
+  },
+  "C7": {
+   "src": "random",
+   "neuron": [
+    6,
+    535
+   ]
+  },
+  "C8": {
+   "src": "edge",
+   "neuron": [
+    8,
+    974
+   ]
+  },
+  "C9": {
+   "src": "rule",
+   "neuron": [
+    3,
+    236
+   ]
+  }
+ },
+ "15_1613": {
+  "C1": {
+   "src": "edge",
+   "neuron": [
+    14,
+    511
+   ]
+  },
+  "C2": {
+   "src": "rule",
+   "neuron": [
+    14,
+    947
+   ]
+  },
+  "C3": {
+   "src": "random",
+   "neuron": [
+    13,
+    1080
+   ]
+  },
+  "C4": {
+   "src": "edge",
+   "neuron": [
+    14,
+    1111
+   ]
+  },
+  "C5": {
+   "src": "random",
+   "neuron": [
+    12,
+    544
+   ]
+  },
+  "C6": {
+   "src": "rule",
+   "neuron": [
+    12,
+    356
+   ]
+  },
+  "C7": {
+   "src": "rule",
+   "neuron": [
+    13,
+    376
+   ]
+  },
+  "C8": {
+   "src": "edge",
+   "neuron": [
+    13,
+    837
+   ]
+  },
+  "C9": {
+   "src": "random",
+   "neuron": [
+    14,
+    138
+   ]
+  }
+ }
+}

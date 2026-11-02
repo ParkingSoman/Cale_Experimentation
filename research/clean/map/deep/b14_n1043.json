@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1043,
+ "max": 5.6990251541137695,
+ "min": -7.212047100067139,
+ "edits": {
+  "flip": 0.9776272773742676,
+  "rot90": 0.5812771320343018,
+  "rot180": 0.699374794960022,
+  "gray": 0.8650562763214111,
+  "blur1": 0.9271723628044128,
+  "blur3": 0.6002364158630371,
+  "shuf2": 0.9272716045379639,
+  "shuf4": 0.9126536846160889,
+  "shuf8": 0.6076667308807373,
+  "hue": 0.7893234491348267,
+  "invert": 0.908182680606842,
+  "zoomout": 0.6429142951965332,
+  "zoomin": 0.26670870184898376
+ },
+ "top50_classes": {
+  "soup bowl": 2,
+  "remote control": 2,
+  "quilt": 2,
+  "trifle": 1,
+  "guillotine": 1,
+  "pizza": 1,
+  "cradle": 1,
+  "studio couch": 1,
+  "pajama": 1,
+  "cocker spaniel": 1
+ },
+ "neg50_classes": {
+  "potpie": 2,
+  "mashed potato": 2,
+  "yellow lady's slipper": 2,
+  "chain": 1,
+  "barber chair": 1,
+  "handkerchief": 1,
+  "violin": 1,
+  "jacamar": 1,
+  "sulphur-crested cockatoo": 1,
+  "wolf spider": 1
+ }
+}

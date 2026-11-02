@@ -1,0 +1,16 @@
+/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+top-12 4d channels [229, 129, 228, 461, 115, 177, 390, 304, 284, 244, 266, 220] shares [0.014000000432133675, 0.010999999940395355, 0.010999999940395355, 0.009999999776482582, 0.00800000037997961, 0.00800000037997961, 0.007000000216066837, 0.007000000216066837, 0.007000000216066837, 0.007000000216066837, 0.007000000216066837, 0.007000000216066837] total 0.107
+unit 229 done
+unit 129 done
+unit 228 done
+unit 461 done
+unit 115 done
+unit 177 done
+unit 390 done
+unit 304 done
+unit 284 done
+unit 244 done
+unit 266 done
+unit 220 done
+saved cache/c14_units.png (columns: feature vis | 4 top crops | 2 most negative crops)

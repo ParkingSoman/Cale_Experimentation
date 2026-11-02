@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 284,
+ "max": 5.159303665161133,
+ "min": -7.414031505584717,
+ "edits": {
+  "flip": 0.8485926389694214,
+  "rot90": 0.6218375563621521,
+  "rot180": 0.8525596857070923,
+  "gray": 1.0043771266937256,
+  "blur1": 0.11236470192670822,
+  "blur3": -0.03269776329398155,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.968386173248291,
+  "hue": 0.9979959726333618,
+  "invert": 0.8522936105728149,
+  "zoomout": 0.5904874801635742,
+  "zoomin": 0.1226579025387764
+ },
+ "top50_classes": {
+  "shoji": 1,
+  "sunglass": 1,
+  "tripod": 1,
+  "cornet": 1,
+  "hatchet": 1,
+  "turnstile": 1,
+  "slot": 1,
+  "hard disc": 1,
+  "streetcar": 1,
+  "oscilloscope": 1
+ },
+ "neg50_classes": {
+  "dome": 2,
+  "planetarium": 1,
+  "traffic light": 1,
+  "window shade": 1,
+  "soap dispenser": 1,
+  "wok": 1,
+  "mobile home": 1,
+  "Kerry blue terrier": 1,
+  "slide rule": 1,
+  "flute": 1
+ }
+}

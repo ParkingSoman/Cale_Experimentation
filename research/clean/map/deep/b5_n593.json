@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 593,
+ "max": 4.1900634765625,
+ "min": -6.331461429595947,
+ "edits": {
+  "flip": 0.7221400737762451,
+  "rot90": 0.6590355038642883,
+  "rot180": 0.753125011920929,
+  "gray": 0.04735615849494934,
+  "blur1": 0.8313425779342651,
+  "blur3": 0.569406270980835,
+  "shuf2": 0.9990004301071167,
+  "shuf4": 0.8748970031738281,
+  "shuf8": 0.8479316234588623,
+  "hue": 0.3386107087135315,
+  "invert": 0.6274028420448303,
+  "zoomout": 0.5723130106925964,
+  "zoomin": 0.6231433153152466
+ },
+ "top50_classes": {
+  "beer bottle": 2,
+  "African grey": 2,
+  "stole": 2,
+  "cellular telephone": 1,
+  "comic book": 1,
+  "admiral": 1,
+  "apron": 1,
+  "garbage truck": 1,
+  "web site": 1,
+  "fountain pen": 1
+ },
+ "neg50_classes": {
+  "organ": 2,
+  "entertainment center": 2,
+  "marmoset": 1,
+  "European fire salamander": 1,
+  "barn": 1,
+  "eft": 1,
+  "beacon": 1,
+  "sunglasses": 1,
+  "espresso": 1,
+  "kit fox": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1376,
+ "max": 5.514985084533691,
+ "min": -12.201089859008789,
+ "edits": {
+  "flip": 0.9589920043945312,
+  "rot90": 0.35223817825317383,
+  "rot180": 0.40167391300201416,
+  "gray": 0.7707558274269104,
+  "blur1": 0.8963255882263184,
+  "blur3": 0.4264387786388397,
+  "shuf2": 0.9992560744285583,
+  "shuf4": 0.6245912313461304,
+  "shuf8": 0.34428471326828003,
+  "hue": 0.7365521192550659,
+  "invert": 1.0550742149353027,
+  "zoomout": 0.6829838752746582,
+  "zoomin": 0.5980046987533569
+ },
+ "top50_classes": {
+  "mosquito net": 3,
+  "four-poster": 3,
+  "tub": 2,
+  "quilt": 2,
+  "bakery": 2,
+  "bassinet": 2,
+  "medicine chest": 2,
+  "cradle": 2,
+  "Brittany spaniel": 1,
+  "English setter": 1
+ },
+ "neg50_classes": {
+  "cornet": 2,
+  "Saluki": 2,
+  "Brabancon griffon": 1,
+  "leafhopper": 1,
+  "sock": 1,
+  "Airedale": 1,
+  "barbell": 1,
+  "dragonfly": 1,
+  "Dandie Dinmont": 1,
+  "harvestman": 1
+ }
+}

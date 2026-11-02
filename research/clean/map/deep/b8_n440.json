@@ -1,0 +1,45 @@
+{
+ "block": 8,
+ "neuron": 440,
+ "max": 4.717429161071777,
+ "min": -5.867551803588867,
+ "edits": {
+  "flip": 0.5659009218215942,
+  "rot90": 0.47063320875167847,
+  "rot180": 0.5336754322052002,
+  "gray": 0.9745575189590454,
+  "blur1": 0.9061537981033325,
+  "blur3": 0.6314072012901306,
+  "shuf2": 0.9529716968536377,
+  "shuf4": 0.6456571817398071,
+  "shuf8": 0.4857521057128906,
+  "hue": 0.9503862857818604,
+  "invert": 0.9497172832489014,
+  "zoomout": 0.6190416812896729,
+  "zoomin": 0.5399301052093506
+ },
+ "top50_classes": {
+  "white stork": 1,
+  "espresso maker": 1,
+  "hornbill": 1,
+  "water tower": 1,
+  "abacus": 1,
+  "solar dish": 1,
+  "acoustic guitar": 1,
+  "mixing bowl": 1,
+  "shower cap": 1,
+  "lampshade": 1
+ },
+ "neg50_classes": {
+  "plastic bag": 1,
+  "racer": 1,
+  "meat loaf": 1,
+  "dough": 1,
+  "recreational vehicle": 1,
+  "Dungeness crab": 1,
+  "crib": 1,
+  "refrigerator": 1,
+  "parallel bars": 1,
+  "proboscis monkey": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 1365,
+ "max": 4.160578727722168,
+ "min": -6.210268974304199,
+ "edits": {
+  "flip": 0.96358722448349,
+  "rot90": 0.821602463722229,
+  "rot180": 0.8254784345626831,
+  "gray": 0.9042795300483704,
+  "blur1": 0.981732964515686,
+  "blur3": 0.5729470252990723,
+  "shuf2": 0.9516391754150391,
+  "shuf4": 0.7743723392486572,
+  "shuf8": 0.6531630754470825,
+  "hue": 0.9858391284942627,
+  "invert": 1.021347165107727,
+  "zoomout": 0.5898195505142212,
+  "zoomin": 0.33590981364250183
+ },
+ "top50_classes": {
+  "dogsled": 2,
+  "shoe shop": 1,
+  "violin": 1,
+  "barrow": 1,
+  "baseball": 1,
+  "broccoli": 1,
+  "garter snake": 1,
+  "gondola": 1,
+  "vestment": 1,
+  "trombone": 1
+ },
+ "neg50_classes": {
+  "Polaroid camera": 1,
+  "cockroach": 1,
+  "macaw": 1,
+  "Yorkshire terrier": 1,
+  "wire-haired fox terrier": 1,
+  "lacewing": 1,
+  "book jacket": 1,
+  "garden spider": 1,
+  "guacamole": 1,
+  "barometer": 1
+ }
+}

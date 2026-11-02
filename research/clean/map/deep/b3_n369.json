@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 369,
+ "max": 2.7196342945098877,
+ "min": -6.677740097045898,
+ "edits": {
+  "flip": 1.0216190814971924,
+  "rot90": 0.9344190955162048,
+  "rot180": 0.9754737615585327,
+  "gray": 0.970839262008667,
+  "blur1": 1.0006643533706665,
+  "blur3": 1.0391099452972412,
+  "shuf2": 0.97216796875,
+  "shuf4": 0.9479923844337463,
+  "shuf8": 0.7983325719833374,
+  "hue": 0.9758374691009521,
+  "invert": 0.965888500213623,
+  "zoomout": 0.21492353081703186,
+  "zoomin": 0.8618956804275513
+ },
+ "top50_classes": {
+  "slide rule": 2,
+  "thimble": 1,
+  "long-horned beetle": 1,
+  "banded gecko": 1,
+  "parachute": 1,
+  "bonnet": 1,
+  "nematode": 1,
+  "binder": 1,
+  "orange": 1,
+  "strawberry": 1
+ },
+ "neg50_classes": {
+  "jackfruit": 2,
+  "Komodo dragon": 2,
+  "planetarium": 2,
+  "swimming trunks": 1,
+  "safety pin": 1,
+  "scabbard": 1,
+  "soccer ball": 1,
+  "Kerry blue terrier": 1,
+  "spider web": 1,
+  "borzoi": 1
+ }
+}

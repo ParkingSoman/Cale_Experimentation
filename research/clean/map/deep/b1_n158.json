@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 158,
+ "max": 4.570887565612793,
+ "min": -8.697513580322266,
+ "edits": {
+  "flip": 0.9872459173202515,
+  "rot90": 0.7666685581207275,
+  "rot180": 0.7371382713317871,
+  "gray": 1.003605604171753,
+  "blur1": 0.660894513130188,
+  "blur3": 0.6770358085632324,
+  "shuf2": 1.0333466529846191,
+  "shuf4": 1.104076623916626,
+  "shuf8": 1.1852011680603027,
+  "hue": 0.9968934059143066,
+  "invert": 0.7166932225227356,
+  "zoomout": 1.0628185272216797,
+  "zoomin": 0.6422848105430603
+ },
+ "top50_classes": {
+  "groom": 2,
+  "garbage truck": 2,
+  "Model T": 2,
+  "theater curtain": 1,
+  "passenger car": 1,
+  "crate": 1,
+  "harmonica": 1,
+  "vase": 1,
+  "paper towel": 1,
+  "cougar": 1
+ },
+ "neg50_classes": {
+  "beach wagon": 2,
+  "triumphal arch": 2,
+  "jinrikisha": 1,
+  "wall clock": 1,
+  "king penguin": 1,
+  "library": 1,
+  "umbrella": 1,
+  "vacuum": 1,
+  "harmonica": 1,
+  "titi": 1
+ }
+}

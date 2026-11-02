@@ -1,0 +1,11 @@
+T0 = 44.32 (inversions' 1 - sum p_T^2 = 0.380; at T = 1: 0.0049)
+done M read
+done self read
+  M read: lsq(inv)                         dev-5000 KL 0.0661 (se 0.0034) | vs lsq(inv) +0.0000 (0.0000)
+  M read: Fisher(inv, T=22.2) + plain beta dev-5000 KL 0.1518 (se 0.0070) | vs lsq(inv) +0.0857 (0.0055)
+  M read: Fisher(inv, T=44.3) + plain beta dev-5000 KL 0.0988 (se 0.0044) | vs lsq(inv) +0.0327 (0.0030)
+  M read: Fisher(inv, T=88.6) + plain beta dev-5000 KL 0.1106 (se 0.0049) | vs lsq(inv) +0.0445 (0.0037)
+  self read: lsq(inv)                      dev-5000 KL 0.0771 (se 0.0045) | vs lsq(inv) +0.0000 (0.0000)
+  self read: Fisher(inv, T=22.2) + plain beta dev-5000 KL 0.1170 (se 0.0058) | vs lsq(inv) +0.0398 (0.0040)
+  self read: Fisher(inv, T=44.3) + plain beta dev-5000 KL 0.0968 (se 0.0050) | vs lsq(inv) +0.0197 (0.0034)
+  self read: Fisher(inv, T=88.6) + plain beta dev-5000 KL 0.0929 (se 0.0046) | vs lsq(inv) +0.0158 (0.0033)

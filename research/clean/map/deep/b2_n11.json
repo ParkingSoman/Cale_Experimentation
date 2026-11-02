@@ -1,0 +1,45 @@
+{
+ "block": 2,
+ "neuron": 11,
+ "max": 6.815149784088135,
+ "min": -7.034834861755371,
+ "edits": {
+  "flip": 0.9302036762237549,
+  "rot90": 0.91391921043396,
+  "rot180": 0.9228595495223999,
+  "gray": 1.0,
+  "blur1": 0.9135417938232422,
+  "blur3": 0.9183782339096069,
+  "shuf2": 1.0,
+  "shuf4": 1.0000531673431396,
+  "shuf8": 1.013845682144165,
+  "hue": 1.0008468627929688,
+  "invert": 0.8989723324775696,
+  "zoomout": 0.9189123511314392,
+  "zoomin": 0.8541669845581055
+ },
+ "top50_classes": {
+  "cellular telephone": 2,
+  "espresso maker": 2,
+  "Polaroid camera": 1,
+  "bassoon": 1,
+  "web site": 1,
+  "ashcan": 1,
+  "nipple": 1,
+  "screen": 1,
+  "barn": 1,
+  "padlock": 1
+ },
+ "neg50_classes": {
+  "espresso maker": 2,
+  "knee pad": 2,
+  "Windsor tie": 2,
+  "muzzle": 1,
+  "space heater": 1,
+  "soup bowl": 1,
+  "wooden spoon": 1,
+  "web site": 1,
+  "ashcan": 1,
+  "Polaroid camera": 1
+ }
+}

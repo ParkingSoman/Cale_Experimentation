@@ -1,0 +1,14 @@
+pool sizes: low 17500, high 10498; mean u: all 0.124, high 0.390
+done nat-4000
+done low-4000
+done high-4000
+done high-1000
+done high-10500
+done nat-12000
+  nat-4000    dev-5000 KL 0.1710 (se 0.0083) | paired vs nat-4000 +0.0000 (se 0.0000)
+  low-4000    dev-5000 KL 0.2295 (se 0.0100) | paired vs nat-4000 +0.0585 (se 0.0089)
+  high-4000   dev-5000 KL 0.0698 (se 0.0033) | paired vs nat-4000 -0.1012 (se 0.0073)
+  high-1000   dev-5000 KL 1.1692 (se 0.0403) | paired vs nat-4000 +0.9982 (se 0.0374)
+  high-10500  dev-5000 KL 0.0454 (se 0.0021) | paired vs nat-4000 -0.1256 (se 0.0076)
+  nat-12000   dev-5000 KL 0.0633 (se 0.0030) | paired vs nat-4000 -0.1077 (se 0.0075)
+u9 35000 file keys: ['M_read_+_trained_write', 'M_read_+_step0', 'M_read_+_step1', 'arcs_read_+_step0', 'arcs_read_+_step1', 'kept_read_+_step0', 'kept_read_+_step1']

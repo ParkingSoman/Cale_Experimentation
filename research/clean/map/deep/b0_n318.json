@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 318,
+ "max": 11.195321083068848,
+ "min": -11.865041732788086,
+ "edits": {
+  "flip": 0.8658534288406372,
+  "rot90": 0.8483036160469055,
+  "rot180": 0.8572853803634644,
+  "gray": 1.0004303455352783,
+  "blur1": 0.5881325006484985,
+  "blur3": 0.32869046926498413,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9968358278274536,
+  "hue": 0.9959425926208496,
+  "invert": 0.8615096807479858,
+  "zoomout": 0.8258069753646851,
+  "zoomin": 0.7677290439605713
+ },
+ "top50_classes": {
+  "mitten": 1,
+  "bluetick": 1,
+  "ground beetle": 1,
+  "gas pump": 1,
+  "tub": 1,
+  "turnstile": 1,
+  "palace": 1,
+  "dough": 1,
+  "Indian cobra": 1,
+  "Sussex spaniel": 1
+ },
+ "neg50_classes": {
+  "groom": 2,
+  "slot": 1,
+  "cicada": 1,
+  "ptarmigan": 1,
+  "Australian terrier": 1,
+  "barber chair": 1,
+  "barn": 1,
+  "consomme": 1,
+  "diamondback": 1,
+  "chain mail": 1
+ }
+}

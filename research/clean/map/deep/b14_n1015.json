@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1015,
+ "max": 5.22029447555542,
+ "min": -6.804164409637451,
+ "edits": {
+  "flip": 0.9782291650772095,
+  "rot90": 0.35149917006492615,
+  "rot180": 0.42957794666290283,
+  "gray": 1.0024933815002441,
+  "blur1": 0.9290008544921875,
+  "blur3": 0.7616849541664124,
+  "shuf2": 0.9086524248123169,
+  "shuf4": 0.76435786485672,
+  "shuf8": 0.6015663146972656,
+  "hue": 1.0013391971588135,
+  "invert": 1.0005234479904175,
+  "zoomout": 0.7004073858261108,
+  "zoomin": 0.5742563009262085
+ },
+ "top50_classes": {
+  "padlock": 2,
+  "scale": 2,
+  "viaduct": 2,
+  "cleaver": 1,
+  "hair spray": 1,
+  "harvester": 1,
+  "harmonica": 1,
+  "vase": 1,
+  "hand blower": 1,
+  "violin": 1
+ },
+ "neg50_classes": {
+  "clog": 2,
+  "car wheel": 1,
+  "burrito": 1,
+  "Sussex spaniel": 1,
+  "hand blower": 1,
+  "measuring cup": 1,
+  "sleeping bag": 1,
+  "vase": 1,
+  "dial telephone": 1,
+  "strawberry": 1
+ }
+}

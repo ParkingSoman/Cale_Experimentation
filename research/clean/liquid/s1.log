@@ -1,0 +1,85 @@
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (46012 > 8192). Running this sequence through the model will result in indexing errors
+L12 capture 5.8s  head energy share [0.064, 0.117, 0.074, 0.101, 0.106, 0.213, 0.133, 0.094, 0.099]
+L12 r1 removed [0, 3, 7] fits 9.0s
+  L12 r1 cut              prose +0.0284  code +0.0124
+  L12 r1 cut_ls           prose +0.0073  code +0.0064
+  L12 r1 merge_sum        prose +0.0123  code +0.0100
+  L12 r1 merge_ls         prose +0.0050  code +0.0046
+  L12 r1 head_rcf         prose +0.0062  code +0.0046
+  L12 r1 mlp_cut_ls_mix   prose +0.0017  code +0.0013
+  L12 r1 mlp_rcf_v1       prose +0.0018  code +0.0010
+  L12 r1 head_rcf - cut_ls: prose [-0.0011, -0.002, -0.0002] code [-0.0018, -0.0026, -0.001]
+  L12 r1 merge_ls - cut_ls: prose [-0.0023, -0.0042, -0.0002] code [-0.0018, -0.0034, -0.0002]
+  L12 r1 head_rcf - mlp_rcf_v1: prose [0.0044, 0.0025, 0.0065] code [0.0036, 0.0017, 0.0056]
+  L12 r1 cut_ls - mlp_cut_ls_mix: prose [0.0056, 0.0036, 0.0076] code [0.0051, 0.0032, 0.0071]
+L12 r1 scored 42.9s
+L12 r2 removed [0, 2, 3, 4, 7, 8] fits 8.6s
+  L12 r2 cut              prose +0.0606  code +0.0435
+  L12 r2 cut_ls           prose +0.0174  code +0.0124
+  L12 r2 merge_sum        prose +0.0242  code +0.0249
+  L12 r2 merge_ls         prose +0.0142  code +0.0118
+  L12 r2 head_rcf         prose +0.0151  code +0.0106
+  L12 r2 mlp_cut_ls_mix   prose +0.0034  code +0.0022
+  L12 r2 mlp_rcf_v1       prose +0.0076  code +0.0043
+  L12 r2 head_rcf - cut_ls: prose [-0.0023, -0.0039, -0.0008] code [-0.0017, -0.0032, -0.0004]
+  L12 r2 merge_ls - cut_ls: prose [-0.0032, -0.0059, -0.0003] code [-0.0006, -0.0027, 0.0017]
+  L12 r2 head_rcf - mlp_rcf_v1: prose [0.0075, 0.0042, 0.0107] code [0.0063, 0.0038, 0.0091]
+  L12 r2 cut_ls - mlp_cut_ls_mix: prose [0.0141, 0.0108, 0.017] code [0.0102, 0.007, 0.0136]
+L12 r2 scored 42.5s
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s1-heads.json
+L16 capture 6.1s  head energy share [0.382, 0.165, 0.089, 0.038, 0.054, 0.067, 0.072, 0.091, 0.043]
+L16 r1 removed [2, 3, 8] fits 9.1s
+  L16 r1 cut              prose +0.0151  code +0.0157
+  L16 r1 cut_ls           prose +0.0027  code +0.0028
+  L16 r1 merge_sum        prose +0.0155  code +0.0050
+  L16 r1 merge_ls         prose +0.0052  code +0.0030
+  L16 r1 head_rcf         prose +0.0024  code +0.0036
+  L16 r1 mlp_cut_ls_mix   prose +0.0022  code +0.0009
+  L16 r1 mlp_rcf_v1       prose +0.0016  code +0.0016
+  L16 r1 head_rcf - cut_ls: prose [-0.0003, -0.0011, 0.0005] code [0.0008, 0.0, 0.0015]
+  L16 r1 merge_ls - cut_ls: prose [0.0025, 0.0003, 0.0046] code [0.0002, -0.0016, 0.002]
+  L16 r1 head_rcf - mlp_rcf_v1: prose [0.0008, -0.0007, 0.0024] code [0.002, 0.0004, 0.0037]
+  L16 r1 cut_ls - mlp_cut_ls_mix: prose [0.0006, -0.001, 0.0022] code [0.0019, 0.0002, 0.0036]
+L16 r1 scored 44.2s
+L16 r2 removed [1, 2, 3, 4, 6, 8] fits 8.2s
+  L16 r2 cut              prose +0.0159  code +0.0268
+  L16 r2 cut_ls           prose +0.0070  code +0.0079
+  L16 r2 merge_sum        prose +0.0385  code +0.0193
+  L16 r2 merge_ls         prose +0.0212  code +0.0114
+  L16 r2 head_rcf         prose +0.0052  code +0.0070
+  L16 r2 mlp_cut_ls_mix   prose +0.0043  code +0.0020
+  L16 r2 mlp_rcf_v1       prose +0.0033  code +0.0019
+  L16 r2 head_rcf - cut_ls: prose [-0.0018, -0.0032, -0.0005] code [-0.0009, -0.0025, 0.0007]
+  L16 r2 merge_ls - cut_ls: prose [0.0142, 0.0102, 0.0185] code [0.0035, 0.0006, 0.0065]
+  L16 r2 head_rcf - mlp_rcf_v1: prose [0.0019, -0.0004, 0.0044] code [0.0051, 0.0029, 0.0072]
+  L16 r2 cut_ls - mlp_cut_ls_mix: prose [0.0027, 0.0004, 0.0051] code [0.0059, 0.0032, 0.0087]
+L16 r2 scored 43.0s
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s1-heads.json
+L22 capture 5.8s  head energy share [0.066, 0.242, 0.048, 0.142, 0.093, 0.196, 0.09, 0.058, 0.065]
+L22 r1 removed [2, 4, 7] fits 9.1s
+  L22 r1 cut              prose +0.0178  code +0.0136
+  L22 r1 cut_ls           prose +0.0079  code +0.0049
+  L22 r1 merge_sum        prose +0.0173  code +0.0125
+  L22 r1 merge_ls         prose +0.0107  code +0.0073
+  L22 r1 head_rcf         prose +0.0074  code +0.0048
+  L22 r1 mlp_cut_ls_mix   prose +0.0026  code +0.0004
+  L22 r1 mlp_rcf_v1       prose +0.0026  code +0.0001
+  L22 r1 head_rcf - cut_ls: prose [-0.0005, -0.0012, 0.0002] code [-0.0002, -0.0012, 0.0009]
+  L22 r1 merge_ls - cut_ls: prose [0.0028, 0.0011, 0.0044] code [0.0024, 0.0007, 0.0042]
+  L22 r1 head_rcf - mlp_rcf_v1: prose [0.0048, 0.0028, 0.0067] code [0.0047, 0.0026, 0.0066]
+  L22 r1 cut_ls - mlp_cut_ls_mix: prose [0.0053, 0.0033, 0.0073] code [0.0045, 0.0026, 0.0064]
+L22 r1 scored 40.8s
+L22 r2 removed [0, 2, 3, 4, 7, 8] fits 7.8s
+  L22 r2 cut              prose +0.0474  code +0.0315
+  L22 r2 cut_ls           prose +0.0141  code +0.0100
+  L22 r2 merge_sum        prose +0.0222  code +0.0176
+  L22 r2 merge_ls         prose +0.0177  code +0.0135
+  L22 r2 head_rcf         prose +0.0126  code +0.0096
+  L22 r2 mlp_cut_ls_mix   prose +0.0048  code +0.0021
+  L22 r2 mlp_rcf_v1       prose +0.0045  code +0.0011
+  L22 r2 head_rcf - cut_ls: prose [-0.0015, -0.0024, -0.0007] code [-0.0005, -0.0016, 0.0007]
+  L22 r2 merge_ls - cut_ls: prose [0.0035, 0.0011, 0.006] code [0.0034, 0.0012, 0.0054]
+  L22 r2 head_rcf - mlp_rcf_v1: prose [0.0081, 0.0053, 0.0109] code [0.0085, 0.0059, 0.0111]
+  L22 r2 cut_ls - mlp_cut_ls_mix: prose [0.0094, 0.0066, 0.0122] code [0.008, 0.0055, 0.0106]
+L22 r2 scored 40.7s
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s1-heads.json

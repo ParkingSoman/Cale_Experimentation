@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 1034,
+ "max": 6.258453845977783,
+ "min": -16.960309982299805,
+ "edits": {
+  "flip": 0.990777850151062,
+  "rot90": 0.022718258202075958,
+  "rot180": 0.18836906552314758,
+  "gray": 1.094141960144043,
+  "blur1": 0.9558044672012329,
+  "blur3": 0.5921627283096313,
+  "shuf2": 0.8003684282302856,
+  "shuf4": 0.6033880710601807,
+  "shuf8": 0.3789036273956299,
+  "hue": 0.7753593921661377,
+  "invert": 0.9513658285140991,
+  "zoomout": 0.6773690581321716,
+  "zoomin": 0.24574291706085205
+ },
+ "top50_classes": {
+  "throne": 2,
+  "dumbbell": 2,
+  "home theater": 2,
+  "basketball": 2,
+  "hoopskirt": 2,
+  "lampshade": 2,
+  "sliding door": 2,
+  "fountain": 2,
+  "flute": 1,
+  "crane2": 1
+ },
+ "neg50_classes": {
+  "Airedale": 3,
+  "flute": 1,
+  "dumbbell": 1,
+  "basset": 1,
+  "hatchet": 1,
+  "violin": 1,
+  "monarch": 1,
+  "bloodhound": 1,
+  "sorrel": 1,
+  "beaver": 1
+ }
+}

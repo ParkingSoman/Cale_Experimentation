@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 342,
+ "max": 4.012908458709717,
+ "min": -6.425827503204346,
+ "edits": {
+  "flip": 0.9641770124435425,
+  "rot90": 0.8283933401107788,
+  "rot180": 0.8561546802520752,
+  "gray": 0.9051072597503662,
+  "blur1": 0.8685894012451172,
+  "blur3": 0.5399900674819946,
+  "shuf2": 0.8638189435005188,
+  "shuf4": 0.7896948456764221,
+  "shuf8": 0.5135687589645386,
+  "hue": 0.9345674514770508,
+  "invert": 0.9081966876983643,
+  "zoomout": 0.6652978658676147,
+  "zoomin": 0.6353812217712402
+ },
+ "top50_classes": {
+  "conch": 2,
+  "knee pad": 2,
+  "coffee mug": 2,
+  "vizsla": 1,
+  "crash helmet": 1,
+  "loggerhead": 1,
+  "dough": 1,
+  "basset": 1,
+  "typewriter keyboard": 1,
+  "terrapin": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "Airedale": 1,
+  "white wolf": 1,
+  "Newfoundland": 1,
+  "affenpinscher": 1,
+  "German shepherd": 1,
+  "Rottweiler": 1,
+  "Sussex spaniel": 1,
+  "Chesapeake Bay retriever": 1,
+  "schooner": 1
+ }
+}

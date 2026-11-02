@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 205,
+ "max": 3.2198173999786377,
+ "min": -4.136724948883057,
+ "edits": {
+  "flip": 0.9172012805938721,
+  "rot90": 0.23088257014751434,
+  "rot180": 0.8478657007217407,
+  "gray": 0.8837577104568481,
+  "blur1": 0.14781060814857483,
+  "blur3": 0.038337498903274536,
+  "shuf2": 1.2178242206573486,
+  "shuf4": 1.037049412727356,
+  "shuf8": 0.7660344839096069,
+  "hue": 0.8276998996734619,
+  "invert": 0.9011741876602173,
+  "zoomout": 0.568368673324585,
+  "zoomin": 0.12176651507616043
+ },
+ "top50_classes": {
+  "web site": 2,
+  "American coot": 1,
+  "jaguar": 1,
+  "American alligator": 1,
+  "beaker": 1,
+  "German short-haired pointer": 1,
+  "beer bottle": 1,
+  "green lizard": 1,
+  "manhole cover": 1,
+  "marmot": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "rugby ball": 1,
+  "fire engine": 1,
+  "fountain pen": 1,
+  "gown": 1,
+  "kimono": 1,
+  "knot": 1,
+  "mitten": 1,
+  "motor scooter": 1,
+  "picket fence": 1
+ }
+}

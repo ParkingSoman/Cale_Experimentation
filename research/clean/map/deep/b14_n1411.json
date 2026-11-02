@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1411,
+ "max": 5.4148149490356445,
+ "min": -6.631846904754639,
+ "edits": {
+  "flip": 0.9119004607200623,
+  "rot90": 0.6516789197921753,
+  "rot180": 0.650373101234436,
+  "gray": 0.7764335870742798,
+  "blur1": 0.8348511457443237,
+  "blur3": 0.6078349351882935,
+  "shuf2": 0.7519336938858032,
+  "shuf4": 0.6595661640167236,
+  "shuf8": 0.3817116618156433,
+  "hue": 0.8815922737121582,
+  "invert": 0.9592374563217163,
+  "zoomout": 0.45134246349334717,
+  "zoomin": 0.4398946762084961
+ },
+ "top50_classes": {
+  "hot pot": 2,
+  "Dutch oven": 2,
+  "mousetrap": 1,
+  "king snake": 1,
+  "cuirass": 1,
+  "carbonara": 1,
+  "cicada": 1,
+  "binder": 1,
+  "strawberry": 1,
+  "green lizard": 1
+ },
+ "neg50_classes": {
+  "Lhasa": 2,
+  "sulphur butterfly": 2,
+  "goldfinch": 2,
+  "damselfly": 1,
+  "Irish wolfhound": 1,
+  "turnstile": 1,
+  "Old English sheepdog": 1,
+  "diamondback": 1,
+  "rocking chair": 1,
+  "kelpie": 1
+ }
+}

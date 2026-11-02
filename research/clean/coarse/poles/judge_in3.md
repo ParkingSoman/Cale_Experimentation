@@ -1,0 +1,25 @@
+For each item: a GROUPING (a kind of text situation) and a DETECTOR id. Would this detector plausibly fire across that grouping, i.e. respond to both / all kinds inside it (not just one narrow kind, and not to almost any text)? Answer yes / no with confidence 1-5. Some items are deliberately mismatched.
+- C00: grouping = "tokens in numeric expressions (dates vs measurements)", detector = U005
+- C01: grouping = "list/appositive continuation markers", detector = U008
+- C02: grouping = "date/time range expressions", detector = U004
+- C03: grouping = "punctuation/clitics at noun-phrase edge", detector = U011
+- C04: grouping = "date/time range expressions", detector = U017
+- C05: grouping = "words predicting a consequence/hypothetical outcome", detector = U009
+- C06: grouping = "person-name fragments", detector = U009
+- C07: grouping = "auxiliary verbs", detector = U017
+- C08: grouping = "fragments inside foreign names/words", detector = U013
+- C09: grouping = "closing tokens after names/numbers", detector = U015
+- C10: grouping = "list/appositive continuation markers", detector = U019
+- C11: grouping = "year-ending tokens in biographical/citation text", detector = U006
+- C12: grouping = "time-period words in event reporting", detector = U013
+- C13: grouping = "words predicting a consequence/hypothetical outcome", detector = U014
+- C14: grouping = "closing tokens after names/numbers", detector = U007
+- C15: grouping = "person-name fragments", detector = U008
+- C16: grouping = "tokens in numeric expressions (dates vs measurements)", detector = U000
+- C17: grouping = "year-ending tokens in biographical/citation text", detector = U000
+- C18: grouping = "quantity/measure expressions", detector = U012
+- C19: grouping = "auxiliary verbs", detector = U018
+- C20: grouping = "quantity/measure expressions", detector = U010
+- C21: grouping = "fragments inside foreign names/words", detector = U011
+- C22: grouping = "time-period words in event reporting", detector = U012
+- C23: grouping = "punctuation/clitics at noun-phrase edge", detector = U007

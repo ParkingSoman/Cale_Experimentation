@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 315,
+ "max": 4.428858280181885,
+ "min": -5.279288291931152,
+ "edits": {
+  "flip": 0.7092196941375732,
+  "rot90": 0.7452220916748047,
+  "rot180": 0.9816699028015137,
+  "gray": 0.9971593618392944,
+  "blur1": 0.8977875709533691,
+  "blur3": 0.4806435704231262,
+  "shuf2": 1.0,
+  "shuf4": 0.9923300743103027,
+  "shuf8": 0.93152916431427,
+  "hue": 0.9965330362319946,
+  "invert": 0.9750880002975464,
+  "zoomout": 0.8514857292175293,
+  "zoomin": 0.6707061529159546
+ },
+ "top50_classes": {
+  "barometer": 2,
+  "viaduct": 2,
+  "police van": 1,
+  "drum": 1,
+  "corkscrew": 1,
+  "cowboy boot": 1,
+  "cowboy hat": 1,
+  "crate": 1,
+  "birdhouse": 1,
+  "Crock Pot": 1
+ },
+ "neg50_classes": {
+  "bullet train": 2,
+  "magnetic compass": 2,
+  "fire screen": 1,
+  "barbell": 1,
+  "apiary": 1,
+  "slide rule": 1,
+  "comic book": 1,
+  "crossword puzzle": 1,
+  "bannister": 1,
+  "electric fan": 1
+ }
+}

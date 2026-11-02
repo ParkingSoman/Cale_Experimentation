@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 423,
+ "max": 6.541903495788574,
+ "min": -10.049254417419434,
+ "edits": {
+  "flip": 0.9695186018943787,
+  "rot90": 0.7572555541992188,
+  "rot180": 0.8265347480773926,
+  "gray": 0.9219751358032227,
+  "blur1": 0.9723212718963623,
+  "blur3": 0.5488671660423279,
+  "shuf2": 0.7269072532653809,
+  "shuf4": 0.5284476280212402,
+  "shuf8": 0.12229856848716736,
+  "hue": 0.996571958065033,
+  "invert": 0.9465419054031372,
+  "zoomout": 0.45455867052078247,
+  "zoomin": 0.48089951276779175
+ },
+ "top50_classes": {
+  "menu": 2,
+  "brass": 2,
+  "cleaver": 1,
+  "safe": 1,
+  "microwave": 1,
+  "oxygen mask": 1,
+  "packet": 1,
+  "dishrag": 1,
+  "vending machine": 1,
+  "desktop computer": 1
+ },
+ "neg50_classes": {
+  "tiger beetle": 2,
+  "tractor": 1,
+  "shower cap": 1,
+  "sulphur-crested cockatoo": 1,
+  "cicada": 1,
+  "ruffed grouse": 1,
+  "cockroach": 1,
+  "forklift": 1,
+  "muzzle": 1,
+  "shoji": 1
+ }
+}

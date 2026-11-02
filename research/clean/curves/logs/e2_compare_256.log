@@ -1,0 +1,10 @@
+E1 children corr pattern, Pearson over 45 pairs (self vs real 256): +0.951
+E1 member on-rate self: [0.171 0.105 0.131 0.124 0.152 0.184 0.108 0.111 0.095 0.116] 
+            real: [0.127 0.117 0.139 0.108 0.12  0.156 0.113 0.105 0.105 0.092] 
+            ratio: [1.348 0.892 0.947 1.144 1.267 1.182 0.957 1.052 0.899 1.264]
+E1 pooled energy share self: [0.091 0.101 0.127 0.11  0.127 0.112 0.063 0.118 0.059 0.092] 
+                        real: [0.092 0.124 0.09  0.109 0.104 0.119 0.103 0.074 0.094 0.091]
+E2 read kernel cos (self vs real arcs #2): [0.916 0.875 0.9  ] bias self [-30.134  63.31  -37.584] real [-37.418  10.132 -36.104]
+  real read + real lsq             dev-5000 KL 0.0760 (se 0.0041) | paired vs real/real +0.0000 (se 0.0000)
+  self read + real lsq             dev-5000 KL 0.0834 (se 0.0045) | paired vs real/real +0.0074 (se 0.0013)
+  self read + self lsq (DERIVED)   dev-5000 KL 0.0696 (se 0.0038) | paired vs real/real -0.0064 (se 0.0018)

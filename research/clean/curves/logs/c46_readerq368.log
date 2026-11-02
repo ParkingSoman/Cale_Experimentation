@@ -1,0 +1,6 @@
+G skipped (0s)
+readerq368 (n = 368): |g_fact|/|g| 0.837; cos vs photo-8000: raw 0.430 fact 0.180 cov 0.609 (33s)
+readerq368: step 6.34e-11; dev-5000 KL 0.0479 (se 0.0028)
+  readerq368 minus kbar(S)    -0.0012 (paired se 0.0002)
+  readerq368 minus T          +0.0075 (paired se 0.0012)
+done (55s)

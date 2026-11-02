@@ -1,0 +1,41 @@
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (46012 > 8192). Running this sequence through the model will result in indexing errors
+  L12 keep0.5 vo_svd      prose +0.0039  code +0.0048
+  L12 keep0.5 vo_svd_ls   prose +0.0031  code +0.0034
+  L12 keep0.5 vo_read     prose +0.0040  code +0.0050
+  L12 keep0.5 vo_read_ls  prose +0.0032  code +0.0032
+  L12 keep0.5 vo_read - vo_svd: prose [0.0001, -0.0009, 0.0011] code [0.0002, -0.0006, 0.001]
+  L12 keep0.5 vo_read_ls - vo_svd_ls: prose [0.0002, -0.0008, 0.0011] code [-0.0002, -0.0011, 0.0006]
+  L12 keep0.25 vo_svd      prose +0.0113  code +0.0079
+  L12 keep0.25 vo_svd_ls   prose +0.0088  code +0.0065
+  L12 keep0.25 vo_read     prose +0.0106  code +0.0087
+  L12 keep0.25 vo_read_ls  prose +0.0085  code +0.0069
+  L12 keep0.25 vo_read - vo_svd: prose [-0.0007, -0.0016, 0.0002] code [0.0008, -0.0001, 0.0017]
+  L12 keep0.25 vo_read_ls - vo_svd_ls: prose [-0.0003, -0.0012, 0.0007] code [0.0004, -0.0005, 0.0013]
+L12 137.3s
+  L16 keep0.5 vo_svd      prose +0.0056  code +0.0057
+  L16 keep0.5 vo_svd_ls   prose +0.0053  code +0.0042
+  L16 keep0.5 vo_read     prose +0.0058  code +0.0067
+  L16 keep0.5 vo_read_ls  prose +0.0054  code +0.0047
+  L16 keep0.5 vo_read - vo_svd: prose [0.0002, -0.0007, 0.0011] code [0.001, 0.0001, 0.002]
+  L16 keep0.5 vo_read_ls - vo_svd_ls: prose [0.0001, -0.0007, 0.0011] code [0.0005, -0.0004, 0.0013]
+  L16 keep0.25 vo_svd      prose +0.0254  code +0.0276
+  L16 keep0.25 vo_svd_ls   prose +0.0233  code +0.0194
+  L16 keep0.25 vo_read     prose +0.0281  code +0.0342
+  L16 keep0.25 vo_read_ls  prose +0.0247  code +0.0253
+  L16 keep0.25 vo_read - vo_svd: prose [0.0027, 0.0005, 0.005] code [0.0066, 0.0045, 0.0091]
+  L16 keep0.25 vo_read_ls - vo_svd_ls: prose [0.0014, -0.0003, 0.003] code [0.0059, 0.004, 0.008]
+L16 132.8s
+  L22 keep0.5 vo_svd      prose +0.0052  code +0.0055
+  L22 keep0.5 vo_svd_ls   prose +0.0041  code +0.0051
+  L22 keep0.5 vo_read     prose +0.0045  code +0.0050
+  L22 keep0.5 vo_read_ls  prose +0.0031  code +0.0045
+  L22 keep0.5 vo_read - vo_svd: prose [-0.0007, -0.0019, 0.0004] code [-0.0005, -0.0013, 0.0004]
+  L22 keep0.5 vo_read_ls - vo_svd_ls: prose [-0.001, -0.002, -0.0001] code [-0.0006, -0.0014, 0.0002]
+  L22 keep0.25 vo_svd      prose +0.0148  code +0.0132
+  L22 keep0.25 vo_svd_ls   prose +0.0124  code +0.0130
+  L22 keep0.25 vo_read     prose +0.0146  code +0.0142
+  L22 keep0.25 vo_read_ls  prose +0.0130  code +0.0129
+  L22 keep0.25 vo_read - vo_svd: prose [-0.0002, -0.0016, 0.0012] code [0.001, -0.0002, 0.0021]
+  L22 keep0.25 vo_read_ls - vo_svd_ls: prose [0.0006, -0.0006, 0.0016] code [-0.0001, -0.0011, 0.0009]
+L22 107.9s
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s2c-vo-read.json

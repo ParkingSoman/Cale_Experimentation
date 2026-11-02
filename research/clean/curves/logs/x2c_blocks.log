@@ -1,0 +1,6 @@
+top-K mass covered: mean 1.0  median 1.0
+level0               diag 0.0092  spatial 0.0296  position 0.0135  full 0.0797   (FD L3 0.0801)
+level1               diag 0.0078  spatial 0.0222  position 0.0111  full 0.0592   (FD L3 0.0595)
+trained_from_level0  diag 0.0124  spatial 0.0502  position 0.0153  full 0.0545   (FD L3 0.0546)
+trained_from_level0 minus level0: diag +0.0032 (0.0003)  spatial +0.0206 (0.0021)  position +0.0018 (0.0004)  full -0.0252 (0.0126)
+level1 minus level0: diag -0.0014 (0.0002)  spatial -0.0074 (0.0015)  position -0.0024 (0.0003)  full -0.0205 (0.0064)

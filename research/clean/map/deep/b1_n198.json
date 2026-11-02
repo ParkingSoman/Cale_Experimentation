@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 198,
+ "max": 8.93333911895752,
+ "min": -10.3118257522583,
+ "edits": {
+  "flip": 0.9897990226745605,
+  "rot90": 0.9234775900840759,
+  "rot180": 0.9144480228424072,
+  "gray": -0.03888336941599846,
+  "blur1": 0.9928812980651855,
+  "blur3": 0.9477837085723877,
+  "shuf2": 1.0,
+  "shuf4": 0.991370439529419,
+  "shuf8": 1.0162683725357056,
+  "hue": 0.7401707172393799,
+  "invert": 0.7193043828010559,
+  "zoomout": 0.8976223468780518,
+  "zoomin": 0.7214446067810059
+ },
+ "top50_classes": {
+  "mask": 2,
+  "feather boa": 2,
+  "American chameleon": 1,
+  "sombrero": 1,
+  "steel drum": 1,
+  "banana": 1,
+  "rubber eraser": 1,
+  "bearskin": 1,
+  "grocery store": 1,
+  "desktop computer": 1
+ },
+ "neg50_classes": {
+  "cockroach": 3,
+  "macaw": 2,
+  "cabbage butterfly": 2,
+  "EntleBucher": 1,
+  "whiskey jug": 1,
+  "jacamar": 1,
+  "cucumber": 1,
+  "bell pepper": 1,
+  "wallet": 1,
+  "steel drum": 1
+ }
+}

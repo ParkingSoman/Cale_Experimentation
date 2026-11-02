@@ -1,0 +1,4 @@
+[{"name":"limb-pair","units":[364,972],"region":{"gate":{"units":[364,972],"weights":[1,1],"theta":3.0}}},
+ {"name":"limb-pair-lowgate","units":[364,972],"region":{"gate":{"units":[364,972],"weights":[1,1],"theta":1.5}}},
+ {"name":"stalks","units":[257],"region":{"gate":{"units":[257],"weights":[1],"theta":1.5}}},
+ {"name":"radial-petals","units":[1699],"region":{"gate":{"units":[1699],"weights":[1],"theta":1.5}}}]

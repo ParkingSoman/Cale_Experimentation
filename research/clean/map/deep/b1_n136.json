@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 136,
+ "max": 5.073218822479248,
+ "min": -8.881041526794434,
+ "edits": {
+  "flip": 0.9936972260475159,
+  "rot90": 0.6008763313293457,
+  "rot180": 0.6166324615478516,
+  "gray": 1.0065417289733887,
+  "blur1": 0.35462310910224915,
+  "blur3": 0.17145901918411255,
+  "shuf2": 1.0,
+  "shuf4": 1.0743629932403564,
+  "shuf8": 1.2442421913146973,
+  "hue": 0.9921201467514038,
+  "invert": 0.6082015037536621,
+  "zoomout": 1.0735490322113037,
+  "zoomin": 0.4163859784603119
+ },
+ "top50_classes": {
+  "toilet tissue": 1,
+  "microwave": 1,
+  "patio": 1,
+  "white wolf": 1,
+  "standard poodle": 1,
+  "plastic bag": 1,
+  "Polaroid camera": 1,
+  "police van": 1,
+  "Eskimo dog": 1,
+  "English springer": 1
+ },
+ "neg50_classes": {
+  "prison": 2,
+  "toilet tissue": 1,
+  "green mamba": 1,
+  "shoe shop": 1,
+  "banjo": 1,
+  "seat belt": 1,
+  "diamondback": 1,
+  "electric locomotive": 1,
+  "barber chair": 1,
+  "barbershop": 1
+ }
+}

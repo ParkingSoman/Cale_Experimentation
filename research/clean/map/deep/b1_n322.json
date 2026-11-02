@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 322,
+ "max": 3.055337905883789,
+ "min": -3.721064329147339,
+ "edits": {
+  "flip": 0.7610247135162354,
+  "rot90": 0.8113653063774109,
+  "rot180": 0.813162088394165,
+  "gray": 0.9991178512573242,
+  "blur1": 0.7746978998184204,
+  "blur3": 0.4707992672920227,
+  "shuf2": 1.0,
+  "shuf4": 0.9710356593132019,
+  "shuf8": 0.9023522138595581,
+  "hue": 0.994682788848877,
+  "invert": 0.7384543418884277,
+  "zoomout": 0.8031672239303589,
+  "zoomin": 0.7330706119537354
+ },
+ "top50_classes": {
+  "crate": 2,
+  "French bulldog": 1,
+  "eggnog": 1,
+  "perfume": 1,
+  "Rottweiler": 1,
+  "bighorn": 1,
+  "Crock Pot": 1,
+  "bloodhound": 1,
+  "turnstile": 1,
+  "agama": 1
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "mountain bike": 1,
+  "gas pump": 1,
+  "dragonfly": 1,
+  "wool": 1,
+  "football helmet": 1,
+  "street sign": 1,
+  "ant": 1,
+  "ashcan": 1,
+  "shopping basket": 1
+ }
+}

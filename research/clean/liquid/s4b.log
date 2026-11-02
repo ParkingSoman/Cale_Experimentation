@@ -1,0 +1,7 @@
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (46012 > 8192). Running this sequence through the model will result in indexing errors
+bases 42.9s
+  identity_untied          d576  prose +0.0000  code +0.0000  (2.9s)
+  identity_tied            d576  prose +0.0000  code +0.0000  (2.9s)
+  pca_global_tied          d518  prose +0.6411  code +0.4355  (3.0s)
+  pca_global_tied          d432  prose +2.1908  code +2.1110  (2.9s)
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s4b-check.json

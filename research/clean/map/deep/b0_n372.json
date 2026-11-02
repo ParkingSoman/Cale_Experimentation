@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 372,
+ "max": 4.69978666305542,
+ "min": -7.429887771606445,
+ "edits": {
+  "flip": 0.9245029091835022,
+  "rot90": 0.8535838723182678,
+  "rot180": 0.9342498183250427,
+  "gray": 0.9977833032608032,
+  "blur1": 0.9677539467811584,
+  "blur3": 0.6550443172454834,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.997310996055603,
+  "hue": 0.9837897419929504,
+  "invert": 0.939909040927887,
+  "zoomout": 0.8770126104354858,
+  "zoomin": 0.9424594640731812
+ },
+ "top50_classes": {
+  "organ": 2,
+  "pencil sharpener": 1,
+  "zebra": 1,
+  "bookcase": 1,
+  "patio": 1,
+  "passenger car": 1,
+  "hoopskirt": 1,
+  "water tower": 1,
+  "proboscis monkey": 1,
+  "home theater": 1
+ },
+ "neg50_classes": {
+  "beaker": 2,
+  "hourglass": 2,
+  "Chesapeake Bay retriever": 1,
+  "tick": 1,
+  "mousetrap": 1,
+  "nipple": 1,
+  "bassoon": 1,
+  "organ": 1,
+  "drumstick": 1,
+  "jeep": 1
+ }
+}

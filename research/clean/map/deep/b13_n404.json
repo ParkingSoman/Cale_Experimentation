@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 404,
+ "max": 4.749760150909424,
+ "min": -6.491879940032959,
+ "edits": {
+  "flip": 0.9509853720664978,
+  "rot90": 0.7771725654602051,
+  "rot180": 0.8082990646362305,
+  "gray": 0.38377758860588074,
+  "blur1": 0.9513798356056213,
+  "blur3": 0.6510623693466187,
+  "shuf2": 0.9072445631027222,
+  "shuf4": 0.8508988618850708,
+  "shuf8": 0.7707511782646179,
+  "hue": 0.41970622539520264,
+  "invert": 0.9514109492301941,
+  "zoomout": 0.7415871620178223,
+  "zoomin": 0.5358967185020447
+ },
+ "top50_classes": {
+  "hamper": 2,
+  "sunscreen": 2,
+  "Welsh springer spaniel": 1,
+  "komondor": 1,
+  "panpipe": 1,
+  "lesser panda": 1,
+  "hard disc": 1,
+  "clumber": 1,
+  "pineapple": 1,
+  "frilled lizard": 1
+ },
+ "neg50_classes": {
+  "sewing machine": 2,
+  "guacamole": 1,
+  "nipple": 1,
+  "snail": 1,
+  "trombone": 1,
+  "beagle": 1,
+  "sea anemone": 1,
+  "steel drum": 1,
+  "lemon": 1,
+  "green lizard": 1
+ }
+}

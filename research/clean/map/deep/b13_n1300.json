@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 1300,
+ "max": 4.225181579589844,
+ "min": -7.277299880981445,
+ "edits": {
+  "flip": 0.9481481313705444,
+  "rot90": 0.9132090210914612,
+  "rot180": 0.8058394193649292,
+  "gray": -0.16466568410396576,
+  "blur1": 1.008411169052124,
+  "blur3": 0.9801682233810425,
+  "shuf2": 0.9751608371734619,
+  "shuf4": 0.8730756044387817,
+  "shuf8": 0.7695325613021851,
+  "hue": 0.12022665143013,
+  "invert": 0.9989913702011108,
+  "zoomout": 0.652146577835083,
+  "zoomin": 0.5129265785217285
+ },
+ "top50_classes": {
+  "pop bottle": 2,
+  "corn": 2,
+  "maraca": 1,
+  "agama": 1,
+  "German shepherd": 1,
+  "king crab": 1,
+  "Rhodesian ridgeback": 1,
+  "Old English sheepdog": 1,
+  "ice lolly": 1,
+  "terrapin": 1
+ },
+ "neg50_classes": {
+  "rapeseed": 2,
+  "Arctic fox": 2,
+  "Doberman": 2,
+  "warplane": 1,
+  "crate": 1,
+  "typewriter keyboard": 1,
+  "harp": 1,
+  "palace": 1,
+  "padlock": 1,
+  "dial telephone": 1
+ }
+}

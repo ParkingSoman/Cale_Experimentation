@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 1182,
+ "max": 3.659395456314087,
+ "min": -4.945592880249023,
+ "edits": {
+  "flip": 0.8904668688774109,
+  "rot90": 0.6573740243911743,
+  "rot180": 0.6637464761734009,
+  "gray": 1.0002014636993408,
+  "blur1": 0.9359767436981201,
+  "blur3": 0.7419216632843018,
+  "shuf2": 0.978577196598053,
+  "shuf4": 0.6099160313606262,
+  "shuf8": 0.39691880345344543,
+  "hue": 1.0060734748840332,
+  "invert": 0.9702027440071106,
+  "zoomout": 0.4981166124343872,
+  "zoomin": 0.6843935251235962
+ },
+ "top50_classes": {
+  "dugong": 2,
+  "digital clock": 1,
+  "washer": 1,
+  "washbasin": 1,
+  "cucumber": 1,
+  "thunder snake": 1,
+  "sturgeon": 1,
+  "mushroom": 1,
+  "sax": 1,
+  "platypus": 1
+ },
+ "neg50_classes": {
+  "chainlink fence": 2,
+  "black and gold garden spider": 1,
+  "bassoon": 1,
+  "bookcase": 1,
+  "tray": 1,
+  "bolo tie": 1,
+  "maraca": 1,
+  "basset": 1,
+  "cuirass": 1,
+  "holster": 1
+ }
+}

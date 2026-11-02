@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 674,
+ "max": 4.502839088439941,
+ "min": -6.006953239440918,
+ "edits": {
+  "flip": 0.6192024946212769,
+  "rot90": 0.48767781257629395,
+  "rot180": 0.5987986922264099,
+  "gray": 1.0008482933044434,
+  "blur1": 0.9326997995376587,
+  "blur3": 0.4835786819458008,
+  "shuf2": 0.9987190365791321,
+  "shuf4": 0.9650062322616577,
+  "shuf8": 0.612625002861023,
+  "hue": 0.9999936819076538,
+  "invert": 0.9379348754882812,
+  "zoomout": 0.597068727016449,
+  "zoomin": 0.68092280626297
+ },
+ "top50_classes": {
+  "projectile": 1,
+  "spotted salamander": 1,
+  "tricycle": 1,
+  "reel": 1,
+  "Rhodesian ridgeback": 1,
+  "bonnet": 1,
+  "hay": 1,
+  "chambered nautilus": 1,
+  "schipperke": 1,
+  "maillot": 1
+ },
+ "neg50_classes": {
+  "binoculars": 1,
+  "bathing cap": 1,
+  "rock crab": 1,
+  "crate": 1,
+  "box turtle": 1,
+  "zebra": 1,
+  "cocker spaniel": 1,
+  "harp": 1,
+  "vase": 1,
+  "strawberry": 1
+ }
+}

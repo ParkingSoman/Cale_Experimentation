@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 1318,
+ "max": 4.4539642333984375,
+ "min": -7.512938976287842,
+ "edits": {
+  "flip": 0.8713746666908264,
+  "rot90": 0.8152182102203369,
+  "rot180": 0.8932104110717773,
+  "gray": -0.18368801474571228,
+  "blur1": 0.9933250546455383,
+  "blur3": 0.6505230665206909,
+  "shuf2": 0.9248879551887512,
+  "shuf4": 0.8022264838218689,
+  "shuf8": 0.5063596963882446,
+  "hue": 0.5563937425613403,
+  "invert": 0.8373770713806152,
+  "zoomout": 0.6305496692657471,
+  "zoomin": 0.48317909240722656
+ },
+ "top50_classes": {
+  "sea urchin": 2,
+  "sea cucumber": 1,
+  "sulphur butterfly": 1,
+  "garden spider": 1,
+  "lacewing": 1,
+  "grasshopper": 1,
+  "sea snake": 1,
+  "guacamole": 1,
+  "hot pot": 1,
+  "marmoset": 1
+ },
+ "neg50_classes": {
+  "minibus": 2,
+  "wall clock": 1,
+  "bobsled": 1,
+  "schipperke": 1,
+  "Irish water spaniel": 1,
+  "desk": 1,
+  "Persian cat": 1,
+  "bearskin": 1,
+  "Komodo dragon": 1,
+  "oscilloscope": 1
+ }
+}

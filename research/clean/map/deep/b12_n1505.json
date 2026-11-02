@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 1505,
+ "max": 2.994194746017456,
+ "min": -5.790737152099609,
+ "edits": {
+  "flip": 0.9474107027053833,
+  "rot90": 0.742608904838562,
+  "rot180": 0.7077405452728271,
+  "gray": 0.8726142644882202,
+  "blur1": 0.9749830365180969,
+  "blur3": 0.8174143433570862,
+  "shuf2": 0.9269289970397949,
+  "shuf4": 0.9841815829277039,
+  "shuf8": 0.9171197414398193,
+  "hue": 0.8792093992233276,
+  "invert": 0.861635684967041,
+  "zoomout": 0.8562352657318115,
+  "zoomin": 0.8108246922492981
+ },
+ "top50_classes": {
+  "remote control": 2,
+  "desk": 2,
+  "dining table": 2,
+  "grand piano": 2,
+  "maillot": 1,
+  "potpie": 1,
+  "restaurant": 1,
+  "vacuum": 1,
+  "cuirass": 1,
+  "spotlight": 1
+ },
+ "neg50_classes": {
+  "sidewinder": 2,
+  "sea slug": 2,
+  "mitten": 2,
+  "yellow lady's slipper": 2,
+  "water tower": 2,
+  "night snake": 1,
+  "cucumber": 1,
+  "hotdog": 1,
+  "pretzel": 1,
+  "barometer": 1
+ }
+}

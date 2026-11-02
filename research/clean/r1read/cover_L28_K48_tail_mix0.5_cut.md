@@ -1,0 +1,43 @@
+# Coverage children, layer 28, K=48, tail_mix0.5_cut
+
+- T0-: 2 children, up-cover 0.78, cover order ['O11-', 'O1098-'], overlap 0.010101010101010102
+- T1-: 2 children, up-cover 0.72, cover order ['O28-', 'O1211-'], overlap 0.010101010101010102
+- T2+: 5 children, up-cover 0.91, cover order ['O31+', 'O1136+', 'O212-'], overlap 0.02127659574468085
+- T3+: 4 children, up-cover 0.94, cover order ['O45+', 'O675+'], overlap 0.02040816326530612
+- T3-: 2 children, up-cover 0.82, cover order ['O45-', 'O354-'], overlap 0.0
+- T4-: 3 children, up-cover 0.96, cover order ['O87-'], overlap None
+- T5-: 2 children, up-cover 0.41, cover order ['O1056+', 'O137-'], overlap 0.010101010101010102
+- T7-: 2 children, up-cover 0.56, cover order ['O215-', 'O387+'], overlap 0.05263157894736842
+- T8-: 4 children, up-cover 0.86, cover order ['O277-', 'O1209-'], overlap 0.0
+- T9-: 2 children, up-cover 0.73, cover order ['O279-', 'O258-'], overlap 0.02040816326530612
+- T12-: 4 children, up-cover 0.91, cover order ['O333-'], overlap None
+- T13+: 2 children, up-cover 0.71, cover order ['O347+'], overlap None
+- T16-: 3 children, up-cover 0.91, cover order ['O481-', 'O258-'], overlap 0.0
+- T18+: 5 children, up-cover 0.95, cover order ['O536+'], overlap None
+- T19+: 6 children, up-cover 0.86, cover order ['O558+'], overlap None
+- T20+: 2 children, up-cover 0.69, cover order ['O570+', 'O164+'], overlap 0.0
+- T20-: 2 children, up-cover 0.75, cover order ['O570-', 'O27-'], overlap 0.030927835051546393
+- T21-: 7 children, up-cover 0.98, cover order ['O675+', 'O572-'], overlap 0.041666666666666664
+- T22+: 2 children, up-cover 0.98, cover order ['O625+'], overlap None
+- T23-: 2 children, up-cover 0.85, cover order ['O840-', 'O627-'], overlap 0.0
+- T24+: 2 children, up-cover 0.56, cover order ['O680+', 'O830-'], overlap 0.010101010101010102
+- T26+: 4 children, up-cover 0.70, cover order ['O741+', 'O1073-', 'O1342+'], overlap 0.10343857700304765
+- T27-: 2 children, up-cover 1.00, cover order ['O745-'], overlap None
+- T28+: 4 children, up-cover 0.76, cover order ['O821+', 'O346+', 'O211-'], overlap 0.13881724355879038
+- T30+: 2 children, up-cover 0.90, cover order ['O354-', 'O892+'], overlap 0.05263157894736842
+- T31-: 2 children, up-cover 0.59, cover order ['O917-', 'O211-'], overlap 0.02040816326530612
+- T34+: 2 children, up-cover 0.97, cover order ['O1078+'], overlap None
+- T35+: 2 children, up-cover 0.57, cover order ['O1079+', 'O1449-'], overlap 0.0
+- T35-: 3 children, up-cover 0.79, cover order ['O1079-', 'O1490+', 'O1477-'], overlap 0.07967050242092687
+- T36-: 3 children, up-cover 1.00, cover order ['O1095-'], overlap None
+- T38-: 2 children, up-cover 0.70, cover order ['O1201-', 'O1117-'], overlap 0.010101010101010102
+- T39+: 2 children, up-cover 0.34, cover order ['O1209+', 'O1319-'], overlap 0.0
+- T39-: 3 children, up-cover 0.94, cover order ['O1209-'], overlap None
+- T40+: 3 children, up-cover 0.93, cover order ['O1224+'], overlap None
+- T42+: 2 children, up-cover 0.56, cover order ['O1317+', 'O130-'], overlap 0.010101010101010102
+- T42-: 2 children, up-cover 0.58, cover order ['O1317-', 'O539+'], overlap 0.0
+- T43-: 2 children, up-cover 0.84, cover order ['O1330-'], overlap None
+- T44+: 3 children, up-cover 1.00, cover order ['O1347+'], overlap None
+- T44-: 4 children, up-cover 0.92, cover order ['O1347-'], overlap None
+- T45-: 6 children, up-cover 0.92, cover order ['O1362-', 'O529-'], overlap 0.010101010101010102
+- T46-: 3 children, up-cover 0.96, cover order ['O1373-', 'O1248+'], overlap 0.010101010101010102

@@ -1,0 +1,147 @@
+[
+ {
+  "name": "glow-273-147",
+  "units": [
+   273,
+   147
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     273,
+     147
+    ],
+    "weights": [
+     1,
+     1
+    ],
+    "theta": 4
+   }
+  }
+ },
+ {
+  "name": "glow-273-alone",
+  "units": [
+   273
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     273
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 3
+   }
+  }
+ },
+ {
+  "name": "underwater-dots-401",
+  "units": [
+   401
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     401
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 3
+   }
+  }
+ },
+ {
+  "name": "tiled-cells-222",
+  "units": [
+   222
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     222
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 2.5
+   }
+  }
+ },
+ {
+  "name": "bands-120",
+  "units": [
+   120
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     120
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 3
+   }
+  }
+ },
+ {
+  "name": "plain-surfaces-404",
+  "units": [
+   404
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     404
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 3
+   }
+  }
+ },
+ {
+  "name": "warm-224",
+  "units": [
+   224
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     224
+    ],
+    "weights": [
+     1
+    ],
+    "theta": 3
+   }
+  }
+ },
+ {
+  "name": "dark-scene-273-147-401",
+  "units": [
+   273,
+   147,
+   401
+  ],
+  "region": {
+   "gate": {
+    "units": [
+     273,
+     147,
+     401
+    ],
+    "weights": [
+     1,
+     1,
+     1
+    ],
+    "theta": 6
+   }
+  }
+ }
+]

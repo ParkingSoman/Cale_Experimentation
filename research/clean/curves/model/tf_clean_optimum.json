@@ -1,0 +1,371 @@
+{
+ "C3 one family, 6x2 ring | k=1 | d2": {
+  "least_value": 0.10677083333333334,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     -0.33333,
+     0.79554,
+     -1.31689
+    ],
+    "best_family": 0,
+    "relative_residual": 0.0,
+    "covering_fold": true
+   }
+  ]
+ },
+ "C3 one family, 6x2 ring | k=1 | kl": {
+  "least_value": 0.037765840038100365,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     0.89378,
+     0.13113,
+     -1.34067
+    ],
+    "best_family": 0,
+    "relative_residual": 0.0,
+    "covering_fold": true
+   }
+  ]
+ },
+ "C3 one family, 6x2 ring | k=2 | d2": {
+  "least_value": 0.061631944444444565,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     -0.94444,
+     1.63583,
+     -0.33333
+    ],
+    "best_family": 0,
+    "relative_residual": 0.4666666613591785,
+    "covering_fold": false
+   },
+   {
+    "unit": 1,
+    "sign": -1,
+    "theta": [
+     -0.5,
+     0.86603,
+     1.5
+    ],
+    "best_family": 0,
+    "relative_residual": 0.9999999999999998,
+    "covering_fold": false
+   }
+  ]
+ },
+ "C3 one family, 6x2 ring | k=2 | kl": {
+  "least_value": 0.022751784420484762,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     1.71351,
+     -0.0,
+     -0.54892
+    ],
+    "best_family": 0,
+    "relative_residual": 0.43210985923237166,
+    "covering_fold": false
+   },
+   {
+    "unit": 1,
+    "sign": -1,
+    "theta": [
+     0.78512,
+     -0.0,
+     1.17768
+    ],
+    "best_family": 0,
+    "relative_residual": 1.0,
+    "covering_fold": false
+   }
+  ]
+ },
+ "C4 one family, 8 ring + centre | k=1 | d2": {
+  "least_value": 0.02057562784049885,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     -0.06236,
+     0.0899,
+     0.0
+    ],
+    "best_family": 0,
+    "relative_residual": 0.7706967977091277,
+    "covering_fold": false
+   }
+  ]
+ },
+ "C4 one family, 8 ring + centre | k=1 | kl": {
+  "least_value": 0.009640226851131774,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     0.10095,
+     -0.0662,
+     0.0
+    ],
+    "best_family": 0,
+    "relative_residual": 0.7627425884594702,
+    "covering_fold": false
+   }
+  ]
+ },
+ "C4 one family, 8 ring + centre | k=2 | d2": {
+  "least_value": 0.00981913863705472,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     0.47072,
+     -0.99488,
+     0.0052
+    ],
+    "best_family": 0,
+    "relative_residual": 1.0,
+    "covering_fold": false
+   },
+   {
+    "unit": 1,
+    "sign": -1,
+    "theta": [
+     0.30515,
+     -0.65582,
+     0.6103
+    ],
+    "best_family": 0,
+    "relative_residual": 1.0,
+    "covering_fold": false
+   }
+  ]
+ },
+ "C4 one family, 8 ring + centre | k=2 | kl": {
+  "least_value": 0.004332902697630043,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     -0.49852,
+     -1.05722,
+     0.0
+    ],
+    "best_family": 0,
+    "relative_residual": 0.7211532724626978,
+    "covering_fold": false
+   },
+   {
+    "unit": 1,
+    "sign": -1,
+    "theta": [
+     -0.3252,
+     -0.69444,
+     0.63513
+    ],
+    "best_family": 0,
+    "relative_residual": 1.0,
+    "covering_fold": false
+   }
+  ]
+ },
+ "C6 one family, 12 ring | k=1 | d2": {
+  "least_value": 0.012238085748492729,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     -0.8182,
+     -0.47238,
+     -1.6364
+    ],
+    "best_family": 0,
+    "relative_residual": 0.0,
+    "covering_fold": true
+   }
+  ]
+ },
+ "C6 one family, 12 ring | k=1 | kl": {
+  "least_value": 0.004242979995696431,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     0.86452,
+     0.49913,
+     -1.72904
+    ],
+    "best_family": 0,
+    "relative_residual": 0.0,
+    "covering_fold": true
+   }
+  ]
+ },
+ "C6 one family, 12 ring | k=2 | d2": {
+  "least_value": 0.009971773572845927,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     0.0,
+     2.08426,
+     -3.61004
+    ],
+    "best_family": 0,
+    "relative_residual": 0.0,
+    "covering_fold": true
+   },
+   {
+    "unit": 1,
+    "sign": -1,
+    "theta": [
+     -0.0,
+     0.35221,
+     -0.35221
+    ],
+    "best_family": 0,
+    "relative_residual": 0.029137097789888468,
+    "covering_fold": false
+   }
+  ]
+ },
+ "C6 one family, 12 ring | k=2 | kl": {
+  "least_value": 0.003454362257915603,
+  "units": [
+   {
+    "unit": 0,
+    "sign": -1,
+    "theta": [
+     1.05186,
+     -1.82187,
+     -3.64374
+    ],
+    "best_family": 0,
+    "relative_residual": 0.0,
+    "covering_fold": true
+   },
+   {
+    "unit": 1,
+    "sign": 1,
+    "theta": [
+     0.18583,
+     -0.32187,
+     -0.37166
+    ],
+    "best_family": 0,
+    "relative_residual": 0.0,
+    "covering_fold": true
+   }
+  ]
+ },
+ "C3 two families, 6x2 ring | k=1 | d2": {
+  "least_value": 0.1255208333333333,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     0.76667,
+     0.25019,
+     -1.15
+    ],
+    "best_family": 0,
+    "relative_residual": 0.0,
+    "covering_fold": true
+   }
+  ]
+ },
+ "C3 two families, 6x2 ring | k=1 | kl": {
+  "least_value": 0.045557460756048475,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     -0.16667,
+     0.87578,
+     -1.26267
+    ],
+    "best_family": 0,
+    "relative_residual": 0.0,
+    "covering_fold": true
+   }
+  ]
+ },
+ "C3 two families, 6x2 ring | k=2 | d2": {
+  "least_value": 0.07725694444444504,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     2.0,
+     0.0,
+     -0.08333
+    ],
+    "best_family": 0,
+    "relative_residual": 0.49285714107480166,
+    "covering_fold": false
+   },
+   {
+    "unit": 1,
+    "sign": -1,
+    "theta": [
+     1.11111,
+     0.0,
+     1.83333
+    ],
+    "best_family": 0,
+    "relative_residual": 1.0,
+    "covering_fold": false
+   }
+  ]
+ },
+ "C3 two families, 6x2 ring | k=2 | kl": {
+  "least_value": 0.027199488873210585,
+  "units": [
+   {
+    "unit": 0,
+    "sign": 1,
+    "theta": [
+     -0.16667,
+     -1.05848,
+     -1.43788
+    ],
+    "best_family": 0,
+    "relative_residual": 0.1277485991229077,
+    "covering_fold": false
+   },
+   {
+    "unit": 1,
+    "sign": 1,
+    "theta": [
+     -0.38742,
+     0.67103,
+     -0.58113
+    ],
+    "best_family": 0,
+    "relative_residual": 0.12499999999999999,
+    "covering_fold": false
+   }
+  ]
+ },
+ "all_covering_folds": false
+}

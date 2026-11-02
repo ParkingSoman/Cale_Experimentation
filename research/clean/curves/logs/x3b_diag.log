@@ -1,0 +1,8 @@
+(i) stats: Q(coupled) - Q(level0) = -0.0754
+(ii) M (pre-J) eigenvalues > 1e-6 max: 2478 of 4710; > 1e-3 max: 309
+(iii) |Lambda_coupled| / |Lambda_0| = 4.2; rest part 12.6
+(i) direct on the same 2000 images: L3(coupled) - L3(level0) = -0.0754
+    train level0       KL 0.0790  L3 0.0755  L3' 0.0776
+    train coupled_pre  KL 0.1387  L3 0.0000  L3' 0.0545
+(iv) dev500 level0       KL 0.0770  L3 0.0797  L3' 0.0865
+(iv) dev500 coupled_pre  KL 0.2093  L3 0.2120  L3' 0.2235

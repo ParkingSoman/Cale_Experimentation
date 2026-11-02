@@ -1,0 +1,10 @@
+  w*(p1): real unsure                                  dev-5000 KL 0.0532 (se 0.0025)
+  paired w*(p2) - w*(p1) on real images: +0.0001 (se 0.0002)
+per-input write mass tau: median 0.356, share with tau >= 1: 0.17
+  w*(p1): real unsure      dev-5000 KL 0.0532 (se 0.0025) | paired vs w*(p1) +0.0000 (se 0.0000)
+LP status 4 (The HiGHS status code was not recognized. (HiGHS Status 15: model_status is Unknown; primal_status is Infeasible))
+Traceback (most recent call last):
+  File "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/x8_mass.py", line 14, in <module>
+    print(f"q: support {np.sum(q > 1e-9)}; write mass {float(lp.x @ tau):.2f}; imprint residual / own mean |d|: {np.linalg.norm(q @ X.X) / float(lp.x @ mag):.3f}; mean 1 - sum p^2 {float((q * X.u).sum()):.3f}", flush=True)
+                                                             ~~~~~^~~~~
+ValueError: matmul: Input operand 0 does not have enough dimensions (has 0, gufunc core with signature (n?,k),(k,m?)->(n?,m?) requires 1)

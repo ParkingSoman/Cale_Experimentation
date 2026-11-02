@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 1465,
+ "max": 5.11101770401001,
+ "min": -6.468926429748535,
+ "edits": {
+  "flip": 0.9307715892791748,
+  "rot90": 0.7812522053718567,
+  "rot180": 0.7724485397338867,
+  "gray": 0.9978346824645996,
+  "blur1": 0.9273240566253662,
+  "blur3": 0.5976970195770264,
+  "shuf2": 0.8881319761276245,
+  "shuf4": 0.7093915939331055,
+  "shuf8": 0.5193544626235962,
+  "hue": 0.9787545204162598,
+  "invert": 0.9243395328521729,
+  "zoomout": 0.6018695831298828,
+  "zoomin": 0.43454962968826294
+ },
+ "top50_classes": {
+  "Dandie Dinmont": 2,
+  "French loaf": 2,
+  "dhole": 1,
+  "cradle": 1,
+  "teapot": 1,
+  "park bench": 1,
+  "barrel": 1,
+  "kuvasz": 1,
+  "snail": 1,
+  "bloodhound": 1
+ },
+ "neg50_classes": {
+  "pinwheel": 2,
+  "sea slug": 2,
+  "teddy": 1,
+  "modem": 1,
+  "electric guitar": 1,
+  "squirrel monkey": 1,
+  "horned viper": 1,
+  "Arctic fox": 1,
+  "green mamba": 1,
+  "screen": 1
+ }
+}

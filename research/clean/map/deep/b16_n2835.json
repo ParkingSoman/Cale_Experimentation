@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2835,
+ "max": 7.981685638427734,
+ "min": -20.408361434936523,
+ "edits": {
+  "flip": 0.9494431018829346,
+  "rot90": 0.9835983514785767,
+  "rot180": 0.9004749059677124,
+  "gray": 0.9979181885719299,
+  "blur1": 0.9653300642967224,
+  "blur3": 0.5383113622665405,
+  "shuf2": 1.0,
+  "shuf4": 1.1134095191955566,
+  "shuf8": 0.7642370462417603,
+  "hue": 0.8249959349632263,
+  "invert": 0.8914002180099487,
+  "zoomout": 0.46305012702941895,
+  "zoomin": 0.3441450595855713
+ },
+ "top50_classes": {
+  "papillon": 3,
+  "Pomeranian": 2,
+  "beagle": 2,
+  "Great Pyrenees": 2,
+  "Border collie": 2,
+  "basenji": 2,
+  "Siberian husky": 2,
+  "Blenheim spaniel": 2,
+  "giant panda": 1,
+  "German shepherd": 1
+ },
+ "neg50_classes": {
+  "timber wolf": 2,
+  "redshank": 2,
+  "dhole": 2,
+  "robin": 2,
+  "tractor": 1,
+  "coho": 1,
+  "beagle": 1,
+  "impala": 1,
+  "tobacco shop": 1,
+  "black stork": 1
+ }
+}

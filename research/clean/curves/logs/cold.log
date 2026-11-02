@@ -1,0 +1,44 @@
+intact top-1 0.6577
+family removed (zero)                                        sealed KL 0.6836 (se 0.0194)  top-1 0.6250
+constant only (reader-side family mean)                      sealed KL 0.3920 (se 0.0138)  top-1 0.6412
+simple cut: keep member 342 (largest variance), others -> mean sealed KL 0.3250 (se 0.0117)  top-1 0.6459
+D1 PRE-REGISTERED derived (moved kernel sum r*=4, Bayes write) sealed KL 0.3750 (se 0.0130)  top-1 0.6416
+D2 projection r*=4 13x13 + vmr write (r pre-registered)      sealed KL 0.2917 (se 0.0103)  top-1 0.6471
+D2 projection r=1 7x7 + vmr write (best of 9 on dev)         sealed KL 0.2496 (se 0.0091)  top-1 0.6486
+D2 loop neuron r=1 7x7 + Bayes write (r chosen on dev)       sealed KL 0.3106 (se 0.0113)  top-1 0.6463
+derived k=1 keep 330 + const                                 sealed KL 0.3217 (se 0.0115)  top-1 0.6460
+derived k=1 keep 330 + bayes                                 sealed KL 0.2912 (se 0.0105)  top-1 0.6463
+derived k=1 keep 342 + const                                 sealed KL 0.3250 (se 0.0117)  top-1 0.6459
+derived k=1 keep 342 + bayes                                 sealed KL 0.3011 (se 0.0109)  top-1 0.6459
+derived k=2 keep 10/180 deg + const                          sealed KL 0.2637 (se 0.0096)  top-1 0.6487
+derived k=2 keep 10/180 deg + bayes                          sealed KL 0.2204 (se 0.0081)  top-1 0.6504
+derived k=3 keep 10/120/250 deg (first pick, made for the training run) + const sealed KL 0.1709 (se 0.0066)  top-1 0.6535
+derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes sealed KL 0.1388 (se 0.0054)  top-1 0.6555
+derived k=3 keep 10/120/250 deg (first pick, made for the training run) + vmk sealed KL 0.1436 (se 0.0059)  top-1 0.6561
+derived k=3 keep 50/170/290 (control, also even) + const     sealed KL 0.1968 (se 0.0077)  top-1 0.6517
+derived k=3 keep 50/170/290 (control, also even) + bayes     sealed KL 0.1503 (se 0.0060)  top-1 0.6536
+derived k=3 keep 50/170/290 (control, also even) + vmk       sealed KL 0.1278 (se 0.0050)  top-1 0.6563
+derived k=3 keep 10/50/70 (control, adjacent) + const        sealed KL 0.1990 (se 0.0079)  top-1 0.6512
+derived k=3 keep 10/50/70 (control, adjacent) + bayes        sealed KL 0.1798 (se 0.0072)  top-1 0.6518
+derived k=3 keep 10/50/70 (control, adjacent) + vmk          sealed KL 0.1619 (se 0.0061)  top-1 0.6545
+derived k=3 NAIVE: 3 largest-variance members [np.int64(342), np.int64(340), np.int64(343)] + const sealed KL 0.1924 (se 0.0074)  top-1 0.6506
+derived k=3 NAIVE: 3 largest-variance members [np.int64(342), np.int64(340), np.int64(343)] + bayes sealed KL 0.1718 (se 0.0067)  top-1 0.6514
+derived k=3 NAIVE: 3 largest-variance members [np.int64(342), np.int64(340), np.int64(343)] + vmk sealed KL 0.1625 (se 0.0063)  top-1 0.6495
+derived k=5 keep 10/70/170/250/290 + const                   sealed KL 0.1289 (se 0.0056)  top-1 0.6548
+derived k=5 keep 10/70/170/250/290 + bayes                   sealed KL 0.0876 (se 0.0041)  top-1 0.6582
+derived k=5 keep 10/70/170/250/290 + vmk                     sealed KL 0.0744 (se 0.0034)  top-1 0.6590
+k=3 members 10/120/250, write trained only (measuring tool)  sealed KL 0.0762 (se 0.0030)  top-1 0.6597
+trained k=1 (start 379)                                      sealed KL 0.1205 (se 0.0044)  top-1 0.6565
+trained k=1 (random start)                                   sealed KL 0.1215 (se 0.0045)  top-1 0.6570
+trained k=3 (random start)                                   sealed KL 0.1217 (se 0.0045)  top-1 0.6564
+trained k=3 (start 3 members)                                sealed KL 0.0373 (se 0.0014)  top-1 0.6583
+missing L-k1-ks13-r-lr3e-2
+trained k=10 random (harness)                                sealed KL 0.0406 (se 0.0015)  top-1 0.6583
+PAIRED  [derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes]  -  [trained k=3 (random start)]  = +0.0171 (se 0.0044)
+PAIRED  [derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes]  -  [trained k=1 (random start)]  = +0.0173 (se 0.0044)
+PAIRED  [derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes]  -  [derived k=3 keep 50/170/290 (control, also even) + bayes]  = -0.0115 (se 0.0049)
+PAIRED  [derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes]  -  [derived k=3 NAIVE: 3 largest-variance members [np.int64(342), np.int64(340), np.int64(343)] + bayes]  = -0.0331 (se 0.0050)
+PAIRED  [derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes]  -  [derived k=3 keep 10/120/250 deg (first pick, made for the training run) + vmk]  = -0.0048 (se 0.0050)
+PAIRED  [D2 projection r=1 7x7 + vmr write (best of 9 on dev)]  -  [derived k=1 keep 342 + bayes]  = -0.0515 (se 0.0067)
+PAIRED  [D2 projection r=1 7x7 + vmr write (best of 9 on dev)]  -  [trained k=1 (random start)]  = +0.1281 (se 0.0066)
+PAIRED  [trained k=3 (start 3 members)]  -  [derived k=3 keep 10/120/250 deg (first pick, made for the training run) + bayes]  = -0.1015 (se 0.0050)

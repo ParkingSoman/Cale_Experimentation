@@ -1,0 +1,9 @@
+{
+"F1": {"choice": "Y", "confidence": 5, "relation": "same", "why": "Y units are the digit after ( in converted values after measurements."},
+"F2": {"choice": "Y", "confidence": 5, "relation": "broader", "why": "Sentence-end punctuation covers the double space, full stop and heading ends in Y."},
+"F3": {"choice": "Y", "confidence": 5, "relation": "same", "why": "Y units are possessive apostrophes and heading = markers."},
+"F4": {"choice": "Y", "confidence": 5, "relation": "same", "why": "Y units are the year-start digits after month and day."},
+"F5": {"choice": "Y", "confidence": 4, "relation": "broader", "why": "Parent covers converted values after semicolon or bracket across speed and range, wider than weight, metres cases in Y."},
+"F6": {"choice": "X", "confidence": 3, "relation": "unclear", "why": "X includes year digit tokens like the 4 of 194x, while Y is month names."},
+"F7": {"choice": "Y", "confidence": 4, "relation": "same", "why": "Y units are title and name pieces in progress, matching the parent."}
+}

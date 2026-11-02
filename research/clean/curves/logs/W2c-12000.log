@@ -1,0 +1,54 @@
+  solve 25/12000
+  solve 275/12000
+  solve 525/12000
+  solve 775/12000
+  solve 1025/12000
+  solve 1275/12000
+  solve 1525/12000
+  solve 1775/12000
+  solve 2025/12000
+  solve 2275/12000
+  solve 2525/12000
+  solve 2775/12000
+  solve 3025/12000
+  solve 3275/12000
+  solve 3525/12000
+  solve 3775/12000
+  solve 4025/12000
+  solve 4275/12000
+  solve 4525/12000
+  solve 4775/12000
+  solve 5025/12000
+  solve 5275/12000
+  solve 5525/12000
+  solve 5775/12000
+  solve 6025/12000
+  solve 6275/12000
+  solve 6525/12000
+  solve 6775/12000
+  solve 7025/12000
+  solve 7275/12000
+  solve 7525/12000
+  solve 7775/12000
+  solve 8025/12000
+  solve 8275/12000
+  solve 8525/12000
+  solve 8775/12000
+  solve 9025/12000
+  solve 9275/12000
+  solve 9525/12000
+  solve 9775/12000
+  solve 10025/12000
+  solve 10275/12000
+  solve 10525/12000
+  solve 10775/12000
+  solve 11025/12000
+  solve 11275/12000
+  solve 11525/12000
+  solve 11775/12000
+n=12000: predicted on solve images 0.0426, on fresh 0.0552 (real 0.0987)
+  fisher  dev-5000 KL 0.2002 (se 0.0091)
+  bayes   dev-5000 KL 0.3145 (se 0.0152)
+  vmr     dev-5000 KL 0.2482 (se 0.0123)
+  paired fisher - vmr: -0.0480 (se 0.0106)
+  paired fisher - bayes: -0.1143 (se 0.0136)

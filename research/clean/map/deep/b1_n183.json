@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 183,
+ "max": 4.421169281005859,
+ "min": -4.920903205871582,
+ "edits": {
+  "flip": 0.7151446342468262,
+  "rot90": 0.7500954270362854,
+  "rot180": 0.8423594832420349,
+  "gray": 1.0049264430999756,
+  "blur1": 0.6051506996154785,
+  "blur3": 0.19376477599143982,
+  "shuf2": 1.0,
+  "shuf4": 0.9974548816680908,
+  "shuf8": 0.974280834197998,
+  "hue": 0.9970754384994507,
+  "invert": 0.6802029609680176,
+  "zoomout": 0.6733565926551819,
+  "zoomin": 0.5104426145553589
+ },
+ "top50_classes": {
+  "bow": 2,
+  "running shoe": 2,
+  "steel drum": 2,
+  "moped": 2,
+  "jeep": 1,
+  "guenon": 1,
+  "tricycle": 1,
+  "damselfly": 1,
+  "horse cart": 1,
+  "Chihuahua": 1
+ },
+ "neg50_classes": {
+  "Loafer": 2,
+  "lionfish": 2,
+  "plunger": 1,
+  "oboe": 1,
+  "prairie chicken": 1,
+  "assault rifle": 1,
+  "ant": 1,
+  "black and gold garden spider": 1,
+  "dung beetle": 1,
+  "bagel": 1
+ }
+}

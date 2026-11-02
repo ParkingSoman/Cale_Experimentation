@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 486,
+ "max": 3.4807510375976562,
+ "min": -5.821304798126221,
+ "edits": {
+  "flip": 0.9478845596313477,
+  "rot90": 0.5617825984954834,
+  "rot180": 0.5560545325279236,
+  "gray": 0.866391658782959,
+  "blur1": 1.009863018989563,
+  "blur3": 0.7319279909133911,
+  "shuf2": 0.9621724486351013,
+  "shuf4": 0.7712550759315491,
+  "shuf8": 0.7680443525314331,
+  "hue": 0.9262592792510986,
+  "invert": 0.9437374472618103,
+  "zoomout": 0.8190286159515381,
+  "zoomin": 0.6009534001350403
+ },
+ "top50_classes": {
+  "cheetah": 2,
+  "shopping basket": 1,
+  "sea snake": 1,
+  "snowmobile": 1,
+  "fire engine": 1,
+  "shower curtain": 1,
+  "banjo": 1,
+  "mountain bike": 1,
+  "horned viper": 1,
+  "rhinoceros beetle": 1
+ },
+ "neg50_classes": {
+  "diaper": 1,
+  "vine snake": 1,
+  "dam": 1,
+  "snow leopard": 1,
+  "guinea pig": 1,
+  "Italian greyhound": 1,
+  "megalith": 1,
+  "hair spray": 1,
+  "Brittany spaniel": 1,
+  "dome": 1
+ }
+}

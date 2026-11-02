@@ -1,0 +1,5 @@
+n=   16  KL 0.0749 (se 0.0040)  minus n=2000 +0.0102 (paired se 0.0021)
+n=   64  KL 0.0668 (se 0.0038)  minus n=2000 +0.0022 (paired se 0.0009)
+n=  256  KL 0.0669 (se 0.0038)  minus n=2000 +0.0022 (paired se 0.0004)
+n= 1024  KL 0.0645 (se 0.0037)  minus n=2000 -0.0002 (paired se 0.0002)
+n= 2000  KL 0.0647 (se 0.0038)  minus n=2000 +0.0000 (paired se 0.0000)

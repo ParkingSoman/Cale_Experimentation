@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 1472,
+ "max": 5.066934108734131,
+ "min": -6.7530412673950195,
+ "edits": {
+  "flip": 1.0031129121780396,
+  "rot90": 0.8212496042251587,
+  "rot180": 0.9737379550933838,
+  "gray": 0.9500378966331482,
+  "blur1": 1.0303410291671753,
+  "blur3": 0.7349472045898438,
+  "shuf2": 0.9873853921890259,
+  "shuf4": 0.8543620705604553,
+  "shuf8": 0.7144445180892944,
+  "hue": 1.0322742462158203,
+  "invert": 0.9807718396186829,
+  "zoomout": 0.7766993045806885,
+  "zoomin": 0.721020519733429
+ },
+ "top50_classes": {
+  "bolo tie": 2,
+  "knee pad": 2,
+  "whistle": 2,
+  "face powder": 2,
+  "digital watch": 2,
+  "teapot": 1,
+  "greenhouse": 1,
+  "tripod": 1,
+  "rubber eraser": 1,
+  "stethoscope": 1
+ },
+ "neg50_classes": {
+  "tow truck": 1,
+  "paintbrush": 1,
+  "lorikeet": 1,
+  "Norfolk terrier": 1,
+  "missile": 1,
+  "lycaenid": 1,
+  "street sign": 1,
+  "garden spider": 1,
+  "lacewing": 1,
+  "dowitcher": 1
+ }
+}

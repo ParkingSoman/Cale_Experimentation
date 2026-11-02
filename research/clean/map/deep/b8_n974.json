@@ -1,0 +1,45 @@
+{
+ "block": 8,
+ "neuron": 974,
+ "max": 3.2795698642730713,
+ "min": -2.53174090385437,
+ "edits": {
+  "flip": 0.8862528800964355,
+  "rot90": 0.7437045574188232,
+  "rot180": 0.8825996518135071,
+  "gray": 0.9043043255805969,
+  "blur1": 1.000116229057312,
+  "blur3": 0.9737485647201538,
+  "shuf2": 0.7258797287940979,
+  "shuf4": 0.6715859174728394,
+  "shuf8": 0.7273566126823425,
+  "hue": 0.9808595776557922,
+  "invert": 0.9224377870559692,
+  "zoomout": 0.8861631751060486,
+  "zoomin": 0.8629145622253418
+ },
+ "top50_classes": {
+  "parachute": 2,
+  "hourglass": 1,
+  "racer": 1,
+  "crane2": 1,
+  "mud turtle": 1,
+  "terrapin": 1,
+  "crib": 1,
+  "steel arch bridge": 1,
+  "boathouse": 1,
+  "cheetah": 1
+ },
+ "neg50_classes": {
+  "Sussex spaniel": 1,
+  "Boston bull": 1,
+  "miniature schnauzer": 1,
+  "black-footed ferret": 1,
+  "face powder": 1,
+  "rhinoceros beetle": 1,
+  "reel": 1,
+  "refrigerator": 1,
+  "indri": 1,
+  "Indian elephant": 1
+ }
+}

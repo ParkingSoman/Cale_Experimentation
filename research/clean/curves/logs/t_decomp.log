@@ -1,0 +1,10 @@
+true set: residual 0.2411; per layer {'c1.weight': 0.03, 'c1.bias': 0.244, 'c2.weight': 0.337, 'c2.bias': 1.059, 'fc.weight': 0.233, 'fc.bias': 1.24}
+  top   10 training points by contribution: residual 3.2579; their mean 1 - sum p^2 0.1242
+  top   30 training points by contribution: residual 4.8257; their mean 1 - sum p^2 0.0957
+  top  100 training points by contribution: residual 7.5283; their mean 1 - sum p^2 0.0765
+  top  300 training points by contribution: residual 3.7471; their mean 1 - sum p^2 0.0449
+  top 1000 training points by contribution: residual 0.2411; their mean 1 - sum p^2 0.0148
+  NNLS best c on the TRUE inputs: residual 0.0472
+rebuilt: residual with its own c 1.1062; per layer {'c1.weight': 0.113, 'c1.bias': 0.854, 'c2.weight': 1.368, 'c2.bias': 12.459, 'fc.weight': 1.276, 'fc.bias': 6.778}
+rebuilt: NNLS best c for the SAME inputs: residual 0.3023; per layer {'c1.weight': 0.11, 'c1.bias': 0.434, 'c2.weight': 0.322, 'c2.bias': 7.754, 'fc.weight': 0.325, 'fc.bias': 3.457}
+         nonzero c: 2702 of 3000

@@ -1,0 +1,9 @@
+first batch 0.5 s
+wmetric_n2000 0.0570 (se 0.0033)
+wmetric_n256 0.0594 (se 0.0033)
+  wmetric_n2000 minus factor_kbar  +0.0079 (paired se 0.0008)
+  wmetric_n2000 minus level0p      -0.0063 (paired se 0.0009)
+  wmetric_n2000 minus coupled35k   +0.0018 (paired se 0.0029)
+  wmetric_n256 minus factor_kbar  +0.0103 (paired se 0.0010)
+  wmetric_n256 minus level0p      -0.0040 (paired se 0.0010)
+  wmetric_n256 minus coupled35k   +0.0042 (paired se 0.0030)

@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 390,
+ "max": 2.646592140197754,
+ "min": -5.808289051055908,
+ "edits": {
+  "flip": 0.9702660441398621,
+  "rot90": 0.9390333294868469,
+  "rot180": 0.9394954442977905,
+  "gray": 0.8931701183319092,
+  "blur1": 0.8926973938941956,
+  "blur3": 0.6649807691574097,
+  "shuf2": 0.9999305009841919,
+  "shuf4": 0.8898617029190063,
+  "shuf8": 0.7442906498908997,
+  "hue": 0.9725331664085388,
+  "invert": 0.7025063037872314,
+  "zoomout": 0.42433658242225647,
+  "zoomin": 0.6998530626296997
+ },
+ "top50_classes": {
+  "toilet tissue": 1,
+  "padlock": 1,
+  "yurt": 1,
+  "comic book": 1,
+  "street sign": 1,
+  "ant": 1,
+  "miniature schnauzer": 1,
+  "banjo": 1,
+  "shoji": 1,
+  "shield": 1
+ },
+ "neg50_classes": {
+  "barbell": 2,
+  "Greater Swiss Mountain dog": 1,
+  "washbasin": 1,
+  "studio couch": 1,
+  "suspension bridge": 1,
+  "limousine": 1,
+  "jinrikisha": 1,
+  "spoonbill": 1,
+  "iPod": 1,
+  "vault": 1
+ }
+}

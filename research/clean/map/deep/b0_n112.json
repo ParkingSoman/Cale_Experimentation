@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 112,
+ "max": 5.559160232543945,
+ "min": -6.561411380767822,
+ "edits": {
+  "flip": 0.8530064821243286,
+  "rot90": 0.8990911841392517,
+  "rot180": 0.903010368347168,
+  "gray": 0.3437013030052185,
+  "blur1": 1.00978422164917,
+  "blur3": 0.8366358280181885,
+  "shuf2": 1.0,
+  "shuf4": 0.9929782152175903,
+  "shuf8": 0.9702674150466919,
+  "hue": 0.7432050704956055,
+  "invert": 0.8987824320793152,
+  "zoomout": 0.9300847053527832,
+  "zoomin": 0.8797751665115356
+ },
+ "top50_classes": {
+  "tennis ball": 2,
+  "Granny Smith": 2,
+  "cabbage butterfly": 2,
+  "capuchin": 1,
+  "shield": 1,
+  "quail": 1,
+  "sock": 1,
+  "monarch": 1,
+  "admiral": 1,
+  "menu": 1
+ },
+ "neg50_classes": {
+  "lorikeet": 3,
+  "monarch": 2,
+  "tennis ball": 2,
+  "green snake": 2,
+  "bee": 1,
+  "tray": 1,
+  "spider monkey": 1,
+  "vine snake": 1,
+  "axolotl": 1,
+  "magnetic compass": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 66,
+ "max": 6.314756870269775,
+ "min": -10.044200897216797,
+ "edits": {
+  "flip": 0.8382953405380249,
+  "rot90": 0.8087259531021118,
+  "rot180": 0.8259490132331848,
+  "gray": 1.0031335353851318,
+  "blur1": 0.549957275390625,
+  "blur3": 0.15708890557289124,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9991172552108765,
+  "hue": 0.9911470413208008,
+  "invert": 0.813138484954834,
+  "zoomout": 0.7405097484588623,
+  "zoomin": 0.46755626797676086
+ },
+ "top50_classes": {
+  "cairn": 2,
+  "bearskin": 2,
+  "Siberian husky": 1,
+  "giant schnauzer": 1,
+  "freight car": 1,
+  "Norfolk terrier": 1,
+  "dung beetle": 1,
+  "leaf beetle": 1,
+  "ground beetle": 1,
+  "scoreboard": 1
+ },
+ "neg50_classes": {
+  "reel": 2,
+  "white stork": 1,
+  "giant panda": 1,
+  "tank": 1,
+  "oystercatcher": 1,
+  "hook": 1,
+  "rock crab": 1,
+  "Dungeness crab": 1,
+  "harp": 1,
+  "koala": 1
+ }
+}

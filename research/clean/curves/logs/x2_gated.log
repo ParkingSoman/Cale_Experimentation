@@ -1,0 +1,11 @@
+a_level0_x 0.0647 (se 0.0038)
+b_level0_p 0.0633 (se 0.0038)
+c_level1_n2000 0.0603 (se 0.0035)
+d_level1_n256 0.0628 (se 0.0036)
+a_level0_x       minus level0  +0.0000 (paired se 0.0000)
+b_level0_p       minus level0  -0.0014 (paired se 0.0006)
+c_level1_n2000   minus level0  -0.0043 (paired se 0.0020)
+d_level1_n256    minus level0  -0.0019 (paired se 0.0020)
+level1 minus B3-k0-lr003-long: +0.0039 (paired se 0.0028)  [B3-k0-lr003-long 0.0564]
+level1 minus B3-k0-formulastart: +0.0157 (paired se 0.0027)  [B3-k0-formulastart 0.0446]
+mean on-fraction per conv: [0.416 0.654 0.81  0.294]

@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 373,
+ "max": 3.2901413440704346,
+ "min": -4.932453632354736,
+ "edits": {
+  "flip": 0.6748694181442261,
+  "rot90": 0.705486536026001,
+  "rot180": 0.7952885031700134,
+  "gray": 1.0145304203033447,
+  "blur1": 0.8623955845832825,
+  "blur3": 0.584487795829773,
+  "shuf2": 0.9996790885925293,
+  "shuf4": 0.8946574926376343,
+  "shuf8": 0.7549893856048584,
+  "hue": 0.9885928630828857,
+  "invert": 0.8990146517753601,
+  "zoomout": 0.6432596445083618,
+  "zoomin": 0.7827451229095459
+ },
+ "top50_classes": {
+  "centipede": 2,
+  "loggerhead": 1,
+  "mosque": 1,
+  "fire screen": 1,
+  "barn spider": 1,
+  "bannister": 1,
+  "lab coat": 1,
+  "electric locomotive": 1,
+  "sewing machine": 1,
+  "French loaf": 1
+ },
+ "neg50_classes": {
+  "guenon": 2,
+  "tench": 1,
+  "harvestman": 1,
+  "hornbill": 1,
+  "wooden spoon": 1,
+  "quail": 1,
+  "Yorkshire terrier": 1,
+  "ringlet": 1,
+  "hot pot": 1,
+  "vizsla": 1
+ }
+}

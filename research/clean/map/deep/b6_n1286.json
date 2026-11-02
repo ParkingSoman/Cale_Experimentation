@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 1286,
+ "max": 3.523735523223877,
+ "min": -4.248075008392334,
+ "edits": {
+  "flip": 0.9404975175857544,
+  "rot90": 0.5928022861480713,
+  "rot180": 0.8668594360351562,
+  "gray": 0.9143890142440796,
+  "blur1": 0.5844548940658569,
+  "blur3": 0.09847020357847214,
+  "shuf2": 0.9546926021575928,
+  "shuf4": 0.7586063146591187,
+  "shuf8": 0.641437292098999,
+  "hue": 0.8428293466567993,
+  "invert": 0.8747919797897339,
+  "zoomout": 0.7202698588371277,
+  "zoomin": 0.2941681146621704
+ },
+ "top50_classes": {
+  "gas pump": 2,
+  "book jacket": 2,
+  "file": 2,
+  "CD player": 1,
+  "Granny Smith": 1,
+  "green snake": 1,
+  "scale": 1,
+  "organ": 1,
+  "sulphur butterfly": 1,
+  "medicine chest": 1
+ },
+ "neg50_classes": {
+  "American coot": 2,
+  "wool": 1,
+  "soup bowl": 1,
+  "lumbermill": 1,
+  "cradle": 1,
+  "Tibetan terrier": 1,
+  "basset": 1,
+  "gondola": 1,
+  "carbonara": 1,
+  "reflex camera": 1
+ }
+}

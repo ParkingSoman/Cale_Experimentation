@@ -1,0 +1,7 @@
+unsure inputs in the pool (1 - sum p^2 > .1): 924 (inv 4, bnd 874, fv 46)
+imprint-neutral q: residual |sum q d| / median |d| = 0.0021; support 4 inputs; by source inv 0.000 bnd 1.000 fv 0.000
+bound (second-order units): 0.0003; for scale, w1's own loss scale (w1^T N1 w1) 4.1756
+  w*(p1): real unsure                                  dev-5000 KL 0.0532 (se 0.0025)
+  w*(p2): real unsure + imprint-neutral self-labeled q dev-5000 KL 0.0533 (se 0.0025)
+  paired w*(p2) - w*(p1) on real images: +0.0001 (se 0.0002)
+q mean 1 - sum p^2 0.500

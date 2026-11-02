@@ -1,0 +1,24 @@
+instrument (k=1 twin): R^2 unmoved 0.42 moved 0.52
+k=1 lam unmoved [0.117 0.135 0.108 0.103 0.122 0.148 0.076 0.091 0.077 0.022]
+  c /= stddev[:, None]
+  c /= stddev[None, :]
+
+== L-k3-r-lr3e-2: on-rate per unit [0.    0.    0.979] | pairwise corr of pooled outputs: [np.float64(nan), np.float64(nan), np.float64(nan)]
+  return 1 - ((c - D @ w) ** 2).mean() / c.var(), w[:10]
+  r2u, lu = reg(Z, C[j]); r2m, lm = reg(Zm, C[j]); lu_n = lu / np.abs(lu).sum()
+ unit 0: R^2 unmoved nan moved nan | lam unmoved [nan nan nan nan nan nan nan nan nan nan] | corr with k=1 lam (unmoved) nan
+ unit 1: R^2 unmoved nan moved nan | lam unmoved [nan nan nan nan nan nan nan nan nan nan] | corr with k=1 lam (unmoved) nan
+ unit 2: R^2 unmoved 0.45 moved 0.45 | lam unmoved [0.16  0.146 0.085 0.117 0.068 0.129 0.029 0.091 0.111 0.064] | corr with k=1 lam (unmoved) 0.58
+
+== L-k3-m-lr3e-2: on-rate per unit [0.619 0.554 0.625] | pairwise corr of pooled outputs: [np.float64(-0.18), np.float64(-0.15), np.float64(-0.01)]
+ unit 0: R^2 unmoved 0.81 moved 0.38 | lam unmoved [ 0.348  0.224  0.044 -0.009 -0.016 -0.021 -0.029  0.012  0.076  0.221] | corr with k=1 lam (unmoved) -0.13
+ unit 1: R^2 unmoved 0.80 moved 0.55 | lam unmoved [-0.009 -0.007  0.182  0.383  0.104  0.243 -0.005 -0.006 -0.06  -0.002] | corr with k=1 lam (unmoved) 0.38
+ unit 2: R^2 unmoved 0.75 moved 0.61 | lam unmoved [-0.026 -0.022 -0.009 -0.008  0.135  0.012  0.334  0.283  0.162 -0.009] | corr with k=1 lam (unmoved) -0.26
+
+I2 (unmoved lam of M units vs shapes)
+ unit 0 start 10 deg: corr bump 0.82 | one-hot 0.70 | member+nbrs 0.94
+   lam by member angle: {np.int64(10): np.float64(0.348), np.int64(50): np.float64(0.224), np.int64(70): np.float64(0.044), np.int64(119): np.float64(-0.009), np.int64(170): np.float64(-0.016), np.int64(180): np.float64(-0.021), np.int64(250): np.float64(-0.029), np.int64(290): np.float64(0.012), np.int64(320): np.float64(0.076), np.int64(350): np.float64(0.221)}
+ unit 1 start 120 deg: corr bump 0.82 | one-hot 0.74 | member+nbrs 0.68
+   lam by member angle: {np.int64(10): np.float64(-0.009), np.int64(50): np.float64(-0.007), np.int64(70): np.float64(0.182), np.int64(119): np.float64(0.383), np.int64(170): np.float64(0.104), np.int64(180): np.float64(0.243), np.int64(250): np.float64(-0.005), np.int64(290): np.float64(-0.006), np.int64(320): np.float64(-0.06), np.int64(350): np.float64(-0.002)}
+ unit 2 start 250 deg: corr bump 0.87 | one-hot 0.64 | member+nbrs 0.63
+   lam by member angle: {np.int64(10): np.float64(-0.026), np.int64(50): np.float64(-0.022), np.int64(70): np.float64(-0.009), np.int64(119): np.float64(-0.008), np.int64(170): np.float64(0.135), np.int64(180): np.float64(0.012), np.int64(250): np.float64(0.334), np.int64(290): np.float64(0.283), np.int64(320): np.float64(0.162), np.int64(350): np.float64(-0.009)}

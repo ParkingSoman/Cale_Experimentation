@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 1,
+ "max": 3.715825080871582,
+ "min": -3.9426817893981934,
+ "edits": {
+  "flip": 0.9533641338348389,
+  "rot90": 0.5731096863746643,
+  "rot180": 0.6640542149543762,
+  "gray": 0.973889946937561,
+  "blur1": 0.9673305749893188,
+  "blur3": 0.3796214461326599,
+  "shuf2": 0.9329540729522705,
+  "shuf4": 0.7014760971069336,
+  "shuf8": 0.4086003601551056,
+  "hue": 0.9324419498443604,
+  "invert": 0.9393206834793091,
+  "zoomout": 0.7939891219139099,
+  "zoomin": 0.7071068286895752
+ },
+ "top50_classes": {
+  "golden retriever": 2,
+  "Pomeranian": 2,
+  "Afghan hound": 2,
+  "spider monkey": 2,
+  "Gordon setter": 1,
+  "indri": 1,
+  "collie": 1,
+  "Shetland sheepdog": 1,
+  "Old English sheepdog": 1,
+  "snow leopard": 1
+ },
+ "neg50_classes": {
+  "Shih-Tzu": 2,
+  "Afghan hound": 2,
+  "white wolf": 2,
+  "Tibetan mastiff": 2,
+  "Old English sheepdog": 2,
+  "chow": 1,
+  "syringe": 1,
+  "llama": 1,
+  "mink": 1,
+  "black-footed ferret": 1
+ }
+}

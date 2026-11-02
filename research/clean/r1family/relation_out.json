@@ -1,0 +1,314 @@
+{
+"C001": {
+"relation": "same",
+"n_included": 3
+},
+"C002": {
+"relation": "broader",
+"n_included": 4
+},
+"C003": {
+"relation": "broader",
+"n_included": 4
+},
+"C004": {
+"relation": "unrelated",
+"n_included": 1
+},
+"C005": {
+"relation": "unrelated",
+"n_included": 1
+},
+"C006": {
+"relation": "broader",
+"n_included": 4
+},
+"C007": {
+"relation": "same",
+"n_included": 4
+},
+"C008": {
+"relation": "broader",
+"n_included": 4
+},
+"C009": {
+"relation": "broader",
+"n_included": 2
+},
+"C010": {
+"relation": "same",
+"n_included": 3
+},
+"C011": {
+"relation": "broader",
+"n_included": 3
+},
+"C012": {
+"relation": "same",
+"n_included": 2
+},
+"C013": {
+"relation": "same",
+"n_included": 4
+},
+"C014": {
+"relation": "broader",
+"n_included": 4
+},
+"C015": {
+"relation": "same",
+"n_included": 4
+},
+"C016": {
+"relation": "same",
+"n_included": 4
+},
+"C017": {
+"relation": "broader",
+"n_included": 3
+},
+"C018": {
+"relation": "same",
+"n_included": 3
+},
+"C019": {
+"relation": "same",
+"n_included": 3
+},
+"C020": {
+"relation": "broader",
+"n_included": 4
+},
+"C021": {
+"relation": "broader",
+"n_included": 3
+},
+"C022": {
+"relation": "same",
+"n_included": 4
+},
+"C023": {
+"relation": "same",
+"n_included": 4
+},
+"C024": {
+"relation": "broader",
+"n_included": 4
+},
+"C025": {
+"relation": "broader",
+"n_included": 4
+},
+"C026": {
+"relation": "same",
+"n_included": 3
+},
+"C027": {
+"relation": "broader",
+"n_included": 3
+},
+"C028": {
+"relation": "broader",
+"n_included": 3
+},
+"C029": {
+"relation": "broader",
+"n_included": 2
+},
+"C030": {
+"relation": "unrelated",
+"n_included": 2
+},
+"C031": {
+"relation": "same",
+"n_included": 3
+},
+"C032": {
+"relation": "same",
+"n_included": 2
+},
+"C033": {
+"relation": "unrelated",
+"n_included": 0
+},
+"C034": {
+"relation": "broader",
+"n_included": 4
+},
+"C035": {
+"relation": "broader",
+"n_included": 2
+},
+"C036": {
+"relation": "broader",
+"n_included": 3
+},
+"C037": {
+"relation": "same",
+"n_included": 3
+},
+"C038": {
+"relation": "broader",
+"n_included": 4
+},
+"C039": {
+"relation": "same",
+"n_included": 2
+},
+"C040": {
+"relation": "broader",
+"n_included": 4
+},
+"C041": {
+"relation": "broader",
+"n_included": 2
+},
+"C042": {
+"relation": "unrelated",
+"n_included": 1
+},
+"C043": {
+"relation": "broader",
+"n_included": 2
+},
+"C044": {
+"relation": "broader",
+"n_included": 4
+},
+"C045": {
+"relation": "broader",
+"n_included": 4
+},
+"C046": {
+"relation": "broader",
+"n_included": 3
+},
+"C047": {
+"relation": "broader",
+"n_included": 4
+},
+"C048": {
+"relation": "broader",
+"n_included": 2
+},
+"C049": {
+"relation": "broader",
+"n_included": 3
+},
+"C050": {
+"relation": "same",
+"n_included": 1
+},
+"C051": {
+"relation": "broader",
+"n_included": 3
+},
+"C052": {
+"relation": "unrelated",
+"n_included": 0
+},
+"C053": {
+"relation": "unrelated",
+"n_included": 1
+},
+"C054": {
+"relation": "broader",
+"n_included": 4
+},
+"C055": {
+"relation": "broader",
+"n_included": 3
+},
+"C056": {
+"relation": "same",
+"n_included": 2
+},
+"C057": {
+"relation": "same",
+"n_included": 4
+},
+"C058": {
+"relation": "broader",
+"n_included": 3
+},
+"C059": {
+"relation": "same",
+"n_included": 4
+},
+"C060": {
+"relation": "broader",
+"n_included": 4
+},
+"C061": {
+"relation": "broader",
+"n_included": 4
+},
+"C062": {
+"relation": "same",
+"n_included": 4
+},
+"C063": {
+"relation": "broader",
+"n_included": 4
+},
+"C064": {
+"relation": "broader",
+"n_included": 4
+},
+"C065": {
+"relation": "broader",
+"n_included": 4
+},
+"C066": {
+"relation": "broader",
+"n_included": 3
+},
+"C067": {
+"relation": "broader",
+"n_included": 4
+},
+"C068": {
+"relation": "same",
+"n_included": 2
+},
+"C069": {
+"relation": "unclear",
+"n_included": 1
+},
+"C070": {
+"relation": "broader",
+"n_included": 3
+},
+"C071": {
+"relation": "broader",
+"n_included": 4
+},
+"C072": {
+"relation": "broader",
+"n_included": 3
+},
+"C073": {
+"relation": "broader",
+"n_included": 2
+},
+"C074": {
+"relation": "broader",
+"n_included": 3
+},
+"C075": {
+"relation": "same",
+"n_included": 1
+},
+"C076": {
+"relation": "broader",
+"n_included": 4
+},
+"C077": {
+"relation": "same",
+"n_included": 4
+},
+"C078": {
+"relation": "broader",
+"n_included": 4
+}
+}

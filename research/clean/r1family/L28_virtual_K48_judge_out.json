@@ -1,0 +1,206 @@
+{
+ "F1": {
+  "choice": "X",
+  "confidence": 3,
+  "relation": "same",
+  "why": "Best semantic fit by meaning."
+ },
+ "F2": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F3": {
+  "choice": "X",
+  "confidence": 3,
+  "relation": "same",
+  "why": "Best semantic fit by meaning."
+ },
+ "F4": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F5": {
+  "choice": "X",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Best semantic fit by meaning."
+ },
+ "F6": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F7": {
+  "choice": "X",
+  "confidence": 3,
+  "relation": "same",
+  "why": "Best semantic fit by meaning."
+ },
+ "F8": {
+  "choice": "X",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Best semantic fit by meaning."
+ },
+ "F9": {
+  "choice": "Y",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Best semantic fit by meaning."
+ },
+ "F10": {
+  "choice": "X",
+  "confidence": 4,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F11": {
+  "choice": "Y",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Best semantic fit by meaning."
+ },
+ "F12": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F13": {
+  "choice": "X",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Best semantic fit by meaning."
+ },
+ "F14": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F15": {
+  "choice": "X",
+  "confidence": 4,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F16": {
+  "choice": "Y",
+  "confidence": 3,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F17": {
+  "choice": "Y",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Best semantic fit by meaning."
+ },
+ "F18": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F19": {
+  "choice": "X",
+  "confidence": 4,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F20": {
+  "choice": "Y",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Best semantic fit by meaning."
+ },
+ "F21": {
+  "choice": "Y",
+  "confidence": 3,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F22": {
+  "choice": "Y",
+  "confidence": 3,
+  "relation": "same",
+  "why": "Best semantic fit by meaning."
+ },
+ "F23": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F24": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F25": {
+  "choice": "X",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Best semantic fit by meaning."
+ },
+ "F26": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F27": {
+  "choice": "Y",
+  "confidence": 4,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F28": {
+  "choice": "X",
+  "confidence": 5,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F29": {
+  "choice": "Y",
+  "confidence": 3,
+  "relation": "same",
+  "why": "Best semantic fit by meaning."
+ },
+ "F30": {
+  "choice": "X",
+  "confidence": 3,
+  "relation": "same",
+  "why": "Best semantic fit by meaning."
+ },
+ "F31": {
+  "choice": "X",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Best semantic fit by meaning."
+ },
+ "F32": {
+  "choice": "Y",
+  "confidence": 3,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ },
+ "F33": {
+  "choice": "Y",
+  "confidence": 2,
+  "relation": "unclear",
+  "why": "Best semantic fit by meaning."
+ },
+ "F34": {
+  "choice": "Y",
+  "confidence": 3,
+  "relation": "broader",
+  "why": "Best semantic fit by meaning."
+ }
+}

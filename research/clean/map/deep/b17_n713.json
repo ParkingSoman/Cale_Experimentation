@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 713,
+ "max": 3.327188491821289,
+ "min": -18.496135711669922,
+ "edits": {
+  "flip": 0.9390165209770203,
+  "rot90": 0.053278740495443344,
+  "rot180": -0.016344698145985603,
+  "gray": 0.46098852157592773,
+  "blur1": 0.7642903327941895,
+  "blur3": 0.11694055795669556,
+  "shuf2": 0.3873460590839386,
+  "shuf4": -0.12645091116428375,
+  "shuf8": -0.24544769525527954,
+  "hue": 0.752692461013794,
+  "invert": 0.8792698383331299,
+  "zoomout": -0.43678709864616394,
+  "zoomin": -0.15467090904712677
+ },
+ "top50_classes": {
+  "daisy": 2,
+  "Leonberg": 1,
+  "shoji": 1,
+  "mantis": 1,
+  "barn spider": 1,
+  "bannister": 1,
+  "grasshopper": 1,
+  "bee": 1,
+  "fly": 1,
+  "sewing machine": 1
+ },
+ "neg50_classes": {
+  "chain": 1,
+  "thresher": 1,
+  "chimpanzee": 1,
+  "little blue heron": 1,
+  "jeep": 1,
+  "tricycle": 1,
+  "iPod": 1,
+  "rock crab": 1,
+  "Dungeness crab": 1,
+  "unicycle": 1
+ }
+}

@@ -1,0 +1,794 @@
+{
+ "1": {
+  "gap / mu_1": 0.5218015903117489,
+  "bound constant": 8.748420155859426,
+  "runs": [
+   [
+    {
+     "step": 0,
+     "excess / formula": 0.5356043770002784,
+     "rel distance": 1.0002518957222226,
+     "distance^2 / bound": 0.11392082598153694,
+     "excess >= 0": true
+    },
+    {
+     "step": 100,
+     "excess / formula": 0.3067709775431662,
+     "rel distance": 1.1855830771932436,
+     "distance^2 / bound": 0.2794333191087661,
+     "excess >= 0": true
+    },
+    {
+     "step": 200,
+     "excess / formula": 0.27760140790338694,
+     "rel distance": 1.2023038197310947,
+     "distance^2 / bound": 0.3175669263620691,
+     "excess >= 0": true
+    },
+    {
+     "step": 500,
+     "excess / formula": 0.002469580126831854,
+     "rel distance": 0.07006387238524366,
+     "distance^2 / bound": 0.12122540069802001,
+     "excess >= 0": true
+    },
+    {
+     "step": 1000,
+     "excess / formula": 0.0006923241314289638,
+     "rel distance": 0.039474415215278655,
+     "distance^2 / bound": 0.13726202976448906,
+     "excess >= 0": true
+    },
+    {
+     "step": 2000,
+     "excess / formula": 0.0001559208987016037,
+     "rel distance": 0.02054300230478933,
+     "distance^2 / bound": 0.16506385236644674,
+     "excess >= 0": true
+    },
+    {
+     "step": 3000,
+     "excess / formula": 0.00017320011052756936,
+     "rel distance": 0.024853935779829774,
+     "distance^2 / bound": 0.21750570624823065,
+     "excess >= 0": true
+    },
+    {
+     "step": 4500,
+     "excess / formula": 0.00018248598782259702,
+     "rel distance": 0.022525180751931818,
+     "distance^2 / bound": 0.16956473003455302,
+     "excess >= 0": true
+    },
+    {
+     "step": 6000,
+     "excess / formula": 6.72104377043955e-05,
+     "rel distance": 0.014006003627065734,
+     "distance^2 / bound": 0.17800008984984375,
+     "excess >= 0": true
+    },
+    {
+     "step": 8000,
+     "excess / formula": 2.1638774474322898e-05,
+     "rel distance": 0.007508723776759719,
+     "distance^2 / bound": 0.15890152755500372,
+     "excess >= 0": true
+    },
+    {
+     "step": 10000,
+     "excess / formula": 2.4142249161757748e-05,
+     "rel distance": 0.009608457698388537,
+     "distance^2 / bound": 0.23321587713765946,
+     "excess >= 0": true
+    },
+    {
+     "step": 12000,
+     "excess / formula": 8.991789704199403e-06,
+     "rel distance": 0.005319904214022018,
+     "distance^2 / bound": 0.191950815098195,
+     "excess >= 0": true
+    }
+   ],
+   [
+    {
+     "step": 0,
+     "excess / formula": 0.532861717720013,
+     "rel distance": 0.9998775023009633,
+     "distance^2 / bound": 0.11442147691735936,
+     "excess >= 0": true
+    },
+    {
+     "step": 100,
+     "excess / formula": 0.3069537968318587,
+     "rel distance": 1.139347830744644,
+     "distance^2 / bound": 0.25790996717603754,
+     "excess >= 0": true
+    },
+    {
+     "step": 200,
+     "excess / formula": 0.1287992543752395,
+     "rel distance": 0.7781709873627198,
+     "distance^2 / bound": 0.2867247595837741,
+     "excess >= 0": true
+    },
+    {
+     "step": 500,
+     "excess / formula": 0.0013990595484862217,
+     "rel distance": 0.05201109059179034,
+     "distance^2 / bound": 0.11791911121501156,
+     "excess >= 0": true
+    },
+    {
+     "step": 1000,
+     "excess / formula": 0.0003079174537467859,
+     "rel distance": 0.02474247197551255,
+     "distance^2 / bound": 0.12124960810229929,
+     "excess >= 0": true
+    },
+    {
+     "step": 2000,
+     "excess / formula": 0.00011825257082474333,
+     "rel distance": 0.020064357228960477,
+     "distance^2 / bound": 0.20761961822041916,
+     "excess >= 0": true
+    },
+    {
+     "step": 3000,
+     "excess / formula": 0.00027660406492257536,
+     "rel distance": 0.03093043959842566,
+     "distance^2 / bound": 0.21093182152595252,
+     "excess >= 0": true
+    },
+    {
+     "step": 4500,
+     "excess / formula": 0.00015476145769896527,
+     "rel distance": 0.025404402239611344,
+     "distance^2 / bound": 0.2543218216216044,
+     "excess >= 0": true
+    },
+    {
+     "step": 6000,
+     "excess / formula": 9.552312858075673e-05,
+     "rel distance": 0.014990162000030257,
+     "distance^2 / bound": 0.14346058283474017,
+     "excess >= 0": true
+    },
+    {
+     "step": 8000,
+     "excess / formula": 3.940892187547889e-05,
+     "rel distance": 0.011000755062177238,
+     "distance^2 / bound": 0.18727461477447185,
+     "excess >= 0": true
+    },
+    {
+     "step": 10000,
+     "excess / formula": 1.740415438409241e-05,
+     "rel distance": 0.008442733517968818,
+     "distance^2 / bound": 0.249770827415322,
+     "excess >= 0": true
+    },
+    {
+     "step": 12000,
+     "excess / formula": 5.119717367572224e-06,
+     "rel distance": 0.0033174883113996074,
+     "distance^2 / bound": 0.13109957763217367,
+     "excess >= 0": true
+    }
+   ],
+   [
+    {
+     "step": 0,
+     "excess / formula": 0.5333579754683653,
+     "rel distance": 1.0000483238752864,
+     "distance^2 / bound": 0.11435407762818307,
+     "excess >= 0": true
+    },
+    {
+     "step": 100,
+     "excess / formula": 0.3564699241957186,
+     "rel distance": 1.1476436713490783,
+     "distance^2 / bound": 0.22533036218623326,
+     "excess >= 0": true
+    },
+    {
+     "step": 200,
+     "excess / formula": 0.2921007344910343,
+     "rel distance": 1.1789343212452859,
+     "distance^2 / bound": 0.2901850601359689,
+     "excess >= 0": true
+    },
+    {
+     "step": 500,
+     "excess / formula": 0.0015208532059558578,
+     "rel distance": 0.0552210857103392,
+     "distance^2 / bound": 0.12227876983644763,
+     "excess >= 0": true
+    },
+    {
+     "step": 1000,
+     "excess / formula": 0.0003553056446004072,
+     "rel distance": 0.030259347267867012,
+     "distance^2 / bound": 0.15716125215280793,
+     "excess >= 0": true
+    },
+    {
+     "step": 2000,
+     "excess / formula": 0.00011111213213617336,
+     "rel distance": 0.018690220150097272,
+     "distance^2 / bound": 0.19173254136325066,
+     "excess >= 0": true
+    },
+    {
+     "step": 3000,
+     "excess / formula": 0.00011094638133763086,
+     "rel distance": 0.021055429331671493,
+     "distance^2 / bound": 0.24369327095777343,
+     "excess >= 0": true
+    },
+    {
+     "step": 4500,
+     "excess / formula": 0.00010336159892429142,
+     "rel distance": 0.01527677635937131,
+     "distance^2 / bound": 0.1376996065189916,
+     "excess >= 0": true
+    },
+    {
+     "step": 6000,
+     "excess / formula": 2.9839974298351304e-05,
+     "rel distance": 0.008324885785335471,
+     "distance^2 / bound": 0.14164022215430888,
+     "excess >= 0": true
+    },
+    {
+     "step": 8000,
+     "excess / formula": 3.984738087417171e-05,
+     "rel distance": 0.012157113596417145,
+     "distance^2 / bound": 0.2261984605481756,
+     "excess >= 0": true
+    },
+    {
+     "step": 10000,
+     "excess / formula": 1.1439344027841381e-05,
+     "rel distance": 0.0053110192125710555,
+     "distance^2 / bound": 0.15037758295621692,
+     "excess >= 0": true
+    },
+    {
+     "step": 12000,
+     "excess / formula": 6.398539885966367e-06,
+     "rel distance": 0.003986780524201805,
+     "distance^2 / bound": 0.15149289007617076,
+     "excess >= 0": true
+    }
+   ]
+  ]
+ },
+ "3": {
+  "gap / mu_1": 0.11342228163197564,
+  "bound constant": 27.031605068801163,
+  "runs": [
+   [
+    {
+     "step": 0,
+     "excess / formula": 2.1321480780842648,
+     "rel distance": 1.0000778436854958,
+     "distance^2 / bound": 0.036985611121438666,
+     "excess >= 0": true
+    },
+    {
+     "step": 100,
+     "excess / formula": 0.9025342602358412,
+     "rel distance": 0.8589480507453463,
+     "distance^2 / bound": 0.06445441201795131,
+     "excess >= 0": true
+    },
+    {
+     "step": 200,
+     "excess / formula": 0.18192189948836143,
+     "rel distance": 0.6005908152574874,
+     "distance^2 / bound": 0.15633454047890905,
+     "excess >= 0": true
+    },
+    {
+     "step": 500,
+     "excess / formula": 0.011243763479949032,
+     "rel distance": 0.17691276574491666,
+     "distance^2 / bound": 0.2194770900627378,
+     "excess >= 0": true
+    },
+    {
+     "step": 1000,
+     "excess / formula": 0.0010022557909339508,
+     "rel distance": 0.034077436564313675,
+     "distance^2 / bound": 0.09135615497052092,
+     "excess >= 0": true
+    },
+    {
+     "step": 2000,
+     "excess / formula": 0.00048154554646571144,
+     "rel distance": 0.021681462991691214,
+     "distance^2 / bound": 0.07697015253416478,
+     "excess >= 0": true
+    },
+    {
+     "step": 3000,
+     "excess / formula": 0.00042748252838934066,
+     "rel distance": 0.01738811628328906,
+     "distance^2 / bound": 0.05576596901415765,
+     "excess >= 0": true
+    },
+    {
+     "step": 4500,
+     "excess / formula": 0.0007115574082049375,
+     "rel distance": 0.028189766060236952,
+     "distance^2 / bound": 0.08805530987746495,
+     "excess >= 0": true
+    },
+    {
+     "step": 6000,
+     "excess / formula": 0.0002689052211655658,
+     "rel distance": 0.01590676631972927,
+     "distance^2 / bound": 0.07419029844861881,
+     "excess >= 0": true
+    },
+    {
+     "step": 8000,
+     "excess / formula": 0.00012036564529201071,
+     "rel distance": 0.012718072132294396,
+     "distance^2 / bound": 0.10595527180271198,
+     "excess >= 0": true
+    },
+    {
+     "step": 10000,
+     "excess / formula": 5.138021146189454e-05,
+     "rel distance": 0.006996000572997846,
+     "distance^2 / bound": 0.07510802396390108,
+     "excess >= 0": true
+    },
+    {
+     "step": 12000,
+     "excess / formula": 1.4200560643913587e-05,
+     "rel distance": 0.003095225723505939,
+     "distance^2 / bound": 0.05319388523137277,
+     "excess >= 0": true
+    }
+   ],
+   [
+    {
+     "step": 0,
+     "excess / formula": 2.1314567311436874,
+     "rel distance": 1.0002824187781454,
+     "distance^2 / bound": 0.037012745507565996,
+     "excess >= 0": true
+    },
+    {
+     "step": 100,
+     "excess / formula": 0.9141071879826766,
+     "rel distance": 0.8687438225850084,
+     "distance^2 / bound": 0.06509818582047583,
+     "excess >= 0": true
+    },
+    {
+     "step": 200,
+     "excess / formula": 0.04798930043177294,
+     "rel distance": 0.2511726537717779,
+     "distance^2 / bound": 0.10365323002536594,
+     "excess >= 0": true
+    },
+    {
+     "step": 500,
+     "excess / formula": 0.0033701324455917966,
+     "rel distance": 0.08463717028765202,
+     "distance^2 / bound": 0.16759376278957341,
+     "excess >= 0": true
+    },
+    {
+     "step": 1000,
+     "excess / formula": 0.000975585082522017,
+     "rel distance": 0.03417520884006341,
+     "distance^2 / bound": 0.09439299239743543,
+     "excess >= 0": true
+    },
+    {
+     "step": 2000,
+     "excess / formula": 0.0005719181375548649,
+     "rel distance": 0.021316647900878234,
+     "distance^2 / bound": 0.06264501311543531,
+     "excess >= 0": true
+    },
+    {
+     "step": 3000,
+     "excess / formula": 0.0007074757192315431,
+     "rel distance": 0.02728839147212625,
+     "distance^2 / bound": 0.0829902140707383,
+     "excess >= 0": true
+    },
+    {
+     "step": 4500,
+     "excess / formula": 0.0003204749077700999,
+     "rel distance": 0.01685764632154199,
+     "distance^2 / bound": 0.06991693723741876,
+     "excess >= 0": true
+    },
+    {
+     "step": 6000,
+     "excess / formula": 0.0003607059222612179,
+     "rel distance": 0.020890399174644816,
+     "distance^2 / bound": 0.09539437238146917,
+     "excess >= 0": true
+    },
+    {
+     "step": 8000,
+     "excess / formula": 0.0001789286212199747,
+     "rel distance": 0.012267315646869734,
+     "distance^2 / bound": 0.06631347941899572,
+     "excess >= 0": true
+    },
+    {
+     "step": 10000,
+     "excess / formula": 2.9223798630611995e-05,
+     "rel distance": 0.00561234003169422,
+     "distance^2 / bound": 0.08498334771791663,
+     "excess >= 0": true
+    },
+    {
+     "step": 12000,
+     "excess / formula": 2.1686395645066526e-05,
+     "rel distance": 0.005657576118282174,
+     "distance^2 / bound": 0.11637400626896688,
+     "excess >= 0": true
+    }
+   ],
+   [
+    {
+     "step": 0,
+     "excess / formula": 2.1289929218271224,
+     "rel distance": 0.9995268931990449,
+     "distance^2 / bound": 0.036999623141497844,
+     "excess >= 0": true
+    },
+    {
+     "step": 100,
+     "excess / formula": 1.211764180314519,
+     "rel distance": 0.8882545870852447,
+     "distance^2 / bound": 0.05133804874253285,
+     "excess >= 0": true
+    },
+    {
+     "step": 200,
+     "excess / formula": 0.4420137166421569,
+     "rel distance": 0.6816914730245395,
+     "distance^2 / bound": 0.08289389131793462,
+     "excess >= 0": true
+    },
+    {
+     "step": 500,
+     "excess / formula": 0.006223969260256891,
+     "rel distance": 0.1205542999841444,
+     "distance^2 / bound": 0.18411133321728254,
+     "excess >= 0": true
+    },
+    {
+     "step": 1000,
+     "excess / formula": 0.0006381999379277062,
+     "rel distance": 0.0191126785273679,
+     "distance^2 / bound": 0.04513037095792249,
+     "excess >= 0": true
+    },
+    {
+     "step": 2000,
+     "excess / formula": 0.0005210783923076562,
+     "rel distance": 0.023276955396960394,
+     "distance^2 / bound": 0.0819845155977166,
+     "excess >= 0": true
+    },
+    {
+     "step": 3000,
+     "excess / formula": 0.0005851347103312175,
+     "rel distance": 0.02237643359857907,
+     "distance^2 / bound": 0.06746964535587922,
+     "excess >= 0": true
+    },
+    {
+     "step": 4500,
+     "excess / formula": 0.0005350258478725366,
+     "rel distance": 0.026355530165362198,
+     "distance^2 / bound": 0.10236495516473175,
+     "excess >= 0": true
+    },
+    {
+     "step": 6000,
+     "excess / formula": 0.00019086104941616397,
+     "rel distance": 0.013979198657781723,
+     "distance^2 / bound": 0.08072904160698993,
+     "excess >= 0": true
+    },
+    {
+     "step": 8000,
+     "excess / formula": 0.00014677986102310442,
+     "rel distance": 0.015511549305824525,
+     "distance^2 / bound": 0.1292487744908163,
+     "excess >= 0": true
+    },
+    {
+     "step": 10000,
+     "excess / formula": 7.527025998926302e-05,
+     "rel distance": 0.01042675209990897,
+     "distance^2 / bound": 0.11388256253967202,
+     "excess >= 0": true
+    },
+    {
+     "step": 12000,
+     "excess / formula": 2.0970330305581685e-05,
+     "rel distance": 0.0038873705564743217,
+     "distance^2 / bound": 0.05681842114165291,
+     "excess >= 0": true
+    }
+   ]
+  ]
+ },
+ "4": {
+  "gap / mu_1": 0.216763069940138,
+  "bound constant": 16.301748769855195,
+  "runs": [
+   [
+    {
+     "step": 0,
+     "excess / formula": 4.190596914087519,
+     "rel distance": 0.9984271202049292,
+     "distance^2 / bound": 0.06123444894982819,
+     "excess >= 0": true
+    },
+    {
+     "step": 100,
+     "excess / formula": 1.5019556891757937,
+     "rel distance": 0.6267971749117649,
+     "distance^2 / bound": 0.067334231043865,
+     "excess >= 0": true
+    },
+    {
+     "step": 200,
+     "excess / formula": 0.10977255432082471,
+     "rel distance": 0.18614102757865436,
+     "distance^2 / bound": 0.08125112979287291,
+     "excess >= 0": true
+    },
+    {
+     "step": 500,
+     "excess / formula": 0.0029835043065721163,
+     "rel distance": 0.02728283569197118,
+     "distance^2 / bound": 0.06422310674201469,
+     "excess >= 0": true
+    },
+    {
+     "step": 1000,
+     "excess / formula": 0.0016506289122438372,
+     "rel distance": 0.02323465339645642,
+     "distance^2 / bound": 0.08419027207730131,
+     "excess >= 0": true
+    },
+    {
+     "step": 2000,
+     "excess / formula": 0.0008331496221659527,
+     "rel distance": 0.01690859041668121,
+     "distance^2 / bound": 0.08833458459602059,
+     "excess >= 0": true
+    },
+    {
+     "step": 3000,
+     "excess / formula": 0.0012085673002760738,
+     "rel distance": 0.02196680924213396,
+     "distance^2 / bound": 0.10277845435151628,
+     "excess >= 0": true
+    },
+    {
+     "step": 4500,
+     "excess / formula": 0.0012890960794978627,
+     "rel distance": 0.021915623278494924,
+     "distance^2 / bound": 0.09590943437079502,
+     "excess >= 0": true
+    },
+    {
+     "step": 6000,
+     "excess / formula": 0.0004953362821000205,
+     "rel distance": 0.013649955619562658,
+     "distance^2 / bound": 0.09682807613534496,
+     "excess >= 0": true
+    },
+    {
+     "step": 8000,
+     "excess / formula": 0.0002816584487956537,
+     "rel distance": 0.010679848717902627,
+     "distance^2 / bound": 0.10424287557189656,
+     "excess >= 0": true
+    },
+    {
+     "step": 10000,
+     "excess / formula": 6.453890623597298e-05,
+     "rel distance": 0.004577326642791893,
+     "distance^2 / bound": 0.08356822424897409,
+     "excess >= 0": true
+    },
+    {
+     "step": 12000,
+     "excess / formula": 2.6336301755872656e-05,
+     "rel distance": 0.002790918329974313,
+     "distance^2 / bound": 0.07613396196535459,
+     "excess >= 0": true
+    }
+   ],
+   [
+    {
+     "step": 0,
+     "excess / formula": 4.19337780056075,
+     "rel distance": 0.9996449954337471,
+     "distance^2 / bound": 0.06134321941140138,
+     "excess >= 0": true
+    },
+    {
+     "step": 100,
+     "excess / formula": 1.4299155847250284,
+     "rel distance": 0.5933020083888513,
+     "distance^2 / bound": 0.06336948851699985,
+     "excess >= 0": true
+    },
+    {
+     "step": 200,
+     "excess / formula": 0.7553178252957911,
+     "rel distance": 0.49149739618540883,
+     "distance^2 / bound": 0.08232877873905448,
+     "excess >= 0": true
+    },
+    {
+     "step": 500,
+     "excess / formula": 0.007711075761154598,
+     "rel distance": 0.05150867097420152,
+     "distance^2 / bound": 0.08856959994691302,
+     "excess >= 0": true
+    },
+    {
+     "step": 1000,
+     "excess / formula": 0.0021160988215298718,
+     "rel distance": 0.026526857167441225,
+     "distance^2 / bound": 0.08560016799058084,
+     "excess >= 0": true
+    },
+    {
+     "step": 2000,
+     "excess / formula": 0.0008688639133887361,
+     "rel distance": 0.017012801774504305,
+     "distance^2 / bound": 0.08575093972192901,
+     "excess >= 0": true
+    },
+    {
+     "step": 3000,
+     "excess / formula": 0.0010224434986488048,
+     "rel distance": 0.01884609383873966,
+     "distance^2 / bound": 0.08942158121753278,
+     "excess >= 0": true
+    },
+    {
+     "step": 4500,
+     "excess / formula": 0.0006186349083592596,
+     "rel distance": 0.015117857953372405,
+     "distance^2 / bound": 0.09510099536953738,
+     "excess >= 0": true
+    },
+    {
+     "step": 6000,
+     "excess / formula": 0.000607939694292651,
+     "rel distance": 0.014746763033010844,
+     "distance^2 / bound": 0.09208139006831677,
+     "excess >= 0": true
+    },
+    {
+     "step": 8000,
+     "excess / formula": 0.0003349164000113261,
+     "rel distance": 0.010851555847795721,
+     "distance^2 / bound": 0.09050791696619948,
+     "excess >= 0": true
+    },
+    {
+     "step": 10000,
+     "excess / formula": 0.00010972113114335338,
+     "rel distance": 0.006772663498035668,
+     "distance^2 / bound": 0.10761372990384535,
+     "excess >= 0": true
+    },
+    {
+     "step": 12000,
+     "excess / formula": 3.770400641236676e-05,
+     "rel distance": 0.0035480159669735722,
+     "distance^2 / bound": 0.08594539164911938,
+     "excess >= 0": true
+    }
+   ],
+   [
+    {
+     "step": 0,
+     "excess / formula": 4.196204164201232,
+     "rel distance": 1.000080104256087,
+     "distance^2 / bound": 0.06135527809008565,
+     "excess >= 0": true
+    },
+    {
+     "step": 100,
+     "excess / formula": 2.2215279070728746,
+     "rel distance": 0.7340629760975119,
+     "distance^2 / bound": 0.062438696996015154,
+     "excess >= 0": true
+    },
+    {
+     "step": 200,
+     "excess / formula": 0.9555760723525567,
+     "rel distance": 0.47781034692057117,
+     "distance^2 / bound": 0.06150137112504992,
+     "excess >= 0": true
+    },
+    {
+     "step": 500,
+     "excess / formula": 0.09920905923768122,
+     "rel distance": 0.1993086558683323,
+     "distance^2 / bound": 0.10307182210350525,
+     "excess >= 0": true
+    },
+    {
+     "step": 1000,
+     "excess / formula": 0.0013673491794777737,
+     "rel distance": 0.020534685658565068,
+     "distance^2 / bound": 0.0793844880394817,
+     "excess >= 0": true
+    },
+    {
+     "step": 2000,
+     "excess / formula": 0.00130035613830371,
+     "rel distance": 0.02385768859296197,
+     "distance^2 / bound": 0.11267650911949242,
+     "excess >= 0": true
+    },
+    {
+     "step": 3000,
+     "excess / formula": 0.0007997550528274341,
+     "rel distance": 0.017248742032511453,
+     "distance^2 / bound": 0.09576279779168233,
+     "excess >= 0": true
+    },
+    {
+     "step": 4500,
+     "excess / formula": 0.0010715482631855633,
+     "rel distance": 0.01970450123639598,
+     "distance^2 / bound": 0.09327346712867526,
+     "excess >= 0": true
+    },
+    {
+     "step": 6000,
+     "excess / formula": 0.0005254165028983448,
+     "rel distance": 0.014324505939614365,
+     "distance^2 / bound": 0.10052973982133029,
+     "excess >= 0": true
+    },
+    {
+     "step": 8000,
+     "excess / formula": 0.0002458933648284069,
+     "rel distance": 0.009091916480202264,
+     "distance^2 / bound": 0.08653723797412613,
+     "excess >= 0": true
+    },
+    {
+     "step": 10000,
+     "excess / formula": 0.00014014475109501675,
+     "rel distance": 0.0071921002429187995,
+     "distance^2 / bound": 0.09501093493239535,
+     "excess >= 0": true
+    },
+    {
+     "step": 12000,
+     "excess / formula": 4.588170715232836e-05,
+     "rel distance": 0.003644562421274163,
+     "distance^2 / bound": 0.07452297460553518,
+     "excess >= 0": true
+    }
+   ]
+  ]
+ }
+}

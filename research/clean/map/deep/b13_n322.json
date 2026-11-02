@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 322,
+ "max": 4.0669097900390625,
+ "min": -5.237078666687012,
+ "edits": {
+  "flip": 0.9305477142333984,
+  "rot90": 0.7660892605781555,
+  "rot180": 0.8725547790527344,
+  "gray": 0.8883613348007202,
+  "blur1": 0.9512662291526794,
+  "blur3": 0.7335591316223145,
+  "shuf2": 0.7979587912559509,
+  "shuf4": 0.7263054847717285,
+  "shuf8": 0.5759079456329346,
+  "hue": 0.8082836270332336,
+  "invert": 0.9073415994644165,
+  "zoomout": 0.5889705419540405,
+  "zoomin": 0.6525807976722717
+ },
+ "top50_classes": {
+  "hermit crab": 1,
+  "titi": 1,
+  "Rottweiler": 1,
+  "hognose snake": 1,
+  "eft": 1,
+  "bucket": 1,
+  "axolotl": 1,
+  "miniskirt": 1,
+  "trifle": 1,
+  "snail": 1
+ },
+ "neg50_classes": {
+  "velvet": 2,
+  "gong": 2,
+  "binder": 2,
+  "chiton": 2,
+  "safe": 1,
+  "potpie": 1,
+  "stopwatch": 1,
+  "stole": 1,
+  "brain coral": 1,
+  "paintbrush": 1
+ }
+}

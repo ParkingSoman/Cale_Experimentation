@@ -1,0 +1,27 @@
+  solve 25/4000
+  solve 275/4000
+  solve 525/4000
+  solve 775/4000
+  solve 1025/4000
+  solve 1275/4000
+  solve 1525/4000
+  solve 1775/4000
+  solve 2025/4000
+  solve 2275/4000
+  solve 2525/4000
+  solve 2775/4000
+  solve 3025/4000
+  solve 3275/4000
+  solve 3525/4000
+  solve 3775/4000
+  active 50/4000
+  active 2050/4000
+woken share under step0: 0.0484
+  trained write      dev-5000 KL 0.0361 (se 0.0017)
+  lsq (simple rule)  dev-5000 KL 0.0836 (se 0.0043)
+  step0 Fisher       dev-5000 KL 0.0750 (se 0.0038)
+  step1 active       dev-5000 KL 0.0682 (se 0.0033)
+  paired lsq (simple rule) - trained write: +0.0475 (se 0.0036)
+  paired step0 Fisher - trained write: +0.0389 (se 0.0030)
+  paired step1 active - trained write: +0.0321 (se 0.0025)
+  paired step1 - lsq: -0.0154 (se 0.0039)

@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 664,
+ "max": 3.578155994415283,
+ "min": -4.950406551361084,
+ "edits": {
+  "flip": 0.9385888576507568,
+  "rot90": 0.7828759551048279,
+  "rot180": 0.9090081453323364,
+  "gray": 0.9981895685195923,
+  "blur1": 0.4887956380844116,
+  "blur3": 0.5068797469139099,
+  "shuf2": 0.9999892711639404,
+  "shuf4": 0.9756916761398315,
+  "shuf8": 0.7451105713844299,
+  "hue": 0.9826058745384216,
+  "invert": 0.8889245986938477,
+  "zoomout": 0.4185883402824402,
+  "zoomin": 0.5721836090087891
+ },
+ "top50_classes": {
+  "recreational vehicle": 2,
+  "loudspeaker": 2,
+  "night snake": 2,
+  "palace": 1,
+  "bathing cap": 1,
+  "bow": 1,
+  "suit": 1,
+  "reflex camera": 1,
+  "stupa": 1,
+  "unicycle": 1
+ },
+ "neg50_classes": {
+  "recreational vehicle": 2,
+  "tench": 1,
+  "malamute": 1,
+  "puck": 1,
+  "racer": 1,
+  "rifle": 1,
+  "safety pin": 1,
+  "screwdriver": 1,
+  "seat belt": 1,
+  "stupa": 1
+ }
+}

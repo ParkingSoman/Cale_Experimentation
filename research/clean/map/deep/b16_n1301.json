@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 1301,
+ "max": 4.386604309082031,
+ "min": -19.764015197753906,
+ "edits": {
+  "flip": 0.9093328714370728,
+  "rot90": 0.46201419830322266,
+  "rot180": 0.07940353453159332,
+  "gray": 0.6913058161735535,
+  "blur1": 1.0243134498596191,
+  "blur3": 0.5620990991592407,
+  "shuf2": 0.7972977757453918,
+  "shuf4": 0.43597859144210815,
+  "shuf8": 0.044725432991981506,
+  "hue": 0.8491257429122925,
+  "invert": 0.9824995994567871,
+  "zoomout": 0.7519514560699463,
+  "zoomin": 0.11523427069187164
+ },
+ "top50_classes": {
+  "pillow": 3,
+  "bath towel": 2,
+  "sock": 2,
+  "studio couch": 2,
+  "velvet": 1,
+  "altar": 1,
+  "park bench": 1,
+  "holster": 1,
+  "cradle": 1,
+  "paper towel": 1
+ },
+ "neg50_classes": {
+  "harvestman": 3,
+  "Norwich terrier": 2,
+  "goldfinch": 2,
+  "robin": 2,
+  "lampshade": 1,
+  "bee": 1,
+  "ox": 1,
+  "brown bear": 1,
+  "digital watch": 1,
+  "violin": 1
+ }
+}

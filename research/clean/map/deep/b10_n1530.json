@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 1530,
+ "max": 4.665148735046387,
+ "min": -6.278499603271484,
+ "edits": {
+  "flip": 0.9418582916259766,
+  "rot90": 0.6484895944595337,
+  "rot180": 0.514890193939209,
+  "gray": 0.7457123398780823,
+  "blur1": 0.9428355693817139,
+  "blur3": 0.7640002965927124,
+  "shuf2": 0.9970409870147705,
+  "shuf4": 0.8166377544403076,
+  "shuf8": 0.6606934070587158,
+  "hue": 0.8119428753852844,
+  "invert": 0.9428725242614746,
+  "zoomout": 0.7977189421653748,
+  "zoomin": 0.48046693205833435
+ },
+ "top50_classes": {
+  "minivan": 2,
+  "cassette": 2,
+  "joystick": 2,
+  "remote control": 2,
+  "home theater": 2,
+  "oil filter": 1,
+  "reflex camera": 1,
+  "grand piano": 1,
+  "file": 1,
+  "crate": 1
+ },
+ "neg50_classes": {
+  "hammerhead": 2,
+  "basenji": 1,
+  "spindle": 1,
+  "holster": 1,
+  "lynx": 1,
+  "dragonfly": 1,
+  "Walker hound": 1,
+  "matchstick": 1,
+  "stole": 1,
+  "safety pin": 1
+ }
+}

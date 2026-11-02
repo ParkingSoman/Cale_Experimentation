@@ -1,0 +1,56 @@
+{
+ "yes": {
+  "n_points": 9,
+  "teacher_width": 8,
+  "teacher_exact": true,
+  "M": 138240,
+  "delta": "1/48",
+  "L(B*) in Gamma": true,
+  "kl": {
+   "L_min": 0.6556249726119892,
+   "Gamma": 0.6556266509454753,
+   "Gamma+1/16": 0.7181266509454753,
+   "C": [
+    "(0, 1)",
+    "(1, 2)"
+   ],
+   "C_is_colorful_clique": true
+  },
+  "d2": {
+   "L_min": 1.9999942129797073,
+   "Gamma": 2.0,
+   "Gamma+1/16": 2.0625,
+   "C": [
+    "(0, 1)",
+    "(1, 2)"
+   ],
+   "C_is_colorful_clique": true
+  }
+ },
+ "no": {
+  "n_points": 10,
+  "teacher_width": 9,
+  "teacher_exact": true,
+  "M": 138240,
+  "delta": "1/48",
+  "kl": {
+   "L_min": 0.9834368296892846,
+   "Gamma": 0.6556266509454753,
+   "Gamma+1/16": 0.7181266509454753,
+   "C": [
+    "(1, 1)"
+   ],
+   "C_is_colorful_clique": false
+  },
+  "d2": {
+   "L_min": 2.9999891493448008,
+   "Gamma": 2.0,
+   "Gamma+1/16": 2.0625,
+   "C": [
+    "(0, 2)"
+   ],
+   "C_is_colorful_clique": false
+  }
+ },
+ "all_ok": true
+}

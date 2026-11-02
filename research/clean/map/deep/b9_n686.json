@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 686,
+ "max": 4.705739498138428,
+ "min": -5.085574150085449,
+ "edits": {
+  "flip": 0.9403733611106873,
+  "rot90": 0.7401461601257324,
+  "rot180": 0.6972324848175049,
+  "gray": 0.9097261428833008,
+  "blur1": 0.957659125328064,
+  "blur3": 0.7721083164215088,
+  "shuf2": 0.851006269454956,
+  "shuf4": 0.6935206055641174,
+  "shuf8": 0.4558103680610657,
+  "hue": 0.9686626195907593,
+  "invert": 0.857399582862854,
+  "zoomout": 0.7852775454521179,
+  "zoomin": 0.4955440163612366
+ },
+ "top50_classes": {
+  "shopping basket": 2,
+  "stretcher": 2,
+  "medicine chest": 2,
+  "Boston bull": 2,
+  "plastic bag": 1,
+  "soap dispenser": 1,
+  "dial telephone": 1,
+  "packet": 1,
+  "Labrador retriever": 1,
+  "doormat": 1
+ },
+ "neg50_classes": {
+  "European gallinule": 2,
+  "lynx": 1,
+  "long-horned beetle": 1,
+  "tiger cat": 1,
+  "Egyptian cat": 1,
+  "common iguana": 1,
+  "Irish water spaniel": 1,
+  "whiptail": 1,
+  "bonnet": 1,
+  "cocker spaniel": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 123,
+ "max": 7.720782279968262,
+ "min": -9.683956146240234,
+ "edits": {
+  "flip": 0.9970564842224121,
+  "rot90": 0.7689158916473389,
+  "rot180": 0.9200275540351868,
+  "gray": -0.11972096562385559,
+  "blur1": 0.9738681316375732,
+  "blur3": 0.6403237581253052,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9979941844940186,
+  "hue": 0.9011971950531006,
+  "invert": 0.8931196928024292,
+  "zoomout": 0.878189206123352,
+  "zoomin": 0.5365780591964722
+ },
+ "top50_classes": {
+  "pencil box": 2,
+  "slot": 1,
+  "tractor": 1,
+  "purse": 1,
+  "tray": 1,
+  "axolotl": 1,
+  "parking meter": 1,
+  "tree frog": 1,
+  "sombrero": 1,
+  "shopping basket": 1
+ },
+ "neg50_classes": {
+  "snowmobile": 2,
+  "jay": 2,
+  "honeycomb": 1,
+  "solar dish": 1,
+  "parking meter": 1,
+  "mask": 1,
+  "tray": 1,
+  "menu": 1,
+  "shopping basket": 1,
+  "tree frog": 1
+ }
+}

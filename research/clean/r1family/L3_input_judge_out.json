@@ -1,0 +1,52 @@
+{
+ "F1": {
+  "choice": "Y",
+  "confidence": 5,
+  "why": "Contraction and possessive endings plus heading marker."
+ },
+ "F2": {
+  "choice": "Y",
+  "confidence": 5,
+  "why": "Y units fire on the @ and heading = markers."
+ },
+ "F3": {
+  "choice": "Y",
+  "confidence": 4,
+  "why": "Y covers hyphen of @-@, heading =, CJK bytes and name fragments."
+ },
+ "F4": {
+  "choice": "Y",
+  "confidence": 4,
+  "why": "Y has unit after number and number-internal tokens."
+ },
+ "F5": {
+  "choice": "Y",
+  "confidence": 5,
+  "why": "Y units fire on closing quotes and possessive apostrophes."
+ },
+ "F6": {
+  "choice": "Y",
+  "confidence": 5,
+  "why": "Y units fire on unit words after numbers."
+ },
+ "F7": {
+  "choice": "Y",
+  "confidence": 4,
+  "why": "Y covers the @ in numbers and hyphens plus fragments."
+ },
+ "F8": {
+  "choice": "X",
+  "confidence": 1,
+  "why": "Both sets empty; guess."
+ },
+ "F9": {
+  "choice": "X",
+  "confidence": 1,
+  "why": "Both sets empty; guess."
+ },
+ "F10": {
+  "choice": "X",
+  "confidence": 1,
+  "why": "Both sets empty; guess."
+ }
+}

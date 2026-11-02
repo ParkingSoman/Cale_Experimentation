@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 736,
+ "max": 8.547451972961426,
+ "min": -8.197772979736328,
+ "edits": {
+  "flip": 0.9228810667991638,
+  "rot90": 0.3523315489292145,
+  "rot180": 0.44819414615631104,
+  "gray": 0.9962834119796753,
+  "blur1": 0.9775307178497314,
+  "blur3": 0.8403622508049011,
+  "shuf2": 0.9582712650299072,
+  "shuf4": 0.7315642833709717,
+  "shuf8": 0.4109938144683838,
+  "hue": 1.023766040802002,
+  "invert": 1.0029747486114502,
+  "zoomout": 0.5179464221000671,
+  "zoomin": 0.44466912746429443
+ },
+ "top50_classes": {
+  "bolo tie": 2,
+  "jean": 2,
+  "Indian elephant": 1,
+  "theater curtain": 1,
+  "knee pad": 1,
+  "trench coat": 1,
+  "siamang": 1,
+  "king crab": 1,
+  "squirrel monkey": 1,
+  "lesser panda": 1
+ },
+ "neg50_classes": {
+  "fly": 1,
+  "banded gecko": 1,
+  "lycaenid": 1,
+  "quail": 1,
+  "solar dish": 1,
+  "wool": 1,
+  "cicada": 1,
+  "flute": 1,
+  "plate": 1,
+  "ski": 1
+ }
+}

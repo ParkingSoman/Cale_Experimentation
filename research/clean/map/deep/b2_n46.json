@@ -1,0 +1,45 @@
+{
+ "block": 2,
+ "neuron": 46,
+ "max": 4.233884811401367,
+ "min": -5.147157669067383,
+ "edits": {
+  "flip": 0.7785109281539917,
+  "rot90": 0.7423486709594727,
+  "rot180": 0.8020387887954712,
+  "gray": 0.9888900518417358,
+  "blur1": 0.8310859799385071,
+  "blur3": 0.39194416999816895,
+  "shuf2": 1.0,
+  "shuf4": 0.99729984998703,
+  "shuf8": 0.9637808799743652,
+  "hue": 0.9938408732414246,
+  "invert": 0.7018559575080872,
+  "zoomout": 0.7417410612106323,
+  "zoomin": 0.654510498046875
+ },
+ "top50_classes": {
+  "space bar": 2,
+  "cleaver": 1,
+  "shield": 1,
+  "ping-pong ball": 1,
+  "planetarium": 1,
+  "pole": 1,
+  "projector": 1,
+  "Shetland sheepdog": 1,
+  "groenendael": 1,
+  "rugby ball": 1
+ },
+ "neg50_classes": {
+  "cassette player": 2,
+  "paintbrush": 2,
+  "toilet tissue": 1,
+  "minivan": 1,
+  "electric fan": 1,
+  "feather boa": 1,
+  "forklift": 1,
+  "garbage truck": 1,
+  "gasmask": 1,
+  "harvester": 1
+ }
+}

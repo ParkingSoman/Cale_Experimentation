@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 170,
+ "max": 5.027634620666504,
+ "min": -6.445276260375977,
+ "edits": {
+  "flip": 0.9310120344161987,
+  "rot90": 0.7285932302474976,
+  "rot180": 0.894655704498291,
+  "gray": 0.914745032787323,
+  "blur1": 0.9544626474380493,
+  "blur3": 0.7617478370666504,
+  "shuf2": 0.9035284519195557,
+  "shuf4": 0.7755863070487976,
+  "shuf8": 0.4671763777732849,
+  "hue": 0.9408718347549438,
+  "invert": 0.9668506383895874,
+  "zoomout": 0.5949844121932983,
+  "zoomin": 0.5405551791191101
+ },
+ "top50_classes": {
+  "dial telephone": 1,
+  "Saluki": 1,
+  "beagle": 1,
+  "paper towel": 1,
+  "restaurant": 1,
+  "schipperke": 1,
+  "agama": 1,
+  "rocking chair": 1,
+  "hard disc": 1,
+  "padlock": 1
+ },
+ "neg50_classes": {
+  "Scottish deerhound": 2,
+  "sewing machine": 1,
+  "bakery": 1,
+  "comic book": 1,
+  "walking stick": 1,
+  "miniature schnauzer": 1,
+  "shower curtain": 1,
+  "mountain bike": 1,
+  "basketball": 1,
+  "zucchini": 1
+ }
+}

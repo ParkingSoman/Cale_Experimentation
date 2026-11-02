@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1572,
+ "max": 5.875338554382324,
+ "min": -7.850619792938232,
+ "edits": {
+  "flip": 0.9911230206489563,
+  "rot90": 0.25832170248031616,
+  "rot180": 0.3537555932998657,
+  "gray": 0.9193865060806274,
+  "blur1": 0.9360601902008057,
+  "blur3": 0.5672963857650757,
+  "shuf2": 1.0518531799316406,
+  "shuf4": 1.217560052871704,
+  "shuf8": 0.610500693321228,
+  "hue": 0.9054811000823975,
+  "invert": 1.0498470067977905,
+  "zoomout": 0.7043790817260742,
+  "zoomin": 0.7218272686004639
+ },
+ "top50_classes": {
+  "beach wagon": 3,
+  "police van": 3,
+  "minibus": 3,
+  "trolleybus": 3,
+  "convertible": 3,
+  "pickup": 3,
+  "cab": 3,
+  "tow truck": 3,
+  "moving van": 2,
+  "car wheel": 2
+ },
+ "neg50_classes": {
+  "toilet tissue": 1,
+  "king crab": 1,
+  "pitcher": 1,
+  "plate rack": 1,
+  "restaurant": 1,
+  "schipperke": 1,
+  "Yorkshire terrier": 1,
+  "bloodhound": 1,
+  "sunscreen": 1,
+  "syringe": 1
+ }
+}

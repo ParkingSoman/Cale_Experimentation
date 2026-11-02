@@ -1,0 +1,590 @@
+{
+ "sheltered_arcs": {
+  "points_S": 24,
+  "points_T": 24,
+  "cofire": 0,
+  "S_inputs_max_range_on_T_points": 0.0,
+  "11": {
+   "DS": 0.11804442705294277,
+   "DT": 0.12253989215986849,
+   "DST": 0.001678228677593233,
+   "I": -0.23890609053521802,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 22,
+     "on_T_points": 24,
+     "on_other_points": 0,
+     "top_read_input": 5,
+     "write": [
+      -0.25,
+      -2.56,
+      -2.29,
+      -0.07
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 24,
+     "on_T_points": 24,
+     "on_other_points": 0,
+     "top_read_input": 9,
+     "write": [
+      -2.22,
+      1.12,
+      0.89,
+      -2.52
+     ]
+    }
+   ]
+  },
+  "22": {
+   "DS": 9.297057980083546e-06,
+   "DT": 2.2843885437062874e-05,
+   "DST": 0.00021505753813201329,
+   "I": 0.00018291659471486688,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 0,
+     "on_T_points": 0,
+     "on_other_points": 0,
+     "top_read_input": 5,
+     "write": [
+      -1.16,
+      -0.66,
+      0.28,
+      -0.58
+     ]
+    },
+    {
+     "box": "S",
+     "on_S_points": 23,
+     "on_T_points": 24,
+     "on_other_points": 0,
+     "top_read_input": 5,
+     "write": [
+      1.95,
+      -2.12,
+      -0.34,
+      -0.33
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 24,
+     "on_T_points": 24,
+     "on_other_points": 0,
+     "top_read_input": 8,
+     "write": [
+      -2.4,
+      0.42,
+      -1.73,
+      0.18
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 24,
+     "on_T_points": 23,
+     "on_other_points": 0,
+     "top_read_input": 6,
+     "write": [
+      0.16,
+      1.31,
+      1.67,
+      -0.04
+     ]
+    }
+   ]
+  },
+  "12": {
+   "DS": 0.11804442705294277,
+   "DT": 2.2843885437062874e-05,
+   "DST": 0.00019088833372798565,
+   "I": -0.11787638260465184,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 23,
+     "on_T_points": 24,
+     "on_other_points": 0,
+     "top_read_input": 2,
+     "write": [
+      -2.57,
+      1.57,
+      -0.61,
+      -0.69
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 24,
+     "on_T_points": 24,
+     "on_other_points": 0,
+     "top_read_input": 7,
+     "write": [
+      0.82,
+      -1.37,
+      0.82,
+      -1.14
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 24,
+     "on_T_points": 22,
+     "on_other_points": 0,
+     "top_read_input": 9,
+     "write": [
+      0.34,
+      -1.71,
+      -1.69,
+      0.45
+     ]
+    }
+   ]
+  }
+ },
+ "sheltered_bg": {
+  "points_S": 24,
+  "points_T": 24,
+  "cofire": 0,
+  "S_inputs_max_range_on_T_points": 0.0,
+  "11": {
+   "DS": 0.05902221316859311,
+   "DT": 0.061269946079731324,
+   "DST": 0.0008853646461379925,
+   "I": -0.11940679460218645,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 22,
+     "on_T_points": 24,
+     "on_other_points": 24,
+     "top_read_input": 4,
+     "write": [
+      -0.26,
+      -2.62,
+      -2.55,
+      -0.15
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 24,
+     "on_T_points": 24,
+     "on_other_points": 24,
+     "top_read_input": 8,
+     "write": [
+      -2.3,
+      1.05,
+      0.95,
+      -2.47
+     ]
+    }
+   ]
+  },
+  "22": {
+   "DS": 1.0273109961159408e-06,
+   "DT": 1.0187333544452799e-06,
+   "DST": 0.000104657105065702,
+   "I": 0.00010261106071514077,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 24,
+     "on_T_points": 24,
+     "on_other_points": 24,
+     "top_read_input": 5,
+     "write": [
+      -0.66,
+      0.9,
+      -1.92,
+      0.25
+     ]
+    },
+    {
+     "box": "S",
+     "on_S_points": 24,
+     "on_T_points": 24,
+     "on_other_points": 24,
+     "top_read_input": 2,
+     "write": [
+      1.19,
+      0.21,
+      0.27,
+      0.83
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 24,
+     "on_T_points": 22,
+     "on_other_points": 24,
+     "top_read_input": 8,
+     "write": [
+      0.1,
+      0.08,
+      1.18,
+      -0.19
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 24,
+     "on_T_points": 13,
+     "on_other_points": 24,
+     "top_read_input": 9,
+     "write": [
+      0.31,
+      0.41,
+      0.78,
+      0.89
+     ]
+    }
+   ]
+  },
+  "12": {
+   "DS": 0.05902221316859311,
+   "DT": 1.0187333544452799e-06,
+   "DST": 0.0001009774652452046,
+   "I": -0.05892225443670235,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 23,
+     "on_T_points": 24,
+     "on_other_points": 24,
+     "top_read_input": 5,
+     "write": [
+      -2.56,
+      1.61,
+      -0.79,
+      -0.81
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 24,
+     "on_T_points": 24,
+     "on_other_points": 24,
+     "top_read_input": 7,
+     "write": [
+      0.79,
+      -1.1,
+      0.84,
+      -0.83
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 24,
+     "on_T_points": 22,
+     "on_other_points": 24,
+     "top_read_input": 8,
+     "write": [
+      0.29,
+      -1.74,
+      -1.66,
+      0.48
+     ]
+    }
+   ]
+  }
+ },
+ "pose_arcs": {
+  "points_S": 19,
+  "points_T": 21,
+  "cofire": 0,
+  "S_inputs_max_range_on_T_points": 2.338,
+  "11": {
+   "DS": 0.03619686282072094,
+   "DT": 0.043941852647807415,
+   "DST": 0.02798365648498555,
+   "I": -0.05215505898354281,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 14,
+     "on_T_points": 21,
+     "on_other_points": 8,
+     "top_read_input": 5,
+     "write": [
+      0.48,
+      0.04,
+      0.29,
+      0.62
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 19,
+     "on_T_points": 16,
+     "on_other_points": 7,
+     "top_read_input": 9,
+     "write": [
+      -0.49,
+      0.15,
+      -0.11,
+      -0.83
+     ]
+    }
+   ]
+  },
+  "22": {
+   "DS": 0.005498482933145331,
+   "DT": 0.00794424504876963,
+   "DST": 0.016535737177469617,
+   "I": 0.0030930091955546565,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 12,
+     "on_T_points": 15,
+     "on_other_points": 7,
+     "top_read_input": 5,
+     "write": [
+      0.0,
+      0.86,
+      -0.14,
+      0.7
+     ]
+    },
+    {
+     "box": "S",
+     "on_S_points": 13,
+     "on_T_points": 19,
+     "on_other_points": 7,
+     "top_read_input": 2,
+     "write": [
+      -0.3,
+      -0.95,
+      0.94,
+      -1.72
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 5,
+     "on_T_points": 5,
+     "on_other_points": 0,
+     "top_read_input": 9,
+     "write": [
+      -0.08,
+      2.35,
+      1.57,
+      -0.65
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 19,
+     "on_T_points": 20,
+     "on_other_points": 8,
+     "top_read_input": 6,
+     "write": [
+      0.31,
+      0.06,
+      -0.01,
+      0.43
+     ]
+    }
+   ]
+  },
+  "12": {
+   "DS": 0.03619686282072094,
+   "DT": 0.00794424504876963,
+   "DST": 0.021405974618960127,
+   "I": -0.02273513325053044,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 18,
+     "on_T_points": 21,
+     "on_other_points": 8,
+     "top_read_input": 5,
+     "write": [
+      0.42,
+      -0.86,
+      -0.86,
+      0.88
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 17,
+     "on_T_points": 14,
+     "on_other_points": 7,
+     "top_read_input": 7,
+     "write": [
+      -1.19,
+      -0.0,
+      0.01,
+      -1.21
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 12,
+     "on_T_points": 10,
+     "on_other_points": 5,
+     "top_read_input": 10,
+     "write": [
+      -1.72,
+      0.59,
+      0.63,
+      -2.72
+     ]
+    }
+   ]
+  }
+ },
+ "pose_bg": {
+  "points_S": 26,
+  "points_T": 28,
+  "cofire": 7,
+  "S_inputs_max_range_on_T_points": 3.051,
+  "11": {
+   "DS": 0.018139279180108065,
+   "DT": 0.023243238509415082,
+   "DST": 0.017173330629978164,
+   "I": -0.024209187059544984,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 16,
+     "on_T_points": 17,
+     "on_other_points": 12,
+     "top_read_input": 11,
+     "write": [
+      0.45,
+      1.28,
+      1.2,
+      0.51
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 26,
+     "on_T_points": 26,
+     "on_other_points": 25,
+     "top_read_input": 6,
+     "write": [
+      0.61,
+      -0.3,
+      -0.22,
+      0.55
+     ]
+    }
+   ]
+  },
+  "22": {
+   "DS": 0.00398153021867229,
+   "DT": 0.004715873068163022,
+   "DST": 0.010514787119289278,
+   "I": 0.0018173838324539657,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 3,
+     "on_T_points": 0,
+     "on_other_points": 2,
+     "top_read_input": 4,
+     "write": [
+      -0.1,
+      0.76,
+      -0.06,
+      0.32
+     ]
+    },
+    {
+     "box": "S",
+     "on_S_points": 18,
+     "on_T_points": 28,
+     "on_other_points": 24,
+     "top_read_input": 5,
+     "write": [
+      0.2,
+      0.89,
+      -0.22,
+      0.48
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 5,
+     "on_T_points": 11,
+     "on_other_points": 7,
+     "top_read_input": 6,
+     "write": [
+      -0.49,
+      -0.66,
+      0.21,
+      -0.64
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 26,
+     "on_T_points": 21,
+     "on_other_points": 23,
+     "top_read_input": 9,
+     "write": [
+      0.24,
+      -0.71,
+      0.82,
+      -0.14
+     ]
+    }
+   ]
+  },
+  "12": {
+   "DS": 0.018139279180108065,
+   "DT": 0.004715873068163022,
+   "DST": 0.01128695628211792,
+   "I": -0.011568195966153168,
+   "joint_units": [
+    {
+     "box": "S",
+     "on_S_points": 24,
+     "on_T_points": 28,
+     "on_other_points": 25,
+     "top_read_input": 5,
+     "write": [
+      0.41,
+      -0.85,
+      -1.01,
+      0.43
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 14,
+     "on_T_points": 17,
+     "on_other_points": 12,
+     "top_read_input": 9,
+     "write": [
+      -1.33,
+      0.06,
+      0.23,
+      -1.35
+     ]
+    },
+    {
+     "box": "T",
+     "on_S_points": 14,
+     "on_T_points": 11,
+     "on_other_points": 15,
+     "top_read_input": 10,
+     "write": [
+      -1.1,
+      0.85,
+      1.11,
+      -1.13
+     ]
+    }
+   ]
+  }
+ }
+}

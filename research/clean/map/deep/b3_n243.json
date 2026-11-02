@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 243,
+ "max": 3.5007665157318115,
+ "min": -5.58389949798584,
+ "edits": {
+  "flip": 0.9680944681167603,
+  "rot90": 0.9606330394744873,
+  "rot180": 0.9617632627487183,
+  "gray": 0.9601508378982544,
+  "blur1": 0.9935517311096191,
+  "blur3": 0.9612318277359009,
+  "shuf2": 0.9407044649124146,
+  "shuf4": 0.9521335363388062,
+  "shuf8": 0.8936800956726074,
+  "hue": 0.9566293358802795,
+  "invert": 0.5313940644264221,
+  "zoomout": 0.7234998941421509,
+  "zoomin": 0.7773518562316895
+ },
+ "top50_classes": {
+  "espresso maker": 2,
+  "space bar": 1,
+  "Walker hound": 1,
+  "binoculars": 1,
+  "revolver": 1,
+  "steel arch bridge": 1,
+  "tiger cat": 1,
+  "hamper": 1,
+  "safe": 1,
+  "overskirt": 1
+ },
+ "neg50_classes": {
+  "frying pan": 2,
+  "accordion": 1,
+  "missile": 1,
+  "fountain": 1,
+  "cicada": 1,
+  "grasshopper": 1,
+  "muzzle": 1,
+  "bagel": 1,
+  "pretzel": 1,
+  "mouse": 1
+ }
+}

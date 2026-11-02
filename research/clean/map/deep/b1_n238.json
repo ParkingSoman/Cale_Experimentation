@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 238,
+ "max": 3.644587755203247,
+ "min": -5.031970977783203,
+ "edits": {
+  "flip": 0.8056719899177551,
+  "rot90": 0.8047723770141602,
+  "rot180": 0.7820879220962524,
+  "gray": 1.000023603439331,
+  "blur1": 1.000741958618164,
+  "blur3": 0.8471952676773071,
+  "shuf2": 0.9200363159179688,
+  "shuf4": 0.8152459859848022,
+  "shuf8": 0.7996227741241455,
+  "hue": 0.9775130748748779,
+  "invert": 0.779285192489624,
+  "zoomout": 0.644408106803894,
+  "zoomin": 0.8222967982292175
+ },
+ "top50_classes": {
+  "bearskin": 2,
+  "albatross": 2,
+  "military uniform": 2,
+  "English setter": 1,
+  "tick": 1,
+  "comic book": 1,
+  "barometer": 1,
+  "trifle": 1,
+  "electric guitar": 1,
+  "electric fan": 1
+ },
+ "neg50_classes": {
+  "bolo tie": 2,
+  "radiator": 2,
+  "knee pad": 2,
+  "fountain pen": 1,
+  "Norwegian elkhound": 1,
+  "speedboat": 1,
+  "African grey": 1,
+  "solar dish": 1,
+  "Border terrier": 1,
+  "book jacket": 1
+ }
+}

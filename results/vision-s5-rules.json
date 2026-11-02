@@ -1,0 +1,192 @@
+{
+ "per_child": {
+  "1_351": {
+   "edge+": 3,
+   "|edge|": 3,
+   "containment": 130,
+   "lift": 14,
+   "C*log(lift)": 2,
+   "C*log(lift) in top-100 |edge|": 2,
+   "C*log(lift) in top-30 |edge|": 2
+  },
+  "3_623": {
+   "edge+": 284,
+   "|edge|": 446,
+   "containment": 174,
+   "lift": 54,
+   "C*log(lift)": 1,
+   "C*log(lift) in top-100 |edge|": 101,
+   "C*log(lift) in top-30 |edge|": 31
+  },
+  "4_499": {
+   "edge+": 1,
+   "|edge|": 1,
+   "containment": 1,
+   "lift": 393,
+   "C*log(lift)": 58,
+   "C*log(lift) in top-100 |edge|": 9,
+   "C*log(lift) in top-30 |edge|": 8
+  },
+  "5_135": {
+   "edge+": 2658,
+   "|edge|": 87,
+   "containment": 983,
+   "lift": 3,
+   "C*log(lift)": 2,
+   "C*log(lift) in top-100 |edge|": 1,
+   "C*log(lift) in top-30 |edge|": 31
+  },
+  "8_4": {
+   "edge+": 6,
+   "|edge|": 8,
+   "containment": 4568,
+   "lift": 12,
+   "C*log(lift)": 10,
+   "C*log(lift) in top-100 |edge|": 6,
+   "C*log(lift) in top-30 |edge|": 5
+  },
+  "10_1316": {
+   "edge+": 35,
+   "|edge|": 67,
+   "containment": 4673,
+   "lift": 8,
+   "C*log(lift)": 12,
+   "C*log(lift) in top-100 |edge|": 4,
+   "C*log(lift) in top-30 |edge|": 31
+  },
+  "11_1031": {
+   "edge+": 11135,
+   "|edge|": 3,
+   "containment": 10327,
+   "lift": 16,
+   "C*log(lift)": 2,
+   "C*log(lift) in top-100 |edge|": 1,
+   "C*log(lift) in top-30 |edge|": 1
+  },
+  "12_136": {
+   "edge+": 1,
+   "|edge|": 1,
+   "containment": 8945,
+   "lift": 3,
+   "C*log(lift)": 1,
+   "C*log(lift) in top-100 |edge|": 1,
+   "C*log(lift) in top-30 |edge|": 1
+  },
+  "14_1326": {
+   "edge+": 33,
+   "|edge|": 47,
+   "containment": 9885,
+   "lift": 19,
+   "C*log(lift)": 16,
+   "C*log(lift) in top-100 |edge|": 7,
+   "C*log(lift) in top-30 |edge|": 31
+  },
+  "14_33": {
+   "edge+": 15663,
+   "|edge|": 216,
+   "containment": 3490,
+   "lift": 160,
+   "C*log(lift)": 2,
+   "C*log(lift) in top-100 |edge|": 101,
+   "C*log(lift) in top-30 |edge|": 31
+  },
+  "14_831": {
+   "edge+": 15738,
+   "|edge|": 28,
+   "containment": 5290,
+   "lift": 177,
+   "C*log(lift)": 11,
+   "C*log(lift) in top-100 |edge|": 4,
+   "C*log(lift) in top-30 |edge|": 2
+  },
+  "15_16": {
+   "edge+": 1,
+   "|edge|": 1,
+   "containment": 1,
+   "lift": 27,
+   "C*log(lift)": 22,
+   "C*log(lift) in top-100 |edge|": 11,
+   "C*log(lift) in top-30 |edge|": 9
+  },
+  "16_384": {
+   "edge+": 1,
+   "|edge|": 1,
+   "containment": 10532,
+   "lift": 6,
+   "C*log(lift)": 2,
+   "C*log(lift) in top-100 |edge|": 2,
+   "C*log(lift) in top-30 |edge|": 2
+  },
+  "16_26": {
+   "edge+": 78,
+   "|edge|": 3,
+   "containment": 12578,
+   "lift": 5,
+   "C*log(lift)": 1,
+   "C*log(lift) in top-100 |edge|": 1,
+   "C*log(lift) in top-30 |edge|": 1
+  },
+  "16_2062": {
+   "edge+": 61,
+   "|edge|": 101,
+   "containment": 11489,
+   "lift": 4,
+   "C*log(lift)": 4,
+   "C*log(lift) in top-100 |edge|": 101,
+   "C*log(lift) in top-30 |edge|": 31
+  },
+  "17_2283": {
+   "edge+": 4,
+   "|edge|": 8,
+   "containment": 11357,
+   "lift": 20,
+   "C*log(lift)": 6,
+   "C*log(lift) in top-100 |edge|": 6,
+   "C*log(lift) in top-30 |edge|": 6
+  }
+ },
+ "summary": {
+  "edge+": {
+   "median": 34.0,
+   "top1": 4,
+   "top5": 6,
+   "top20": 7
+  },
+  "|edge|": {
+   "median": 8.0,
+   "top1": 4,
+   "top5": 7,
+   "top20": 9
+  },
+  "containment": {
+   "median": 4981.5,
+   "top1": 2,
+   "top5": 2,
+   "top20": 2
+  },
+  "lift": {
+   "median": 15.0,
+   "top1": 0,
+   "top5": 4,
+   "top20": 11
+  },
+  "C*log(lift)": {
+   "median": 3.0,
+   "top1": 3,
+   "top5": 9,
+   "top20": 14
+  },
+  "C*log(lift) in top-100 |edge|": {
+   "median": 5.0,
+   "top1": 4,
+   "top5": 8,
+   "top20": 13
+  },
+  "C*log(lift) in top-30 |edge|": {
+   "median": 7.0,
+   "top1": 3,
+   "top5": 7,
+   "top20": 10
+  }
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "d20": true,
+ "P_symmetric": true,
+ "relu_x2_fits": true,
+ "least_fold": {
+  "kl": 0.04106835774107472,
+  "d2": 0.11428571428571431
+ },
+ "fold_positive": true,
+ "all_ok": true
+}

@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 2584,
+ "max": 7.994711875915527,
+ "min": -14.639677047729492,
+ "edits": {
+  "flip": 0.9758234024047852,
+  "rot90": 0.7047187089920044,
+  "rot180": 0.7640095949172974,
+  "gray": 0.9073652029037476,
+  "blur1": 0.9543843865394592,
+  "blur3": 0.324324369430542,
+  "shuf2": 0.9971650838851929,
+  "shuf4": 0.7664507031440735,
+  "shuf8": 0.6057217717170715,
+  "hue": 0.9052379131317139,
+  "invert": 0.9895581603050232,
+  "zoomout": 0.5304240584373474,
+  "zoomin": 0.19312062859535217
+ },
+ "top50_classes": {
+  "vacuum": 3,
+  "mousetrap": 2,
+  "joystick": 2,
+  "cellular telephone": 2,
+  "dial telephone": 2,
+  "tench": 1,
+  "desktop computer": 1,
+  "digital watch": 1,
+  "microphone": 1,
+  "grille": 1
+ },
+ "neg50_classes": {
+  "Dandie Dinmont": 3,
+  "spider monkey": 2,
+  "flute": 1,
+  "agama": 1,
+  "perfume": 1,
+  "rock crab": 1,
+  "Dungeness crab": 1,
+  "impala": 1,
+  "hartebeest": 1,
+  "potpie": 1
+ }
+}

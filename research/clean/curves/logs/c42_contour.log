@@ -1,0 +1,8 @@
+G skipped (0s)
+photo256: |cov same|/|cov| 0.037  |cov cross|/|cov| 0.973  (22s)
+class256: |cov same|/|cov| 0.023  |cov cross|/|cov| 0.984  (43s)
+cos(class same, photo same) 0.761
+cos(class cross, photo cross) 0.531
+cos(class cov, photo cov) 0.539
+photo: cos(same, cross) 0.796; class: 0.719
+done (43s)

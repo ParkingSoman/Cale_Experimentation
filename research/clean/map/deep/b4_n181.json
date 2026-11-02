@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 181,
+ "max": 2.645000457763672,
+ "min": -5.535300254821777,
+ "edits": {
+  "flip": 0.910631537437439,
+  "rot90": 0.7916513681411743,
+  "rot180": 0.9273918867111206,
+  "gray": 0.742438793182373,
+  "blur1": 0.721842885017395,
+  "blur3": 0.6075106859207153,
+  "shuf2": 0.9975966215133667,
+  "shuf4": 0.8081997632980347,
+  "shuf8": 0.6324182748794556,
+  "hue": 0.9240394830703735,
+  "invert": 0.8743247985839844,
+  "zoomout": 0.3751172721385956,
+  "zoomin": 0.6240214705467224
+ },
+ "top50_classes": {
+  "black and gold garden spider": 2,
+  "armadillo": 1,
+  "odometer": 1,
+  "recreational vehicle": 1,
+  "stupa": 1,
+  "panpipe": 1,
+  "chocolate sauce": 1,
+  "fox squirrel": 1,
+  "monastery": 1,
+  "stove": 1
+ },
+ "neg50_classes": {
+  "knee pad": 2,
+  "Dandie Dinmont": 1,
+  "triceratops": 1,
+  "groenendael": 1,
+  "crash helmet": 1,
+  "revolver": 1,
+  "pomegranate": 1,
+  "mantis": 1,
+  "English springer": 1,
+  "hard disc": 1
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "H1 mean max": 0.0,
+ "H1 cov - I max": 0.0,
+ "H2 err": 0.0,
+ "H3 max rel err": 3.9478480134507347e-16,
+ "sigma (alternating, 200 starts)": 6.683219821819432,
+ "max over 10^6 random unit triples": 6.518246967008993,
+ "H4 random triple exceeds sigma": false,
+ "|T|_F^2": 116.0,
+ "D2 of the build from the spectral triple": 71.33457281323986,
+ "|T|^2 - sigma^2": 71.33457281323984,
+ "H4 rel err": 1.9921412794336437e-16,
+ "best ALS build D2 (200 starts)": 71.33457281323984,
+ "H4 ALS vs |T|^2 - sigma^2 rel": 0.0,
+ "H5 visible width d_1 (k = 1)": 3,
+ "floor 1/2 sum_{j>1} mu_j (T13 value at widths (d_1, 1))": 59.57151481236659,
+ "T": [
+  [
+   [
+    -2,
+    2,
+    1
+   ],
+   [
+    -1,
+    -3,
+    1
+   ],
+   [
+    -1,
+    3,
+    -1
+   ]
+  ],
+  [
+   [
+    1,
+    -2,
+    0
+   ],
+   [
+    -3,
+    2,
+    -3
+   ],
+   [
+    2,
+    2,
+    0
+   ]
+  ],
+  [
+   [
+    2,
+    1,
+    3
+   ],
+   [
+    2,
+    3,
+    -3
+   ],
+   [
+    -3,
+    1,
+    2
+   ]
+  ]
+ ]
+}

@@ -1,0 +1,45 @@
+{
+ "block": 8,
+ "neuron": 938,
+ "max": 3.424215078353882,
+ "min": -6.508523941040039,
+ "edits": {
+  "flip": 0.8613961935043335,
+  "rot90": 0.6912238001823425,
+  "rot180": 0.7987754344940186,
+  "gray": 0.868894636631012,
+  "blur1": 0.91205233335495,
+  "blur3": 0.6977642774581909,
+  "shuf2": 0.9630296230316162,
+  "shuf4": 0.7897987365722656,
+  "shuf8": 0.5988603830337524,
+  "hue": 0.9347646236419678,
+  "invert": 0.9691089987754822,
+  "zoomout": 0.7405201196670532,
+  "zoomin": 0.6125730276107788
+ },
+ "top50_classes": {
+  "hamper": 2,
+  "Arctic fox": 2,
+  "jinrikisha": 1,
+  "bagel": 1,
+  "Kerry blue terrier": 1,
+  "fountain": 1,
+  "mortarboard": 1,
+  "flute": 1,
+  "horned viper": 1,
+  "long-horned beetle": 1
+ },
+ "neg50_classes": {
+  "red-breasted merganser": 2,
+  "sandbar": 2,
+  "submarine": 2,
+  "jeep": 1,
+  "drumstick": 1,
+  "fire screen": 1,
+  "mousetrap": 1,
+  "oystercatcher": 1,
+  "sidewinder": 1,
+  "sax": 1
+ }
+}

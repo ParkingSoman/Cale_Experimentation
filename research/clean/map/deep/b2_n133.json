@@ -1,0 +1,45 @@
+{
+ "block": 2,
+ "neuron": 133,
+ "max": 6.138848304748535,
+ "min": -7.180577754974365,
+ "edits": {
+  "flip": 0.9268529415130615,
+  "rot90": 0.90388023853302,
+  "rot180": 0.9279879331588745,
+  "gray": 0.9995828866958618,
+  "blur1": 0.9639813899993896,
+  "blur3": 0.9893618226051331,
+  "shuf2": 1.0000030994415283,
+  "shuf4": 1.0396342277526855,
+  "shuf8": 1.0710415840148926,
+  "hue": 1.0000388622283936,
+  "invert": 0.9220371246337891,
+  "zoomout": 0.924528956413269,
+  "zoomin": 0.8972140550613403
+ },
+ "top50_classes": {
+  "Windsor tie": 2,
+  "home theater": 2,
+  "Polaroid camera": 1,
+  "ashcan": 1,
+  "soup bowl": 1,
+  "abaya": 1,
+  "web site": 1,
+  "analog clock": 1,
+  "ski mask": 1,
+  "file": 1
+ },
+ "neg50_classes": {
+  "cup": 2,
+  "cellular telephone": 2,
+  "Windsor tie": 2,
+  "parallel bars": 1,
+  "microwave": 1,
+  "hand blower": 1,
+  "hand-held computer": 1,
+  "Indian elephant": 1,
+  "megalith": 1,
+  "binoculars": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 531,
+ "max": 4.4130096435546875,
+ "min": -5.355987548828125,
+ "edits": {
+  "flip": 0.9874969720840454,
+  "rot90": 0.6268600821495056,
+  "rot180": 0.814706563949585,
+  "gray": 0.9946814179420471,
+  "blur1": 0.9792436361312866,
+  "blur3": 0.7965953946113586,
+  "shuf2": 0.8307726383209229,
+  "shuf4": 0.5564850568771362,
+  "shuf8": 0.4408855438232422,
+  "hue": 0.9467965364456177,
+  "invert": 0.9863155484199524,
+  "zoomout": 0.6933544874191284,
+  "zoomin": 0.6089093089103699
+ },
+ "top50_classes": {
+  "king crab": 2,
+  "pencil box": 2,
+  "fountain pen": 1,
+  "pomegranate": 1,
+  "wallet": 1,
+  "magnetic compass": 1,
+  "bannister": 1,
+  "barbell": 1,
+  "reel": 1,
+  "schipperke": 1
+ },
+ "neg50_classes": {
+  "Persian cat": 2,
+  "gyromitra": 2,
+  "cleaver": 1,
+  "hornbill": 1,
+  "trimaran": 1,
+  "spider monkey": 1,
+  "typewriter keyboard": 1,
+  "umbrella": 1,
+  "vault": 1,
+  "eel": 1
+ }
+}

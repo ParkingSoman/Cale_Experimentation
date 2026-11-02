@@ -1,0 +1,45 @@
+{
+ "block": 11,
+ "neuron": 27,
+ "max": 4.669011116027832,
+ "min": -6.9638991355896,
+ "edits": {
+  "flip": 0.39754435420036316,
+  "rot90": 0.5000446438789368,
+  "rot180": 0.4554062783718109,
+  "gray": 0.944621205329895,
+  "blur1": 0.9191257357597351,
+  "blur3": 0.6728223562240601,
+  "shuf2": 0.909406304359436,
+  "shuf4": 0.6165582537651062,
+  "shuf8": 0.4448741376399994,
+  "hue": 0.9189845323562622,
+  "invert": 0.9582185745239258,
+  "zoomout": 0.5427093505859375,
+  "zoomin": 0.43861639499664307
+ },
+ "top50_classes": {
+  "bonnet": 2,
+  "Irish wolfhound": 2,
+  "chiffonier": 1,
+  "night snake": 1,
+  "fur coat": 1,
+  "menu": 1,
+  "Australian terrier": 1,
+  "cricket": 1,
+  "oboe": 1,
+  "dung beetle": 1
+ },
+ "neg50_classes": {
+  "Blenheim spaniel": 2,
+  "horizontal bar": 2,
+  "malinois": 1,
+  "Norwegian elkhound": 1,
+  "cougar": 1,
+  "unicycle": 1,
+  "Saluki": 1,
+  "Afghan hound": 1,
+  "slug": 1,
+  "otterhound": 1
+ }
+}

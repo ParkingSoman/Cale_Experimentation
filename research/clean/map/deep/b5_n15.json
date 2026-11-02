@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 15,
+ "max": 4.077519416809082,
+ "min": -6.411687850952148,
+ "edits": {
+  "flip": 0.9652825593948364,
+  "rot90": 0.5082613229751587,
+  "rot180": 0.651790976524353,
+  "gray": 0.8152202367782593,
+  "blur1": 0.5994592905044556,
+  "blur3": 0.3374481499195099,
+  "shuf2": 1.0,
+  "shuf4": 0.9950307607650757,
+  "shuf8": 0.9059129357337952,
+  "hue": 0.9458389282226562,
+  "invert": 0.8165197372436523,
+  "zoomout": 0.8477712273597717,
+  "zoomin": 0.423251211643219
+ },
+ "top50_classes": {
+  "cannon": 2,
+  "laptop": 1,
+  "typewriter keyboard": 1,
+  "container ship": 1,
+  "convertible": 1,
+  "Rottweiler": 1,
+  "vacuum": 1,
+  "racer": 1,
+  "hornbill": 1,
+  "radiator": 1
+ },
+ "neg50_classes": {
+  "cradle": 2,
+  "axolotl": 1,
+  "African hunting dog": 1,
+  "miniature pinscher": 1,
+  "fountain": 1,
+  "motor scooter": 1,
+  "giant schnauzer": 1,
+  "mouse": 1,
+  "paper towel": 1,
+  "revolver": 1
+ }
+}

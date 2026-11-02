@@ -1,0 +1,6 @@
+top eigenvalue shares of trace: [0.028, 0.023, 0.021, 0.016, 0.015, 0.014, 0.014, 0.013, 0.012, 0.011]
+Lambda fit residuals (x, p) [0.0, 0.0]
+check: sum over modes 48.1989 vs direct 48.1989
+cost share of top modes: [0.068, 0.063, 0.036, 0.027, 0.027, 0.03, 0.024, 0.025, 0.02, 0.016] top 3 0.166, top 20 0.456 ; modes needed for 80%: 108
+modes ranked by cost share: [0, 1, 2, 5, 4, 3, 7, 6] [0.068, 0.063, 0.036, 0.03, 0.027, 0.027, 0.025, 0.024]
+saved cache/c2_modes.png

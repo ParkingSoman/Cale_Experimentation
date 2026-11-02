@@ -1,0 +1,41 @@
+{
+ "L": {
+  "fine": 0.4436,
+  "super": 0.5804,
+  "own_error_within_super": 0.22681524083393242
+ },
+ "L_cut": {
+  "fine": 0.3464,
+  "super": 0.4936,
+  "own_error_within_super": 0.21878824969400246,
+  "newly_wrong": 790,
+  "newly_wrong_within_super": 0.2620253164556962
+ },
+ "LN": {
+  "fine": 0.4264,
+  "super": 0.558,
+  "own_error_within_super": 0.22454672245467225
+ },
+ "S": {
+  "fine": 0.3762,
+  "super": 0.5122,
+  "own_error_within_super": 0.21096505290157103
+ },
+ "L2": {
+  "fine": 0.4272,
+  "super": 0.5536,
+  "own_error_within_super": 0.2168296089385475
+ },
+ "Lcut_minus_LN": {
+  "fine": [
+   -0.08,
+   -0.09320500000000001,
+   -0.0666
+  ],
+  "super": [
+   -0.0644,
+   -0.0778,
+   -0.0508
+  ]
+ }
+}

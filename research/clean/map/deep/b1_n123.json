@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 123,
+ "max": 2.6675209999084473,
+ "min": -4.11353063583374,
+ "edits": {
+  "flip": 0.7641712427139282,
+  "rot90": 0.7832344770431519,
+  "rot180": 0.7952612638473511,
+  "gray": 0.8533433079719543,
+  "blur1": 0.7302267551422119,
+  "blur3": 0.549370527267456,
+  "shuf2": 1.0,
+  "shuf4": 0.9817261695861816,
+  "shuf8": 0.9579991102218628,
+  "hue": 0.8410303592681885,
+  "invert": 0.8581289052963257,
+  "zoomout": 0.7169904112815857,
+  "zoomin": 0.5347130298614502
+ },
+ "top50_classes": {
+  "parachute": 2,
+  "prayer rug": 2,
+  "whiptail": 1,
+  "American black bear": 1,
+  "shower curtain": 1,
+  "long-horned beetle": 1,
+  "envelope": 1,
+  "basketball": 1,
+  "organ": 1,
+  "golden retriever": 1
+ },
+ "neg50_classes": {
+  "cocker spaniel": 2,
+  "waffle iron": 2,
+  "plate rack": 1,
+  "ground beetle": 1,
+  "shower curtain": 1,
+  "football helmet": 1,
+  "muzzle": 1,
+  "hot pot": 1,
+  "barber chair": 1,
+  "barrow": 1
+ }
+}

@@ -1,0 +1,10 @@
+silent readers: 52
+  fv seed 0 32/52
+  fv seed 0 52/52
+  fv seed 1 32/52
+  fv seed 1 52/52
+silent readers now on (> 10% of real) in the reader inputs: 52 of 52
+boundary + readers (2256): generalised eigenvalues top 1.212e+03, 10th 4.812e+02, 100th 5.337e+01
+4-way + readers (1232): generalised eigenvalues top 3.376e+03, 10th 1.553e+03, 100th 2.352e+02
+  step0 from boundary + readers: dev-5000 KL 0.1691 (se 0.0075)
+  step0 from 4-way + readers: dev-5000 KL 0.3606 (se 0.0156)

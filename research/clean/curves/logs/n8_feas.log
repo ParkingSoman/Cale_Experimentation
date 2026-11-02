@@ -1,0 +1,7 @@
+pool cone: best non-negative combination cos with D(weights) 0.424, Spearman +0.437, residual 0.906; images used 21
+  inversions       alone: cos 0.177, Spearman +0.299
+  boundary         alone: cos 0.418, Spearman +0.347
+  reader pictures  alone: cos 0.157, Spearman +0.312
+  mean vector of real_unsure     : cos with D 0.533
+  mean vector of class_inversions: cos with D 0.080
+  mean vector of boundary        : cos with D 0.210

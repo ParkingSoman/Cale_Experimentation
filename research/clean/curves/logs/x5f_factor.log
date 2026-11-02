@@ -1,0 +1,7 @@
+first batch 0.2 s
+factor_n2000 0.0491 (se 0.0029)
+factor_n256 0.0534 (se 0.0030)
+  factor_n2000 minus level0p      -0.0142 (paired se 0.0013)
+  factor_n2000 minus coupled35k   -0.0061 (paired se 0.0026)
+  factor_n256 minus level0p      -0.0099 (paired se 0.0015)
+  factor_n256 minus coupled35k   -0.0018 (paired se 0.0027)

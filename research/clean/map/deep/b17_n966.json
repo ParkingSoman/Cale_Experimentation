@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 966,
+ "max": 5.924600124359131,
+ "min": -17.732757568359375,
+ "edits": {
+  "flip": 0.8544373512268066,
+  "rot90": 0.5995804071426392,
+  "rot180": 0.8996906280517578,
+  "gray": 0.5564696192741394,
+  "blur1": 0.9953023195266724,
+  "blur3": 0.03644181042909622,
+  "shuf2": 0.7901146411895752,
+  "shuf4": 0.561699628829956,
+  "shuf8": -0.012838680297136307,
+  "hue": 0.6246251463890076,
+  "invert": 1.1405792236328125,
+  "zoomout": 0.36583220958709717,
+  "zoomin": 0.2813299000263214
+ },
+ "top50_classes": {
+  "handkerchief": 2,
+  "velvet": 2,
+  "Petri dish": 2,
+  "teapot": 1,
+  "doormat": 1,
+  "chiton": 1,
+  "trombone": 1,
+  "mailbag": 1,
+  "binder": 1,
+  "safety pin": 1
+ },
+ "neg50_classes": {
+  "Airedale": 2,
+  "printer": 1,
+  "stretcher": 1,
+  "sweatshirt": 1,
+  "laptop": 1,
+  "skunk": 1,
+  "torch": 1,
+  "jersey": 1,
+  "tub": 1,
+  "turnstile": 1
+ }
+}

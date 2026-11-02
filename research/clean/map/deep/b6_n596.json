@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 596,
+ "max": 0.6910141706466675,
+ "min": -5.31392240524292,
+ "edits": {
+  "flip": 0.8441247940063477,
+  "rot90": 0.37665408849716187,
+  "rot180": 0.8065569400787354,
+  "gray": -0.22569739818572998,
+  "blur1": -0.7465791702270508,
+  "blur3": -3.3058364391326904,
+  "shuf2": 1.444005012512207,
+  "shuf4": 2.634669303894043,
+  "shuf8": 4.177999496459961,
+  "hue": 0.098324254155159,
+  "invert": 0.639446496963501,
+  "zoomout": -1.2256767749786377,
+  "zoomin": -1.5507928133010864
+ },
+ "top50_classes": {
+  "beer bottle": 2,
+  "teddy": 1,
+  "streetcar": 1,
+  "restaurant": 1,
+  "bicycle-built-for-two": 1,
+  "rubber eraser": 1,
+  "rugby ball": 1,
+  "custard apple": 1,
+  "maypole": 1,
+  "lemon": 1
+ },
+ "neg50_classes": {
+  "can opener": 2,
+  "toilet tissue": 1,
+  "window screen": 1,
+  "lacewing": 1,
+  "mortar": 1,
+  "web site": 1,
+  "mountain tent": 1,
+  "ant": 1,
+  "rhinoceros beetle": 1,
+  "lens cap": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 1460,
+ "max": 5.185588836669922,
+ "min": -5.591048240661621,
+ "edits": {
+  "flip": 0.9319770336151123,
+  "rot90": 0.7363020777702332,
+  "rot180": 0.6040113568305969,
+  "gray": 0.9587263464927673,
+  "blur1": 0.8717052936553955,
+  "blur3": 0.5839207768440247,
+  "shuf2": 0.994269847869873,
+  "shuf4": 0.7720906734466553,
+  "shuf8": 0.5636166930198669,
+  "hue": 0.9492490291595459,
+  "invert": 0.8738766312599182,
+  "zoomout": 0.7018511295318604,
+  "zoomin": 0.545887291431427
+ },
+ "top50_classes": {
+  "planetarium": 2,
+  "tench": 1,
+  "green snake": 1,
+  "maraca": 1,
+  "steel drum": 1,
+  "Irish terrier": 1,
+  "pomegranate": 1,
+  "packet": 1,
+  "marmot": 1,
+  "platypus": 1
+ },
+ "neg50_classes": {
+  "garden spider": 2,
+  "horned viper": 2,
+  "projectile": 1,
+  "reflex camera": 1,
+  "quail": 1,
+  "ruffed grouse": 1,
+  "shower curtain": 1,
+  "walking stick": 1,
+  "grasshopper": 1,
+  "mashed potato": 1
+ }
+}

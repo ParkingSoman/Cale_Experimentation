@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 78,
+ "max": 5.546138763427734,
+ "min": -5.81269645690918,
+ "edits": {
+  "flip": 0.9560104608535767,
+  "rot90": 0.7137081623077393,
+  "rot180": 0.7378278374671936,
+  "gray": 0.9641808271408081,
+  "blur1": 0.9195964336395264,
+  "blur3": 0.804118275642395,
+  "shuf2": 0.9751040935516357,
+  "shuf4": 0.53790283203125,
+  "shuf8": 0.3620261549949646,
+  "hue": 0.9437472820281982,
+  "invert": 0.9160037040710449,
+  "zoomout": 0.6282380819320679,
+  "zoomin": 0.5345163345336914
+ },
+ "top50_classes": {
+  "dining table": 2,
+  "toilet tissue": 1,
+  "cairn": 1,
+  "Siamese cat": 1,
+  "Persian cat": 1,
+  "poncho": 1,
+  "dalmatian": 1,
+  "purse": 1,
+  "Rottweiler": 1,
+  "safe": 1
+ },
+ "neg50_classes": {
+  "bobsled": 1,
+  "hornbill": 1,
+  "ocarina": 1,
+  "Egyptian cat": 1,
+  "ox": 1,
+  "bullfrog": 1,
+  "kelpie": 1,
+  "parallel bars": 1,
+  "lynx": 1,
+  "hippopotamus": 1
+ }
+}

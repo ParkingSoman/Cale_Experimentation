@@ -20,7 +20,19 @@ is not listed.
 | `models/gemma-3n-e4b-4bit` | 5.5 GB | Phase 3 main model: Gemma 3n E4B, 4-bit MLX. E2B and the in-between sizes are nested inside it (MatFormer). | Replaced by a newer build |
 | `apps/open-webui/.venv` | 1.8 GB | App 1 of the demo: Open WebUI 0.11.4 in its own venv (not a source clone) | When the demo is retired |
 | `apps/aider/.venv` | 0.6 GB | App 2 of the demo: Aider 0.86.2 in its own venv | When the demo is retired |
+| `research/tree/hf/` | 0.27 GB | SmolLM2-135M weights for the tree research ($0 track, Z1-Z6). Downloaded 2026-10-18. | When the tree research ends |
+| `research/clean/hf/` | 4.7 GB | SmolLM2-360M, SmolLM2-1.7B, GPT-2, DistilGPT2 for R3 (what small models lose). Downloaded 2026-10-19. | After R3. The 1.7B (3.4 GB) goes first. |
+| `research/clean/hf/pythia/` | 5.1 GB | Lineage track (2026-10-21): Pythia-160M final weights (0.36 GB) + `lineage-data/` (4.7 GB: MLP weights and dev-layer activations of 19 checkpoints). Checkpoint downloads were deleted after use. | After the lineage report is read. `lineage-data/` first. |
+| `research/clean/hf/vision-ck/`, `research/clean/hf/cifar100/` | ~0.2 GB | Vision lab (lineage round 3, 2026-10-21): CIFAR-100 arrays and 4 small trained nets with checkpoints. | When the vision lab ends |
+| `research/clean/hf/convnext/atto`, `research/clean/hf/convnext/nano` | 77 MB | Real small ConvNeXts (timm atto.d2, nano.d1h) as the second reference for the map track (2026-10-21). | When the map track ends |
+| `research/clean/hf/imagenet/l1cache/`, `research/clean/hf/imagenet/n7cache/` | 5.1 GB | Closed-form nudge caches (block-input tensors for 6 / 12 families, teacher logits, trained neurons), 2026-10-22. l1cache is superseded by n7cache. | l1cache: now; n7cache: when the nudge track ends |
+| `research/clean/curves/.venv`, `research/clean/curves/cache/`, `~/.cache/torch/hub/checkpoints/inception5h.pth` | 1.2 GB | Curves track (2026-10-22): PyTorch + Lucent venv and lucid InceptionV1 weights (27 MB) for the essay's 3b crush. | When the curves track ends |
+| `research/clean/curves/cache/r18/` | 2.4 GB | Curves track zoom on ResNet-18 (2026-10-28, plan okay-i-really-enjoyed-humble-allen.md): last-block pre-activations z (float16) and logits of 35000 train + 10000 sealed photos (`zoom/rz_cache.py`), pooled h, head. | When the ResNet-18 zoom is written up |
+| `research/clean/curves/cache/map/` | 0.75 GB | Curves track map agents pilot (2026-11-01): pooled last-layer values of ResNet-18 and ResNet-50 on 20000 validation crops, the small CIFAR-100 net's features; `research/clean/curves/map_agents/sheets/` 52 MB of contact sheets. Keep for session 3 |
+| `~/.cache/torch/hub/checkpoints/resnet{18,34,50,101,152}-*.pth` | 0.66 GB | Curves track Part C (2026-10-28): torchvision ResNet ladder (IMAGENET1K_V1) for H-weak and H-scale (`pc_weak.py`, `pc_scale.py`). | When the curves track ends |
+| `research/tree/data/` | 12 MB | wikitext-2 train/test text (calibration and held-out). The Hugging Face dataset cache was deleted after saving. | When the tree research ends |
 | `results/g3n-*.json`, `results/bench/g3n-*.json` | <1 MB | Phase 3 measurements | Keep |
+| `results/clean-a0.json`, `clean-a1.json`, `clean-a2.json`, `clean-b1*.json`, `clean-q1.json`-`clean-q8.json`, `clean-w1.json`-`clean-w5.json`, `clean-v1.json`-`clean-v3.json`, `clean-s1.json`, `clean-g-l16.json`, `clean-g-l22.json`, `clean-t1.json`, `clean-t1-150s.json`, `clean-g75.json`, `clean-es.json` | <1 MB | RCF scale + channels tests (2026-10-20), CHILDREN-LOG "RCF SCALE + CHANNELS" | Keep |
 | `data/gemma3n-slicing` | 0.04 MB | Google's official size table (source of `nest/gemma3n_levels.json`) | Never needed again after gate A |
 
 ## Removed
@@ -104,3 +116,41 @@ Kept in `dist/chat` (not in the repo, git-ignored; 0.9 GB, output of `scripts/bu
 ## Windows chat bundle (2026-10-17)
 
 Kept: `dist/chat-win` (git-ignored, 0.87 GB, made on the Mac with `scripts/build_chat.py --target win-x64 --out dist/chat-win`; rebuild takes about 1 minute). The Windows installer carries it as `chat/` (about 0.3 GB compressed). Scratchpad copies for the HP test (`scratchpad/serve`: chat-win.zip 0.31 GB, node.exe 0.08 GB) are deleted when the test ends. On the HP, `%TEMP%\cw2` (about 1.2 GB: zip, unpacked payload, test home) is deleted when the test ends. HP free space before: 204 GB.
+
+## 2026-10-18 (sameness work)
+
+`dist/chat` (0.8 GB) and `dist/chat-win` (0.85 GB) were rebuilt with the Quicker/Smarter slider and replace the old ones (no second copy kept). Scratchpad: `anythingllm-src` (0.1 GB source, kept for rebuilds), `node22` (small). Test homes and chat data folders from this session were deleted. HP: `C:\cale\xb7` (the chat bundle unpacked from the old installer, about 0.9 GB), `C:\cale\code_*`, `C:\cale\insth_*`, `C:\cale\th*`, `C:\cale\abh_*`, `C:\cale\ord_*` are test folders: delete when the HP work ends.
+
+`dist/chat` (0.82 GB, 28,987 files) and `dist/chat-win` (0.87 GB, 26,473 files) were rebuilt again later on 2026-10-18 with the server and the document reader packed into one file each, and the files nothing can reach removed (`scripts/pack_chat.mjs`, `scripts/chat_prune.py`, the default of `scripts/build_chat.py`). Before: about 61,000 files each. They replace the earlier ones (no second copy). `dist/Cale-mac.dmg` was rebuilt (443 MB, was 559 MB) and `dist/Cale-mac.zip` (315 MB, was 338 MB). Scratchpad: `anythingllm-src` (0.1 GB) and `node22` and `esb` (small) stay for rebuilds.
+
+
+## 2026-10-18 (cache clean)
+
+Deleted about 18 GB of caches: `~/Library/Caches/ms-playwright-mcp` (6.3 GB), `~/Library/Caches/Yarn` (4.4 GB, the next chat build downloads it again), `~/.cache/huggingface/hub/blobs` (3.1 GB), the parakeet model folder in the same hub (0.7 GB), and three app-update caches (VSCode.ShipIt, todesktop ShipIt, com.openai.codex, about 4 GB). Nothing else was touched.
+
+
+## 2026-10-19 (raw-neuron interpretability tools pilot)
+
+All under `research/clean/tools/` (git-ignored `.venv`). The "system torch 2.7.1" did not exist on this Mac, so the one virtualenv holds the only torch copy (2.14.1, 0.58 GB); it must stay until the pilot ends.
+- `research/clean/tools/.venv`: 0.81 GB total (torch 0.58 GB, wandb 0.06 GB pulled in by transformer-lens, nnsight, transformer-lens, neuronscope-cli, eai-delphi installed with `--no-deps`, small helper packages). Created with `--system-site-packages`.
+- `research/clean/tools/src/delphi` 1.3 MB, `src/griffin` 50 MB (shallow clone, ships committed .pyc files: never import them), `src/moefication` 0.2 MB. Read-only references.
+- `research/clean/tools/pilots`: small scripts, JSON results and a folder of symlinks to the cached gpt2 (no copy).
+- pip cache `~/Library/Caches/pip` grew to 0.16 GB (not removable by name; `pip cache purge` clears it).
+- No model weights were downloaded. SAE tools (sparsify, SAELens, circuit-tracer) were not installed.
+Delete `research/clean/tools/.venv` and `src/griffin` when the pilot ends.
+
+## Vision lab (2026-10-21)
+- `research/clean/hf/imagenet/`: 9.0 GB. `val_224.npy` (all 50k ImageNet val images, 224 px, uint8, ~7.5 GB), the
+  two source parquet shards (~0.9 GB, removable: `val_224.npy` is built), labels, cached activations
+  `acts_tiny_ana20k.npz` and `feat_tiny_ana20k.npy` (small).
+- `research/clean/hf/convnext/`: 0.1 GB (timm convnext_tiny.fb_in1k weights).
+Delete the parquet shards first if space is short. Delete the whole folder when the vision track ends.
+- Map track (2026-10-21), in `research/clean/hf/imagenet/`: `m3_matrices.npz` 2.4 GB (containment of every neuron
+  in every earlier neuron; the map needs it), `e1_edges.npz` 1.2 GB (direct-path edges), `m3_null.npz` 0.3 GB (null
+  readouts). Deleted: `m1_means_15-16-17.npz` (0.6 GB, failed grouping method). Also `research/clean/map/deep/`
+  0.29 GB of neuron views and `research/clean/map/tests/` 0.12 GB. Keep while the map is built; delete the npz files
+  once `map/network_map_v2.json` is final.
+| `research/clean/curves/cache/e1_self_256.npy` | 39 MB | 256 self-made class-inversion inputs (DATA-FREE check E, 2026-10-23). Regenerate with `e1_selfmade.py 256 256` (15 min). Keep while the data-free track is open. |
+| `research/clean/curves/lean/coarse/.lake` | 7.2 GB | Lean 4 + Mathlib v4.35 build cache for the NEURON-MATH proofs (2026-10-24). Rebuild: `lake exe cache get` (~10 min). Delete when the proofs are final or disk is short. |
+| `research/clean/curves/cache/x3c_stats_35k.pt` | 710 MB | Coupled-formula statistic m_3s on all 35000 train images (NEURON-MATH 14.12, 2026-10-24). Regenerate with `x3c_population.py` (~25 min). Delete when the exactness track moves past k = 0. (The 2000-image version was deleted: 1.5 min to rebuild with `x3_coupled.py`.) |
+| `research/clean/curves/cache/c45_readerq_368*.npy` | 54 MB each (256-step set; 512-step set for K4) | Reader questions: one network-made picture per family reader (NEURON-MATH Part VIII, 2026-10-24). Regenerate with `c45_readerq.py 256` (17 min). Keep while Part VIII is open. Small c40-c48 caches (< 10 MB each) sit next to them. |

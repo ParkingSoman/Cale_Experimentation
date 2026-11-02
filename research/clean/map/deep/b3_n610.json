@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 610,
+ "max": 2.648033857345581,
+ "min": -6.272185802459717,
+ "edits": {
+  "flip": 1.006697177886963,
+  "rot90": 0.9484009742736816,
+  "rot180": 1.0060511827468872,
+  "gray": 0.17140831053256989,
+  "blur1": 0.983830451965332,
+  "blur3": 0.9664862155914307,
+  "shuf2": 0.9788026809692383,
+  "shuf4": 0.9290851950645447,
+  "shuf8": 0.7661571502685547,
+  "hue": -0.1691552847623825,
+  "invert": -0.370463490486145,
+  "zoomout": 0.9151661396026611,
+  "zoomin": 0.9350278377532959
+ },
+ "top50_classes": {
+  "goldfish": 2,
+  "mixing bowl": 2,
+  "lampshade": 2,
+  "banana": 2,
+  "yellow lady's slipper": 2,
+  "television": 1,
+  "stethoscope": 1,
+  "wood rabbit": 1,
+  "dishwasher": 1,
+  "stage": 1
+ },
+ "neg50_classes": {
+  "garden spider": 2,
+  "sea anemone": 2,
+  "teddy": 1,
+  "bathing cap": 1,
+  "hay": 1,
+  "crutch": 1,
+  "boathouse": 1,
+  "birdhouse": 1,
+  "binoculars": 1,
+  "jellyfish": 1
+ }
+}

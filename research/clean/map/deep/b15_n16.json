@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 16,
+ "max": 10.601263999938965,
+ "min": -11.891555786132812,
+ "edits": {
+  "flip": 0.9687781929969788,
+  "rot90": 0.14998285472393036,
+  "rot180": 0.3383415937423706,
+  "gray": 0.9989761710166931,
+  "blur1": 1.005568027496338,
+  "blur3": 0.6488347053527832,
+  "shuf2": 0.8749477863311768,
+  "shuf4": 0.4814651608467102,
+  "shuf8": 0.03529512137174606,
+  "hue": 1.0,
+  "invert": 0.9311113953590393,
+  "zoomout": 0.44302886724472046,
+  "zoomin": 0.14091287553310394
+ },
+ "top50_classes": {
+  "mailbag": 3,
+  "mosquito net": 2,
+  "barrel": 2,
+  "tench": 1,
+  "table lamp": 1,
+  "purse": 1,
+  "racer": 1,
+  "sewing machine": 1,
+  "shopping basket": 1,
+  "spatula": 1
+ },
+ "neg50_classes": {
+  "baboon": 2,
+  "French bulldog": 1,
+  "typewriter keyboard": 1,
+  "sea lion": 1,
+  "limousine": 1,
+  "ruddy turnstone": 1,
+  "American coot": 1,
+  "little blue heron": 1,
+  "tow truck": 1,
+  "marmoset": 1
+ }
+}

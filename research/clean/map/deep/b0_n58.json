@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 58,
+ "max": 20.31809425354004,
+ "min": -19.903167724609375,
+ "edits": {
+  "flip": 0.9103413820266724,
+  "rot90": 0.9238669872283936,
+  "rot180": 0.9091199040412903,
+  "gray": 0.052327074110507965,
+  "blur1": 1.001140832901001,
+  "blur3": 1.0006746053695679,
+  "shuf2": 1.0,
+  "shuf4": 0.9954415559768677,
+  "shuf8": 0.9989840984344482,
+  "hue": 0.5825982093811035,
+  "invert": 0.8887088894844055,
+  "zoomout": 0.9399747848510742,
+  "zoomin": 0.9535549879074097
+ },
+ "top50_classes": {
+  "cleaver": 1,
+  "pomegranate": 1,
+  "confectionery": 1,
+  "bow tie": 1,
+  "goblet": 1,
+  "tripod": 1,
+  "whistle": 1,
+  "studio couch": 1,
+  "feather boa": 1,
+  "reflex camera": 1
+ },
+ "neg50_classes": {
+  "cleaver": 1,
+  "rubber eraser": 1,
+  "shield": 1,
+  "shovel": 1,
+  "Lakeland terrier": 1,
+  "sleeping bag": 1,
+  "Irish terrier": 1,
+  "snorkel": 1,
+  "sports car": 1,
+  "stage": 1
+ }
+}

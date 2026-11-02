@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1162,
+ "max": 6.635678291320801,
+ "min": -13.060461044311523,
+ "edits": {
+  "flip": 0.9339337348937988,
+  "rot90": 0.20337706804275513,
+  "rot180": 0.23537664115428925,
+  "gray": 0.9845062494277954,
+  "blur1": 1.0051531791687012,
+  "blur3": 0.5186979174613953,
+  "shuf2": 0.9918252229690552,
+  "shuf4": 0.61763596534729,
+  "shuf8": 0.24903005361557007,
+  "hue": 0.8879963159561157,
+  "invert": 0.9485496282577515,
+  "zoomout": 0.4169289171695709,
+  "zoomin": 0.5331906080245972
+ },
+ "top50_classes": {
+  "half track": 3,
+  "cloak": 2,
+  "tank": 2,
+  "pencil box": 1,
+  "modem": 1,
+  "steam locomotive": 1,
+  "gasmask": 1,
+  "espresso maker": 1,
+  "hook": 1,
+  "electric locomotive": 1
+ },
+ "neg50_classes": {
+  "beaver": 2,
+  "sea lion": 2,
+  "toilet tissue": 1,
+  "otter": 1,
+  "yawl": 1,
+  "black grouse": 1,
+  "balloon": 1,
+  "forklift": 1,
+  "barbell": 1,
+  "barber chair": 1
+ }
+}

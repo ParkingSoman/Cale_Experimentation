@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 237,
+ "max": 5.374139785766602,
+ "min": -6.537240505218506,
+ "edits": {
+  "flip": 0.9453213214874268,
+  "rot90": 0.775530219078064,
+  "rot180": 0.8380486369132996,
+  "gray": 0.8544623255729675,
+  "blur1": 0.8983560800552368,
+  "blur3": 0.49915486574172974,
+  "shuf2": 0.908355712890625,
+  "shuf4": 0.7470992803573608,
+  "shuf8": 0.6246699690818787,
+  "hue": 0.9360074996948242,
+  "invert": 0.9886157512664795,
+  "zoomout": 0.7301476001739502,
+  "zoomin": 0.5011637210845947
+ },
+ "top50_classes": {
+  "Bouvier des Flandres": 1,
+  "Kerry blue terrier": 1,
+  "tabby": 1,
+  "minivan": 1,
+  "otterhound": 1,
+  "jean": 1,
+  "Egyptian cat": 1,
+  "sunscreen": 1,
+  "ice lolly": 1,
+  "giant schnauzer": 1
+ },
+ "neg50_classes": {
+  "can opener": 3,
+  "scorpion": 1,
+  "mortar": 1,
+  "motor scooter": 1,
+  "ant": 1,
+  "wolf spider": 1,
+  "shopping basket": 1,
+  "nipple": 1,
+  "face powder": 1,
+  "espresso maker": 1
+ }
+}

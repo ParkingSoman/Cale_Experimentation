@@ -1,0 +1,5 @@
+off-diagonal cosine with K^T K | all 96 channels | 10 curve channels
+  M_agop    | +0.320 | +0.542
+  M_fisher  | +0.280 | +0.536
+  ungated   | +0.320 | +0.542
+  coact     | +0.469 | +0.448

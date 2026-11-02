@@ -1,0 +1,42 @@
+{
+ "A: C4 one family, 8 ring + centre | k=1 | d2": {
+  "least_any": 0.02057562784049885,
+  "least_fold": 0.02106114125540577,
+  "relative_gap": 0.023596529771562496
+ },
+ "A: C4 one family, 8 ring + centre | k=1 | kl": {
+  "least_any": 0.00964022685113175,
+  "least_fold": 0.009902311656542612,
+  "relative_gap": 0.02718658071620937
+ },
+ "B: C3 one family, 6 ring | k=1 | d2": {
+  "least_any": 0.04999999999999994,
+  "least_fold": 0.050000000000000135,
+  "relative_gap": 3.885780586188053e-15
+ },
+ "B: C3 one family, 6 ring | k=1 | kl": {
+  "least_any": 0.022662335827720922,
+  "least_fold": 0.022662335827720887,
+  "relative_gap": -1.530930870642969e-15
+ },
+ "B: C3 one family, 6 ring | k=2 | d2": {
+  "least_any": 0.027777777777777735,
+  "least_fold": 0.031250000000000014,
+  "relative_gap": 0.12500000000000225
+ },
+ "B: C3 one family, 6 ring | k=2 | kl": {
+  "least_any": 0.012534986524576072,
+  "least_fold": 0.014031723005294872,
+  "relative_gap": 0.11940471398068928
+ },
+ "C: C3 two families, 6 ring | k=1 | d2": {
+  "least_any": 0.04999999999999994,
+  "least_fold": 0.050000000000000135,
+  "relative_gap": 3.885780586188053e-15
+ },
+ "C: C3 two families, 6 ring | k=1 | kl": {
+  "least_any": 0.022662335827720922,
+  "least_fold": 0.022662335827720887,
+  "relative_gap": -1.530930870642969e-15
+ }
+}

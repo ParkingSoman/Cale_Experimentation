@@ -1,0 +1,10 @@
+{
+ "D_T0": "5/4",
+ "D_S2": "0",
+ "D_joint": "0",
+ "I_free": "-5/4",
+ "covering_spare_values_on_T_support": [
+  "0",
+  "0"
+ ]
+}

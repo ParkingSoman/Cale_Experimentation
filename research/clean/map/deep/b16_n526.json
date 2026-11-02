@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 526,
+ "max": 8.193883895874023,
+ "min": -18.67621421813965,
+ "edits": {
+  "flip": 0.946197509765625,
+  "rot90": 0.5663551092147827,
+  "rot180": 0.3949620723724365,
+  "gray": 0.9607522487640381,
+  "blur1": 0.7132347822189331,
+  "blur3": 0.3513577878475189,
+  "shuf2": 1.0976989269256592,
+  "shuf4": 1.0134570598602295,
+  "shuf8": 0.7441830635070801,
+  "hue": 0.8794453144073486,
+  "invert": 0.93015456199646,
+  "zoomout": 0.6054365634918213,
+  "zoomin": 0.7141493558883667
+ },
+ "top50_classes": {
+  "Border collie": 3,
+  "Japanese spaniel": 3,
+  "papillon": 3,
+  "Samoyed": 2,
+  "Shetland sheepdog": 2,
+  "borzoi": 2,
+  "Welsh springer spaniel": 2,
+  "Pomeranian": 2,
+  "skunk": 1,
+  "Shih-Tzu": 1
+ },
+ "neg50_classes": {
+  "Rottweiler": 2,
+  "Sussex spaniel": 2,
+  "cocker spaniel": 2,
+  "Airedale": 2,
+  "bloodhound": 2,
+  "Boston bull": 1,
+  "partridge": 1,
+  "tick": 1,
+  "wolf spider": 1,
+  "Dandie Dinmont": 1
+ }
+}

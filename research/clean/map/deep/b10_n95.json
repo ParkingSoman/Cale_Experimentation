@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 95,
+ "max": 4.073513507843018,
+ "min": -5.298544883728027,
+ "edits": {
+  "flip": 0.9636363983154297,
+  "rot90": 0.4392181634902954,
+  "rot180": 0.5478780269622803,
+  "gray": 0.9910598993301392,
+  "blur1": 0.966800332069397,
+  "blur3": 0.6284781694412231,
+  "shuf2": 0.7785522937774658,
+  "shuf4": 0.5415830612182617,
+  "shuf8": 0.45392876863479614,
+  "hue": 0.9543266296386719,
+  "invert": 0.9318798780441284,
+  "zoomout": 0.5301780700683594,
+  "zoomin": 0.481677770614624
+ },
+ "top50_classes": {
+  "affenpinscher": 1,
+  "cowboy boot": 1,
+  "trolleybus": 1,
+  "bolo tie": 1,
+  "pajama": 1,
+  "umbrella": 1,
+  "rotisserie": 1,
+  "stage": 1,
+  "green lizard": 1,
+  "hair spray": 1
+ },
+ "neg50_classes": {
+  "tench": 1,
+  "brassiere": 1,
+  "tricycle": 1,
+  "toy terrier": 1,
+  "crate": 1,
+  "crib": 1,
+  "chocolate sauce": 1,
+  "African elephant": 1,
+  "nematode": 1,
+  "diaper": 1
+ }
+}

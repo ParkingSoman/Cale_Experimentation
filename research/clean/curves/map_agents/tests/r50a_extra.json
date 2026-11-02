@@ -1,0 +1,1 @@
+[{"name": "pair-th0.6", "units": [364, 972], "region": {"gate": {"units": [364, 972], "weights": [1, 1], "theta": 0.6}}}, {"name": "pair-th1.0", "units": [364, 972], "region": {"gate": {"units": [364, 972], "weights": [1, 1], "theta": 1.0}}}, {"name": "stalks-th0.6", "units": [257], "region": {"gate": {"units": [257], "weights": [1], "theta": 0.6}}}]

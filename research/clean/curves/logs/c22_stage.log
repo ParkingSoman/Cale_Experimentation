@@ -1,0 +1,7 @@
+[stage] effective rank 543
+c22_build_stage: 0.0491 (se 0.0029)
+  stage minus level0p    -0.0142 (paired se 0.0013)
+  stage minus wmetric    -0.0078 (paired se 0.0008)
+  stage minus kbar       +0.0000 (paired se 0.0001)
+  stage minus 4d         +0.0002 (paired se 0.0004)
+  stage minus true_a3    +0.0001 (paired se 0.0000)

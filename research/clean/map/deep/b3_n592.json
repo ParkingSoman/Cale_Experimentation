@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 592,
+ "max": 3.534181594848633,
+ "min": -6.087164878845215,
+ "edits": {
+  "flip": 0.9867115020751953,
+  "rot90": 0.9815260171890259,
+  "rot180": 1.0045326948165894,
+  "gray": 0.3822619915008545,
+  "blur1": 0.9875665903091431,
+  "blur3": 0.9726446866989136,
+  "shuf2": 1.0,
+  "shuf4": 1.020237684249878,
+  "shuf8": 1.0079858303070068,
+  "hue": 0.2552388608455658,
+  "invert": 0.3016152083873749,
+  "zoomout": 0.9646756052970886,
+  "zoomin": 0.963557243347168
+ },
+ "top50_classes": {
+  "American egret": 2,
+  "CD player": 1,
+  "shield": 1,
+  "ibex": 1,
+  "passenger car": 1,
+  "garden spider": 1,
+  "convertible": 1,
+  "mortar": 1,
+  "Bedlington terrier": 1,
+  "mosque": 1
+ },
+ "neg50_classes": {
+  "carbonara": 3,
+  "bee": 2,
+  "sea anemone": 2,
+  "lemon": 2,
+  "yellow lady's slipper": 2,
+  "bee eater": 1,
+  "acorn squash": 1,
+  "butternut squash": 1,
+  "cucumber": 1,
+  "bell pepper": 1
+ }
+}

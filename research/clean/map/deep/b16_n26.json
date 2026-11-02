@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 26,
+ "max": 8.020903587341309,
+ "min": -21.104839324951172,
+ "edits": {
+  "flip": 1.0149340629577637,
+  "rot90": 0.18291360139846802,
+  "rot180": 0.49275922775268555,
+  "gray": 0.854048490524292,
+  "blur1": 0.9747380018234253,
+  "blur3": 0.5243669748306274,
+  "shuf2": 0.9869937896728516,
+  "shuf4": 0.9567674398422241,
+  "shuf8": 0.36853331327438354,
+  "hue": 0.6855872869491577,
+  "invert": 0.9036803841590881,
+  "zoomout": 0.7307159900665283,
+  "zoomin": 0.5387240052223206
+ },
+ "top50_classes": {
+  "umbrella": 3,
+  "carousel": 3,
+  "bicycle-built-for-two": 2,
+  "patio": 2,
+  "gondola": 2,
+  "guillotine": 1,
+  "horizontal bar": 1,
+  "suit": 1,
+  "hook": 1,
+  "stupa": 1
+ },
+ "neg50_classes": {
+  "joystick": 2,
+  "barber chair": 2,
+  "goldfinch": 2,
+  "Appenzeller": 1,
+  "crossword puzzle": 1,
+  "spatula": 1,
+  "coucal": 1,
+  "miniskirt": 1,
+  "soap dispenser": 1,
+  "frying pan": 1
+ }
+}

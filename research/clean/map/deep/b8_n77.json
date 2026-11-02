@@ -1,0 +1,45 @@
+{
+ "block": 8,
+ "neuron": 77,
+ "max": 4.137541770935059,
+ "min": -4.989016532897949,
+ "edits": {
+  "flip": 0.6166205406188965,
+  "rot90": 0.5698872804641724,
+  "rot180": 0.563062310218811,
+  "gray": 1.0060372352600098,
+  "blur1": 0.8954401016235352,
+  "blur3": 0.4318573474884033,
+  "shuf2": 0.9457144737243652,
+  "shuf4": 0.7576059103012085,
+  "shuf8": 0.7401450872421265,
+  "hue": 0.9692360758781433,
+  "invert": 0.9223006963729858,
+  "zoomout": 0.5399577617645264,
+  "zoomin": 0.500773549079895
+ },
+ "top50_classes": {
+  "plunger": 2,
+  "football helmet": 2,
+  "scorpion": 1,
+  "barn": 1,
+  "sleeping bag": 1,
+  "yawl": 1,
+  "web site": 1,
+  "teapot": 1,
+  "diamondback": 1,
+  "American black bear": 1
+ },
+ "neg50_classes": {
+  "pirate": 1,
+  "harvestman": 1,
+  "megalith": 1,
+  "coucal": 1,
+  "soccer ball": 1,
+  "wool": 1,
+  "ptarmigan": 1,
+  "tick": 1,
+  "shield": 1,
+  "washbasin": 1
+ }
+}

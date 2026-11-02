@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 441,
+ "max": 5.884040832519531,
+ "min": -7.128820419311523,
+ "edits": {
+  "flip": 0.9708347320556641,
+  "rot90": 0.7914950847625732,
+  "rot180": 0.8077505826950073,
+  "gray": 0.8254750967025757,
+  "blur1": 0.912087082862854,
+  "blur3": 0.6884937882423401,
+  "shuf2": 0.9507662057876587,
+  "shuf4": 0.7752233743667603,
+  "shuf8": 0.6850804090499878,
+  "hue": 0.6729283928871155,
+  "invert": 0.9413917064666748,
+  "zoomout": 0.6912087202072144,
+  "zoomin": 0.6269710659980774
+ },
+ "top50_classes": {
+  "howler monkey": 2,
+  "spider monkey": 2,
+  "jackfruit": 2,
+  "toucan": 1,
+  "titi": 1,
+  "squirrel monkey": 1,
+  "slug": 1,
+  "Indian elephant": 1,
+  "hoopskirt": 1,
+  "upright": 1
+ },
+ "neg50_classes": {
+  "measuring cup": 2,
+  "switch": 2,
+  "mousetrap": 1,
+  "strainer": 1,
+  "hand blower": 1,
+  "velvet": 1,
+  "cougar": 1,
+  "rule": 1,
+  "dam": 1,
+  "lynx": 1
+ }
+}

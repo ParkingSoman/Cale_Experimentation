@@ -1,0 +1,15 @@
+[real256] effective rank 527
+c23_build_real256: 0.0492 (se 0.0029)
+  real256 minus level0p    -0.0141 (paired se 0.0013)
+  real256 minus wmetric    -0.0077 (paired se 0.0007)
+  real256 minus kbar       +0.0002 (paired se 0.0002)
+  real256 minus 4d         +0.0003 (paired se 0.0004)
+  real256 minus a3         +0.0002 (paired se 0.0001)
+[netmade256] effective rank 512
+c23_build_netmade256: 0.0491 (se 0.0029)
+  netmade256 minus level0p    -0.0142 (paired se 0.0013)
+  netmade256 minus wmetric    -0.0079 (paired se 0.0008)
+  netmade256 minus kbar       +0.0000 (paired se 0.0002)
+  netmade256 minus 4d         +0.0001 (paired se 0.0004)
+  netmade256 minus a3         +0.0001 (paired se 0.0001)
+done

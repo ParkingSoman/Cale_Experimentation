@@ -1,0 +1,11 @@
+start (inversions): Spearman even +0.194 | odd (held out) +0.165 | co-firing vs real +0.912
+  step 10: train cos +0.399
+  step 20: train cos +0.534
+  step 30: train cos +0.482
+  step 40: train cos +0.571
+after: Spearman even +0.512 | odd (held out) +0.174 | co-firing vs real +0.910 | pixel change sd 3.5
+  batch 0: final train cos +0.426
+  batch 1: final train cos +0.435
+  batch 2: final train cos +0.469
+  boundary start      : Psi pattern corr vs real +0.498 | diagonal shape corr -0.158 | scale ratio 0.135
+  boundary + imprint  : Psi pattern corr vs real +0.395 | diagonal shape corr -0.084 | scale ratio 0.054

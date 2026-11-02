@@ -1,0 +1,10 @@
+
+in-sample (500 images): build | real | pred pre-ReLU | pred post-ReLU (active-set model) | real / post
+  trained  0.0211 | 0.0242 | 0.0222 | 0.95
+  step0    0.0307 | 0.0103 | 0.0204 | 1.51
+  step1    0.0208 | 0.0190 | 0.0114 | 1.82
+
+dev (500 images): build | real | pred pre-ReLU | pred post-ReLU (active-set model) | real / post
+  trained  0.0406 | 0.0440 | 0.0423 | 0.96
+  step0    0.0782 | 0.0697 | 0.0796 | 0.98
+  step1    0.0642 | 0.0741 | 0.0707 | 0.91

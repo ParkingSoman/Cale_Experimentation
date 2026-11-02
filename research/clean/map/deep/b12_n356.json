@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 356,
+ "max": 5.384620666503906,
+ "min": -7.886971473693848,
+ "edits": {
+  "flip": 0.9878350496292114,
+  "rot90": 0.35895058512687683,
+  "rot180": 0.5412548780441284,
+  "gray": 0.7588141560554504,
+  "blur1": 0.9427040815353394,
+  "blur3": 0.6620224714279175,
+  "shuf2": 1.013697624206543,
+  "shuf4": 0.9506047368049622,
+  "shuf8": 0.772212564945221,
+  "hue": 0.6892791986465454,
+  "invert": 0.8397542238235474,
+  "zoomout": 0.8709507584571838,
+  "zoomin": 0.7320853471755981
+ },
+ "top50_classes": {
+  "lakeside": 3,
+  "rapeseed": 2,
+  "yawl": 2,
+  "cliff": 2,
+  "catamaran": 1,
+  "electric locomotive": 1,
+  "ski": 1,
+  "mountain bike": 1,
+  "mountain tent": 1,
+  "schooner": 1
+ },
+ "neg50_classes": {
+  "pill bottle": 2,
+  "oboe": 1,
+  "oscilloscope": 1,
+  "cowboy boot": 1,
+  "king crab": 1,
+  "meat loaf": 1,
+  "briard": 1,
+  "recreational vehicle": 1,
+  "waffle iron": 1,
+  "volleyball": 1
+ }
+}

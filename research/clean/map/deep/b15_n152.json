@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 152,
+ "max": 10.393295288085938,
+ "min": -15.45308780670166,
+ "edits": {
+  "flip": 1.0013444423675537,
+  "rot90": -0.17019498348236084,
+  "rot180": -0.05664542317390442,
+  "gray": 0.7993932962417603,
+  "blur1": 0.848935604095459,
+  "blur3": 0.46316200494766235,
+  "shuf2": 1.0789275169372559,
+  "shuf4": 0.6432350873947144,
+  "shuf8": 0.17429596185684204,
+  "hue": 0.8204226493835449,
+  "invert": 0.964640200138092,
+  "zoomout": 0.4765745997428894,
+  "zoomin": 0.28322914242744446
+ },
+ "top50_classes": {
+  "yurt": 3,
+  "volcano": 3,
+  "patio": 2,
+  "tile roof": 2,
+  "mountain tent": 2,
+  "obelisk": 1,
+  "turnstile": 1,
+  "potpie": 1,
+  "crate": 1,
+  "boathouse": 1
+ },
+ "neg50_classes": {
+  "Yorkshire terrier": 2,
+  "stopwatch": 1,
+  "hummingbird": 1,
+  "beagle": 1,
+  "silky terrier": 1,
+  "flute": 1,
+  "Rottweiler": 1,
+  "leatherback turtle": 1,
+  "American black bear": 1,
+  "Border terrier": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 1429,
+ "max": 3.5332226753234863,
+ "min": -4.769166946411133,
+ "edits": {
+  "flip": 0.94557124376297,
+  "rot90": 0.5039217472076416,
+  "rot180": 0.5015050172805786,
+  "gray": 0.9824659824371338,
+  "blur1": 0.8977010250091553,
+  "blur3": 0.7313231229782104,
+  "shuf2": 0.8540030717849731,
+  "shuf4": 0.7241306304931641,
+  "shuf8": 0.530089259147644,
+  "hue": 0.9709690809249878,
+  "invert": 0.9938182830810547,
+  "zoomout": 0.4583841562271118,
+  "zoomin": 0.7464401721954346
+ },
+ "top50_classes": {
+  "stove": 1,
+  "bathtub": 1,
+  "titi": 1,
+  "American lobster": 1,
+  "refrigerator": 1,
+  "park bench": 1,
+  "holster": 1,
+  "revolver": 1,
+  "Lakeland terrier": 1,
+  "dial telephone": 1
+ },
+ "neg50_classes": {
+  "face powder": 2,
+  "power drill": 1,
+  "yawl": 1,
+  "fire engine": 1,
+  "backpack": 1,
+  "espresso maker": 1,
+  "Boston bull": 1,
+  "electric locomotive": 1,
+  "horned viper": 1,
+  "rock python": 1
+ }
+}

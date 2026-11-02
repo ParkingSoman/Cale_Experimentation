@@ -1,0 +1,505 @@
+{
+ "sign": [
+  {
+   "image": 40850,
+   "parent": [
+    13,
+    540
+   ],
+   "child": 1056,
+   "act": 67.13245391845703,
+   "contrib": 1.3512945175170898
+  },
+  {
+   "image": 40850,
+   "parent": [
+    14,
+    1056
+   ],
+   "child": 2031,
+   "act": 15.03024673461914,
+   "contrib": 4.358153820037842
+  },
+  {
+   "image": 40850,
+   "parent": [
+    15,
+    2031
+   ],
+   "child": 1522,
+   "act": 42.717994689941406,
+   "contrib": 9.280807495117188
+  },
+  {
+   "image": 40850,
+   "parent": [
+    16,
+    1522
+   ],
+   "child": 1594,
+   "act": 34.2527961730957,
+   "contrib": 7.881171703338623
+  },
+  {
+   "image": 40852,
+   "parent": [
+    13,
+    370
+   ],
+   "child": 700,
+   "act": 84.38363647460938,
+   "contrib": 1.5310466289520264
+  },
+  {
+   "image": 40852,
+   "parent": [
+    14,
+    700
+   ],
+   "child": 2945,
+   "act": 16.108924865722656,
+   "contrib": 1.4729989767074585
+  },
+  {
+   "image": 40852,
+   "parent": [
+    15,
+    2945
+   ],
+   "child": 2922,
+   "act": 5.142419338226318,
+   "contrib": 1.8639955520629883
+  },
+  {
+   "image": 40852,
+   "parent": [
+    16,
+    2922
+   ],
+   "child": 2283,
+   "act": 9.754858016967773,
+   "contrib": 5.107291221618652
+  },
+  {
+   "image": 40853,
+   "parent": [
+    13,
+    708
+   ],
+   "child": 121,
+   "act": 49.144866943359375,
+   "contrib": 2.7609782218933105
+  },
+  {
+   "image": 40853,
+   "parent": [
+    14,
+    121
+   ],
+   "child": 2023,
+   "act": 26.54593276977539,
+   "contrib": 1.091629981994629
+  },
+  {
+   "image": 40853,
+   "parent": [
+    15,
+    2023
+   ],
+   "child": 130,
+   "act": 16.752836227416992,
+   "contrib": 0.8535445928573608
+  },
+  {
+   "image": 40853,
+   "parent": [
+    16,
+    130
+   ],
+   "child": 2283,
+   "act": 7.279230117797852,
+   "contrib": 3.0912184715270996
+  },
+  {
+   "image": 40855,
+   "parent": [
+    13,
+    545
+   ],
+   "child": 321,
+   "act": 16.185352325439453,
+   "contrib": 3.082577705383301
+  },
+  {
+   "image": 40855,
+   "parent": [
+    14,
+    321
+   ],
+   "child": 654,
+   "act": 28.647748947143555,
+   "contrib": 1.0999574661254883
+  },
+  {
+   "image": 40855,
+   "parent": [
+    15,
+    654
+   ],
+   "child": 365,
+   "act": 17.168607711791992,
+   "contrib": 1.8277229070663452
+  },
+  {
+   "image": 40855,
+   "parent": [
+    16,
+    365
+   ],
+   "child": 2283,
+   "act": 11.962522506713867,
+   "contrib": 2.5158073902130127
+  },
+  {
+   "image": 40856,
+   "parent": [
+    13,
+    417
+   ],
+   "child": 1227,
+   "act": 77.97480773925781,
+   "contrib": 2.9947714805603027
+  },
+  {
+   "image": 40856,
+   "parent": [
+    14,
+    1227
+   ],
+   "child": 1572,
+   "act": 25.499557495117188,
+   "contrib": 5.861667633056641
+  },
+  {
+   "image": 40856,
+   "parent": [
+    15,
+    1572
+   ],
+   "child": 191,
+   "act": 72.76998138427734,
+   "contrib": 8.701598167419434
+  },
+  {
+   "image": 40856,
+   "parent": [
+    16,
+    191
+   ],
+   "child": 2283,
+   "act": 24.14620590209961,
+   "contrib": 3.0274693965911865
+  },
+  {
+   "image": 40857,
+   "parent": [
+    13,
+    833
+   ],
+   "child": 550,
+   "act": 2.761950731277466,
+   "contrib": 1.7919726371765137
+  },
+  {
+   "image": 40857,
+   "parent": [
+    14,
+    550
+   ],
+   "child": 2182,
+   "act": 11.211448669433594,
+   "contrib": 1.856911540031433
+  },
+  {
+   "image": 40857,
+   "parent": [
+    15,
+    2182
+   ],
+   "child": 1522,
+   "act": 38.925804138183594,
+   "contrib": 13.712450981140137
+  },
+  {
+   "image": 40857,
+   "parent": [
+    16,
+    1522
+   ],
+   "child": 1594,
+   "act": 98.67562103271484,
+   "contrib": 7.274698257446289
+  },
+  {
+   "image": 40858,
+   "parent": [
+    13,
+    764
+   ],
+   "child": 397,
+   "act": 104.92935180664062,
+   "contrib": 13.759576797485352
+  },
+  {
+   "image": 40858,
+   "parent": [
+    14,
+    397
+   ],
+   "child": 2746,
+   "act": 76.77355194091797,
+   "contrib": 2.1283366680145264
+  },
+  {
+   "image": 40858,
+   "parent": [
+    15,
+    2746
+   ],
+   "child": 2245,
+   "act": 60.66832733154297,
+   "contrib": 5.247262954711914
+  },
+  {
+   "image": 40858,
+   "parent": [
+    16,
+    2245
+   ],
+   "child": 1594,
+   "act": 44.79925537109375,
+   "contrib": 3.200258255004883
+  },
+  {
+   "image": 40859,
+   "parent": [
+    13,
+    1080
+   ],
+   "child": 980,
+   "act": 43.92414474487305,
+   "contrib": 5.570280075073242
+  },
+  {
+   "image": 40859,
+   "parent": [
+    14,
+    980
+   ],
+   "child": 2635,
+   "act": 40.15775680541992,
+   "contrib": 10.102706909179688
+  },
+  {
+   "image": 40859,
+   "parent": [
+    15,
+    2635
+   ],
+   "child": 1522,
+   "act": 41.98707962036133,
+   "contrib": 8.477761268615723
+  },
+  {
+   "image": 40859,
+   "parent": [
+    16,
+    1522
+   ],
+   "child": 1594,
+   "act": 68.24217224121094,
+   "contrib": 10.016335487365723
+  }
+ ],
+ "territory": {
+  "2283": [
+   {
+    "block": 17,
+    "neuron": 2283,
+    "breadth": 13,
+    "classes": [
+     "beach wagon",
+     "cab",
+     "car wheel",
+     "convertible",
+     "golfcart",
+     "grille",
+     "jeep",
+     "limousine",
+     "minivan",
+     "pickup",
+     "racer",
+     "sports car",
+     "tow truck"
+    ]
+   },
+   {
+    "block": 16,
+    "neuron": 2886,
+    "breadth": 15,
+    "containment": 1.0,
+    "mean_share": 0.0008,
+    "rank": 34,
+    "null_mean_abs": 0.0007,
+    "top_contributor": 1069,
+    "top_share": 0.0099,
+    "classes": [
+     "beach wagon",
+     "bobsled",
+     "cab",
+     "car wheel",
+     "convertible",
+     "go-kart",
+     "golfcart",
+     "grille",
+     "jeep",
+     "limousine",
+     "minivan",
+     "pickup",
+     "racer",
+     "sports car",
+     "tow truck"
+    ]
+   },
+   {
+    "block": 15,
+    "neuron": 1539,
+    "breadth": 25,
+    "containment": 0.87,
+    "mean_share": -0.0093,
+    "rank": 3067,
+    "null_mean_abs": 0.0002,
+    "top_contributor": 2374,
+    "top_share": 0.0044,
+    "classes": [
+     "ambulance",
+     "beach wagon",
+     "cab",
+     "car mirror",
+     "car wheel",
+     "convertible",
+     "garbage truck",
+     "golfcart",
+     "grille",
+     "jeep",
+     "jinrikisha",
+     "limousine",
+     "minibus",
+     "minivan",
+     "Model T",
+     "moving van",
+     "pickup",
+     "police van",
+     "racer",
+     "recreational vehicle",
+     "seat belt",
+     "sports car",
+     "tow truck",
+     "trailer truck",
+     "trolleybus"
+    ]
+   },
+   {
+    "block": 14,
+    "neuron": 1072,
+    "breadth": 49,
+    "containment": 0.88,
+    "mean_share": 0.014,
+    "rank": 1,
+    "null_mean_abs": 0.0003,
+    "top_contributor": 1072,
+    "top_share": 0.014,
+    "classes": [
+     "airliner",
+     "ambulance",
+     "beach wagon",
+     "bicycle-built-for-two",
+     "bobsled",
+     "bullet train",
+     "cab",
+     "canoe",
+     "car mirror",
+     "car wheel",
+     "convertible",
+     "crash helmet",
+     "electric locomotive",
+     "football helmet",
+     "forklift",
+     "gas pump",
+     "go-kart",
+     "golfcart",
+     "grille",
+     "half track",
+     "horse cart",
+     "jinrikisha",
+     "lens cap",
+     "limousine",
+     "minibus",
+     "minivan",
+     "Model T",
+     "moped",
+     "mosque",
+     "motor scooter",
+     "mountain bike",
+     "moving van",
+     "pickup",
+     "police van",
+     "racer",
+     "recreational vehicle",
+     "school bus",
+     "snowmobile",
+     "soccer ball",
+     "space shuttle",
+     "speedboat",
+     "sports car",
+     "streetcar",
+     "tow truck",
+     "tractor",
+     "trailer truck",
+     "trolleybus",
+     "unicycle",
+     "bubble"
+    ]
+   },
+   {
+    "block": 13,
+    "neuron": null
+   }
+  ],
+  "1594": [
+   {
+    "block": 17,
+    "neuron": 1594,
+    "breadth": 12,
+    "classes": [
+     "beach wagon",
+     "cab",
+     "car mirror",
+     "car wheel",
+     "convertible",
+     "gown",
+     "grille",
+     "limousine",
+     "minivan",
+     "overskirt",
+     "plastic bag",
+     "sports car"
+    ]
+   },
+   {
+    "block": 16,
+    "neuron": null
+   }
+  ]
+ }
+}

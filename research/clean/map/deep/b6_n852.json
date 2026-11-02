@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 852,
+ "max": 2.64573335647583,
+ "min": -6.455716133117676,
+ "edits": {
+  "flip": 0.90044105052948,
+  "rot90": 0.8599356412887573,
+  "rot180": 0.8488088250160217,
+  "gray": 1.0120911598205566,
+  "blur1": -0.023998484015464783,
+  "blur3": -0.03121480718255043,
+  "shuf2": 0.9407906532287598,
+  "shuf4": 0.7222729921340942,
+  "shuf8": 0.5202906727790833,
+  "hue": 0.9201386570930481,
+  "invert": 0.8084701895713806,
+  "zoomout": -0.05636774003505707,
+  "zoomin": 0.11206275224685669
+ },
+ "top50_classes": {
+  "washer": 3,
+  "trailer truck": 2,
+  "desk": 2,
+  "Boston bull": 1,
+  "chocolate sauce": 1,
+  "hand blower": 1,
+  "space heater": 1,
+  "cowboy boot": 1,
+  "grille": 1,
+  "recreational vehicle": 1
+ },
+ "neg50_classes": {
+  "magpie": 2,
+  "howler monkey": 2,
+  "whiptail": 1,
+  "limpkin": 1,
+  "patas": 1,
+  "black stork": 1,
+  "marmoset": 1,
+  "Madagascar cat": 1,
+  "sea slug": 1,
+  "wallet": 1
+ }
+}

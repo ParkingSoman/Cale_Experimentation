@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 293,
+ "max": 4.941021919250488,
+ "min": -8.34826374053955,
+ "edits": {
+  "flip": 0.998259961605072,
+  "rot90": 0.6797753572463989,
+  "rot180": 0.8875296115875244,
+  "gray": 0.999864935874939,
+  "blur1": 0.3878364562988281,
+  "blur3": 0.23994971811771393,
+  "shuf2": 1.0,
+  "shuf4": 0.9992700815200806,
+  "shuf8": 0.996228814125061,
+  "hue": 0.9969513416290283,
+  "invert": 0.727911651134491,
+  "zoomout": 0.7262126207351685,
+  "zoomin": 0.2910833954811096
+ },
+ "top50_classes": {
+  "oscilloscope": 2,
+  "wreck": 1,
+  "washer": 1,
+  "maillot": 1,
+  "turnstile": 1,
+  "revolver": 1,
+  "bolo tie": 1,
+  "American Staffordshire terrier": 1,
+  "sea slug": 1,
+  "space shuttle": 1
+ },
+ "neg50_classes": {
+  "ambulance": 2,
+  "torch": 1,
+  "television": 1,
+  "sombrero": 1,
+  "gas pump": 1,
+  "military uniform": 1,
+  "slot": 1,
+  "fountain": 1,
+  "forklift": 1,
+  "mosque": 1
+ }
+}

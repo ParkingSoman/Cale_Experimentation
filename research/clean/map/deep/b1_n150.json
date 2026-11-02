@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 150,
+ "max": 4.022310733795166,
+ "min": -4.657665252685547,
+ "edits": {
+  "flip": 0.7678267955780029,
+  "rot90": 0.7932102680206299,
+  "rot180": 0.8135080337524414,
+  "gray": 1.0069319009780884,
+  "blur1": 0.6970375776290894,
+  "blur3": 0.19820258021354675,
+  "shuf2": 1.0,
+  "shuf4": 0.9825816750526428,
+  "shuf8": 0.9782196879386902,
+  "hue": 1.0038204193115234,
+  "invert": 0.6690853238105774,
+  "zoomout": 0.7560967206954956,
+  "zoomin": 0.5567886829376221
+ },
+ "top50_classes": {
+  "bustard": 1,
+  "turnstile": 1,
+  "Afghan hound": 1,
+  "streetcar": 1,
+  "sorrel": 1,
+  "harmonica": 1,
+  "bloodhound": 1,
+  "handkerchief": 1,
+  "stone wall": 1,
+  "bluetick": 1
+ },
+ "neg50_classes": {
+  "dome": 2,
+  "tank": 2,
+  "gar": 1,
+  "passenger car": 1,
+  "golfcart": 1,
+  "washer": 1,
+  "cowboy boot": 1,
+  "electric locomotive": 1,
+  "bobsled": 1,
+  "boathouse": 1
+ }
+}

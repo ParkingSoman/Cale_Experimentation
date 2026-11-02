@@ -1,0 +1,7 @@
+G skipped (0s)
+set          2L/input top5% share   decrement    dec/2L cos vs 8000
+photo256    1.204e+04       0.243   1.634e+13  1.36e+09       0.938
+class256    7.084e+04       0.169   6.836e+14  9.65e+09       0.313
+photo8000   1.192e+04       0.258   9.286e+12  7.79e+08       1.000
+ratio class/photo error energy: 5.884
+done (141s)

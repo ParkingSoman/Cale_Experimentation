@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 302,
+ "max": 2.531017303466797,
+ "min": -6.700479030609131,
+ "edits": {
+  "flip": 0.8669146299362183,
+  "rot90": 0.12266722321510315,
+  "rot180": 0.6875627636909485,
+  "gray": 0.7039698958396912,
+  "blur1": 0.27739080786705017,
+  "blur3": -0.44712013006210327,
+  "shuf2": 1.0000040531158447,
+  "shuf4": 1.1473326683044434,
+  "shuf8": 1.139329433441162,
+  "hue": 0.9338866472244263,
+  "invert": 0.8257604241371155,
+  "zoomout": 0.6626186966896057,
+  "zoomin": -0.16189244389533997
+ },
+ "top50_classes": {
+  "swab": 2,
+  "barracouta": 2,
+  "American coot": 1,
+  "toilet seat": 1,
+  "hourglass": 1,
+  "hook": 1,
+  "turnstile": 1,
+  "harp": 1,
+  "upright": 1,
+  "water bottle": 1
+ },
+ "neg50_classes": {
+  "tench": 1,
+  "warplane": 1,
+  "whistle": 1,
+  "African grey": 1,
+  "mixing bowl": 1,
+  "analog clock": 1,
+  "yurt": 1,
+  "book jacket": 1,
+  "ice lolly": 1,
+  "electric locomotive": 1
+ }
+}

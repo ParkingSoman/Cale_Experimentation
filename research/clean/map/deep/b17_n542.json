@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 542,
+ "max": 15.241642951965332,
+ "min": -17.53896713256836,
+ "edits": {
+  "flip": 0.9821671843528748,
+  "rot90": 0.309989333152771,
+  "rot180": 0.4548032283782959,
+  "gray": 0.9703128337860107,
+  "blur1": 0.8983521461486816,
+  "blur3": 0.20876169204711914,
+  "shuf2": 0.9177972078323364,
+  "shuf4": 0.7515257596969604,
+  "shuf8": 0.4311477541923523,
+  "hue": 1.027808666229248,
+  "invert": 0.9423989057540894,
+  "zoomout": 0.5882309675216675,
+  "zoomin": 0.5842701196670532
+ },
+ "top50_classes": {
+  "park bench": 3,
+  "volcano": 2,
+  "cleaver": 1,
+  "wall clock": 1,
+  "jigsaw puzzle": 1,
+  "toilet seat": 1,
+  "spiny lobster": 1,
+  "hoopskirt": 1,
+  "hook": 1,
+  "hatchet": 1
+ },
+ "neg50_classes": {
+  "iPod": 3,
+  "goldfinch": 2,
+  "laptop": 1,
+  "ringneck snake": 1,
+  "trombone": 1,
+  "maillot": 1,
+  "maraca": 1,
+  "banded gecko": 1,
+  "harmonica": 1,
+  "bluetick": 1
+ }
+}

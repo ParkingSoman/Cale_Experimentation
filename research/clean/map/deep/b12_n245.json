@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 245,
+ "max": 3.193115711212158,
+ "min": -7.175358295440674,
+ "edits": {
+  "flip": 0.9933590888977051,
+  "rot90": 0.7722994089126587,
+  "rot180": 0.7441827058792114,
+  "gray": 0.3389250338077545,
+  "blur1": 0.9334933757781982,
+  "blur3": 0.8301952481269836,
+  "shuf2": 0.9078527688980103,
+  "shuf4": 0.7923835515975952,
+  "shuf8": 0.7052955627441406,
+  "hue": 0.45355308055877686,
+  "invert": 0.5070523619651794,
+  "zoomout": 0.5600575804710388,
+  "zoomin": 0.5899374485015869
+ },
+ "top50_classes": {
+  "mountain tent": 2,
+  "geyser": 2,
+  "crash helmet": 2,
+  "lawn mower": 2,
+  "electric fan": 2,
+  "apiary": 1,
+  "submarine": 1,
+  "electric locomotive": 1,
+  "beaver": 1,
+  "streetcar": 1
+ },
+ "neg50_classes": {
+  "earthstar": 2,
+  "monarch": 2,
+  "pineapple": 1,
+  "jackfruit": 1,
+  "common iguana": 1,
+  "snail": 1,
+  "slug": 1,
+  "sleeping bag": 1,
+  "sea slug": 1,
+  "parallel bars": 1
+ }
+}

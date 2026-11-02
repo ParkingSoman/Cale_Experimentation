@@ -1,0 +1,31 @@
+{
+ "L15g_input_K48": {
+  "n": 30,
+  "same": 14,
+  "broader": 15,
+  "unrelated": 1,
+  "mean_included": 3.2666666666666666
+ },
+ "L28_input_K48": {
+  "n": 34,
+  "broader": 23,
+  "unrelated": 4,
+  "same": 6,
+  "unclear": 1,
+  "mean_included": 2.7941176470588234
+ },
+ "L3_input": {
+  "n": 7,
+  "broader": 5,
+  "same": 1,
+  "unrelated": 1,
+  "mean_included": 3.2857142857142856
+ },
+ "L15_input": {
+  "n": 7,
+  "broader": 3,
+  "same": 3,
+  "unrelated": 1,
+  "mean_included": 2.7142857142857144
+ }
+}

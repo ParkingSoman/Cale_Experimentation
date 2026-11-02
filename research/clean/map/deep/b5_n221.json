@@ -1,0 +1,45 @@
+{
+ "block": 5,
+ "neuron": 221,
+ "max": 2.9937784671783447,
+ "min": -4.318597793579102,
+ "edits": {
+  "flip": 0.9107322692871094,
+  "rot90": 0.7111291885375977,
+  "rot180": 0.7195919752120972,
+  "gray": 0.9493111371994019,
+  "blur1": 0.832033097743988,
+  "blur3": 0.7936091423034668,
+  "shuf2": 0.9864304661750793,
+  "shuf4": 0.8775659799575806,
+  "shuf8": 0.757335364818573,
+  "hue": 0.9406431913375854,
+  "invert": 0.7032349705696106,
+  "zoomout": 0.5511816143989563,
+  "zoomin": 0.7476270198822021
+ },
+ "top50_classes": {
+  "red-backed sandpiper": 1,
+  "mixing bowl": 1,
+  "bubble": 1,
+  "organ": 1,
+  "bow tie": 1,
+  "axolotl": 1,
+  "hog": 1,
+  "reel": 1,
+  "fiddler crab": 1,
+  "banjo": 1
+ },
+ "neg50_classes": {
+  "pier": 2,
+  "night snake": 2,
+  "nail": 1,
+  "barn": 1,
+  "ambulance": 1,
+  "analog clock": 1,
+  "forklift": 1,
+  "fire screen": 1,
+  "electric fan": 1,
+  "drumstick": 1
+ }
+}

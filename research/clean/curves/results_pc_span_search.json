@@ -1,0 +1,45 @@
+{
+ "sum_I": 2.372026765918911,
+ "k38": {
+  "k": 38,
+  "near_tie_quarter_share": 0.6131050332340171,
+  "worst10_area_share": 0.47482703156517303,
+  "shared": {
+   "fixed_span": 0.028039960373629012,
+   "joint": 0.024928184357620422
+  },
+  "packed": {
+   "fixed_span": 0.159435791523957,
+   "joint": 0.06660509199011184
+  },
+  "random": {
+   "fixed_span": 0.11058176300488108,
+   "joint": 0.06193492136827854
+  },
+  "second_order_shared": 0.8315112508766442,
+  "second_order_best": 0.3922249250857457,
+  "second_order_ratio": 2.119985747195604,
+  "seconds": 992.8707389831543
+ },
+ "k14": {
+  "k": 14,
+  "near_tie_quarter_share": 0.5397250185220875,
+  "worst10_area_share": 0.4671775196624209,
+  "shared": {
+   "fixed_span": 0.10788418550739894,
+   "joint": 0.09735582171879689
+  },
+  "packed": {
+   "fixed_span": 0.20261874975992739,
+   "joint": 0.15823820306913286
+  },
+  "random": {
+   "fixed_span": 0.2312355736472189,
+   "joint": 0.16638668654560518
+  },
+  "second_order_shared": 3.247197096607726,
+  "second_order_best": 1.3131906272395422,
+  "second_order_ratio": 2.472753787036737,
+  "seconds": 643.7661418914795
+ }
+}

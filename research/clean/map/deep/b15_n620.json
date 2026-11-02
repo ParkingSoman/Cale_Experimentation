@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 620,
+ "max": 5.438474655151367,
+ "min": -14.018763542175293,
+ "edits": {
+  "flip": 0.9031691551208496,
+  "rot90": 0.5895141959190369,
+  "rot180": 0.7981029152870178,
+  "gray": 0.6297367811203003,
+  "blur1": 0.6440846920013428,
+  "blur3": -0.2829158902168274,
+  "shuf2": 1.0823825597763062,
+  "shuf4": 0.8114888072013855,
+  "shuf8": 0.30730175971984863,
+  "hue": 0.9921175837516785,
+  "invert": 0.8964289426803589,
+  "zoomout": 0.586777925491333,
+  "zoomin": 0.5275430083274841
+ },
+ "top50_classes": {
+  "umbrella": 2,
+  "stole": 2,
+  "cardigan": 2,
+  "palace": 1,
+  "spaghetti squash": 1,
+  "snail": 1,
+  "crate": 1,
+  "common iguana": 1,
+  "matchstick": 1,
+  "maypole": 1
+ },
+ "neg50_classes": {
+  "soft-coated wheaten terrier": 2,
+  "black widow": 2,
+  "Pembroke": 1,
+  "Dandie Dinmont": 1,
+  "Border terrier": 1,
+  "Yorkshire terrier": 1,
+  "soup bowl": 1,
+  "crossword puzzle": 1,
+  "barn spider": 1,
+  "leafhopper": 1
+ }
+}

@@ -1,0 +1,4 @@
+h1 dev KL animals 0.0974 (se 0.0083)  rest 0.2670 (se 0.0144)
+h2 dev KL animals 0.1134 (se 0.0097)  rest 0.3126 (se 0.0163)
+h1: own 1000 0.1842 (se 0.0199)  unused train 1000 0.2175 (se 0.0202)  dev 0.1995
+h2: own 1000 0.2160 (se 0.0209)  unused train 1000 0.2501 (se 0.0247)  dev 0.2333

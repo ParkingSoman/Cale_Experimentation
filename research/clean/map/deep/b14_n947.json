@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 947,
+ "max": 6.158746242523193,
+ "min": -7.346254825592041,
+ "edits": {
+  "flip": 0.9630054235458374,
+  "rot90": 0.6714787483215332,
+  "rot180": 0.6602293848991394,
+  "gray": 0.7357300519943237,
+  "blur1": 0.898208737373352,
+  "blur3": 0.6134188175201416,
+  "shuf2": 0.9996429681777954,
+  "shuf4": 0.9150152802467346,
+  "shuf8": 0.6682553291320801,
+  "hue": 0.6950169801712036,
+  "invert": 0.8549585342407227,
+  "zoomout": 0.6871027946472168,
+  "zoomin": 0.5183988809585571
+ },
+ "top50_classes": {
+  "king penguin": 2,
+  "Tibetan mastiff": 1,
+  "stone wall": 1,
+  "bighorn": 1,
+  "mink": 1,
+  "polecat": 1,
+  "crane": 1,
+  "jigsaw puzzle": 1,
+  "spiny lobster": 1,
+  "giant panda": 1
+ },
+ "neg50_classes": {
+  "maillot": 2,
+  "hamper": 1,
+  "abaya": 1,
+  "pay-phone": 1,
+  "grand piano": 1,
+  "patio": 1,
+  "home theater": 1,
+  "espresso": 1,
+  "mountain tent": 1,
+  "coucal": 1
+ }
+}

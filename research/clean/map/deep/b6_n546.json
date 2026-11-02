@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 546,
+ "max": 3.0933284759521484,
+ "min": -4.606955528259277,
+ "edits": {
+  "flip": 0.9230817556381226,
+  "rot90": 0.7691860198974609,
+  "rot180": 0.7890834808349609,
+  "gray": 0.7509166598320007,
+  "blur1": 0.5726187229156494,
+  "blur3": 0.06453624367713928,
+  "shuf2": 1.0601426362991333,
+  "shuf4": 1.2973732948303223,
+  "shuf8": 0.9247971177101135,
+  "hue": 0.8666641116142273,
+  "invert": 0.752312421798706,
+  "zoomout": 0.5664505958557129,
+  "zoomin": 0.008663403801620007
+ },
+ "top50_classes": {
+  "tricycle": 2,
+  "Leonberg": 2,
+  "Afghan hound": 2,
+  "pretzel": 1,
+  "cowboy boot": 1,
+  "suit": 1,
+  "sewing machine": 1,
+  "stupa": 1,
+  "standard schnauzer": 1,
+  "trombone": 1
+ },
+ "neg50_classes": {
+  "night snake": 2,
+  "toilet tissue": 1,
+  "mongoose": 1,
+  "leatherback turtle": 1,
+  "sea slug": 1,
+  "dough": 1,
+  "unicycle": 1,
+  "malinois": 1,
+  "rock beauty": 1,
+  "stone wall": 1
+ }
+}

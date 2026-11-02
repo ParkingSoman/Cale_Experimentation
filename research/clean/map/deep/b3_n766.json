@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 766,
+ "max": 3.2864489555358887,
+ "min": -4.552915573120117,
+ "edits": {
+  "flip": 0.9838261604309082,
+  "rot90": 0.9066836833953857,
+  "rot180": 0.9855868816375732,
+  "gray": 0.9882756471633911,
+  "blur1": 0.6069429516792297,
+  "blur3": 0.5865967273712158,
+  "shuf2": 0.9859123229980469,
+  "shuf4": 0.9642801880836487,
+  "shuf8": 0.8448010683059692,
+  "hue": 0.9819227457046509,
+  "invert": 0.9225530028343201,
+  "zoomout": 0.676192045211792,
+  "zoomin": 0.49956846237182617
+ },
+ "top50_classes": {
+  "jackfruit": 2,
+  "American alligator": 2,
+  "langur": 1,
+  "mousetrap": 1,
+  "peacock": 1,
+  "prairie chicken": 1,
+  "crossword puzzle": 1,
+  "bannister": 1,
+  "barber chair": 1,
+  "bee": 1
+ },
+ "neg50_classes": {
+  "coil": 2,
+  "panpipe": 1,
+  "fire engine": 1,
+  "harp": 1,
+  "knot": 1,
+  "letter opener": 1,
+  "limousine": 1,
+  "mobile home": 1,
+  "necklace": 1,
+  "odometer": 1
+ }
+}

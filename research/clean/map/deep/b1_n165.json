@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 165,
+ "max": 4.868799209594727,
+ "min": -7.222262382507324,
+ "edits": {
+  "flip": 0.8534067869186401,
+  "rot90": 0.8321624398231506,
+  "rot180": 0.8493892550468445,
+  "gray": 1.0020697116851807,
+  "blur1": 0.3960966169834137,
+  "blur3": -0.039090774953365326,
+  "shuf2": 1.0,
+  "shuf4": 1.0003758668899536,
+  "shuf8": 0.9957224130630493,
+  "hue": 0.9994962215423584,
+  "invert": 0.8170959949493408,
+  "zoomout": 0.7819472551345825,
+  "zoomin": 0.4932142496109009
+ },
+ "top50_classes": {
+  "minibus": 1,
+  "electric guitar": 1,
+  "milk can": 1,
+  "refrigerator": 1,
+  "typewriter keyboard": 1,
+  "porcupine": 1,
+  "cowboy hat": 1,
+  "mailbox": 1,
+  "bicycle-built-for-two": 1,
+  "hard disc": 1
+ },
+ "neg50_classes": {
+  "web site": 2,
+  "pineapple": 2,
+  "whippet": 2,
+  "upright": 2,
+  "toy terrier": 2,
+  "oil filter": 1,
+  "oboe": 1,
+  "scoreboard": 1,
+  "drum": 1,
+  "barometer": 1
+ }
+}

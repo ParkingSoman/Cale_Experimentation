@@ -1,0 +1,36 @@
+{
+ "stem": "L28_outputz_K48",
+ "detection_accuracy_mean": 0.980952380952381,
+ "detection_per_parent": [
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  0.6
+ ],
+ "judge_right": 20,
+ "judge_n": 21,
+ "judge_right_confidence_mean": 4.05,
+ "share_coherent": {
+  "parent": 0.09523809523809523,
+  "child": 0.5714285714285714,
+  "decoy": 0.27380952380952384
+ },
+ "judge_p_value": 1.049041748046875e-05
+}

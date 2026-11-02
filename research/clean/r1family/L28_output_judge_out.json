@@ -1,0 +1,8 @@
+{"F1":{"choice":"Y","confidence":5,"why":"Closing punctuation units are specific cases of the parent's closing punctuation theme."},
+"F2":{"choice":"Y","confidence":5,"why":"Long-word stem units are narrower versions of the parent's stems."},
+"F3":{"choice":"Y","confidence":4,"why":"Pipe symbols, control characters and closing quote-comma match the parent's formatting-token theme."},
+"F4":{"choice":"Y","confidence":4,"why":"Code-like pipe/control tokens and quote-plus-punctuation endings fit the parent."},
+"F5":{"choice":"Y","confidence":3,"why":"Y repeats the parent's arbitrary-mix description, while X has specific themes like play and technology."},
+"F6":{"choice":"Y","confidence":3,"why":"Y matches the parent's arbitrary mix, while X has distinct punctuation and body-part themes."},
+"F7":{"choice":"Y","confidence":3,"why":"Y matches the parent's arbitrary mix, while X has unrelated themed fragments."},
+"F8":{"choice":"X","confidence":3,"why":"X matches the parent's arbitrary mix, while Y has a generic noun theme and other items."}}

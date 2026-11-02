@@ -1,0 +1,45 @@
+{
+ "block": 4,
+ "neuron": 146,
+ "max": 3.871621608734131,
+ "min": -5.4218292236328125,
+ "edits": {
+  "flip": 0.9786540865898132,
+  "rot90": 0.8331784009933472,
+  "rot180": 0.9735328555107117,
+  "gray": 1.0050292015075684,
+  "blur1": 0.678431510925293,
+  "blur3": 0.6126676797866821,
+  "shuf2": 0.9966797828674316,
+  "shuf4": 0.9272152185440063,
+  "shuf8": 0.8610541820526123,
+  "hue": 0.9628814458847046,
+  "invert": 0.9585992097854614,
+  "zoomout": 0.3784998059272766,
+  "zoomin": 0.6147701740264893
+ },
+ "top50_classes": {
+  "modem": 2,
+  "sea cucumber": 1,
+  "parachute": 1,
+  "loggerhead": 1,
+  "cowboy hat": 1,
+  "hog": 1,
+  "bloodhound": 1,
+  "steel arch bridge": 1,
+  "crutch": 1,
+  "fig": 1
+ },
+ "neg50_classes": {
+  "white stork": 1,
+  "viaduct": 1,
+  "park bench": 1,
+  "typewriter keyboard": 1,
+  "monastery": 1,
+  "jaguar": 1,
+  "green lizard": 1,
+  "barracouta": 1,
+  "bell cote": 1,
+  "tiger": 1
+ }
+}

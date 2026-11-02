@@ -1,0 +1,16 @@
+factors done (34s)
+build          L_img     L_KFC   L_EKFAC  L_E(256)
+S             0.0571    0.0159    0.1031    0.0980
+S+rem         0.0518    0.0170    0.1053    0.0999
+T             0.0524    0.0170    0.1053    0.0999
+c7_span       0.0596    0.0157    0.1015    0.0964
+c7_reader     0.0535    0.0170    0.1172    0.1107
+4d            0.0599    0.0168    0.1086    0.1031
+  L_img: S+rem/S 0.908   T/S 0.917   c7_reader/S 0.936
+  L_KFC: S+rem/S 1.073   T/S 1.072   c7_reader/S 1.070
+  L_EKFAC: S+rem/S 1.021   T/S 1.022   c7_reader/S 1.138
+  L_E(256): S+rem/S 1.019   T/S 1.020   c7_reader/S 1.130
+F0: |grad_free L_img(T)| / |grad_free L_img(S)| = 0.893
+    cos(-grad L_img(S), T - S) on free coords = 0.070
+E-small: Spearman of rho over top-1000 s pairs, 256 vs 2000 images: 0.982
+done (81s)

@@ -1,0 +1,25 @@
+window check max |err| / sd: 6.449215106840711e-06
+  fit 20/2000
+  fit 420/2000
+  fit 820/2000
+  fit 1220/2000
+  fit 1620/2000
+E2 check: kernel cos to members [0.99999994 0.99999994 1.        ] bias [0.06558614 0.05823638 0.07893137] vs [0.21500033 0.17320742 0.25049996]
+
+realized second-order share (beta .260 on top) | false-on | on-rate
+  M trained read               0.423 | nan | 0.301
+  kept 10/120/250 (E2 check)   0.317 | 0.000 | 0.116
+  bumps 1+cos                  0.410 | 0.695 | 0.826
+  M start cells                0.426 | 0.224 | 0.433
+  arcs #1                      0.437 | 0.251 | 0.461
+  arcs #2                      0.438 | 0.262 | 0.470
+  arcs #3                      0.431 | 0.296 | 0.495
+  arcs #4                      0.429 | 0.304 | 0.501
+  M trained read               lsq write: dev-5000 KL 0.0784 (se 0.0041) | paired vs M read +0.0000 (se 0.0000)
+  kept 10/120/250 (E2 check)   lsq write: dev-5000 KL 0.1325 (se 0.0069) | paired vs M read +0.0542 (se 0.0046)
+  bumps 1+cos                  lsq write: dev-5000 KL 0.0859 (se 0.0046) | paired vs M read +0.0075 (se 0.0023)
+  M start cells                lsq write: dev-5000 KL 0.0817 (se 0.0046) | paired vs M read +0.0033 (se 0.0023)
+  arcs #1                      lsq write: dev-5000 KL 0.0805 (se 0.0045) | paired vs M read +0.0022 (se 0.0030)
+  arcs #2                      lsq write: dev-5000 KL 0.0748 (se 0.0041) | paired vs M read -0.0035 (se 0.0022)
+  arcs #3                      lsq write: dev-5000 KL 0.0837 (se 0.0047) | paired vs M read +0.0053 (se 0.0031)
+  arcs #4                      lsq write: dev-5000 KL 0.0800 (se 0.0043) | paired vs M read +0.0016 (se 0.0023)

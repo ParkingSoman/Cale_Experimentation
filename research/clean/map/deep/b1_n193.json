@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 193,
+ "max": 2.986605405807495,
+ "min": -4.917668342590332,
+ "edits": {
+  "flip": 0.8447374105453491,
+  "rot90": 0.7649328708648682,
+  "rot180": 0.9177820682525635,
+  "gray": 1.0042526721954346,
+  "blur1": 0.6299328804016113,
+  "blur3": 0.16728055477142334,
+  "shuf2": 1.0,
+  "shuf4": 0.9800813794136047,
+  "shuf8": 0.9576810598373413,
+  "hue": 0.9929344654083252,
+  "invert": 0.9462519288063049,
+  "zoomout": 0.7722838521003723,
+  "zoomin": 0.5034921765327454
+ },
+ "top50_classes": {
+  "cassette player": 2,
+  "file": 2,
+  "pickelhaube": 2,
+  "running shoe": 1,
+  "passenger car": 1,
+  "rain barrel": 1,
+  "sorrel": 1,
+  "tub": 1,
+  "crash helmet": 1,
+  "turnstile": 1
+ },
+ "neg50_classes": {
+  "harvestman": 2,
+  "stopwatch": 2,
+  "speedboat": 2,
+  "face powder": 2,
+  "hard disc": 1,
+  "Chesapeake Bay retriever": 1,
+  "scabbard": 1,
+  "disk brake": 1,
+  "hamper": 1,
+  "banana": 1
+ }
+}

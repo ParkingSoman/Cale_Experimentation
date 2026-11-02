@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 342,
+ "max": 16.686019897460938,
+ "min": -18.288532257080078,
+ "edits": {
+  "flip": 1.0014712810516357,
+  "rot90": 0.9469793438911438,
+  "rot180": 0.9390956163406372,
+  "gray": 0.08466708660125732,
+  "blur1": 0.9956358671188354,
+  "blur3": 0.9232907295227051,
+  "shuf2": 1.0,
+  "shuf4": 1.0203068256378174,
+  "shuf8": 1.0594913959503174,
+  "hue": 0.5327061414718628,
+  "invert": 0.879153847694397,
+  "zoomout": 0.9524991512298584,
+  "zoomin": 0.9233267307281494
+ },
+ "top50_classes": {
+  "dugong": 2,
+  "macaw": 2,
+  "snorkel": 1,
+  "typewriter keyboard": 1,
+  "proboscis monkey": 1,
+  "trifle": 1,
+  "parachute": 1,
+  "envelope": 1,
+  "ice lolly": 1,
+  "electric locomotive": 1
+ },
+ "neg50_classes": {
+  "mask": 2,
+  "bakery": 1,
+  "trifle": 1,
+  "sock": 1,
+  "wool": 1,
+  "Irish terrier": 1,
+  "sleeping bag": 1,
+  "comic book": 1,
+  "envelope": 1,
+  "shield": 1
+ }
+}

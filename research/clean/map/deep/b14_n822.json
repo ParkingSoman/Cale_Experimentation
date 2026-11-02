@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 822,
+ "max": 7.08908224105835,
+ "min": -8.033019065856934,
+ "edits": {
+  "flip": 0.9484018683433533,
+  "rot90": 0.9003723859786987,
+  "rot180": 0.8514197468757629,
+  "gray": 0.8681635856628418,
+  "blur1": 0.99615877866745,
+  "blur3": 0.6500701904296875,
+  "shuf2": 0.9717663526535034,
+  "shuf4": 0.8957384824752808,
+  "shuf8": 0.6946119070053101,
+  "hue": 0.721927285194397,
+  "invert": 0.960854709148407,
+  "zoomout": 0.6174225807189941,
+  "zoomin": 0.7620542645454407
+ },
+ "top50_classes": {
+  "strawberry": 2,
+  "paintbrush": 1,
+  "Brittany spaniel": 1,
+  "bullfrog": 1,
+  "slug": 1,
+  "snail": 1,
+  "Blenheim spaniel": 1,
+  "pomegranate": 1,
+  "jackfruit": 1,
+  "toy terrier": 1
+ },
+ "neg50_classes": {
+  "digital clock": 2,
+  "medicine chest": 2,
+  "cassette player": 1,
+  "bee eater": 1,
+  "jack-o'-lantern": 1,
+  "hourglass": 1,
+  "chiton": 1,
+  "hard disc": 1,
+  "hamper": 1,
+  "grille": 1
+ }
+}

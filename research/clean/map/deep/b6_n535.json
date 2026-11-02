@@ -1,0 +1,45 @@
+{
+ "block": 6,
+ "neuron": 535,
+ "max": 3.336376667022705,
+ "min": -5.91921329498291,
+ "edits": {
+  "flip": 0.9348530769348145,
+  "rot90": 0.3689645528793335,
+  "rot180": 0.8916369676589966,
+  "gray": 0.9689429998397827,
+  "blur1": 0.8498337864875793,
+  "blur3": 0.15995022654533386,
+  "shuf2": 0.9539216756820679,
+  "shuf4": 0.7106096744537354,
+  "shuf8": 0.6734561920166016,
+  "hue": 0.9195279479026794,
+  "invert": 0.8787813186645508,
+  "zoomout": 0.6057569980621338,
+  "zoomin": 0.5052383542060852
+ },
+ "top50_classes": {
+  "poncho": 1,
+  "king snake": 1,
+  "Bouvier des Flandres": 1,
+  "bow": 1,
+  "trolleybus": 1,
+  "trombone": 1,
+  "Old English sheepdog": 1,
+  "horse cart": 1,
+  "parking meter": 1,
+  "bicycle-built-for-two": 1
+ },
+ "neg50_classes": {
+  "entertainment center": 3,
+  "Polaroid camera": 2,
+  "chiffonier": 2,
+  "home theater": 2,
+  "vending machine": 2,
+  "bookcase": 2,
+  "sliding door": 2,
+  "dishwasher": 1,
+  "sundial": 1,
+  "bolo tie": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 92,
+ "max": 3.110731840133667,
+ "min": -6.30664587020874,
+ "edits": {
+  "flip": 0.9742043018341064,
+  "rot90": 0.6877690553665161,
+  "rot180": 0.818346381187439,
+  "gray": 0.9854771494865417,
+  "blur1": 0.9087604284286499,
+  "blur3": 0.7258768081665039,
+  "shuf2": 0.8805699944496155,
+  "shuf4": 0.786223828792572,
+  "shuf8": 0.7621355056762695,
+  "hue": 0.9444005489349365,
+  "invert": 0.9652748107910156,
+  "zoomout": 0.6661986112594604,
+  "zoomin": 0.6722262501716614
+ },
+ "top50_classes": {
+  "passenger car": 3,
+  "streetcar": 2,
+  "moving van": 2,
+  "forklift": 2,
+  "garbage truck": 2,
+  "cassette player": 2,
+  "upright": 1,
+  "suspension bridge": 1,
+  "beer bottle": 1,
+  "desktop computer": 1
+ },
+ "neg50_classes": {
+  "pomegranate": 2,
+  "quail": 2,
+  "trilobite": 1,
+  "bee": 1,
+  "garden spider": 1,
+  "barn spider": 1,
+  "dragonfly": 1,
+  "baboon": 1,
+  "shopping basket": 1,
+  "ant": 1
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1153,
+ "max": 9.86614990234375,
+ "min": -10.251945495605469,
+ "edits": {
+  "flip": 0.969101071357727,
+  "rot90": 0.18743839859962463,
+  "rot180": 0.44004935026168823,
+  "gray": 1.0667905807495117,
+  "blur1": 0.9306897521018982,
+  "blur3": 0.5565985441207886,
+  "shuf2": 0.7565591335296631,
+  "shuf4": 0.7503790259361267,
+  "shuf8": 0.23164933919906616,
+  "hue": 1.0413906574249268,
+  "invert": 1.0097540616989136,
+  "zoomout": 0.31522369384765625,
+  "zoomin": 0.6227701306343079
+ },
+ "top50_classes": {
+  "centipede": 2,
+  "radio telescope": 2,
+  "airship": 2,
+  "water tower": 2,
+  "African elephant": 2,
+  "bicycle-built-for-two": 1,
+  "cup": 1,
+  "pedestal": 1,
+  "burrito": 1,
+  "stretcher": 1
+ },
+ "neg50_classes": {
+  "bloodhound": 2,
+  "Rottweiler": 2,
+  "limpkin": 2,
+  "lesser panda": 2,
+  "guenon": 1,
+  "Yorkshire terrier": 1,
+  "Australian terrier": 1,
+  "Dandie Dinmont": 1,
+  "soft-coated wheaten terrier": 1,
+  "Chesapeake Bay retriever": 1
+ }
+}

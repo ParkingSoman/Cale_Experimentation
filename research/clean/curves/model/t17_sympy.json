@@ -1,0 +1,10 @@
+{
+ "S1 E[gate x value | w] - formula": "Matrix([[0], [0]])",
+ "S2 tr Cov - formula": "0",
+ "S3 cancellation": "0",
+ "S4 degree (expect 4)": 4,
+ "S4 leading - (2 alpha^2 R^2 + beta^2 R)": "0",
+ "S4 beta=0 degree (expect 3)": 3,
+ "S4 beta=0 leading - R": "0",
+ "S4 beta=0 form - sum r (mu - 2 l)/(mu - l)^2": "0"
+}

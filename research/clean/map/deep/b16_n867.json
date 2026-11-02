@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 867,
+ "max": 5.258456707000732,
+ "min": -13.391918182373047,
+ "edits": {
+  "flip": 0.981523871421814,
+  "rot90": 0.43242329359054565,
+  "rot180": 0.3620101809501648,
+  "gray": 0.46334147453308105,
+  "blur1": 1.2287988662719727,
+  "blur3": 1.3315553665161133,
+  "shuf2": 0.7705016136169434,
+  "shuf4": 0.4135724902153015,
+  "shuf8": 0.24269406497478485,
+  "hue": 0.520689845085144,
+  "invert": 0.9869706630706787,
+  "zoomout": 0.4436386227607727,
+  "zoomin": 0.876554012298584
+ },
+ "top50_classes": {
+  "Brittany spaniel": 2,
+  "Walker hound": 2,
+  "Shih-Tzu": 2,
+  "wire-haired fox terrier": 2,
+  "cairn": 1,
+  "Dandie Dinmont": 1,
+  "toy terrier": 1,
+  "burrito": 1,
+  "basset": 1,
+  "beagle": 1
+ },
+ "neg50_classes": {
+  "robin": 3,
+  "ruffed grouse": 2,
+  "redshank": 2,
+  "mink": 2,
+  "lawn mower": 1,
+  "accordion": 1,
+  "skunk": 1,
+  "Rottweiler": 1,
+  "dial telephone": 1,
+  "parking meter": 1
+ }
+}

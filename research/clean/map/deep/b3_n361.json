@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 361,
+ "max": 3.265770673751831,
+ "min": -2.5477957725524902,
+ "edits": {
+  "flip": 0.963918924331665,
+  "rot90": 0.7816152572631836,
+  "rot180": 0.9331624507904053,
+  "gray": 0.7799361944198608,
+  "blur1": 0.5679644346237183,
+  "blur3": 0.22202280163764954,
+  "shuf2": 1.0,
+  "shuf4": 1.0004445314407349,
+  "shuf8": 0.9920467138290405,
+  "hue": 0.9385929107666016,
+  "invert": 0.9638587236404419,
+  "zoomout": 0.4656173884868622,
+  "zoomin": 0.5503645539283752
+ },
+ "top50_classes": {
+  "Band Aid": 1,
+  "maraca": 1,
+  "crate": 1,
+  "loggerhead": 1,
+  "cuirass": 1,
+  "ambulance": 1,
+  "holster": 1,
+  "bloodhound": 1,
+  "stove": 1,
+  "English springer": 1
+ },
+ "neg50_classes": {
+  "planetarium": 2,
+  "green lizard": 2,
+  "television": 1,
+  "medicine chest": 1,
+  "hook": 1,
+  "hay": 1,
+  "hamster": 1,
+  "harmonica": 1,
+  "stove": 1,
+  "tiger cat": 1
+ }
+}

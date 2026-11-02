@@ -1,0 +1,45 @@
+{
+ "block": 15,
+ "neuron": 1019,
+ "max": 4.912578105926514,
+ "min": -5.264638900756836,
+ "edits": {
+  "flip": 0.9658523797988892,
+  "rot90": 0.7449105381965637,
+  "rot180": 0.9450110197067261,
+  "gray": 0.9743757247924805,
+  "blur1": 0.8443590402603149,
+  "blur3": 0.4224144220352173,
+  "shuf2": 1.6016079187393188,
+  "shuf4": 1.591477870941162,
+  "shuf8": 0.972948431968689,
+  "hue": 0.8926753997802734,
+  "invert": 0.9442151784896851,
+  "zoomout": 0.24969607591629028,
+  "zoomin": 0.6076623201370239
+ },
+ "top50_classes": {
+  "desk": 3,
+  "notebook": 2,
+  "laptop": 2,
+  "washer": 2,
+  "printer": 2,
+  "hand-held computer": 2,
+  "cab": 2,
+  "monitor": 2,
+  "radio": 2,
+  "cash machine": 2
+ },
+ "neg50_classes": {
+  "standard schnauzer": 2,
+  "window screen": 1,
+  "snowplow": 1,
+  "traffic light": 1,
+  "envelope": 1,
+  "electric guitar": 1,
+  "dumbbell": 1,
+  "school bus": 1,
+  "organ": 1,
+  "green snake": 1
+ }
+}

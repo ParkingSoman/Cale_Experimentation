@@ -1,0 +1,45 @@
+{
+ "block": 16,
+ "neuron": 2062,
+ "max": 4.770406723022461,
+ "min": -11.250312805175781,
+ "edits": {
+  "flip": 0.9828112125396729,
+  "rot90": 0.7921537160873413,
+  "rot180": 0.8492749333381653,
+  "gray": 0.9858831763267517,
+  "blur1": 0.9453139305114746,
+  "blur3": 0.5755531787872314,
+  "shuf2": 1.6986647844314575,
+  "shuf4": 1.4901514053344727,
+  "shuf8": 0.9510432481765747,
+  "hue": 0.9151980876922607,
+  "invert": 0.9745570421218872,
+  "zoomout": 0.9103256464004517,
+  "zoomin": 0.8177379965782166
+ },
+ "top50_classes": {
+  "Polaroid camera": 3,
+  "cassette player": 3,
+  "cassette": 3,
+  "hard disc": 3,
+  "cellular telephone": 2,
+  "combination lock": 2,
+  "pay-phone": 2,
+  "modem": 2,
+  "loudspeaker": 2,
+  "hand-held computer": 2
+ },
+ "neg50_classes": {
+  "monarch": 2,
+  "soft-coated wheaten terrier": 2,
+  "ruddy turnstone": 1,
+  "airliner": 1,
+  "black-and-tan coonhound": 1,
+  "Sussex spaniel": 1,
+  "cocker spaniel": 1,
+  "jackfruit": 1,
+  "puffer": 1,
+  "dogsled": 1
+ }
+}

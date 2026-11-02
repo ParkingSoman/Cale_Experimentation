@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 739,
+ "max": 1.8037986755371094,
+ "min": -7.0058135986328125,
+ "edits": {
+  "flip": 0.9541611075401306,
+  "rot90": 0.9480364322662354,
+  "rot180": 0.9336172938346863,
+  "gray": -0.27258241176605225,
+  "blur1": 0.9681516289710999,
+  "blur3": 0.958770751953125,
+  "shuf2": 0.9989371299743652,
+  "shuf4": 0.890830397605896,
+  "shuf8": 0.5607307553291321,
+  "hue": 0.7680125832557678,
+  "invert": 0.6821799874305725,
+  "zoomout": 0.7088061571121216,
+  "zoomin": 0.6423654556274414
+ },
+ "top50_classes": {
+  "tiger shark": 3,
+  "great white shark": 2,
+  "lighter": 2,
+  "barracouta": 1,
+  "ringneck snake": 1,
+  "hand-held computer": 1,
+  "parachute": 1,
+  "maillot": 1,
+  "rifle": 1,
+  "padlock": 1
+ },
+ "neg50_classes": {
+  "Indian cobra": 3,
+  "ruddy turnstone": 2,
+  "jaguar": 2,
+  "green snake": 1,
+  "thimble": 1,
+  "feather boa": 1,
+  "dung beetle": 1,
+  "leaf beetle": 1,
+  "curly-coated retriever": 1,
+  "sax": 1
+ }
+}

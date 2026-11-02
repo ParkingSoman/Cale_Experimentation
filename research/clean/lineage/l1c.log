@@ -1,0 +1,43 @@
+main 2 pop R2 med 1.000 single med 1.000
+main 5 pop R2 med 1.000 single med 1.000
+main 8 pop R2 med 1.000 single med 1.000
+main 17s
+step0 2 pop R2 med -0.170 single med 0.022
+step0 5 pop R2 med -0.173 single med 0.021
+step0 8 pop R2 med -0.197 single med 0.022
+step0 20s
+step512 2 pop R2 med -0.058 single med 0.031
+step512 5 pop R2 med 0.163 single med 0.050
+step512 8 pop R2 med 0.133 single med 0.064
+step512 21s
+step1000 2 pop R2 med 0.051 single med 0.035
+step1000 5 pop R2 med 0.273 single med 0.047
+step1000 8 pop R2 med 0.221 single med 0.060
+step1000 21s
+step2000 2 pop R2 med 0.198 single med 0.050
+step2000 5 pop R2 med 0.338 single med 0.058
+step2000 8 pop R2 med 0.290 single med 0.069
+step2000 22s
+step4000 2 pop R2 med 0.272 single med 0.090
+step4000 5 pop R2 med 0.388 single med 0.088
+step4000 8 pop R2 med 0.352 single med 0.107
+step4000 21s
+step8000 2 pop R2 med 0.317 single med 0.156
+step8000 5 pop R2 med 0.436 single med 0.146
+step8000 8 pop R2 med 0.407 single med 0.173
+step8000 19s
+step16000 2 pop R2 med 0.372 single med 0.257
+step16000 5 pop R2 med 0.492 single med 0.241
+step16000 8 pop R2 med 0.465 single med 0.264
+step16000 20s
+step32000 2 pop R2 med 0.481 single med 0.416
+step32000 5 pop R2 med 0.577 single med 0.400
+step32000 8 pop R2 med 0.541 single med 0.406
+step32000 20s
+step64000 2 pop R2 med 0.706 single med 0.690
+step64000 5 pop R2 med 0.738 single med 0.661
+step64000 8 pop R2 med 0.684 single med 0.632
+step64000 21s
+2 {'share': 0.0341796875, 'pass': False, 'reach_pop': 0.9996744791666666, 'tpop_median': 64000.0, 'tsingle_median': 64000.0} gate 0.999984590587718
+5 {'share': 0.06998697916666667, 'pass': False, 'reach_pop': 1.0, 'tpop_median': 64000.0, 'tsingle_median': 64000.0} gate 0.999987751256487
+8 {'share': 0.10970052083333333, 'pass': False, 'reach_pop': 0.9993489583333334, 'tpop_median': 64000.0, 'tsingle_median': 64000.0} gate 0.9999880314599956

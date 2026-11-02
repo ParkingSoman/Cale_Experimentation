@@ -1,0 +1,45 @@
+{
+ "block": 12,
+ "neuron": 337,
+ "max": 3.705456256866455,
+ "min": -7.131429195404053,
+ "edits": {
+  "flip": 0.9096856117248535,
+  "rot90": 0.8124977350234985,
+  "rot180": 0.8550562858581543,
+  "gray": -0.2499038279056549,
+  "blur1": 0.899265706539154,
+  "blur3": 0.6100913286209106,
+  "shuf2": 0.9340164661407471,
+  "shuf4": 0.9120650887489319,
+  "shuf8": 0.8882166147232056,
+  "hue": 0.06272614002227783,
+  "invert": 0.6137319803237915,
+  "zoomout": 0.6446696519851685,
+  "zoomin": 0.6507474184036255
+ },
+ "top50_classes": {
+  "cleaver": 1,
+  "African hunting dog": 1,
+  "timber wolf": 1,
+  "Mexican hairless": 1,
+  "Brabancon griffon": 1,
+  "pole": 1,
+  "punching bag": 1,
+  "Irish water spaniel": 1,
+  "Sussex spaniel": 1,
+  "Welsh springer spaniel": 1
+ },
+ "neg50_classes": {
+  "odometer": 3,
+  "projector": 2,
+  "ambulance": 2,
+  "printer": 1,
+  "miniature schnauzer": 1,
+  "fur coat": 1,
+  "Norwich terrier": 1,
+  "motor scooter": 1,
+  "Lakeland terrier": 1,
+  "face powder": 1
+ }
+}

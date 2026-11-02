@@ -1,0 +1,9 @@
+fire rate |diff| (mean over 10)    within 0.0018  between 0.0215  ratio 11.65
+mean activation |diff| (relative)  within 0.0289  between 0.2516  ratio 8.72
+co-activation corr |diff| (45)     within 0.0022  between 0.0082  ratio 3.67
+read kernel 1 - cos                within 0.0412  between 0.0652  ratio 1.58
+read pre-activation 1 - corr (dev) within 0.0061  between 0.0184  ratio 3.02
+aniA rate [0.123 0.092 0.097 0.086 0.128 0.147 0.09  0.08  0.087 0.089] | read bias -2
+aniB rate [0.122 0.089 0.094 0.082 0.131 0.15  0.091 0.079 0.085 0.087] | read bias -3
+restA rate [0.103 0.105 0.155 0.102 0.125 0.137 0.111 0.118 0.105 0.094] | read bias -1
+restB rate [0.104 0.107 0.157 0.105 0.126 0.135 0.113 0.118 0.105 0.093] | read bias -1

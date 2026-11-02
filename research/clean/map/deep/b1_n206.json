@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 206,
+ "max": 3.3352150917053223,
+ "min": -5.165605545043945,
+ "edits": {
+  "flip": 0.8963503837585449,
+  "rot90": 0.6905677318572998,
+  "rot180": 0.7829713821411133,
+  "gray": 1.0015184879302979,
+  "blur1": 0.7360143661499023,
+  "blur3": 0.28197044134140015,
+  "shuf2": 1.0,
+  "shuf4": 0.9946756362915039,
+  "shuf8": 0.9591577053070068,
+  "hue": 0.9889802932739258,
+  "invert": 0.9329195022583008,
+  "zoomout": 0.786016583442688,
+  "zoomin": 0.6332972049713135
+ },
+ "top50_classes": {
+  "trench coat": 2,
+  "cleaver": 1,
+  "slide rule": 1,
+  "pay-phone": 1,
+  "pencil box": 1,
+  "picket fence": 1,
+  "komondor": 1,
+  "rule": 1,
+  "scoreboard": 1,
+  "screen": 1
+ },
+ "neg50_classes": {
+  "chiffonier": 2,
+  "miniature schnauzer": 1,
+  "medicine chest": 1,
+  "typewriter keyboard": 1,
+  "streetcar": 1,
+  "stove": 1,
+  "croquet ball": 1,
+  "bloodhound": 1,
+  "bell cote": 1,
+  "desktop computer": 1
+ }
+}

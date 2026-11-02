@@ -1,0 +1,7 @@
+G skipped (0s)
+real256: step 9.78e-11; dev-5000 KL 0.0465 (se 0.0027)
+  real256 minus kbar(S)    -0.0026 (paired se 0.0005)
+  real256 minus T          +0.0061 (paired se 0.0011)
+netmade256: step 1.21e-11; dev-5000 KL 0.0489 (se 0.0028)
+  netmade256 minus kbar(S)    -0.0002 (paired se 0.0003)
+  netmade256 minus T          +0.0085 (paired se 0.0013)

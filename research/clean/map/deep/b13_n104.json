@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 104,
+ "max": 3.9693470001220703,
+ "min": -3.109654426574707,
+ "edits": {
+  "flip": 0.9253665208816528,
+  "rot90": 0.7264771461486816,
+  "rot180": 0.8483796119689941,
+  "gray": 0.9196691513061523,
+  "blur1": 0.9205366373062134,
+  "blur3": 0.7786910533905029,
+  "shuf2": 0.7620683908462524,
+  "shuf4": 0.6917023658752441,
+  "shuf8": 0.7289204597473145,
+  "hue": 0.9337233304977417,
+  "invert": 0.9430762529373169,
+  "zoomout": 0.8418102264404297,
+  "zoomin": 0.7041239738464355
+ },
+ "top50_classes": {
+  "junco": 2,
+  "armadillo": 1,
+  "Granny Smith": 1,
+  "hair spray": 1,
+  "ladybug": 1,
+  "puffer": 1,
+  "microphone": 1,
+  "Ibizan hound": 1,
+  "clumber": 1,
+  "Scottish deerhound": 1
+ },
+ "neg50_classes": {
+  "mosquito net": 2,
+  "cornet": 2,
+  "basenji": 1,
+  "orange": 1,
+  "ringneck snake": 1,
+  "microwave": 1,
+  "black swan": 1,
+  "dishrag": 1,
+  "hair spray": 1,
+  "half track": 1
+ }
+}

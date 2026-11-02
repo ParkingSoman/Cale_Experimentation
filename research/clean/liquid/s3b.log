@@ -1,0 +1,152 @@
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (46012 > 8192). Running this sequence through the model will result in indexing errors
+stats 2.0s
+L12 bases 122.2s  saliency coords [np.int64(17), np.int64(230), np.int64(247), np.int64(260), np.int64(308), np.int64(371), np.int64(507)]
+  L12 d504 pca_global      prose +0.0170  code +0.0121
+  L12 d504 read_glob       prose +0.0142  code +0.0118
+  L12 d504 read_act        prose +0.0139  code +0.0092
+  L12 d504 rw_act          prose +0.0185  code +0.0195
+  L12 d504 read_act_ls     prose +0.0097  code +0.0070
+  L12 d504 rw_act_ls       prose +0.0233  code +0.0174
+  L12 d504 read_glob_ls    prose +0.0109  code +0.0085
+  L12 d504 read_act - read_glob_ls: prose [0.003, -0.0001, 0.006] code [0.0007, -0.0019, 0.0032]
+  L12 d504 read_act - pca_global: prose [-0.0031, -0.0072, 0.0007] code [-0.0029, -0.0061, 0.0003]
+  L12 d504 rw_act - read_glob_ls: prose [0.0075, 0.0039, 0.0111] code [0.011, 0.0075, 0.0146]
+  L12 d504 rw_act - pca_global: prose [0.0014, -0.0034, 0.0061] code [0.0074, 0.0027, 0.012]
+  L12 d504 read_act_ls - read_glob_ls: prose [-0.0013, -0.0038, 0.0013] code [-0.0015, -0.0037, 0.0007]
+  L12 d504 read_act_ls - pca_global: prose [-0.0073, -0.0123, -0.0024] code [-0.0051, -0.0087, -0.0017]
+  L12 d504 rw_act_ls - read_glob_ls: prose [0.0123, 0.0082, 0.0161] code [0.0089, 0.0055, 0.0121]
+  L12 d504 rw_act_ls - pca_global: prose [0.0063, 0.001, 0.0112] code [0.0053, 0.0014, 0.0094]
+L12 d504 scored 40.5s
+  L12 d432 pca_global      prose +0.0422  code +0.0267
+  L12 d432 read_glob       prose +0.0356  code +0.0261
+  L12 d432 read_act        prose +0.0407  code +0.0276
+  L12 d432 rw_act          prose +0.0426  code +0.0411
+  L12 d432 read_act_ls     prose +0.0306  code +0.0228
+  L12 d432 rw_act_ls       prose +0.0479  code +0.0392
+  L12 d432 read_glob_ls    prose +0.0329  code +0.0197
+  L12 d432 read_act - read_glob_ls: prose [0.0078, 0.0033, 0.0121] code [0.0078, 0.0025, 0.0132]
+  L12 d432 read_act - pca_global: prose [-0.0014, -0.0082, 0.0049] code [0.0009, -0.0039, 0.0057]
+  L12 d432 rw_act - read_glob_ls: prose [0.0096, 0.0038, 0.0159] code [0.0214, 0.0158, 0.027]
+  L12 d432 rw_act - pca_global: prose [0.0004, -0.0056, 0.0063] code [0.0144, 0.0097, 0.0194]
+  L12 d432 read_act_ls - read_glob_ls: prose [-0.0024, -0.0052, 0.0008] code [0.003, 0.0, 0.0061]
+  L12 d432 read_act_ls - pca_global: prose [-0.0116, -0.0194, -0.0041] code [-0.0039, -0.0083, 0.0007]
+  L12 d432 rw_act_ls - read_glob_ls: prose [0.015, 0.0092, 0.021] code [0.0195, 0.0141, 0.0253]
+  L12 d432 rw_act_ls - pca_global: prose [0.0057, -0.0004, 0.012] code [0.0126, 0.0085, 0.0167]
+L12 d432 scored 39.7s
+  L12 d288 pca_global      prose +0.0824  code +0.0611
+  L12 d288 read_glob       prose +0.0888  code +0.0739
+  L12 d288 read_act        prose +0.0904  code +0.0699
+  L12 d288 rw_act          prose +0.0916  code +0.0754
+  L12 d288 read_act_ls     prose +0.0862  code +0.0613
+  L12 d288 rw_act_ls       prose +0.1028  code +0.0715
+  L12 d288 read_glob_ls    prose +0.0776  code +0.0611
+  L12 d288 read_act - read_glob_ls: prose [0.0129, 0.008, 0.0181] code [0.0088, 0.0021, 0.0156]
+  L12 d288 read_act - pca_global: prose [0.0081, 0.0004, 0.0153] code [0.0088, 0.0028, 0.0148]
+  L12 d288 rw_act - read_glob_ls: prose [0.014, 0.0089, 0.0194] code [0.0143, 0.0073, 0.0221]
+  L12 d288 rw_act - pca_global: prose [0.0092, 0.0038, 0.0143] code [0.0144, 0.0087, 0.0201]
+  L12 d288 read_act_ls - read_glob_ls: prose [0.0086, 0.0048, 0.0126] code [0.0002, -0.0044, 0.0047]
+  L12 d288 read_act_ls - pca_global: prose [0.0039, -0.0042, 0.0117] code [0.0002, -0.0048, 0.0051]
+  L12 d288 rw_act_ls - read_glob_ls: prose [0.0252, 0.0203, 0.0305] code [0.0104, 0.0033, 0.0176]
+  L12 d288 rw_act_ls - pca_global: prose [0.0204, 0.0132, 0.028] code [0.0104, 0.0048, 0.0159]
+L12 d288 scored 37.9s
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s3b-essay.json
+L16 bases 160.9s  saliency coords [np.int64(17), np.int64(230), np.int64(247), np.int64(260), np.int64(308), np.int64(371), np.int64(507)]
+  L16 d504 pca_global      prose +0.0212  code +0.0152
+  L16 d504 read_glob       prose +0.0101  code +0.0088
+  L16 d504 read_act        prose +0.0101  code +0.0082
+  L16 d504 rw_act          prose +0.0202  code +0.0165
+  L16 d504 read_act_ls     prose +0.0060  code +0.0070
+  L16 d504 rw_act_ls       prose +0.0150  code +0.0129
+  L16 d504 read_glob_ls    prose +0.0074  code +0.0059
+  L16 d504 read_act - read_glob_ls: prose [0.0027, 0.0006, 0.0047] code [0.0023, 0.0006, 0.0042]
+  L16 d504 read_act - pca_global: prose [-0.0111, -0.0141, -0.0077] code [-0.007, -0.0105, -0.0033]
+  L16 d504 rw_act - read_glob_ls: prose [0.0128, 0.01, 0.0156] code [0.0106, 0.0074, 0.0137]
+  L16 d504 rw_act - pca_global: prose [-0.001, -0.0048, 0.003] code [0.0013, -0.0022, 0.0048]
+  L16 d504 read_act_ls - read_glob_ls: prose [-0.0014, -0.0029, 0.0001] code [0.0011, -0.0004, 0.0026]
+  L16 d504 read_act_ls - pca_global: prose [-0.0152, -0.0184, -0.0119] code [-0.0082, -0.0118, -0.0045]
+  L16 d504 rw_act_ls - read_glob_ls: prose [0.0076, 0.0046, 0.0107] code [0.007, 0.0044, 0.0095]
+  L16 d504 rw_act_ls - pca_global: prose [-0.0062, -0.0095, -0.0027] code [-0.0023, -0.0057, 0.001]
+L16 d504 scored 34.9s
+  L16 d432 pca_global      prose +0.0436  code +0.0336
+  L16 d432 read_glob       prose +0.0376  code +0.0356
+  L16 d432 read_act        prose +0.0294  code +0.0263
+  L16 d432 rw_act          prose +0.0401  code +0.0338
+  L16 d432 read_act_ls     prose +0.0205  code +0.0173
+  L16 d432 rw_act_ls       prose +0.0331  code +0.0278
+  L16 d432 read_glob_ls    prose +0.0264  code +0.0196
+  L16 d432 read_act - read_glob_ls: prose [0.003, -0.001, 0.0068] code [0.0068, 0.003, 0.0107]
+  L16 d432 read_act - pca_global: prose [-0.0142, -0.0199, -0.0088] code [-0.0073, -0.0133, -0.0012]
+  L16 d432 rw_act - read_glob_ls: prose [0.0138, 0.0097, 0.0176] code [0.0142, 0.0083, 0.0201]
+  L16 d432 rw_act - pca_global: prose [-0.0034, -0.0083, 0.0015] code [0.0002, -0.0054, 0.0055]
+  L16 d432 read_act_ls - read_glob_ls: prose [-0.0059, -0.0096, -0.0025] code [-0.0022, -0.0046, 0.0002]
+  L16 d432 read_act_ls - pca_global: prose [-0.0231, -0.0291, -0.0174] code [-0.0163, -0.0219, -0.0106]
+  L16 d432 rw_act_ls - read_glob_ls: prose [0.0068, 0.0022, 0.0112] code [0.0082, 0.0039, 0.0126]
+  L16 d432 rw_act_ls - pca_global: prose [-0.0104, -0.0148, -0.0061] code [-0.0058, -0.0106, -0.0012]
+L16 d432 scored 33.1s
+  L16 d288 pca_global      prose +0.1150  code +0.0957
+  L16 d288 read_glob       prose +0.1097  code +0.0879
+  L16 d288 read_act        prose +0.1031  code +0.0711
+  L16 d288 rw_act          prose +0.0820  code +0.0641
+  L16 d288 read_act_ls     prose +0.0645  code +0.0488
+  L16 d288 rw_act_ls       prose +0.0777  code +0.0553
+  L16 d288 read_glob_ls    prose +0.0680  code +0.0518
+  L16 d288 read_act - read_glob_ls: prose [0.035, 0.0279, 0.0431] code [0.0193, 0.0147, 0.0241]
+  L16 d288 read_act - pca_global: prose [-0.012, -0.0184, -0.0055] code [-0.0247, -0.0313, -0.0183]
+  L16 d288 rw_act - read_glob_ls: prose [0.014, 0.0088, 0.0189] code [0.0123, 0.0057, 0.0187]
+  L16 d288 rw_act - pca_global: prose [-0.033, -0.042, -0.0249] code [-0.0316, -0.04, -0.0235]
+  L16 d288 read_act_ls - read_glob_ls: prose [-0.0035, -0.007, -0.0001] code [-0.003, -0.0063, -0.0]
+  L16 d288 read_act_ls - pca_global: prose [-0.0505, -0.06, -0.0413] code [-0.0469, -0.0542, -0.0396]
+  L16 d288 rw_act_ls - read_glob_ls: prose [0.0096, 0.0046, 0.0148] code [0.0035, -0.0019, 0.0087]
+  L16 d288 rw_act_ls - pca_global: prose [-0.0374, -0.0452, -0.0298] code [-0.0405, -0.0483, -0.0331]
+L16 d288 scored 36.1s
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s3b-essay.json
+L22 bases 115.6s  saliency coords [np.int64(17), np.int64(230), np.int64(247), np.int64(260), np.int64(308), np.int64(371), np.int64(507)]
+  L22 d504 pca_global      prose +0.0273  code +0.0190
+  L22 d504 read_glob       prose +0.0345  code +0.0265
+  L22 d504 read_act        prose +0.0325  code +0.0238
+  L22 d504 rw_act          prose +0.0407  code +0.0303
+  L22 d504 read_act_ls     prose +0.0403  code +0.0252
+  L22 d504 rw_act_ls       prose +0.0465  code +0.0252
+  L22 d504 read_glob_ls    prose +0.0391  code +0.0256
+  L22 d504 read_act - read_glob_ls: prose [-0.0066, -0.0101, -0.0031] code [-0.0017, -0.0046, 0.0013]
+  L22 d504 read_act - pca_global: prose [0.0052, -0.0002, 0.0108] code [0.0049, 0.0006, 0.0092]
+  L22 d504 rw_act - read_glob_ls: prose [0.0016, -0.0028, 0.0055] code [0.0048, -0.0006, 0.0097]
+  L22 d504 rw_act - pca_global: prose [0.0134, 0.009, 0.0183] code [0.0114, 0.0068, 0.0159]
+  L22 d504 read_act_ls - read_glob_ls: prose [0.0012, -0.0018, 0.0041] code [-0.0004, -0.0023, 0.0016]
+  L22 d504 read_act_ls - pca_global: prose [0.013, 0.0082, 0.0185] code [0.0063, 0.002, 0.0105]
+  L22 d504 rw_act_ls - read_glob_ls: prose [0.0074, 0.0024, 0.0119] code [-0.0004, -0.0051, 0.0041]
+  L22 d504 rw_act_ls - pca_global: prose [0.0192, 0.0144, 0.0241] code [0.0062, 0.0026, 0.0096]
+L22 d504 scored 36.5s
+  L22 d432 pca_global      prose +0.0600  code +0.0377
+  L22 d432 read_glob       prose +0.0749  code +0.0621
+  L22 d432 read_act        prose +0.0726  code +0.0621
+  L22 d432 rw_act          prose +0.0846  code +0.0632
+  L22 d432 read_act_ls     prose +0.0965  code +0.0640
+  L22 d432 rw_act_ls       prose +0.0908  code +0.0602
+  L22 d432 read_glob_ls    prose +0.0798  code +0.0573
+  L22 d432 read_act - read_glob_ls: prose [-0.0073, -0.011, -0.0036] code [0.0048, 0.0013, 0.0083]
+  L22 d432 read_act - pca_global: prose [0.0126, 0.004, 0.0215] code [0.0244, 0.0182, 0.031]
+  L22 d432 rw_act - read_glob_ls: prose [0.0047, -0.0013, 0.0104] code [0.0059, -0.0012, 0.0126]
+  L22 d432 rw_act - pca_global: prose [0.0246, 0.0187, 0.0302] code [0.0255, 0.0198, 0.0318]
+  L22 d432 read_act_ls - read_glob_ls: prose [0.0167, 0.0124, 0.0206] code [0.0067, 0.0039, 0.0098]
+  L22 d432 read_act_ls - pca_global: prose [0.0365, 0.0289, 0.0446] code [0.0263, 0.0202, 0.0326]
+  L22 d432 rw_act_ls - read_glob_ls: prose [0.011, 0.0032, 0.0182] code [0.0029, -0.0036, 0.0088]
+  L22 d432 rw_act_ls - pca_global: prose [0.0308, 0.0247, 0.0368] code [0.0225, 0.0168, 0.0282]
+L22 d432 scored 35.0s
+  L22 d288 pca_global      prose +0.1347  code +0.0886
+  L22 d288 read_glob       prose +0.1521  code +0.1260
+  L22 d288 read_act        prose +0.1519  code +0.1255
+  L22 d288 rw_act          prose +0.1504  code +0.1197
+  L22 d288 read_act_ls     prose +0.1604  code +0.1126
+  L22 d288 rw_act_ls       prose +0.1571  code +0.1195
+  L22 d288 read_glob_ls    prose +0.1478  code +0.1101
+  L22 d288 read_act - read_glob_ls: prose [0.0041, -0.0012, 0.0095] code [0.0154, 0.0097, 0.0208]
+  L22 d288 read_act - pca_global: prose [0.0172, 0.0092, 0.0254] code [0.0369, 0.031, 0.0428]
+  L22 d288 rw_act - read_glob_ls: prose [0.0026, -0.003, 0.0084] code [0.0096, 0.0025, 0.0166]
+  L22 d288 rw_act - pca_global: prose [0.0158, 0.0073, 0.0248] code [0.0311, 0.0256, 0.0369]
+  L22 d288 read_act_ls - read_glob_ls: prose [0.0126, 0.0084, 0.0165] code [0.0026, -0.0013, 0.0063]
+  L22 d288 read_act_ls - pca_global: prose [0.0257, 0.0168, 0.0344] code [0.0241, 0.0182, 0.0302]
+  L22 d288 rw_act_ls - read_glob_ls: prose [0.0093, 0.0037, 0.015] code [0.0094, 0.004, 0.015]
+  L22 d288 rw_act_ls - pca_global: prose [0.0225, 0.0136, 0.0317] code [0.0309, 0.0258, 0.0361]
+L22 d288 scored 34.0s
+saved /Users/shonusengupta/Cale_Experimentation/results/liquid-s3b-essay.json

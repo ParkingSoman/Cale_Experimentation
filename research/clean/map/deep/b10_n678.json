@@ -1,0 +1,45 @@
+{
+ "block": 10,
+ "neuron": 678,
+ "max": 3.089803695678711,
+ "min": -5.527712345123291,
+ "edits": {
+  "flip": 0.9869160056114197,
+  "rot90": 0.8466809988021851,
+  "rot180": 0.9066449403762817,
+  "gray": 0.856793999671936,
+  "blur1": 1.0205113887786865,
+  "blur3": 0.8216300010681152,
+  "shuf2": 1.0104260444641113,
+  "shuf4": 1.0279017686843872,
+  "shuf8": 0.9467480182647705,
+  "hue": 0.9603009223937988,
+  "invert": 0.8804337978363037,
+  "zoomout": 0.7943292856216431,
+  "zoomin": 0.7314578890800476
+ },
+ "top50_classes": {
+  "snail": 2,
+  "corkscrew": 2,
+  "pizza": 2,
+  "strawberry": 2,
+  "guacamole": 2,
+  "lemon": 2,
+  "sea slug": 1,
+  "hot pot": 1,
+  "toyshop": 1,
+  "armadillo": 1
+ },
+ "neg50_classes": {
+  "rule": 2,
+  "black swan": 1,
+  "bloodhound": 1,
+  "rocking chair": 1,
+  "maze": 1,
+  "agama": 1,
+  "upright": 1,
+  "harp": 1,
+  "stopwatch": 1,
+  "digital clock": 1
+ }
+}

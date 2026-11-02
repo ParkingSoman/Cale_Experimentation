@@ -1,0 +1,8 @@
+q mean 1 - sum p^2 0.500
+LP status 0 (Optimization terminated successfully. (HiGHS Status 7: Optimal)); support 9
+imprint residual |sum q d| = 1.19e-02; q mean 1 - sum p^2 0.459
+eps 1.0: bound (second-order units) 0.0005
+eps 10.0: bound (second-order units) 0.0010
+  w*(p1): real unsure      dev-5000 KL 0.0532 (se 0.0025) | paired vs w*(p1) +0.0000 (se 0.0000)
+  w*(p2), eps = 1.0        dev-5000 KL 0.0531 (se 0.0025) | paired vs w*(p1) -0.0002 (se 0.0002)
+  w*(p2), eps = 10.0       dev-5000 KL 0.0532 (se 0.0025) | paired vs w*(p1) -0.0000 (se 0.0004)

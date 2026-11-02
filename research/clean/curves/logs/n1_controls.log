@@ -1,0 +1,22 @@
+control 1 (G_u = I) 3a->3b: cos(W^T W, (W^T W)^.5) = 0.926
+control 1 (G_u = I) 3b->4a: cos(W^T W, (W^T W)^.5) = 0.932
+control 1 (G_u = I) 4a->4b: cos(W^T W, (W^T W)^.5) = 0.940
+control 1 (G_u = I) 4d->4e: cos(W^T W, (W^T W)^.5) = 0.948
+== shuffled
+site   | n   | rel agop | rel fisher | cos(G, agop^.5) | cos(G, agop) | cos(G, fisher^.5) | cos(G, fisher) | cos(G, plain^.5) | cos(G, plain) | cos(G, I)
+3a->3b | 256 | 0.998 | 0.990 | 0.893 | 0.815 | 0.893 | 0.814 | 0.293 | 0.063 | 0.541
+3b->4a | 480 | 0.990 | 0.965 | 0.800 | 0.577 | 0.780 | 0.510 | 0.230 | 0.059 | 0.509
+4a->4b | 508 | 0.988 | 0.975 | 0.817 | 0.548 | 0.787 | 0.412 | 0.228 | 0.055 | 0.550
+4d->4e | 528 | 0.981 | 0.957 | 0.865 | 0.770 | 0.825 | 0.499 | 0.223 | 0.073 | 0.616
+== noise
+site   | n   | rel agop | rel fisher | cos(G, agop^.5) | cos(G, agop) | cos(G, fisher^.5) | cos(G, fisher) | cos(G, plain^.5) | cos(G, plain) | cos(G, I)
+3a->3b | 256 | 0.999 | 0.999 | 0.880 | 0.797 | 0.872 | 0.759 | 0.247 | 0.058 | 0.541
+3b->4a | 480 | 0.996 | 0.997 | 0.790 | 0.580 | 0.763 | 0.438 | 0.187 | 0.052 | 0.509
+4a->4b | 508 | 0.993 | 0.997 | 0.811 | 0.559 | 0.770 | 0.381 | 0.199 | 0.052 | 0.550
+4d->4e | 528 | 0.982 | 0.995 | 0.860 | 0.757 | 0.798 | 0.410 | 0.208 | 0.076 | 0.616
+target = the REAL-image Fisher at each layer input (what the write uses). Off-diagonal cosine of predictors:
+site   | Gram^2 (NFA inverted) | Gram (sandwich, G_u = I) | noise-image Fisher | shuffled-image Fisher | real split-half
+3a->3b | 0.891 | 0.867 | 0.742 | 0.823 | (see n1_nfa.log)
+3b->4a | 0.840 | 0.874 | 0.380 | 0.445 | (see n1_nfa.log)
+4a->4b | 0.802 | 0.809 | 0.359 | 0.399 | (see n1_nfa.log)
+4d->4e | 0.839 | 0.839 | 0.324 | 0.384 | (see n1_nfa.log)

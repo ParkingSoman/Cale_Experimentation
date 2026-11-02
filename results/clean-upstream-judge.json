@@ -1,0 +1,80 @@
+{
+ "real_yes": 0.5833333333333334,
+ "decoy_yes": 0.0,
+ "n_real": 12,
+ "per_child": {
+  "833+": {
+   "grouping": "tokens in numeric expressions (dates vs measurements)",
+   "parent": "neuron 14.661",
+   "yes": true,
+   "parent_desc": "Mixed: last digit of a year, closing parenthesis after a measurement, and contrastive or additive function words (latter, otherwise, not only). Positions where "
+  },
+  "16+": {
+   "grouping": "list/appositive continuation markers",
+   "parent": "neuron 14.534",
+   "yes": true,
+   "parent_desc": "Preposition or participle that begins an attached modifying phrase after a comma or noun: 'coupled with', 'consisting of', 'along with', 'by authority of', 'at "
+  },
+  "940-": {
+   "grouping": "date/time range expressions",
+   "parent": "neuron 10.317",
+   "yes": true,
+   "parent_desc": "Digit within a year, usually the second or third digit (18-61, 19-11, 20-09, 15-72) after a century start. Mid-year digit prediction."
+  },
+  "646-": {
+   "grouping": "person-name fragments",
+   "parent": "neuron 4.1369",
+   "yes": false,
+   "parent_desc": "Middle or end fragment of a South Asian (Bollywood) person name split into tokens: Nadiadwala, Bhatt, Thakur, Madhuri, Chakravarthy, Deol, Rani. Name-internal p"
+  },
+  "717-": {
+   "grouping": "closing tokens after names/numbers",
+   "parent": "neuron 0.1237",
+   "yes": true,
+   "parent_desc": "Mixed closing or joining tokens: closing paren after list item labels, ellipsis end, apostrophe in titles (Child 's), word pieces of nouns in lists (Customs, Po"
+  },
+  "365+": {
+   "grouping": "year-ending tokens in biographical/citation text",
+   "parent": "neuron 13.125",
+   "yes": false,
+   "parent_desc": "Function word that introduces an explanation, definition, or description of a preceding item: 'meaning [that]', 'comes from [its]', 'known [for]', 'and', 'the',"
+  },
+  "1077+": {
+   "grouping": "time-period words in event reporting",
+   "parent": "neuron 8.435",
+   "yes": false,
+   "parent_desc": "Final digit of a four-digit year in a dated list or biography (1964, 1578, 1923, 1911, 1990), especially within parentheses or after 'In'/'from'. Year-ending di"
+  },
+  "168-": {
+   "grouping": "words predicting a consequence/hypothetical outcome",
+   "parent": "neuron 12.1469",
+   "yes": true,
+   "parent_desc": "Result-clause or degree construction: after 'so ... / such ... / enough', the token that introduces the consequence (that, to, it, he, require, allow). Tracks t"
+  },
+  "994+": {
+   "grouping": "auxiliary verbs",
+   "parent": "neuron 14.687",
+   "yes": false,
+   "parent_desc": "Past-tense auxiliary or verb or determiner in a sentence stating a historical fact about a building, organization or species (was, were, had, belonged, included"
+  },
+  "653+": {
+   "grouping": "quantity/measure expressions",
+   "parent": "neuron 12.706",
+   "yes": true,
+   "parent_desc": "Digit inside a numeric quantity in a measurement or sales figure (inches/mm, units sold 'just over 152'), plus 'over' before a number. Number-with-unit context."
+  },
+  "638+": {
+   "grouping": "fragments inside foreign names/words",
+   "parent": "neuron 13.1043",
+   "yes": false,
+   "parent_desc": "Token inside a fixed idiom or superlative frame needing completion: 'one [of] the', 'Got to [Be] a Way', 'either', 'generally', year last digit. Positions that "
+  },
+  "410+": {
+   "grouping": "punctuation/clitics at noun-phrase edge",
+   "parent": "neuron 2.1180",
+   "yes": true,
+   "parent_desc": "Punctuation or short token that attaches onto a name or phrase: possessive apostrophe after a name (Fernandez 's, father 's), dashes, slashes, and ending pieces"
+  }
+ },
+ "pass": true
+}

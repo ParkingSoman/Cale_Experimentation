@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 193,
+ "max": 10.41645622253418,
+ "min": -10.711957931518555,
+ "edits": {
+  "flip": 0.9430277347564697,
+  "rot90": 0.8437063694000244,
+  "rot180": 0.9204390048980713,
+  "gray": 1.0014574527740479,
+  "blur1": 0.48247408866882324,
+  "blur3": 0.058107227087020874,
+  "shuf2": 1.0,
+  "shuf4": 0.9975863099098206,
+  "shuf8": 0.9988589286804199,
+  "hue": 0.9991756677627563,
+  "invert": 0.9290844202041626,
+  "zoomout": 0.7878735661506653,
+  "zoomin": 0.6598812937736511
+ },
+ "top50_classes": {
+  "organ": 2,
+  "oxcart": 2,
+  "barber chair": 2,
+  "mouse": 1,
+  "pomegranate": 1,
+  "container ship": 1,
+  "passenger car": 1,
+  "cornet": 1,
+  "cowboy boot": 1,
+  "lionfish": 1
+ },
+ "neg50_classes": {
+  "broom": 2,
+  "organ": 2,
+  "nail": 1,
+  "hard disc": 1,
+  "bookcase": 1,
+  "proboscis monkey": 1,
+  "remote control": 1,
+  "chocolate sauce": 1,
+  "turnstile": 1,
+  "chiton": 1
+ }
+}

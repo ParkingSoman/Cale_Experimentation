@@ -16,3 +16,25 @@ dist/
 .playwright-mcp/
 demo/apps/*/data/
 demo/apps/*/__pycache__/
+
+# research: large data, caches and nested repos stay on the disk only
+.claude/
+cache/
+.lake/
+*.npy
+*.npz
+*.pt
+*.pth
+*.bin
+*.gguf
+*.onnx
+research/clean/hf/
+research/tree/hf/
+research/tree/data/wikitext2_train.txt
+research/clean/r1out_cache/
+research/clean/tools/src/griffin/
+research/clean/tools/src/delphi/
+research/clean/tools/src/moefication/
+research/clean/tools/pilots/hf_alias/
+research/clean/map/deep/*.png
+research/clean/map/tests/**/*.png

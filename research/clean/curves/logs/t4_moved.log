@@ -1,0 +1,6 @@
+shares: beta 0.260 | constrained neuron 0.132 | unconstrained neuron 0.170
+lam constrained (moved) [0.059 0.19  0.044 0.275 0.146 0.279 0.    0.    0.    0.007]
+lam free (moved)        [ 0.054  0.154  0.024  0.176  0.011  0.122 -0.139 -0.188 -0.132 -0.001]
+L-k1-r-lr3e-2: S1 R^2 unmoved 0.42 moved 0.52 | lam_trained(moved) [0.105 0.15  0.043 0.125 0.153 0.147 0.079 0.071 0.07  0.057] | S2 corr constrained 0.82, free 0.63
+fam-curves-k1-lr0.03-s0-random: S1 R^2 unmoved 0.42 moved 0.51 | lam_trained(moved) [ 0.055  0.156  0.081  0.142  0.154  0.195  0.121 -0.006  0.067  0.025] | S2 corr constrained 0.81, free 0.64
+twin agreement on moved lam: 

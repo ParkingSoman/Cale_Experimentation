@@ -1,0 +1,45 @@
+{
+ "block": 1,
+ "neuron": 122,
+ "max": 2.4132578372955322,
+ "min": -4.583087921142578,
+ "edits": {
+  "flip": 0.8614081740379333,
+  "rot90": 0.788915753364563,
+  "rot180": 0.8372492790222168,
+  "gray": 0.9418983459472656,
+  "blur1": 0.9641878604888916,
+  "blur3": 0.7525554895401001,
+  "shuf2": 1.0,
+  "shuf4": 1.000685691833496,
+  "shuf8": 0.9429933428764343,
+  "hue": 0.897431492805481,
+  "invert": 0.806816577911377,
+  "zoomout": 0.818369448184967,
+  "zoomin": 0.8299336433410645
+ },
+ "top50_classes": {
+  "Pekinese": 2,
+  "Leonberg": 1,
+  "marmoset": 1,
+  "bookshop": 1,
+  "mud turtle": 1,
+  "chocolate sauce": 1,
+  "desktop computer": 1,
+  "squirrel monkey": 1,
+  "stretcher": 1,
+  "basset": 1
+ },
+ "neg50_classes": {
+  "loudspeaker": 2,
+  "harp": 1,
+  "magnetic compass": 1,
+  "park bench": 1,
+  "wild boar": 1,
+  "tabby": 1,
+  "studio couch": 1,
+  "fountain pen": 1,
+  "harmonica": 1,
+  "beagle": 1
+ }
+}

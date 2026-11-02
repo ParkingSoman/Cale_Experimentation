@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 407,
+ "max": 5.501821994781494,
+ "min": -14.434897422790527,
+ "edits": {
+  "flip": 0.8411422967910767,
+  "rot90": 0.3763502836227417,
+  "rot180": 0.5697776079177856,
+  "gray": 0.7035087943077087,
+  "blur1": 0.693822979927063,
+  "blur3": -0.04352647438645363,
+  "shuf2": 1.1840267181396484,
+  "shuf4": 0.7644236087799072,
+  "shuf8": 0.1953614354133606,
+  "hue": 0.7645879983901978,
+  "invert": 0.7766767740249634,
+  "zoomout": 0.0896223932504654,
+  "zoomin": 0.20010513067245483
+ },
+ "top50_classes": {
+  "sundial": 2,
+  "toilet tissue": 1,
+  "hamper": 1,
+  "groenendael": 1,
+  "birdhouse": 1,
+  "binder": 1,
+  "pomegranate": 1,
+  "panpipe": 1,
+  "rifle": 1,
+  "freight car": 1
+ },
+ "neg50_classes": {
+  "Norwich terrier": 1,
+  "Doberman": 1,
+  "cowboy hat": 1,
+  "golden retriever": 1,
+  "American Staffordshire terrier": 1,
+  "burrito": 1,
+  "suit": 1,
+  "maraca": 1,
+  "reflex camera": 1,
+  "spatula": 1
+ }
+}

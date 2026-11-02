@@ -1,0 +1,129 @@
+{
+ "mu (top 10)": [
+  28537.97671156927,
+  13646.815079192771,
+  13646.815079192762,
+  10409.97264740639,
+  4223.993205526471,
+  4223.993205526465,
+  3668.7418332333386,
+  3668.741833233335,
+  5.1270419202364674e-11,
+  4.275793106193192e-11
+ ],
+ "D2 at k=0": 41013.524797440434,
+ "strict-gap levels (width, modes)": [
+  [
+   1,
+   [
+    4
+   ]
+  ],
+  [
+   3,
+   [
+    4,
+    1
+   ]
+  ],
+  [
+   4,
+   [
+    4,
+    1,
+    0
+   ]
+  ],
+  [
+   6,
+   [
+    4,
+    1,
+    0,
+    3
+   ]
+  ],
+  [
+   8,
+   [
+    4,
+    1,
+    0,
+    3,
+    2
+   ]
+  ]
+ ],
+ "Y1": {
+  "1": {
+   "T9 rel err": 1.496296896575833e-15,
+   "T10 rel err": 1.496296896575833e-15,
+   "outputs T9 vs T10": 4.3353666934097194e-15,
+   "formula D2": 26744.5364416558,
+   "fraction of k=0": 0.652090659696844
+  },
+  "3": {
+   "T9 rel err": 3.055322813073149e-15,
+   "T10 rel err": 3.055322813073149e-15,
+   "outputs T9 vs T10": 6.44805187548613e-15,
+   "formula D2": 13097.721362463037,
+   "fraction of k=0": 0.3193512731995285
+  },
+  "4": {
+   "T9 rel err": 5.876825911757394e-15,
+   "T10 rel err": 5.992057792380088e-15,
+   "outputs T9 vs T10": 3.557057744790534e-15,
+   "formula D2": 7892.735038759842,
+   "fraction of k=0": 0.19244225112913022
+  },
+  "6": {
+   "T9 rel err": 9.172437171993767e-15,
+   "T10 rel err": 9.172437171993767e-15,
+   "outputs T9 vs T10": 5.006047061822162e-15,
+   "formula D2": 3668.7418332333727,
+   "fraction of k=0": 0.08945200031825432
+  },
+  "8": {
+   "T9 rel err": 0.9999999999999925,
+   "T10 rel err": 0.9999999999999991,
+   "outputs T9 vs T10": 4.2410168058617124e-15,
+   "formula D2": 3.604204501489938e-11,
+   "fraction of k=0": 8.787843813206878e-16
+  }
+ },
+ "Y5 nesting error": 2.7755575615628914e-16,
+ "Y2/Y4/Y6": {
+  "1": {
+   "formula train": 26744.5364416558,
+   "formula held-out": 26072.845246620745,
+   "student kkk train / formula": 1.0048745745011545,
+   "student kkk held-out / formula held-out": 1.0066404737723678,
+   "student k88 train / formula": 1.004982758033533,
+   "student k88 held-out / formula held-out": 1.0067694682253336
+  },
+  "3": {
+   "formula train": 13097.721362463037,
+   "formula held-out": 14646.718911453125,
+   "student kkk train / formula": 1.0095115801572254,
+   "student kkk held-out / formula held-out": 1.01133195824035,
+   "student k88 train / formula": 1.0089490970192456,
+   "student k88 held-out / formula held-out": 1.010742757797071
+  },
+  "4": {
+   "formula train": 7892.735038759842,
+   "formula held-out": 7855.592322575824,
+   "student kkk train / formula": 1.000123322273284,
+   "student kkk held-out / formula held-out": 1.0001490156462942,
+   "student k88 train / formula": 1.0001023166726848,
+   "student k88 held-out / formula held-out": 1.0001176502718723
+  }
+ },
+ "Y3": {
+  "k": 3,
+  "grad norm at formula": 2.1538908916011626e-11,
+  "grad norm at a random start": 604.5893361973639,
+  "D2 before": 13097.721362462997,
+  "D2 after 300 full-batch Adam steps": 13097.734422225605,
+  "relative change": 9.971018810868782e-07
+ }
+}

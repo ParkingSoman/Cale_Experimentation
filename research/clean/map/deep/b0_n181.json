@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 181,
+ "max": 10.697467803955078,
+ "min": -9.790824890136719,
+ "edits": {
+  "flip": 0.9885842800140381,
+  "rot90": 0.8338948488235474,
+  "rot180": 0.811372697353363,
+  "gray": 1.005096197128296,
+  "blur1": 0.4480109214782715,
+  "blur3": 0.30175745487213135,
+  "shuf2": 1.0,
+  "shuf4": 1.086431622505188,
+  "shuf8": 1.1767609119415283,
+  "hue": 0.9927166104316711,
+  "invert": 0.8437971472740173,
+  "zoomout": 0.8962706327438354,
+  "zoomin": 0.5244520902633667
+ },
+ "top50_classes": {
+  "oscilloscope": 2,
+  "ocarina": 2,
+  "scorpion": 1,
+  "shoe shop": 1,
+  "slide rule": 1,
+  "flagpole": 1,
+  "ski mask": 1,
+  "espresso maker": 1,
+  "moving van": 1,
+  "nipple": 1
+ },
+ "neg50_classes": {
+  "jack-o'-lantern": 2,
+  "beacon": 2,
+  "upright": 2,
+  "groom": 2,
+  "mailbox": 2,
+  "accordion": 1,
+  "flatworm": 1,
+  "vase": 1,
+  "violin": 1,
+  "grille": 1
+ }
+}

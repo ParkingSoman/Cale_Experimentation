@@ -1,0 +1,100 @@
+{
+ "J1": {
+  "cases": [
+   {
+    "H": [
+     [
+      1,
+      2
+     ]
+    ],
+    "kappa": 2,
+    "m": 2,
+    "equal": true,
+    "n_bad": 4
+   },
+   {
+    "H": [
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "kappa": 2,
+    "m": 3,
+    "equal": true,
+    "n_bad": 11
+   },
+   {
+    "H": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "kappa": 2,
+    "m": 3,
+    "equal": true,
+    "n_bad": 11
+   },
+   {
+    "H": [
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "kappa": 3,
+    "m": 3,
+    "equal": true,
+    "n_bad": 18
+   }
+  ],
+  "all_equal": true,
+  "same_a_different_P": true
+ },
+ "J2": {
+  "delta": "1",
+  "gamma": "0",
+  "lam": "1/3",
+  "xi": "-1/9"
+ },
+ "J3": {
+  "bias_neg": {
+   "delta": "12/13",
+   "gamma": "0",
+   "lam": "11/26",
+   "xi": "0"
+  },
+  "predicted_delta": "12/13",
+  "bias_pos": {
+   "delta": "0",
+   "gamma": "0",
+   "lam": "0",
+   "xi": "0"
+  }
+ },
+ "J4": {
+  "delta_min": 0.03182832929449409,
+  "delta_max": 0.05901065056501129,
+  "delta_median": 0.043780794434593366,
+  "gamma_pos_share": 0.5666666666666667
+ },
+ "ALL_OK": true
+}

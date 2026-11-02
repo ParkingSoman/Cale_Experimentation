@@ -1,0 +1,45 @@
+{
+ "block": 3,
+ "neuron": 697,
+ "max": 4.897307872772217,
+ "min": -6.694029808044434,
+ "edits": {
+  "flip": 0.9878193140029907,
+  "rot90": 0.6639138460159302,
+  "rot180": 0.9700181484222412,
+  "gray": 1.0052293539047241,
+  "blur1": 0.30419713258743286,
+  "blur3": 0.05436137318611145,
+  "shuf2": 0.9876493215560913,
+  "shuf4": 0.9735614657402039,
+  "shuf8": 0.8136450052261353,
+  "hue": 0.9514704942703247,
+  "invert": 0.9533721208572388,
+  "zoomout": 0.4229832589626312,
+  "zoomin": 0.3433198034763336
+ },
+ "top50_classes": {
+  "French bulldog": 1,
+  "diaper": 1,
+  "throne": 1,
+  "three-toed sloth": 1,
+  "limpkin": 1,
+  "jinrikisha": 1,
+  "tractor": 1,
+  "jeep": 1,
+  "tricycle": 1,
+  "chiton": 1
+ },
+ "neg50_classes": {
+  "printer": 1,
+  "tusker": 1,
+  "speedboat": 1,
+  "sturgeon": 1,
+  "macaw": 1,
+  "goblet": 1,
+  "aircraft carrier": 1,
+  "airship": 1,
+  "snorkel": 1,
+  "analog clock": 1
+ }
+}

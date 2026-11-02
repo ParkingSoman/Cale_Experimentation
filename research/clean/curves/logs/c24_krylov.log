@@ -1,0 +1,10 @@
+G skipped (0s)
+start: train L 0.10248, held-out L 0.10343 (229s)
+  it 1: held-out L 0.09132  dev-5000 KL 0.0458 (se 0.0026)  (455s)
+  it 2: held-out L 0.09046  dev-5000 KL 0.0458 (se 0.0025)  (679s)
+  it 3: held-out L 0.09256  dev-5000 KL 0.0451 (se 0.0025)  (906s)
+  it 4: held-out L 0.09107  dev-5000 KL 0.0449 (se 0.0024)  (1128s)
+  STOP: held-out objective has not improved for 2 steps; best at it 2
+  krylov_it2 minus kbar(S)    -0.0033 (paired se 0.0008)
+  krylov_it2 minus T          +0.0054 (paired se 0.0009)
+done

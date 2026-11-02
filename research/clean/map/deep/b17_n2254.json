@@ -1,0 +1,45 @@
+{
+ "block": 17,
+ "neuron": 2254,
+ "max": 13.47511100769043,
+ "min": -19.792661666870117,
+ "edits": {
+  "flip": 0.988446831703186,
+  "rot90": 0.844152569770813,
+  "rot180": 0.5063146948814392,
+  "gray": 0.6581822037696838,
+  "blur1": 0.7438466548919678,
+  "blur3": 0.3423364758491516,
+  "shuf2": 0.845187783241272,
+  "shuf4": 0.7758440971374512,
+  "shuf8": 0.10565638542175293,
+  "hue": 0.6916006803512573,
+  "invert": 0.8532294034957886,
+  "zoomout": 0.23503825068473816,
+  "zoomin": 0.6732354164123535
+ },
+ "top50_classes": {
+  "green lizard": 3,
+  "frilled lizard": 3,
+  "agama": 3,
+  "common iguana": 2,
+  "rock python": 2,
+  "African chameleon": 2,
+  "walking stick": 2,
+  "whiptail": 1,
+  "eft": 1,
+  "horned viper": 1
+ },
+ "neg50_classes": {
+  "volleyball": 2,
+  "standard schnauzer": 1,
+  "tricycle": 1,
+  "maraca": 1,
+  "reflex camera": 1,
+  "trombone": 1,
+  "croquet ball": 1,
+  "howler monkey": 1,
+  "dial telephone": 1,
+  "stethoscope": 1
+ }
+}

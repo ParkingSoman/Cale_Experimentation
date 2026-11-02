@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 33,
+ "max": 4.596216201782227,
+ "min": -6.943488121032715,
+ "edits": {
+  "flip": 0.9487260580062866,
+  "rot90": 0.7574068903923035,
+  "rot180": 0.7395477294921875,
+  "gray": 0.5376083850860596,
+  "blur1": 0.8214985132217407,
+  "blur3": 0.4355061650276184,
+  "shuf2": 0.9990226030349731,
+  "shuf4": 0.7651657462120056,
+  "shuf8": 0.6894311308860779,
+  "hue": 0.4946361780166626,
+  "invert": 0.938822865486145,
+  "zoomout": 0.4474652409553528,
+  "zoomin": 0.4908173978328705
+ },
+ "top50_classes": {
+  "robin": 2,
+  "starfish": 2,
+  "Bernese mountain dog": 1,
+  "Indian cobra": 1,
+  "soap dispenser": 1,
+  "wok": 1,
+  "black widow": 1,
+  "Norwich terrier": 1,
+  "badger": 1,
+  "ice lolly": 1
+ },
+ "neg50_classes": {
+  "hamper": 2,
+  "toilet tissue": 1,
+  "ruffed grouse": 1,
+  "mortarboard": 1,
+  "shopping cart": 1,
+  "lampshade": 1,
+  "neck brace": 1,
+  "necklace": 1,
+  "barber chair": 1,
+  "barbershop": 1
+ }
+}

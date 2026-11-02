@@ -1,0 +1,45 @@
+{
+ "block": 2,
+ "neuron": 99,
+ "max": 6.3585968017578125,
+ "min": -7.870760917663574,
+ "edits": {
+  "flip": 0.9772216081619263,
+  "rot90": 0.9267688989639282,
+  "rot180": 0.9651142358779907,
+  "gray": 0.0946495309472084,
+  "blur1": 0.9808468818664551,
+  "blur3": 0.6637728214263916,
+  "shuf2": 1.0,
+  "shuf4": 0.9391218423843384,
+  "shuf8": 0.7882827520370483,
+  "hue": 0.6378127336502075,
+  "invert": 0.6851010322570801,
+  "zoomout": 0.5242307186126709,
+  "zoomin": 0.7067023515701294
+ },
+ "top50_classes": {
+  "great white shark": 2,
+  "isopod": 1,
+  "gasmask": 1,
+  "tennis ball": 1,
+  "kimono": 1,
+  "American egret": 1,
+  "wall clock": 1,
+  "abacus": 1,
+  "hornbill": 1,
+  "golf ball": 1
+ },
+ "neg50_classes": {
+  "ladle": 1,
+  "digital watch": 1,
+  "paddle": 1,
+  "radio": 1,
+  "broccoli": 1,
+  "space shuttle": 1,
+  "abacus": 1,
+  "trimaran": 1,
+  "reflex camera": 1,
+  "green mamba": 1
+ }
+}

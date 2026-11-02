@@ -1,0 +1,45 @@
+{
+ "block": 14,
+ "neuron": 1326,
+ "max": 6.051209926605225,
+ "min": -7.60414457321167,
+ "edits": {
+  "flip": 0.9664793014526367,
+  "rot90": 0.8963325023651123,
+  "rot180": 0.8267226219177246,
+  "gray": 0.9822379946708679,
+  "blur1": 0.9586117267608643,
+  "blur3": 0.712727427482605,
+  "shuf2": 0.9621807932853699,
+  "shuf4": 0.8310213685035706,
+  "shuf8": 0.4586278796195984,
+  "hue": 0.9362500309944153,
+  "invert": 0.9887565970420837,
+  "zoomout": 0.5631592273712158,
+  "zoomin": 0.4825059771537781
+ },
+ "top50_classes": {
+  "carton": 2,
+  "dough": 2,
+  "lampshade": 1,
+  "African elephant": 1,
+  "magnetic compass": 1,
+  "Shetland sheepdog": 1,
+  "cradle": 1,
+  "king crab": 1,
+  "remote control": 1,
+  "tabby": 1
+ },
+ "neg50_classes": {
+  "macaque": 1,
+  "tusker": 1,
+  "capuchin": 1,
+  "triumphal arch": 1,
+  "slug": 1,
+  "holster": 1,
+  "vacuum": 1,
+  "vault": 1,
+  "velvet": 1,
+  "koala": 1
+ }
+}

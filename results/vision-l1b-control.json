@@ -1,0 +1,296 @@
+{
+ "15_1162": {
+  "parent": [
+   15,
+   1162
+  ],
+  "children": [
+   [
+    16,
+    14
+   ]
+  ],
+  "kl_naive_cut": 5.724721631850116e-05,
+  "kl_cut_both": 0.0001635098160477355,
+  "kl_learned": 5.8823381550610065e-05,
+  "share_won_back": -0.027532609179615974,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   5.986626669880479e-05,
+   3.66847722006014e-05
+  ],
+  "corr_learned_parent": 0.9954188729982777,
+  "corr_learned_children_sum": -0.006390402358819979,
+  "partial_corr_children_given_parent": 0.010477130689252023,
+  "partial_corr_each_child": [
+   0.010477130689252023
+  ],
+  "cos_read_vs_parent": 0.9968393445014954,
+  "cos_write_vs_parent": 0.9941543340682983,
+  "write_norm_ratio": 1.0007293224334717,
+  "write_change_cos_children": [
+   NaN
+  ],
+  "bias_change": -0.00799417495727539,
+  "share_ci": [
+   -0.04447115957736969,
+   -0.014405470341444016
+  ]
+ },
+ "15_2142": {
+  "parent": [
+   15,
+   2142
+  ],
+  "children": [
+   [
+    16,
+    857
+   ]
+  ],
+  "kl_naive_cut": 0.0002750033454503864,
+  "kl_cut_both": 0.001853702124208212,
+  "kl_learned": 0.0002773231244646013,
+  "share_won_back": -0.00843545701354742,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   0.00022614683771280398,
+   0.00013776112342611668
+  ],
+  "corr_learned_parent": 0.9977974384162549,
+  "corr_learned_children_sum": -0.024640833277524702,
+  "partial_corr_children_given_parent": -0.002329039696741956,
+  "partial_corr_each_child": [
+   -0.002329039696741956
+  ],
+  "cos_read_vs_parent": 0.9962862730026245,
+  "cos_write_vs_parent": 0.9976174235343933,
+  "write_norm_ratio": 1.0087640285491943,
+  "write_change_cos_children": [
+   NaN
+  ],
+  "bias_change": -0.00041115283966064453,
+  "share_ci": [
+   -0.017045628279447556,
+   0.0010105302790179849
+  ]
+ },
+ "16_2886": {
+  "parent": [
+   16,
+   2886
+  ],
+  "children": [
+   [
+    17,
+    3012
+   ],
+   [
+    17,
+    1268
+   ]
+  ],
+  "kl_naive_cut": 0.009195737540721893,
+  "kl_cut_both": 0.009718524292111397,
+  "kl_learned": 0.009181895293295383,
+  "share_won_back": 0.0015052895760163665,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   0.007756220607552678,
+   0.00916728219599463
+  ],
+  "corr_learned_parent": 0.9867218466326673,
+  "corr_learned_children_sum": -0.015978665073934955,
+  "partial_corr_children_given_parent": 0.0031132737117791865,
+  "partial_corr_each_child": [
+   -0.004612103307150585,
+   0.011470952102649201
+  ],
+  "cos_read_vs_parent": 0.9900500774383545,
+  "cos_write_vs_parent": 0.9733368754386902,
+  "write_norm_ratio": 1.0166704654693604,
+  "write_change_cos_children": [
+   NaN,
+   NaN
+  ],
+  "bias_change": 0.004786491394042969,
+  "share_ci": [
+   -0.0003634613240137696,
+   0.003620305098593235
+  ]
+ },
+ "13_78": {
+  "parent": [
+   13,
+   78
+  ],
+  "children": [
+   [
+    14,
+    1006
+   ],
+   [
+    14,
+    984
+   ],
+   [
+    14,
+    16
+   ]
+  ],
+  "kl_naive_cut": 0.00028265308355912566,
+  "kl_cut_both": 0.0004068376147188246,
+  "kl_learned": 0.000275308673735708,
+  "share_won_back": 0.02598383091390133,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   0.00030148958903737367,
+   0.00017341484490316362
+  ],
+  "corr_learned_parent": 0.9798059269345762,
+  "corr_learned_children_sum": 0.006872040225973624,
+  "partial_corr_children_given_parent": 0.04076353453723864,
+  "partial_corr_each_child": [
+   0.028740091494259126,
+   0.0407441967354578,
+   0.002856070693149077
+  ],
+  "cos_read_vs_parent": 0.9794872999191284,
+  "cos_write_vs_parent": 0.9739332795143127,
+  "write_norm_ratio": 1.0205261707305908,
+  "write_change_cos_children": [
+   NaN,
+   NaN,
+   NaN
+  ],
+  "bias_change": 0.005589127540588379,
+  "share_ci": [
+   -0.020190130919218063,
+   0.08329352736473083
+  ]
+ },
+ "10_1172": {
+  "parent": [
+   10,
+   1172
+  ],
+  "children": [
+   [
+    11,
+    306
+   ],
+   [
+    11,
+    1165
+   ],
+   [
+    11,
+    988
+   ],
+   [
+    11,
+    1224
+   ],
+   [
+    11,
+    1046
+   ]
+  ],
+  "kl_naive_cut": 5.1429055019980296e-05,
+  "kl_cut_both": 0.0003319012466818094,
+  "kl_learned": 4.788281876244582e-05,
+  "share_won_back": 0.06895394623279572,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   4.9237942039326296e-05,
+   3.5757257137447596e-05
+  ],
+  "corr_learned_parent": 0.9933497002806942,
+  "corr_learned_children_sum": 0.12788896338473918,
+  "partial_corr_children_given_parent": 0.04869809708169217,
+  "partial_corr_each_child": [
+   0.0014778938900634662,
+   0.006251599695315684,
+   0.020391153394241995,
+   -0.006066163792832721,
+   0.06962474838725587
+  ],
+  "cos_read_vs_parent": 0.9904738664627075,
+  "cos_write_vs_parent": 0.9886529445648193,
+  "write_norm_ratio": 1.0138627290725708,
+  "write_change_cos_children": [
+   NaN,
+   NaN,
+   NaN,
+   NaN,
+   NaN
+  ],
+  "bias_change": 0.0029717683792114258,
+  "share_ci": [
+   -0.018748149275779724,
+   0.15935087203979492
+  ]
+ },
+ "9_686": {
+  "parent": [
+   9,
+   686
+  ],
+  "children": [
+   [
+    10,
+    451
+   ],
+   [
+    10,
+    980
+   ],
+   [
+    10,
+    138
+   ],
+   [
+    10,
+    500
+   ],
+   [
+    10,
+    682
+   ]
+  ],
+  "kl_naive_cut": 0.00012768230226356536,
+  "kl_cut_both": 0.00017068696615751833,
+  "kl_learned": 0.0001269513595616445,
+  "share_won_back": 0.005724698770791292,
+  "share_top500": 0.0,
+  "loss_first_last": [
+   0.00013755631807725875,
+   0.00011633257709036116
+  ],
+  "corr_learned_parent": 0.9861554777291829,
+  "corr_learned_children_sum": -0.06398847222525463,
+  "partial_corr_children_given_parent": 0.02107779545803195,
+  "partial_corr_each_child": [
+   0.024229538992806658,
+   -0.003613285956442473,
+   0.013736611986436999,
+   -0.00759805151213411,
+   0.015612879266931464
+  ],
+  "cos_read_vs_parent": 0.9791863560676575,
+  "cos_write_vs_parent": 0.9638612270355225,
+  "write_norm_ratio": 1.0473449230194092,
+  "write_change_cos_children": [
+   NaN,
+   NaN,
+   NaN,
+   NaN,
+   NaN
+  ],
+  "bias_change": 0.004473686218261719,
+  "share_ci": [
+   -0.03346801549196243,
+   0.043808698654174805
+  ]
+ }
+}

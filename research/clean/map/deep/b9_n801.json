@@ -1,0 +1,45 @@
+{
+ "block": 9,
+ "neuron": 801,
+ "max": 3.7197532653808594,
+ "min": -6.150934219360352,
+ "edits": {
+  "flip": 0.9035282135009766,
+  "rot90": 0.8044576048851013,
+  "rot180": 0.9018659591674805,
+  "gray": 0.998643696308136,
+  "blur1": 0.9819499254226685,
+  "blur3": 0.8243386745452881,
+  "shuf2": 0.9165555834770203,
+  "shuf4": 0.8400399684906006,
+  "shuf8": 0.7709627151489258,
+  "hue": 0.9228853583335876,
+  "invert": 0.26509177684783936,
+  "zoomout": 0.8383108377456665,
+  "zoomin": 0.7101202011108398
+ },
+ "top50_classes": {
+  "mask": 2,
+  "toucan": 2,
+  "lens cap": 2,
+  "plow": 1,
+  "sliding door": 1,
+  "worm fence": 1,
+  "tick": 1,
+  "street sign": 1,
+  "fire screen": 1,
+  "mountain bike": 1
+ },
+ "neg50_classes": {
+  "mosquito net": 2,
+  "ringlet": 1,
+  "American lobster": 1,
+  "Madagascar cat": 1,
+  "spotted salamander": 1,
+  "axolotl": 1,
+  "sidewinder": 1,
+  "dowitcher": 1,
+  "hot pot": 1,
+  "basset": 1
+ }
+}

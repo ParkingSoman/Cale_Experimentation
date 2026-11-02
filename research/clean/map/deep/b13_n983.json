@@ -1,0 +1,45 @@
+{
+ "block": 13,
+ "neuron": 983,
+ "max": 4.060876846313477,
+ "min": -6.444111347198486,
+ "edits": {
+  "flip": 0.9674863815307617,
+  "rot90": 0.8144382238388062,
+  "rot180": 0.842604398727417,
+  "gray": 0.8879095911979675,
+  "blur1": 0.9177635908126831,
+  "blur3": 0.5982352495193481,
+  "shuf2": 0.9692363142967224,
+  "shuf4": 0.7423579692840576,
+  "shuf8": 0.5593879222869873,
+  "hue": 0.9256858825683594,
+  "invert": 0.9654338955879211,
+  "zoomout": 0.5667155385017395,
+  "zoomin": 0.6680847406387329
+ },
+ "top50_classes": {
+  "ringneck snake": 2,
+  "isopod": 1,
+  "oboe": 1,
+  "tarantula": 1,
+  "fountain pen": 1,
+  "Dandie Dinmont": 1,
+  "fire screen": 1,
+  "weevil": 1,
+  "bagel": 1,
+  "cheeseburger": 1
+ },
+ "neg50_classes": {
+  "horizontal bar": 2,
+  "drake": 2,
+  "balloon": 1,
+  "horned viper": 1,
+  "ski": 1,
+  "garden spider": 1,
+  "rhinoceros beetle": 1,
+  "file": 1,
+  "sidewinder": 1,
+  "shopping basket": 1
+ }
+}

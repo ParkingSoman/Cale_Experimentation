@@ -1,0 +1,45 @@
+{
+ "block": 0,
+ "neuron": 153,
+ "max": 10.089542388916016,
+ "min": -9.087451934814453,
+ "edits": {
+  "flip": 0.9548125267028809,
+  "rot90": 0.9475882053375244,
+  "rot180": 0.9420913457870483,
+  "gray": 1.0008151531219482,
+  "blur1": 0.9862273931503296,
+  "blur3": 0.8717747330665588,
+  "shuf2": 1.0,
+  "shuf4": 1.0,
+  "shuf8": 0.9961072206497192,
+  "hue": 0.9996979236602783,
+  "invert": 0.9379400014877319,
+  "zoomout": 0.8966233730316162,
+  "zoomin": 0.961890697479248
+ },
+ "top50_classes": {
+  "snow leopard": 1,
+  "remote control": 1,
+  "revolver": 1,
+  "kelpie": 1,
+  "burrito": 1,
+  "tailed frog": 1,
+  "miniature schnauzer": 1,
+  "Siamese cat": 1,
+  "abaya": 1,
+  "Italian greyhound": 1
+ },
+ "neg50_classes": {
+  "capuchin": 2,
+  "chow": 2,
+  "Great Pyrenees": 1,
+  "ski mask": 1,
+  "nail": 1,
+  "standard schnauzer": 1,
+  "espresso maker": 1,
+  "cauliflower": 1,
+  "beacon": 1,
+  "bearskin": 1
+ }
+}
