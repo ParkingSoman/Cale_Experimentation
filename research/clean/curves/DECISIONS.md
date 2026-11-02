@@ -145,6 +145,23 @@ not forced by any theorem, and they are withdrawn. The decisions below are force
 options are exactly the premises of those theorems: to escape a theorem, one of its premises must go. R-least comes
 first, because the other two speak of "the least build".
 
+### 3-38. Does line I2 count under the Unique Games Conjecture? (2026-11-02; COARSE-THEORY.md B.Q.12; LADDER 52; nothing blocks on this)
+
+Directional because: this changes the end condition of card 3-37. Line I2 says "unless P = NP".
+
+```
+proved with no conjecture:       a fast rule within a factor below about 1.36 gives P = NP (Proposition TQ30, k = 1)
+proved under the conjecture:     a fast rule within any fixed factor gives P = NP (Proposition TQ31, k = 1)
+at k = 1 with no conjecture:     every factor asks for NP-hardness of least-uncut at every factor, a known open problem
+```
+
+| Option | What it means | Gains | Loses |
+|---|---|---|---|
+| (a) Keep I2 as written | Only an unconditional proof counts | The test stays strict | I2 may stay open for reasons that have nothing to do with networks |
+| (b) Count I2 under the Unique Games Conjecture | The conjecture is widely used, but it is open and it could be false | I2 is met now | "Impossible" would rest on an open conjecture, and you asked for proof |
+
+My recommendation: (a). You asked for a proof, and I5 is the larger gap anyway, so the choice does not change the state today.
+
 ### 3-37. How row 3 ends: it passes on real networks, or it is proved impossible (2026-11-02; ANSWERED by Shonu; plan i-need-you-to-tingly-orbit.md)
 
 Directional because: this sets what "closed" means for row 3, and so what the next sessions wait for.
@@ -1876,6 +1893,8 @@ so the lint fails until it gets a node.
 | squeeze-complete groups | S-squeezecomplete |
 | pole claims | R-poleclaim |
 | the Unique Games Conjecture | TECH |
+| part 3 under the Unique Games Conjecture | TECH |
+| part 3's last line under the Unique Games Conjecture | TECH |
 <!-- /aliases -->
 
 ## 6. The path of every result
@@ -2157,6 +2176,7 @@ node named by a tag is on the path, and prints the table with distances.
 | Proposition TQ28 | (none) | at rank r, a build fits all but 1 / b(r) of a line digraph's diagonal, on any graph |
 | Proposition TQ30 | R-map, R-tree, R-branch, R-oninside, R-linread, S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | V_b(1) equals a vertex cover number within 1 + O(delta), with every claim at 0: a fixed factor below about 1.36 is NP-hard |
 | Proposition TQ31 | R-map, R-tree, R-branch, R-oninside, R-linread, S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | with signed M, every fixed factor is hard at k = 1 under the Unique Games Conjecture, at any movement and any tail mass |
+| Proposition TQ32 | (none) | on a finite list, an information floor over all decoders is 0: a limit of method |
 | Lemma TQ29 | (none) | KL is a variance along the geometric path between s and q, at any amplitude; a tool, no lower bound over competitors |
 | Conjecture DQ21 | S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | every fixed factor is NP-hard with no conjecture; the known routes and their limits |
 | Conjecture DQ17 | R-treeweight | at one unit, a least order of the wall program respects a monotone tree, with no scales |
