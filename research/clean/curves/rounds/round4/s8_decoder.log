@@ -1,0 +1,16 @@
+read 1.1727849854955836 1.4867140795232734 sec 592.251809835434
+mlp_on_read_code epoch 0 val 1.6355 best sealed 1.7472
+mlp_on_read_code epoch 25 val 1.4436 best sealed 1.4946
+mlp_on_read_code epoch 50 val 1.496 best sealed 1.4946
+mlp_on_read_code epoch 75 val 1.5044 best sealed 1.4946
+mlp_on_read_code epoch 100 val 1.5146 best sealed 1.4946
+mlp_on_read_code epoch 125 val 1.5192 best sealed 1.4946
+mlp_on_read_code {'train': 0.8902312517166138, 'val': 1.346262812614441, 'sealed': 1.4946353435516357}
+mlp_on_64_pca epoch 0 val 0.9987 best sealed 0.9962
+mlp_on_64_pca epoch 25 val 0.404 best sealed 0.4003
+mlp_on_64_pca epoch 50 val 0.3839 best sealed 0.3754
+mlp_on_64_pca epoch 75 val 0.3666 best sealed 0.3596
+mlp_on_64_pca epoch 100 val 0.3555 best sealed 0.3511
+mlp_on_64_pca epoch 125 val 0.3553 best sealed 0.3498
+mlp_on_64_pca {'train': 0.022630667313933372, 'val': 0.3550817668437958, 'sealed': 0.3499682545661926}
+ratio 1.0053280345814055
