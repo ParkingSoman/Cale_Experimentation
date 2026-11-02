@@ -87,6 +87,9 @@ def mlp_run(X, X2, label, epochs):
     Xf, X2f = Xf / sc, X2f / sc
     Sf, lsf, S2f, ls2f = S.float(), ls.float(), S2.float(), ls2.float()
     nv = Xf.shape[0] // 10
+    # train rows are sorted by class, so the validation part must be a random one
+    shuffle = torch.randperm(Xf.shape[0], generator=torch.Generator().manual_seed(7))
+    Xf, Sf, lsf = Xf[shuffle], Sf[shuffle], lsf[shuffle]
     net = torch.nn.Sequential(torch.nn.Linear(d, 1024), torch.nn.ReLU(), torch.nn.Linear(1024, 1024), torch.nn.ReLU(), torch.nn.Linear(1024, 1000))
     opt = torch.optim.Adam(net.parameters(), lr=1e-3)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, epochs)
