@@ -77,11 +77,22 @@
 </div>
 
 <div id="card" role="dialog" aria-modal="true" aria-labelledby="card-title">
-  <div>
+  <div id="card-get">
     <h2 id="card-title">This site works on your computer with Cale.</h2>
     <p>You get Cale once. After that, this site and other sites that use it just work. Nothing you write leaves your computer.</p>
     <a id="get-cale" href="#">Get Cale</a>
     <small>Already have Cale? Open it. This page notices on its own.</small>
+  </div>
+  <div id="card-ask" hidden>
+    <h2>One quick question from your browser.</h2>
+    <p>To work with Cale on your computer, your browser asks for your OK. Look near the address bar for a question about your local network, and choose Allow. You only do this once for this site.</p>
+    <a id="ask-go" href="#">Ask my browser</a>
+    <small>Nothing leaves your computer.</small>
+  </div>
+  <div id="card-blocked" hidden>
+    <h2>Your browser is blocking this site.</h2>
+    <p>Click the icon at the left of the address bar, open the site settings, and allow access to your local network for this site. Then reload this page.</p>
+    <small>Nothing leaves your computer.</small>
   </div>
 </div>
 
@@ -124,20 +135,43 @@
 
   $("get-cale").href = GET_CALE_URL;
   function say(t) { status.textContent = t || ""; }
-  function showCard(on) { card.classList.toggle("on", on); }
+  function showCard(on, which) {                           // which: "get" (no Cale), "ask" (the browser must ask the person), "blocked" (the person said no)
+    card.classList.toggle("on", on);
+    ["get", "ask", "blocked"].forEach(function (k) { $("card-" + k).hidden = k !== (which || "get"); });
+  }
 
   // Is Cale on this computer? If not, show the card and keep looking, so the page carries on once Cale is there.
-  var watching = false;
+  // The browser may need the person's OK before a public website can reach Cale (Chrome, Firefox). While it asks, wait for the answer:
+  // a call that is cancelled too soon withdraws the question, and a browser blocks a site that leaves questions unanswered.
+  var watching = false, asking = false;
   function watch() {
     if (watching) return;
     watching = true;
-    showCard(true);
     (function look() {
-      cale.isRunning().then(function (up) {
-        if (up) { watching = false; showCard(false); say(""); setup(); } else setTimeout(look, 3000);
+      cale.localPermission().then(function (perm) {
+        if (perm === "denied") { showCard(true, "blocked"); return setTimeout(look, 2000); }       // wait for the person to change the setting
+        if (perm === "prompt") {
+          showCard(true, "ask");
+          if (asking) return setTimeout(look, 1500);          // a question is open: do not ask again
+          asking = true;
+          return cale.isRunning({ timeoutMs: 180000 }).then(function (up) {
+            asking = false;
+            if (up) { watching = false; showCard(false); say(""); setup(); } else setTimeout(look, 1500);
+          });
+        }
+        showCard(true, "get");                                // allowed (or the browser has no such rule): is Cale there?
+        cale.isRunning().then(function (up) {
+          if (up) { watching = false; showCard(false); say(""); setup(); } else setTimeout(look, 3000);
+        });
       });
     })();
   }
+  $("ask-go").addEventListener("click", function (ev) {       // a click is a gesture the browser always accepts for its question
+    ev.preventDefault();
+    if (asking) return;
+    asking = true;
+    cale.isRunning({ timeoutMs: 180000 }).then(function () { asking = false; });
+  });
 
   // Get a key (asks the person once) and a model object. A saved key from an earlier visit needs no question.
   function ready(askPerson) {
@@ -158,10 +192,13 @@
   }
 
   function setup() {          // on page load: carry on quietly if the person allowed this site on an earlier visit
-    cale.isRunning().then(function (up) {
-      if (!up) return watch();
-      if (!cale.key) return;
-      ready(false).then(function () { return warm(); }).catch(function () { /* the first click asks */ });
+    cale.localPermission().then(function (perm) {
+      if (perm === "prompt" || perm === "denied") return watch();        // the browser must ask first: the watcher handles that patiently
+      cale.isRunning().then(function (up) {
+        if (!up) return watch();
+        if (!cale.key) return;
+        ready(false).then(function () { return warm(); }).catch(function () { /* the first click asks */ });
+      });
     });
   }
 

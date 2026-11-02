@@ -93,3 +93,16 @@ def step_summary(dts):
     s = sorted(dts)
     pick = lambda q: s[min(len(s) - 1, int(q * len(s)))]          # noqa: E731
     return {"n": len(s), "p50": round(1000 * pick(0.5), 1), "p95": round(1000 * pick(0.95), 1), "max": round(1000 * s[-1], 1)}
+
+
+def pace(dts, min_steps=120, skip=4):
+    """How the speed changed inside one long answer: steps per second over the first quarter and over the last quarter of its steps
+    (the first `skip` steps are left out: the engine is still settling). None for a short answer. A laptop that heats up slows down: late < early."""
+    if not dts or len(dts) < min_steps:
+        return None
+    q = (len(dts) - skip) // 4
+    early, late = sum(dts[skip:skip + q]), sum(dts[-q:])
+    if early <= 0 or late <= 0:
+        return None
+    return {"early": round(q / early, 3), "late": round(q / late, 3), "steps": len(dts)}
+

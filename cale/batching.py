@@ -23,7 +23,7 @@ from nest.cancel import Cancelled
 from . import choose, constrain, goals as goals_mod, oslayer
 from .backends.llama import PoolFull
 from . import gemma3n_facts as facts
-from .samples import step_summary
+from .samples import pace, step_summary
 
 STEP_SECONDS = 0.75         # POLICY, not a measurement: a step that reads a prompt piece should take about this long, so the answers next to it keep moving
 CHECK_EVERY = 8             # steps between looks at the speed goals
@@ -496,7 +496,7 @@ class BatchMixin:
         for r in decoding:
             r.steps += 1
             r.share += n
-            if len(r.step_dts) < 512:
+            if len(r.step_dts) < 2048:
                 r.step_dts.append(dt)
             if not reading:                                  # a step that also read a prompt piece (another app's) is slow for a reason that is not the size
                 r.pure_n += 1
@@ -586,6 +586,7 @@ class BatchMixin:
             d["total_s"] = round(r.waited + d["seconds"], 3)
             d["paused_pre_s"], d["paused_dec_s"] = round(r.paused_pre_s, 3), round(r.paused_dec_s, 3)
             d["step_ms"] = step_summary(r.step_dts)
+            d["pace"] = pace(r.step_dts) if not r.paused_dec_s and not d.get("switches") else None       # speed early and late in a long answer (the predictor learns heat from it)
             d["predicted_tps"] = r.pred_tps
             d["pure_tps"] = round(r.pure_n / r.pure_s, 3) if r.pure_n >= 8 and r.pure_s >= 1.0 else None      # decode-only speed since the last size change       # the predictor learns from the time spent working, not waiting
             d["disk_mb"], d["disk_s"] = r.disk_mb, r.disk_s

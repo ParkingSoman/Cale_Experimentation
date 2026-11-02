@@ -56,6 +56,71 @@ namespace CaleHost
         public override void Write(byte[] buffer, int offset, int count) { throw new NotSupportedException(); }
     }
 
+    // Writes the files of the zip into the target folder, with one or more threads (each with its own handle on the archive).
+    static class Extractor
+    {
+        // One thread by default. Measured on a 4-core laptop with a virus scanner, on the real 61,000-file archive: 1 thread 251 s, 4 threads 284 s.
+        // (A Python test of the same work gave 204 s with 1 thread and 144 s with 8, so the gain depends on the program that writes the files.)
+        // CALE_EXTRACT_THREADS (1 to 32) tries more. The code is tested for any number: scripts/test_extract_win.py.
+        public static int DefaultThreads()
+        {
+            int n;
+            string v = Environment.GetEnvironmentVariable("CALE_EXTRACT_THREADS");
+            if (!string.IsNullOrEmpty(v) && int.TryParse(v, out n) && n >= 1 && n <= 32) return n;
+            return 1;
+        }
+
+        public static void ExtractAll(string exe, long zipStart, long zipLen, string target, int threads)
+        {
+            string root = target.TrimEnd('\\') + "\\";
+            if (threads < 1) threads = 1;
+            Exception failure = null;
+            object gate = new object();
+            List<Thread> started = new List<Thread>();
+            for (int k = 0; k < threads; k++)
+            {
+                int mine = k;
+                Thread t = new Thread(delegate ()
+                {
+                    try { Part(exe, zipStart, zipLen, target, root, mine, threads); }
+                    catch (Exception ex) { lock (gate) { if (failure == null) failure = ex; } }
+                });
+                t.IsBackground = true;
+                t.Start();
+                started.Add(t);
+            }
+            foreach (Thread t in started) t.Join();
+            if (failure != null) throw failure;
+        }
+
+        // The files number `mine` (counting from 0, every `threads`-th) of the zip.
+        static void Part(string exe, long zipStart, long zipLen, string target, string root, int mine, int threads)
+        {
+            using (FileStream fs = new FileStream(exe, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (Slice slice = new Slice(fs, zipStart, zipLen))
+            using (ZipArchive zip = new ZipArchive(slice, ZipArchiveMode.Read))
+            {
+                int i = -1;
+                foreach (ZipArchiveEntry entry in zip.Entries)
+                {
+                    i++;
+                    if (i % threads != mine) continue;
+                    if (entry.FullName.EndsWith("/") || entry.Name == "") continue;
+                    string dest = Path.GetFullPath(Path.Combine(target, entry.FullName.Replace('/', '\\')));
+                    if (!dest.StartsWith(root, StringComparison.OrdinalIgnoreCase)) continue;       // never write outside the target
+                    Directory.CreateDirectory(Path.GetDirectoryName(dest));
+                    try
+                    {
+                        if (entry.Length == 0) File.WriteAllBytes(dest, new byte[0]);              // an empty file stays empty (Python writes it as a 2-byte deflate stream, and ExtractToFile copied those 2 bytes, which broke "import cale")
+                        else entry.ExtractToFile(dest, true);
+                    }
+                    catch (IOException) { }                                                         // a file in use is already there
+                    catch (UnauthorizedAccessException) { }
+                }
+            }
+        }
+    }
+
     // A moving bar for "this takes a while": a carrot-orange block slides inside a brown-outlined track.
     class Slider : Control
     {
@@ -199,26 +264,7 @@ namespace CaleHost
                 if (!string.IsNullOrEmpty(home) && cfg.ContainsKey("target_calehome")) t = cfg["target_calehome"];
                 target = Path.GetFullPath(Environment.ExpandEnvironmentVariables(t));
                 Directory.CreateDirectory(target);
-                using (FileStream fs = new FileStream(exe, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (Slice slice = new Slice(fs, zipStart, zipLen))
-                using (ZipArchive zip = new ZipArchive(slice, ZipArchiveMode.Read))
-                {
-                    string root = target.TrimEnd('\\') + "\\";
-                    foreach (ZipArchiveEntry entry in zip.Entries)
-                    {
-                        if (entry.FullName.EndsWith("/") || entry.Name == "") continue;
-                        string dest = Path.GetFullPath(Path.Combine(target, entry.FullName.Replace('/', '\\')));
-                        if (!dest.StartsWith(root, StringComparison.OrdinalIgnoreCase)) continue;       // never write outside the target
-                        Directory.CreateDirectory(Path.GetDirectoryName(dest));
-                        try
-                        {
-                            if (entry.Length == 0) File.WriteAllBytes(dest, new byte[0]);              // an empty file stays empty (Python writes it as a 2-byte deflate stream, and ExtractToFile copied those 2 bytes, which broke "import cale")
-                            else entry.ExtractToFile(dest, true);
-                        }
-                        catch (IOException) { }                                                         // a file in use is already there
-                        catch (UnauthorizedAccessException) { }
-                    }
-                }
+                Extractor.ExtractAll(exe, zipStart, zipLen, target, Extractor.DefaultThreads());
                 string run = Environment.ExpandEnvironmentVariables(Get("run", "")).Replace("%TARGET%", target);
                 string args = Environment.ExpandEnvironmentVariables(Get("args", "")).Replace("%TARGET%", target);
                 if (run != "")

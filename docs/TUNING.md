@@ -17,13 +17,20 @@ instead. What it finds is kept in the Cale home folder (`predict.json`, `placeme
 
 1. Use the real model and the real engine. A made-up test misses the code path that real answers use.
 2. Warm up first and throw the warm-up away: clocks rise, caches fill, memory settles. (Measured on a fanless Mac: the first reading was
-   40% too slow.)
-3. For the numbers that matter, take the median of several runs.
+   40% too slow.) The warm-up is itself a fixed-time step: short windows are repeated until two in a row agree within 8%, at most three.
+3. **Fixed time, not fixed work (since 2026-10-18).** A reading is a window of time, not a fixed number of tokens. It runs at least 2 s and
+   until 32 answer tokens were seen, and never more than 7 s. Prompt lengths are set by time too (about 1 s of reading, never a fixed
+   count). So the test takes about the same time on a slow laptop as on a fast Mac: a fast computer fits more tokens into the window, a slow
+   one gets a less exact reading, never a longer test. Before, the same test took 12 s on a Mac and 311 s on a 4-core laptop. The floor of
+   32 tokens is there because a 5 tokens/s laptop makes only 10 tokens in 2 s, and the speed then varied by 32% between two runs (5.4% with the floor).
+   For the numbers that matter, take the median of several windows.
 4. Never change a setting unless the new one is clearly better. The same computer measured twice moves by 10 to 25% (the drift probe
    shows it), so a choice made from one run needs a gain of 15%, and one verified by alternating runs needs 8%. The other speed may be
    12% lower and still count as "not worse".
 5. A graphics card is tried in its own process. A driver that fails or hangs cannot take the installer with it.
 6. Record the power state and the cores the numbers were measured on.
+7. Check it with `scripts/tune_check.py`: it runs the real `cale tune` several times and reports the time, the spread between runs, and the error
+   against a slow measurement of every size (`scripts/sizes_accuracy.py`).
 
 ## What is measured
 
@@ -35,20 +42,30 @@ the same laptop in WSL, CPU only). `full` runs everything in the "full" column; 
 | placement | CPU, and each graphics card (CUDA, Vulkan), on a real prompt piece, each in its own process | Which way of running is fastest. A card is used only if a reference call (512 prompt tokens, 128 answer tokens) finishes 15% sooner and its answers are at least 80% as fast as the CPU's. CUDA versus Vulkan is decided by this, not by a rule. | full (llama) | - | about 3 min | - |
 | environment | power (plugged or battery), cores, core types, RAM | what the numbers were measured on | quick | 0 s | 0 s | 0 s |
 | disk | cold read of the model file, no OS cache | how long reading weights back takes (size changes under a memory goal) | quick | 0.2 s | 1 s | 1 s |
-| working_memory | the most memory the process holds while the longest prompt piece is read | memory goals and the safety limit (replaces a guess of 500 MB) | quick | 1 s (850 MB) | 6 s | 35 s (200 to 490 MB) |
+| working_memory | the most memory the process holds while the longest prompt piece is read. **Fixed time:** the longest piece is started and stopped after 3 s (the memory of a piece is taken when its first pass starts); under 16 MB is not saved | memory goals and the safety limit (replaces a guess of 500 MB) | quick | 7 s (855 MB) | 14 to 24 s (the settling is in this figure) | 35 s (200 to 490 MB) |
 | threads | threads for answers and for prompts, separately, among half the cores, the cores, twice the cores and the fast cores of a hybrid CPU | thread counts; chosen only if clearly better, always checked by alternating runs (the default count is measured first, after a warm-up at that count) | full (CPU answers) | - | 15 s | 100 s |
-| sizes | prompt and answer speed at five spread-out sizes (median of runs) | the table the predictor reads. Sizes between are read off by cost. | quick | 6 s | 53 s | 41 s |
+| sizes | prompt and answer speed at four spread-out sizes (median of runs). **Four since 2026-10-18** (was five): `scripts/sizes_accuracy.py` measured all 16 sizes and built tables from subsets. Four predicted the others as well as five: Mac 1.3% against 1.6% mean error (3.9% against 2.8% at worst), HP 2.4% against 2.5% (10.7% against 10.8%). Three cost about 2 points on the Mac. | the table the predictor reads. Sizes between are read off by cost. | quick | 6 s | 53 s | 41 s |
 | prefill_curve | prompt speed by prompt length | first-token time for long prompts | quick | 2 s | 19 s | 29 s |
-| context | answer speed with a long context | how much answer speed is lost per 1000 tokens of context (two readings; a loss inside the noise is not saved) (Windows: between 2.5% and 24% per 1000 on different runs, so noisy) | full | 3 s | 25 s | 34 s |
+| context | answer speed with a long context | how much answer speed is lost per 1000 tokens of context (two readings; a loss inside the noise is not saved) (Windows: between 2.5% and 24% per 1000 on different runs, so noisy). **Moved to `max` on 2026-10-18:** on the Mac (4096 tokens) and on the 4-core HP (918 tokens) it found no loss and saved nothing, for 6 s and 62 s. | max | 3 s | 25 s (62 s on 2026-10-18) | 34 s |
 | gpu_pieces | speed of each prompt piece length when a card reads prompts | the piece length (no app pays for trying) | full (card) | - | 18 s | - |
-| sustained | speed after two minutes of work against the first seconds | slowdown of hot laptops (Mac fanless: 0.89 after 93 s; Windows with the card: 0.87 after 40 s; Linux: 0.96 to 0.99) | full | 115 s | 120 s | 120 s |
+| sustained | speed after two minutes of work against the first seconds | slowdown of hot laptops (Mac fanless: 0.89 after 93 s; Windows with the card: 0.87 after 40 s; Linux: 0.96 to 0.99). **Moved to `max` on 2026-10-18:** it was 115 to 120 s of every install (84% of a Mac install). Cale now learns the slowdown from real long answers that start on a cool computer (`predict.observe_pace`, saved in `predict.json` as `sustained`, `n_sus`). Limit: answers of 30 to 40 s show a smaller slowdown than the 2-minute test did (a Mac measured 3% in 30 s against 11% in 2 minutes), so very long work is still caught by the live speed controller, not by the prediction. | max | 115 s | 120 s | 120 s |
 | drift | the first measurement repeated at the end | how noisy this computer is | quick | 1 s | 7 s | 9 s |
 | batch | speed of 2, 3 and 4 answers at once | the cost of each extra answer (the engine also learns it while running) | max | - | 35 s | 31 s |
 | cooldown | speed after a rest | how fast a hot computer recovers (the time constant of the heat model) | max | - | - | 47 s |
 | engine options | flash attention, and passes of 1024 and 2048 tokens (card only), each in its own process, judged against two readings of the default | engine settings; kept only if clearly better | max | - | about 2 min | no effect (CPU) |
 
-Total, with the default profile: about 2 minutes on the Mac, about 4.5 minutes on the HP with the card plus the placement comparison,
-and about 6.5 minutes on the HP without a card (the weakest case).
+Total, with the default profile (measured 2026-10-18, `scripts/tune_check.py`; the install timeline is `scripts/timeline_report.py --anchor install_runtime`):
+
+| | Fixed work (before) | Fixed time (now) |
+|---|---|---|
+| Mac, the hardware test | 131 s (12 s without the 120 s heat test) | **23 s in every run** (probes: working memory 7, sizes 14, prefill curve 2) |
+| Mac, the whole install (model linked, not downloaded) | 156 s | **35 s** |
+| HP Windows, the hardware test (CPU engine) | 422 s, then 311 s without the heat and context tests | 64 to 119 s (the threads step is 15 s when no thread count is clearly better, 45 s when one has to be confirmed) |
+| Speed of each size against real answers (`scripts/predict_check.py`) | Mac 0 to 2% | **Mac within 1 to 2%** (gate 25% and 10%) |
+
+The test is the same length every time on the Mac, because a reading is a window of time. On a slower computer a window holds fewer tokens, so the reading is less exact, but the test is never longer than its caps. The caps are in `docs/CONSTANTS.md` ("Fixed-time hardware test").
+
+What is left on the HP, in seconds: threads 15 to 48 (worth it when it finds more threads: 26% faster answers on one run, 5% on another, which is why a change needs a clear gain), sizes 24 to 43, working memory 14 to 24 (this includes the settling of the computer), the repack of the model file 59 to 64, and the unpack of the chat (56 s for 12,194 files; it was 251 s for 61,000).
 
 ## How the results are used
 

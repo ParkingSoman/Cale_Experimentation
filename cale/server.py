@@ -34,7 +34,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from nest.cancel import Cancel, Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pct_range, pick
 
-from . import activity, approval, backends, keys, objstore, oslayer, paths, pressure, sites
+from . import activity, approval, backends, keys, objstore, oslayer, paths, pressure, sites, timeline
 from .engine import ContextTooLong, Engine, EngineError, GoalMissed, Unsafe, Unsupported
 from . import choose, constrain, goals as goals_mod, tools as tools_mod
 
@@ -48,6 +48,8 @@ CONNECT_LOCK = threading.Lock()      # one Allow dialog at a time
 CONNECT_LOCK_META = threading.Lock()  # guards the table of waiting requests
 OBJECTS = {}                         # model objects: (app, id) -> {"spec", "created"}. See _model_object.
 OBJ_LOCK = threading.Lock()
+PENDING = {}                         # objects being made right now: (app, id) -> Event. A call that names one waits for it (see _wait_pending).
+PENDING_WAIT_S = 900                 # POLICY: the longest a call waits for its object. A slow computer may take minutes to load the AI. The call must not fail while it loads.
 DORMANT = None                       # objects that were alive when Cale last ran: (app, id) -> {"spec", "created"}. See cale/objstore.py.
 
 
@@ -66,6 +68,18 @@ def _persist_objects(forget=None):
             d.pop(forget, None)
         live = {k: {"spec": o["spec"], "created": o.get("created")} for k, o in OBJECTS.items()}
     objstore.save(paths.HOME / "objects.json", live, d)
+
+
+def _wait_pending(app, name):
+    """The app's own object with this name is being made now (the AI may still be loading). Wait for it, then look again.
+    Returns the object, or None if there is no such object, or it did not come in time."""
+    with OBJ_LOCK:
+        event = PENDING.get((app, name))
+    if event is None:
+        return None
+    event.wait(PENDING_WAIT_S)
+    with OBJ_LOCK:
+        return OBJECTS.get((app, name))
 
 
 def _revive(app, name):
@@ -500,6 +514,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._hold(self._auth(), self._body())
             if self.path == "/cale/models":
                 return self._model_object(self._auth(), self._body())
+            if self.path.startswith("/cale/models/"):
+                return self._model_update(self._auth(), self.path[len("/cale/models/"):], self._body())
             if self.path == "/cale/predict":
                 self._auth()
                 return self._predict(self._body())
@@ -739,7 +755,53 @@ class Handler(BaseHTTPRequestHandler):
         finally:
             cleanup()
 
+    def _model_update(self, app, oid, req):
+        """Change the goals of the app's own model object (a person moves a slider: another feel). The fields given change, the others stay.
+        A field set to null is removed. An object made from a size is exact and does not change. A memory goal holds a size in RAM, so it does not change here."""
+        with OBJ_LOCK:
+            obj = OBJECTS.get((app, oid))
+        if obj is None:
+            raise ApiError(404, "model_not_found", f"No model object '{oid}' for this app.")
+        old = obj["spec"]
+        if "size_pct" in old:
+            raise ApiError(400, "invalid_model_object", "This object is an exact size. It does not change. Make a new object with goals.")
+        merged = {k: (list(old[k]) if k == "priority" else old[k]) for k in goals_mod.FIELDS if old.get(k) is not None}
+        merged["max_tokens"] = old.get("max_tokens")
+        for k, v in req.items():
+            if v is None:
+                merged.pop(k, None)
+            else:
+                merged[k] = v
+        if merged.get("max_tokens") is None:
+            merged.pop("max_tokens", None)
+        spec = object_spec(merged)
+        if spec.get("memory_pct") != old.get("memory_pct"):
+            raise ApiError(400, "invalid_model_object", "'memory_pct' holds memory for this object. It does not change here. Make a new object.")
+        expect = spec.get("max_tokens") or 256
+        pr = ENGINE.predict({k: v for k, v in spec.items() if k in goals_mod.FIELDS}, 200, expect)
+        with OBJ_LOCK:
+            obj["spec"] = spec
+        _persist_objects()
+        print(f"[model] {app!r} changed {oid}: { {k: v for k, v in spec.items() if v is not None} }", flush=True)
+        return self._json(200, {"id": oid, "object": "cale.model", "family": BASE, "spec": {k: v for k, v in spec.items() if v is not None}, "prediction": pr})
+
     def _model_object(self, app, req):
+        """Make a model object. While it is made (the AI may load first), a call that names it waits: see _wait_pending."""
+        key = (app, object_slug(req.get("name")))
+        event = threading.Event()
+        with OBJ_LOCK:
+            mine = key not in PENDING and key not in OBJECTS       # the same name alive already: its calls find that object at once
+            if mine:
+                PENDING[key] = event
+        try:
+            return self._model_object_made(app, req)
+        finally:
+            if mine:                                               # also on an error: nobody waits for an object that will not come
+                with OBJ_LOCK:
+                    PENDING.pop(key, None)
+                event.set()
+
+    def _model_object_made(self, app, req):
         """Make a model object: a named set of parameters (a size, or goals) that the app then uses as a model name.
         The reply stays open like a hold. The object ends when the app closes the connection or quits.
         A size or a memory goal also keeps that size in RAM for as long as the object lives."""
@@ -771,6 +833,9 @@ class Handler(BaseHTTPRequestHandler):
             OBJECTS[(app, oid)] = {"spec": spec, "created": time.time(),
                                    "max_pct": info.get("size_pct") if "memory_pct" in (hold_spec or {}) else None,   # a memory goal also caps the size this object's calls run at
                                    "memory_goal_met": info.get("goal_met") if "memory_pct" in (hold_spec or {}) else None}
+            waiting = PENDING.pop((app, object_slug(req.get("name"))), None)
+        if waiting:
+            waiting.set()                                          # the object exists now: calls that waited for it go on
         print(f"[model] {app!r} made {oid}: { {k: v for k, v in spec.items() if v is not None} }", flush=True)
         _persist_objects()
         if lease is not None:                                       # plain HTTP: no open connection. The object lasts `lease_s` seconds after its last use or renewal.
@@ -908,7 +973,7 @@ class Handler(BaseHTTPRequestHandler):
         with OBJ_LOCK:
             obj = OBJECTS.get((app, name)) if isinstance(name, str) else None     # only this app's own objects exist for it
         if obj is None and isinstance(name, str) and name != BASE and not name.startswith(BASE + ":"):
-            obj = _revive(app, name)                                          # an object from before a restart of Cale
+            obj = _wait_pending(app, name) or _revive(app, name)             # being made now (wait), or from before a restart of Cale
         spec = obj["spec"] if obj else None
         if obj and obj.get("lease"):                                 # using an object keeps its lease alive
             with OBJ_LOCK:
@@ -1177,6 +1242,7 @@ def main():
     if os.environ.get("CALE_ON_DEMAND") == "1":
         threading.Thread(target=exit_when_idle, daemon=True).start()
     print(f"[cale] listening on http://{paths.HOST}:{paths.PORT} model={paths.MODEL}", flush=True)
+    timeline.mark("server_listening")
     srv.serve_forever()
 
 

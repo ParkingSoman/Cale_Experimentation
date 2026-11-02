@@ -34,12 +34,13 @@ from pathlib import Path
 from nest.cancel import Cancelled
 from nest.levels3n import MAX_CONTEXT, load_levels, pick
 
-from . import backends, choose, constrain, oslayer, paths, pressure
+from . import backends, choose, constrain, oslayer, paths, pressure, timeline
 from . import gemma3n_facts as facts
 from . import goals as goals_mod
 from .batching import BatchMixin, BatchPred, Request, tier_of
 from .turns import TurnQueue
-from .predict import Predictor, Smooth
+from .predict import Predictor, Smooth, placement_key
+from .samples import pace
 
 OVERSHOOT = 1.3             # POLICY: an answer that beats every speed, first-word and memory goal by more than this share, with a larger size allowed, wasted intelligence
 REPLACE_IDLE_S = float(os.environ.get("CALE_REPLACE_IDLE_S", "180"))      # POLICY: an out-of-date way of running is measured again only after nobody used Cale for this long
@@ -164,7 +165,7 @@ class Engine(BatchMixin):
         with self.mu:
             holds = [{"hold": k, "app": h["app"], "size_pct": h["pct"], "age_s": round(time.time() - h["since"])}
                      for k, h in self.holds.items()]
-        return {"loaded": m is not None, "placement": getattr(m, "placement", None), "placement_stale": bool(getattr(m, "placement_stale", False)), "slots": getattr(m, "n_slots", 1) if m is not None else None,
+        return {"loaded": m is not None, "placement": placement_key(getattr(m, "placement", None)), "placement_stale": bool(getattr(m, "placement_stale", False)), "slots": getattr(m, "n_slots", 1) if m is not None else None,
                 "cap_pct": round(self.cap * 100),
                 "resident_gb": resident, "ffn_gb": ffn, "pressure": pressure.name(), "load_s": self.load_s,
                 "idle_s": round(time.time() - self.last_used), "implicit_hold": self.implicit,
@@ -194,6 +195,7 @@ class Engine(BatchMixin):
     # --- load, cap, unload (call with the lock held) ----------------------------------
     def _load(self):
         t = time.perf_counter()
+        timeline.mark("model_load_start")
         if self._gpu_env_was is not None and time.time() >= self.gpu_off_until:        # the cooldown after a GPU failure is over: the GPU is tried again
             if self._gpu_env_was:
                 os.environ["CALE_GPU"] = self._gpu_env_was
@@ -207,7 +209,9 @@ class Engine(BatchMixin):
         self.loaded_at = time.time()
         self.normal_since = self.loaded_at
         self.load_s = round(time.perf_counter() - t, 1)
+        timeline.mark("model_loaded", seconds=self.load_s)
         self._learn_machine()
+        timeline.mark("machine_learned")
         self.log(f"loaded model in {self.load_s}s")
         self.placement_stale_seen = bool(getattr(self.m, "placement_stale", False))
         if getattr(self.m, "placement_stale", False):
@@ -356,6 +360,7 @@ class Engine(BatchMixin):
                 piece *= 4
             if done:
                 self.pred.observe(done)
+                self.pred.save()                  # the save rule skips some counts: this measurement is kept now, so the next start does not repeat it
                 self._grow_base(done)
                 self.log(f"measured this computer in {time.perf_counter() - t0:.1f}s: {self.pred.summary()}")
         except Exception as e:
@@ -489,6 +494,7 @@ class Engine(BatchMixin):
             fast, small = max(sizes.items(), key=lambda kv: kv[1]["decode_tps"]), min(sizes.items(), key=lambda kv: kv[1]["ram_gb"])
             work = ((self.mach.get("scratch_bytes") or facts.SCRATCH_BYTES) + facts.kv_bytes(facts.HOLD_CONTEXT)) / 1e9
             return {"confidence": p.confidence, "memory_gb_s": round(p.bandwidth / 1e9, 1), "disk_gb_per_s": round(p.disk_bps / 1e9, 2),
+                    "ram_gb": round((self.mach.get("total_ram") or 0) / 1e9, 1),       # the whole computer: a memory goal is a share of this
                     "working_gb": round(work, 3),            # what a memory goal adds to the weights: working memory for a prompt and the context of a hold
                     "placement": getattr(self.m, "placement", None), "sizes": sizes,
                     "floor": {"fastest": {"size": fast[0], "tokens_per_s": fast[1]["decode_tps"]},
@@ -602,10 +608,15 @@ class Engine(BatchMixin):
                 if self.debug_fail:
                     self.debug_fail = False
                     raise RuntimeError("debug: injected engine failure")
+                stamps = []                                         # when each piece of text arrived: the speed early and late in a long answer (samples.pace)
                 for ev in self.m.chat_stream(messages, max_tokens=max_tokens, width=lv, temperature=temperature,
                                              top_p=top_p, seed=seed, stop=stop, cancel=cancel, controller=controller, guide=guide, owner=None if seed is not None else app, **({} if logprobs is None else {"logprobs": logprobs})):
+                    if "delta" in ev and len(stamps) < 4096:
+                        stamps.append(time.perf_counter())
                     if "done" in ev:
                         d = ev["done"]
+                        if not d.get("switches"):
+                            d["pace"] = pace([b - a for a, b in zip(stamps, stamps[1:])])
                         d["waited_s"] = round(waited, 3)
                         d["total_s"] = round(waited + d["seconds"], 3)
                         if goals is not None and goals_mod.is_set(goals):
@@ -880,5 +891,9 @@ class Engine(BatchMixin):
         self._sample_call(d)
         self._grow_base(d)
         if self.pred is not None:
+            if d.get("pace"):                                       # before note_busy: the heat this answer started with is what the computer had before it
+                start = time.time() - float(d.get("seconds") or 0.0)
+                if self.pred.observe_pace(d["pace"], float(d.get("decode_s") or 0.0), self.pred.heat_now(start)):
+                    self.log(f"learned the slowdown of long work: {self.pred.sustained:.2f} (from {self.pred.n_sus} answer{'s' if self.pred.n_sus != 1 else ''})")
             self.pred.note_busy(max(float(d.get("seconds") or 0.0) - float(d.get("paused_pre_s") or 0.0) - float(d.get("paused_dec_s") or 0.0), 0.0))      # a paused answer does not heat the computer
             self.pred.observe(d)

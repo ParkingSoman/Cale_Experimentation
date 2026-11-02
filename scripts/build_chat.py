@@ -17,8 +17,11 @@ Result (what cale/chat.py expects):
     <out>/template.db        an empty database with all tables made (no Prisma command is needed on the person's computer)
     <out>/models-seed/       the small file that turns text into numbers (about 23 MB), so documents work offline
     <out>/preload.js         keeps every server on this computer
+    <out>/feel.js            the Quicker/Smarter slider (loaded by preload.js)
     <out>/LICENSE-AnythingLLM.txt
     <out>/bundle.json        what is in it
+    (server/index.js and collector/index.js are packed into one file each; the originals are index.orig.js. --no-pack skips this. Files that
+     nothing can reach are then removed, and the license texts of their packages are in THIRD-PARTY-LICENSES.txt. --no-prune skips this.)
 
 Install size and the exact installer change: see the end of the run (it prints the size).
 """
@@ -51,6 +54,34 @@ def top_only(*names):
 # Packages the chat window never runs (cloud providers, other vector databases, the tool that makes the database, PDF export).
 # The build test (cale/tests or the end-to-end run in the report) must pass after this. Add to the list only with that test.
 UNUSED = ("prisma", "@prisma/engines", "@mintplex-labs/mdpdf-*", "chromadb", "chromadb-default-embed", "@azure")
+
+
+# Left out of the pack: packages that are not in the bundle on purpose (see UNUSED), and the browser tool (the document reader never opens web pages here).
+PACK_EXTERNAL = ("../../package.json", "@azure/identity", "chromadb", "chromadb-default-embed", "puppeteer", "puppeteer-core")
+
+
+def pack(work, node_bin, env, out, prune=False):
+    """Pack the server and the document reader into one file each (scripts/pack_chat.mjs). Each starts by opening about 2,600 and 650 files; on a laptop with
+    a virus scanner that took 4.7 s against 1 s on a Mac. The original index.js stays as index.orig.js. With prune=True, the files that nothing can reach
+    are removed afterwards (scripts/chat_prune.py): about half of all files."""
+    box = work / "packbox"
+    box.mkdir(parents=True, exist_ok=True)
+    run(["npm", "install", "--silent", "--no-audit", "--no-fund", "--prefix", str(box), "esbuild@0.24.0"], work, env)
+    script = box / "pack_chat.mjs"
+    shutil.copyfile(ROOT / "scripts" / "pack_chat.mjs", script)                  # next to node_modules, so that `import "esbuild"` finds it
+    metas = []
+    for part in ("server", "collector"):
+        root = out / part
+        (root / "index.js").rename(root / "index.orig.js")
+        meta = box / f"meta-{part}.json"
+        run([str(node_bin / "node"), str(script), str(root), "index.orig.js", "index.js", *PACK_EXTERNAL], box, dict(env, PACK_META=str(meta), PACK_STAGE2="1" if part == "collector" else "0", PACK_JOBS="1" if part == "server" else "0"), quiet=False)
+        metas.append(meta)
+    if prune:
+        say("removing the files nothing can reach")
+        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "chat_prune.py"), str(out), *map(str, metas)], capture_output=True, text=True)
+        print(r.stdout, end="")
+        if r.returncode:
+            sys.exit("STOP: chat_prune.py failed:\n" + r.stderr[-2000:])
 
 
 OS_WORDS = ("darwin", "linux", "win32", "freebsd", "android")
@@ -209,6 +240,61 @@ def make_pictures(out_dir):
     return dict(carrot_svg=svg, carrot_png=carrot, icon=icon, wordmark=wide, wordmark_on_dark=wide_dark)
 
 
+def speed_patches(server):
+    """Two costs at every start of the chat server that nothing needs until later. Each patch checks that the text it replaces is there, so a new
+    AnythingLLM version stops the build instead of silently skipping the patch.
+    1. comKey: a 2048-bit RSA key pair is made at every boot (93 ms on a fast computer, 7x that on a slow one) on the main thread. Now it is made on a
+       helper thread. The collector is first called seconds later. If something signs before the pair is ready, the pair is made at once (and the
+       late helper result is dropped, so the two files never come from different pairs).
+    2. tiktoken: the token encoder is built when the first TokenManager is made. Now it is built once, 3 s after the start, in idle time (or on first use).
+    """
+    ck = server / "utils" / "comKey" / "index.js"
+    t = ck.read_text()
+    for old, new in (
+        ("    if (generate) this.#generate();", "    if (generate) this.#generateLater();"),
+        ("  #readPrivateKey() {\n", "  #readPrivateKey() {\n    if (CommunicationKey.pending) {\n      CommunicationKey.pending = false;\n      this.#generate();\n    }\n"),
+        ("  #generate() {\n    const keyPair = crypto.generateKeyPairSync(\"rsa\", {\n      modulusLength: 2048,\n      publicKeyEncoding: {\n        type: \"pkcs1\",\n        format: \"pem\",\n      },\n      privateKeyEncoding: {\n        type: \"pkcs1\",\n        format: \"pem\",\n      },\n    });\n\n",
+         "  #generateLater() {\n    CommunicationKey.pending = true;\n    crypto.generateKeyPair(\"rsa\", { modulusLength: 2048, publicKeyEncoding: { type: \"pkcs1\", format: \"pem\" }, privateKeyEncoding: { type: \"pkcs1\", format: \"pem\" } }, (err, publicKey, privateKey) => {\n      if (err || !CommunicationKey.pending) return;\n      CommunicationKey.pending = false;\n      this.#write({ publicKey, privateKey });\n    });\n  }\n\n  #generate() {\n    this.#write(crypto.generateKeyPairSync(\"rsa\", {\n      modulusLength: 2048,\n      publicKeyEncoding: { type: \"pkcs1\", format: \"pem\" },\n      privateKeyEncoding: { type: \"pkcs1\", format: \"pem\" },\n    }));\n  }\n\n  #write(keyPair) {\n"),
+    ):
+        assert old in t, f"comKey patch: text not found: {old[:50]!r}"
+        t = t.replace(old, new, 1)
+    t = t.replace("module.exports = { CommunicationKey };", "CommunicationKey.pending = false;\nmodule.exports = { CommunicationKey };")
+    ck.write_text(t)
+    tk = server / "utils" / "helpers" / "tiktoken.js"
+    t = tk.read_text()
+    old = "    this.encoder = getEncoding(this.encoderName);\n"
+    assert old in t, "tiktoken patch: text not found"
+    t = t.replace(old, "    const encoderName = this.encoderName;\n    Object.defineProperty(this, \"encoder\", { get: () => cachedEncoding(encoderName), configurable: true });\n", 1)
+    # The table behind the encoder takes 190 ms to build on a slow laptop. Build it a few seconds after the start (the person is still typing), not in the first message.
+    t = t.replace("class TokenManager {", "const encodings = {};\nconst cachedEncoding = (name) => (encodings[name] ||= getEncoding(name));\nsetTimeout(() => { try { cachedEncoding(\"cl100k_base\"); } catch (e) { /* built on first use instead */ } }, 3000).unref();\n\nclass TokenManager {", 1)
+    assert "cachedEncoding(\"cl100k_base\")" in t, "tiktoken patch: class line not found"
+    tk.write_text(t)
+    # 3. Work at every start for parts the Cale chat does not use or does not need yet. The collector and the other providers are never reached in Cale.
+    def edit(path, pairs, what):
+        f = server / path
+        text = f.read_text()
+        for old_, new_ in pairs:
+            assert old_ in text, f"{what}: text not found in {path}: {old_[:50]!r}"
+            text = text.replace(old_, new_, 1)
+        f.write_text(text)
+    # the timeout patch loads the Anthropic SDK, which Cale's chat never calls (it talks to Cale through the OpenAI-style address)
+    edit("utils/boot/patchSdkTimeouts.js", [('    ["@anthropic-ai/sdk", "Anthropic"],\n', "")], "sdk timeouts")
+    # the Telegram library (a bot Cale's chat has no screen for) is loaded on first use
+    edit("utils/telegramBot/index.js", [('const TelegramBot = require("node-telegram-bot-api");',
+         'function TelegramBot(...a) {\n  return new (require("node-telegram-bot-api"))(...a);\n}')], "telegram")
+    # the Chroma library (a vector database Cale does not use: it uses LanceDB) is loaded on first use
+    edit("utils/vectorDbProviders/chroma/index.js", [('const { ChromaClient } = require("chromadb");',
+         'function ChromaClient(...a) {\n  return new (require("chromadb").ChromaClient)(...a);\n}')], "chroma")
+    edit("utils/vectorDbProviders/chromacloud/index.js", [('const { CloudClient } = require("chromadb");',
+         'function CloudClient(...a) {\n  return new (require("chromadb").CloudClient)(...a);\n}')], "chroma cloud")
+    # the encryption key (scrypt: 38 ms on a Mac, 130 ms on a slow laptop, twice at every start) is derived when it is first used
+    edit("utils/EncryptionManager/index.js", [
+        ("    this.key = crypto.scryptSync(this.#encryptionKey, this.#encryptionSalt, 32);\n",
+         "    const keyText = this.#encryptionKey, saltText = this.#encryptionSalt;\n    let derived = null;\n    Object.defineProperty(this, \"key\", { get: () => (derived ||= crypto.scryptSync(keyText, saltText, 32)), configurable: true });\n"),
+        ('    this.xPayload = this.key.toString("base64");\n',
+         '    Object.defineProperty(this, "xPayload", { get: () => this.key.toString("base64"), configurable: true });\n')], "encryption")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--src", required=True)
@@ -217,6 +303,8 @@ def main():
     ap.add_argument("--out", default=str(ROOT / "dist" / "chat"))
     ap.add_argument("--work")
     ap.add_argument("--keep-work", action="store_true")
+    ap.add_argument("--no-prune", action="store_true", help="after packing, the files that nothing can reach are removed (scripts/chat_prune.py: about half of all files). This keeps them. After a change to the build, test with scripts/chat_race.py --docs --feel")
+    ap.add_argument("--no-pack", action="store_true", help="do not pack the server and the document reader into one file each (slower to start)")
     ap.add_argument("--target", choices=("native", "win-x64"), default="native",
                     help="native: this computer (default). win-x64: a Windows bundle built on any computer (native files of the other system are fetched, not built)")
     a = ap.parse_args()
@@ -313,8 +401,10 @@ def main():
         text = text.replace(old, new)
     text = re.sub(r"https://raw\.githubusercontent\.com/Mintplex-Labs/[^\"]*", "", text)
     meta.write_text(text)
+    speed_patches(out / "server")
     shutil.copytree(work / "collector", out / "collector", symlinks=True, ignore=top_only("hotdir"))
     shutil.copyfile(ROOT / "cale" / "anythingllm" / "preload.js", out / "preload.js")
+    shutil.copyfile(ROOT / "cale" / "anythingllm" / "feel.js", out / "feel.js")        # the Quicker/Smarter slider; preload.js loads it
     if cross:
         prune(out, "win32", "x64")
         for f in (out / "server" / "node_modules" / ".prisma" / "client").glob("libquery_engine*"):      # the engine of the build computer
@@ -323,9 +413,12 @@ def main():
         shorten_for_windows(out)
     else:
         prune(out)
+    if not a.no_pack:
+        say("packing the server and the document reader into one file each")
+        pack(work, node_bin, env, out, prune=not a.no_prune)
     engines = sorted(p.name for p in (out / "server" / "node_modules" / ".prisma" / "client").glob("*query_engine*"))
     (out / "bundle.json").write_text(json.dumps({"anythingllm": json.loads((src / "server" / "package.json").read_text())["version"], "prisma_engines": engines, "embedder": EMBEDDER,
-        "target": a.target, "node": subprocess.run([str(node_bin / "node"), "--version"], capture_output=True, text=True).stdout.strip(),
+        "target": a.target, "packed": not a.no_pack, "pruned": not a.no_prune and not a.no_pack, "node": subprocess.run([str(node_bin / "node"), "--version"], capture_output=True, text=True).stdout.strip(),
         "built": time.strftime("%Y-%m-%d")}, indent=1))
     if not a.keep_work:
         shutil.rmtree(work, ignore_errors=True)

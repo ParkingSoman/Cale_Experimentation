@@ -14,11 +14,13 @@ STEPS = {"speed": "Timing the model", "pieces": "Trying the graphics card", "thr
 
 
 def probe():
-    """One way of running (CALE_GPU says which): load the model, read a short prompt, and (unless it is hopelessly slow) a longer piece, answer a few
-    tokens, and print the speeds. CALE_PROBE_SKIP_BELOW: stop after the short prompt if it was read slower than this (tokens/s)."""
+    """One way of running (CALE_GPU says which): load the model and read its speeds in FIXED TIME (the readings of cale/tuning.py: windows, not a
+    fixed amount of work), then print one line. CALE_PROBE_SKIP_BELOW: stop after the first reading if the prompt was read
+    slower than this (tokens/s): a way that is hopeless is not measured further."""
     import json
     import statistics
     import time
+    from .tuning import Tuner
     t_in = time.time()
     boot = round(t_in - float(os.environ["CALE_PROBE_T0"]), 1) if os.environ.get("CALE_PROBE_T0") else None   # launch -> this line: Python and imports start-up
     eng = Engine(paths.MODEL)
@@ -29,24 +31,21 @@ def probe():
     t_b = time.time()
     m = eng.m
     piece = min(256, getattr(m, "batch_tokens", 512))
-    eng._run_prompt(48, 8)                                        # warm-up, thrown away
+    tuner = Tuner(eng, "quick")
+    full = tuner.full_level()
+    tuner.timed(full, window_s=1.0, min_tokens=8)                  # one short settling window, thrown away. (The install test settles longer: it is measuring for good. Here every way
+                                                                   # of running is a model load, so the readings are few: one answer window, one piece.)
     t_c = time.time()
-
-    def speeds(d):
-        if d and d.get("tokens", 0) >= 9 and d.get("decode_s", 0) > 0:
-            dec = (d["tokens"] - 1) / d["decode_s"]
-            return d["prompt_tokens"] / max(d["first_token_s"] - 1.0 / dec, 1e-6), dec
-    first = speeds(eng._run_prompt(64, 16))
+    first = tuner.timed(full)                                       # (prompt tokens/s of a short prompt, answer tokens/s)
     out = {"placement": getattr(m, "placement", None)}
     if first:
-        piece = int(min(piece, max(64, first[0] * 8)))               # about 8 seconds of reading for a slow reader
+        piece = int(min(piece, max(64, first[0] * 4)))               # FIXED TIME: about 4 seconds of reading, whatever the speed of the reader
     skip = float(os.environ.get("CALE_PROBE_SKIP_BELOW") or 0)
     if first and skip and first[0] < skip:
         out.update(pre=first[0], dec=first[1], first_pre=first[0], dropped=True)
-    else:
-        runs = [r for r in (speeds(eng._run_prompt(piece, 20)) for _ in range(2)) if r]
-        if runs:
-            out.update(pre=statistics.median(r[0] for r in runs), dec=statistics.median(r[1] for r in runs), first_pre=first[0] if first else None)
+    elif first:
+        long_pre = tuner.read_speed(full, piece)
+        out.update(pre=long_pre or first[0], dec=first[1], first_pre=first[0])
     out["phases"] = {"boot_s": boot, "engine_init_s": round(t_a - t_in, 1), "load_s": round(t_b - t_a, 1), "warmup_s": round(t_c - t_b, 1), "measure_s": round(time.time() - t_c, 1)}
     print("PLACEMENT_PROBE " + (json.dumps(out) if "pre" in out else "failed"), flush=True)
     return 0 if "pre" in out else 1

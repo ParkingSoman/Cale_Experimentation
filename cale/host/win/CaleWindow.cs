@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -382,14 +383,33 @@ namespace CaleHost
             }
         }
 
+        // One line in the Cale timeline (the same file the Python parts write: cale/timeline.py). Never fails, never waits for anything slow.
+        static void Mark(string step)
+        {
+            try
+            {
+                string home = Environment.GetEnvironmentVariable("CALE_HOME");
+                if (string.IsNullOrEmpty(home)) home = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Cale");
+                if (!Directory.Exists(home)) return;
+                double t = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+                File.AppendAllText(Path.Combine(home, "timeline.jsonl"),
+                    "{\"t\":" + t.ToString("F1", CultureInfo.InvariantCulture) + ",\"kind\":\"mark\",\"run\":\"window\",\"step\":\"" + step + "\",\"pid\":" + Process.GetCurrentProcess().Id + "}\n");
+            }
+            catch (Exception) { }
+        }
+
         async void StartUp()
         {
+            Mark("window_start");
+            // The server does not need the web engine. Start it first, so Cale and the engine start at the same time (the chat used to start only after the engine was ready).
+            if (opts.ServerExec != "") StartServer();
             try
             {
                 string data = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CaleWindow", Shell.IdFor(opts.Title));
                 Directory.CreateDirectory(data);
                 CoreWebView2Environment env = await CoreWebView2Environment.CreateAsync(null, data, null);
                 await web.EnsureCoreWebView2Async(env);
+                Mark("webview_ready");
                 CoreWebView2Settings s = web.CoreWebView2.Settings;
                 s.AreDevToolsEnabled = false;
                 s.IsStatusBarEnabled = false;
@@ -404,8 +424,8 @@ namespace CaleHost
             {
                 webFailed = true;             // the web engine is missing: fall back to Edge's app window when the page is known
             }
-            if (opts.ServerExec == "") { url = opts.Url; ready = true; Load(); }
-            else StartServer();
+            if (opts.ServerExec == "") { url = opts.Url; ready = true; }
+            Load();                           // a server that said READY while the engine started has left its address in `url`: show it now
         }
 
         void StartServer()
@@ -479,6 +499,7 @@ namespace CaleHost
         void Load()
         {
             if (!ready || url == "") return;
+            if (!webFailed && web.CoreWebView2 == null) return;       // the engine is still starting: StartUp calls Load again when it is ready
             if (webFailed)
             {
                 if (token != "") { NeedWebView(); return; }        // a secret address never goes to a browser
@@ -524,7 +545,7 @@ namespace CaleHost
         // The page's server may take a moment to start. Try again a few times, quietly.
         void OnNavigated(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
-            if (e.IsSuccess) WatchForText();                    // keep the loading screen until the page has drawn some text (an HTTP error page has text too)
+            if (e.IsSuccess) { Mark("page_loaded"); WatchForText(); }                    // keep the loading screen until the page has drawn some text (an HTTP error page has text too)
             if (e.IsSuccess)
             {
                 if (token != "" && !tokenSpent)
@@ -567,6 +588,7 @@ namespace CaleHost
             if (splashTimer != null) { splashTimer.Stop(); splashTimer.Dispose(); splashTimer = null; }
             if (splash != null)
             {
+                Mark("splash_hidden");
                 Controls.Remove(splash);
                 splash.Dispose();
                 splash = null;

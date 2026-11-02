@@ -23,6 +23,27 @@ Say out loud: "Same AI, on this computer, for a chat, for a desktop app, and for
 
 The install itself is a recorded time-lapse. Do not run it live.
 
+| Computer | Where the installers are | Check |
+|---|---|---|
+| Mac | `~/Downloads/Cale-mac.dmg`, `~/Downloads/Quick-Notes-mac.dmg` | Same bytes as `dist/`. No quarantine mark, so no warning. |
+| HP | `C:\Users\Shonu\Downloads\Cale-Setup.exe` (359,008,408 B, SHA-256 `1769E88E...F3FD3C`), `Quick-Notes-Setup.exe` (41,616 B, SHA-256 `BE27B6AD...E3400E`) | Signed with the demo certificate (Valid). The copies were not run from Downloads. |
+
+## Speed bar (decided 2026-10-18): the same feel on every computer
+
+A consumer cannot warm up first, so the demo does not either. If a moment is slow on the HP, that is a gap to fix, not a step to hide.
+The bar is sameness: each moment must feel the same on the Mac and on the HP. Only the intelligence level may differ. Plan: `~/.claude/plans/okay-overall-i-think-streamed-sutton.md`.
+
+| State | What |
+|---|---|
+| Done, Mac only | The chat window no longer waits for the AI to load. Mac: chat ready at 0.9 s, was about 5 s. A message sent during the load waits and is answered (`cale/tests/pending_object.py`, and a real run through the chat). |
+| Not yet checked on the HP | The same change on Windows. The HP numbers below (40 s and 75 s) are from BEFORE this change. Measure again with `python scripts/timeline_report.py`. |
+| Not done yet | Windows starts its browser part before it starts Cale (`CaleWindow.cs`). The marks for the window program itself. The slider. The faster install. |
+| Still true | On the HP, close other programs first. McAfee and Defender scans made the install take 23 to 25 minutes (11 on a quiet day). |
+
+Timeline: every open writes marks to `timeline.jsonl` in the Cale folder. `python scripts/timeline_report.py [FILE ...]` prints seconds per step. Give one file per computer to see them side by side.
+Chat check (the chat part of the scorecard): `python scripts/chat_race.py NEWFOLDER --bundle dist/chat --node NODE [--cold] [--feel]`. It starts its own test Cale and chat, sends one message at once, prints every step, and with `--feel` moves the Quicker/Smarter slider and shows the size Cale used. Measured 2026-10-18: Mac chat ready 0.9 s, HP 5.7 to 6.2 s (10 to 14 s on the first run after a pause). Details: `docs/HANDOFF-2026-10-18.md`.
+The installers in Downloads and on the HP are from BEFORE this work (old chat, no slider). Rebuild them before a demo.
+
 ## Measured on 2026-10-17 (fresh test install, real AI, nothing of the owner's real Cale touched)
 
 | Step | Mac (M5) | HP Windows |
@@ -31,6 +52,19 @@ The install itself is a recorded time-lapse. Do not run it live.
 | Chat opens by itself after install | within 12 s | 3 s (page ready after 40 s on a warm start) |
 | First real chat answer | 1.85 s in total | first text 1.35 s, 5.3 s in total |
 | Quick Notes first word (goal 1 s) | 0.12 to 0.15 s | 0.13 to 0.14 s. The first call after a cold start took 1.24 s (goal missed). |
+
+## The website step: two one-time questions
+
+On a Chrome that has never seen the site, the first visit shows two questions. Answer both once and the audience never sees them again.
+
+| Order | Who asks | What it says | What to do |
+|---|---|---|---|
+| 1 | Chrome (near the address bar) | `cale-rewrite.vercel.app wants to: Access other apps and services on this device` with Block and Allow | Choose **Allow**. The page shows "One quick question from your browser" while it waits. It waits patiently (up to 3 minutes) and never cancels the question. |
+| 2 | Cale (a window on the computer) | `Allow the website "cale-rewrite.vercel.app" to use Cale on this computer?` | Choose **Allow**. |
+
+If you choose Block in Chrome, the page says "Your browser is blocking this site", and Chrome's site settings must allow it again. If a question is ignored 4 times, Chrome blocks the site for 7 days, so do not let it time out.
+
+Test hook (for tests only): add `?cale=http://127.0.0.1:<port>` to the address to point the page at a TEST Cale. Only a loopback address with a port is accepted. A yellow "Test mode" banner shows, and the saved key has its own name per address, so the real Cale's key is never used for a test address.
 
 ## Safe testing (read before running any test)
 
@@ -60,7 +94,7 @@ The install itself is a recorded time-lapse. Do not run it live.
 
 | Item | State |
 |---|---|
-| Rewrite website | Built (`web/rewrite/`). Not tested in real Chrome. Not published. The download link in `index.html` is a placeholder (`https://get-cale.example`). Chrome's call needs `targetAddressSpace` set: the value is not decided yet and must be tested. |
+| Rewrite website | LIVE and tested in real Chrome 155: https://cale-rewrite.vercel.app (Vercel project `cale-rewrite`, team "Shonu S's projects"). Files in `web/rewrite/`. A real rewrite streamed back from a test Cale on this Mac. Chrome's local-network permission for this site is already "Allowed" in the owner's Chrome. Not tested: Safari and Firefox, and a Chrome that has never seen the site (it needs the two one-time questions below). |
 | Chat, light theme | Being fixed. The dark theme looks right. |
 | Linux | No chat, no window program. Covered by the scorecard and by speaking. |
 | A first install on a Mac with no developer tools | Not tested. |

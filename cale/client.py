@@ -138,6 +138,13 @@ def _start_with_command(wait):
     base = os.environ.get("CALE_URL", "http://127.0.0.1:47821").rstrip("/")
 
     def up():
+        import socket
+        from urllib.parse import urlparse
+        u = urlparse(base)
+        try:                                              # Windows takes 2 s to refuse a connection to a port nobody listens on: ask with a short wait first
+            socket.create_connection((u.hostname, u.port or 80), timeout=0.25).close()
+        except OSError:
+            return False
         try:
             with urllib.request.urlopen(base + "/cale/status", timeout=3):
                 return True
@@ -164,5 +171,5 @@ def _start_with_command(wait):
     while time.time() < end:
         if up():
             return "Cale is running."
-        time.sleep(1)
+        time.sleep(0.1)
     raise CaleError(0, "Cale did not start in time.")

@@ -41,6 +41,7 @@
     // The saved key belongs to ONE base address. A test address (see baseFromSearch) gets its own name, so the real Cale's key
     // is never read for, or sent to, any other address.
     this.storageKey = opts.storageKey || (this.base === DEFAULT_BASE ? "cale-web-key" : "cale-web-key:" + this.base);
+    this._permissions = opts.permissions === undefined ? (root.navigator && root.navigator.permissions) || null : opts.permissions;
     this._store = opts.storage === undefined ? safeStorage() : opts.storage;
     this.key = this._load();
   }
@@ -84,11 +85,25 @@
     return { status: res.status, body: body, res: res };
   };
 
-  /* Does Cale answer on this computer? Needs no key and no question. */
-  CaleWeb.prototype.isRunning = async function () {
+  /* Does this browser let this site reach programs on the visitor's own computer? A public website needs the person's OK for that
+     (Chrome 142 and later, Firefox 151 and later). Returns "granted", "prompt" (the browser has not asked yet, or is asking now),
+     "denied", or "unsupported" (the browser has no such rule). Asking does not show a question. */
+  CaleWeb.prototype.localPermission = async function () {
+    if (!this._permissions || !this._permissions.query) return "unsupported";
+    var names = ["loopback-network", "local-network-access", "local-network"];
+    for (var i = 0; i < names.length; i++) {
+      try { var r = await this._permissions.query({ name: names[i] }); if (r && r.state) return r.state; } catch (e) { /* try the next name */ }
+    }
+    return "unsupported";
+  };
+
+  /* Does Cale answer on this computer? Needs no key and no question.
+     timeoutMs: how long to wait for an answer. Use a long time while the browser is asking the person for permission: a call that is
+     cancelled too soon withdraws the question, and a browser blocks a site that leaves its questions unanswered. */
+  CaleWeb.prototype.isRunning = async function (o) {
     try {
       var ctl = typeof AbortController !== "undefined" ? new AbortController() : null;
-      var timer = ctl && setTimeout(function () { ctl.abort(); }, 3000);
+      var timer = ctl && setTimeout(function () { ctl.abort(); }, (o && o.timeoutMs) || 3000);
       var r = await this._json("/cale/status", { auth: false, signal: ctl && ctl.signal });
       if (timer) clearTimeout(timer);
       return r.status === 200 && r.body.ok === true;

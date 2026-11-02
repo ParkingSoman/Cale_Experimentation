@@ -19,6 +19,7 @@ Files (all under Cale's home, see cale/paths.py):
 Settings (environment, all optional; for tests): CALE_CHAT_BUNDLE, CALE_CHAT_DATA, CALE_NODE, CALE_CHAT_PORT,
   CALE_CHAT_TPS (default 3), CALE_CHAT_MEMORY_PCT (40), CALE_CHAT_TOKENS (1024), CALE_CHAT_CONTEXT (8192).
 """
+import hashlib
 import json
 import os
 import secrets
@@ -34,7 +35,7 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-from . import client, keys, oslayer, paths
+from . import client, keys, oslayer, paths, timeline
 
 BUNDLE = Path(os.environ.get("CALE_CHAT_BUNDLE") or paths.HOME / "chat")
 DATA = Path(os.environ.get("CALE_CHAT_DATA") or paths.HOME / "chat-data")
@@ -43,6 +44,9 @@ OBJECT_NAME = "chat"
 WORKSPACE = "My chats"
 START_TIMEOUT_S = 120
 NO_WINDOW = 0x08000000 if oslayer.WIN else 0         # CREATE_NO_WINDOW: a child program that is not started from a console must not open one
+
+
+FILE_WAIT_S = 20                      # how long to trust the ready file before asking the port as well (a server without the preload never writes it)
 
 
 class KillWithMe:
@@ -92,7 +96,7 @@ class KillWithMe:
 KILL_WITH_ME = KillWithMe()
 
 # What the chat needs, in its own words. Cale turns this into a size on each computer (cale/goals.py).
-GOALS = dict(name=OBJECT_NAME, min_tokens_per_s=float(os.environ.get("CALE_CHAT_TPS", "3")),
+GOALS = dict(name=OBJECT_NAME, min_tokens_per_s=float(os.environ.get("CALE_CHAT_TPS", "7")),     # 7: text flows at reading speed (docs/CONSTANTS.md). The slider (cale/anythingllm/feel.js) then sets it for this computer.
              memory_pct=float(os.environ.get("CALE_CHAT_MEMORY_PCT", "40")), max_tokens=int(os.environ.get("CALE_CHAT_TOKENS", "1024")))
 CONTEXT_TOKENS = int(os.environ.get("CALE_CHAT_CONTEXT", "8192"))
 
@@ -192,6 +196,15 @@ def prepare_data():
     if not (BUNDLE / "server" / "index.js").exists():
         raise SystemExit(f"Cale's chat is not installed (no {BUNDLE / 'server' / 'index.js'}).")
     storage, hotdir = DATA / "storage", DATA / "hotdir"
+    # Everything below is the same on every start of a bundle. Do it once (the install does, through --warm) and skip it when the marker still fits:
+    # on a computer with virus scanners, links and many small file writes are what a person would wait for.
+    marker = DATA / ".prepared"
+    stamp = hashlib.sha1((json.dumps(SETTINGS, sort_keys=True) + str(BUNDLE.resolve()) + str((BUNDLE / "bundle.json").stat().st_mtime if (BUNDLE / "bundle.json").exists() else 0)).encode()).hexdigest()
+    try:
+        if marker.read_text() == stamp and (storage / "anythingllm.db").exists() and (BUNDLE / "server" / "storage").exists() and (BUNDLE / "collector" / "hotdir").exists():
+            return
+    except OSError:
+        pass
     for d in (storage, hotdir, storage / "documents", storage / "models"):
         d.mkdir(parents=True, exist_ok=True)
     _link(BUNDLE / "server" / "storage", storage)
@@ -208,6 +221,7 @@ def prepare_data():
             elif not dst.exists():
                 shutil.copyfile(src, dst)
     seed_settings(db)
+    marker.write_text(stamp)
 
 
 # --- Cale: the key and the hold ---------------------------------------------------------------
@@ -260,6 +274,8 @@ class Servers:
         self.collector_port = free_port()
         self.procs = []
         self.logfile = None
+        self.reader_started = False
+        self.ready_file = DATA / f"ready-{self.port}"
 
     def env(self):
         paths.LOGS.mkdir(parents=True, exist_ok=True)
@@ -274,19 +290,35 @@ class Servers:
             GENERIC_OPEN_AI_MODEL_PREF=self.model_id, GENERIC_OPEN_AI_MODEL_TOKEN_LIMIT=str(CONTEXT_TOKENS),
             GENERIC_OPEN_AI_API_KEY=self.key, GENERIC_OPEN_AI_MAX_TOKENS=str(GOALS["max_tokens"]),
             EMBEDDING_ENGINE="native", VECTOR_DB="lancedb", CALE_PARENT_PID=str(os.getpid()),
-            CALE_CHAT_TOKEN=self.token, CALE_CHAT_COOKIE=self.cookie, CALE_CHAT_MAIN_PORT=str(self.port), CALE_CHAT_COLLECTOR_PORT=str(self.collector_port))
+            CALE_CHAT_TOKEN=self.token, CALE_CHAT_COOKIE=self.cookie, CALE_CHAT_MAIN_PORT=str(self.port), CALE_CHAT_COLLECTOR_PORT=str(self.collector_port),
+            NODE_COMPILE_CACHE=str(paths.HOME / "cache" / "node-compile"),     # Node keeps its compiled code of the big packed files: the next start skips the compile
+            CALE_CHAT_READY_FILE=str(self.ready_file),         # preload.js writes it when the chat server listens (see wait_ready)
+            CALE_FEEL_FILE=str(DATA / "feel.json"))              # where the slider keeps its position (cale/anythingllm/feel.js)
         return e
 
     def start(self):
+        """Start the chat server. The document reader starts AFTER the chat is ready (start_reader): it is only needed when a document is added, and starting both at
+        once made them compete for the processor and the virus scanners at the moment a person waits (CALE_READER_EARLY=1 starts it first, for a test)."""
         paths.LOGS.mkdir(parents=True, exist_ok=True)
         self.logfile = open(paths.LOGS / "chat.log", "ab")
-        env = self.env()
+        self.ready_file.unlink(missing_ok=True)
+        self.env_ = self.env()
+        if os.environ.get("CALE_READER_EARLY") == "1":
+            self.start_reader()
+        self._spawn("server")
+
+    def start_reader(self):
+        if self.reader_started:
+            return
+        self.reader_started = True
+        self._spawn("collector")
+
+    def _spawn(self, sub):
         pre = ["-r", str(BUNDLE / "preload.js")]
-        for sub in ("collector", "server"):
-            p = subprocess.Popen([self.node, *pre, "index.js"], cwd=BUNDLE / sub, env=env, stdin=subprocess.DEVNULL,
-                                 stdout=self.logfile, stderr=subprocess.STDOUT, creationflags=NO_WINDOW)
-            KILL_WITH_ME.add(p)
-            self.procs.append(p)
+        p = subprocess.Popen([self.node, *pre, "index.js"], cwd=BUNDLE / sub, env=self.env_, stdin=subprocess.DEVNULL,
+                             stdout=self.logfile, stderr=subprocess.STDOUT, creationflags=NO_WINDOW)
+        KILL_WITH_ME.add(p)
+        self.procs.append(p)
 
     def alive(self):
         return all(p.poll() is None for p in self.procs)
@@ -316,16 +348,22 @@ class Servers:
         return self.request(path, timeout=timeout)
 
     def wait_ready(self, timeout=START_TIMEOUT_S):
-        end = time.time() + timeout
+        """Wait until the chat server answers. The server writes a file when it listens, and this waits for that file. Asking the port instead is slow on Windows:
+        a connection to a port nobody listens on yet takes 2 s to be refused there (6 ms on a Mac), so one early try cost every start 2 s."""
+        start = time.time()
+        end = start + timeout
         while time.time() < end:
             if not self.alive():
                 raise SystemExit("The chat window server stopped while starting. See " + str(paths.LOGS / "chat.log"))
+            if not self.ready_file.exists() and time.time() - start < FILE_WAIT_S:
+                time.sleep(0.01)
+                continue
             try:
                 if self.get("/api/ping").get("online"):
                     return
             except (urllib.error.URLError, OSError, ValueError):
                 pass
-            time.sleep(0.4)
+            time.sleep(0.05)
         raise SystemExit("The chat window server did not start in time. See " + str(paths.LOGS / "chat.log"))
 
     def ensure_workspace(self):
@@ -341,24 +379,45 @@ class Servers:
 
 
 # --- main -------------------------------------------------------------------------------------
+def warm():
+    """Start the chat servers once and stop them, so Node's compile cache is filled before the first open (the install calls this). Needs no AI."""
+    prepare_data()
+    servers = Servers(node_path(), OBJECT_NAME, chat_key())
+    servers.start()
+    try:
+        servers.wait_ready()
+        servers.start_reader()
+        time.sleep(1.5)
+    finally:
+        servers.stop()
+    return 0
+
+
 def main():
+    if "--warm" in sys.argv:
+        return warm()
+    timeline.mark("chat_start")
     node = node_path()
     parent = os.getppid()
-    try:
-        client.ensure_running()
-    except client.CaleError as e:
-        print(f"Cale is not running and did not start: {e}", file=sys.stderr, flush=True)
-        return 1
-    prepare_data()
-    holder = Holder(f"http://{paths.HOST}:{paths.PORT}", chat_key())
-    holder.start()
-    holder.ready.wait(90)
-    if holder.id is None:
-        print(f"Cale did not accept the chat: {holder.error}", file=sys.stderr, flush=True)
-        return 1
-    log(f"chat object {holder.id}: {holder.info}")
+    # Cale starts while the chat servers start: the servers need Cale only when a message is sent (the window never waits for the AI).
+    cale_up = []
 
-    servers = Servers(node, holder.id, chat_key())
+    def start_cale():
+        try:
+            client.ensure_running()
+        except client.CaleError as e:
+            cale_up.append(e)
+
+    starter = threading.Thread(target=start_cale, daemon=True)
+    starter.start()
+    prepare_data()
+    timeline.mark("data_ready")
+    key = chat_key()
+    holder = Holder(f"http://{paths.HOST}:{paths.PORT}", key)
+    # The window must never wait for the AI to load. The chat servers start now, under the name Cale gives a chat object when that name is free.
+    # A message sent while the AI still loads waits inside Cale (server.py _wait_pending). If Cale gave another name, the loop below restarts the servers with it.
+    timeline.mark("model_object_asked")
+    servers = Servers(node, OBJECT_NAME, key)
     done = threading.Event()
 
     def bye(*_):
@@ -369,11 +428,27 @@ def main():
     if hasattr(signal, "SIGHUP"):
         signal.signal(signal.SIGHUP, bye)
     try:
+        timeline.mark("servers_start")
         servers.start()
+        starter.join()
+        if cale_up:
+            print(f"Cale is not running and did not start: {cale_up[0]}", file=sys.stderr, flush=True)
+            return 1
+        timeline.mark("cale_reachable")
+        holder.start()
         servers.wait_ready()
+        timeline.mark("servers_ready")
         servers.ensure_workspace()
         say_ready(servers.port, servers.token)
+        timeline.mark("ready_said")
+        servers.start_reader()                               # now: the chat is ready, the document reader can start
+        timeline.mark("reader_started")
+        logged = False
         while not done.is_set():
+            if holder.id and not logged:
+                logged = True
+                timeline.mark("model_object_ready")
+                log(f"chat object {holder.id}: {holder.info}")
             if parent > 1 and (not pid_alive(parent) or os.getppid() != parent):
                 break                                        # the window program is gone
             if holder.id and holder.id != servers.model_id:  # Cale gave the chat a new name (it restarted): start the servers again with it
@@ -384,6 +459,7 @@ def main():
                 servers.wait_ready()
                 servers.ensure_workspace()
                 say_ready(servers.port, servers.token)             # a new one-time code; the window program reloads its page with it
+                servers.start_reader()
             if not servers.alive():
                 print("The chat window server stopped. See " + str(paths.LOGS / "chat.log"), file=sys.stderr, flush=True)
                 return 1

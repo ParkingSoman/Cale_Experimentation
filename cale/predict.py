@@ -28,6 +28,10 @@ PRIORS = {
     "llama": {"eff": 0.54, "prefill_ratio": 2.5, "fixed": 0.135},
 }
 KEEP = 9               # answers kept per size for the median
+PACE_MIN_S = 15.0              # POLICY: an answer must decode this long before its end says anything about heat (a laptop heats over 13 to 40 s)
+PACE_MAX_START_HEAT = 0.3      # POLICY: ...and the computer must have been cool when it started (heat model: 0 = cool, 1 = as hot as after the long test)
+PACE_WEIGHT = 0.25             # POLICY: how far one more long answer moves the learned slowdown
+
 BATCH_EPS = 0.7        # each extra answer in a step adds this share of the time of one. Measured: Mac CPU 0.4-0.6, HP CPU 0.8-0.9 (llama.cpp, 2 and 4 answers). Learned per computer after that.
 LOAD_ALPHA = 1.0       # other programs using a share b of the CPU slow answers to 1 / (1 + alpha * b). Prior from one sweep (HP Windows, 4 cores, b = 0.5 -> 0.61-0.68x, b = 1 -> 0.5x, results/demo/sweep-windows.json). Learned per computer after 3 quiet and 1 busy answer.
 DISK_PRIOR = 1.0e9     # bytes per second until a real read has been seen (a modest SSD)
@@ -45,6 +49,14 @@ class Smooth:
     def update(self, x, dt):
         self.value += (float(x) - self.value) * min(1.0, dt / self.tau)
         return self.value
+
+
+def placement_key(placement):
+    """The part of a placement text that says HOW the model runs (device, layers). The reason after "; chosen because" is dropped.
+    The reason changes with the weather (a card cooling down, memory not free). Speeds measured for the same way of running stay true."""
+    if not placement:
+        return None
+    return str(placement).split("; chosen because")[0].strip() or None
 
 
 class Predictor:
@@ -70,7 +82,8 @@ class Predictor:
         self.pre_curve = []                                             # measured at install, full size: [(prompt tokens, prompt tokens/s)] by length
         self.pre_curve_small, self.small_id = [], None                  # the same at the smallest size (level id): a graphics card that reads prompts has a cost per pass that depends on the size, so short prompts do not scale like long ones
         self.dec_ctx = 0.0                                              # measured at install: share of answer speed lost per 1000 tokens of context
-        self.sustained = 1.0                                            # measured at install: speed after minutes of work / speed in the first seconds (1 = no throttling)
+        self.sustained = 1.0                                            # speed after minutes of work / speed in the first seconds (1 = no throttling). Learned from long answers (observe_pace), or measured by `cale tune max`
+        self.sust_raw, self.n_sus = 1.0, 0                              # the learned ratio before it is rounded to "no throttling" (see observe_pace), and how many answers it comes from
         self.corr_dec = self.corr_pre = 1.0                             # what real answers say about the measured table (1 = it is right)
         self.heat, self.heat_at = 0.0, None                             # 0 = cool, 1 = as hot as after the sustained test: recent work heats, idle time cools
         self.by_level = {}                                              # level id -> recent decode speeds (tokens/s)
@@ -191,6 +204,22 @@ class Predictor:
         return "estimate" if self.n_dec == 0 or self.n_pre == 0 else "learned"
 
     # --- learning -------------------------------------------------------------------------------
+    def observe_pace(self, pace, seconds, heat_start):
+        """Learn how much this computer slows down when it works for a long time, from a real long answer (samples.pace).
+        Only an answer that started on a cool computer says anything: after another long answer the start is already slow. A ratio above 1
+        or below 0.5 is noise or a size change. Replaces the 2-minute test that `cale tune` used to run at install (now `max` only)."""
+        if not pace or seconds < PACE_MIN_S or heat_start > PACE_MAX_START_HEAT or self.slow != 1.0 or pace["early"] <= 0:
+            return False
+        ratio = min(1.05, max(0.5, pace["late"] / pace["early"]))
+        if self.n_sus == 0:
+            # the first long answer: with nothing known before, it is the knowledge. After a measured value (`cale tune max`), it moves that value half way.
+            self.sust_raw = ratio if "burst_s" not in self.extra else 0.5 * self.sustained + 0.5 * ratio
+        else:
+            self.sust_raw = (1 - PACE_WEIGHT) * self.sust_raw + PACE_WEIGHT * ratio
+        self.n_sus += 1
+        self.sustained = self.sust_raw if self.sust_raw < 0.95 else 1.0       # a small drop is noise: no throttling (the same rule as the install test)
+        return True
+
     def observe(self, done):
         """Fold one finished answer (the `done` record of the engine) into the numbers. Answers that changed size are skipped."""
         if self.slow != 1.0:
@@ -278,6 +307,7 @@ class Predictor:
         self.pre_curve = [tuple(p) for p in (d.get("pre_curve") or [])]
         self.pre_curve_small, self.small_id = [tuple(p) for p in (d.get("pre_curve_small") or [])], d.get("small_id")
         self.dec_ctx, self.sustained = float(d.get("dec_ctx", 0.0)), float(d.get("sustained", 1.0))
+        self.sust_raw, self.n_sus = float(d.get("sust_raw", self.sustained)), int(d.get("n_sus", 0))
         self.corr_dec, self.corr_pre = float(d.get("corr_dec", 1.0)), float(d.get("corr_pre", 1.0))
         self.batch_eps = float(d.get("batch_eps", self.batch_eps))
         self.load_alpha, self.n_load = float(d.get("load_alpha", self.load_alpha)), int(d.get("n_load", 0))
@@ -308,7 +338,7 @@ class Predictor:
                                        "fixed": self.fixed, "n_dec": self.n_dec, "n_pre": self.n_pre, "disk_bps": self.disk_bps,
                                        "sizes": self.snapshot(), "extra": self.extra, "table": self.table, "table_prompt": self.table_prompt, "pre_curve": self.pre_curve,
                                        "pre_curve_small": self.pre_curve_small, "small_id": self.small_id,
-                                       "dec_ctx": self.dec_ctx, "sustained": self.sustained, "corr_dec": self.corr_dec, "corr_pre": self.corr_pre,
+                                       "dec_ctx": self.dec_ctx, "sustained": self.sustained, "sust_raw": self.sust_raw, "n_sus": self.n_sus, "corr_dec": self.corr_dec, "corr_pre": self.corr_pre,
                                        "batch_eps": self.batch_eps, "load_alpha": self.load_alpha, "n_load": self.n_load, "steal": self.steal, "n_steal": self.n_steal,
                                        "saved_at": time.strftime("%Y-%m-%d %H:%M:%S")}))
             os.replace(tmp, self.path)

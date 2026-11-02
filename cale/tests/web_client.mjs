@@ -151,5 +151,16 @@ for (const bad of ["https://127.0.0.1:47959", "http://localhost:47959", "http://
   test._save("TEST-KEY");
   check("key name: saving a test key leaves the real key alone", store.get("cale-web-key") === "REAL-KEY" && store.get("cale-web-key:http://127.0.0.1:47959") === "TEST-KEY");
 }
+// the browser's permission for reaching the visitor's own computer
+{
+  const perm = (map) => ({ query: async ({ name }) => { if (!(name in map)) throw new TypeError("unknown name"); return { state: map[name] }; } });
+  check("permission: loopback-network is read first", (await new CaleWeb({ storage: memory(), permissions: perm({ "loopback-network": "prompt", "local-network-access": "granted" }) }).localPermission()) === "prompt");
+  check("permission: falls back to the next name", (await new CaleWeb({ storage: memory(), permissions: perm({ "local-network-access": "denied" }) }).localPermission()) === "denied");
+  check("permission: a browser with no such rule is unsupported", (await new CaleWeb({ storage: memory(), permissions: perm({}) }).localPermission()) === "unsupported");
+  check("permission: no Permissions API is unsupported", (await new CaleWeb({ storage: memory(), permissions: null }).localPermission()) === "unsupported");
+  const slow = new CaleWeb({ base: "http://127.0.0.1:1", storage: memory(), fetch: (u, o) => new Promise((ok, no) => { o.signal.addEventListener("abort", () => no(Object.assign(new Error("aborted"), { name: "AbortError" }))); }) });
+  const t0 = Date.now();
+  check("isRunning gives up after timeoutMs", (await slow.isRunning({ timeoutMs: 200 })) === false && Date.now() - t0 < 1500);
+}
 console.log(fails.length ? "\nFAILED: " + fails.join(", ") : "\nAll checks passed.");
 process.exit(fails.length ? 1 : 0);

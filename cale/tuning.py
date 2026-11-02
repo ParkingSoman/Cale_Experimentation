@@ -3,8 +3,9 @@ measurement can be set against what it is worth. Run when Cale is installed: no 
 
 Profiles say how much to measure:
   quick   the few measurements everything else depends on (a few minutes on a weak laptop, seconds on a fast Mac)
-  full    quick, plus the ones that choose settings: threads, long context, several answers at once, graphics card pieces
-  max     everything, including the long test of sustained speed (minutes)
+  full    quick, plus the ones that choose settings: threads, graphics card pieces
+  max     everything, including the long test of sustained speed (2 minutes), the slowdown from a long context, several answers at once, and the cooldown. Cale learns the
+          slowdown of a hot laptop from real long answers instead (predict.observe_pace), so install does not run that test.
 
 The rules for every probe: use the real model and the real engine (a made-up test misses the code path that is used), run a warm-up first
 and discard it, take the median of several runs for the numbers that matter, and never change a setting unless the new one is clearly
@@ -16,6 +17,8 @@ import statistics
 import threading
 import time
 
+from nest.cancel import Cancel, Cancelled
+
 from . import gemma3n_facts as facts, oslayer
 
 LEVEL = {"quick": 1, "full": 2, "max": 3}
@@ -24,6 +27,23 @@ GAIN = 1.15                        # ...and this much when it was measured once:
 REFERENCE = (512, 128)            # a call of this many prompt and answer tokens decides between ways of running: a way is chosen when it finishes this call GAIN times sooner
 ANSWER_FLOOR = 0.8                # ...and its answers are at least this share of the CPU's speed (a card must not make answers clearly slower)
 TOLERATE = 0.88                    # the other speed may be this much lower and still count as not worse: that is inside the noise
+
+# FIXED TIME, not fixed work. A reading is a WINDOW: it ends after a fixed time, or sooner when it has seen enough tokens. So the hardware test takes about
+# the same time on a slow laptop as on a fast Mac (a fast one only ends sooner), instead of a fixed number of tokens that took 12 s on a Mac and 311 s on a
+# 4-core laptop. A slower computer gets a less exact reading (fewer tokens in the window), never a longer test. Before the first reading, the computer is
+# brought to its working state: short windows are repeated until two in a row agree (clocks have risen, caches are full), up to a limit.
+WINDOW_S = 2.0                     # POLICY: an answer-speed reading runs at least this long (after its prompt was read). A fast computer fits many tokens into it
+MIN_TOKENS = 32                    # POLICY: ...and until it has seen this many answer tokens (the speed comes from the tokens between the first and the last report of the
+                                   # engine, so a reading of 10 tokens, which is all a 5 tokens/s laptop makes in 2 s, was off by up to 30% between two runs)
+WINDOW_MAX_S = 7.0                 # POLICY: ...but never longer than this: a slower computer gets fewer tokens and a less exact reading, not a longer test
+PROMPT_S = 1.0                     # POLICY: the prompt of a table reading is as long as about this many seconds of reading (between PROMPT_MIN and PROMPT_MAX tokens)
+PROMPT_LONG_S = 2.0                # POLICY: the long prompt of the prefill curve
+PROMPT_MIN, PROMPT_MAX = 48, 1024  # POLICY: tokens. Answer readings use the short prompt, so the context is small and the same on every computer
+SETTLE_S = 2.0                     # POLICY: one settling window (it ends after 16 tokens at the earliest)
+SETTLE_MAX = 3                     # POLICY: at most this many settling windows (a computer that does not settle is measured as it is, and the noise is recorded)
+SETTLE_AGREE = 0.08                # POLICY: two windows in a row this close mean the computer is steady
+GPU_PIECES_S = 12.0                # POLICY: the piece-length reading of a graphics card that reads prompts takes at most this long
+MEMORY_PIECE_S = 3.0               # POLICY: the longest prompt piece is started twice for the working-memory reading, and stopped after this many seconds each
 
 
 class Report:
@@ -59,12 +79,12 @@ class Tuner:
             ("threads", 2, self.threads, cpu and hasattr(m, "set_threads")),    # before the speeds: they must be measured with the threads that will be used
             ("sizes", 1, self.sizes, True),
             ("prefill_curve", 1, self.prefill_curve, True),
-            ("context", 2, self.context, True),
+            ("context", 3, self.context, True),            # `max` only: it found no loss from context on the Mac (4096 tokens) or on a 4-core laptop (918 tokens) and cost 6 s and 62 s. Real long prompts correct the speed table.
             ("batch", 3, self.batch, self.eng.can_batch()),
             ("gpu_pieces", 2, self.gpu_pieces, self.eng.can_batch() and gpu_reads),
-            ("sustained", 2, self.sustained, True),
+            ("sustained", 3, self.sustained, True),          # `max` only: Cale learns the slowdown from real long answers (predict.observe_pace). It was the longest install probe (120 s).
             ("cooldown", 3, self.cooldown, True),
-            ("drift", 1, self.drift, True),
+            ("drift", 3, self.drift, True),                 # `max` only: it only records how noisy the computer was (nothing reads it), and cost 4 to 11 s
         ]
 
     def run(self):
@@ -88,35 +108,104 @@ class Tuner:
     def full_level(self):
         return max(self.eng.levels, key=lambda l: l["pct"])
 
-    def one(self, level, tokens, answer):
-        d = self.eng._run_prompt(tokens, answer, width=level)
-        if not d or d.get("tokens", 0) < 9 or d.get("decode_s", 0) <= 0:
+    def timed(self, level, prompt_tokens=PROMPT_MIN, window_s=None, min_tokens=None):
+        """One reading in FIXED TIME: read a prompt of about `prompt_tokens`, then answer and measure the answer speed. The window ends when `window_s`
+        seconds AND `min_tokens` answer tokens have passed, or at WINDOW_MAX_S at the latest. Returns (prompt tokens/s of this short prompt, answer
+        tokens/s), or None if too little was seen. The answer speed is the rate between the first and the last report of the engine (every STEP_TOKENS
+        tokens), so the start-up of the answer is left out."""
+        m = self.eng.m
+        window_s = WINDOW_S if window_s is None else window_s
+        min_tokens = MIN_TOKENS if min_tokens is None else min_tokens
+        unit = "The sea is wide and deep. "
+        n_unit = max(1, int(m.prompt_len([{"role": "user", "content": unit}])))
+        text = unit * max(1, int(prompt_tokens / max(n_unit - 8, 1)))
+        msgs = [{"role": "user", "content": text + "Write the whole numbers from 1 to 300, separated by spaces."}]
+        n_prompt = int(m.prompt_len(msgs))
+        cancel, seen = Cancel(), []
+
+        def report(n, t, lvl):                                      # the engine calls this every few answer tokens: n tokens so far, t seconds since the first one
+            seen.append((n, t))
+            if (t >= window_s and n >= min_tokens) or t >= WINDOW_MAX_S:
+                cancel.set()
+            return None                                             # never change the size
+        t0, first = time.perf_counter(), None
+        try:
+            for ev in m.chat_stream(msgs, max_tokens=600, width=level, temperature=0.0, cancel=cancel, controller=report):
+                if first is None and "delta" in ev:
+                    first = time.perf_counter() - t0
+        except Cancelled:
+            pass
+        finally:
+            m.clear_cache()
+        if not seen or first is None:
             return None
-        dec = (d["tokens"] - 1) / d["decode_s"]
-        return d["prompt_tokens"] / max(d["first_token_s"] - 1.0 / dec, 1e-6), dec
+        # The answer speed: from the intervals between the reports, not from one average. Noise only ever slows a run (another program, a scanner, a stall of the
+        # engine), so a window with a slow interval in it is read from its faster intervals: the mean of the faster half. A window whose slowest interval is
+        # far under its fastest (more than 1.6 times apart) is marked unsteady, and `point` takes it again.
+        rates = [(b[0] - a[0]) / (b[1] - a[1]) for a, b in zip(seen, seen[1:]) if b[1] > a[1]]
+        self.unsteady = False
+        if len(rates) >= 2:
+            rates.sort(reverse=True)
+            dec = statistics.mean(rates[:max(1, (len(rates) + 1) // 2)])
+            self.unsteady = rates[0] > 1.6 * rates[-1]
+        elif len(seen) >= 2 and seen[-1][1] > seen[0][1]:
+            dec = (seen[-1][0] - seen[0][0]) / (seen[-1][1] - seen[0][1])
+        else:
+            dec = seen[0][0] / max(seen[0][1], 1e-6)
+        return n_prompt / max(first - 1.0 / max(dec, 1e-6), 1e-6), dec
+
+    def read_speed(self, level, tokens):
+        """Prompt speed alone, in the time the prompt takes: no answer window. Returns tokens/s or None."""
+        d = self.eng._run_prompt(tokens, 2, width=level)
+        if not d or d.get("first_token_s", 0) <= 0:
+            return None
+        dec = (self.pred.table.get(level["id"]) or {}).get("dec")
+        if not dec and d.get("tokens", 0) >= 2 and d.get("decode_s", 0) > 0:
+            dec = (d["tokens"] - 1) / d["decode_s"]
+        return d["prompt_tokens"] / max(d["first_token_s"] - (1.0 / dec if dec else 0.0), 1e-6)
+
+    def one(self, level, tokens, answer=None):
+        return self.timed(level, tokens)
 
     def warm_up(self):
-        """Run the full size until two runs in a row agree (within 8%): clocks rise, caches fill and memory settles before the first
-        reading. The runs are thrown away. At most 6 runs."""
-        last = None
-        for _ in range(6):
-            r = self.one(self.full_level(), 64, 20)
-            if r and last and abs(r[1] / last[1] - 1) < 0.08 and abs(r[0] / last[0] - 1) < 0.15:
+        """Bring the computer to its working state before the first reading: windows of SETTLE_S are repeated until two in a row agree (answers within
+        SETTLE_AGREE, prompts within twice that), at most SETTLE_MAX times. The readings are thrown away. Fixed time: at most SETTLE_MAX short windows."""
+        last, steady = None, False
+        for _ in range(SETTLE_MAX):
+            r = self.timed(self.full_level(), window_s=SETTLE_S, min_tokens=16)
+            if r and last and abs(r[1] / last[1] - 1) < SETTLE_AGREE and abs(r[0] / last[0] - 1) < 2 * SETTLE_AGREE:
+                last, steady = r, True
                 break
             last = r or last
         self.warmed = True
-        if last:                                                        # the prompt of the table: about 6 s of reading, between 64 and 256 tokens
-            self.pred.table_prompt = int(min(256, max(64, last[0] * 6)))
+        self.steady = steady
+        if last:                                                        # the prompt of the table: about PROMPT_S seconds of reading
+            self.pred.table_prompt = int(min(PROMPT_MAX, max(PROMPT_MIN, last[0] * PROMPT_S)))
             self.warm_speed = last
 
-    def point(self, level, tokens, answer=24, repeats=3):
-        """(prompt tokens/s, answer tokens/s) at this size and prompt length: the median of `repeats` runs, after the warm-up."""
+    def point(self, level, tokens, answer=None, repeats=1):
+        """(prompt tokens/s at `tokens`, answer tokens/s): the median of `repeats` fixed-time readings, after the warm-up. The answer speed is read
+        with the short prompt (always the same small context); the prompt speed with a prompt of `tokens` (about PROMPT_S seconds of reading)."""
         if not self.warmed:
             self.warm_up()
-        runs = [r for r in (self.one(level, tokens, answer) for _ in range(repeats)) if r]
-        if not runs:
+        pre, dec = [], []
+        for _ in range(repeats):
+            r = self.timed(level)
+            if r and self.unsteady:                                     # something slowed a part of the window: take it again once and keep the faster
+                r2 = self.timed(level)
+                if r2 and r2[1] > r[1]:
+                    r = r2
+            if not r:
+                continue
+            dec.append(r[1])
+            if tokens > PROMPT_MIN * 1.25:
+                v = self.read_speed(level, tokens)
+                pre.append(v if v else r[0])
+            else:
+                pre.append(r[0])
+        if not dec:
             return None
-        return statistics.median(r[0] for r in runs), statistics.median(r[1] for r in runs)
+        return statistics.median(pre), statistics.median(dec)
 
     # --- probes ---------------------------------------------------------------------------------------------------------------
     def environment(self):
@@ -130,7 +219,7 @@ class Tuner:
 
     def disk(self):
         files = list(self.eng.m.model_files())
-        speed = oslayer.read_uncached(files[0], 1 << 30) if files else 0.0
+        speed = oslayer.read_uncached(files[0], 256 << 20) if files else 0.0       # a quarter of a GB tells the speed; a slow disk must not make this long
         if speed > 0:
             self.pred.disk_bps = speed
             self.eng.mach["disk_bps"] = speed
@@ -140,18 +229,21 @@ class Tuner:
     def sizes(self):
         """Prompt and answer speed at spread-out sizes: the table the predictor uses (sizes between are read off by cost)."""
         levels = sorted(self.eng.levels, key=lambda l: l["pct"])
-        picks = {levels[round(i * (len(levels) - 1) / 4)]["id"]: levels[round(i * (len(levels) - 1) / 4)] for i in range(5)}
+        # Four spread-out sizes (it was five). Measured on 2026-10-18 with `scripts/sizes_accuracy.py` (every size measured, then tables built from
+        # subsets): four sizes predicted the others as well as five (Mac: 1.3% against 1.6% mean error, 3.9% against 2.8% at worst. HP: 2.4% against
+        # 2.5%, 10.7% against 10.8%). Three cost about 2 points on the Mac. Results: results/sizes-accuracy-*.json.
+        picks = {levels[round(i * (len(levels) - 1) / 3)]["id"]: levels[round(i * (len(levels) - 1) / 3)] for i in range(4)}
         picks[self.full_level()["id"]] = self.full_level()
         table, out = {}, {}
         for l in sorted(picks.values(), key=lambda l: -l["pct"]):
-            r = self.point(l, self.pred.table_prompt, answer=20, repeats=2 if l is self.full_level() else 1)
+            r = self.point(l, self.pred.table_prompt, repeats=1)
             if r:
                 table[l["id"]] = {"pre": r[0], "dec": r[1]}
                 out[l["id"]] = [round(r[0], 1), round(r[1], 2)]
         if len(table) >= 2:
             order = [l["id"] for l in sorted(picks.values(), key=lambda l: -l["pct"]) if l["id"] in table]
             levels_by_id = {l["id"]: l for l in picks.values()}
-            again = repair_monotone(order, table, lambda i: self.point(levels_by_id[i], self.pred.table_prompt, answer=20, repeats=1))
+            again = repair_monotone(order, table, lambda i: self.point(levels_by_id[i], self.pred.table_prompt, repeats=1), tries=1)
             for i in again:
                 out[i] = [round(table[i]["pre"], 1), round(table[i]["dec"], 2)]
             if again:
@@ -165,11 +257,11 @@ class Tuner:
         """Prompt speed by prompt length at the full size (long prompts are a little slower per token)."""
         full, t = self.full_level(), self.pred.table.get(self.full_level()["id"])
         pts = [(self.pred.table_prompt, t["pre"])] if t else []
-        long = int(min(1024, max(0, (t or {}).get("pre", 0) * 20)))     # as long as 20 seconds of reading allow: a slow reader's curve is flat anyway
+        long = int(min(1024, max(0, (t or {}).get("pre", 0) * PROMPT_LONG_S)))      # as long as PROMPT_LONG_S seconds of reading allow: a slow reader's curve is flat anyway
         for n in (32 if self.pred.table_prompt > 64 else 0, long if long > self.pred.table_prompt * 1.5 else 0):
-            r = self.point(full, n, repeats=1) if n else None
-            if r:
-                pts.append((n, r[0]))
+            v = self.read_speed(full, n) if n else None
+            if v:
+                pts.append((n, v))
         if len(pts) >= 2:
             self.pred.pre_curve = sorted(pts)
         out = {str(n): round(v, 1) for n, v in pts}
@@ -178,17 +270,28 @@ class Tuner:
         if ts and small is not full and len(self.pred.pre_curve) >= 2:
             spts = [(self.pred.table_prompt, ts["pre"])]
             for n in {n for n, _ in self.pred.pre_curve if n != self.pred.table_prompt}:
-                r = self.point(small, n, repeats=1)
-                if r:
-                    spts.append((n, r[0]))
+                v = self.read_speed(small, n)
+                if v:
+                    spts.append((n, v))
             if len(spts) >= 2:
                 self.pred.pre_curve_small, self.pred.small_id = sorted(spts), small["id"]
                 out["smallest size"] = {str(n): round(v, 1) for n, v in sorted(spts)}
         return out
 
     def working_memory(self):
-        """The most memory the process holds while the longest prompt piece is read, beyond the weights, the base and the context."""
-        m, piece = self.eng.m, getattr(self.eng.m, "batch_tokens", 512)
+        """The most memory the process holds while the longest prompt piece is read, beyond the weights, the base and the context.
+        FIXED TIME: the LONGEST piece (the engine's batch size) is started and stopped after MEMORY_PIECE_S seconds. The memory of a piece is taken when
+        its first pass starts, so the peak is there at once: a slow reader does not have to read the whole piece. (Short pieces cannot show it: the buffers
+        grow only when a piece is longer than any before. A first try with 67 and 109 tokens on a laptop saw 0 MB where the whole piece took 126 MB.)
+        A figure under 16 MB is not saved: it is below what this reading can see, and the engine's own figure (facts.SCRATCH_BYTES) stays."""
+        m, longest = self.eng.m, int(getattr(self.eng.m, "batch_tokens", 512))
+        full = self.full_level()
+        if not self.warmed:
+            self.warm_up()
+        pre = getattr(self, "warm_speed", (200.0, 0.0))[0]
+        unit = "The sea is wide and deep. "
+        n_unit = max(1, int(m.prompt_len([{"role": "user", "content": unit}])))
+        msgs = [{"role": "user", "content": unit * max(1, int(longest / max(n_unit - 8, 1))) + "Write the whole numbers from 1 to 60, separated by spaces."}]
         oslayer.give_back_heap()
         before = int(m.active_bytes())
         peak, stop = [before], threading.Event()
@@ -202,23 +305,34 @@ class Tuner:
                 time.sleep(0.02)
         th = threading.Thread(target=watch, daemon=True)
         th.start()
-        scratches = []
+        readings = []                                                   # (tokens read, memory beyond the weights, the base and the context)
         try:
             for _ in range(2):                                          # twice, keep the larger: one reading can be low
                 peak[0] = before
-                d = self.eng._run_prompt(piece, 4)
-                if d:
-                    ctx = int(d.get("prompt_tokens", 0)) + int(d.get("tokens", 0))
-                    scratches.append(max(0, peak[0] - before - facts.kv_bytes(ctx)))
+                cancel = Cancel()
+                timer = threading.Timer(MEMORY_PIECE_S, cancel.set)
+                t0 = time.perf_counter()
+                timer.start()
+                try:
+                    for ev in m.chat_stream(msgs, max_tokens=1, width=full, temperature=0.0, cancel=cancel):
+                        pass
+                except Cancelled:
+                    pass
+                finally:
+                    timer.cancel()
+                    took = time.perf_counter() - t0
+                    m.clear_cache()
+                tokens = int(min(longest, pre * took))                  # how far the piece got
+                readings.append((tokens, max(0, peak[0] - before - facts.kv_bytes(tokens))))
         finally:
             stop.set()
             th.join(timeout=2)
-        if not scratches:
-            return {}
-        scratch = max(scratches)
+        scratch = max(r[1] for r in readings) if readings else 0
+        if scratch < (16 << 20):
+            return {"longest_piece": longest, "note": "under 16 MB: below what this reading can see, not saved", "readings_mb": [[t, round(x / 1e6)] for t, x in readings]}
         self.pred.extra["scratch_bytes"] = scratch
         self.eng.mach["scratch_bytes"] = scratch
-        return {"piece_tokens": d.get("prompt_tokens"), "mb": round(scratch / 1e6), "readings_mb": [round(x / 1e6) for x in scratches]}
+        return {"longest_piece": longest, "mb": round(scratch / 1e6), "readings_mb": [[t, round(x / 1e6)] for t, x in readings]}
 
     def threads(self):
         """Threads for answers and for prompts, separately: a count is chosen only if it is clearly better than the number of cores."""
@@ -226,7 +340,7 @@ class Tuner:
         phys = int(getattr(m, "threads_default", None) or m.threads)
         logical = __import__("os").cpu_count() or phys
         types = oslayer.core_types()
-        cands = {max(1, phys // 2), phys, min(logical, phys * 2), logical}
+        cands = {phys, logical}                                         # half the cores and twice the cores were never chosen (HP: 2 threads 19 and 4 threads 25 against 8 threads 31 tokens/s for prompts) and cost two more readings
         if types:
             cands.add(types["fast"])
         cands = sorted(c for c in cands if 1 <= c <= logical)
@@ -237,7 +351,7 @@ class Tuner:
                 self.warm_up()
             for n in sorted(cands, key=lambda c: (c != phys, c)):       # the default first: heat then works against the candidates, not for them
                 m.set_threads(n, n)
-                r = self.point(full, self.pred.table_prompt, answer=12, repeats=1)
+                r = self.point(full, self.pred.table_prompt, repeats=1)
                 if r:
                     table[n] = r
             base = table.get(phys)
@@ -246,14 +360,14 @@ class Tuner:
                 best_dec = max(table, key=lambda n: table[n][1]) if table[max(table, key=lambda n: table[n][1])][1] >= NOISE * base[1] else phys
                 best_pre = max(table, key=lambda n: table[n][0]) if table[max(table, key=lambda n: table[n][0])][0] >= NOISE * base[0] else phys
             m.set_threads(best_dec, best_pre)
-            # the pair must really be better than the plain default, measured together: always checked by alternating the two three times
-            # each, because one reading can be off by 10 to 25% and a warm computer drifts, so the order would decide.
+            # the pair must really be better than the plain default, measured together: always checked by alternating the two two times
+            # each (short prompts), because one reading can be off by 10 to 25% and a warm computer drifts, so the order would decide.
             if (best_dec, best_pre) != (phys, phys):
                 pairs = {"chosen": [], "default": []}
-                for _ in range(3):
+                for _ in range(2):
                     for name, th in (("default", (phys, phys)), ("chosen", (best_dec, best_pre))):
                         m.set_threads(*th)
-                        r = self.one(full, self.pred.table_prompt, 12)
+                        r = self.timed(full)
                         if r:
                             pairs[name].append(r)
                 if pairs["chosen"] and pairs["default"]:
@@ -328,7 +442,10 @@ class Tuner:
         unit = "The sea is wide and deep. "
         n_unit = max(1, int(m.prompt_len([{"role": "user", "content": unit}])))
         text = unit * max(1, int(3 * piece / max(n_unit - 8, 1)))
+        end = time.time() + GPU_PIECES_S                                # FIXED TIME: as many reads as fit
         for _ in range(4):
+            if time.time() > end:
+                break
             for ev in eng.chat_stream([{"role": "user", "content": text}], 1, 0.0, app="cale tune"):
                 pass
         tuner = getattr(eng, "_tuner", None)
@@ -404,7 +521,10 @@ class Tuner:
 
 # --- which way of running is fastest here: the CPU, or each graphics card (before the model is loaded for the rest of the tuning) ----------
 PLACEMENT_NOTE = []                   # problems with the placement test, for the report
-SKIP_BELOW = 0.3                      # a way that reads under this share of the CPU's speed on 64 tokens is dropped (policy, docs/CONSTANTS.md)
+SKIP_BELOW = 0.5                      # a way whose first reading (a short prompt) is under this share of the CPU's is dropped (policy, docs/CONSTANTS.md). It was 0.3. Measured on a laptop with
+                                      # four ways: the long-piece speed was 1.9x (CUDA), 1.5x, 1.0x and 1.0x the short one, never more than twice, so a way under half of the CPU cannot win.
+PLACEMENT_BUDGET_S = 120.0            # POLICY: no new way of running is started if it would end after this many seconds of the placement test (judged by the longest trial so far; the best way measured so far is kept).
+                                      # Every way costs a model load (20 to 34 s onto a graphics card), so the number of ways, not the readings, is what grows the test.
 
 
 def call_s(x):
@@ -538,8 +658,10 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print, 
     cards = [d for d in devs if d["type"] in ("GPU", "IGPU")]
     if not cards:
         return None
+    cards.sort(key=lambda d: (d["type"] != "GPU", not str(d["name"]).upper().startswith("CUDA"), str(d["name"])))     # most likely first: a card with its own memory, and its own vendor's driver (the budget may stop the search)
     say("pieces")
     t_cpu = time.time()
+    t_search = t_cpu
     results = {"cpu": probe_one("off", log, stop=stop)}
     # A trial on a card is the same work plus a driver. If it takes many times longer than the CPU trial did on this computer, a driver is stuck:
     # give up on that card (it is reported as not measured) instead of waiting out the long default.
@@ -551,6 +673,7 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print, 
         return None
     cpu_first = (results["cpu"] or {}).get("first_pre")
     failed = []
+    tried = []                                                    # seconds each card trial took
     for d in cards:
         t_fit = time.time()
         fits = llamalib.fit_all_safe(model_path, d["name"], N_CTX, default_threads(), lib_path)       # in a child: a driver that throws must not poison this process
@@ -559,7 +682,15 @@ def choose_placement(model_path, lib_path, home, say=lambda t: None, log=print, 
         for how in hows:
             if stop is not None and stop():
                 return None
+            # A way is started only if it can end inside the budget, judged by the longest trial so far (a trial on a card takes 45 to 70 s: a model load, a warm-up, a reading).
+            # The first way on a card is always tried. Without this the last trial started at 119 s and ended at 180 s.
+            if tried and time.time() - t_search + max(tried) > PLACEMENT_BUDGET_S:
+                log(f"tune: the time budget of the placement test ({PLACEMENT_BUDGET_S:.0f} s) is used: {d['name']} {how} and the ways after it are not tried")
+                PLACEMENT_NOTE.append(f"not tried (time budget): {d['name']} {how}")
+                continue
+            t_way = time.time()
             r = probe_one(f"force:{how}:{d['name']}", log, {"CALE_PROBE_SKIP_BELOW": str(SKIP_BELOW * cpu_first)} if cpu_first else None, stop=stop, timeout=card_timeout)
+            tried.append(time.time() - t_way)
             if r and "forced device not found" in str(r.get("placement", "")):
                 log(f"tune: {d['name']} is not there when the trial starts, so it is skipped (the trial only measured the CPU again)")
                 break                                                 # a second way on a card that does not exist would measure the CPU again too

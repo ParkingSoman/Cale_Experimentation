@@ -2,7 +2,7 @@
 
 Forces 'warn', checks the cap and the memory drop, checks a 100% request runs at the cap,
 then forces 'critical' and checks the model unloads and loads again on the next request.
-usage: .venv/bin/python cale/tests/pressure.py [--base URL] [--recover-wait SECONDS]
+usage: .venv/bin/python cale/tests/pressure.py --base URL [--recover-wait SECONDS]   (a TEST Cale: never port 47821)
 """
 import argparse
 import json
@@ -19,9 +19,11 @@ LEVELS = load_levels()
 from openai import OpenAI
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--base", default="http://127.0.0.1:47821")
+ap.add_argument("--base", required=True, help="a TEST Cale on a spare port (scripts/cale_dev_server.py). Never the real one: this test shows an Allow question and forces memory pressure.")
 ap.add_argument("--recover-wait", type=int, default=0, help="also wait this long for the cap to return")
 a = ap.parse_args()
+if a.base.rstrip("/").endswith(":47821"):
+    sys.exit("This is the real Cale's port (47821). A test must use a TEST Cale: scripts/cale_dev_server.py HOME, then --base http://127.0.0.1:47899")
 FAIL = []
 
 

@@ -393,16 +393,22 @@ function HoldToReveal''')
     _swap(qa, 'show={!user || ["admin"].includes(user?.role)}', "show={false}")
     _sub(qa, r"show=\{\s*hasAvailableWorkspace &&.*?\}\n", "show={false}\n")
 
-    # 7. the empty chat: the carrot and one friendly line, no model picker
+    # 7a. the Quicker/Smarter slider (cale/anythingllm/CaleFeel.jsx): a new component file
+    feel_dir = src / "components" / "CaleFeel"
+    feel_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(Path(__file__).with_name("CaleFeel.jsx"), feel_dir / "index.jsx")
+
+    # 7. the empty chat: the carrot and one friendly line, and the slider where the model picker was
     for page in ("components/WorkspaceChat/ChatContainer/index.jsx", "pages/Main/Home/index.jsx"):      # a new chat, and the home screen
         cc = src / page
         text = _read(cc)
         text, n2 = re.subn(r"<ChatSettingsMenu(\s[^>]*?)?/>", "{null}", text, flags=re.S)       # the text-size and export button covers the first message
         if n2 < 1:
             raise PatchError(f"{cc}: chat settings button not found")
-        text, n1 = re.subn(r"<WorkspaceModelPicker workspaceSlug=\{[^}]*\} />", "{null}", text)
+        text, n1 = re.subn(r"<WorkspaceModelPicker workspaceSlug=\{[^}]*\} />", "<CaleFeel />", text)      # Cale's Quicker/Smarter slider takes its place
         if "{greeting}" not in text or n1 < 1:
             raise PatchError(f"{cc}: greeting or model picker not found")
+        text = 'import CaleFeel from "@/components/CaleFeel";\n' + text
         text = text.replace("{greeting}", '<img src="/carrot.png" alt="" className="h-28 w-28 mx-auto mb-4" />' + GREETING)
         cc.write_text(text, encoding="utf-8")
 

@@ -196,8 +196,10 @@ def gpu_path_ok(devs, path, lib_path):
     return ok
 
 
-def canary_ok(dev, layers, path, lib_path):
-    """May the engine use this card? A small or recently failing card gets a trial load in a child process first (cale/tuning.py canary)."""
+def canary_ok(dev, layers, path, lib_path, sig=None):
+    """May the engine use this card? A small or recently failing card gets a trial load in a child process first (cale/tuning.py canary).
+    A trial that passed is kept on disk for a day for the same cards and driver (`sig`, devices.signature): the next start of Cale does not repeat it.
+    It took 15.7 s on a laptop with a 2 GB card, at every start after 10 idle minutes."""
     import json
     if os.environ.get("CALE_CANARY_CHILD") == "1" or os.environ.get("CALE_NO_CANARY") == "1":
         return True
@@ -212,10 +214,27 @@ def canary_ok(dev, layers, path, lib_path):
     hit = _CANARY.get(key)
     if hit and time.time() - hit[1] < CANARY_TTL_S:
         return hit[0]
+    passed = paths.HOME / "gpu-canary.json"
+    want = json.loads(json.dumps([list(key), sig]))
+    if not trouble and sig is not None:
+        try:
+            saved = json.loads(passed.read_text())
+            if saved.get("what") == want and time.time() - float(saved.get("at", 0)) < VERIFIED_S:
+                _CANARY[key] = (True, time.time())
+                return True
+        except (OSError, ValueError):
+            pass
     from .. import tuning
     env = f"force:full:{dev['name']}" if layers == 999 else f"force:prompts:{dev['name']}" if layers == 0 else dev["name"]      # -1: a named device, llama.cpp's fit decides the layers
     ok = tuning.canary(env, path, lib_path, log=lambda t: print("cale: " + t, flush=True))
     _CANARY[key] = (ok, time.time())
+    try:
+        if ok and sig is not None:
+            passed.write_text(json.dumps({"what": want, "at": time.time()}))
+        elif not ok:
+            passed.unlink(missing_ok=True)
+    except OSError:
+        pass
     if not ok:
         try:
             marker.write_text(json.dumps({"at": time.time(), "device": dev["name"], "layers": layers}))
@@ -302,7 +321,7 @@ class LlamaNested:
         LlamaNested.placement_stale = bool(saved is None and (paths.HOME / "placement.json").exists() and any(d["type"] in ("GPU", "IGPU") for d in devs))
         dev, layers, why = devices.choose(devs, os.path.getsize(path), readback=lib_readback(lib_path),
                                           fits=lambda d: fit_all(path, d["handle"], n_ctx, threads, lib_path), saved=saved)
-        if dev is not None and not canary_ok(dev, layers, path, lib_path):
+        if dev is not None and not canary_ok(dev, layers, path, lib_path, devices.signature(devs)):
             dev, why = None, "the CPU (the graphics card failed a trial load)"
         if dev is not None:
             try:

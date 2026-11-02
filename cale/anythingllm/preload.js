@@ -22,9 +22,22 @@ const http = require("http");
 const https = require("https");
 const crypto = require("crypto");
 
+// 4. Node writes its compile cache (NODE_COMPILE_CACHE, set by cale/chat.py) only when the program ends in the normal way. Cale ends the servers by force
+//    (on Windows there is no other way), so the cache would stay empty. Write it a few seconds after the start, when the big files are loaded.
+if (process.env.NODE_COMPILE_CACHE && typeof require("module").flushCompileCache === "function") {
+  setTimeout(() => { try { require("module").flushCompileCache(); } catch (e) { /* only the next start is slower */ } }, 4000).unref();
+}
+
 // ---- 1. listen on this computer only ----------------------------------------------------------------------------------
 const origListen = net.Server.prototype.listen;
 net.Server.prototype.listen = function (...a) {
+  if (process.env.CALE_CHAT_READY_FILE) {                    // tell cale/chat.py the moment the chat server (not the document reader) listens
+    this.once("listening", () => {
+      try {
+        if (this.address() && String(this.address().port) === process.env.CALE_CHAT_MAIN_PORT) require("fs").writeFileSync(process.env.CALE_CHAT_READY_FILE, "ok");
+      } catch (e) { /* chat.py asks the port too, after a while */ }
+    });
+  }
   if (a[0] && typeof a[0] === "object") {
     if (!a[0].path) a[0] = { ...a[0], host: "127.0.0.1" };
   } else if (a[0] !== undefined && typeof a[0] !== "string") {
@@ -45,6 +58,8 @@ if (!TOKEN || !COOKIE || COOKIE === TOKEN) {
   console.error("[cale-guard] CALE_CHAT_TOKEN and CALE_CHAT_COOKIE must both be set, and must differ. Refusing to start.");
   process.exit(1);
 }
+let feel = null;                                                 // the Quicker/Smarter slider (feel.js, next to this file). The chat works without it.
+try { if (process.env.CALE_CHAT_MAIN_PORT) feel = require("./feel.js"); } catch (e) { console.error("[cale-guard] the slider is not available: " + e.message); }
 const MAIN_PORT = parseInt(process.env.CALE_CHAT_MAIN_PORT || "0", 10);
 const COLLECTOR_PORT = parseInt(process.env.CALE_CHAT_COLLECTOR_PORT || "0", 10);
 
@@ -103,6 +118,11 @@ http.Server.prototype.emit = function (event, req, resOrSocket) {
       }
       if (verdict && verdict.setCookie && event === "request") {
         resOrSocket.setHeader("Set-Cookie", `cale_chat=${COOKIE}; HttpOnly; SameSite=Strict; Path=/`);
+      }
+      // The slider's own page calls (feel.js). They passed the checks above like every other request.
+      if (event === "request" && port === MAIN_PORT && feel && /^\/cale-feel(\?|$)/.test(req.url || "")) {
+        feel.handle(req, resOrSocket);
+        return true;
       }
     }
   }

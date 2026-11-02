@@ -4,6 +4,7 @@ On a Mac where the installer made a LaunchAgent, launchd keeps Cale running. On 
 Cale runs as a plain detached process that this module starts, and an app can start it on demand.
 """
 import json
+import socket
 import os
 import subprocess
 import sys
@@ -30,8 +31,20 @@ def _launchctl(*a):
     return subprocess.run(["launchctl", *a], capture_output=True, text=True)
 
 
+def _listening():
+    """Does anything listen on Cale's port? A computer's own address answers in milliseconds, so a quarter of a second is a safe wait. Windows takes 2 s to refuse a
+    connection to a port nobody listens on, and every check "is Cale up yet?" would pay that: with this, it pays 0.25 s."""
+    try:
+        socket.create_connection((paths.HOST, paths.PORT), timeout=0.25).close()
+        return True
+    except OSError:
+        return False
+
+
 def status(timeout=3):
     """The /cale/status answer as a dict, or None if Cale does not answer."""
+    if not _listening():
+        return None
     try:
         with urllib.request.urlopen(f"http://{paths.HOST}:{paths.PORT}/cale/status", timeout=timeout) as r:
             return json.loads(r.read())
@@ -77,10 +90,10 @@ def start(wait=60):
         pid = oslayer.spawn_detached([py, "-m", "cale.server"], paths.LOGS / "cale.log", env)
         paths.HOME.mkdir(parents=True, exist_ok=True)
         PIDFILE.write_text(str(pid))
-    for _ in range(int(wait * 2)):
+    for _ in range(int(wait * 8)):
         if running():
             return True, "Cale is running."
-        time.sleep(0.5)
+        time.sleep(0.1)
     return False, f"Cale did not answer within {wait} s. Look at the log: {paths.LOGS / 'cale.log'}"
 
 

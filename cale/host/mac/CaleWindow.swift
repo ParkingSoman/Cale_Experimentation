@@ -104,7 +104,23 @@ final class Delegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKU
 
     func applicationWillTerminate(_ n: Notification) { server?.terminationHandler = nil; server?.terminate() }
 
+    /// One line in the Cale timeline (the same file the Python parts write: cale/timeline.py). Never fails.
+    func mark(_ step: String) {
+        let env = ProcessInfo.processInfo.environment
+        let home = env["CALE_HOME"] ?? (NSHomeDirectory() + "/Library/Application Support/Cale")
+        var isDir: ObjCBool = false
+        guard FileManager.default.fileExists(atPath: home, isDirectory: &isDir), isDir.boolValue else { return }
+        let t = (Date().timeIntervalSince1970 * 10).rounded() / 10
+        let line = "{\"t\":\(t),\"kind\":\"mark\",\"run\":\"window\",\"step\":\"\(step)\",\"pid\":\(ProcessInfo.processInfo.processIdentifier)}\n"
+        if let h = FileHandle(forWritingAtPath: home + "/timeline.jsonl") {
+            h.seekToEndOfFile(); h.write(line.data(using: .utf8)!); h.closeFile()
+        } else {
+            FileManager.default.createFile(atPath: home + "/timeline.jsonl", contents: line.data(using: .utf8))
+        }
+    }
+
     func applicationDidFinishLaunching(_ n: Notification) {
+        mark("window_start")
         buildMenu()
         let cfg = WKWebViewConfiguration()
         web = WKWebView(frame: .zero, configuration: cfg)
@@ -179,6 +195,7 @@ final class Delegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKU
 
     /// The HTML is loaded, but a big page (the chat) can take many more seconds to draw. Keep the loading screen until some text is on screen.
     func webView(_ w: WKWebView, didFinish navigation: WKNavigation!) {
+        mark("page_loaded")
         if splashView != nil { waitForText(tries: 0) }
     }
 
@@ -188,6 +205,7 @@ final class Delegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKU
             let n = (result as? Int) ?? 0
             if n > 0 || tries >= 240 {                                  // text is showing, or 60 seconds have passed
                 self.splashView = nil
+                self.mark("splash_hidden")
                 NSAnimationContext.runAnimationGroup({ c in c.duration = 0.25; v.animator().alphaValue = 0 }, completionHandler: { v.removeFromSuperview() })
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) { self.waitForText(tries: tries + 1) }

@@ -10,7 +10,7 @@ Settings (all optional, as environment variables):
   CALE_MODEL_SRC    a local model (a folder on Mac, a .gguf file on Windows and Linux) to link in, no extra disk
   CALE_ALLOW_COPY=1 copy the model if a hard link is not possible
   CALE_MODEL_REPO   Mac: the Hugging Face repo (default mlx-community/gemma-3n-E4B-it-4bit)
-  CALE_MODEL_URL    Windows and Linux: where to download the .gguf (default: unsloth/gemma-3n-E4B-it-GGUF, Q4_0)
+  CALE_MODEL_URL    Windows and Linux: where to download the .gguf (default: parkingsoman/cale-gemma-3n-E4B-it-GGUF, already in Cale layout)
   CALE_MAX_MBPS     limit the download speed (megabytes per second), to keep a shared network usable
   CALE_LIB_SRC      the cale_llama library file to install (Windows and Linux). Default: llama/dist/<os>-<arch>/
   CALE_PROGRESS=1   also print  CALE_PROGRESS {"stage": ..., "pct": ...}  lines for an app to show
@@ -26,6 +26,7 @@ import stat
 import subprocess
 import sys
 import tarfile
+import threading
 import time
 import urllib.request
 import zipfile
@@ -37,7 +38,7 @@ from cale import oslayer  # noqa: E402
 
 # The files of nest/ that the installed Cale imports. cale/tests/install_check.py checks this list against the real imports.
 NEST_FILES = ("__init__.py", "levels3n.py", "gemma3n_levels.json", "gemma3n.py", "elastic.py", "cancel.py", "stops.py")
-GGUF_URL = "https://huggingface.co/unsloth/gemma-3n-E4B-it-GGUF/resolve/main/gemma-3n-E4B-it-Q4_0.gguf"
+GGUF_URL = "https://huggingface.co/parkingsoman/cale-gemma-3n-E4B-it-GGUF/resolve/main/gemma-3n-E4B-it-Q4_0.cale.gguf"
 UV_BASE = "https://github.com/astral-sh/uv/releases/latest/download/"
 
 
@@ -51,6 +52,13 @@ def die(msg):
 
 
 def progress(stage, pct=None, **extra):
+    try:
+        from cale import timeline
+        timeline.mark("install_" + stage)        # when each stage starts: the length of a stage is the gap to the next (scripts/timeline_report.py --anchor install_runtime)
+        if stage == "done":
+            timeline.flush()
+    except Exception:
+        pass
     if os.environ.get("CALE_PROGRESS"):
         print("CALE_PROGRESS " + json.dumps({"stage": stage, **({"pct": pct} if pct is not None else {}), **extra}), flush=True)
 
@@ -217,6 +225,16 @@ def _long(p):
     return Path(full if full.startswith("\\\\?\\") else "\\\\?\\" + full)
 
 
+def _moves(src, home):
+    """True when the chat folder is the installer's own unpacked copy (<home>/app/chat) and sits on the same disk as <home>: then it is moved, not copied.
+    A developer's dist/chat (or CALE_CHAT_SRC) is never moved."""
+    try:
+        return (Path(src).resolve() == (home / "app" / "chat").resolve() and SRC.resolve() == (home / "app").resolve()
+                and os.stat(src).st_dev == os.stat(home).st_dev)
+    except OSError:
+        return False
+
+
 def install_chat(home):
     """Copy Cale's chat window program into <home>/chat. What the person made (<home>/chat-data) is never touched."""
     src = chat_bundle_source()
@@ -226,7 +244,16 @@ def install_chat(home):
     dst = home / "chat"
     tmp = home / "chat.new"
     shutil.rmtree(_long(tmp), ignore_errors=True)
-    shutil.copytree(_long(src), _long(tmp), symlinks=True)
+    if _moves(src, home):
+        # The one-download installer unpacked the chat into <home>/app/chat. Copying 60,000 small files a second time took about 150 s on a laptop with a
+        # virus scanner. A folder moved inside one disk takes no time. The unpacked copy is not needed again (a new download unpacks it again).
+        try:
+            os.replace(_long(src), _long(tmp))
+        except OSError:
+            shutil.rmtree(_long(tmp), ignore_errors=True)
+            shutil.copytree(_long(src), _long(tmp), symlinks=True)
+    else:
+        shutil.copytree(_long(src), _long(tmp), symlinks=True)
     for link in (tmp / "server" / "storage", tmp / "collector" / "hotdir"):      # made at run time by cale/chat.py, never shipped
         if link.is_symlink() or link.exists():
             shutil.rmtree(link) if link.is_dir() and not link.is_symlink() else link.unlink()
@@ -296,16 +323,69 @@ def install_model(home, backend):
     return model
 
 
+def prefetch_model(home, backend):
+    """Windows and Linux: start the model download now, in the background. It needs only the network, so it runs while the runtime, the chat and
+    Python are set up (those need the disk and the processor). Returns (thread, errors) to wait for, or None when there is nothing to download.
+    (The Mac download runs through Python's own packages, so it starts after them.)"""
+    if backend != "llama" or os.environ.get("CALE_MODEL_SRC"):
+        return None
+    model = home / "models" / "gemma-3n-e4b.gguf"
+    raw = home / "models" / "gemma-3n-e4b.download.gguf"
+    complete = home / "models" / "gemma-3n-e4b.download.complete"
+    if (Path(str(model) + ".complete").exists() and model.exists()) or complete.exists():
+        return None
+    errors = []
+
+    def work():
+        try:
+            say("Downloading the model (about 4.4 GB, it resumes if interrupted)")
+            raw.parent.mkdir(parents=True, exist_ok=True)
+            download(os.environ.get("CALE_MODEL_URL", GGUF_URL), raw)
+            complete.write_text("ok\n")
+        except BaseException as e:                       # die() ends the thread with SystemExit: hand it to the main thread
+            errors.append(e)
+
+    t = threading.Thread(target=work, daemon=True)
+    t.start()
+    return t, errors
+
+
+def wait_for(pre):
+    """Wait for prefetch_model. A failed download stops the install, as it did when it ran in line."""
+    if pre is None:
+        return
+    pre[0].join()
+    if pre[1]:
+        e = pre[1][0]
+        if isinstance(e, SystemExit):
+            raise e
+        die(f"the model download failed ({type(e).__name__}). Run the install again to resume.")
+
+
 def is_prepared(path):
     """True if this GGUF already has the key cale.ffn_down_split (the file is in Cale's layout)."""
     with open(path, "rb") as f:
         return b"cale.ffn_down_split" in f.read(64 * 1024 * 1024)       # the metadata is at the start of the file
 
 
+def warm_chat(home):
+    """Start the chat once and stop it, so Node's compile cache is full before the first open. It needs the network and no AI, so it runs while the model
+    downloads. A failure costs only the speed of the first open."""
+    try:
+        subprocess.run([str(oslayer.venv_python(home / "venv")), "-m", "cale.chat", "--warm"], env=dict(os.environ, CALE_HOME=str(home), PYTHONPATH=str(home / "runtime")),
+                       timeout=120, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception as e:
+        say(f"(The chat start-up cache was not made: {type(e).__name__}. The first open is a little slower.)")
+
+
 def prepare(home, raw, model):
     """Lay each down matrix out as two halves, so the CPU engine can keep its fast weight repacking on (llama/prepare_gguf.py).
     If that fails, the downloaded file still works, only slower: use it as it is."""
     progress("convert", 96)
+    if is_prepared(raw):                                  # the hosted file is already in Cale's layout: nothing to convert (saves about a minute)
+        model.unlink(missing_ok=True)
+        os.replace(raw, model)
+        return
     say("Preparing the model for this computer (about a minute)")
     r = subprocess.run([str(oslayer.venv_python(home / "venv")), str(home / "runtime" / "llama" / "prepare_gguf.py"),
                         str(raw), str(model)])
@@ -520,6 +600,8 @@ def main():
         (home / sub).mkdir(parents=True, exist_ok=True)
     say(f"Installing Cale for {oslayer.NAME} ({backend} engine) in {home}")
 
+    pre = prefetch_model(home, backend)           # Windows and Linux: the download starts now and runs while the next steps set Cale up
+
     progress("runtime", 2)
     say("Copying the runtime")
     copy_runtime(home)
@@ -536,7 +618,9 @@ def main():
     req = SRC / "cale" / f"requirements-{backend}.txt"
     subprocess.run([uv, "pip", "install", "--quiet", "--python", str(oslayer.venv_python(home / "venv")), "-r", str(req)], check=True)
 
+    warm_chat(home)                                       # Node keeps its compiled code of the chat: the first open skips the compile (about 2x faster chat start)
     progress("model", 25)
+    wait_for(pre)
     install_model(home, backend)
     if backend == "llama":
         install_library(home)
