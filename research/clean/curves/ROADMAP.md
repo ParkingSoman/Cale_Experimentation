@@ -41,6 +41,20 @@ If the roadmap ends in any detraction from this, it is not complete. What "full 
 | THE BAR (CLAUDE.md) | every result labelled OPT-KL / EQ / OPT-D2 / ONE-BUILD |
 | "no detraction at the end" (2026-10-31, night) | the roadmap ends only with the full Cale experience on the whole of ResNet-50 (table under "The goal"). No fallback ending counts. |
 
+## How row 3 ends (Shonu, 2026-11-02; card 3-37)
+
+Shonu: "this does not have any utility unless it passes on real networks. i can understand if we prove its mathematically
+impossible to do so but we haven't proved it either way, and so we need to work until that happens."
+
+Row 3 ends in one of two ways. The full tests P1 to P4 and I1 to I5 are on card 3-37.
+
+| End | In one line |
+|---|---|
+| PASS | a claim with an exact theorem and a tight bound, and on ResNet-18 and -50 at k = 14 and 38, on the real box, the rule's build is at most 2 times its proved floor |
+| IMPOSSIBLE | a theorem: unless P = NP, no fast rule is within any fixed factor, on a family that is trained, clean and matches ResNet's measured tables |
+
+The written end in the table below ("row 3 has an exact theorem, checked, refereed") does not count by itself.
+
 ## Where we start (2026-10-31, after LADDER 40)
 
 | Row | A group keeps | Least KL | Label |

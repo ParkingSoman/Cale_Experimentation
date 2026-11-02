@@ -145,6 +145,31 @@ not forced by any theorem, and they are withdrawn. The decisions below are force
 options are exactly the premises of those theorems: to escape a theorem, one of its premises must go. R-least comes
 first, because the other two speak of "the least build".
 
+### 3-37. How row 3 ends: it passes on real networks, or it is proved impossible (2026-11-02; ANSWERED by Shonu; plan i-need-you-to-tingly-orbit.md)
+
+Directional because: this sets what "closed" means for row 3, and so what the next sessions wait for.
+
+Shonu (2026-11-02): "this does not have any utility unless it passes on real networks. i can understand if we prove its mathematically impossible to do so but we haven't proved it either way, and so we need to work until that happens." He approved the plan with the tests below, and did not change the factor 2 in P4.
+
+This answers card 3-35 question 1: option (a), row 3 stays open. The roadmap's written end ("an exact theorem, checked, refereed") does not count by itself.
+
+| Test | PASS: every line must hold |
+|---|---|
+| P1 | A claim type exists. Its error is computed in polynomial time. It names no build, size or zoom |
+| P2 | At error 0, a closed form gives the least KL. It is proved, refereed and checked against a certified global optimum on small nets, hand-built and trained |
+| P3 | At error above 0, a proved bound depends only on the errors, is 0 at 0, and is first-order tight (ratio measured) |
+| P4 | On ResNet-18 and ResNet-50, at k = 14 and k = 38, on the trunk's real box (k units reading z), with a map from agents: the rule's build is at most 2 times its proved floor |
+
+| Test | IMPOSSIBLE: every line must hold |
+|---|---|
+| I1 | A theorem on a family of networks, with every claim at error 0 |
+| I2 | Unless P = NP, no fast rule is within any fixed factor of the least |
+| I3 | The family is trained-like. A real training run reaches each small instance, and the hard tables are global minima of their own training objective |
+| I4 | The family matches what ResNet tables measure: mean tail about .31, log range up to about e^39, KL not quadratic on most of the loss |
+| I5 | The hard tables pass the essay's clean principles, read by agents and not only by my definitions |
+
+Said plainly: one fixed network has one fixed least, so no hardness theorem can say that ResNet-50 itself cannot be solved. IMPOSSIBLE means that a family that looks like ResNet has no rule. Shonu may still object that real tables are not in that family. An IMPOSSIBLE result conflicts with the ResNet-50 end condition, so it returns to him on a new card with the theorem.
+
 ### 3-36. The general form of row 3 is proved hard. What should the exact promise at a squeeze mean? (2026-11-02; COARSE-THEORY.md B.Q.11; LADDER 50; nothing blocks on this)
 
 Directional because: this sets what "exact" promises a developer at 0 < k < rank, after a theorem limits it. No theorem forces one answer, and option (c) moves off the least KL.

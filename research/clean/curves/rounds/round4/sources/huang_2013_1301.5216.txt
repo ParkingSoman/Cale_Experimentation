@@ -1,0 +1,300 @@
+                                            Improved Hardness of Approximating Chromatic
+                                                              Number
+                                                                        Sangxia Huang
+                                                                KTH Royal Institute of Technology
+                                                                      Stockholm, Sweden
+                                                                     sangxia@csc.kth.se
+arXiv:1301.5216v3 [cs.CC] 4 Feb 2013
+
+
+
+
+                                                                              June 16, 2018
+
+
+                                                                                  Abstract
+                                                We prove that for sufficiently large K, it is NP-hard to color K-colorable graphs
+                                                               1/3
+                                             with less than 2K     colors. This improves the previous result of K versus K O(log K)
+                                             in Khot [14].
+
+
+                                       1    Introduction
+                                       In this paper we improve the inapproximability result for approximating the chromatic
+                                       number of graphs. More specifically, given a K-colorable graph, we would like to color
+                                       it with as few color as possible. This problem is closely related to a number of other
+                                       problems such as approximation of independent sets and PCPs with low amortized free bit
+                                       complexity. On the algorithmic side, Karger, Motwani and Sudan [12] give an algorithm
+                                       to color a K-colorable graph with Õ(n1−3/(K+1) ) colors, whereas Blum and Karger [3]
+                                       gave an algorithm to color a 3-colorable graph with Õ(n3/14 ) colors. There have been
+                                       many works on the hardness side as well. It is known that coloring 3-colorable graph
+                                       with 5 colors is NP-hard, and for general K-colorable graph it is NP-hard to color with
+                                       K + 2⌈ K3 ⌉ colors [13, 9]. For all sufficiently large K, the best known gap is by Khot [14]
+                                       which proved that it is NP-hard to color a K-colorable graph with K O(log K) colors. This
+                                       is equivalent to saying that it is NP-hard to distinguish a K-colorable graph from a graph
+                                       that cannot be colored with fewer than K O(log K) colors. Assuming a variant of Khot’s
+                                       2-to-1 Conjecture, Dinur, Mossel and Regev [7] proved that it is NP-hard to K ′ -color a
+                                       K-colorable graph for any 3 ≤ K < K ′ .
+                                           Khot’s hardness result [14] can be derived either using PCPs from Håstad and Khot
+                                       [11] or Samorodnitsky and Trevisan [17]. The PCPs is then combined with a random-
+                                       ization technique to show the completeness of the reduction. We can view the results
+                                       in [11] and [17] as showing approximation resistance for a family of Boolean predicates
+                                       that has very few accepting inputs — it is NP-hard to approximate Max CSP with those
+                                       predicates better than just doing random assignments. For each integer k > 0, the ap-
+                                       proximation resistance predicates we get    √
+                                                                                     from [11] and [17] has k variables (and thus 2k
+                                                                                 O( k)
+                                       possible assignments) but only has 2            accepting assignments. The predicate [11] is
+                                       approximation resistance even on satisfiable instances — or perfect completeness in PCP
+                                       language — while the predicate from [17] is not. It is noted in [14] that having perfect
+                                       completeness makes the reduction for coloring easier.
+                                           In a recent breakthrough, Chan [4] proved approximation resistance for a family of
+                                       predicates on k variables but only has k + 1 accepting assignments whenever k is of
+
+
+                                                                                       1
+the form k = 2r − 1. Previously, approximation resistance of those predicates are only
+known assuming the Unique Games Conjecture [18]. Hast [10] proved that predicates on
+k variables having at most 2⌊k/2⌋ + 1 (= k in the current setting) accepting inputs are
+not approximation resistant. This hardness also matches up to constant factor with the
+algorithm for Max CSP by Charikar, Makarychev and Makarychev [5].
+    It is an interesting question if this improved result can be used as in [14] to get better
+approximation gap for chromatic numbers. In the following theorem, we show that this
+is indeed the case.
+Theorem 1. For all sufficiently large K, it is NP-hard to color a K-colorable graph with
+   1/3
+2K     colors.
+    In [4], Chan also showed that for any K ≥ 3, there is ν = o(1) such that given a
+graph with an induced K-colorable subgraph of fractional size 1 − ν, it is NP-hard to
+find an independent set of fractional size 1/2K/2 + ν. We refer to [6, 15, 4] for additional
+discussions on Almost-Coloring.
+
+
+2    Label Cover and PCP
+In this section we review basics of Label Cover and PCPs and describe Chan’s improved
+PCP construction.
+    Let (U, V, E, L, R, Π) be an instance of Label Cover, where R = dL for some constant
+d, the tuple (U, V, E) is a weighted bipartite graph, vertices in U are assigned labels from
+[L], and vertices in V are assigned labels from [R]. Each edge e = (u, v) is associated with
+d-to-1 mapping πe : [R] → [L]. Given an assignment A : U → [L], V → [R], constraint on
+e is satisfied if πe (A(v)) = A(u). The following theorem combines the celebrated PCP
+theorem [1, 2] with Raz’s parallel repetition theorem [16] and shows hardness of Label
+Cover.
+Theorem 2. For any constant 0 < σ < 1, there are d, R ≤ poly(1/σ) such that the
+problem of deciding a 3-SAT instance with n variables can be Karp-reduced in poly(n)
+time to the problem of (1, σ)-deciding a Label Cover instance of size n1+o(1) . Furthermore,
+L is a bi-regular bipartite graph with left- and right-degrees poly(1/σ).
+     As is the case with many MaxCSP inapproximability results, the above Label Cover
+will be the starting point of our reduction. Typically, the reduction translates labelings
+for u ∈ U and v ∈ V to 2|L| and 2|R| Boolean variables, respectively. These variables
+are viewed as functions f u : {−1, 1}|L| → {−1, 1} and g v : {−1, 1}|R| → {−1, 1}. We
+                                                                                        |R|
+require that these functions are folded, that is, for any x ∈ {−1, 1}|L|, y ∈ {−1, 1} ,
+  u             u            v              v
+f (−x) = −f (x) and g (−y) = −g (y). This corresponds to having negated literals in
+the CSP instances. In a correct proof for a satisfiable Label-Cover instance, we expect
+the functions to be long codes for the corresponding labelings of u and v, that is, setting
+f u (x) = xσU (u) , and g v (y) = yσV (v) .
+     For an edge (u, v) in the Label-Cover, we sample queries
+
+                               (x(1) , · · · , x(m) , y (m+1) , · · · , y (k) )
+
+according to some carefully chosen test distribution T . The distribution T has the prop-
+erty that for any l ∈ L and r ∈ R such that π(u,v) (r) = l, the predicate P accepts
+                         (1)                (m)
+                   (fu (xl ), · · · , fu (xl      ), gv (yr(m+1) ), · · · , gv (yr(m+1) ))
+
+with probability 1 (or 1 − ε for some small constant ε if we are considering non-perfect
+completeness). We can think of this as a 2-player game, functions fu and gv are strategies
+
+                                                      2
+of each player, and the goal is to convince the verifier who uses predicate P to decide
+acceptance.
+    In [4], Chan developed a new way of constructing efficient PCPs and proved that the
+following Hadamard predicate HK : {−1, 1}K → {0, 1} is approximation resistant for
+K = 2r − 1. The predicate HK is on variables {xS }∅6=S⊆[k] , defined as
+                                                          Q
+                                1 ∀S ⊆ [k], |S| > 1, xS = i∈S x{i}
+                   HK (x) =
+                                0 otherwise.
+This predicate has K +1 accepting assignments. Samorodnitsky and Trevisan [18] showed
+that HK is approximation resistance assuming the Unique Games Conjecture. Using his
+new technique, Chan proved that this is true assuming P 6= N P .
+    The main idea in Chan’s reduction is to consider a direct sum of K independent
+K-player games. In the i-th game, an edge ei is sampled as in the above 2-player game.
+Player i gets a uniform random string from {−1, 1}|L| and all other players get samples
+from {−1, 1}|R| as described below. Thus for each tuple of K − 1 vertices from V and
+1 vertex from U , the players will have a strategy which is a Boolean function taking
+as input (K − 1) strings of length R and 1 string of length L. In a correct proof, the
+strategies are expected to be products of long codes encoding the labeling of the vertices.
+    We now formally define the PCP and how queries are sampled.
+Definition 3. Let (U, V, E, L, R, Π) be a label cover instance. Define Vi = V i−1 × U ×
+                                                                                  i−1
+V K−i for i ∈ [K]. For each v ∈ Vi , the proof contains function fv : {−1, 1}R         ×
+       L           R k−i
+                    
+{−1, 1} × {−1, 1}        → {−1, 1}. The verifier check the proof as follows:
+    1. Sample independently K random edges e1 = (u1 , v1 ), · · · , eK = (uK , vK ) ∈ E.
+    2. Let vi = (v1 , · · · , vi−1 , ui , vi+1 , · · · , vK ). The verifiers queries {fvi (qi )}K
+                                                                                                i=1 , where
+       qi is sampled as below.
+       For i ∈ [K], first sample uniformly qi,i ∈ {−1, 1}L. Let π be the projection of edge
+       ei . For each r ∈ R, pick a uniformly random point (x1 , · · · , xK ) from the subspace
+       of HK where xi = qi,i,π(r) , and set qi,j,r = xj for j 6= i. Finally for each bit in qi ,
+       i = 1, · · · , K, with probability η we resample the bit from the uniform distribution
+       on {−1, 1}.
+    3. Let f (q) = (fv1 (q1 ), · · · , fvK (qK )). Accept if HK (f (q)) = 1.
+    In a correct proof, the function fv is the product of long codes encoding the labeling
+of each vertex in v.
+    Theorem E.1 along with Theorem A.1, 6.9 and C.2 of [4] shows completeness and
+soundness of the above reduction and we formulate as the following theorem.
+Theorem 4. Fix some small η, δ > 0. Let the soundness of Label Cover σ be chosen such
+that δ = poly(K/η) · σ Ω(1) . Given a Label Cover instance LCL,dL , we have the following:
+    1. If LCL,dL has value 1, the verifier accepts a correct proof with probability at least
+       1 − K 2 η.
+    2. If the verifier accepts with probability greater than (K + 1)/2K + 2δ, then LCL,dL
+       has value at least σ.
+
+
+3      Hardness of Approximating Chromatic Number
+In this section, we prove that for sufficiently large K, it is NP-hard to color a K-colorable
+                         1/3
+graph with less than 2K      colors. For convenience of notation, we in fact prove a gap of
+  3          K
+K versus 2 .
+
+                                                     3
+    The overall idea is similar to that in Khot [14]. We start by describing the FGLSS
+graph [8] of the PCP in Definition 3. The vertices in the FGLSS graph are function
+queries and corresponding accepting configurations, denoted as (fv , q, x). The weight of
+the vertex is the probability that query (fv , q) is picked. The total weight of the graph
+is therefore K + 1. Two vertices are connected if they are clearly inconsistent (returning
+different answers for the same query to the same function). An independent set in the
+graph corresponds to a strategy / set of functions, and its weight is the acceptance
+probability of such strategy. For a PCP, the maximum weight independent set in its
+FGLSS graph is related to its acceptance probability. Note that if the maximum weight
+independent set has weight w, then we need at least (K + 1)/w colors to color the whole
+graph since vertices having the same color must form an independent set.
+    To use the FGLSS graph for coloring results, we also need to show that if a PCP
+has acceptance probability 1 − ε, we can color the FGLSS graph with a small number
+of colors. As in [14], we modify Definition 3 so that the functions in the proof become
+                 t i−1                              t k−i
+                                 t
+                                                    
+fv : {−1, 1}R·2        × {−1, 1}L·2 × {−1, 1}R·2          → {−1, 1}. Alternatively, we can
+think of this as modifying Label Cover by appending a t-bit binary string to all the labels
+and defining the new projection in the Label Cover instance as πe′ (r ◦ α) = πe (r) ◦ α for
+r ∈ R and α ∈ {0, 1}t, where “◦” denotes string concatenation. The value of this new
+Label Cover instance is exactly the same as the original setting.
+    Consider the FGLSS graph of the PCP based on the above modified Label Cover
+problem. Soundness is straightforward. If the new proof makes the verifier accept with
+probability at least (K + 1)/2K + 2δ, then the value of the new Label Cover is at least
+σ and thus so is the original instance.
+    Let α ∈ {0, 1}t be some global parameter. If a Label Cover instance has value 1,
+then there are at least 2t different ways of assigning labels satisfying all the edges. In
+a correct proof, functions would be product of long codes encoding labelings extended
+by α, denoted as f (α) . Next we prove that independent sets corresponding to different
+α ∈ {0, 1}t covers almost all of the FGLSS graph of the modified PCP. We remove the
+small fraction of vertices that are not covered and this gives the completeness of the
+reduction.
+    Formally, we follow Khot’s notation and introduce the following definition character-
+izing whether we can cover certain vertex with independent sets.
+Definition 5. A set of queries q is good if for any labelings to the vertices and any
+accepting assignment z, there exists a global extension α, such that if the functions f (α)
+are products of long codes encoding the labelings extended by α, then f (α) (q) = z.
+   Let δ = 2−Ω(K) be the soundness parameter of the PCP. By Theorem 4 of Chan, we
+require the soundness of Label Cover to be σ = (δ/poly(K/η))o(1) .
+Lemma 6. Let t be such that 2t = C · K 3 for some large constant C. For large enough
+K, at most a weighted fraction of exp(−O(K)) of the queries is not good.
+    Remove the vertices in the FGLSS graph that correspond to queries that are not
+good. The fraction of vertices removed is bounded by exp(−O(K)). In the soundness
+case coloring the FGLSS graph still needs at least K(1 − exp(−O(K)))/2−O(K) = 2Ω(K)
+colors. In the completeness case, each α ∈ {0, 1}t is associated with an independent
+set consisting of vertices the form (fv , q, z), where z = f (α) (q) and f (α) is a product
+of long codes encoding labelings of v extended by α. Consider any vertex (fv , q, x) in
+the modified FGLSS graph. By definition q is good so there exists α0 ∈ {0, 1}t such
+that fv (q) = f (α0 ) (q) = x, so it is covered by the independent set associated with α0 .
+Therefore the modified FGLSS graph can be colored with 2t = O(K 3 ) colors.
+
+
+
+                                            4
+Proof of Lemma 6. Let η = O(1/K 2 ). We thus have that the label size L = poly(1/σ) =
+exp(O(K)).
+    Fix some labeling of the label cover instance and some accepting assignment z.
+    Consider α ∈ {0, 1}t . Over the queries sampled, the probability that f (α) (q) = z
+                    2                2
+is O(1/K · (1 − η)K ) = O(e−ηK /K) = O(1/K) — the probability of answering z on
+q before adding noise is 1/(K + 1), there are K functions, each being a product of K
+long codes, therefore the answer f (α) (q) depends on K 2 bits, and if none of the K 2 bits
+are corrupted then the answer is correct. The contribution from other sources to answer
+z is negligible. Note that for different extension α, the bits that f (α) reads from q are
+completely different and therefore independent, so we have
+                  h                   i               t
+                Pr ∀α, f (α) (q) 6= z = (1 − O(1/K))2 = exp(−O(2t /K)).
+                q
+
+   For query q, let Q(q) be the event that q is not good in the sense of Definition 5:
+there exists some labeling and some accepting assignment z, such that f (α) (q) 6= z for
+any α. Taking union bound over all possible labelings and accepting configurations, we
+get that the weighted fraction of q that are bad is
+
+                    Pr [Q(q)] ≤ LO(K) K exp(−O(2t /K)) = exp(−O(K)).
+                    q
+
+
+
+
+Acknowledgements
+The author is grateful to Siu On Chan for pointing out Theorem E.1 in his paper, leading
+                     1/3                                       1/5
+to a gap of K vs. 2K , improving the original gap of K vs. 2K .
+
+
+References
+ [1] S. Arora, C. Lund, R. Motwani, M. Sudan, and M. Szegedy. Proof verification and
+     the hardness of approximation problems. J. ACM, 45(3):501–555, 1998.
+ [2] S. Arora and S. Safra. Probabilistic checking of proofs: A new characterization of
+     NP. J. ACM, 45(1):70–122, 1998.
+ [3] A. Blum and D. R. Karger. An Õ(n3/14 )-coloring algorithm for 3-colorable graphs.
+     Inf. Process. Lett., 61(1):49–53, 1997.
+ [4] S. O. Chan. Approximation resistance from pairwise independent subgroups. Elec-
+     tronic Colloquium on Computational Complexity (ECCC), 19:110, 2012.
+ [5] M. Charikar, K. Makarychev, and Y. Makarychev. Near-optimal algorithms for
+     maximum constraint satisfaction problems. ACM Transactions on Algorithms, 5(3),
+     2009.
+ [6] I. Dinur, S. Khot, W. Perkins, and M. Safra. Hardness of finding independent sets in
+     almost 3-colorable graphs. In FOCS, pages 212–221. IEEE Computer Society, 2010.
+ [7] I. Dinur, E. Mossel, and O. Regev. Conditional hardness for approximate coloring.
+     SIAM J. Comput., 39(3):843–873, 2009.
+ [8] U. Feige, S. Goldwasser, L. Lovász, S. Safra, and M. Szegedy. Approximating clique
+     is almost NP-complete (preliminary version). In FOCS, pages 2–12. IEEE Computer
+     Society, 1991.
+
+                                            5
+ [9] V. Guruswami and S. Khanna. On the hardness of 4-coloring a 3-colorable graph.
+     SIAM J. Discrete Math., 18(1):30–40, 2004.
+[10] G. Hast. Beating a random assignment. PhD Thesis, 2005.
+[11] J. Håstad and S. Khot. Query efficient PCPs with perfect completeness. Theory of
+     Computing, 1(1):119–148, 2005.
+[12] D. R. Karger, R. Motwani, and M. Sudan. Approximate graph coloring by semidef-
+     inite programming. J. ACM, 45(2):246–265, 1998.
+[13] S. Khanna, N. Linial, and S. Safra. On the hardness of approximating the chromatic
+     number. Combinatorica, 20(3):393–415, 2000.
+[14] S. Khot. Improved inaproximability results for maxclique, chromatic number and
+     approximate graph coloring. In FOCS, pages 600–609. IEEE Computer Society,
+     2001.
+[15] S. Khot and R. Saket. Hardness of finding independent sets in almost q-colorable
+     graphs. In FOCS, pages 380–389. IEEE Computer Society, 2012.
+[16] R. Raz. A parallel repetition theorem. SIAM J. Comput., 27(3):763–803, 1998.
+[17] A. Samorodnitsky and L. Trevisan. A PCP characterization of NP with optimal
+     amortized query complexity. In F. F. Yao and E. M. Luks, editors, STOC, pages
+     191–199. ACM, 2000.
+[18] A. Samorodnitsky and L. Trevisan. Gowers uniformity, influence of variables, and
+     PCPs. SIAM J. Comput., 39(1):323–360, 2009.
+
+
+
+
+                                          6
+

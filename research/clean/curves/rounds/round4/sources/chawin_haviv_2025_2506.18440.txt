@@ -1,0 +1,1396 @@
+                                             New Hardness Results for Low-Rank Matrix Completion
+                                                                             Dror Chawin*                 Ishay Haviv*
+
+
+
+                                                                                               Abstract
+
+                                                    The low-rank matrix completion problem asks whether a given real matrix with missing
+arXiv:2506.18440v1 [cs.CC] 23 Jun 2025
+
+
+
+
+                                                values can be completed so that the resulting matrix has low rank or is close to a low-rank
+                                                matrix. The completed matrix is often required to satisfy additional structural constraints,
+                                                such as positive semi-definiteness or a bounded infinity norm. The problem arises in various
+                                                research fields, including machine learning, statistics, and theoretical computer science, and
+                                                has broad real-world applications.
+                                                    This paper presents new NP-hardness results for low-rank matrix completion problems. We
+                                                show that for every sufficiently large integer d and any real number ε ∈ [2−O(d) , 17 ], given a par-
+                                                tial matrix A with exposed values of magnitude at most 1 that admits a positive semi-definite
+                                                completion of rank d, it is NP-hard to find a positive semi-definite matrix that agrees with each
+                                                given value of A up to an additive error of at most ε, even when the rank is allowed to exceed d
+                                                by a multiplicative factor of O( ε2 ·log1(1/ε) ). This strengthens a result of Hardt, Meka, Raghaven-
+                                                dra, and Weitz (COLT, 2014), which applies to multiplicative factors smaller than 2 and to ε
+                                                that decays polynomially in d. We establish similar NP-hardness results for the case where
+                                                the completed matrix is constrained to have a bounded infinity norm (rather than be positive
+                                                semi-definite), for which all previous hardness results rely on complexity assumptions related
+                                                to the Unique Games Conjecture. Our proofs involve a novel notion of nearly orthonormal
+                                                representations of graphs, the concept of line digraphs, and bounds on the rank of perturbed
+                                                identity matrices.
+
+
+                                         1     Introduction
+                                         In the matrix completion problem, the input is a partially observed real matrix, where some entries
+                                         are marked by ⊥ to indicate missing values. The goal is to fill in these values in such a way that
+                                         the completed matrix satisfies certain prescribed properties. This algorithmic task is prevalent in
+                                         various research fields, including machine learning, statistics, and theoretical computer science,
+                                         and is motivated by a range of real-world applications, such as recommendation systems, medical
+                                         imaging, computer vision, and signal processing. Typically, the completed matrix is required to
+                                         have low rank or to be a slight perturbation of a low-rank matrix. In certain cases, the matrix may
+                                         also need to be positive semi-definite or constrained by a bounded infinity norm.
+                                             A central objective in the study of low-rank matrix completion is to identify the conditions
+                                         under which the problem can be solved efficiently. A successful line of work, initiated by Candès
+                                             * The Academic College of Tel Aviv-Yaffo, Tel Aviv 61083, Israel. Research supported by the Israel Science Founda-
+                                         tion (grant No. 1218/20).
+
+
+                                                                                                   1
+and Recht [7], has applied convex optimization methods to efficiently recover a low-rank matrix
+from the values of a subset of its entries (see also [8, 36]). The recovery is guaranteed to succeed
+if (a) the number of given entries is sufficiently large, (b) the completed matrix satisfies a certain
+incoherence condition (i.e., the row and column spaces of the matrix are not aligned with the vec-
+tors of the standard basis), and (c) the subset of exposed entries is drawn uniformly at random. In
+fact, these conditions further ensure that the solution is unique. However, in most applications,
+the given entries cannot be chosen at random. It is therefore of interest to determine the com-
+putational complexity of recovering a low-rank incoherent matrix, when the observed entries are
+selected in a worst-case manner.
+     The hardness of low-rank matrix completion can be traced back to a 1996 paper by Peeters [33],
+who explored the complexity of determining a graph quantity known as minrank, introduced by
+Haemers [18] in the context of the Shannon capacity of graphs. Peeters’ work implies that for
+every integer d ≥ 3, deciding whether a given partial matrix can be completed to a matrix of rank
+at most d is NP-hard. His proof technique further implies that the same NP-hardness result holds
+when the completed matrix is required to be positive semi-definite, and this was extended to the
+case of d = 2 in 2013 by Eisenberg-Nagy, Laurent, and Varvitsiotis [14]. This research avenue was
+then extended by Hardt, Meka, Raghavendra, and Weitz [20], who explored two relaxations of the
+problem: first, allowing some slackness in the rank of the completed matrix, and second, permit-
+ting a bounded additive error on the given entries of the partial matrix. Specifically, they proved
+that for every integer d ≥ 6, given a partial matrix A whose observed entries have magnitude
+at most 1, it is NP-hard to distinguish between the case where A admits a positive semi-definite
+completion of rank at most d, and the case in which any positive semi-definite completion of A
+has rank at least 2d. Moreover, they showed that the problem remains NP-hard, when the ma-
+trix in the latter case is allowed to approximate each given value up to an additive error of ε, as
+long as ε decays polynomially with the desired rank, namely, for ε = O(d−6 ). More recently, the
+paper [10] addressed the related problem of determining a graph measure known as the orthogo-
+nality dimension. The results of [10] imply that for every sufficiently large integer d, it is NP-hard
+to decide whether an input partial matrix can be completed to a positive semi-definite matrix of
+rank at most d, or any positive semi-definite completion has rank at least 2(1−o(1))·d/2 , with the o (1)
+term tending to 0 as d tends to infinity. It thus follows that it is NP-hard to approximate to within
+any constant factor the minimum possible rank of a positive semi-definite matrix that agrees with
+an input partial matrix. However, this hardness result does not apply to the more tolerant setting
+that allows an additive perturbation in each entry of the partial matrix.
+     Another version of the low-rank matrix completion problem considered by Hardt et al. [20] im-
+poses a fixed bound on the infinity norm of the completed matrix (rather than requiring positive
+semi-definiteness). For this setting, their hardness results were not based on the standard assump-
+tion P ̸= NP, but on the hardness of appropriate gap versions of the Coloring and Independent Set
+problems, the intractability of which is supported by certain variants of the Unique Games Con-
+jecture [12, 13]. Under these assumptions, they showed that for all positive integers d2 > d1 ≥ 3
+and real numbers ε ∈ [0, 21 ) and θ ≥ 1, there is no efficient algorithm to decide whether an input
+partial matrix A can be completed to one with an infinity norm at most θ and rank at most d1 ,
+or any completion of A with an infinity norm at most θ must have rank at least d2 , even when
+
+
+                                                   2
+an additive error of ε is allowed in each entry. Remarkably, this hardness result persists when a
+constant fraction of the matrix entries is revealed (as is the case for all the above hardness results)
+and, in addition, when the completed matrix is required to be incoherent (in instances admitting
+a valid completion). In light of the aforementioned algorithmic results for the problem [7, 8, 36],
+these findings highlight the worst-case choice of the revealed entries as a substantial obstacle to
+efficient recovery.
+
+1.1     Our Contribution
+This paper presents several new hardness results for low-rank matrix completion problems. We
+begin by considering the case where the completed matrix is required to be positive semi-definite.
+Specifically, we study the gap problem (d1 , d2 , ε)-PSD-Completion, formally defined below. Here,
+we let µ( B) denote the coherence of a matrix B, a measure that is always bounded from below by
+1 (see Definition 2.3).
+
+Definition 1.1 (The (d1 , d2 , ε)-PSD-Completion Problem). For positive integers d1 < d2 and for a real
+number ε ∈ [0, 1), the (d1 , d2 , ε)-PSD-Completion problem asks, given a partial matrix
+
+                                          A ∈ ([−1, +1] ∪ {⊥})n×n ,
+
+to distinguish between the following cases.
+
+      • YES: There exists a positive semi-definite matrix B ∈ Rn×n , such that Ai,j = Bi,j for all i, j ∈ [n]
+        with Ai,j ̸=⊥, µ( B) = 1, and rank( B) ≤ d1 .
+
+      • NO: Every positive semi-definite matrix B ∈ Rn×n , such that | Ai,j − Bi,j | ≤ ε for all i, j ∈ [n] with
+        Ai,j ̸=⊥, satisfies rank( B) ≥ d2 .
+
+Note that the definition restricts the magnitudes of the values in the input partial matrix to at most
+1. Such a restriction is essential when allowing an additive error in the completed matrix, as rank
+is invariant under scaling.
+     We first point out that, under plausible complexity assumptions related to the Unique Games
+Conjecture [12, 13], the (d1 , d2 , ε)-PSD-Completion problem is intractable for all positive integers
+d2 > d1 ≥ 3 and real numbers ε ∈ [0, 12 ). Our primary contribution lies in establishing hardness
+results based solely on the more standard assumption P ̸= NP, as stated below.
+
+Theorem 1.2 (Simplified). For every sufficiently large integer d and any real number ε ∈ [2−O(d) , 71 ], the
+(d, O( ε2 ·logd(1/ε) ), ε)-PSD-Completion problem is NP-hard.
+
+    For admissible values of d and ε, Theorem 1.2 implies that given a partial matrix A with ex-
+posed values of magnitude at most 1, which admits a positive semi-definite completion with co-
+herence 1 and rank d, it is NP-hard to find a positive semi-definite matrix that agrees with each
+given value of A up to an additive error of at most ε, even when the rank is allowed to exceed d
+by a multiplicative factor of O( ε2 ·log1(1/ε) ). The theorem encompasses various parameter settings
+of interest. First, for any fixed approximation factor α > 1, there exists some constant ε > 0,
+for which the (d, α · d, ε)-PSD-Completion problem is NP-hard for any sufficiently large integer d.
+
+                                                        3
+Next, letting ε decrease polynomially with d results in a hardness of approximation factor that is
+polynomial in d. Finally, setting ε = 2−Θ(d) yields a hardness of approximation to within a factor
+of the form 2Ω(d) . In fact, for an ε that decays sufficiently rapidly with d, we obtain the following
+refined hardness result.
+
+Theorem 1.3 (Simplified). For every sufficiently large integer d and any real number ε ∈ [0, 2−Ω(d) ], the
+(d, 2(1−o(1))·d/2 , ε)-PSD-Completion problem is NP-hard.
+
+    Theorems 1.2 and 1.3 substantially strengthen the previously known NP-hardness results for
+low-rank matrix completion in the positive semi-definite setting. As demonstrated above, our
+results offer flexibility in the choice of parameters, enabling us to establish hardness for several
+scenarios of interest. For comparison, the result of [20] is specific to ε decaying polynomially in the
+rank and achieves NP-hardness of approximation to within factors smaller than 2. In contrast, for
+this regime of ε, Theorem 1.2 establishes NP-hardness of approximation to within factors that grow
+polynomially in the rank. Furthermore, all our hardness results hold even when the completed
+matrices of YES instances are required to have coherence 1, a property not guaranteed by the
+NP-hardness result of [20]. Finally, while the hardness result of [10] achieves the same gap as
+Theorem 1.3, it is restricted to the non-error setting of ε = 0.
+    We turn to our NP-hardness results for the low-rank matrix completion problem, where the
+completed matrix is constrained by a bounded infinity norm. Consider the gap (d1 , d2 , ε, θ )-
+Completion problem, defined as follows.
+
+Definition 1.4 (The (d1 , d2 , ε, θ )-Completion Problem). For positive integers d1 < d2 and real numbers
+ε ≥ 0 and θ ≥ 1, the (d1 , d2 , ε, θ )-Completion problem asks, given a partial matrix
+
+                                       A ∈ ([−θ, +θ ] ∪ {⊥})n×n ,
+
+to distinguish between the following cases.
+
+   • YES: There exists a matrix B ∈ [−θ, +θ ]n×n , such that Ai,j = Bi,j for all i, j ∈ [n] with Ai,j ̸=⊥,
+     µ( B) = 1, and rank( B) ≤ d1 .
+
+   • NO: Every matrix B ∈ [−θ, +θ ]n×n , such that | Ai,j − Bi,j | ≤ ε for all i, j ∈ [n] with Ai,j ̸=⊥,
+     satisfies rank( B) ≥ d2 .
+
+   Our hardness results for this problem are stated as follows.
+
+Theorem 1.5 (Simplified). For every sufficiently large integer d and any real numbers ε ∈ [2−O(d) , 17 ]
+              O(d)
+and θ ∈ [1, 22 ], the (d, O( ε2 ·logd(1/ε) ), ε, θ )-Completion problem is NP-hard.
+
+Theorem 1.6 (Simplified). For every sufficiently large integer d and any real numbers ε ∈ [0, 2−Ω(d) ]
+              o (d)
+and θ ∈ [1, 22 ], the (d, 2(1−o(1))·d/2 , ε, θ )-Completion problem is NP-hard.
+
+As mentioned earlier, the previously known hardness results for the (d1 , d2 , ε, θ )-Completion prob-
+lem, given in [20], rely on complexity assumptions stronger than the standard conjecture P ̸= NP.
+   Our NP-hardness results are obtained via an efficient reduction from a gap coloring problem,
+whose hardness was proved by Krokhin, Opršal, Wrochna, and Zivný [28]. Their proof employed
+
+                                                    4
+the concept of line digraphs, introduced by Harary and Norman [19] in 1960, which lies at the
+heart of the present paper as well. Specifically, we introduce extensions of the notions of orthog-
+onality dimension and minrank of graphs (see Definitions 3.1 and 3.2), and as our main technical
+contribution, we show that for line digraphs, these quantities are intimately related to the chro-
+matic number. The analysis involves bounds on the rank of perturbed identity matrices that were
+proved by Alon [2] in 2003 and have found diverse applications (see Theorem 2.6 and [3]). After
+establishing hardness results for our extensions of orthogonality dimension and minrank, we de-
+rive our hardness results for low-rank matrix completion problems. We believe that these novel
+graph quantities may be of independent interest, and we encourage their further study by point-
+ing out a close relation to the notion of circular chromatic number, introduced by Vince [37] in
+1988 (see Section 3.3).
+
+1.2   Proof Technique
+We provide here an overview of the techniques and ideas behind the proofs of our NP-hardness
+results for the low-rank matrix completion problem. For concreteness, we focus on the PSD-
+Completion problem, where the completed matrix is required to be positive semi-definite. We
+then briefly discuss the setting of a bounded infinity norm.
+    Our hardness proofs are anchored in the classic gap coloring problem. Recall that the chro-
+matic number of a graph G, denoted χ( G ), is the smallest number of colors needed for a vertex
+coloring of G in which adjacent vertices receive distinct colors. For fixed positive integers k1 < k2 ,
+the (k1 , k2 )-Coloring problem asks, given an input graph G, to distinguish between the case where
+χ( G ) ≤ k1 and the case where χ( G ) ≥ k2 . This problem is known to be intractable for all integers
+k2 > k1 ≥ 3, under complexity assumptions related to the Unique Games Conjecture [12, 13].
+However, identifying the values of k1 and k2 for which the problem is NP-hard has long been
+considered notoriously difficult. The current state of the art shows that for every integer k1 ≥ 3,
+the problem is NP-hard for k2 = 2k1 , as proved by Barto, Bulı́n, Krokhin, and Opršal [5], and for
+k2 = (⌊k1k/21
+               ⌋) = 2
+                      (1−o (1))·k1 , as proved by Krokhin, Opršal, Wrochna, and Zivný [28]. The latter
+
+result, which improves upon the former for all integers k1 ≥ 6, serves as the starting point of our
+hardness proofs.
+    The NP-hardness proof of Krokhin et al. [28] for the gap coloring problem is based on the
+concept of line digraphs [19], which allows to efficiently shrink the chromatic number of a given
+graph in a controlled manner. Specifically, for a graph G, let δ̃G denote the underlying graph
+of the line digraph of G, namely, the graph whose vertices are all the ordered pairs of adjacent
+vertices in G (whose number is twice the number of edges in G), where two vertices (u1 , u2 )
+and (v1 , v2 ) are adjacent in δ̃G if u2 = v1 or u1 = v2 (see Definition 3.6). A result of Poljak
+and Rödl [34] shows that the chromatic number of the graph δ̃G is logarithmic in that of G (see
+Theorem 3.7). The hardness result of [28] was derived by repeatedly applying this transformation
+                                1/3
+to instances of the (k, 2O(k ) )-Coloring problem, the NP-hardness of which was previously proved
+by Huang [25]. Since the appearance of [28], line digraphs have been effectively utilized in several
+hardness proofs, e.g., in [17, 10, 24], and they also form a key ingredient in the present paper.
+    To give a glimpse of the relationship between the chromatic numbers of a graph G and its
+associated graph δ̃G, and as a gentle warm-up to our actual argument, let us briefly explain why
+
+                                                   5
+χ(δ̃G ) ≤ k implies that χ( G ) ≤ 2k . Indeed, given a proper k-coloring of δ̃G, we define a coloring
+of G by assigning to each vertex v the set c(v) of colors used at the vertices of the form (·, v) in δ̃G
+(i.e., vertices whose head is v). Clearly, the number of colors used does not exceed 2k . To verify
+that the coloring is proper, observe that if u and v are adjacent vertices in G, the color of the vertex
+(u, v) in δ̃G lies in c(v) but not in c(u), ensuring that c(u) ̸= c(v). A slightly better upper bound
+on the chromatic number of G, along with a matching lower bound, is provided in [34].
+     A natural extension of graph colorings, originally proposed by Lovász [31] in the introduction
+of his renowned ϑ-function, is that of orthonormal representations of graphs. A d-dimensional
+orthonormal representation of a graph is an assignment of a unit vector in Rd to each vertex, such
+that the vectors assigned to adjacent vertices are orthogonal.1 The orthogonality dimension of a
+graph G, denoted ξ ( G ), is the smallest integer d for which G admits a d-dimensional orthonormal
+representation (see Definition 3.1). Note that for every graph G, it holds that
+                                        log3 χ( G ) ≤ ξ ( G ) ≤ χ( G ).                                              (1)
+Indeed, for the upper bound on ξ ( G ), notice that a proper k-coloring of G yields a k-dimensional
+orthonormal representation by assigning the ith vector of the standard basis of Rk to the vertices
+of the ith color class. For the lower bound, consider a k-dimensional orthonormal representation
+of G, and observe that replacing its vectors by their sign vectors in {0, ±1}k results in a proper
+coloring of G with 3k colors. For a construction of graphs for which the left-hand side of (1) is
+tight up to a multiplicative constant, see, e.g., [23]. Now, by associating with each orthonormal
+representation of G the Gram matrix of its vectors, it follows that ξ ( G ) is the smallest possible rank
+of a positive semi-definite matrix with ones on the diagonal and zeros in entries that correspond
+to pairs of adjacent vertices. This formulation naturally connects the problem of determining the
+orthogonality dimension of a graph to that of determining the minimum rank of a positive semi-
+definite completion of a suitably defined partial matrix.
+    The computational hardness of determining the orthogonality dimension of graphs was spec-
+ulated by Lovász, Saks, and Schrijver [32] in 1989 and has been studied in several recent works,
+e.g., [6, 16, 10]. We first mention that one may combine the inequalities in (1) with the hardness re-
+sults of the gap coloring problem from [12, 13] to conclude that deciding whether an input graph
+G satisfies ξ ( G ) ≤ d1 or ξ ( G ) ≥ d2 is intractable for all integers d2 > d1 ≥ 3, assuming some
+variant of the Unique Games Conjecture. This reasoning, however, is insufficient to derive any
+NP-hardness result for orthogonality dimension, even from the strongest known NP-hardness of
+gap coloring. Still, it was shown in [10] that for every sufficiently large integer d, it is NP-hard to
+decide whether an input graph G satisfies ξ ( G ) ≤ d or ξ ( G ) ≥ 2(1−o(1))·d/2 . This result was proved
+based on the hardness of the (k, 2(1−o(1))·k )-Coloring problem from [28] through the reduction that
+maps a given graph G to the graph δ̃G. On the one hand, it follows from (1) that the orthogonality
+dimension of δ̃G does not exceed its chromatic number, which is logarithmic in χ( G ). To complete
+                                                                                                       2
+the correctness of the reduction, it was shown in [10] that ξ (δ̃G ) ≤ d implies that χ( G ) ≤ dO(d ) .
+This, in turn, leads to the NP-hardness of the d vs. 2(1−o(1))·d/2 gap for the orthogonality dimension
+problem, as well as for the PSD-Completion problem when no error is allowed.
+  1 Strictly speaking, the definition in [31] requires vectors assigned to non-adjacent vertices to be orthogonal.
+                                                                                                         This
+corresponds to an orthonormal representation of the complement graph in our terminology, which we adopt from,
+e.g., [33, 6] for convenience.
+
+
+                                                          6
+    The argument in [10] was based on the idea outlined below. Suppose that ξ (δ̃G ) ≤ d, and
+consider a d-dimensional orthonormal representation of δ̃G, which assigns to each ordered pair e
+of adjacent vertices in G a vector xe ∈ Rd . Associate with each vertex v of G the linear subspace
+c(v) ⊆ Rd spanned by the vectors of the form x(·,v) . Observe that if u and v are adjacent vertices in
+G, their subspaces c(u) and c(v) are quite distant from each other, in the sense that there exists a
+vector — the vector x(u,v) associated with the vertex (u, v) in δ̃G — that lies in c(v) but is orthogo-
+nal to the entire subspace c(u). Now, every subspace of Rd can be represented by an orthonormal
+basis of at most d vectors. To obtain a coloring of G with finitely many colors, the basis vectors are
+replaced by their representatives from a sufficiently dense net of the unit sphere in Rd , resulting
+                                       2
+in a proper coloring of G with dO(d ) colors, as desired.
+    In order to adapt this approach to the more tolerant setting of PSD-Completion, where an
+additive error of ε is allowed at each entry of the input partial matrix, we introduce the notion
+of d-dimensional ε-orthonormal representations of graphs. Here, each vertex of the graph G at
+hand is assigned a unit vector in Rd , such that the inner product of vectors assigned to adjacent
+vertices is at most ε in absolute value. Letting ξ ε ( G ) denote the smallest possible dimension of
+such an assignment, one can show that approximating the value of ξ ε ( G ) for an input graph G
+is efficiently reducible to approximating the smallest rank of a positive semi-definite matrix that
+agrees with a given partial matrix, even when an additive error of O(ε) is allowed per entry. To
+prove the NP-hardness of the former, we apply again the reduction that transforms a graph G into
+the graph δ̃G. For correctness, we aim to establish an upper bound on χ( G ) in terms of ξ ε (δ̃G ).
+It turns out, though, that the proof idea of [10], described above, does not extend to this setting.
+To see why, consider a d-dimensional ε-orthonormal representation of δ̃G, which assigns to each
+ordered pair e of adjacent vertices in G a vector xe ∈ Rd , and as before, associate with each vertex
+v of G the linear subspace c(v) ⊆ Rd spanned by the vectors of the form x(·,v) . Now, let u and v
+be adjacent vertices in G. While the vector x(u,v) still lies in c(v), it is no longer guaranteed to be
+orthogonal to the subspace c(u). In fact, this vector is only guaranteed to have an inner product
+of at most ε in absolute value with the vectors of a basis of c(u), which does not even preclude
+the possibility that it lies in c(u), making it impossible√to deduce that c(u) and c(v) are far apart.
+As an example, consider the two unit vectors e1 and 1 − ε2 · e1 + ε · e2 , where ei denotes the ith
+vector of the standard basis of Rd . Notice that the vector e2 has an inner product of at most ε in
+absolute value with each of the two vectors, yet it lies within the subspace they span.
+    We overcome the above difficulty through a different coloring of G. Namely, for each vertex
+v of G, we consider a maximal set c(v) ⊆ Rd of vectors of the form x(·,v) with pairwise inner
+products of absolute value at most ε′ , for some appropriately chosen ε′ > ε. Now, if u and v are
+adjacent vertices in G, then the vector x(u,v) has an inner product of at most ε in absolute value
+with each vector of c(u). However, by the maximality of c(v), there must exist a vector in c(v)
+whose inner product with x(u,v) is larger than ε′ in absolute value: either x(u,v) itself or some other
+vector that prevented it from being added to c(v). This, in a sense, implies that the sets c(u)
+and c(v) are sufficiently far apart, so that they remain distinct once their vectors are replaced by
+representatives from a sufficiently dense net. Yet, the number of vectors in the sets c(v) has a
+significant effect on the number of colors used. In contrast to the ε = 0 setting, here we do not
+handle bases of subspaces of Rd , and therefore, we cannot ensure that the size of each set c(v)
+
+
+                                                  7
+is bounded by d. We do know that the vectors of each set c(v) are nearly orthogonal to each
+other, with the absolute value of their pairwise inner products at most ε′ . To bound their size, we
+apply bounds of Alon [2] on the rank of                                                            ′
+                                         √perturbed identity matrices (see Theorem 2.6). When ε
+is sufficiently small, namely, ε′ ≤ O(1/ d), it turns out that each set c(v) includes fewer than 2d
+vectors. For larger values of ε′ , the bound weakens, leading to the dependence of the hardness
+gap on the error ε, as stated in Theorem 1.2.
+    To extend our approach to the low-rank matrix completion problem with a bounded infinity
+norm, we introduce an extension of the notion of graph-fitting matrices, proposed by Haemers
+in [18]. Here, for a graph G, we consider matrices (not necessarily positive semi-definite) that
+have ones on the diagonal and values of magnitude at most ε in entries corresponding to adjacent
+vertices (see Definition 3.2). Our main technical result provides an upper bound on the chromatic
+number of a graph G, assuming that the graph δ̃G admits such a matrix with a bounded rank and
+a bounded infinity norm (see Theorem 3.8 and Corollary 3.10). The proof generalizes the tech-
+nique described above, drawing on the fact that every matrix has a rank factorization involving
+matrices with rows of bounded norm (see Lemma 2.2). The detailed argument is presented in the
+subsequent technical sections.
+
+1.3   Outline
+The rest of the paper is organized as follows. In Section 2, we collect several notations and tools
+that will be used throughout the paper. In Section 3, we define and study nearly orthonormal
+representations of graphs, with particular attention to line digraphs. In Section 4, we apply our
+insights to establish the hardness of a problem we call Graph Fitness. This, in turn, leads to the
+hardness of the (d1 , d2 , ε)-PSD-Completion and (d1 , d2 , ε, θ )-Completion problems, thereby verify-
+ing Theorems 1.2, 1.3, 1.5, and 1.6 (for precise statements, see Corollaries 4.14, 4.15, and 4.16).
+
+
+2     Preliminaries
+Throughout the paper, we omit floor and ceiling signs when they are not essential, and all log-
+arithms are taken in base 2, unless otherwise specified. Graphs refer to undirected graphs, and
+digraphs refer to directed graphs, with all graphs and digraphs being simple (i.e., with no loops
+or parallel edges). For a positive integer n, we denote [n] = {1, . . . , n}.
+
+2.1   Linear Algebra
+For a positive integer d, let ⟨·, ·⟩ and ∥ · ∥ stand for the standard inner product and Euclidean norm
+on Rd , respectively. As is customary, a vector x ∈ Rd with ∥ x ∥ = 1 is referred to as a unit vector.
+The following simple claim will be used.
+
+Claim 2.1. For every positive integer d and any three vectors x, y, z ∈ Rd , it holds that
+
+                                    |⟨ x, y⟩| − |⟨z, y⟩| ≤ ∥ x − z∥ · ∥y∥.
+
+
+
+                                                      8
+Proof: Observe that
+
+                  |⟨ x, y⟩| − |⟨z, y⟩| ≤ ⟨ x, y⟩ − ⟨z, y⟩ = |⟨ x − z, y⟩| ≤ ∥ x − z∥ · ∥y∥,
+
+where the first inequality relies on the triangle inequality, and the second on the Cauchy–Schwarz
+inequality. This completes the proof.
+
+    For a real matrix A = ( ai,j ), let rank( A) denote its rank over R, and let ∥ A∥∞ denote its infinity
+norm, defined by ∥ A∥∞ = maxi,j | ai,j |. It is well known that every matrix A ∈ Rn×n of rank d can
+be expressed as A = X · Y t for some matrices X, Y ∈ Rn×d . The following lemma guarantees
+the existence of such a factorization with matrices X and Y whose rows have bounded norms. Its
+proof relies on John’s classical theorem from Banach space theory and can be found, e.g., in [35,
+Corollary 2.2].
+
+Lemma 2.2. Let d ≤ n be positive integers. For every matrix A ∈ Rn×n of rank d, there exist two matrices
+X, Y ∈ Rn×d satisfying A = X · Y t , such that every row of X and Y has norm at most d1/4 · ∥ A∥1/2
+                                                                                                ∞ .
+
+   A matrix A ∈ Rn×n is said to be positive semi-definite if x t Ax ≥ 0 for all vectors x ∈ Rn .
+This condition is equivalent to the existence of a matrix X ∈ Rn×d such that A = X · X t where
+d = rank( A). The coherence of a symmetric matrix measures the extent to which its row (or
+column) space aligns with the vectors of the standard basis. It is formally defined as follows.
+
+Definition 2.3 (Coherence). For positive integers d ≤ n, let U be a d-dimensional subspace of Rn , and let
+PU be the orthogonal projection onto U. The coherence of U is defined as µ(U ) = nd · maxi∈[n] ∥ PU ei ∥2 ,
+where ei stands for the ith vector of the standard basis of Rn . Note that µ(U ) ∈ [1, nd ]. The coherence of a
+symmetric matrix A ∈ Rn×n , denoted by µ( A), is defined as the coherence of its row (or column) space.
+
+2.2   Nets
+For a positive integer d and a real number θ > 0, let Bd (θ ) denote the closed d-dimensional ball of
+radius θ centered at the origin, i.e., Bd (θ ) = { x ∈ Rd | ∥ x ∥ ≤ θ }. We define a net for a closed ball
+as follows.
+
+Definition 2.4. For a positive integer d and real numbers η, θ > 0, an η-net for Bd (θ ) is a set K ⊆ Rd
+such that for any x ∈ Bd (θ ), there exists a point y ∈ K satisfying ∥ x − y∥ < η.
+
+    Note that Definition 2.4 requires every point in the ball to admit a point in the η-net at a dis-
+tance strictly smaller than η. We need the following standard lemma on the existence of bounded-
+size nets for balls (see, e.g., [15]). A brief proof is included for completeness.
+
+Lemma 2.5. For every positive integer d and any real numbers η, θ > 0, there exists an η-net for Bd (θ ) of
+size at most                                         d
+                                               2θ
+                                                  +1 .
+                                               η
+
+
+
+
+                                                      9
+Proof: Let K be a maximal subset of Bd (θ ) with pairwise distances at least η. By maximality, K
+                                                                                  η
+forms an η-net for Bd (θ ). By the triangle inequality, the open balls of radius 2 centered at the
+                                                           η
+points of K are pairwise disjoint and contained in Bd (θ + 2 ). Therefore, the number of points in K
+does not exceed the ratio between the volumes, implying that
+                                                 d            d
+                                          θ + η/2         2θ
+                                 |K | ≤             =        +1 .
+                                            η/2           η
+The proof is complete.
+
+2.3     The Rank of Perturbed Identity Matrices
+It is well known and easy to verify that if a matrix A = ( ai,j ) ∈ Rm×m satisfies ai,i = 1 for all i ∈ [m]
+and | ai,j | ≤ m1 for all distinct i, j ∈ [m], then A has full rank. The following theorem, proved by
+Alon [2], provides lower bounds on the rank of a symmetric matrix under a weaker assumption
+on its off-diagonal entries. For a variety of applications of these bounds, the reader is referred
+to [3] (see also [4]).
+Theorem 2.6 ([2]). There exists an absolute constant c > 0 for which the following holds. For positive
+integers d ≤ m and for a real number ε ∈ [0, 1), let A = ( ai,j ) ∈ Rm×m be a symmetric matrix of rank d
+satisfying ai,i = 1 for all i ∈ [m] and | ai,j | ≤ ε for all distinct i, j ∈ [m]. Then
+   1. d ≥ 1+ε2 ·(mm−1) , and
+                                            log m
+   2. if ε ∈ [ √1m , 21 ], then d ≥ c · ε2 ·log(1/ε) .
+
+      In light of Theorem 2.6, we introduce the quantities m(d, ε), defined as follows.
+Definition 2.7. For a positive integer d and a real number ε ∈ [0, 21 ], let m(d, ε) denote the maximum
+integer m for which there exists a symmetric matrix A = ( ai,j ) ∈ Rm×m of rank (at most) d satisfying
+ai,i = 1 for all i ∈ [m] and | ai,j | ≤ ε for all distinct i, j ∈ [m].
+Note that for all positive integers d and real numbers ε ≤ ε′ , it holds that m(d, ε) ≤ m(d, ε′ ).
+   As a direct corollary of Theorem 2.6, we obtain the following bounds on m(d, ε).
+Corollary 2.8. There exists an absolute constant c such that the following holds for all positive integers d.
+                                                         2
+   1. If ε ∈ [0, √1 ), then m(d, ε) ≤ d · 11−−dε·ε2 . In particular, if ε ≤ √1 , then m(d, ε) < 2d.
+                          d                                                   2d
+
+   2. If ε ∈ [ √1 , 21 ], then m(d, ε) ≤ 2    c·d·ε2 ·log(1/ε)   .
+                  d
+
+Proof: Let A = ( ai,j ) ∈ Rm×m be a symmetric matrix of rank d satisfying ai,i = 1 for all i ∈ [m]
+and | ai,j | ≤ ε for all distinct i, j ∈ [m]. First, by Item 1 of Theorem 2.6, it holds that d ≥ 1+ε2 ·(mm−1) .
+                                                                              2
+For any ε < √1 , rearranging the terms yields that m ≤ d · 11−−dε·ε2 , implying the bound on m(d, ε)
+                      d
+stated in Item 1 of the corollary. Next, consider some ε ∈ [ √1 , 12 ]. By m ≥ d, we can apply Item 2
+                                                                          d
+                                                                                                  log m
+of Theorem 2.6 to obtain that, for an absolute constant c > 0, it holds that d ≥ c · ε2 ·log(1/ε) , which
+                                              2
+by rearranging yields that m ≤ 2d·ε ·log(1/ε)/c . This implies the bound on m(d, ε) stated in Item 2 of
+the corollary for an appropriate absolute constant.
+
+                                                                     10
+3     Nearly Orthonormal Representations of Graphs
+A d-dimensional orthonormal representation of a graph is an assignment of a unit vector in Rd
+to each vertex, such that adjacent vertices receive orthogonal vectors (see [31]). We introduce
+the following relaxation of this concept, where adjacent vertices receive vectors that are nearly
+orthogonal.
+
+Definition 3.1. Let G = (V, E) be a graph. For a positive integer d and a real number ε ∈ [0, 1), a
+d-dimensional ε-orthonormal representation of G is an assignment of a unit vector xv ∈ Rd to each
+vertex v ∈ V, such that for every pair of adjacent vertices u and v in G, it holds that |⟨ xu , xv ⟩| ≤ ε. For
+any real number ε ∈ [0, 1), the ε-orthogonality dimension of G, denoted ξ ε ( G ), is the smallest positive
+integer d for which G admits a d-dimensional ε-orthonormal representation. We omit ε from the notation
+and terminology when ε = 0.
+
+     A well-studied extension of orthonormal representations, introduced in [18], is that of graph-
+fitting matrices (see also [33]). We propose the following relaxation of this notion.
+
+Definition 3.2. Let G = (V, E) be a graph. For a real number ε ∈ [0, 1), a matrix A = ( au,v ) ∈ R|V |×|V | ,
+whose rows and columns are indexed by V, is said to ε-fit the graph G if av,v = 1 for all v ∈ V and | au,v | ≤ ε
+whenever u and v are adjacent vertices in G. When ε = 0, A is said to fit G.
+
+For a given graph G and a real number ε ∈ [0, 1), we are concerned with the minimum possi-
+ble rank of a matrix that ε-fits G. When ε = 0, this quantity coincides with the minrank of the
+complement of G over the reals (see [18, 33]).
+
+Remark 3.3. The notions of ε-orthonormal representations and ε-fitting matrices, given in Definitions 3.1
+and 3.2, are closely related. To see this, consider a graph G = (V, E), and associate with each d-dimensional
+ε-orthonormal representation ( xv )v∈V of G the Gram matrix A = ( au,v ) ∈ R|V |×|V | of its vectors, defined
+by au,v = ⟨ xu , xv ⟩ for all u, v ∈ V. Note that such a matrix A is positive semi-definite, has rank at most
+d, and ε-fits the graph G. Therefore, d-dimensional ε-orthonormal representations of a graph G may be
+regarded as the special case of matrices of rank at most d that ε-fit G, with the additional property of positive
+semi-definiteness.
+
+   In the rest of this section, we relate the chromatic number of a graph to the rank of matrices
+that nearly fit it. We first establish such relations for general graphs and then proceed to the
+case of underlying graphs of line digraphs. Finally, we link the notion of nearly orthonormal
+representations to the circular chromatic number.
+
+3.1   Chromatic Number
+For a positive integer k, a k-coloring of a graph G is a mapping from the vertex set of G to a
+set of size k. A coloring c of G is called proper if c(u) ̸= c(v) whenever u and v are adjacent
+vertices in G. The graph G is called k-colorable if it admits a proper k-coloring, and the smallest
+integer k for which G is k-colorable is called the chromatic number of G and is denoted by χ( G ).
+Observe that any proper k-coloring of G induces a k-dimensional orthonormal representation of
+G, in which the vertices of the ith color class are assigned the ith vector of the standard basis of
+
+                                                       11
+Rk . Consequently, every graph G satisfies ξ ( G ) ≤ χ( G ) and thus admits a positive semi-definite
+matrix of rank at most χ( G ) that fits it (see Remark 3.3). The following simple lemma, whose
+argument is borrowed from [20], shows that a slight modification of G ensures the existence of
+such a matrix with minimal coherence (recall Definition 2.3).
+
+Lemma 3.4. For positive integers k and n, let G be a k-colorable graph on n vertices, and let H denote the
+disjoint union of k copies of G. Then there exists a positive semi-definite matrix B ∈ {0, 1}kn×kn that fits
+the graph H, such that rank( B) = k and µ( B) = 1 .
+
+Proof: For a k-colorable graph G = (V, E) on n vertices, let c : V → [k ] be a proper k-coloring of
+G. It is clear that any cyclic shift of the coloring c, where each color i is replaced by the color in
+[k] that is congruent to i + j modulo k for some fixed j, results in another proper k-coloring of G.
+Let H = (VH , EH ) denote the disjoint union of k copies of G, and let c′ denote the k-coloring of H
+that colors each copy of G by a different cyclic shift of c. Notice that c′ is a proper k-coloring of H
+with each color class of size exactly n. For each i ∈ [k ] and each vertex v of H colored i by c′ , let
+xv be the ith vector of the standard basis of Rk . The assignment ( xv )v∈VH forms a k-dimensional
+orthonormal representation of H, whose Gram matrix B = (⟨ xu , xv ⟩) ∈ {0, 1}kn×kn is positive
+semi-definite, fits H, and satisfies rank( B) = k. Additionally, the row space U of B is spanned
+by k vectors in {0, 1}kn with pairwise disjoint supports, each of size n. By scaling these vectors
+by a factor of √1n , we obtain an orthonormal basis of U. Each standard basis vector ei ∈ Rkn has
+an inner product of √1n with one basis vector of U and zero with all the others. Therefore, letting
+PU denote the orthogonal projection onto U, it follows that ∥ PU ei ∥2 = n1 . This implies that the
+coherence of B satisfies µ( B) = kn   1
+                                  k · n = 1, and we are done.
+
+   The following theorem relates the chromatic number of a graph to the rank of a matrix that
+nearly fits it. It will be used to obtain conditional hardness results for low-rank matrix completion
+problems (see the discussion at the end of Section 4). A similar reasoning appears in [20].
+
+Theorem 3.5. Let G = (V, E) be a graph. For a positive integer d and real numbers ε ∈ [0, 1) and θ ≥ 1,
+suppose that there exist two matrices X, Y ∈ R|V |×d , where each row of X and Y has norm at most θ, such
+that the matrix X · Y t ε-fits the graph G. Then, it holds that
+                                                                   d
+                                                         4θ 2
+                                                    
+                                         χ( G ) ≤             +1        .
+                                                        1−ε
+
+Furthermore, if X = Y, then
+                                                        √     d
+                                                        2 2
+                                        χ( G ) ≤       √     +1 .
+                                                         1−ε
+
+Proof: Consider a graph G, an integer d, real numbers ε, θ, and matrices X, Y as in the statement
+                              −ε
+of the theorem. Set η = 12θ      . By Lemma 2.5, there exists an η-net K for the closed d-dimensional
+ball Bd (θ ) of radius θ, such that |K | ≤ ( 2θ    d
+                                             η + 1) . Let f : Bd ( θ ) → K be a function that maps each
+point x ∈ Bd (θ ) to a point in K that is closest to x. Since K is an η-net for Bd (θ ), it holds that
+∥ f ( x ) − x ∥ < η for every x ∈ Bd (θ ).
+
+
+                                                        12
+    For every vertex v ∈ V of G, let xv and yv denote the rows associated with v in the given
+matrices X and Y, respectively. By assumption, it holds that ∥ xv ∥ ≤ θ and ∥yv ∥ ≤ θ for all
+v ∈ V. Consider the coloring of G that assigns to each vertex v ∈ V the vector f ( xv ). Obviously,
+                                                                  4θ 2
+the number of used colors is at most |K | ≤ ( 2θ          d              d
+                                                    η + 1) = ( 1−ε + 1) . It remains to show that the
+coloring is proper.
+    Let u, v ∈ V be adjacent vertices in G. Since X · Y t ε-fits the graph G, it follows that ⟨ xv , yv ⟩ = 1
+and |⟨ xu , yv ⟩| ≤ ε. Using Claim 2.1, this yields that
+
+                      |⟨ f ( xu ), yv ⟩| ≤ |⟨ xu , yv ⟩| + ∥ f ( xu ) − xu ∥ · ∥yv ∥ < ε + η · θ,
+
+whereas
+                |⟨ f ( xv ), yv ⟩| ≥ |⟨ xv , yv ⟩| − ∥ f ( xv ) − xv ∥ · ∥yv ∥ > 1 − η · θ = ε + η · θ,
+where the last equality follows from the definition of η. This implies that f ( xu ) ̸= f ( xv ), hence the
+colors assigned to u and v are distinct, as desired.         q
+                                                              1− ε
+      Finally, suppose that X = Y, and set θ = 1 and η =       2 . The number of colors used by
+                                                           √
+the above coloring of G is at most |K | ≤ ( 2θ     d     √2 2        d
+                                            η + 1) = ( 1−ε + 1) . We show that this coloring
+is proper. Let u, v ∈ V be adjacent vertices in G. Since X · X t ε-fits the graph G, it follows that
+∥ xu ∥ = ∥ xv ∥ = 1 and that |⟨ xu , xv ⟩| ≤ ε, implying that
+
+                              ∥ x u − x v ∥2 = 2 − 2 · ⟨ x u , x v ⟩ ≥ 2 · (1 − ε ).                       (2)
+
+This yields that
+
+                   ∥ f ( xu ) − f ( xv )∥ = ∥ xu − xv + ( f ( xu ) − xu ) − ( f ( xv ) − xv )∥
+                                          ≥ ∥ xu − xv ∥ − ∥ f ( xu ) − xu ∥ − ∥ f ( xv ) − xv ∥
+                                            q
+                                          >    2 · (1 − ε) − 2η = 0,
+
+where the first inequality relies on the triangle inequality, and the second on (2). It thus follows
+that f ( xu ) ̸= f ( xv ), so we are done.
+
+3.2    Chromatic Number of Line Digraphs
+The concept of line digraphs, introduced in [19], is defined as follows.
+
+Definition 3.6 (Line Digraph). For a digraph G = (V, E), the line digraph of G, denoted δG, is
+the digraph on the vertex set E, where there is a directed edge from a vertex (u1 , u2 ) to a vertex (v1 , v2 )
+whenever u2 = v1 . For an (undirected) graph G, its line digraph δG is defined as the line digraph of
+the digraph obtained from G by replacing each edge with two oppositely directed edges. Let δ̃G denote the
+underlying graph of δG, i.e., the graph obtained from δG by ignoring the directions of the edges.
+
+    The following result, proved by Poljak and Rödl [34] (see also [21]), shows that the chromatic
+number of a graph G determines the chromatic number of δ̃G. The statement involves the function
+                                  n
+b : N → N, defined by b(n) = (⌊n/2  ⌋ ).
+
+Theorem 3.7 ([34]). For every graph G, χ(δ̃G ) = min{n ∈ N | χ( G ) ≤ b(n)}.
+
+                                                          13
+   The following theorem ties the chromatic number of a graph to the rank of a symmetric matrix
+that nearly fits the underlying graph of its line digraph. It plays a crucial role in our NP-hardness
+results. The statement involves the quantities m(d, ε) given in Definition 2.7.
+Theorem 3.8. Let G = (V, E) be a graph, and let δ̃G = (V ′ , E′ ) be the underlying graph of its line
+digraph. For a positive integer d and real numbers ε ∈ [0, 21 ) and θ ≥ 1, suppose that there exist two
+                       ′
+matrices X, Y ∈ R|V |×d , where each row of X and Y has norm at most θ, such that X · Y t is a symmetric
+matrix that ε-fits the graph δ̃G. Then, for any η ∈ (0, 1− 2ε
+                                                         4θ ], it holds that
+                                                        d·m(d,2ηθ +ε)
+                                                  2θ
+                                      χ( G ) ≤       +1                 .
+                                                  η
+Proof: Consider a graph G, an integer d, real numbers ε, θ, η, and matrices X, Y as in the statement
+of the theorem. By Lemma 2.5, there exists an η-net K for the closed d-dimensional ball Bd (θ ) of
+radius θ, such that |K | ≤ ( 2θ         d
+                                η + 1) . Let f : Bd ( θ ) → K be a function that maps each point x ∈ Bd ( θ )
+to a point in K that is closest to x. Since K is an η-net for Bd (θ ), it holds that ∥ f ( x ) − x ∥ < η for
+every x ∈ Bd (θ ).
+    Recall that every vertex of δ̃G is a pair e = (u, v) ∈ V ′ of vertices u, v ∈ V that are adjacent
+in G. For each such vertex e, let xe and ye denote the rows associated with e in the given matrices
+X and Y, respectively. By assumption, ∥ xe ∥ ≤ θ and ∥ye ∥ ≤ θ for every e ∈ V ′ . Since the matrix
+X · Y t ε-fits δ̃G, it follows that ⟨ xe , ye ⟩ = 1 for every e ∈ V ′ , and that |⟨ xe , ye′ ⟩| ≤ ε whenever e and
+e′ are adjacent in δ̃G.
+    We define a coloring of G as follows. Set ε′ = 2ηθ + ε ≤ 12 . For every vertex v ∈ V, consider
+the set Ev of vertices of δ̃G whose head is v, that is,
+                                 Ev = {e ∈ V ′ | e = (u, v) for some u ∈ V }.
+Let Ev′ be a maximal subset of Ev (with respect to containment), such that for all distinct e, e′ ∈ Ev′ ,
+it holds that |⟨ xe , ye′ ⟩| ≤ ε′ . Equivalently, we require the sub-matrix of X · Y t , restricted to the rows
+and columns corresponding to the vertices of Ev′ , to have off-diagonal values at most ε′ in absolute
+value. Notice that X · Y t is a symmetric matrix of rank at most d, and thus so is each of its principal
+sub-matrices. Letting m = m(d, ε′ ), it follows that | Ev′ | ≤ m. Now, we assign to each vertex v ∈ V
+the color c(v), defined as the set of all vectors f ( xe ) with e ∈ Ev′ . The number of colors used by the
+coloring c does not exceed the number of m-tuples of vectors from K, which is |K |m ≤ ( 2θ                        d·m .
+                                                                                                           η + 1)
+It remains to show that the coloring c is proper.
+     Let u, v ∈ V be adjacent vertices in G, and consider the vector y(u,v) associated with the vertex
+(u, v) of δ̃G in the matrix Y. Since every vertex of Eu is adjacent in δ̃G to the vertex (u, v), it follows
+that every e ∈ Eu satisfies |⟨ xe , y(u,v) ⟩| ≤ ε. Using Claim 2.1, this yields that every e ∈ Eu′ ⊆ Eu
+satisfies
+                      |⟨ f ( xe ), y(u,v) ⟩| ≤ |⟨ xe , y(u,v) ⟩| + ∥ f ( xe ) − xe ∥ · ∥y(u,v) ∥ < ε + ηθ.
+We next argue that there exists a vertex e ∈ Ev′ such that |⟨ xe , y(u,v) ⟩| > ε′ . Indeed, the vertex (u, v)
+lies in Ev . If (u, v) lies in Ev′ , then we have |⟨ x(u,v) , y(u,v) ⟩| = 1 > ε′ , and otherwise, the maximality
+of Ev′ combined with the symmetry of X · Y t implies the existence of the desired vertex e. Using
+Claim 2.1 again, it follows that this vertex e satisfies
+              |⟨ f ( xe ), y(u,v) ⟩| ≥ |⟨ xe , y(u,v) ⟩| − ∥ f ( xe ) − xe ∥ · ∥y(u,v) ∥ > ε′ − ηθ = ε + ηθ.
+
+                                                           14
+We conclude that some vector f ( xe ) in the set c(v) is different from all the vectors in the set c(u),
+hence c(u) ̸= c(v). Therefore, the coloring c of G is proper, and we are done.
+
+      As a simple consequence of Theorem 3.8, we obtain the following result.
+
+Corollary 3.9. For every graph G, a positive integer d, and real numbers ε ∈ [0, 12 ) and η ∈ (0, 1−42ε ], if
+ξ ε (δ̃G ) ≤ d then
+                                                     d·m(d,2η +ε)
+                                                2
+                                    χ( G ) ≤      +1                .
+                                                η
+
+Proof: For a graph G, let δ̃G = (V ′ , E′ ), suppose that ξ ε (δ̃G ) ≤ d, and consider a d-dimensional
+ε-orthonormal representation ( xe )e∈V ′ of δ̃G. Let X be the |V ′ | × d real matrix, whose rows are
+indexed by V ′ , where the row associated with a vertex e ∈ V ′ is xe . Note that the norm of each
+row of X is 1. Observe that the matrix X · X t is symmetric and ε-fits the graph δ̃G. The proof is
+completed by applying Theorem 3.8 with both matrices set to X and with θ = 1.
+
+      By combining Theorem 3.8 with Lemma 2.2, we derive the following further consequence.
+
+Corollary 3.10. For a graph G = (V, E), a positive integer d, and a real number ε ∈ [0, 21 ), let A be a real
+                                                                                                    1−2ε
+matrix of rank d that ε-fits the graph δ̃G, and set θ = (2d)1/4 · ∥ A∥1/2 ∞ . Then, for any η ∈ (0, 4θ ], it
+holds that                                            2d·m(2d,2ηθ +ε)
+                                                2θ
+                                     χ( G ) ≤       +1                  .
+                                                 η
+
+Proof: For a graph G, let δ̃G = (V ′ , E′ ), and consider a matrix A as in the statement of the corol-
+lary. Put B = 12 · ( A + At ), and observe that B is a symmetric matrix of rank at most 2d with
+                                                                                                ′
+∥ B∥∞ ≤ ∥ A∥∞ that ε-fits the graph δ̃G. By Lemma 2.2, there exist two matrices X, Y ∈ R|V |×(2d)
+satisfying B = X · Y t , such that every row of X and Y has norm at most (2d)1/4 · ∥ B∥1/2
+                                                                                         ∞ ≤ θ. The
+proof is completed by applying Theorem 3.8 with the matrices X, Y and with θ.
+
+3.3     Circular Chromatic Number
+The circular chromatic number of graphs, introduced by Vince [37], has several equivalent defini-
+tions, one of which is presented below. For a comprehensive introduction to the topic, the reader
+is referred to the survey [38].
+
+Definition 3.11. The circular chromatic number of a graph G = (V, E), denoted χc ( G ), is the infimum
+of all real numbers r ≥ 1 that admit a mapping f : V → [0, 1), such that for every pair of adjacent vertices
+u and v in G, it holds that 1r ≤ | f (u) − f (v)| ≤ 1 − 1r .
+
+    It is known that the infimum in the definition of χc ( G ) is always attained (at a rational num-
+ber), hence the infimum can be replaced by a minimum. It is also known that any graph G sat-
+isfies χ( G ) = ⌈χc ( G )⌉. The following observation relates the circular chromatic number to 2-
+dimensional nearly orthonormal representations. Note that every graph G with at least one edge
+satisfies χc ( G ) ≥ 2.
+
+
+                                                     15
+Proposition 3.12. For every graph G with at least one edge and for any real number ε ∈ [0, 1), it holds
+that ξ ε ( G ) ≤ 2 if and only if ε ≥ cos( χcπ(G) ).
+
+Proof: A 2-dimensional ε-orthonormal representation of a graph G = (V, E) assigns a unit vector
+xv ∈ R2 to each vertex v ∈ V, such that every pair of adjacent vertices u and v in G satisfies
+|⟨ xu , xv ⟩| ≤ ε. We may assume that each vector xv lies in the upper half of the unit circle, by
+multiplying some of the vectors by −1 if needed. Therefore, each vector xv can be expressed by
+a real number αv ∈ [0, 1), such that the angle between the vectors (1, 0) and xv is αv · π. In this
+language, the condition |⟨ xu , xv ⟩| ≤ ε translates to | cos(π · (αu − αv ))| ≤ ε, or equivalently,
+
+                                arccos(ε)                    arccos(ε)
+                                          ≤ |αu − αv | ≤ 1 −           .
+                                    π                            π
+By the definition of circular chromatic number, such a mapping v 7→ αv exists if and only if it holds
+     arccos(ε)
+that     π     ≤ χc (1G) , that is, ε ≥ cos( χcπ(G) ). The proof is complete.
+
+     As a concluding remark, we raise the question of determining the ε-orthogonality dimension
+of Kneser graphs. The Kneser graph K (n, k ), defined for integers n and k with n ≥ 2k, has vertices
+corresponding to all k-subsets of [n] and edges between disjoint sets. Settling a conjecture of
+Kneser [27], Lovász [30] proved that χ(K (n, k )) = n − 2k + 2 as an application of the Borsuk–
+Ulam theorem from algebraic topology. This result has been strengthened in various ways over
+time. For example, it was shown by Chen [11] that the chromatic number of K (n, k ) coincides
+with its circular chromatic number, resolving a conjecture of Johnson, Holroyd, and Stahl [26]
+(see also [9, 29]). By Proposition 3.12, this result characterizes the values of ε ∈ [0, 1) for which
+ξ ε (K (n, k )) ≤ 2 holds. A more recent result [22, 1] asserts that the chromatic number of K (n, k )
+coincides with its standard orthogonality dimension (where ε = 0). It would thus be intriguing to
+determine the quantities ξ ε (K (n, k )) for general parameter choices.
+
+
+4   Hardness Results
+In this section, we prove our hardness results for low-rank matrix completion and for related prob-
+lems. The starting point of our hardness proofs is the gap coloring problem, defined as follows.
+
+Definition 4.1 (The (k1 , k2 )-Coloring Problem). For positive integers k1 < k2 , the (k1 , k2 )-Coloring
+problem asks to decide whether an input graph G satisfies χ( G ) ≤ k1 or χ( G ) ≥ k2 .
+
+    We rely on the following hardness result, proved by Krokhin et al. [28]. Recall that the function
+                                   n
+b : N → N is defined by b(n) = (⌊n/2 ⌋ ).
+
+Theorem 4.2 ([28]). For every integer k ≥ 4, the (k, b(k ))-Coloring problem is NP-hard.
+                                                          2     n
+Remark 4.3. It is well known that asymptotically, b(n) ∼ √πn/2 . Therefore, for every sufficiently large
+                                                                      n/2−1
+integer n, we have, say, b(n) ≥ 2n/2 , hence b(b(n)) ≥ 2b(n)/2 ≥ 22       . Further, for every√sufficiently
+                                            n −1
+                                           2√                                             n −2
+large integer n, it holds that, say, b(n) ≥ n , and consequently, b(b(n)) ≥ 2b(n)/2 ≥ 22 / n .
+
+
+
+                                                    16
+    In what follows, we reduce the gap coloring problem to an intermediate problem, termed
+Graph Fitness, and establish its hardness via Theorem 4.2. While the definition of the Graph
+Fitness problem may appear somewhat artificial, its hardness enables us to derive all our hardness
+results in a unified framework. A map of the reductions presented in this section is given in
+Figure 1.
+
+                                                                     Ortho-Dim
+                                                   Lemma 4.11
+
+                          Lemma 4.5                            Lemma 4.13
+           Coloring                        Graph-Fitness                         PSD-Completion
+                          Lemma 4.7
+
+                                                  Lemma 4.13
+                                                                     Completion
+
+                                         Figure 1: Reductions map.
+
+
+
+4.1     Graph Fitness
+The Graph Fitness problem is defined as follows.
+
+Definition 4.4 (The (d1 , d2 , ε, θ )-Graph-Fitness Problem). For positive integers d1 < d2 and real num-
+bers ε ∈ [0, 1) and θ ≥ 1, the (d1 , d2 , ε, θ )-Graph-Fitness problem asks, given a graph G on n vertices, to
+distinguish between the following cases.
+
+      • YES: There exists a positive semi-definite matrix B ∈ Rn×n that fits the graph G, such that µ( B) = 1
+        and rank( B) ≤ d1 .
+
+      • NO: For any two matrices X, Y ∈ Rn×d whose rows have norm at most θ and for which X · Y t is a
+        symmetric matrix that ε-fits the graph G, it holds that d ≥ d2 .
+
+Note that the condition on YES instances in the above definition implies the existence of a matrix
+X ∈ Rn×d1 whose rows have norm 1, such that X · X t is a symmetric matrix that fits the graph G.
+Therefore, the YES and NO instances of the problem do not overlap.
+   We present two efficient reductions from the (k1 , k2 )-Coloring problem to the (d1 , d2 , ε, θ )-
+Graph-Fitness problem for suitable choices of parameters. The first builds on Theorem 3.5.
+
+Lemma 4.5. Let d1 < d2 be positive integers, and let ε ∈ [0, 1) and θ ≥ 1 be real numbers. Then there
+                                                    2
+exists a polynomial-time reduction from (d1 , ( 14θ−ε + 1)d2 )-Coloring to (d1 , d2 , ε, θ )-Graph-Fitness.
+
+Proof: Fix integers d1 , d2 and real numbers ε, θ as in the statement of the lemma. Consider the
+reduction that, given an input graph G, produces and returns the graph H = (VH , EH ), defined as
+a disjoint union of d1 copies of G. This reduction can clearly be implemented in polynomial time
+(in fact, in logarithmic space).
+
+                                                      17
+     We turn to the correctness proof of the reduction. Suppose first that G is a YES instance of
+            2
+(d1 , ( 14θ−ε + 1)d2 )-Coloring, that is, χ( G ) ≤ d1 . Since H is a disjoint union of d1 copies of G, we
+can apply Lemma 3.4 to obtain that there exists a positive semi-definite matrix B ∈ R|VH |×|VH | that
+fits the graph H, such that µ( B) = 1 and rank( B) = d1 . Thus, H is a YES instance of (d1 , d2 , ε, θ )-
+                                                                                                 2
+Graph-Fitness. For the converse direction, suppose that G is a NO instance of (d1 , ( 14θ−ε + 1)d2 )-
+                                   2
+Coloring, that is, χ( G ) ≥ ( 14θ−ε + 1)d2 . For a positive integer d, let X, Y ∈ R|VH |×d be two matrices
+whose rows have norm at most θ, such that X · Y t is a symmetric matrix that ε-fits the graph H. By
+                                                2
+Theorem 3.5, we obtain that χ( H ) ≤ ( 14θ−ε + 1)d . Since χ( G ) = χ( H ), it follows that d ≥ d2 , hence
+H is a NO instance of (d1 , d2 , ε, θ )-Graph-Fitness, and we are done.
+
+Remark 4.6. It was proved in [12, 13] that certain variants of the Unique Games Conjecture imply the
+hardness of the (k1 , k2 )-Coloring problem for all integers k2 > k1 ≥ 3. By Lemma 4.5, it follows that the
+same complexity assumptions imply the hardness of the (d1 , d2 , ε, θ )-Graph-Fitness problem for all integers
+d2 > d1 ≥ 3 and real numbers ε ∈ [0, 1) and θ ≥ 1.
+
+    The next reduction between the problems relies on Theorem 3.8 and is crucial for deriving our
+NP-hardness results from Theorem 4.2. Note that the reduction from Lemma 4.5 is insufficient for
+this purpose. The statement involves the quantities m(d, ε) from Definition 2.7 and the function
+b : N → N from Theorem 4.2.
+
+Lemma 4.7. Let k1 < k2 and d1 < d2 be positive integers, and let ε ∈ [0, 21 ), θ ≥ 1, and η be real numbers,
+such that                                                              d2 ·m(d2 ,2ηθ +ε)
+                         1 − 2ε
+                                                           
+                                                               2θ
+                 η ∈ 0,           , k1 ≤ b(d1 ), and k2 ≥          +1                     .
+                           4θ                                   η
+Then there exists a polynomial-time reduction from (k1 , k2 )-Coloring to (d1 , d2 , ε, θ )-Graph-Fitness.
+
+Proof: Fix integers k1 , k2 , d1 , d2 and real numbers ε, θ, η as in the statement of the lemma. Consider
+the reduction that, given an input graph G, produces the underlying graph δ̃G of the digraph δG
+(see Definition 3.6), and returns the graph H = (VH , EH ), defined as a disjoint union of d1 copies of
+δ̃G. This reduction can clearly be implemented in polynomial time (in fact, in logarithmic space).
+     We now prove the correctness of the reduction. Suppose first that G is a YES instance of (k1 , k2 )-
+Coloring, that is, χ( G ) ≤ k1 . By the assumption k1 ≤ b(d1 ), this implies that χ( G ) ≤ b(d1 ), hence
+by Theorem 3.7, it follows that χ(δ̃G ) ≤ d1 . Since H is a disjoint union of d1 copies of δ̃G, we
+can apply Lemma 3.4 to obtain that there exists a positive semi-definite matrix B ∈ R|VH |×|VH |
+that fits the graph H, such that µ( B) = 1 and rank( B) = d1 . Therefore, H is a YES instance of
+(d1 , d2 , ε, θ )-Graph-Fitness, as desired.
+     For the other direction, we prove the contrapositive, namely, that if H is not a NO instance of
+(d1 , d2 , ε, θ )-Graph-Fitness, then G is not a NO instance of (k1 , k2 )-Coloring. To this end, suppose
+that for some integer d < d2 , there exist two matrices X ′ , Y ′ ∈ R|VH |×d whose rows have norm at
+most θ, such that B′ = X ′ · (Y ′ )t is a symmetric matrix that ε-fits the graph H. Let X and Y denote
+the sub-matrices of X ′ and Y ′ , respectively, consisting of the rows associated with the vertices of a
+single copy of δ̃G in H. Clearly, every row of X and Y has norm at most θ, and X · Y t is a symmetric
+matrix that ε-fits the graph δ̃G. The assumption η ∈ (0, 1−       2ε
+                                                                4θ ] allows us to apply Theorem 3.8, from
+
+
+
+                                                       18
+which it follows that
+                                                d·m(d,2ηθ +ε)                     d2 ·m(d2 ,2ηθ +ε)
+                                         2θ                                2θ
+                        χ( G ) ≤            +1                     <          +1                          ≤ k2 .
+                                         η                                 η
+
+This implies that G is not a NO instance of (k1 , k2 )-Coloring, and we are done.
+
+    We next state an NP-hardness result for the Graph Fitness problem. The (somewhat tedious)
+proof integrates the hardness of the gap coloring problem from Theorem 4.2, the reduction to
+Graph Fitness provided by Lemma 4.7, and the bounds on the quantities m(d, ε) from Corol-
+lary 2.8.
+
+Theorem 4.8. There exists an absolute constant c > 0 for which the following holds. Let d and g be positive
+integers with d sufficiently large and d < g, and let ε and θ ≥ 1 be real numbers. Suppose that either
+                                                d/2
+   1. ε ∈ [0, 3√1 g ] and g ≤ c · d1/4 ·max2(log θ,d)1/2 , or
+                               c·d
+   2. ε ∈ [ 3√1 g , 16 ], θ ≤ 22 , and g ≤ c · ε2 ·logd(1/ε) .
+
+Then the (d, g, ε, θ )-Graph-Fitness problem is NP-hard.
+
+Proof: Let d ≥ 4 be an integer. For some absolute constant c to be determined later, fix g, ε, and
+θ as in the statement of the theorem. We will assume, whenever needed, that d (and thus g) is
+sufficiently large. Set k1 = b(d) and k2 = b(b(d)). By Theorem 4.2, the (k1 , k2 )-Coloring problem
+is NP-hard. It thus suffices to show that there exists a polynomial-time reduction from the (k1 , k2 )-
+Coloring problem to the (d, g, ε, θ )-Graph-Fitness problem. We deduce the desired reduction from
+Lemma 4.7. To do so, we address each item of the theorem separately, as described below.
+                                                                   d/2
+    For Item 1, suppose that ε ∈ [0, 3√1 g ] and g ≤ c · d1/4 ·max2(log θ,d)1/2 , set η = 6θ ·1√ g , and let us verify
+the three conditions of Lemma 4.7. It is evident that η ∈ (0, 1− 2ε
+                                                               4θ ] and k 1 ≤ b ( d ). It remains to
+verify the third condition, namely,
+                                                                  g·m( g,2ηθ +ε)
+                                                          2θ
+                                            k2 ≥             +1                      .                             (3)
+                                                          η
+
+Notice that 2ηθ + ε = 3√1 g + ε ≤ 3√2 g ≤ √1 . This allows us to apply Item 1 of Corollary 2.8, which
+                                                          2g
+yields that m( g, 2ηθ + ε) < 2g. Therefore, there exists an absolute constant c′ such that
+                              g·m( g,2ηθ +ε)                                                      √
+                                                        √
+                 
+                     2θ                                          2    ′                  2    d −2
+                        +1                      ≤ (12θ 2 g + 1)2g ≤ 2c ·(log θ +log g)· g ≤ 22 / d ,
+                     η
+                                                                                                     d/2
+where the last inequality follows from the assumption g ≤ c · d1/4 ·max2(log θ,d)1/2 for a sufficiently
+small constant c, which in particular gives that log g ≤ d. By Remark 4.3, this implies that for
+every sufficiently large d, the expression above does not exceed k2 = b(b(d)), confirming the
+inequality given in (3).
+                                                     c·d
+   For Item 2, assume that ε ∈ [ 3√1 g , 16 ], θ ≤ 22 , and g ≤ c · ε2 ·logd(1/ε) , and set η = θε . As before,
+it is easy to see that η ∈ (0, 1− 2ε
+                                4θ ] and k 1 ≤ b ( d ), so it remains to verify the inequality given in (3).
+
+
+                                                                  19
+Notice that 2ηθ + ε = 3ε ∈ [ √1g , 21 ]. This allows us to apply Item 2 of Corollary 2.8, which yields
+that for some absolute constant c′ , it holds that
+                                                                   ′   2                    ′
+                                             m( g, 3ε) ≤ 2c · g·ε ·log(1/ε) ≤ 2c ·c·d .
+
+This implies that for some absolute constant c′′ , it holds that
+                g·m( g,2ηθ +ε)                      g·m( g,3ε)
+                                          2θ 2                            √
+                                     
+       2θ                                                                                        ′′                   c′ ·c·d
+          +1                      =            +1                  ≤ (6θ 2 g + 1) g·m( g,3ε) ≤ 2c ·(log θ +log g)· g·2 .        (4)
+       η                                   ε
+
+To bound the above expression, we observe that for some absolute constant c′′′ , it holds that
+                                                        ′′′   2                   ′′′
+                                              g ≤ 2c · g·ε ·log(1/ε) ≤ 2c ·c·d                                                  (5)
+
+for any sufficiently large g. Indeed, the first inequality can be verified for a sufficiently large c′′′
+by considering the two cases ε ∈ [ 3√1 g , g10.4 ] and ε ∈ [ g10.4 , 16 ], and the second follows from the
+                                                                                                          c·d
+assumption g ≤ c · ε2 ·logd(1/ε) . By combining (5) with our assumption θ ≤ 22 , we obtain that the
+exponent of the right-hand side of (4) is bounded from above by
+                                                                            ′′′         ′
+                                      c′′ · (2c·d + c′′′ · c · d) · 2c ·c·d · 2c ·c·d ≤ 2d/2−1 ,
+
+where the inequality holds for every sufficiently large d, by choosing c as a sufficiently small
+                                                                          d/2−1
+constant. This implies that the right-hand side of (4) does not exceed 22       , which, by Remark 4.3,
+is bounded above by k2 = b(b(d)) for any sufficiently large d. This yields the inequality (3) and
+completes the proof.
+
+    Theorem 4.8 establishes the NP-hardness of the Graph Fitness problem for general parameter
+settings. To illustrate its applicability, we present three implications below. The first provides an
+exponential gap in the rank for an exponentially small error, the second offers a polynomial gap in
+the rank along with a polynomial decay of the error, and the third shows a constant multiplicative
+gap in the rank for a constant error.
+
+Theorem 4.9. There exists an absolute constant c > 0 for which the following holds.
+
+   1. There exists an absolute constant c′ > 0, such that for every sufficiently large positive integer d, the
+                d/2      ′
+      (d, c · 2d3/4 , 2−c ·d , 2d )-Graph-Fitness problem is NP-hard.
+
+   2. For every β > 1, there exists some c′ > 0, such that for every sufficiently large positive integer d, the
+                                          c·d
+      (d, d β , c′ · (dβ−1 ·log
+                             1
+                                d)1/2
+                                      , 22 )-Graph-Fitness problem is NP-hard.
+
+   3. For every α > 1, there exists some ε ∈ (0, 1), such that for every sufficiently large positive integer d,
+                          c·d
+      the (d, α · d, ε, 22 )-Graph-Fitness problem is NP-hard.
+
+Proof: Let c be the constant given in Theorem 4.8, and let d be a positive integer. We derive the
+                                                                                                           d/2
+three items from Theorem 4.8. For Item 1, apply Item 1 of Theorem 4.8 with θ = 2d , g = c · 2d3/4 ,
+and ε = 3√1 g . Next, for Item 2, consider some β > 1, set ε = c′ · (dβ−1 ·log
+                                                                            1
+                                                                               d)1/2
+                                                                                     and g = c · ε2 ·logd(1/ε) ,
+where c′ is sufficiently small, ensuring that g ≥ d β . Notice that for a sufficiently large d, it holds
+
+                                                                       20
+                                                                                       c·d
+that ε ∈ [ 3√1 g , 61 ], allowing us to apply Item 2 of Theorem 4.8 with ε, θ = 22 , and g, to derive the
+desired hardness result. Finally, for Item 3, consider some α > 1, let ε ∈ (0, 16 ] be the largest real
+number satisfying α ≤ c · ε2 ·log1(1/ε) , and set g = α · d ≤ c · ε2 ·logd(1/ε) . Since ε ∈ [ 3√1 g , 16 ] for any
+                                                                                        c·d
+sufficiently large d, we can apply again Item 2 of Theorem 4.8 with ε, θ = 22 , and g, so the proof
+is complete.
+
+4.2    Orthogonality Dimension
+We now turn to proving NP-hardness results for approximating the ε-orthogonality dimension of
+graphs, extending a result of [10]. Consider the following gap problem (recall Definition 3.1).
+
+Definition 4.10 (The (d1 , d2 , ε)-Ortho-Dim Problem). For positive integers d1 < d2 and a real number
+ε ∈ [0, 1), the (d1 , d2 , ε)-Ortho-Dim problem asks to decide whether an input graph G satisfies ξ ( G ) ≤ d1
+or ξ ε ( G ) ≥ d2 .
+
+Note that the definition requires YES instances to have a bounded standard orthogonality dimen-
+sion (with ε = 0), making our hardness results stronger.
+    The following lemma provides a reduction from the Graph Fitness problem to the Orthogo-
+nality Dimension problem.
+
+Lemma 4.11. For all positive integers d1 < d2 and real numbers ε ∈ [0, 1), there exists a polynomial-time
+reduction from (d1 , d2 , ε, 1)-Graph-Fitness to (d1 , d2 , ε)-Ortho-Dim.
+
+Proof: We claim that the identity reduction satisfies the statement of the lemma. To see this, fix
+integers d1 < d2 and a real number ε ∈ [0, 1), and consider an input graph G = (V, E) on n
+vertices.
+     If G is a YES instance of (d1 , d2 , ε, 1)-Graph-Fitness, then there exists a positive semi-definite
+matrix B ∈ Rn×n that fits the graph G and satisfies rank( B) ≤ d1 . Since B is positive semi-definite,
+there exists a matrix X ∈ Rn×d1 for which B = X · X t . To each vertex v ∈ V, assign the d1 -
+dimensional row xv of X associated with v. Since B fits G, it follows that ∥ xv ∥ = 1 for every v,
+and that ⟨ xu , xv ⟩ = 0 whenever u and v are adjacent in G, thus ( xv )v∈V forms a d1 -dimensional
+orthonormal representation of G. This implies that ξ ( G ) ≤ d1 , so G is a YES instance of (d1 , d2 , ε)-
+Ortho-Dim.
+     For the converse, we show the contrapositive. Suppose that G is not a NO instance of (d1 , d2 , ε)-
+Ortho-Dim, hence for some integer d < d2 , G admits a d-dimensional ε-orthonormal representa-
+tion ( xv )v∈V . Letting X ∈ Rn×d denote the matrix in which the row associated with a vertex v is
+the vector xv , we obtain that every row of X has norm 1 and that X · X t is a symmetric matrix that
+ε-fits the graph G. By d < d2 , it follows that G is not a NO instance of (d1 , d2 , ε, 1)-Graph-Fitness,
+and we are done.
+
+      By combining Theorem 4.8 with Lemma 4.11, we derive the following.
+
+Corollary 4.12. There exists an absolute constant c > 0 for which the following holds. Let d and g be
+positive integers with d sufficiently large and d < g, and let ε be a real number. Suppose that either
+
+
+                                                       21
+                                        d/2
+   1. ε ∈ [0, 3√1 g ] and g ≤ c · 2d3/4 , or
+
+   2. ε ∈ [ 3√1 g , 16 ] and g ≤ c · ε2 ·logd(1/ε) .
+
+Then the (d, g, ε)-Ortho-Dim problem is NP-hard.
+
+More concrete consequences can be obtained by combining Theorem 4.9 with Lemma 4.11.
+
+4.3   Low-Rank Matrix Completion
+We finally turn to proving our hardness results for the low-rank matrix completion problems
+described in Definitions 1.1 and 1.4, thereby strengthening the NP-hardness results of [20]. This
+will be accomplished through the reductions outlined in the following lemma.
+
+Lemma 4.13. For all positive integers d1 < d2 and real numbers ε ∈ [0, 1), the following holds.
+
+   1. There exists a polynomial-time reduction from (d1 , d2 , ε, 1)-Graph-Fitness to
+                                                   ε 
+                                         d1 , d2 ,      -PSD-Completion.
+                                                   1+ε
+
+                                                                   d2
+   2. For every real number θ ≥ (1 + ε)1/2 · d1/4     2 , if d1 < ⌊ 2 ⌋ then there exists a polynomial-time
+      reduction from (d1 , d2 , ε, θ )-Graph-Fitness to
+
+                                                              θ2
+                                                                     
+                                                 d2     ε
+                                            d1 ,      ,   ,               -Completion.
+                                                 2 1 + ε (1 + ε) · d1/2
+                                                                    2
+
+
+Proof: Fix integers d1 , d2 and real numbers ε, θ as in the statement of the lemma, and set
+
+                                                  ε                     θ2
+                                          ε′ =         and θ ′ =                    .
+                                                 1+ε               (1 + ε) · d1/2
+                                                                              2
+
+Note that ε′ ∈ [0, 1) and θ ′ ≥ 1. Both parts of the lemma are established through the same reduc-
+tion, which is described next. For a given graph G = (V, E) on n vertices, the reduction produces
+and returns the partial matrix A ∈ {0, 1, ⊥}n×n , whose rows and columns are indexed by V, de-
+fined by                                     
+                                             1 if u = v,
+                                             
+                                             
+                                      Au,v = 0 if {u, v} ∈ E,
+                                             
+                                             
+                                             ⊥ otherwise.
+
+This reduction can clearly be implemented in polynomial time (in fact, in logarithmic space).
+    We now prove the correctness of the reduction. We begin with the forward direction, which
+applies to both parts of the lemma. Suppose that G is a YES instance of (d1 , d2 , ε, θ )-Graph-Fitness
+for some θ ≥ 1. Then, there exists a positive semi-definite matrix B ∈ Rn×n that fits the graph
+G, such that µ( B) = 1 and rank( B) ≤ d1 . Since B fits G, the diagonal entries of B are all ones,
+and the entries of B associated with adjacent vertices are zeros. This implies that Au,v = Bu,v
+
+
+                                                            22
+whenever Au,v ̸=⊥. It follows that A is a YES instance of both (d1 , d2 , ε′ )-PSD-Completion and
+(d1 , ⌊ d22 ⌋, ε′ , θ ′ )-Completion, as needed.
+     For the reverse direction, we prove the contrapositive. For Item 1 of the lemma, we show that
+if A is not a NO instance of (d1 , d2 , ε′ )-PSD-Completion, then G is not a NO instance of (d1 , d2 , ε, 1)-
+Graph-Fitness. Suppose that for some integer d < d2 , there exists a positive semi-definite matrix
+B ∈ Rn×n of rank d, such that | Au,v − Bu,v | ≤ ε′ whenever Au,v ̸=⊥. Since B is positive semi-
+definite and of rank d, one may write B = X · X t for a matrix X ∈ Rn×d . For each vertex v ∈ V,
+let xv denote the row of X associated with v. Notice that for every vertex v ∈ V, it holds that
+∥ xv ∥2 = ⟨ xv , xv ⟩ = Bv,v ∈ [1 − ε′ , 1 + ε′ ], and that for every pair of adjacent vertices u and v in G,
+it holds that ⟨ xu , xv ⟩ = Bu,v ∈ [−ε′ , +ε′ ]. For each vertex v ∈ V, let xv′ = ∥ xxvv ∥ . It follows that for
+every v ∈ V, xv′ is a unit vector, and that for every pair of adjacent vertices u and v in G, it holds
+that
+                                             ⟨ xu , xv ⟩         ε′        ε′
+                                                                               
+                                ′    ′
+                             ⟨ xu , xv ⟩ =                 ∈ −        ,+          = [−ε, +ε].
+                                           ∥ xu ∥ · ∥ xv ∥     1 − ε′    1 − ε′
+Letting X ′ ∈ Rn×d denote the matrix in which the row associated with a vertex v is xv′ , we obtain
+that every row of X ′ has norm 1 and that X ′ · ( X ′ )t is a symmetric matrix that ε-fits the graph G.
+By d < d2 , it follows that G is not a NO instance of (d1 , d2 , ε, 1)-Graph-Fitness, as desired.
+   For Item 2 of the lemma, we show that if A is not a NO instance of (d1 , ⌊ d22 ⌋, ε′ , θ ′ )-Completion,
+then G is not a NO instance of (d1 , d2 , ε, θ )-Graph-Fitness. Suppose that for some integer d < ⌊ d22 ⌋,
+there exists a matrix B ∈ [−θ ′ , +θ ′ ]n×n of rank d, such that | Au,v − Bu,v | ≤ ε′ whenever Au,v ̸=⊥.
+Put C = 21 · ( B + Bt ), and notice that C is a symmetric matrix that lies in [−θ ′ , +θ ′ ]n×n and satisfies
+rank(C ) ≤ 2d < d2 . By the symmetry of A, we observe that for all u, v ∈ V with Au,v ̸=⊥, it holds
+that
+
+| Au,v − Cu,v | =   1                     1
+                    2 · ( Au,v − Bu,v ) + 2 · ( Av,u − Bv,u )   ≤ 12 · | Au,v − Bu,v | + 12 · | Av,u − Bv,u | ≤ ε′ . (6)
+
+By Lemma 2.2, there exist two matrices X, Y ∈ Rn×(2d) satisfying C = X · Y t , such that every row
+of X and Y has norm at most
+                                                              θ
+                     (2d)1/4 · θ ′1/2 < d1/4
+                                         2 ·θ
+                                              ′1/2
+                                                   =                 = (1 − ε′ )1/2 · θ.                            (7)
+                                                          (1 + ε)1/2
+For each vertex v ∈ V, let xv and yv denote the rows associated with v in X and Y, respectively.
+By (6), for every vertex v ∈ V, it holds that ⟨ xv , yv ⟩ = Cv,v ∈ [1 − ε′ , 1 + ε′ ], and for every pair of
+adjacent vertices u and v in G, it holds that ⟨ xu , yv ⟩ = Cu,v ∈ [−ε′ , +ε′ ]. For each vertex v ∈ V,
+                                         y
+let xv′ = ⟨x ,yxv ⟩1/2 and y′v = ⟨x ,yv ⟩1/2 , and observe using (7) that ∥ xv′ ∥ ≤ θ and ∥y′v ∥ ≤ θ. For every
+            v v                        v v
+v ∈ V, we have ⟨ xv′ , y′v ⟩ = 1, and for every pair of adjacent vertices u and v in G, it holds that
+
+                                             ⟨ xu , yv ⟩                ε′        ε′
+                                                                                      
+                       ′    ′
+                    ⟨ xu , yv ⟩ =                                 ∈ −        ,+          = [−ε, +ε].
+                                  ⟨ xu , yu ⟩1/2 · ⟨ xv , yv ⟩1/2     1 − ε′    1 − ε′
+
+Let X ′ , Y ′ ∈ Rn×(2d) denote the matrices in which the rows associated with a vertex v are xv′ and
+y′v , respectively. The above discussion implies that every row of X ′ and Y ′ has norm at most θ and
+that X ′ · (Y ′ )t is a symmetric matrix that ε-fits the graph G. By 2d < d2 , it follows that G is not a
+NO instance of (d1 , d2 , ε, θ )-Graph-Fitness, completing the proof.
+
+                                                         23
+    By combining Theorem 4.8 with the first item of Lemma 4.13, we obtain the following.
+
+Corollary 4.14. There exists an absolute constant c > 0 for which the following holds. Let d and g be
+positive integers with d sufficiently large and d < g, and let ε be a real number. Suppose that either
+                                        d/2
+   1. ε ∈ [0, 3√1 g ] and g ≤ c · 2d3/4 , or
+
+   2. ε ∈ [ 3√1 g , 16 ] and g ≤ c · ε2 ·logd(1/ε) .
+
+Then the (d, g, 1+ε ε )-PSD-Completion problem is NP-hard.
+
+    Corollary 4.14 confirms Theorems 1.2 and 1.3. Indeed, the first item of Corollary 4.14 implies
+that for every sufficiently large integer d and any real number ε ∈ [0, 2−Ω(d) ], the (d, 2(1−o(1))·d/2 , ε)-
+PSD-Completion problem is NP-hard, as needed for Theorem 1.3. Next, for any sufficiently large
+                                                                ′
+integer d and any real number ε′ ∈ [2−9cd , 71 ], set ε = 1−ε ε′ , and observe that ε ∈ [2−9cd , 16 ]. Set
+g = c · ε2 ·logd(1/ε) , and notice that g · ε2 = c · log(d1/ε) ≥ 19 , hence ε ∈ [ 3√1 g , 16 ]. By the second
+item of Corollary 4.14, applied with ε, we obtain the NP-hardness of the (d, g, ε′ )-PSD-Completion
+problem, which yields Theorem 1.2.
+    By combining Theorem 4.8 with the second item of Lemma 4.13, we obtain the following.
+
+Corollary 4.15. There exists an absolute constant c > 0 for which the following holds. Let d and g be
+                                                      g
+positive integers with d sufficiently large and d < ⌊ 2 ⌋, and let ε and θ ≥ (1 + ε)1/2 · g1/4 be real numbers.
+Suppose that either
+                                                d/2
+   1. ε ∈ [0, 3√1 g ] and g ≤ c · d1/4 ·max2(log θ,d)1/2 , or
+                                 c·d
+   2. ε ∈ [ 3√1 g , 16 ], θ ≤ 22 , and g ≤ c · ε2 ·logd(1/ε) .
+
+                 g               2
+Then the (d, ⌊ 2 ⌋, 1+ε ε , (1+εθ)· g1/2 )-Completion problem is NP-hard.
+
+    Corollary 4.15 confirms Theorems 1.5 and 1.6. Indeed, for any sufficiently large integer d and
+                                                                           ′
+any real numbers ε′ ∈ [0, 2−Ω(d) ] and θ ′ ∈ [1, 22 ], set ε = 1−ε ε′ and θ = (1 + ε)1/2 · g1/4 · θ ′1/2
+                                                             o (d)
+
+
+where g = 2(1−o(1))·d/2 . By the first item of Corollary 4.15, applied with ε and θ, it follows that
+          g
+the (d, ⌊ 2 ⌋, ε′ , θ ′ )-Completion problem is NP-hard, as needed for Theorem 1.6. Next, for any suf-
+                                                                                            O(d)                ′
+ficiently large integer d and any real numbers ε′ ∈ [2−9cd , 17 ] and θ ′ ∈ [1, 22 ], set ε = 1−ε ε′ ,
+θ = (1 + ε)1/2 · g1/4 · θ ′1/2 , and g = c · ε2 ·logd(1/ε) . As above, we have g · ε2 = c · log(d1/ε) ≥ 19 , hence
+ε ∈ [ 3√1 g , 16 ]. This allows us to apply the second item of Corollary 4.15 with ε and θ to obtain the
+                                 g
+NP-hardness of the (d, ⌊ 2 ⌋, ε′ , θ ′ )-Completion problem, which in turn yields Theorem 1.5.
+    Note that one may combine Theorem 4.9 with Lemma 4.13 to obtain hardness results for con-
+crete settings of the parameters. This is illustrated for the PSD-Completion problem, as follows.
+
+Corollary 4.16. There exists an absolute constant c > 0 for which the following holds.
+
+   1. There exists an absolute constant c′ > 0, such that for every sufficiently large positive integer d, the
+                d/2      ′
+      (d, c · 2d3/4 , 2−c ·d )-PSD-Completion problem is NP-hard.
+
+
+
+                                                                 24
+  2. For every β > 1, there exists some c′ > 0, such that for every sufficiently large positive integer d, the
+     (d, d β , c′ · (dβ−1 ·log
+                            1
+                               d)1/2
+                                     )-PSD-Completion problem is NP-hard.
+
+  3. For every α > 1, there exists some ε ∈ (0, 1), such that for every sufficiently large positive integer d,
+     the (d, α · d, ε)-PSD-Completion problem is NP-hard.
+
+    We conclude with two final remarks. First, certain variants of the Unique Games Conjecture
+(see [12, 13]) imply the hardness of the (d1 , d2 , ε)-PSD-Completion and (d1 , d2 , ε, θ )-Completion
+problems for all integers d2 > d1 ≥ 3 and real numbers ε ∈ [0, 12 ) and θ ≥ 1. This follows by
+combining Remark 4.6 with Lemma 4.13. Second, all our hardness results for low-rank matrix
+completion problems remain valid when the input partial matrix is required to have a small frac-
+tion of missing values, say, polynomially small with respect to the dimension of the matrix. As
+observed in [20], this follows by padding the input partial matrix with sufficiently many zero rows
+and columns, which reduces the fraction of missing values and preserves the minimum possible
+rank of a completion.
+
+
+Acknowledgments
+We thank the anonymous reviewers for their insightful comments and suggestions that improved
+the presentation of this paper.
+
+
+References
+ [1] M. Alishahi and F. Meunier. Topological bounds for graph representations over any field.
+     SIAM J. Discret. Math., 35(1):91–104, 2021.
+
+ [2] N. Alon. Problems and results in extremal combinatorics, I. Discrete Math., 273(1–3):3–15,
+     2003.
+
+ [3] N. Alon. Perturbed identity matrices have high rank: Proof and applications. Comb. Probab.
+     Comput., 18(1–2):3–15, 2009.
+
+ [4] N. Alon, Y. Kohayakawa, C. Mauduit, C. G. Moreira, and V. Rödl. Measures of pseudoran-
+     domness for finite sequences: minimal values. Comb. Probab. Comput., 15(1–2):1–29, 2006.
+
+ [5] L. Barto, J. Bulı́n, A. A. Krokhin, and J. Opršal. Algebraic approach to promise constraint
+     satisfaction. J. ACM, 68(4):28:1–66, 2021. Preliminary versions in STOC’19 and LICS’19.
+
+ [6] J. Briët, H. Buhrman, D. Leung, T. Piovesan, and F. Speelman. Round elimination in exact
+     communication complexity. In Proc. of the 10th Conference on the Theory of Quantum Computa-
+     tion, Communication and Cryptography (TQC’15), pages 206–225, 2015.
+
+ [7] E. J. Candès and B. Recht. Exact matrix completion via convex optimization. Found. Comput.
+     Math., 9(6):717–772, 2009.
+
+
+
+                                                     25
+ [8] E. J. Candès and T. Tao. The power of convex relaxation: Near-optimal matrix completion.
+     IEEE Trans. Inform. Theory, 56(5):2053–2080, 2010.
+
+ [9] G. J. Chang, D. D. Liu, and X. Zhu. A short proof for Chen’s alternative Kneser coloring
+     lemma. J. Comb. Theory A, 120(1):159–163, 2013.
+
+[10] D. Chawin and I. Haviv. Improved NP-hardness of approximation for orthogonality dimen-
+     sion and minrank. SIAM J. Discret. Math., 37(4):2670–2688, 2023. Preliminary version in
+     STACS’23.
+
+[11] P.-A. Chen. A new coloring theorem of Kneser graphs. J. Combin. Theory Ser. A, 118(3):1062–
+     1071, 2011.
+
+[12] I. Dinur, E. Mossel, and O. Regev. Conditional hardness for approximate coloring. SIAM J.
+     Comput., 39(3):843–873, 2009. Preliminary version in STOC’06.
+
+[13] I. Dinur and I. Shinkar. On the conditional hardness of coloring a 4-colorable graph with
+     super-constant number of colors. In Proc. of the 13th International Workshop on Approximation
+     Algorithms for Combinatorial Optimization Problems (APPROX’10), pages 138–151, 2010.
+
+[14] M. Eisenberg-Nagy, M. Laurent, and A. Varvitsiotis. Complexity of the Positive Semidefinite
+     Matrix Completion Problem with a Rank Constraint, volume 69 of Fields Institute Communications,
+     pages 105–120. Springer, Heidelberg, 2013.
+
+[15] T. Figiel, J. Lindenstrauss, and V. D. Milman. The dimension of almost spherical sections of
+     convex bodies. Acta Math., 139(1–2):53–94, 1977.
+
+[16] A. Golovnev and I. Haviv. The (generalized) orthogonality dimension of (generalized) Kneser
+     graphs: Bounds and applications. Theory Comput., 18(22):1–22, 2022. Preliminary version in
+     CCC’21.
+
+[17] V. Guruswami and S. Sandeep. d-to-1 hardness of coloring 3-colorable graphs with O(1)
+     colors. In Proc. of the 47th International Colloquium on Automata, Languages, and Programming,
+     (ICALP’20), pages 62:1–12, 2020.
+
+[18] W. H. Haemers. An upper bound for the Shannon capacity of a graph. In L. Lovász and V. T.
+     Sós, editors, Algebraic Methods in Graph Theory, volume 25/I of Colloquia Mathematica Societatis
+     János Bolyai, pages 267–272. Bolyai Society and North-Holland, 1981.
+
+[19] F. Harary and R. Z. Norman. Some properties of line digraphs. Rend. Circ. Mat. Palermo,
+     9(2):161–168, 1960.
+
+[20] M. Hardt, R. Meka, P. Raghavendra, and B. Weitz. Computational limits for matrix comple-
+     tion. In Proc. of the 27th Conference on Learning Theory (COLT’14), pages 1017–1032, 2014.
+
+[21] C. C. Harner and R. C. Entringer. Arc colorings of digraphs. J. Comb. Theory, Ser. B, 13(3):219–
+     225, 1972.
+
+
+                                                 26
+[22] I. Haviv. Topological bounds on the dimension of orthogonal representations of graphs. Eur.
+     J. Comb., 81:84–97, 2019.
+
+[23] I. Haviv. Approximating the orthogonality dimension of graphs and hypergraphs. Chic. J.
+     Theor. Comput. Sci., 2022(2), 2022. Preliminary version in MFCS’19.
+
+[24] Y. Hecht, D. Minzer, and M. Safra. NP-hardness of almost coloring almost 3-colorable graphs.
+     In Proc. of the 27th International Conference on Randomization and Computation (RANDOM’23),
+     pages 51:1–12, 2023.
+
+[25] S. Huang. Improved hardness of approximating chromatic number. In Proc. of the 16th In-
+     ternational Workshop on Approximation Algorithms for Combinatorial Optimization Problems (AP-
+     PROX’13), pages 233–243, 2013.
+
+[26] A. Johnson, F. C. Holroyd, and S. Stahl. Multichromatic numbers, star chromatic numbers
+     and Kneser graphs. J. Graph Theory, 26(3):137–145, 1997.
+
+[27] M. Kneser. Aufgabe 360. Jahresbericht der Deutschen Mathematiker-Vereinigung, 58(2):27, 1955.
+
+[28] A. A. Krokhin, J. Opršal, M. Wrochna, and S. Zivný. Topology and adjunction in promise
+     constraint satisfaction. SIAM J. Comput., 52(1):38–79, 2023. Preliminary versions in FOCS’19
+     and SODA’20.
+
+[29] D. D.-F. Liu and X. Zhu. A combinatorial proof for the circular chromatic number of Kneser
+     graphs. J. Comb. Optim., 32:765–774, 2016.
+
+[30] L. Lovász. Kneser’s conjecture, chromatic number, and homotopy. J. Comb. Theory, Ser. A,
+     25(3):319–324, 1978.
+
+[31] L. Lovász. On the Shannon capacity of a graph. IEEE Trans. Inform. Theory, 25(1):1–7, 1979.
+
+[32] L. Lovász, M. Saks, and A. Schrijver. Orthogonal representations and connectivity of graphs.
+     Linear Algebra Appl., 114–115:439–454, 1989.
+
+[33] R. Peeters. Orthogonal representations over finite fields and the chromatic number of graphs.
+     Combinatorica, 16(3):191–206, 1996.
+
+[34] S. Poljak and V. Rödl. On the arc-chromatic number of a digraph. J. Comb. Theory, Ser. B,
+     31(2):190–198, 1981.
+
+[35] C. Rashtchian. Bounded matrix rigidity and John’s theorem. Electron. Colloquium Comput.
+     Complex., TR16-093, 2016.
+
+[36] B. Recht. A simpler approach to matrix completion. J. Mach. Learn. Res., 12:3413–3430, 2011.
+
+[37] A. Vince. Star chromatic number. J. Graph Theory, 12(4):551–559, 1988.
+
+[38] X. Zhu. Circular chromatic number: a survey. Discrete Math., 229(1–3):371–410, 2001.
+
+
+
+                                                27
+
