@@ -1,0 +1,324 @@
+[
+{
+"item": "item070",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item070.png",
+"distinction": "fine, long, loose strands or thin pointers laid over a plain ground, against short, smooth, close-lying surface",
+"positive": "long silky or feathery hair (Afghan, silky terrier, Maltese, colobus, wool, hair slide), and clock faces with thin hands",
+"negative": "short sleek coats and blunt wrinkled heads (boxer, bull mastiff, pug, Doberman) plus glossy solid objects (piggy bank, revolver); it keeps out short smooth coat"
+},
+{
+"item": "item040",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item040.png",
+"distinction": "open water surface with a body in it, against warm detailed objects on land",
+"positive": "submarine, whales, great white, coral reef, seashore, speedboat, snorkelers: blue-green water texture",
+"negative": "zebra, hourglass, rotisserie, phone box, langur: warm, tall, dry, fine detail"
+},
+{
+"item": "item099",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item099.png",
+"distinction": "loose patterned cloth draped over a body",
+"positive": "sarong, poncho, fur coat, feather boa, tie, kimono, stole, maillot",
+"negative": "smooth hard white or pale objects: table lamp, Crock Pot, washbasin, nipple, mixing bowl"
+},
+{
+"item": "item012",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item012.png",
+"distinction": "Straight slanted struts or lines rising to a point (rigging, cables, strings, poles), against furry or rounded animal bodies.",
+"positive": "Catamaran sails, suspension bridge cables, harp strings, tripod, mountain tent, maypole, crutch, steel arch bridge, police vans and minibuses (windowed boxy fronts), pelican bill.",
+"negative": "Furry animals and rounded domestic items: coyote, tabby, brown bear, Ibizan hound, printer, dishwasher, brown bear."
+},
+{
+"item": "item026",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item026.png",
+"distinction": "A dark dog with sharply separated tan and white markings, against light fawn or long-coated dogs.",
+"positive": "Entlebucher, toy terrier, Bernese, Rottweiler, black-and-tan, miniature pinscher, Doberman, Greater Swiss, bluetick, Cardigan; heat on the face markings and chest.",
+"negative": "Light fawn, red or long-coated dogs: Tibetan mastiff puppy, Shetland sheepdog, dhole, Welsh springer, golden retriever, collie, lesser panda, trimaran, monarch butterfly."
+},
+{
+"item": "item129",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item129.png",
+"distinction": "a dial or face with small regular marks (digits, ticks, spots) on a plain ground, versus a close furry face with one dark nose",
+"positive": "digital clock, wall clock, barometer, odometer, stopwatch, crossword, leopard, jaguar, tabby kitten, teddy bear, saltshaker with beads",
+"negative": "Chihuahua, Maltese, Pekinese, Yorkshire, meerkat, Cardigan face close up; grocery store tomatoes"
+},
+{
+"item": "item029",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item029.png",
+"distinction": "The tip of a thin forward point on a body: a bird bill, or the round top of a thin pole (water tower, bell tower), against fluffy light dogs.",
+"positive": "Redshank, goose, little blue heron, limpkin, hummingbird, ostrich, albatross; also water tower, bell cote, bell tower, parking meter. Heat on the bill tip or the bulb at the top of the pole.",
+"negative": "Light fluffy dogs and smiling people: Tibetan terrier, golden retriever, Scottish deerhound, tricycle, tobacco shop, potter's wheel, thresher."
+},
+{
+"item": "item114",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item114.png",
+"distinction": "Patchy three-tone coat: black with white and rust patches, against a plain tan coat.",
+"positive": "Swiss mountain dogs (Entlebucher, Greater Swiss, Bernese, Appenzeller), Blenheim spaniel, bluetick, Rottweiler; 50% ring broccoli and cauliflower (dark green with white).",
+"negative": "Uniform fawn or tan short-coat dogs: bloodhound, Great Dane, bull mastiff, Rhodesian ridgeback, Ibizan hound; also Saint Bernard."
+},
+{
+"item": "item123",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item123.png",
+"distinction": "a thin curved line or chain of loops against a plain ground",
+"positive": "chain links, hummingbird, thunder snake, toucan with wire, necklace, corkscrew spiral, swing with chains, padlock chain, chainlink fence",
+"negative": "West Highland and Tibetan terrier faces, combination lock keypad, cassette, Siamese cat, car wheel: fluffy faces and dials"
+},
+{
+"item": "item031",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item031.png",
+"distinction": "A dark coat with tan markings, as in s4b0:266 but a sharper version for smaller dogs and for birds with dark backs.",
+"positive": "Toy terrier, standard schnauzer, German shepherd, Cardigan, bluetick, Walker hound, Rottweiler, brambling, wallaby, basset, silky terrier.",
+"negative": "Not read (deep image not opened): colour is the key, gray keeps 0.41, invert 0.16."
+},
+{
+"item": "item002",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item002.png",
+"distinction": "Upright muzzle that projects from an animal head seen from the side, against a frontal or flat face.",
+"positive": "Dogs of every breed with a long muzzle (red wolf, Irish setter, borzoi, whippet, Cardigan); heat on the snout.",
+"negative": "Cat faces (tabby, schipperke), stork, screw, espresso cup, Ibizan hound lying: round flat faces or thin vertical things."
+},
+{
+"item": "item056",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item056.png",
+"distinction": "a white rolled tube or fold with a hole, held up on a wall",
+"positive": "paper towel, toilet tissue, golfcart, neck brace, seat belt, burrito, spider web",
+"negative": "domes, rosehip, digital clock, balloon: round wholes with a bright centre"
+},
+{
+"item": "item116",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item116.png",
+"distinction": "vivid small body with thin legs or thin repeated weave pattern, versus dark or grey plain things",
+"positive": "indigo bunting, paintbrush weave, bee eater, black grouse, redshank, fly, ladybug, prairie chicken; weak peak 0.6",
+"negative": "Norfolk terrier, keyboard, giant schnauzer, cassette player, apron, pop bottles, digital watch: dark grey and cluttered"
+},
+{
+"item": "item095",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item095.png",
+"distinction": "a dark nose tip on a pale muzzle",
+"positive": "schipperke, weasel, redbone, ice bear, grey fox, Appenzeller: heat on the nose",
+"negative": "fluffy collies, poodle, Norfolk terrier, dhole faces: face filled with fur"
+},
+{
+"item": "item038",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item038.png",
+"distinction": "a soft-edged bright white plume rising from the ground or water against a darker or bluer backdrop",
+"positive": "geysers, fountains, fireboat spray, whale blow, waterfalls, breakwater splash, rocket exhaust",
+"negative": "round shiny rings and hubs (car wheel, carousel, pill bottle caps, ostrich head)"
+},
+{
+"item": "item103",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item103.png",
+"distinction": "a thin pointed thing sticking out toward or from a face or beak, small and bright against a blurred green ground",
+"positive": "child with a pink lolly, child eating ice lolly, spoonbill and stork beak, go-kart, apiary, grasshopper, leafhopper, damselfly: a small bright narrow thing in the middle of a soft background",
+"negative": "junco, green mamba, hair slide, screws, Siamese cat, coral reef: a sharp small object centred on a plain or very busy ground. Not clean"
+},
+{
+"item": "item110",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item110.png",
+"distinction": "long repeated parallel things receding in a row (rails, spoons in a rack, burner grates) against compact round natural bodies",
+"positive": "electric locomotives and rails in perspective, row of spatulas, steel drum, stove grate, barbershop: rows of hard-edged near-parallel bars",
+"negative": "round soft organic bodies on natural ground (rosehip, ladybug, crab, fish held by people, bikers)"
+},
+{
+"item": "item062",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item062.png",
+"distinction": "a large bounded structure standing against sky",
+"positive": "castle, obelisk, dome, alp, container ship, aircraft carrier, barn, sports car",
+"negative": "people holding things, plunger, grocery store, cat"
+},
+{
+"item": "item068",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item068.png",
+"distinction": "a single compact structure alone on an open horizon",
+"positive": "yurt, lighthouse, submarine, analog clock, thresher, pier, umbrella",
+"negative": "dog faces with pale muzzles"
+},
+{
+"item": "item080",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item080.png",
+"distinction": "a white or pale soft coat, against warm reddish-brown fur",
+"positive": "white poodle, Samoyed, goose, white stork, cockatoo, Old English sheepdog, guinea pig, kuvasz, plush toy",
+"negative": "tawny, tiger, red fox, dhole, bloodhound, Irish setter, Pekinese: warm orange-brown fur; and an orange-and-black salamander"
+},
+{
+"item": "item033",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item033.png",
+"distinction": "The bill tip of a long-billed bird against a plain, flat ground, against frontal dog faces.",
+"positive": "European gallinule, redshank, ruddy turnstone, coucal, drake, egret, little blue heron, hummingbird, bee eater, hartebeest horn, robin; heat on the bill.",
+"negative": "Frontal dog faces: Italian greyhound, Irish setter, Lakeland terrier, basset, Chihuahua; jersey, lab coat, hoopskirt."
+},
+{
+"item": "item008",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item008.png",
+"distinction": "A small perched bird with a bright warm or yellow breast against a dark or grey back and a bare, thin-branched background.",
+"positive": "House finch, goldfinch, indigo bunting, brambling, chickadee, junco; heat on the breast.",
+"negative": "Big dogs lying down (briard, German shepherd, bloodhound), car wheel, dome, bikini: large, round, or flat-lit."
+},
+{
+"item": "item077",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item077.png",
+"distinction": "a pale or white soft-looking body, against brown or dark-spotted coat",
+"positive": "white fluffy dogs (Maltese, Samoyed, komondor, Bedlington), cockatoo, flamingo, spoonbill, soccer ball, airship, mop",
+"negative": "brown and tawny coats and patterned prey (Border terrier, malinois, jackfruit, warthog, ruddy turnstone, butterfly)"
+},
+{
+"item": "item021",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item021.png",
+"distinction": "A close-fitting cover on a body part (a cap, bra, helmet, veil), against wheels and domes.",
+"positive": "Shower cap, bonnet, crash helmet, brassiere, bikini, abaya, miniskirt, fur coat, cassette, sunglasses, overskirt, ferret on hand.",
+"negative": "Wheels and domes: mountain bike, cab, jinrikisha, dome (stained glass, Les Invalides), moped, oxcart; chiffonier, Old English sheepdog."
+},
+{
+"item": "item105",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item105.png",
+"distinction": "a big, heavy, broad-headed animal mass seen close and face-on or resting, versus thin slender things",
+"positive": "Rottweiler, cougar, lynx, tabby, English setter, Newfoundland, tusker, pug in a suit, bison: round heavy bodies and faces with eyes; mass not legs",
+"negative": "toy terrier, Ibizan hound, oystercatcher, cockroach, black and white stork, red panda: thin legs, pointed beaks and snouts. It is the mirror of s4b1:9"
+},
+{
+"item": "item074",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item074.png",
+"distinction": "a smooth, soft-eared dog head, against a radial symmetric or pointed form",
+"positive": "floppy-eared dogs with a plain face (retrievers, beagle, redbone, foxhound), at the head",
+"negative": "radial or domed symmetry (umbrella ribs, dome, electric fan, vault) and pointed fox or terrier faces"
+},
+{
+"item": "item051",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item051.png",
+"distinction": "a dark glossy compact body",
+"positive": "indigo bunting, peacock, stork, lipstick, screwdriver, barbell",
+"negative": "unread"
+},
+{
+"item": "item004",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item004.png",
+"distinction": "Bumpy, knobbly mass made of many small rounded lobes in green: a texture, not an object, and orientation does not matter.",
+"positive": "Broccoli (florets in a bowl, close-ups, white backgrounds), cauliflower, rice-and-shrimp bowl, hay roll, Angora fluff, volcano plume, lemon pile, spider on a leaf, planetarium dome.",
+"negative": "Sparse lone animals on bare rock (grey fox, bighorn, ibex, impala), rotisserie rows, piano keys, monitors: smooth or sparse, spaced-out items."
+},
+{
+"item": "item134",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item134.png",
+"distinction": "a single compact structure alone on an open horizon",
+"positive": "yurt, lighthouse, submarine, analog clock, thresher, pier, umbrella",
+"negative": "dog faces with pale muzzles"
+},
+{
+"item": "item125",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item125.png",
+"distinction": "a dog head in side view with drooping ears (heat is on the ear), versus fluffy upright-eared or small pointed faces",
+"positive": "beagle, redbone, Appenzeller, kuvasz, Labrador, Weimaraner, bloodhound, Rhodesian ridgeback, Walker hound",
+"negative": "lesser panda, groenendael, Persian cat, papillon, house finch, Lhasa, Yorkshire terrier, keeshond: upright ears and fluffy rounded faces"
+},
+{
+"item": "item048",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item048.png",
+"distinction": "a vessel body with a loop handle on its side",
+"positive": "pitcher, cup, coffeepot, mug, teapot, cocktail shaker with cup (probe: handle 0.28, no handle 0.01)",
+"negative": "radial spokes and studs seen face-on: bolo tie, car wheel, umbrella, saltshaker, jinrikisha wheel"
+},
+{
+"item": "item057",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item057.png",
+"distinction": "one large smooth mass in an open field",
+"positive": "soccer ball, tent, valley, alp, volcano, washbasin, airliner, sports car",
+"negative": "radial fans, fine fur faces and wheels (car wheel, daisy)"
+},
+{
+"item": "item028",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item028.png",
+"distinction": "a big plain-coloured face of an object versus small repeated buttons and mechanical detail",
+"positive": "whistle, safe, apron, mortar, carton, tray, mosquito net, nail, screws, sleeping bag",
+"negative": "scale with keypad, combination lock, phone keypad, typewriter keys, cannon, reel, magnetic compass, Border collie face: grids of small buttons or fine mechanism. It keeps out small-part detail"
+},
+{
+"item": "item101",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item101.png",
+"distinction": "a lean pointed face of a whole animal seen from the side",
+"positive": "dingo, EntleBucher, basset, Saluki, Siberian husky, Ibizan hound, beagle, coyote; heat on the face",
+"negative": "close-ups of short flat or bearded faces: Norfolk terrier, Shih-Tzu, Tibetan terrier, cardoon thistle, fig"
+},
+{
+"item": "item020",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item020.png",
+"distinction": "A dense array of tiny parallel keys, buttons or whiskers around a small mouth, against radial wheel shapes.",
+"positive": "Hyena and small dogs lying down (Border terrier, Pembroke, Blenheim spaniel, Norfolk terrier), phone keypad, harmonica, sax, abacus, grille, dial telephone, accordion keys, lipstick.",
+"negative": "Radial or circular: umbrella, Crock Pot, wall clocks, analog clock, dome, kimono, barometer, pool table, television."
+},
+{
+"item": "item122",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item122.png",
+"distinction": "separate dark spots across a coat or surface, versus a plain shaggy face",
+"positive": "English setter, German short-haired pointer, dalmatian, Great Dane merle, hyena, leopard, banded gecko, digital clock, analog gauges",
+"negative": "Yorkshire and Norfolk terrier faces, daisy, golden retriever, collie, red-breasted merganser: smooth or fluffy single-tone close faces"
+},
+{
+"item": "item024",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item024.png",
+"distinction": "A dark coat with tan and white markings in a fixed pattern, against pale or white shapes.",
+"positive": "Entlebucher, Appenzeller, Doberman, Gordon setter, Rottweiler, toy terrier, black-and-tan, miniature pinscher, Tibetan mastiff, guenon; heat on face and chest.",
+"negative": "White or bright objects: parachute, microphone, airliner, kuvasz (white dog), titi, hen, planetarium, safe, diaper."
+},
+{
+"item": "item076",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item076.png",
+"distinction": "a pale, cream or white body, against warm dark-brown coat",
+"positive": "polar bear, white or cream dogs, cockatoo, egret, white Tibetan terrier, pale gibbon",
+"negative": "dark brown and chocolate coats (Weimaraner, Labrador, Chesapeake, schipperke) and also an orange and a black-footed ferret: a rich dark warm colour"
+},
+{
+"item": "item000",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item000.png",
+"distinction": "A broad dial (on for 97% of photos, mean 3.35) that rises when one smooth, large, low-texture region sits against a calm background (water, bedspread, studio surface) and falls to negative on small, sharp, saturated warm-coloured items on cluttered ground.",
+"positive": "Peak photos: quilt on a bed, projector, speedboat and its wake, bird over open water, alligator on a log, shark and dugong under water. Heat maps sit on the smooth surface or the water, not on one object.",
+"negative": "Barn, red plunger, cello, baseball, whistle, hamster: compact, warm or red, hard-edged things."
+},
+{
+"item": "item108",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item108.png",
+"distinction": "a coat or surface made of many separate dark spots on a lighter ground, versus a plain single-colour surface",
+"positive": "German short-haired pointer, dalmatian, Great Dane (merle), English setter, bluetick, snow leopard, leopard, horned viper, sidewinder, custard apple",
+"negative": "coil, Rhodesian ridgeback, Chesapeake Bay, vizsla, eggnog, ice bear: smooth plain brown or cream"
+},
+{
+"item": "item128",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item128.png",
+"distinction": "a horizontal band at the base of a scene: a waterline, floor or reflection line under an upright object",
+"positive": "boathouse on water, planetarium reflected, dock, egret, grocery aisle, mosque, obelisk, whistle; the heat is at the bottom edge",
+"negative": "dark standing dogs on grass: American Staffordshire, groenendael, keeshond, German shepherd, Great Pyrenees"
+},
+{
+"item": "item053",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item053.png",
+"distinction": "thin straight pointers on a plain round face",
+"positive": "analog and wall clocks, stopwatch, compass, barometer dial; drawn clock hands on a white disc fire it at 0.42, a bare disc 0.05",
+"negative": "vehicles and pens (fire engine, police van, fountain pen, water buffalo): thick coloured bulk"
+},
+{
+"item": "item118",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item118.png",
+"distinction": "A long thin curving neck or tube carrying a small head, against a compact furry body.",
+"positive": "American egret, ostrich, little blue heron, pelican, flamingo, bustard, white stork (heat on the neck and head); 50% ring barracouta, snakes, nematode, sturgeon.",
+"negative": "Dogs sitting or lying with compact bodies: basenji, Boston bull, German shepherd, Ibizan hound, bluetick, Saint Bernard; border collie face."
+},
+{
+"item": "item121",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item121.png",
+"distinction": "bare warm skin tone or tan coat",
+"positive": "swimming trunk, bikini, volleyball, butcher shop, basset, proboscis monkey, bloodhound, Rhodesian ridgeback; heat on skin",
+"negative": "muzzle, dial telephone, ladle, compass, bee, spider, minibus, lawn mower: metal or white objects"
+},
+{
+"item": "item016",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item016.png",
+"distinction": "A smooth domed or arched shell with an arc of spray or curve, against thin spoked or wheeled shapes.",
+"positive": "Fireboat jets (water arcs), radio telescope dish, planetarium dome, armadillo shell, iron (smooth shell), fountain, mountain tent, tench body, bonnet, chain mail, knee pad. Heat on the dome or arc.",
+"negative": "Water ouzel (small dark bird with a white bib, on the bank), cannon wheels, analog clock, folding chair, plaque, cock, pop bottle, worm fence: spokes, rings, thin crossed bars."
+},
+{
+"item": "item079",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/new/item079.png",
+"distinction": "a white smooth rounded body, against radial or hard-edged metallic form",
+"positive": "giant panda face, black stork, piggy bank, toaster, soccer ball, Shih-Tzu, Maltese",
+"negative": "dome, rickshaw wheel, car wheel, cannon, green snake, Siamese cat: spoked or tubular dark-and-light structure"
+}
+]

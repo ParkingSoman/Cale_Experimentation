@@ -2,3 +2,143 @@
 s4b1:32 main s4b1i:317 tree True named 4 direct 4 explained 0.60 random 0.03
 s4b1i:317 main s4b0:418 tree True named 3 direct 3 explained 0.51 random 0.01
 s4b0:418 main s4b0i:261 tree True named 5 direct 5 explained 0.45 random 0.00
+s4b0i:261 main s3b1:214 tree True named 4 direct 4 explained 0.70 random 0.02
+s4b1:400 main s4b1i:408 tree True named 4 direct 4 explained 0.54 random 0.02
+s4b1:461 main s4b1i:243 tree True named 4 direct 4 explained 0.81 random 0.00
+s4b1:269 main s4b1i:221 tree True named 5 direct 5 explained 0.45 random 0.01
+s4b1i:408 main s4b0:266 tree True named 3 direct 3 explained 0.66 random 0.01
+s4b1i:243 main s4b0:245 tree True named 4 direct 4 explained 0.61 random 0.02
+s4b1i:221 main s4b0:289 tree True named 3 direct 3 explained 0.31 random 0.00
+s4b1:344 main s4b0:344 tree True named 4 direct 4 explained 0.37 random 0.02
+s4b1:486 main s4b1i:383 tree True named 4 direct 4 explained 0.32 random 0.01
+s4b1:329 main s4b1i:500 tree True named 5 direct 5 explained 0.62 random 0.00
+s4b1i:98 main s4b0:511 tree True named 4 direct 4 explained 0.32 random 0.01
+s4b1i:500 main s4b0:186 tree True named 4 direct 4 explained 0.22 random 0.01
+s4b1i:383 main s4b0:476 tree True named 4 direct 4 explained 0.29 random 0.01
+s4b1:277 main s4b1i:68 tree True named 4 direct 4 explained 0.53 random 0.03
+s4b1:403 main s4b1i:356 tree True named 5 direct 5 explained 0.51 random 0.02
+s4b1:367 main s4b1i:153 tree True named 4 direct 4 explained 0.37 random 0.01
+s4b1i:68 main s4b0:329 tree True named 4 direct 4 explained 0.28 random 0.01
+s4b1i:356 main s4b0:332 tree True named 4 direct 4 explained 0.21 random 0.02
+s4b1i:153 main s4b0:99 tree True named 4 direct 4 explained 0.28 random 0.01
+s4b0:237 main s4b0i:507 tree True named 4 direct 4 explained 0.17 random 0.00
+s4b0:329 main s4b0i:26 tree True named 5 direct 5 explained 0.54 random 0.02
+s4b0:266 main s4b0i:347 tree True named 5 direct 5 explained 0.49 random 0.01
+s4b0i:26 main s3b1:18 tree True named 4 direct 4 explained 0.47 random 0.03
+s4b0i:347 main s3b1:36 tree True named 4 direct 4 explained 0.81 random 0.04
+s4b0i:507 main s3b1:211 tree True named 4 direct 4 explained 0.36 random 0.04
+s4b0:245 main s4b0i:507 tree True named 5 direct 5 explained 0.28 random 0.01
+s4b0:452 main s4b0i:426 tree True named 5 direct 5 explained 0.48 random 0.02
+s4b0:99 main s4b0i:176 tree True named 4 direct 4 explained 0.41 random 0.01
+s4b0:173 main s4b0i:347 tree True named 4 direct 4 explained 0.49 random 0.01
+s4b0i:176 main s3b1:14 tree True named 4 direct 4 explained 0.79 random 0.02
+s4b0i:426 main s3b1:149 tree True named 4 direct 4 explained 0.71 random 0.02
+s4b0i:130 main s3b1:128 tree True named 4 direct 4 explained 0.25 random 0.02
+s4b1:226 main s4b1i:23 tree True named 4 direct 4 explained 0.70 random 0.01
+s4b1:456 main s4b1i:420 tree True named 3 direct 3 explained 0.50 random 0.01
+s4b1:175 main s4b1i:110 tree True named 2 direct 2 explained 0.55 random 0.01
+s4b1:168 main s4b1i:349 tree True named 2 direct 2 explained 0.63 random 0.00
+s4b1:474 main s4b1i:60 tree True named 3 direct 3 explained 0.36 random 0.00
+s4b1:56 main s4b1i:146 tree True named 3 direct 3 explained 0.36 random 0.00
+s4b1:131 main s4b1i:452 tree True named 3 direct 3 explained 0.18 random 0.02
+s4b1:182 main s4b1i:377 tree True named 2 direct 2 explained 0.20 random 0.00
+s4b1:391 main s4b1i:73 tree True named 3 direct 3 explained 0.36 random 0.01
+s4b1:270 main s4b1i:17 tree True named 3 direct 3 explained 0.86 random 0.00
+s4b1i:23 main s4b0:226 tree True named 3 direct 3 explained 0.16 random 0.01
+s4b1i:420 main s4b0:456 tree True named 2 direct 2 explained 0.24 random 0.01
+s4b1i:235 main s4b0:227 tree True named 2 direct 2 explained 0.25 random 0.00
+s4b1i:110 main s4b0:327 tree True named 3 direct 3 explained 0.60 random 0.01
+s4b1i:11 main s4b0:289 tree True named 2 direct 2 explained 0.14 random 0.01
+s4b1i:349 main s4b0:168 tree True named 3 direct 3 explained 0.55 random 0.01
+s4b1i:60 main s4b0:235 tree True named 1 direct 1 explained 0.12 random 0.00
+s4b1i:146 main s4b0:56 tree True named 1 direct 1 explained 0.09 random 0.00
+s4b1i:452 main s4b0:79 tree True named 2 direct 2 explained 0.29 random 0.00
+s4b1i:377 main s4b0:418 tree True named 2 direct 2 explained 0.22 random 0.01
+s4b1i:73 main s4b0:245 tree True named 1 direct 1 explained 0.09 random 0.00
+s4b1i:17 main s4b0:283 tree True named 2 direct 2 explained 0.21 random 0.01
+s4b0:226 main s4b0i:344 tree True named 2 direct 2 explained 0.12 random 0.01
+s4b0:168 main s4b0i:146 tree True named 3 direct 3 explained 0.23 random 0.01
+s4b0:327 main s4b0i:496 tree True named 3 direct 3 explained 0.29 random 0.01
+s4b0:366 main s4b0i:60 tree True named 2 direct 2 explained 0.37 random 0.00
+s4b0:456 main s4b0i:496 tree True named 2 direct 2 explained 0.12 random 0.00
+s4b0i:344 main s3b1:154 tree True named 3 direct 3 explained 0.25 random 0.02
+s4b0i:146 main s3b1:176 tree True named 2 direct 2 explained 0.22 random 0.01
+s4b0i:496 main s3b1:60 tree True named 2 direct 2 explained 0.49 random 0.01
+s4b0i:60 main s3b1:155 tree True named 2 direct 2 explained 0.41 random 0.01
+s3b1:155 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s3b1:60 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s3b1:154 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s3b1:176 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1:242 main s4b1i:49 tree True named 4 direct 4 explained 0.28 random 0.01
+s4b1:429 main s4b1i:460 tree True named 4 direct 4 explained 0.46 random 0.00
+s4b1i:29 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1i:49 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1i:460 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1i:208 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1:28 main s4b1i:83 tree True named 4 direct 4 explained 0.61 random 0.04
+s4b1:31 main s4b1i:406 tree True named 4 direct 4 explained 0.62 random 0.03
+s4b1i:83 main s4b0:141 tree True named 2 direct 2 explained 0.29 random 0.01
+s4b1i:406 main s4b0:31 tree True named 2 direct 2 explained 0.10 random 0.00
+s4b0:31 main s3b1:186 tree True named 4 direct 4 explained 0.37 random 0.01
+s3b1:186 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1:162 main s4b1i:108 tree True named 4 direct 4 explained 0.76 random 0.01
+s4b1:467 main s4b1i:265 tree True named 4 direct 4 explained 0.44 random 0.01
+s4b1i:108 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1i:265 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1:172 main s4b1i:70 tree True named 3 direct 3 explained 0.42 random 0.01
+s4b1i:70 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b0:162 main s3b1:118 tree True named 3 direct 3 explained 0.22 random 0.01
+s4b0i:145 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1:219 main s4b1i:94 tree True named 4 direct 4 explained 0.48 random 0.02
+s4b1:418 main s4b0:418 tree True named 4 direct 4 explained 0.67 random 0.04
+s4b1:42 main s4b0:42 tree True named 3 direct 3 explained 0.42 random 0.01
+s4b1i:94 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1i:36 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b0i:204 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b0:219 main  tree False named 2 direct 2 explained 0.23 random 0.01
+s3b1:141 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b0:42 main  tree False named 1 direct 1 explained 0.12 random -0.00
+s4b1i:173 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b0:467 main s3b1:139 tree True named 2 direct 2 explained 0.25 random 0.01
+s4b0i:245 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s4b1:255 main s4b1i:64 tree True named 3 direct 3 explained 0.24 random 0.01
+s4b1:297 main s4b1i:198 tree True named 3 direct 3 explained 0.41 random 0.01
+s4b1:9 main s4b1i:47 tree True named 4 direct 4 explained 0.60 random 0.01
+s4b1:156 main s4b1i:460 tree True named 4 direct 4 explained 0.61 random 0.02
+s4b1:163 main s4b1i:196 tree True named 2 direct 2 explained 0.78 random 0.01
+s4b1:393 main s4b1i:393 tree True named 4 direct 4 explained 0.75 random 0.01
+s4b1:35 main s4b1i:189 tree True named 4 direct 4 explained 0.67 random 0.00
+s4b1:362 main s4b1i:419 tree True named 4 direct 4 explained 0.77 random 0.04
+s4b1:431 main s4b1i:452 tree True named 4 direct 4 explained 0.36 random 0.01
+s4b1:424 main s4b1i:239 tree True named 4 direct 4 explained 0.62 random 0.01
+s4b1i:64 main s4b0:154 tree True named 2 direct 2 explained 0.85 random 0.00
+s4b1i:198 main s4b0:304 tree True named 3 direct 3 explained 0.32 random 0.01
+s4b1i:47 main s4b0:9 tree True named 3 direct 3 explained 0.47 random 0.01
+s4b1i:58 main s4b0:345 tree True named 3 direct 3 explained 0.31 random 0.01
+s4b1i:196 main s4b0:163 tree True named 2 direct 2 explained 0.39 random 0.03
+s4b1i:393 main s4b0:393 tree True named 3 direct 3 explained 0.40 random 0.00
+s4b1i:189 main s4b0:35 tree True named 4 direct 4 explained 0.64 random 0.01
+s4b1i:419 main s4b0:55 tree True named 3 direct 3 explained 0.23 random 0.01
+s4b1i:239 main s4b0:146 tree True named 3 direct 3 explained 0.12 random 0.01
+s4b0:154 main s4b0i:47 tree True named 4 direct 4 explained 0.57 random 0.00
+s4b0:35 main s4b0i:326 tree True named 3 direct 3 explained 0.45 random 0.00
+s4b0:393 main s4b0i:167 tree True named 4 direct 4 explained 0.30 random 0.01
+s4b0:9 main s4b0i:132 tree True named 4 direct 4 explained 0.18 random 0.01
+s4b0:153 main s4b0i:183 tree True named 3 direct 3 explained 0.36 random 0.01
+s4b0:345 main s4b0i:261 tree True named 3 direct 3 explained 0.20 random 0.01
+s4b0:79 main s4b0i:181 tree True named 3 direct 3 explained 0.21 random 0.01
+s4b0i:47 main s3b1:130 tree True named 3 direct 3 explained 0.37 random 0.02
+s4b0i:326 main s3b1:140 tree True named 3 direct 3 explained 0.30 random 0.02
+s4b0i:167 main s3b1:201 tree True named 3 direct 3 explained 0.55 random 0.02
+s4b0i:292 main s3b1:216 tree True named 2 direct 2 explained 0.19 random 0.01
+s3b1:130 main  tree False named 1 direct 1 explained 0.98 random -0.00
+s3b1:140 main  tree False named 0 direct 0 explained 0.00 random 0.00
+s3b1:201 main s3b0:201 tree True named 1 direct 1 explained 0.98 random 0.00
+s3b1: 9 nodes. Tree cover 0.11 (line .90). Parents act 1.00 of 2 links (line .90). Parents carry 0.22 (line .80). Median explained 0.00. Named links that are not direct inputs: 0
+s4b0: 25 nodes. Tree cover 0.92 (line .90). Parents act 1.00 of 85 links (line .90). Parents carry 0.60 (line .80). Median explained 0.29. Named links that are not direct inputs: 0
+s4b0i: 18 nodes. Tree cover 0.83 (line .90). Parents act 1.00 of 48 links (line .90). Parents carry 0.67 (line .80). Median explained 0.37. Named links that are not direct inputs: 0
+s4b1: 40 nodes. Tree cover 1.00 (line .90). Parents act 1.00 of 145 links (line .90). Parents carry 0.93 (line .80). Median explained 0.52. Named links that are not direct inputs: 0
+s4b1i: 43 nodes. Tree cover 0.77 (line .90). Parents act 1.00 of 91 links (line .90). Parents carry 0.47 (line .80). Median explained 0.23. Named links that are not direct inputs: 0
+all: 135 nodes. Tree cover 0.83 (line .90). Parents act 1.00 of 371 links (line .90). Parents carry 0.64 (line .80). Median explained 0.36. Named links that are not direct inputs: 0
+stage 4 only: 126 nodes. Tree cover 0.881. Parents carry 0.667. No main parent or not direct: 15
+main parent's rank by effect: median 1, rank 1 on 0.80, top 5 on 1.00. Named list explains 0.36, code's top list of the same size 0.38
