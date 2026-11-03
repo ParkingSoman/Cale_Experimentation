@@ -3720,7 +3720,7 @@ a stage 4 channel, on its 64 strongest sealed photos
 
 Why it matters: this is the direct test of "a child disappears and a parent takes up some of the error". At stage 4 a child is built from many small votes, so no single parent could take up its error. The tree agent reads the same thing from the cards: a graph with strong edges, and in places one parent pushes two children in opposite directions (`s3:17`, `s3:125`).
 
-Two cautions. The feeders were chosen by input x gradient, which the agents found unreliable, so this may overstate the density. And the essay predicts exactly this for a small model, with narrower neurons at larger size. I have not measured the larger size.
+Two cautions. The feeders were chosen by input x gradient, which the agents found unreliable, and I ran no random set of 64 as a control. So what is measured is this: no 64 of its 256 inputs, chosen this way, carry a stage 4 channel. "Many weak parents" is my reading of that, and it may overstate the density. And the essay predicts exactly this for a small model, with narrower neurons at larger size. I have not measured the larger size.
 
 **Step 4. A mistake of mine corrected.** LADDER 45 and card 3-34 said a last-layer channel is fed mostly by its own skip, about .88. My plan repeated it. It is wrong for stage 4.
 
@@ -3736,7 +3736,7 @@ keep only the dog and cat cards (22 + 20 channels):  median error .71 to 1.24   
 remove the vehicle cards (13 + 20 channels):         median error .02 to .04      KL .090     agreement .885     random: .090 to .124
 ```
 
-Why it matters: this is the first whole-network number on this track, on the dogs and cats goal. The premise is far from true on a small cut and nearly true on a thin one. But on the thin cut the map did not clearly beat random: one seed ties it. That is LADDER 30's result again. It is a removal of about 4% of the channels of those two stages, so it is a small test. The network is not much smaller, since the lower stages and inner channels stay whole. So I do not call this the Step 6 build.
+Why it matters: this is the first whole-network number on this track, on the dogs and cats goal. The fill's means are over all classes, not the goal's photos, so the error column is not Definition DC2's error for this goal, which I did not run. The comparison with random is fair, since all use the same fill. The premise is far from true on a small cut and nearly true on a thin one. But on the thin cut the map did not clearly beat random: one seed ties it. That is LADDER 30's result again. It is a removal of about 4% of the channels of those two stages, so it is a small test. The network is not much smaller, since the lower stages and inner channels stay whole. So I do not call this the Step 6 build.
 
 | | |
 |---|---|

@@ -10745,7 +10745,7 @@ N is torchvision ResNet-18. Reading photos: 35 ImageNet validation crops per cla
 | The same, top 16 | .04 | .20 | .55 | .91 |
 | The same, top 64 | 0 (the whole layer) | 0 (half the layer) | .21 | .77 |
 
-The feeders above were chosen by input x gradient, which the agents found to be an unreliable guide to true parents. So these numbers may overstate how many parents a child needs. They do not measure the strength of Definition DC3, which is a root mean square change.
+The feeders above were chosen by input x gradient, which the agents found to be an unreliable guide to true parents, and no random set of the same size was run as a control. So the top line says only this: no 64 of a stage 4 channel's 256 inputs, chosen this way, carry it. Many weak parents is a reading of that, and it may overstate how many a child needs. They do not measure the strength of Definition DC3, which is a root mean square change.
 
 | Skip's share of z at a channel's peak, median of 40 channels | s1 | s2 | s3 | s4 |
 |---|---|---|---|---|
@@ -10760,7 +10760,7 @@ Realism check of Theorem TC1's premise, on the goal dogs and cats, on sealed pho
 | keep only the dog and cat cards | 22, 20 | .71, 1.24, .91 | 5.88 | .001 | 5.71 to 5.80 | 6.29 |
 | remove the vehicle cards | 243, 492 | .017, .037, .033 | .090 | .885 | .090 to .124 | .141 |
 
-So the premise is far from 0 on a small kept set, and close to 0 on a thin cut. On the thin cut the map's choice does not clearly beat random: one random seed ties it. Neither cut is smaller by much, since the stages below and the inner channels stay whole. These are upper values on what the build can do at these cuts, on one goal.
+The means are over the reading photos of all classes, not the goal's photos. So the error column is not Definition DC2's error for this goal's weights, which was not run. The comparison with the controls is fair, since all use the same fill. So the premise is far from 0 on a small kept set, and close to 0 on a thin cut. On the thin cut the map's choice does not clearly beat random: one random seed ties it. Neither cut is smaller by much, since the stages below and the inner channels stay whole. These are upper values on what the build can do at these cuts, on one goal.
 
 Reading, not proved. The essay predicts broad neurons in a small network, and predicts narrower ones with size. These numbers fit the first half. The second half is not measured.
 

@@ -159,7 +159,7 @@ a stage 4 channel:   all its listed parents removed together    ->  falls 6%
                      only its top 64 of 256 feeders stay real   ->  77% of its squared firing changes
 ```
 
-The channels are readable at stage 4, and the links are causal. But one child has many weak parents, so the shape there is a graph with some strong edges. The essay predicts broad neurons in a small network, and narrower ones with size. That second half is not measured.
+The channels are readable at stage 4, and the links are causal. But no 64 of a channel's 256 inputs, chosen by input x gradient, carry it. I read that as many weak parents, so the shape there is a graph with some strong edges. No random set of 64 was run as a control. The essay predicts broad neurons in a small network, and narrower ones with size. That second half is not measured.
 
 | Option | What happens | Cost, an estimate | Gives | Loses |
 |---|---|---|---|---|
