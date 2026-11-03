@@ -1,0 +1,728 @@
+[
+{
+"item": "same000",
+"child": "A broad dial (on for 97% of photos, mean 3.35) that rises when one smooth, large, low-texture region sits against a calm background (water, bedspread, studio surface) and falls to negative on small, sharp, saturated warm-coloured items on cluttered ground. Peak photos: quilt on a bed, projector, speedboat and its wake, bird over open water, alligator on a log, shark and dugong under water. Heat maps sit on the smooth surface or the water, not on one object. Barn, red plunger, cello, baseball, whistle, hamster: compact, warm or red, hard-edged things.",
+"candidates": {
+"A": "A small dark round centre (a snout, nose, eye pair or dial) inside a lighter ring of fur or a surround, against a body in clothing. Ferret, otter, mink, beaver, Lhasa face, Maltese; also scooter, bolo tie, compass, wine label (a dark centre inside a ring). Heat on the face centre. People in clothing: bikini, poncho, jean, stole, lab coat, sunglasses; Persian cat; yurt.",
+"B": "A close-fitting cover on a body part (a cap, bra, helmet, veil), against wheels and domes. Shower cap, bonnet, crash helmet, brassiere, bikini, abaya, miniskirt, fur coat, cassette, sunglasses, overskirt, ferret on hand. Wheels and domes: mountain bike, cab, jinrikisha, dome (stained glass, Les Invalides), moped, oxcart; chiffonier, Old English sheepdog.",
+"C": "A small perched bird with a bright warm or yellow breast against a dark or grey back and a bare, thin-branched background. House finch, goldfinch, indigo bunting, brambling, chickadee, junco; heat on the breast. Big dogs lying down (briard, German shepherd, bloodhound), car wheel, dome, bikini: large, round, or flat-lit.",
+"D": "Long tapering wedge pointing sideways (a snout, hull or bow in side view) against a round or compact frontal shape. Borzoi, malinois, dhole, red wolf snouts; tank hull; canoe and catamaran bow. Heat sits on the tip of the wedge. Round or frontal: car wheel, church facade, dome, boxer and French bulldog face, suit, phone.",
+"E": "Patchy three-tone coat: black with white and rust patches, against a plain tan coat. Swiss mountain dogs (Entlebucher, Greater Swiss, Bernese, Appenzeller), Blenheim spaniel, bluetick, Rottweiler; 50% ring broccoli and cauliflower (dark green with white). Uniform fawn or tan short-coat dogs: bloodhound, Great Dane, bull mastiff, Rhodesian ridgeback, Ibizan hound; also Saint Bernard."
+}
+},
+{
+"item": "same001",
+"child": "Long tapering wedge pointing sideways (a snout, hull or bow in side view) against a round or compact frontal shape. Borzoi, malinois, dhole, red wolf snouts; tank hull; canoe and catamaran bow. Heat sits on the tip of the wedge. Round or frontal: car wheel, church facade, dome, boxer and French bulldog face, suit, phone.",
+"candidates": {
+"A": "A slim, glossy, boldly coloured body or limb (a thin animal or tool with strong contrast) against a thick, fluffy, round body. Fire salamander, green snake, ringneck snake, tiger beetle, magpie, newt, redshank, oystercatcher, tripod leg, oboe, tiger shark, assault rifle. Heat on the thin glossy part. Large soft or flowing shapes: Afghan hound, peacock, howler monkey, wire-haired fox terrier in a tub, mobile home, unicycle, obelisk, dogsled, grasshopper.",
+"B": "Upright muzzle that projects from an animal head seen from the side, against a frontal or flat face. Dogs of every breed with a long muzzle (red wolf, Irish setter, borzoi, whippet, Cardigan); heat on the snout. Cat faces (tabby, schipperke), stork, screw, espresso cup, Ibizan hound lying: round flat faces or thin vertical things.",
+"C": "A boxy van or car body in side view, with a stripe or window band, against a round furry face. Police van, ambulance, minibus, cab, pickup, beach wagon, limousine, garbage truck, beer bottles. Heat on the stripe and window band. Round furry faces and bodies: pug, lynx, papillon, Pekinese, squirrel monkey, brown bear, American black bear, dhole, football helmet, ski mask.",
+"D": "A small perched bird in profile with a coloured breast patch and a thin leg, against a fluffy light dog. Water ouzel, junco, redshank, ruddy turnstone, indigo bunting, coucal, goldfinch, oystercatcher, magpie, partridge, white stork, robin. Heat on the breast. Fluffy or long-coated light dogs: Tibetan terrier, cocker spaniel, clumber, kuvasz, Norfolk terrier, Great Pyrenees; also wall clock, dumbbell, CD player, mosque.",
+"E": "A dark coat with tan markings, as in [node] but a sharper version for smaller dogs and for birds with dark backs. Toy terrier, standard schnauzer, German shepherd, Cardigan, bluetick, Walker hound, Rottweiler, brambling, wallaby, basset, silky terrier. Not read (deep image not opened): colour is the key, gray keeps 0.41, invert 0.16."
+}
+},
+{
+"item": "same002",
+"child": "Upright muzzle that projects from an animal head seen from the side, against a frontal or flat face. Dogs of every breed with a long muzzle (red wolf, Irish setter, borzoi, whippet, Cardigan); heat on the snout. Cat faces (tabby, schipperke), stork, screw, espresso cup, Ibizan hound lying: round flat faces or thin vertical things.",
+"candidates": {
+"A": "A small bird with a bright patch of colour on a slim body, against a shaggy, light, fluffy small dog. Bee-eater, indigo bunting, goldfinch, redshank, partridge, house finch, peacock, water ouzel, egret, macaw; heat on the coloured breast. Shaggy light small dogs: Norfolk terrier, Tibetan terrier, white wolf, malamute, West Highland, papillon, dingo, Greater Swiss; ambulance, caldron, jersey.",
+"B": "The bill tip of a long-billed bird against a plain, flat ground, against frontal dog faces. European gallinule, redshank, ruddy turnstone, coucal, drake, egret, little blue heron, hummingbird, bee eater, hartebeest horn, robin; heat on the bill. Frontal dog faces: Italian greyhound, Irish setter, Lakeland terrier, basset, Chihuahua; jersey, lab coat, hoopskirt.",
+"C": "An animal head with a snout or beak pushed forward, against a human or frontal face. Flat-coated retriever, border collie, otterhound, malamute, coyote; also oystercatcher, jay, bulbul, heron beaks. Heat on the snout or beak. People: tench-holder, boy, suit, graduate, laptop user; also keyboard and candle.",
+"D": "Small figures scattered on open ground (a flock, a herd, a rider), against a close frontal animal face. Flocks of dowitchers, penguins, hens, cock, dogsled team, camel rider, yurt with people, kuvasz and collie in a field; also pineapple field, banana pile, vulture. Heat on each small figure. Close frontal faces: Pembroke, grey fox, lesser panda, kit fox, dingo, Shetland sheep, white wolf, Maltese, wig.",
+"E": "A thin dark curved line or ridge lying across a plain surface (a snake coil, a strap, a curved edge), against smooth long pale things. Snakes (Indian cobra, garter, thunder snake, sea snake), pool table, cuirass, notebook edge, gas pump handle, harp, camel, cheetah, snorkel, bra strap, mask. Heat on the dark curve. Smooth long pale or segmented items: corkscrew, cocker spaniel, ear of corn, cucumber, pan pipe, disk brake, chocolate sauce, goblet."
+}
+},
+{
+"item": "same003",
+"child": "Bumpy, knobbly mass made of many small rounded lobes in green: a texture, not an object, and orientation does not matter. Broccoli (florets in a bowl, close-ups, white backgrounds), cauliflower, rice-and-shrimp bowl, hay roll, Angora fluff, volcano plume, lemon pile, spider on a leaf, planetarium dome. Sparse lone animals on bare rock (grey fox, bighorn, ibex, impala), rotisserie rows, piano keys, monitors: smooth or sparse, spaced-out items.",
+"candidates": {
+"A": "A close-fitting cover on a body part (a cap, bra, helmet, veil), against wheels and domes. Shower cap, bonnet, crash helmet, brassiere, bikini, abaya, miniskirt, fur coat, cassette, sunglasses, overskirt, ferret on hand. Wheels and domes: mountain bike, cab, jinrikisha, dome (stained glass, Les Invalides), moped, oxcart; chiffonier, Old English sheepdog.",
+"B": "Patchy three-tone coat: black with white and rust patches, against a plain tan coat. Swiss mountain dogs (Entlebucher, Greater Swiss, Bernese, Appenzeller), Blenheim spaniel, bluetick, Rottweiler; 50% ring broccoli and cauliflower (dark green with white). Uniform fawn or tan short-coat dogs: bloodhound, Great Dane, bull mastiff, Rhodesian ridgeback, Ibizan hound; also Saint Bernard.",
+"C": "A bird's head with a big pointed or hooked beak in profile, against round smooth vessels. Hornbill, albatross, limpkin, crane, ostrich head, goose, crowned crane, toucan, black swan. Heat on the beak and head. Round or cylindrical vessels: crock pot, hot pot, saltshaker, espresso, eggnog, candle, church, gong, manhole cover.",
+"D": "A dark metal tool with a straight shaft and a grip, in a fixed pose (barrel, handle, bar). Revolvers, dumbbell, folding chair, plane (tool), assault rifle, pineapple crown, coucal tail, jinrikisha wheels; 50% ring tripod, piano, beer bottle, shopping cart, turnstile. Round dial and display objects: king snake coil, salt shaker, digital clock, beacon, analog clock, scoreboard, perfume, guitar.",
+"E": "Long tapering wedge pointing sideways (a snout, hull or bow in side view) against a round or compact frontal shape. Borzoi, malinois, dhole, red wolf snouts; tank hull; canoe and catamaran bow. Heat sits on the tip of the wedge. Round or frontal: car wheel, church facade, dome, boxer and French bulldog face, suit, phone."
+}
+},
+{
+"item": "same004",
+"child": "A rounded body that tapers to a point, with a warm (rust, orange, brown) breast or streaks: a bird in profile, a hull, the body of a cello. Brambling, junco, bulbul, house finch, robin in profile; paddle, hair slide, cello, cicada, lynx body, speedboat, canoe. Heat on the warm body and not on the head. Upright, symmetric, man-made: mask, soap dispenser, bell tower, obelisk, dial telephone, barometer, mortarboard crowd.",
+"candidates": {
+"A": "Long tapering wedge pointing sideways (a snout, hull or bow in side view) against a round or compact frontal shape. Borzoi, malinois, dhole, red wolf snouts; tank hull; canoe and catamaran bow. Heat sits on the tip of the wedge. Round or frontal: car wheel, church facade, dome, boxer and French bulldog face, suit, phone.",
+"B": "A big smooth arc or box outline (a spray arc, a bridge arch, a van body) against shapes that radiate from a centre. Fireboat spray, ambulance, moving van, steel arch bridge, fountain, harp, minivan, pickup, limousine, tabby face, lemur. Radial or spiky things: umbrella (two kinds), sea urchin, washbasin, barn spider, black widow, plunger, stole, oystercatcher, pop bottles.",
+"C": "A dark metal tool with a straight shaft and a grip, in a fixed pose (barrel, handle, bar). Revolvers, dumbbell, folding chair, plane (tool), assault rifle, pineapple crown, coucal tail, jinrikisha wheels; 50% ring tripod, piano, beer bottle, shopping cart, turnstile. Round dial and display objects: king snake coil, salt shaker, digital clock, beacon, analog clock, scoreboard, perfume, guitar.",
+"D": "A small perched bird with a bright warm or yellow breast against a dark or grey back and a bare, thin-branched background. House finch, goldfinch, indigo bunting, brambling, chickadee, junco; heat on the breast. Big dogs lying down (briard, German shepherd, bloodhound), car wheel, dome, bikini: large, round, or flat-lit.",
+"E": "Patchy three-tone coat: black with white and rust patches, against a plain tan coat. Swiss mountain dogs (Entlebucher, Greater Swiss, Bernese, Appenzeller), Blenheim spaniel, bluetick, Rottweiler; 50% ring broccoli and cauliflower (dark green with white). Uniform fawn or tan short-coat dogs: bloodhound, Great Dane, bull mastiff, Rhodesian ridgeback, Ibizan hound; also Saint Bernard."
+}
+},
+{
+"item": "same005",
+"child": "A compact, rounded, dark-or-saturated body seen against a plain ground, against a thin elongated shape. House finch, mink, beaver, hamster, marmot backs; yellow pickup and racer, school bus, ambulance front, digital watch, theater curtain, croquet ball. Heat on the rounded mass. Thin elongated things: ice-hockey puck, fountain pen, projectile, whistle, coho, bookcase; clothing (trench coat, paper towel).",
+"candidates": {
+"A": "A small dark round centre (a snout, nose, eye pair or dial) inside a lighter ring of fur or a surround, against a body in clothing. Ferret, otter, mink, beaver, Lhasa face, Maltese; also scooter, bolo tie, compass, wine label (a dark centre inside a ring). Heat on the face centre. People in clothing: bikini, poncho, jean, stole, lab coat, sunglasses; Persian cat; yurt.",
+"B": "A long thin curving neck or tube carrying a small head, against a compact furry body. American egret, ostrich, little blue heron, pelican, flamingo, bustard, white stork (heat on the neck and head); 50% ring barracouta, snakes, nematode, sturgeon. Dogs sitting or lying with compact bodies: basenji, Boston bull, German shepherd, Ibizan hound, bluetick, Saint Bernard; border collie face.",
+"C": "A bird's head with a big pointed or hooked beak in profile, against round smooth vessels. Hornbill, albatross, limpkin, crane, ostrich head, goose, crowned crane, toucan, black swan. Heat on the beak and head. Round or cylindrical vessels: crock pot, hot pot, saltshaker, espresso, eggnog, candle, church, gong, manhole cover.",
+"D": "A close-fitting cover on a body part (a cap, bra, helmet, veil), against wheels and domes. Shower cap, bonnet, crash helmet, brassiere, bikini, abaya, miniskirt, fur coat, cassette, sunglasses, overskirt, ferret on hand. Wheels and domes: mountain bike, cab, jinrikisha, dome (stained glass, Les Invalides), moped, oxcart; chiffonier, Old English sheepdog.",
+"E": "Patchy three-tone coat: black with white and rust patches, against a plain tan coat. Swiss mountain dogs (Entlebucher, Greater Swiss, Bernese, Appenzeller), Blenheim spaniel, bluetick, Rottweiler; 50% ring broccoli and cauliflower (dark green with white). Uniform fawn or tan short-coat dogs: bloodhound, Great Dane, bull mastiff, Rhodesian ridgeback, Ibizan hound; also Saint Bernard."
+}
+},
+{
+"item": "same006",
+"child": "Patchy three-tone coat: black with white and rust patches, against a plain tan coat. Swiss mountain dogs (Entlebucher, Greater Swiss, Bernese, Appenzeller), Blenheim spaniel, bluetick, Rottweiler; 50% ring broccoli and cauliflower (dark green with white). Uniform fawn or tan short-coat dogs: bloodhound, Great Dane, bull mastiff, Rhodesian ridgeback, Ibizan hound; also Saint Bernard.",
+"candidates": {
+"A": "A dark coat with tan and white markings in a fixed pattern, against pale or white shapes. Entlebucher, Appenzeller, Doberman, Gordon setter, Rottweiler, toy terrier, black-and-tan, miniature pinscher, Tibetan mastiff, guenon; heat on face and chest. White or bright objects: parachute, microphone, airliner, kuvasz (white dog), titi, hen, planetarium, safe, diaper.",
+"B": "A slim, glossy, boldly coloured body or limb (a thin animal or tool with strong contrast) against a thick, fluffy, round body. Fire salamander, green snake, ringneck snake, tiger beetle, magpie, newt, redshank, oystercatcher, tripod leg, oboe, tiger shark, assault rifle. Heat on the thin glossy part. Large soft or flowing shapes: Afghan hound, peacock, howler monkey, wire-haired fox terrier in a tub, mobile home, unicycle, obelisk, dogsled, grasshopper.",
+"C": "A boxy van or car body in side view, with a stripe or window band, against a round furry face. Police van, ambulance, minibus, cab, pickup, beach wagon, limousine, garbage truck, beer bottles. Heat on the stripe and window band. Round furry faces and bodies: pug, lynx, papillon, Pekinese, squirrel monkey, brown bear, American black bear, dhole, football helmet, ski mask.",
+"D": "The tip of a thin forward point on a body: a bird bill, or the round top of a thin pole (water tower, bell tower), against fluffy light dogs. Redshank, goose, little blue heron, limpkin, hummingbird, ostrich, albatross; also water tower, bell cote, bell tower, parking meter. Heat on the bill tip or the bulb at the top of the pole. Light fluffy dogs and smiling people: Tibetan terrier, golden retriever, Scottish deerhound, tricycle, tobacco shop, potter's wheel, thresher.",
+"E": "A symmetric pair of dark rounded shapes joined by a bridge (lenses, cups, headlights, visor), against thin-legged waders. Brassiere, sunglasses, goggles, crash helmet visor, headlights, grille, orange pair, rain barrels, mask, bolo tie. Heat on the bridge between the pair. Waders and other thin-legged birds: dowitcher, goose, bulbul, redshank; harvestman, bicycle, screw, stupa."
+}
+},
+{
+"item": "same007",
+"child": "A small perched bird with a bright warm or yellow breast against a dark or grey back and a bare, thin-branched background. House finch, goldfinch, indigo bunting, brambling, chickadee, junco; heat on the breast. Big dogs lying down (briard, German shepherd, bloodhound), car wheel, dome, bikini: large, round, or flat-lit.",
+"candidates": {
+"A": "A symmetric pair of dark rounded shapes joined by a bridge (lenses, cups, headlights, visor), against thin-legged waders. Brassiere, sunglasses, goggles, crash helmet visor, headlights, grille, orange pair, rain barrels, mask, bolo tie. Heat on the bridge between the pair. Waders and other thin-legged birds: dowitcher, goose, bulbul, redshank; harvestman, bicycle, screw, stupa.",
+"B": "A boxy van or car body in side view, with a stripe or window band, against a round furry face. Police van, ambulance, minibus, cab, pickup, beach wagon, limousine, garbage truck, beer bottles. Heat on the stripe and window band. Round furry faces and bodies: pug, lynx, papillon, Pekinese, squirrel monkey, brown bear, American black bear, dhole, football helmet, ski mask.",
+"C": "A dark coat with tan and white markings in a fixed pattern, against pale or white shapes. Entlebucher, Appenzeller, Doberman, Gordon setter, Rottweiler, toy terrier, black-and-tan, miniature pinscher, Tibetan mastiff, guenon; heat on face and chest. White or bright objects: parachute, microphone, airliner, kuvasz (white dog), titi, hen, planetarium, safe, diaper.",
+"D": "A dark coat with tan markings, as in [node] but a sharper version for smaller dogs and for birds with dark backs. Toy terrier, standard schnauzer, German shepherd, Cardigan, bluetick, Walker hound, Rottweiler, brambling, wallaby, basset, silky terrier. Not read (deep image not opened): colour is the key, gray keeps 0.41, invert 0.16.",
+"E": "A small perched bird in profile with a coloured breast patch and a thin leg, against a fluffy light dog. Water ouzel, junco, redshank, ruddy turnstone, indigo bunting, coucal, goldfinch, oystercatcher, magpie, partridge, white stork, robin. Heat on the breast. Fluffy or long-coated light dogs: Tibetan terrier, cocker spaniel, clumber, kuvasz, Norfolk terrier, Great Pyrenees; also wall clock, dumbbell, CD player, mosque."
+}
+},
+{
+"item": "same008",
+"child": "A swept, pointed wedge (arrow-like) alone on a smooth plain ground, against fussy, handled or rounded objects. Warplane, airliner, kite, flying black stork and spoonbill with wings out, bustard, fountain-pen nib, soap dispenser, paper towel roll, aircraft carrier, whale back. Heat on the arrow body. Cluttered or handled objects: snowmobile, spatula, crayfish, padlock, gas mask, torch, waffle iron, suit and tie.",
+"candidates": {
+"A": "A dense array of tiny parallel keys, buttons or whiskers around a small mouth, against radial wheel shapes. Hyena and small dogs lying down (Border terrier, Pembroke, Blenheim spaniel, Norfolk terrier), phone keypad, harmonica, sax, abacus, grille, dial telephone, accordion keys, lipstick. Radial or circular: umbrella, Crock Pot, wall clocks, analog clock, dome, kimono, barometer, pool table, television.",
+"B": "Long tapering wedge pointing sideways (a snout, hull or bow in side view) against a round or compact frontal shape. Borzoi, malinois, dhole, red wolf snouts; tank hull; canoe and catamaran bow. Heat sits on the tip of the wedge. Round or frontal: car wheel, church facade, dome, boxer and French bulldog face, suit, phone.",
+"C": "Patchy three-tone coat: black with white and rust patches, against a plain tan coat. Swiss mountain dogs (Entlebucher, Greater Swiss, Bernese, Appenzeller), Blenheim spaniel, bluetick, Rottweiler; 50% ring broccoli and cauliflower (dark green with white). Uniform fawn or tan short-coat dogs: bloodhound, Great Dane, bull mastiff, Rhodesian ridgeback, Ibizan hound; also Saint Bernard.",
+"D": "A bird's head with a big pointed or hooked beak in profile, against round smooth vessels. Hornbill, albatross, limpkin, crane, ostrich head, goose, crowned crane, toucan, black swan. Heat on the beak and head. Round or cylindrical vessels: crock pot, hot pot, saltshaker, espresso, eggnog, candle, church, gong, manhole cover.",
+"E": "A dark metal tool with a straight shaft and a grip, in a fixed pose (barrel, handle, bar). Revolvers, dumbbell, folding chair, plane (tool), assault rifle, pineapple crown, coucal tail, jinrikisha wheels; 50% ring tripod, piano, beer bottle, shopping cart, turnstile. Round dial and display objects: king snake coil, salt shaker, digital clock, beacon, analog clock, scoreboard, perfume, guitar."
+}
+},
+{
+"item": "same009",
+"child": "Straight slanted struts or lines rising to a point (rigging, cables, strings, poles), against furry or rounded animal bodies. Catamaran sails, suspension bridge cables, harp strings, tripod, mountain tent, maypole, crutch, steel arch bridge, police vans and minibuses (windowed boxy fronts), pelican bill. Furry animals and rounded domestic items: coyote, tabby, brown bear, Ibizan hound, printer, dishwasher, brown bear.",
+"candidates": {
+"A": "Long tapering wedge pointing sideways (a snout, hull or bow in side view) against a round or compact frontal shape. Borzoi, malinois, dhole, red wolf snouts; tank hull; canoe and catamaran bow. Heat sits on the tip of the wedge. Round or frontal: car wheel, church facade, dome, boxer and French bulldog face, suit, phone.",
+"B": "A close-fitting cover on a body part (a cap, bra, helmet, veil), against wheels and domes. Shower cap, bonnet, crash helmet, brassiere, bikini, abaya, miniskirt, fur coat, cassette, sunglasses, overskirt, ferret on hand. Wheels and domes: mountain bike, cab, jinrikisha, dome (stained glass, Les Invalides), moped, oxcart; chiffonier, Old English sheepdog.",
+"C": "A small dark round centre (a snout, nose, eye pair or dial) inside a lighter ring of fur or a surround, against a body in clothing. Ferret, otter, mink, beaver, Lhasa face, Maltese; also scooter, bolo tie, compass, wine label (a dark centre inside a ring). Heat on the face centre. People in clothing: bikini, poncho, jean, stole, lab coat, sunglasses; Persian cat; yurt.",
+"D": "A bird's head with a big pointed or hooked beak in profile, against round smooth vessels. Hornbill, albatross, limpkin, crane, ostrich head, goose, crowned crane, toucan, black swan. Heat on the beak and head. Round or cylindrical vessels: crock pot, hot pot, saltshaker, espresso, eggnog, candle, church, gong, manhole cover.",
+"E": "A dark metal tool with a straight shaft and a grip, in a fixed pose (barrel, handle, bar). Revolvers, dumbbell, folding chair, plane (tool), assault rifle, pineapple crown, coucal tail, jinrikisha wheels; 50% ring tripod, piano, beer bottle, shopping cart, turnstile. Round dial and display objects: king snake coil, salt shaker, digital clock, beacon, analog clock, scoreboard, perfume, guitar."
+}
+},
+{
+"item": "same010",
+"child": "A smooth domed or arched shell with an arc of spray or curve, against thin spoked or wheeled shapes. Fireboat jets (water arcs), radio telescope dish, planetarium dome, armadillo shell, iron (smooth shell), fountain, mountain tent, tench body, bonnet, chain mail, knee pad. Heat on the dome or arc. Water ouzel (small dark bird with a white bib, on the bank), cannon wheels, analog clock, folding chair, plaque, cock, pop bottle, worm fence: spokes, rings, thin crossed bars.",
+"candidates": {
+"A": "A big smooth arc or box outline (a spray arc, a bridge arch, a van body) against shapes that radiate from a centre. Fireboat spray, ambulance, moving van, steel arch bridge, fountain, harp, minivan, pickup, limousine, tabby face, lemur. Radial or spiky things: umbrella (two kinds), sea urchin, washbasin, barn spider, black widow, plunger, stole, oystercatcher, pop bottles.",
+"B": "A close-fitting cover on a body part (a cap, bra, helmet, veil), against wheels and domes. Shower cap, bonnet, crash helmet, brassiere, bikini, abaya, miniskirt, fur coat, cassette, sunglasses, overskirt, ferret on hand. Wheels and domes: mountain bike, cab, jinrikisha, dome (stained glass, Les Invalides), moped, oxcart; chiffonier, Old English sheepdog.",
+"C": "A dense array of tiny parallel keys, buttons or whiskers around a small mouth, against radial wheel shapes. Hyena and small dogs lying down (Border terrier, Pembroke, Blenheim spaniel, Norfolk terrier), phone keypad, harmonica, sax, abacus, grille, dial telephone, accordion keys, lipstick. Radial or circular: umbrella, Crock Pot, wall clocks, analog clock, dome, kimono, barometer, pool table, television.",
+"D": "A dark metal tool with a straight shaft and a grip, in a fixed pose (barrel, handle, bar). Revolvers, dumbbell, folding chair, plane (tool), assault rifle, pineapple crown, coucal tail, jinrikisha wheels; 50% ring tripod, piano, beer bottle, shopping cart, turnstile. Round dial and display objects: king snake coil, salt shaker, digital clock, beacon, analog clock, scoreboard, perfume, guitar.",
+"E": "Long tapering wedge pointing sideways (a snout, hull or bow in side view) against a round or compact frontal shape. Borzoi, malinois, dhole, red wolf snouts; tank hull; canoe and catamaran bow. Heat sits on the tip of the wedge. Round or frontal: car wheel, church facade, dome, boxer and French bulldog face, suit, phone."
+}
+},
+{
+"item": "same011",
+"child": "A bundle of parallel narrow tubes or barrels (cylinder, keys, pens), against round discs and dials. Revolvers (cylinder and barrel), harmonica, ballpoint pens, oboe, assault rifles, trombone, typewriter keys, cornet, barbell, holster, pick. Heat on the barrel or the tube bundle. Round dials and plates: jinrikisha wheel, steel drum, analog clock, ladle, scale, mortar, barrel, sewing machine, axolotl, coucal, lorikeet.",
+"candidates": {
+"A": "Patchy three-tone coat: black with white and rust patches, against a plain tan coat. Swiss mountain dogs (Entlebucher, Greater Swiss, Bernese, Appenzeller), Blenheim spaniel, bluetick, Rottweiler; 50% ring broccoli and cauliflower (dark green with white). Uniform fawn or tan short-coat dogs: bloodhound, Great Dane, bull mastiff, Rhodesian ridgeback, Ibizan hound; also Saint Bernard.",
+"B": "A dense array of tiny parallel keys, buttons or whiskers around a small mouth, against radial wheel shapes. Hyena and small dogs lying down (Border terrier, Pembroke, Blenheim spaniel, Norfolk terrier), phone keypad, harmonica, sax, abacus, grille, dial telephone, accordion keys, lipstick. Radial or circular: umbrella, Crock Pot, wall clocks, analog clock, dome, kimono, barometer, pool table, television.",
+"C": "A long thin curving neck or tube carrying a small head, against a compact furry body. American egret, ostrich, little blue heron, pelican, flamingo, bustard, white stork (heat on the neck and head); 50% ring barracouta, snakes, nematode, sturgeon. Dogs sitting or lying with compact bodies: basenji, Boston bull, German shepherd, Ibizan hound, bluetick, Saint Bernard; border collie face.",
+"D": "A close-fitting cover on a body part (a cap, bra, helmet, veil), against wheels and domes. Shower cap, bonnet, crash helmet, brassiere, bikini, abaya, miniskirt, fur coat, cassette, sunglasses, overskirt, ferret on hand. Wheels and domes: mountain bike, cab, jinrikisha, dome (stained glass, Les Invalides), moped, oxcart; chiffonier, Old English sheepdog.",
+"E": "A small perched bird with a bright warm or yellow breast against a dark or grey back and a bare, thin-branched background. House finch, goldfinch, indigo bunting, brambling, chickadee, junco; heat on the breast. Big dogs lying down (briard, German shepherd, bloodhound), car wheel, dome, bikini: large, round, or flat-lit."
+}
+},
+{
+"item": "same012",
+"child": "A rounded cover or hood enclosing a head or object (a mask, hat or cloak), against pointed or spindly bodies. Gas mask, oxygen mask, abaya, mortarboard, academic gown, lens cap, ski mask, crash helmet, cloak, backpack, motor scooter; heat on the cover. Pointed wedges and thin legs: killer whale fin, rhinoceros beetle, dragonfly, sea lion, airliner, tarantula, tiger shark, schooner sails.",
+"candidates": {
+"A": "A close-fitting cover on a body part (a cap, bra, helmet, veil), against wheels and domes. Shower cap, bonnet, crash helmet, brassiere, bikini, abaya, miniskirt, fur coat, cassette, sunglasses, overskirt, ferret on hand. Wheels and domes: mountain bike, cab, jinrikisha, dome (stained glass, Les Invalides), moped, oxcart; chiffonier, Old English sheepdog.",
+"B": "A bird's head with a big pointed or hooked beak in profile, against round smooth vessels. Hornbill, albatross, limpkin, crane, ostrich head, goose, crowned crane, toucan, black swan. Heat on the beak and head. Round or cylindrical vessels: crock pot, hot pot, saltshaker, espresso, eggnog, candle, church, gong, manhole cover.",
+"C": "A dark metal tool with a straight shaft and a grip, in a fixed pose (barrel, handle, bar). Revolvers, dumbbell, folding chair, plane (tool), assault rifle, pineapple crown, coucal tail, jinrikisha wheels; 50% ring tripod, piano, beer bottle, shopping cart, turnstile. Round dial and display objects: king snake coil, salt shaker, digital clock, beacon, analog clock, scoreboard, perfume, guitar.",
+"D": "A long thin curving neck or tube carrying a small head, against a compact furry body. American egret, ostrich, little blue heron, pelican, flamingo, bustard, white stork (heat on the neck and head); 50% ring barracouta, snakes, nematode, sturgeon. Dogs sitting or lying with compact bodies: basenji, Boston bull, German shepherd, Ibizan hound, bluetick, Saint Bernard; border collie face.",
+"E": "A dense array of tiny parallel keys, buttons or whiskers around a small mouth, against radial wheel shapes. Hyena and small dogs lying down (Border terrier, Pembroke, Blenheim spaniel, Norfolk terrier), phone keypad, harmonica, sax, abacus, grille, dial telephone, accordion keys, lipstick. Radial or circular: umbrella, Crock Pot, wall clocks, analog clock, dome, kimono, barometer, pool table, television."
+}
+},
+{
+"item": "same013",
+"child": "A big smooth arc or box outline (a spray arc, a bridge arch, a van body) against shapes that radiate from a centre. Fireboat spray, ambulance, moving van, steel arch bridge, fountain, harp, minivan, pickup, limousine, tabby face, lemur. Radial or spiky things: umbrella (two kinds), sea urchin, washbasin, barn spider, black widow, plunger, stole, oystercatcher, pop bottles.",
+"candidates": {
+"A": "The tip of a thin forward point on a body: a bird bill, or the round top of a thin pole (water tower, bell tower), against fluffy light dogs. Redshank, goose, little blue heron, limpkin, hummingbird, ostrich, albatross; also water tower, bell cote, bell tower, parking meter. Heat on the bill tip or the bulb at the top of the pole. Light fluffy dogs and smiling people: Tibetan terrier, golden retriever, Scottish deerhound, tricycle, tobacco shop, potter's wheel, thresher.",
+"B": "A small perched bird in profile with a coloured breast patch and a thin leg, against a fluffy light dog. Water ouzel, junco, redshank, ruddy turnstone, indigo bunting, coucal, goldfinch, oystercatcher, magpie, partridge, white stork, robin. Heat on the breast. Fluffy or long-coated light dogs: Tibetan terrier, cocker spaniel, clumber, kuvasz, Norfolk terrier, Great Pyrenees; also wall clock, dumbbell, CD player, mosque.",
+"C": "A slim, glossy, boldly coloured body or limb (a thin animal or tool with strong contrast) against a thick, fluffy, round body. Fire salamander, green snake, ringneck snake, tiger beetle, magpie, newt, redshank, oystercatcher, tripod leg, oboe, tiger shark, assault rifle. Heat on the thin glossy part. Large soft or flowing shapes: Afghan hound, peacock, howler monkey, wire-haired fox terrier in a tub, mobile home, unicycle, obelisk, dogsled, grasshopper.",
+"D": "A symmetric pair of dark rounded shapes joined by a bridge (lenses, cups, headlights, visor), against thin-legged waders. Brassiere, sunglasses, goggles, crash helmet visor, headlights, grille, orange pair, rain barrels, mask, bolo tie. Heat on the bridge between the pair. Waders and other thin-legged birds: dowitcher, goose, bulbul, redshank; harvestman, bicycle, screw, stupa.",
+"E": "A boxy van or car body in side view, with a stripe or window band, against a round furry face. Police van, ambulance, minibus, cab, pickup, beach wagon, limousine, garbage truck, beer bottles. Heat on the stripe and window band. Round furry faces and bodies: pug, lynx, papillon, Pekinese, squirrel monkey, brown bear, American black bear, dhole, football helmet, ski mask."
+}
+},
+{
+"item": "same014",
+"child": "A close-fitting cover on a body part (a cap, bra, helmet, veil), against wheels and domes. Shower cap, bonnet, crash helmet, brassiere, bikini, abaya, miniskirt, fur coat, cassette, sunglasses, overskirt, ferret on hand. Wheels and domes: mountain bike, cab, jinrikisha, dome (stained glass, Les Invalides), moped, oxcart; chiffonier, Old English sheepdog.",
+"candidates": {
+"A": "A dark coat with tan and white markings in a fixed pattern, against pale or white shapes. Entlebucher, Appenzeller, Doberman, Gordon setter, Rottweiler, toy terrier, black-and-tan, miniature pinscher, Tibetan mastiff, guenon; heat on face and chest. White or bright objects: parachute, microphone, airliner, kuvasz (white dog), titi, hen, planetarium, safe, diaper.",
+"B": "A small perched bird in profile with a coloured breast patch and a thin leg, against a fluffy light dog. Water ouzel, junco, redshank, ruddy turnstone, indigo bunting, coucal, goldfinch, oystercatcher, magpie, partridge, white stork, robin. Heat on the breast. Fluffy or long-coated light dogs: Tibetan terrier, cocker spaniel, clumber, kuvasz, Norfolk terrier, Great Pyrenees; also wall clock, dumbbell, CD player, mosque.",
+"C": "A boxy van or car body in side view, with a stripe or window band, against a round furry face. Police van, ambulance, minibus, cab, pickup, beach wagon, limousine, garbage truck, beer bottles. Heat on the stripe and window band. Round furry faces and bodies: pug, lynx, papillon, Pekinese, squirrel monkey, brown bear, American black bear, dhole, football helmet, ski mask.",
+"D": "A slim, glossy, boldly coloured body or limb (a thin animal or tool with strong contrast) against a thick, fluffy, round body. Fire salamander, green snake, ringneck snake, tiger beetle, magpie, newt, redshank, oystercatcher, tripod leg, oboe, tiger shark, assault rifle. Heat on the thin glossy part. Large soft or flowing shapes: Afghan hound, peacock, howler monkey, wire-haired fox terrier in a tub, mobile home, unicycle, obelisk, dogsled, grasshopper.",
+"E": "A symmetric pair of dark rounded shapes joined by a bridge (lenses, cups, headlights, visor), against thin-legged waders. Brassiere, sunglasses, goggles, crash helmet visor, headlights, grille, orange pair, rain barrels, mask, bolo tie. Heat on the bridge between the pair. Waders and other thin-legged birds: dowitcher, goose, bulbul, redshank; harvestman, bicycle, screw, stupa."
+}
+},
+{
+"item": "same015",
+"child": "A slim, glossy, boldly coloured body or limb (a thin animal or tool with strong contrast) against a thick, fluffy, round body. Fire salamander, green snake, ringneck snake, tiger beetle, magpie, newt, redshank, oystercatcher, tripod leg, oboe, tiger shark, assault rifle. Heat on the thin glossy part. Large soft or flowing shapes: Afghan hound, peacock, howler monkey, wire-haired fox terrier in a tub, mobile home, unicycle, obelisk, dogsled, grasshopper.",
+"candidates": {
+"A": "The bill tip of a long-billed bird against a plain, flat ground, against frontal dog faces. European gallinule, redshank, ruddy turnstone, coucal, drake, egret, little blue heron, hummingbird, bee eater, hartebeest horn, robin; heat on the bill. Frontal dog faces: Italian greyhound, Irish setter, Lakeland terrier, basset, Chihuahua; jersey, lab coat, hoopskirt.",
+"B": "A thin dark curved line or ridge lying across a plain surface (a snake coil, a strap, a curved edge), against smooth long pale things. Snakes (Indian cobra, garter, thunder snake, sea snake), pool table, cuirass, notebook edge, gas pump handle, harp, camel, cheetah, snorkel, bra strap, mask. Heat on the dark curve. Smooth long pale or segmented items: corkscrew, cocker spaniel, ear of corn, cucumber, pan pipe, disk brake, chocolate sauce, goblet.",
+"C": "A dark dog with sharply separated tan and white markings, against light fawn or long-coated dogs. Entlebucher, toy terrier, Bernese, Rottweiler, black-and-tan, miniature pinscher, Doberman, Greater Swiss, bluetick, Cardigan; heat on the face markings and chest. Light fawn, red or long-coated dogs: Tibetan mastiff puppy, Shetland sheepdog, dhole, Welsh springer, golden retriever, collie, lesser panda, trimaran, monarch butterfly.",
+"D": "An animal head with a snout or beak pushed forward, against a human or frontal face. Flat-coated retriever, border collie, otterhound, malamute, coyote; also oystercatcher, jay, bulbul, heron beaks. Heat on the snout or beak. People: tench-holder, boy, suit, graduate, laptop user; also keyboard and candle.",
+"E": "A small bird with a bright patch of colour on a slim body, against a shaggy, light, fluffy small dog. Bee-eater, indigo bunting, goldfinch, redshank, partridge, house finch, peacock, water ouzel, egret, macaw; heat on the coloured breast. Shaggy light small dogs: Norfolk terrier, Tibetan terrier, white wolf, malamute, West Highland, papillon, dingo, Greater Swiss; ambulance, caldron, jersey."
+}
+},
+{
+"item": "same016",
+"child": "A boxy van or car body in side view, with a stripe or window band, against a round furry face. Police van, ambulance, minibus, cab, pickup, beach wagon, limousine, garbage truck, beer bottles. Heat on the stripe and window band. Round furry faces and bodies: pug, lynx, papillon, Pekinese, squirrel monkey, brown bear, American black bear, dhole, football helmet, ski mask.",
+"candidates": {
+"A": "Small figures scattered on open ground (a flock, a herd, a rider), against a close frontal animal face. Flocks of dowitchers, penguins, hens, cock, dogsled team, camel rider, yurt with people, kuvasz and collie in a field; also pineapple field, banana pile, vulture. Heat on each small figure. Close frontal faces: Pembroke, grey fox, lesser panda, kit fox, dingo, Shetland sheep, white wolf, Maltese, wig.",
+"B": "An animal head with a snout or beak pushed forward, against a human or frontal face. Flat-coated retriever, border collie, otterhound, malamute, coyote; also oystercatcher, jay, bulbul, heron beaks. Heat on the snout or beak. People: tench-holder, boy, suit, graduate, laptop user; also keyboard and candle.",
+"C": "A dark dog with sharply separated tan and white markings, against light fawn or long-coated dogs. Entlebucher, toy terrier, Bernese, Rottweiler, black-and-tan, miniature pinscher, Doberman, Greater Swiss, bluetick, Cardigan; heat on the face markings and chest. Light fawn, red or long-coated dogs: Tibetan mastiff puppy, Shetland sheepdog, dhole, Welsh springer, golden retriever, collie, lesser panda, trimaran, monarch butterfly.",
+"D": "The bill tip of a long-billed bird against a plain, flat ground, against frontal dog faces. European gallinule, redshank, ruddy turnstone, coucal, drake, egret, little blue heron, hummingbird, bee eater, hartebeest horn, robin; heat on the bill. Frontal dog faces: Italian greyhound, Irish setter, Lakeland terrier, basset, Chihuahua; jersey, lab coat, hoopskirt.",
+"E": "A tall flat-sided box body (a van, bus or truck seen from the side) against small round things. Police van, VW minibus, ambulance, minivan, garbage truck, fire engine, school bus, trolleybus, jeep, recreational vehicle, Saint Bernard (a boy and his dog, large dog), gas pump, oscilloscope trace, grille. Small round or soft objects: fig, ear of corn, punching bag, mitten, tabby face, Siamese eyes, isopod, disk brake, mixing bowl, Eskimo dog face."
+}
+},
+{
+"item": "same017",
+"child": "A dark coat with tan and white markings in a fixed pattern, against pale or white shapes. Entlebucher, Appenzeller, Doberman, Gordon setter, Rottweiler, toy terrier, black-and-tan, miniature pinscher, Tibetan mastiff, guenon; heat on face and chest. White or bright objects: parachute, microphone, airliner, kuvasz (white dog), titi, hen, planetarium, safe, diaper.",
+"candidates": {
+"A": "A dark dog with sharply separated tan and white markings, against light fawn or long-coated dogs. Entlebucher, toy terrier, Bernese, Rottweiler, black-and-tan, miniature pinscher, Doberman, Greater Swiss, bluetick, Cardigan; heat on the face markings and chest. Light fawn, red or long-coated dogs: Tibetan mastiff puppy, Shetland sheepdog, dhole, Welsh springer, golden retriever, collie, lesser panda, trimaran, monarch butterfly.",
+"B": "An animal head with a snout or beak pushed forward, against a human or frontal face. Flat-coated retriever, border collie, otterhound, malamute, coyote; also oystercatcher, jay, bulbul, heron beaks. Heat on the snout or beak. People: tench-holder, boy, suit, graduate, laptop user; also keyboard and candle.",
+"C": "The bill tip of a long-billed bird against a plain, flat ground, against frontal dog faces. European gallinule, redshank, ruddy turnstone, coucal, drake, egret, little blue heron, hummingbird, bee eater, hartebeest horn, robin; heat on the bill. Frontal dog faces: Italian greyhound, Irish setter, Lakeland terrier, basset, Chihuahua; jersey, lab coat, hoopskirt.",
+"D": "Small figures scattered on open ground (a flock, a herd, a rider), against a close frontal animal face. Flocks of dowitchers, penguins, hens, cock, dogsled team, camel rider, yurt with people, kuvasz and collie in a field; also pineapple field, banana pile, vulture. Heat on each small figure. Close frontal faces: Pembroke, grey fox, lesser panda, kit fox, dingo, Shetland sheep, white wolf, Maltese, wig.",
+"E": "A thin dark curved line or ridge lying across a plain surface (a snake coil, a strap, a curved edge), against smooth long pale things. Snakes (Indian cobra, garter, thunder snake, sea snake), pool table, cuirass, notebook edge, gas pump handle, harp, camel, cheetah, snorkel, bra strap, mask. Heat on the dark curve. Smooth long pale or segmented items: corkscrew, cocker spaniel, ear of corn, cucumber, pan pipe, disk brake, chocolate sauce, goblet."
+}
+},
+{
+"item": "same018",
+"child": "A small perched bird in profile with a coloured breast patch and a thin leg, against a fluffy light dog. Water ouzel, junco, redshank, ruddy turnstone, indigo bunting, coucal, goldfinch, oystercatcher, magpie, partridge, white stork, robin. Heat on the breast. Fluffy or long-coated light dogs: Tibetan terrier, cocker spaniel, clumber, kuvasz, Norfolk terrier, Great Pyrenees; also wall clock, dumbbell, CD player, mosque.",
+"candidates": {
+"A": "A thin dark curved line or ridge lying across a plain surface (a snake coil, a strap, a curved edge), against smooth long pale things. Snakes (Indian cobra, garter, thunder snake, sea snake), pool table, cuirass, notebook edge, gas pump handle, harp, camel, cheetah, snorkel, bra strap, mask. Heat on the dark curve. Smooth long pale or segmented items: corkscrew, cocker spaniel, ear of corn, cucumber, pan pipe, disk brake, chocolate sauce, goblet.",
+"B": "A dark dog with sharply separated tan and white markings, against light fawn or long-coated dogs. Entlebucher, toy terrier, Bernese, Rottweiler, black-and-tan, miniature pinscher, Doberman, Greater Swiss, bluetick, Cardigan; heat on the face markings and chest. Light fawn, red or long-coated dogs: Tibetan mastiff puppy, Shetland sheepdog, dhole, Welsh springer, golden retriever, collie, lesser panda, trimaran, monarch butterfly.",
+"C": "A small bird with a bright patch of colour on a slim body, against a shaggy, light, fluffy small dog. Bee-eater, indigo bunting, goldfinch, redshank, partridge, house finch, peacock, water ouzel, egret, macaw; heat on the coloured breast. Shaggy light small dogs: Norfolk terrier, Tibetan terrier, white wolf, malamute, West Highland, papillon, dingo, Greater Swiss; ambulance, caldron, jersey.",
+"D": "A tall flat-sided box body (a van, bus or truck seen from the side) against small round things. Police van, VW minibus, ambulance, minivan, garbage truck, fire engine, school bus, trolleybus, jeep, recreational vehicle, Saint Bernard (a boy and his dog, large dog), gas pump, oscilloscope trace, grille. Small round or soft objects: fig, ear of corn, punching bag, mitten, tabby face, Siamese eyes, isopod, disk brake, mixing bowl, Eskimo dog face.",
+"E": "The bill tip of a long-billed bird against a plain, flat ground, against frontal dog faces. European gallinule, redshank, ruddy turnstone, coucal, drake, egret, little blue heron, hummingbird, bee eater, hartebeest horn, robin; heat on the bill. Frontal dog faces: Italian greyhound, Irish setter, Lakeland terrier, basset, Chihuahua; jersey, lab coat, hoopskirt."
+}
+},
+{
+"item": "same019",
+"child": "The tip of a thin forward point on a body: a bird bill, or the round top of a thin pole (water tower, bell tower), against fluffy light dogs. Redshank, goose, little blue heron, limpkin, hummingbird, ostrich, albatross; also water tower, bell cote, bell tower, parking meter. Heat on the bill tip or the bulb at the top of the pole. Light fluffy dogs and smiling people: Tibetan terrier, golden retriever, Scottish deerhound, tricycle, tobacco shop, potter's wheel, thresher.",
+"candidates": {
+"A": "Small figures scattered on open ground (a flock, a herd, a rider), against a close frontal animal face. Flocks of dowitchers, penguins, hens, cock, dogsled team, camel rider, yurt with people, kuvasz and collie in a field; also pineapple field, banana pile, vulture. Heat on each small figure. Close frontal faces: Pembroke, grey fox, lesser panda, kit fox, dingo, Shetland sheep, white wolf, Maltese, wig.",
+"B": "A dark dog with sharply separated tan and white markings, against light fawn or long-coated dogs. Entlebucher, toy terrier, Bernese, Rottweiler, black-and-tan, miniature pinscher, Doberman, Greater Swiss, bluetick, Cardigan; heat on the face markings and chest. Light fawn, red or long-coated dogs: Tibetan mastiff puppy, Shetland sheepdog, dhole, Welsh springer, golden retriever, collie, lesser panda, trimaran, monarch butterfly.",
+"C": "The bill tip of a long-billed bird against a plain, flat ground, against frontal dog faces. European gallinule, redshank, ruddy turnstone, coucal, drake, egret, little blue heron, hummingbird, bee eater, hartebeest horn, robin; heat on the bill. Frontal dog faces: Italian greyhound, Irish setter, Lakeland terrier, basset, Chihuahua; jersey, lab coat, hoopskirt.",
+"D": "A thin dark curved line or ridge lying across a plain surface (a snake coil, a strap, a curved edge), against smooth long pale things. Snakes (Indian cobra, garter, thunder snake, sea snake), pool table, cuirass, notebook edge, gas pump handle, harp, camel, cheetah, snorkel, bra strap, mask. Heat on the dark curve. Smooth long pale or segmented items: corkscrew, cocker spaniel, ear of corn, cucumber, pan pipe, disk brake, chocolate sauce, goblet.",
+"E": "A small bird with a bright patch of colour on a slim body, against a shaggy, light, fluffy small dog. Bee-eater, indigo bunting, goldfinch, redshank, partridge, house finch, peacock, water ouzel, egret, macaw; heat on the coloured breast. Shaggy light small dogs: Norfolk terrier, Tibetan terrier, white wolf, malamute, West Highland, papillon, dingo, Greater Swiss; ambulance, caldron, jersey."
+}
+},
+{
+"item": "same020",
+"child": "A symmetric pair of dark rounded shapes joined by a bridge (lenses, cups, headlights, visor), against thin-legged waders. Brassiere, sunglasses, goggles, crash helmet visor, headlights, grille, orange pair, rain barrels, mask, bolo tie. Heat on the bridge between the pair. Waders and other thin-legged birds: dowitcher, goose, bulbul, redshank; harvestman, bicycle, screw, stupa.",
+"candidates": {
+"A": "A small bird with a bright patch of colour on a slim body, against a shaggy, light, fluffy small dog. Bee-eater, indigo bunting, goldfinch, redshank, partridge, house finch, peacock, water ouzel, egret, macaw; heat on the coloured breast. Shaggy light small dogs: Norfolk terrier, Tibetan terrier, white wolf, malamute, West Highland, papillon, dingo, Greater Swiss; ambulance, caldron, jersey.",
+"B": "A thin dark curved line or ridge lying across a plain surface (a snake coil, a strap, a curved edge), against smooth long pale things. Snakes (Indian cobra, garter, thunder snake, sea snake), pool table, cuirass, notebook edge, gas pump handle, harp, camel, cheetah, snorkel, bra strap, mask. Heat on the dark curve. Smooth long pale or segmented items: corkscrew, cocker spaniel, ear of corn, cucumber, pan pipe, disk brake, chocolate sauce, goblet.",
+"C": "Small figures scattered on open ground (a flock, a herd, a rider), against a close frontal animal face. Flocks of dowitchers, penguins, hens, cock, dogsled team, camel rider, yurt with people, kuvasz and collie in a field; also pineapple field, banana pile, vulture. Heat on each small figure. Close frontal faces: Pembroke, grey fox, lesser panda, kit fox, dingo, Shetland sheep, white wolf, Maltese, wig.",
+"D": "The bill tip of a long-billed bird against a plain, flat ground, against frontal dog faces. European gallinule, redshank, ruddy turnstone, coucal, drake, egret, little blue heron, hummingbird, bee eater, hartebeest horn, robin; heat on the bill. Frontal dog faces: Italian greyhound, Irish setter, Lakeland terrier, basset, Chihuahua; jersey, lab coat, hoopskirt.",
+"E": "An animal head with a snout or beak pushed forward, against a human or frontal face. Flat-coated retriever, border collie, otterhound, malamute, coyote; also oystercatcher, jay, bulbul, heron beaks. Heat on the snout or beak. People: tench-holder, boy, suit, graduate, laptop user; also keyboard and candle."
+}
+},
+{
+"item": "same021",
+"child": "A dark coat with tan markings, as in [node] but a sharper version for smaller dogs and for birds with dark backs. Toy terrier, standard schnauzer, German shepherd, Cardigan, bluetick, Walker hound, Rottweiler, brambling, wallaby, basset, silky terrier. Not read (deep image not opened): colour is the key, gray keeps 0.41, invert 0.16.",
+"candidates": {
+"A": "A tall flat-sided box body (a van, bus or truck seen from the side) against small round things. Police van, VW minibus, ambulance, minivan, garbage truck, fire engine, school bus, trolleybus, jeep, recreational vehicle, Saint Bernard (a boy and his dog, large dog), gas pump, oscilloscope trace, grille. Small round or soft objects: fig, ear of corn, punching bag, mitten, tabby face, Siamese eyes, isopod, disk brake, mixing bowl, Eskimo dog face.",
+"B": "Small figures scattered on open ground (a flock, a herd, a rider), against a close frontal animal face. Flocks of dowitchers, penguins, hens, cock, dogsled team, camel rider, yurt with people, kuvasz and collie in a field; also pineapple field, banana pile, vulture. Heat on each small figure. Close frontal faces: Pembroke, grey fox, lesser panda, kit fox, dingo, Shetland sheep, white wolf, Maltese, wig.",
+"C": "An animal head with a snout or beak pushed forward, against a human or frontal face. Flat-coated retriever, border collie, otterhound, malamute, coyote; also oystercatcher, jay, bulbul, heron beaks. Heat on the snout or beak. People: tench-holder, boy, suit, graduate, laptop user; also keyboard and candle.",
+"D": "A small bird with a bright patch of colour on a slim body, against a shaggy, light, fluffy small dog. Bee-eater, indigo bunting, goldfinch, redshank, partridge, house finch, peacock, water ouzel, egret, macaw; heat on the coloured breast. Shaggy light small dogs: Norfolk terrier, Tibetan terrier, white wolf, malamute, West Highland, papillon, dingo, Greater Swiss; ambulance, caldron, jersey.",
+"E": "A dark dog with sharply separated tan and white markings, against light fawn or long-coated dogs. Entlebucher, toy terrier, Bernese, Rottweiler, black-and-tan, miniature pinscher, Doberman, Greater Swiss, bluetick, Cardigan; heat on the face markings and chest. Light fawn, red or long-coated dogs: Tibetan mastiff puppy, Shetland sheepdog, dhole, Welsh springer, golden retriever, collie, lesser panda, trimaran, monarch butterfly."
+}
+},
+{
+"item": "same022",
+"child": "one big smooth sloping mass filling an open scene, against small close compact things held near the camera volcano/valley/alp slopes, tents, yurts, balloons, ski slopes: a single large low peak or dome with a wide empty surround small bright round or glossy objects seen close up (balls, whistle, oscilloscope trace, small dogs): keeps out near, compact, high-detail things",
+"candidates": {
+"A": "a dark hooded or peaked shape standing against a bright slope skiers, abaya, ski mask, sweatshirt hood, mountain, yurt, strawberry trifle fine radial spokes and thin lines (matchsticks heart, umbrella), vehicles, benches",
+"B": "a small perched bird or a dial face junco, bulbul, chickadee, kite, clocks, harp unread",
+"C": "a white rolled tube or fold with a hole, held up on a wall paper towel, toilet tissue, golfcart, neck brace, seat belt, burrito, spider web domes, rosehip, digital clock, balloon: round wholes with a bright centre",
+"D": "a round rim or opening seen from the side: pots, wok, drum, mug Dutch oven, hot pot, wok, drum, Petri dish, coffee mug, pug unread",
+"E": "a thin jet of bright spray rising from below fireboat spray, geyser, fountains lit at night, a city with a fountain jet unread dark ground animals: hyena, tiger cat, gas pump, digital watch"
+}
+},
+{
+"item": "same023",
+"child": "long repeated parallel things receding in a row (rails, spoons in a rack, burner grates) against compact round natural bodies electric locomotives and rails in perspective, row of spatulas, steel drum, stove grate, barbershop: rows of hard-edged near-parallel bars round soft organic bodies on natural ground (rosehip, ladybug, crab, fish held by people, bikers)",
+"candidates": {
+"A": "long straight machine body with a rail line electric locomotives, bullet train, apiary unread: not looked",
+"B": "a seat or chair standing by itself folding chair, swing bench, jinrikisha, barber chair, park bench, patio, cassette radial spokes and furry faces: umbrella, dome, black widow, sunglasses, cougar",
+"C": "a slender pointed head on a plain background borzoi, Saluki, whippet, juncos, ouzel, kite, oystercatcher unread",
+"D": "a dark glossy compact body indigo bunting, peacock, stork, lipstick, screwdriver, barbell unread",
+"E": "a small perched bird or a dial face junco, bulbul, chickadee, kite, clocks, harp unread"
+}
+},
+{
+"item": "same024",
+"child": "a smooth glossy rounded body that has one thin loop handle cups, pitchers, teapots, mugs, coffee pot (drawn 0.46 with a handle, 0.07 without); also decorated freight car flat rectangular screens, desktops, scenes with many small boxes",
+"candidates": {
+"A": "a dark hooded or peaked shape standing against a bright slope skiers, abaya, ski mask, sweatshirt hood, mountain, yurt, strawberry trifle fine radial spokes and thin lines (matchsticks heart, umbrella), vehicles, benches",
+"B": "a vessel body with a loop handle on its side pitcher, cup, coffeepot, mug, teapot, cocktail shaker with cup (probe: handle 0.28, no handle 0.01) radial spokes and studs seen face-on: bolo tie, car wheel, umbrella, saltshaker, jinrikisha wheel",
+"C": "a seat or chair standing by itself folding chair, swing bench, jinrikisha, barber chair, park bench, patio, cassette radial spokes and furry faces: umbrella, dome, black widow, sunglasses, cougar",
+"D": "a smooth dark body in water or on bare ground sharks, stingray, loggerhead, grey whale, spiders, zebra unread",
+"E": "a white rolled tube or fold with a hole, held up on a wall paper towel, toilet tissue, golfcart, neck brace, seat belt, burrito, spider web domes, rosehip, digital clock, balloon: round wholes with a bright centre"
+}
+},
+{
+"item": "same025",
+"child": "a soft-edged bright white plume rising from the ground or water against a darker or bluer backdrop geysers, fountains, fireboat spray, whale blow, waterfalls, breakwater splash, rocket exhaust round shiny rings and hubs (car wheel, carousel, pill bottle caps, ostrich head)",
+"candidates": {
+"A": "a banded or ridged side panel ostrich, bunting, jay, isopod, armadillo, freight car unread",
+"B": "a thin jet of bright spray rising from below fireboat spray, geyser, fountains lit at night, a city with a fountain jet unread dark ground animals: hyena, tiger cat, gas pump, digital watch",
+"C": "a white rolled tube or fold with a hole, held up on a wall paper towel, toilet tissue, golfcart, neck brace, seat belt, burrito, spider web domes, rosehip, digital clock, balloon: round wholes with a bright centre",
+"D": "long straight machine body with a rail line electric locomotives, bullet train, apiary unread: not looked",
+"E": "a small perched bird or a dial face junco, bulbul, chickadee, kite, clocks, harp unread"
+}
+},
+{
+"item": "same026",
+"child": "a dark solid compact body with a smooth outline, against a lighter lumpy background black dogs and bears, joystick, black kettle, hippo, siamang, abaya: dark mass with highlights tan, smooth-coated light-brown dogs (bull mastiff, boxer, Rhodesian)",
+"candidates": {
+"A": "a round rim or opening seen from the side: pots, wok, drum, mug Dutch oven, hot pot, wok, drum, Petri dish, coffee mug, pug unread",
+"B": "a small perched bird or a dial face junco, bulbul, chickadee, kite, clocks, harp unread",
+"C": "a slender pointed head on a plain background borzoi, Saluki, whippet, juncos, ouzel, kite, oystercatcher unread",
+"D": "a dark hooded or peaked shape standing against a bright slope skiers, abaya, ski mask, sweatshirt hood, mountain, yurt, strawberry trifle fine radial spokes and thin lines (matchsticks heart, umbrella), vehicles, benches",
+"E": "a dark glossy compact body indigo bunting, peacock, stork, lipstick, screwdriver, barbell unread"
+}
+},
+{
+"item": "same027",
+"child": "open water surface with a body in it, against warm detailed objects on land submarine, whales, great white, coral reef, seashore, speedboat, snorkelers: blue-green water texture zebra, hourglass, rotisserie, phone box, langur: warm, tall, dry, fine detail",
+"candidates": {
+"A": "a slender pointed head on a plain background borzoi, Saluki, whippet, juncos, ouzel, kite, oystercatcher unread",
+"B": "a round rim or opening seen from the side: pots, wok, drum, mug Dutch oven, hot pot, wok, drum, Petri dish, coffee mug, pug unread",
+"C": "a smooth dark body in water or on bare ground sharks, stingray, loggerhead, grey whale, spiders, zebra unread",
+"D": "a small perched bird or a dial face junco, bulbul, chickadee, kite, clocks, harp unread",
+"E": "a dark hooded or peaked shape standing against a bright slope skiers, abaya, ski mask, sweatshirt hood, mountain, yurt, strawberry trifle fine radial spokes and thin lines (matchsticks heart, umbrella), vehicles, benches"
+}
+},
+{
+"item": "same028",
+"child": "an object made of a frame plus a seat or sail: a wire frame holding a hollow, set against plain ground shopping cart, barber chair, throne, jinrikisha, schooner, trimaran, steel drum round bodied things with a radial or spotted pattern: spiders, burger, ballpoint, candle",
+"candidates": {
+"A": "a seat or chair standing by itself folding chair, swing bench, jinrikisha, barber chair, park bench, patio, cassette radial spokes and furry faces: umbrella, dome, black widow, sunglasses, cougar",
+"B": "a white rolled tube or fold with a hole, held up on a wall paper towel, toilet tissue, golfcart, neck brace, seat belt, burrito, spider web domes, rosehip, digital clock, balloon: round wholes with a bright centre",
+"C": "a smooth dark body in water or on bare ground sharks, stingray, loggerhead, grey whale, spiders, zebra unread",
+"D": "a slender pointed head on a plain background borzoi, Saluki, whippet, juncos, ouzel, kite, oystercatcher unread",
+"E": "a banded or ridged side panel ostrich, bunting, jay, isopod, armadillo, freight car unread"
+}
+},
+{
+"item": "same029",
+"child": "one thin dark upright body against empty light sky or ground kite, black stork, white stork, ostrich, solar dish, radio telescope, warplanes, sails people with pets and indoor desks, screens: crowded indoor scenes",
+"candidates": {
+"A": "a dark glossy compact body indigo bunting, peacock, stork, lipstick, screwdriver, barbell unread",
+"B": "a banded or ridged side panel ostrich, bunting, jay, isopod, armadillo, freight car unread",
+"C": "a slender pointed head on a plain background borzoi, Saluki, whippet, juncos, ouzel, kite, oystercatcher unread",
+"D": "a thin jet of bright spray rising from below fireboat spray, geyser, fountains lit at night, a city with a fountain jet unread dark ground animals: hyena, tiger cat, gas pump, digital watch",
+"E": "a dark hooded or peaked shape standing against a bright slope skiers, abaya, ski mask, sweatshirt hood, mountain, yurt, strawberry trifle fine radial spokes and thin lines (matchsticks heart, umbrella), vehicles, benches"
+}
+},
+{
+"item": "same030",
+"child": "a thin straight scale or dial rule: marks along a line, or a spotted line on an animal slide rule, scale, barometer, stopwatch, spotted salamander, digital clock, streetcar round dark furry faces (gorilla, elephant, spaniel), a drain",
+"candidates": {
+"A": "a small perched bird or a dial face junco, bulbul, chickadee, kite, clocks, harp unread",
+"B": "a slender pointed head on a plain background borzoi, Saluki, whippet, juncos, ouzel, kite, oystercatcher unread",
+"C": "a dark glossy compact body indigo bunting, peacock, stork, lipstick, screwdriver, barbell unread",
+"D": "a thin jet of bright spray rising from below fireboat spray, geyser, fountains lit at night, a city with a fountain jet unread dark ground animals: hyena, tiger cat, gas pump, digital watch",
+"E": "a round rim or opening seen from the side: pots, wok, drum, mug Dutch oven, hot pot, wok, drum, Petri dish, coffee mug, pug unread"
+}
+},
+{
+"item": "same031",
+"child": "a rolled or folded white tube with a round hole or fold, against a pale wall paper towel and toilet tissue roll, lab coat, yurt, tents, apiary boxes people mid-action with an open mouth or limbs (harmonica, shovel, speedboat, killer whale)",
+"candidates": {
+"A": "a smooth dark body in water or on bare ground sharks, stingray, loggerhead, grey whale, spiders, zebra unread",
+"B": "a thin jet of bright spray rising from below fireboat spray, geyser, fountains lit at night, a city with a fountain jet unread dark ground animals: hyena, tiger cat, gas pump, digital watch",
+"C": "a dark glossy compact body indigo bunting, peacock, stork, lipstick, screwdriver, barbell unread",
+"D": "a seat or chair standing by itself folding chair, swing bench, jinrikisha, barber chair, park bench, patio, cassette radial spokes and furry faces: umbrella, dome, black widow, sunglasses, cougar",
+"E": "a white rolled tube or fold with a hole, held up on a wall paper towel, toilet tissue, golfcart, neck brace, seat belt, burrito, spider web domes, rosehip, digital clock, balloon: round wholes with a bright centre"
+}
+},
+{
+"item": "same032",
+"child": "a dark hooded or peaked shape standing against a bright slope skiers, abaya, ski mask, sweatshirt hood, mountain, yurt, strawberry trifle fine radial spokes and thin lines (matchsticks heart, umbrella), vehicles, benches",
+"candidates": {
+"A": "a soft bright plume or flame rising from a dark base candle flame, fountain, geyser, crane, white dogs (Bedlington, borzoi) glossy glasses, dial faces, stopwatch, sunglasses, short-coated dogs",
+"B": "a fat smooth short body ending in a thin protruding rod pen with nib, power drill, croquet mallet, dumbbell, screw, cannon, spindle balloon, hourglass, dome, car wheel, milk can: wide round wholes",
+"C": "a thin loop or ring attached to a body padlock shackle, necklace, bolo tie, frying pan with loop, basket handle, bra strap, teapot (drawn loop 0.33, spokes 0.03) slender elegant long-haired dogs and sails: borzoi, yawl, English setter",
+"D": "hard-edged machines with a round dial or lens barometer, steam locomotive, camera, radio, phone, cannon, tile roof unread",
+"E": "one large smooth mass in an open field soccer ball, tent, valley, alp, volcano, washbasin, airliner, sports car radial fans, fine fur faces and wheels (car wheel, daisy)"
+}
+},
+{
+"item": "same033",
+"child": "long straight machine body with a rail line electric locomotives, bullet train, apiary unread: not looked",
+"candidates": {
+"A": "one large smooth mass in an open field soccer ball, tent, valley, alp, volcano, washbasin, airliner, sports car radial fans, fine fur faces and wheels (car wheel, daisy)",
+"B": "a soft bright plume or flame rising from a dark base candle flame, fountain, geyser, crane, white dogs (Bedlington, borzoi) glossy glasses, dial faces, stopwatch, sunglasses, short-coated dogs",
+"C": "hard-edged machines with a round dial or lens barometer, steam locomotive, camera, radio, phone, cannon, tile roof unread",
+"D": "a fat smooth short body ending in a thin protruding rod pen with nib, power drill, croquet mallet, dumbbell, screw, cannon, spindle balloon, hourglass, dome, car wheel, milk can: wide round wholes",
+"E": "a thin loop or ring attached to a body padlock shackle, necklace, bolo tie, frying pan with loop, basket handle, bra strap, teapot (drawn loop 0.33, spokes 0.03) slender elegant long-haired dogs and sails: borzoi, yawl, English setter"
+}
+},
+{
+"item": "same034",
+"child": "a vessel body with a loop handle on its side pitcher, cup, coffeepot, mug, teapot, cocktail shaker with cup (probe: handle 0.28, no handle 0.01) radial spokes and studs seen face-on: bolo tie, car wheel, umbrella, saltshaker, jinrikisha wheel",
+"candidates": {
+"A": "one large smooth mass in an open field soccer ball, tent, valley, alp, volcano, washbasin, airliner, sports car radial fans, fine fur faces and wheels (car wheel, daisy)",
+"B": "a fat smooth short body ending in a thin protruding rod pen with nib, power drill, croquet mallet, dumbbell, screw, cannon, spindle balloon, hourglass, dome, car wheel, milk can: wide round wholes",
+"C": "a thin loop or ring attached to a body padlock shackle, necklace, bolo tie, frying pan with loop, basket handle, bra strap, teapot (drawn loop 0.33, spokes 0.03) slender elegant long-haired dogs and sails: borzoi, yawl, English setter",
+"D": "hard-edged machines with a round dial or lens barometer, steam locomotive, camera, radio, phone, cannon, tile roof unread",
+"E": "a soft bright plume or flame rising from a dark base candle flame, fountain, geyser, crane, white dogs (Bedlington, borzoi) glossy glasses, dial faces, stopwatch, sunglasses, short-coated dogs"
+}
+},
+{
+"item": "same035",
+"child": "a thin jet of bright spray rising from below fireboat spray, geyser, fountains lit at night, a city with a fountain jet unread dark ground animals: hyena, tiger cat, gas pump, digital watch",
+"candidates": {
+"A": "one large smooth mass in an open field soccer ball, tent, valley, alp, volcano, washbasin, airliner, sports car radial fans, fine fur faces and wheels (car wheel, daisy)",
+"B": "hard-edged machines with a round dial or lens barometer, steam locomotive, camera, radio, phone, cannon, tile roof unread",
+"C": "a thin loop or ring attached to a body padlock shackle, necklace, bolo tie, frying pan with loop, basket handle, bra strap, teapot (drawn loop 0.33, spokes 0.03) slender elegant long-haired dogs and sails: borzoi, yawl, English setter",
+"D": "a fat smooth short body ending in a thin protruding rod pen with nib, power drill, croquet mallet, dumbbell, screw, cannon, spindle balloon, hourglass, dome, car wheel, milk can: wide round wholes",
+"E": "a soft bright plume or flame rising from a dark base candle flame, fountain, geyser, crane, white dogs (Bedlington, borzoi) glossy glasses, dial faces, stopwatch, sunglasses, short-coated dogs"
+}
+},
+{
+"item": "same036",
+"child": "a seat or chair standing by itself folding chair, swing bench, jinrikisha, barber chair, park bench, patio, cassette radial spokes and furry faces: umbrella, dome, black widow, sunglasses, cougar",
+"candidates": {
+"A": "separate dark spots across a coat or surface, versus a plain shaggy face English setter, German short-haired pointer, dalmatian, Great Dane merle, hyena, leopard, banded gecko, digital clock, analog gauges Yorkshire and Norfolk terrier faces, daisy, golden retriever, collie, red-breasted merganser: smooth or fluffy single-tone close faces",
+"B": "thin straight rods or poles standing in a scene (a rack of wires, a pole, a horn) cat in dishwasher rack, French horn, sax, swab, mountain bikers, zebra, dalmatian, redshank, solar dish, damselfly, crane German shepherd on green, matchstick heart, beacon, kite, albatross, pinwheel, ladle: solid shapes or radial arrangements",
+"C": "a big plain-coloured face of an object versus small repeated buttons and mechanical detail whistle, safe, apron, mortar, carton, tray, mosquito net, nail, screws, sleeping bag scale with keypad, combination lock, phone keypad, typewriter keys, cannon, reel, magnetic compass, Border collie face: grids of small buttons or fine mechanism. It keeps out small-part detail",
+"D": "a dog head in side view with drooping ears (heat is on the ear), versus fluffy upright-eared or small pointed faces beagle, redbone, Appenzeller, kuvasz, Labrador, Weimaraner, bloodhound, Rhodesian ridgeback, Walker hound lesser panda, groenendael, Persian cat, papillon, house finch, Lhasa, Yorkshire terrier, keeshond: upright ears and fluffy rounded faces",
+"E": "a thin curved line or chain of loops against a plain ground chain links, hummingbird, thunder snake, toucan with wire, necklace, corkscrew spiral, swing with chains, padlock chain, chainlink fence West Highland and Tibetan terrier faces, combination lock keypad, cassette, Siamese cat, car wheel: fluffy faces and dials"
+}
+},
+{
+"item": "same037",
+"child": "a slender pointed head on a plain background borzoi, Saluki, whippet, juncos, ouzel, kite, oystercatcher unread",
+"candidates": {
+"A": "A dark coat with tan and white markings in a fixed pattern, against pale or white shapes. Entlebucher, Appenzeller, Doberman, Gordon setter, Rottweiler, toy terrier, black-and-tan, miniature pinscher, Tibetan mastiff, guenon; heat on face and chest. White or bright objects: parachute, microphone, airliner, kuvasz (white dog), titi, hen, planetarium, safe, diaper.",
+"B": "A dark coat with tan markings, as in [node] but a sharper version for smaller dogs and for birds with dark backs. Toy terrier, standard schnauzer, German shepherd, Cardigan, bluetick, Walker hound, Rottweiler, brambling, wallaby, basset, silky terrier. Not read (deep image not opened): colour is the key, gray keeps 0.41, invert 0.16.",
+"C": "A symmetric pair of dark rounded shapes joined by a bridge (lenses, cups, headlights, visor), against thin-legged waders. Brassiere, sunglasses, goggles, crash helmet visor, headlights, grille, orange pair, rain barrels, mask, bolo tie. Heat on the bridge between the pair. Waders and other thin-legged birds: dowitcher, goose, bulbul, redshank; harvestman, bicycle, screw, stupa.",
+"D": "A slim, glossy, boldly coloured body or limb (a thin animal or tool with strong contrast) against a thick, fluffy, round body. Fire salamander, green snake, ringneck snake, tiger beetle, magpie, newt, redshank, oystercatcher, tripod leg, oboe, tiger shark, assault rifle. Heat on the thin glossy part. Large soft or flowing shapes: Afghan hound, peacock, howler monkey, wire-haired fox terrier in a tub, mobile home, unicycle, obelisk, dogsled, grasshopper.",
+"E": "Upright muzzle that projects from an animal head seen from the side, against a frontal or flat face. Dogs of every breed with a long muzzle (red wolf, Irish setter, borzoi, whippet, Cardigan); heat on the snout. Cat faces (tabby, schipperke), stork, screw, espresso cup, Ibizan hound lying: round flat faces or thin vertical things."
+}
+},
+{
+"item": "same038",
+"child": "a small perched bird or a dial face junco, bulbul, chickadee, kite, clocks, harp unread",
+"candidates": {
+"A": "A dark coat with tan markings, as in [node] but a sharper version for smaller dogs and for birds with dark backs. Toy terrier, standard schnauzer, German shepherd, Cardigan, bluetick, Walker hound, Rottweiler, brambling, wallaby, basset, silky terrier. Not read (deep image not opened): colour is the key, gray keeps 0.41, invert 0.16.",
+"B": "A slim, glossy, boldly coloured body or limb (a thin animal or tool with strong contrast) against a thick, fluffy, round body. Fire salamander, green snake, ringneck snake, tiger beetle, magpie, newt, redshank, oystercatcher, tripod leg, oboe, tiger shark, assault rifle. Heat on the thin glossy part. Large soft or flowing shapes: Afghan hound, peacock, howler monkey, wire-haired fox terrier in a tub, mobile home, unicycle, obelisk, dogsled, grasshopper.",
+"C": "Upright muzzle that projects from an animal head seen from the side, against a frontal or flat face. Dogs of every breed with a long muzzle (red wolf, Irish setter, borzoi, whippet, Cardigan); heat on the snout. Cat faces (tabby, schipperke), stork, screw, espresso cup, Ibizan hound lying: round flat faces or thin vertical things.",
+"D": "The tip of a thin forward point on a body: a bird bill, or the round top of a thin pole (water tower, bell tower), against fluffy light dogs. Redshank, goose, little blue heron, limpkin, hummingbird, ostrich, albatross; also water tower, bell cote, bell tower, parking meter. Heat on the bill tip or the bulb at the top of the pole. Light fluffy dogs and smiling people: Tibetan terrier, golden retriever, Scottish deerhound, tricycle, tobacco shop, potter's wheel, thresher.",
+"E": "A small perched bird in profile with a coloured breast patch and a thin leg, against a fluffy light dog. Water ouzel, junco, redshank, ruddy turnstone, indigo bunting, coucal, goldfinch, oystercatcher, magpie, partridge, white stork, robin. Heat on the breast. Fluffy or long-coated light dogs: Tibetan terrier, cocker spaniel, clumber, kuvasz, Norfolk terrier, Great Pyrenees; also wall clock, dumbbell, CD player, mosque."
+}
+},
+{
+"item": "same039",
+"child": "fine, long, loose strands or thin pointers laid over a plain ground, against short, smooth, close-lying surface long silky or feathery hair (Afghan, silky terrier, Maltese, colobus, wool, hair slide), and clock faces with thin hands short sleek coats and blunt wrinkled heads (boxer, bull mastiff, pug, Doberman) plus glossy solid objects (piggy bank, revolver); it keeps out short smooth coat",
+"candidates": {
+"A": "long hanging fringe or an arch of repeated thin elements, seen on a quiet background dogs with long fringed ears (Bernese, Sussex, silky, Shih-Tzu), viaduct and arch bridges smooth glossy containers (teapot, soap dispenser, whiskey jug), plus dark coated dogs",
+"B": "a white smooth rounded body, against radial or hard-edged metallic form giant panda face, black stork, piggy bank, toaster, soccer ball, Shih-Tzu, Maltese dome, rickshaw wheel, car wheel, cannon, green snake, Siamese cat: spoked or tubular dark-and-light structure",
+"C": "a small bright compact body held apart from a branching or busy ground goldfinch, chickadee, white stork, ice bear, kite, Samoyed on grass cats, tabby, lynx, Welsh springer and Blenheim spaniels: striped or two-tone patches",
+"D": "fluffy curly bushy head against a hard radial metallic form poodles, spaniels, Dandie Dinmont, soft-coated wheaten, orangutan hair balloon, car wheel, goblet, dome, compass: hard spoke or arc shapes",
+"E": "a thin green or grey elongated body pressed along a branch or trunk green anole, chameleon, iguana, agama, leafhopper, frilled lizard radial-spoke objects: bolo tie, milk can, electric fan, car wheel, umbrella, rickshaw wheel; also wine glass"
+}
+},
+{
+"item": "same040",
+"child": "a rounded, soft-edged head or dial facing the viewer, against a radial or pointed shape dogs with rounded drooping-eared heads (cocker, clumber, Brittany, Tibetan mastiff), muzzle, clock and safe dials, garden spider body, lamp radial or pointed things: wallaby and gibbon faces, toilet-tissue stack, iPod wheel, boxer; its inner parent 460 has umbrella, fan and dome as its negative pole",
+"candidates": {
+"A": "a smooth, soft-eared dog head, against a radial symmetric or pointed form floppy-eared dogs with a plain face (retrievers, beagle, redbone, foxhound), at the head radial or domed symmetry (umbrella ribs, dome, electric fan, vault) and pointed fox or terrier faces",
+"B": "a bundle of fine bristle ends, parallel and uncovered shaving brush, thatch roof, beaver tail, paintbrush, digital 7-segment digits (parallel bars), porcupine pointed upright ears and smooth taut coats: dingo, basenji, toy terrier, German shepherd",
+"C": "long wavy hanging ear or fringe, against upright pointed ear Welsh springer, Brittany, cocker, English setter, Irish water spaniel, red-breasted merganser, swimsuit pattern white wolf, timber wolf, husky, Samoyed: upright triangular ears; also arch, minibus, bell tower, tent",
+"D": "loose patterned cloth draped over a body sarong, poncho, fur coat, feather boa, tie, kimono, stole, maillot smooth hard white or pale objects: table lamp, Crock Pot, washbasin, nipple, mixing bowl",
+"E": "soft rounded small body, against spindly jointed legs and rigid rods babies, puppies, Pekinese, Pomeranian, poodle, swing, cradle, dishwasher, wine glass tabby, corkscrew, remote control, tripod, tick, spiders, Crock Pot, solar dish"
+}
+},
+{
+"item": "same041",
+"child": "a pale, cream or white body, against warm dark-brown coat polar bear, white or cream dogs, cockatoo, egret, white Tibetan terrier, pale gibbon dark brown and chocolate coats (Weimaraner, Labrador, Chesapeake, schipperke) and also an orange and a black-footed ferret: a rich dark warm colour",
+"candidates": {
+"A": "thin straight pointers on a plain round face analog and wall clocks, stopwatch, compass, barometer dial; drawn clock hands on a white disc fire it at 0.42, a bare disc 0.05 vehicles and pens (fire engine, police van, fountain pen, water buffalo): thick coloured bulk",
+"B": "soft rounded small body, against spindly jointed legs and rigid rods babies, puppies, Pekinese, Pomeranian, poodle, swing, cradle, dishwasher, wine glass tabby, corkscrew, remote control, tripod, tick, spiders, Crock Pot, solar dish",
+"C": "loose patterned cloth draped over a body sarong, poncho, fur coat, feather boa, tie, kimono, stole, maillot smooth hard white or pale objects: table lamp, Crock Pot, washbasin, nipple, mixing bowl",
+"D": "a small bright compact body held apart from a branching or busy ground goldfinch, chickadee, white stork, ice bear, kite, Samoyed on grass cats, tabby, lynx, Welsh springer and Blenheim spaniels: striped or two-tone patches",
+"E": "a harnessed animal pulling a wheeled thing horse cart, oxcart, bicycle-built-for-two, tricycle, jinrikisha, sorrel horse, Model T small plain-bodied and rounded things: toy terrier, mink, mobile phone, toaster, meerkat"
+}
+},
+{
+"item": "same042",
+"child": "a pale or white soft-looking body, against brown or dark-spotted coat white fluffy dogs (Maltese, Samoyed, komondor, Bedlington), cockatoo, flamingo, spoonbill, soccer ball, airship, mop brown and tawny coats and patterned prey (Border terrier, malinois, jackfruit, warthog, ruddy turnstone, butterfly)",
+"candidates": {
+"A": "a white smooth rounded body, against radial or hard-edged metallic form giant panda face, black stork, piggy bank, toaster, soccer ball, Shih-Tzu, Maltese dome, rickshaw wheel, car wheel, cannon, green snake, Siamese cat: spoked or tubular dark-and-light structure",
+"B": "soft rounded small body, against spindly jointed legs and rigid rods babies, puppies, Pekinese, Pomeranian, poodle, swing, cradle, dishwasher, wine glass tabby, corkscrew, remote control, tripod, tick, spiders, Crock Pot, solar dish",
+"C": "a bundle of fine bristle ends, parallel and uncovered shaving brush, thatch roof, beaver tail, paintbrush, digital 7-segment digits (parallel bars), porcupine pointed upright ears and smooth taut coats: dingo, basenji, toy terrier, German shepherd",
+"D": "thin straight pointers on a plain round face analog and wall clocks, stopwatch, compass, barometer dial; drawn clock hands on a white disc fire it at 0.42, a bare disc 0.05 vehicles and pens (fire engine, police van, fountain pen, water buffalo): thick coloured bulk",
+"E": "long hanging fringe or an arch of repeated thin elements, seen on a quiet background dogs with long fringed ears (Bernese, Sussex, silky, Shih-Tzu), viaduct and arch bridges smooth glossy containers (teapot, soap dispenser, whiskey jug), plus dark coated dogs"
+}
+},
+{
+"item": "same043",
+"child": "a white smooth rounded body, against radial or hard-edged metallic form giant panda face, black stork, piggy bank, toaster, soccer ball, Shih-Tzu, Maltese dome, rickshaw wheel, car wheel, cannon, green snake, Siamese cat: spoked or tubular dark-and-light structure",
+"candidates": {
+"A": "a long soft wavy ear or fringe hanging down, against an upright pointed ear Blenheim and Japanese spaniels, Welsh springer, cocker, golden retriever, wig, curly hair, mittens; heat on the ear upright pointed ears and tawny faces: groenendael, Norfolk terrier, dingo, kit fox, dhole, wallaby, lion",
+"B": "a hound's hanging ear and cheek, seen from the side bluetick, English setter, beagle, clumber, redbone, German pointer, Entlebucher; heat on the ear/cheek weasel, hen, golf ball, Airedale, hamster, otter, Persian cat: small round or wiry heads",
+"C": "a white or pale soft coat, against warm reddish-brown fur white poodle, Samoyed, goose, white stork, cockatoo, Old English sheepdog, guinea pig, kuvasz, plush toy tawny, tiger, red fox, dhole, bloodhound, Irish setter, Pekinese: warm orange-brown fur; and an orange-and-black salamander",
+"D": "bare warm skin tone or tan coat swimming trunk, bikini, volleyball, butcher shop, basset, proboscis monkey, bloodhound, Rhodesian ridgeback; heat on skin muzzle, dial telephone, ladle, compass, bee, spider, minibus, lawn mower: metal or white objects",
+"E": "many thin parallel ribs or keys repeated in a row, against a smooth lone body typewriter keys, theater curtain folds, necklace chain, bolo tie, suspension bridge cables, vacuum brush, hammer rack, panpipe, chickadee on pebbles lean smooth single-bodied dogs and glass: Ibizan hound, dingo, goblet, bottle, dome"
+}
+},
+{
+"item": "same044",
+"child": "strands that curl, loop or link back on themselves, against sleek straight surface or radial legs chain links, knots, necklaces, curly or wavy hanging ears and coats (cocker, Sussex, Irish water spaniel, poodle), asparagus roll, coiled cornet short sleek coat and pointed radial shapes: Weimaraner, kelpie, pug, lipstick, starfish, tarantula, harvestman; it keeps out smooth or spiky",
+"candidates": {
+"A": "a smooth, soft-eared dog head, against a radial symmetric or pointed form floppy-eared dogs with a plain face (retrievers, beagle, redbone, foxhound), at the head radial or domed symmetry (umbrella ribs, dome, electric fan, vault) and pointed fox or terrier faces",
+"B": "a small bright compact body held apart from a branching or busy ground goldfinch, chickadee, white stork, ice bear, kite, Samoyed on grass cats, tabby, lynx, Welsh springer and Blenheim spaniels: striped or two-tone patches",
+"C": "long wavy hanging ear or fringe, against upright pointed ear Welsh springer, Brittany, cocker, English setter, Irish water spaniel, red-breasted merganser, swimsuit pattern white wolf, timber wolf, husky, Samoyed: upright triangular ears; also arch, minibus, bell tower, tent",
+"D": "a harnessed animal pulling a wheeled thing horse cart, oxcart, bicycle-built-for-two, tricycle, jinrikisha, sorrel horse, Model T small plain-bodied and rounded things: toy terrier, mink, mobile phone, toaster, meerkat",
+"E": "a white smooth rounded body, against radial or hard-edged metallic form giant panda face, black stork, piggy bank, toaster, soccer ball, Shih-Tzu, Maltese dome, rickshaw wheel, car wheel, cannon, green snake, Siamese cat: spoked or tubular dark-and-light structure"
+}
+},
+{
+"item": "same045",
+"child": "fine parallel fibres fanned out from a narrow base, as in a tuft or bristle head broom, paintbrush, shaving brush, face powder brush, pelican (bill and pouch), komondor mop-hair, lampshade, ruler ticks smooth compact rounded bodies: partridge, titi, koala, golf ball, shield, catamaran sail",
+"candidates": {
+"A": "a bundle of fine bristle ends, parallel and uncovered shaving brush, thatch roof, beaver tail, paintbrush, digital 7-segment digits (parallel bars), porcupine pointed upright ears and smooth taut coats: dingo, basenji, toy terrier, German shepherd",
+"B": "a harnessed animal pulling a wheeled thing horse cart, oxcart, bicycle-built-for-two, tricycle, jinrikisha, sorrel horse, Model T small plain-bodied and rounded things: toy terrier, mink, mobile phone, toaster, meerkat",
+"C": "long hanging fringe or an arch of repeated thin elements, seen on a quiet background dogs with long fringed ears (Bernese, Sussex, silky, Shih-Tzu), viaduct and arch bridges smooth glossy containers (teapot, soap dispenser, whiskey jug), plus dark coated dogs",
+"D": "a white smooth rounded body, against radial or hard-edged metallic form giant panda face, black stork, piggy bank, toaster, soccer ball, Shih-Tzu, Maltese dome, rickshaw wheel, car wheel, cannon, green snake, Siamese cat: spoked or tubular dark-and-light structure",
+"E": "fluffy curly bushy head against a hard radial metallic form poodles, spaniels, Dandie Dinmont, soft-coated wheaten, orangutan hair balloon, car wheel, goblet, dome, compass: hard spoke or arc shapes"
+}
+},
+{
+"item": "same046",
+"child": "a rusty orange-red patch on a soft small body, against a black dark mass proboscis monkey, ladybug, red fox, red-breasted merganser, brambling breast, Pomeranian, Rhodesian ridgeback, bagel black or very dark bodies: black cat, black dogs, wombat, hog, water buffalo, three-toed sloth, polecat; it keeps out black",
+"candidates": {
+"A": "a white smooth rounded body, against radial or hard-edged metallic form giant panda face, black stork, piggy bank, toaster, soccer ball, Shih-Tzu, Maltese dome, rickshaw wheel, car wheel, cannon, green snake, Siamese cat: spoked or tubular dark-and-light structure",
+"B": "fluffy curly bushy head against a hard radial metallic form poodles, spaniels, Dandie Dinmont, soft-coated wheaten, orangutan hair balloon, car wheel, goblet, dome, compass: hard spoke or arc shapes",
+"C": "soft rounded small body, against spindly jointed legs and rigid rods babies, puppies, Pekinese, Pomeranian, poodle, swing, cradle, dishwasher, wine glass tabby, corkscrew, remote control, tripod, tick, spiders, Crock Pot, solar dish",
+"D": "a smooth, soft-eared dog head, against a radial symmetric or pointed form floppy-eared dogs with a plain face (retrievers, beagle, redbone, foxhound), at the head radial or domed symmetry (umbrella ribs, dome, electric fan, vault) and pointed fox or terrier faces",
+"E": "a small bright compact body held apart from a branching or busy ground goldfinch, chickadee, white stork, ice bear, kite, Samoyed on grass cats, tabby, lynx, Welsh springer and Blenheim spaniels: striped or two-tone patches"
+}
+},
+{
+"item": "same047",
+"child": "a long cloth or fur mass hanging straight down from a top edge, against hard, compact, wire-edged or glossy things gowns, abaya, cloak, poncho, academic gown, overskirt, Afghan hound ears, poodle, green lizard clinging to a trunk wire-haired terriers, Boston bull, mouse, hand-held phone, iPod, hair slide: small hard or wiry compact things; it keeps out bristly or boxy",
+"candidates": {
+"A": "thin straight pointers on a plain round face analog and wall clocks, stopwatch, compass, barometer dial; drawn clock hands on a white disc fire it at 0.42, a bare disc 0.05 vehicles and pens (fire engine, police van, fountain pen, water buffalo): thick coloured bulk",
+"B": "a thin green or grey elongated body pressed along a branch or trunk green anole, chameleon, iguana, agama, leafhopper, frilled lizard radial-spoke objects: bolo tie, milk can, electric fan, car wheel, umbrella, rickshaw wheel; also wine glass",
+"C": "a harnessed animal pulling a wheeled thing horse cart, oxcart, bicycle-built-for-two, tricycle, jinrikisha, sorrel horse, Model T small plain-bodied and rounded things: toy terrier, mink, mobile phone, toaster, meerkat",
+"D": "a small bright compact body held apart from a branching or busy ground goldfinch, chickadee, white stork, ice bear, kite, Samoyed on grass cats, tabby, lynx, Welsh springer and Blenheim spaniels: striped or two-tone patches",
+"E": "long hanging fringe or an arch of repeated thin elements, seen on a quiet background dogs with long fringed ears (Bernese, Sussex, silky, Shih-Tzu), viaduct and arch bridges smooth glossy containers (teapot, soap dispenser, whiskey jug), plus dark coated dogs"
+}
+},
+{
+"item": "same048",
+"child": "a long tapering pointed muzzle, against a short flat face red wolf, dhole, timber wolf, borzoi, greyhound, whippet, malinois, dingo, brown bear, hyena; the heat is on the snout short or pushed-in faces: Boston bull, affenpinscher, Pekinese, Shih-Tzu, Japanese spaniel, hamster, guinea pig, French bulldog",
+"candidates": {
+"A": "A symmetric pair of dark rounded shapes joined by a bridge (lenses, cups, headlights, visor), against thin-legged waders. Brassiere, sunglasses, goggles, crash helmet visor, headlights, grille, orange pair, rain barrels, mask, bolo tie. Heat on the bridge between the pair. Waders and other thin-legged birds: dowitcher, goose, bulbul, redshank; harvestman, bicycle, screw, stupa.",
+"B": "The tip of a thin forward point on a body: a bird bill, or the round top of a thin pole (water tower, bell tower), against fluffy light dogs. Redshank, goose, little blue heron, limpkin, hummingbird, ostrich, albatross; also water tower, bell cote, bell tower, parking meter. Heat on the bill tip or the bulb at the top of the pole. Light fluffy dogs and smiling people: Tibetan terrier, golden retriever, Scottish deerhound, tricycle, tobacco shop, potter's wheel, thresher.",
+"C": "A slim, glossy, boldly coloured body or limb (a thin animal or tool with strong contrast) against a thick, fluffy, round body. Fire salamander, green snake, ringneck snake, tiger beetle, magpie, newt, redshank, oystercatcher, tripod leg, oboe, tiger shark, assault rifle. Heat on the thin glossy part. Large soft or flowing shapes: Afghan hound, peacock, howler monkey, wire-haired fox terrier in a tub, mobile home, unicycle, obelisk, dogsled, grasshopper.",
+"D": "Upright muzzle that projects from an animal head seen from the side, against a frontal or flat face. Dogs of every breed with a long muzzle (red wolf, Irish setter, borzoi, whippet, Cardigan); heat on the snout. Cat faces (tabby, schipperke), stork, screw, espresso cup, Ibizan hound lying: round flat faces or thin vertical things.",
+"E": "A dark coat with tan markings, as in [node] but a sharper version for smaller dogs and for birds with dark backs. Toy terrier, standard schnauzer, German shepherd, Cardigan, bluetick, Walker hound, Rottweiler, brambling, wallaby, basset, silky terrier. Not read (deep image not opened): colour is the key, gray keeps 0.41, invert 0.16."
+}
+},
+{
+"item": "same049",
+"child": "warm bare red-brown skin or short smooth chestnut coat, against black-and-white high contrast Irish setter, redbone, sorrel horse, Rhodesian ridgeback, dhole, bikini and swim trunk skin, volleyball players, orangutan, butcher meat black and white contrast objects: ice bear, analog clock, tabby face, toucan, dumbbell, Shetland sheepdog, wine bottle, collie",
+"candidates": {
+"A": "a hound's hanging ear and cheek, seen from the side bluetick, English setter, beagle, clumber, redbone, German pointer, Entlebucher; heat on the ear/cheek weasel, hen, golf ball, Airedale, hamster, otter, Persian cat: small round or wiry heads",
+"B": "many thin parallel ribs or keys repeated in a row, against a smooth lone body typewriter keys, theater curtain folds, necklace chain, bolo tie, suspension bridge cables, vacuum brush, hammer rack, panpipe, chickadee on pebbles lean smooth single-bodied dogs and glass: Ibizan hound, dingo, goblet, bottle, dome",
+"C": "a long soft wavy ear or fringe hanging down, against an upright pointed ear Blenheim and Japanese spaniels, Welsh springer, cocker, golden retriever, wig, curly hair, mittens; heat on the ear upright pointed ears and tawny faces: groenendael, Norfolk terrier, dingo, kit fox, dhole, wallaby, lion",
+"D": "a white or pale soft coat, against warm reddish-brown fur white poodle, Samoyed, goose, white stork, cockatoo, Old English sheepdog, guinea pig, kuvasz, plush toy tawny, tiger, red fox, dhole, bloodhound, Irish setter, Pekinese: warm orange-brown fur; and an orange-and-black salamander",
+"E": "bare warm skin tone or tan coat swimming trunk, bikini, volleyball, butcher shop, basset, proboscis monkey, bloodhound, Rhodesian ridgeback; heat on skin muzzle, dial telephone, ladle, compass, bee, spider, minibus, lawn mower: metal or white objects"
+}
+},
+{
+"item": "same050",
+"child": "smooth, plain-surfaced man-made thing (one flat colour, no fine detail) versus small leggy or hairy-textured animals whistle, sleeping bag, scale, bath towel, mortar, safe: plastic, cloth or metal with big smooth faces; mosquito net harvestman, spiders, beetles, snail, wire-haired dog: thin legs and fine hair on a pale ground. It keeps fine-detail small bodies out",
+"candidates": {
+"A": "white or pale body with dark patches on contrasting ground, versus uniform rufous brown Maltese dog on lap, ptarmigan, dalmatian, Cardigan, miniature schnauzer, kuvasz, Norwegian elkhound, digital clock redbone, miniature pinscher, Ibizan hound, Blenheim spaniel, buckeye, hamster, tiger: warm reddish brown",
+"B": "a field of small separate dark dots on a lighter ground cassette player and remote control (button grids), dalmatian, hyena, leopard, cheetah, German shepherd in muzzle, joystick, custard apple analog clock, church, umbrella, Siamese cat, digital clock, union jack shield, beach wagon: radial dials, plain solids",
+"C": "a big uniformly coloured smooth face (plastic, cloth, metal) with no radial or dial structure whistle, sleeping bag, kitchen scale, bath towel, mortar, safe, mosquito net, screws, sandal; nearly one bundle (48 of 64) Doberman, shower cap, cowboy hat, barometer, wall clock, sunglasses, monastery, lace: round/radial or finely detailed things",
+"D": "a smooth plump rounded body half out of its surroundings or held up in front (fish, burrito, seal), versus radial things barracouta held up, killer whale leaping, black-footed ferret held, burrito, sea lion, gar, Maltese dog on lap umbrella, dome, car wheel, Egyptian cat, bolo tie, daisy, wall clock, oscilloscope: radial",
+"E": "a small striped face of a cat, versus a heavy square-jawed dog face and radial things tabby, lynx, Egyptian cat, tiger cat, kit fox, tiger, leopard: striped fur around a round face Saint Bernard, bull mastiff, Rottweiler, American Staffordshire, indigo bunting, car wheel: heavy muzzles and radial"
+}
+},
+{
+"item": "same051",
+"child": "a thin pointed thing sticking out toward or from a face or beak, small and bright against a blurred green ground child with a pink lolly, child eating ice lolly, spoonbill and stork beak, go-kart, apiary, grasshopper, leafhopper, damselfly: a small bright narrow thing in the middle of a soft background junco, green mamba, hair slide, screws, Siamese cat, coral reef: a sharp small object centred on a plain or very busy ground. Not clean",
+"candidates": {
+"A": "a dark rounded dome or smooth convex blob on a lighter ground (helmet, pot lid, hat, head), versus radial dials Dutch oven lid, hatchet head, shield, bearskin hat, swimsuit, hare, albatross, sunglass; weak (peak 1.0) car wheel, wall clock, compass, daisy, barometer, analog clock: radial dials",
+"B": "a big uniformly coloured smooth face (plastic, cloth, metal) with no radial or dial structure whistle, sleeping bag, kitchen scale, bath towel, mortar, safe, mosquito net, screws, sandal; nearly one bundle (48 of 64) Doberman, shower cap, cowboy hat, barometer, wall clock, sunglasses, monastery, lace: round/radial or finely detailed things",
+"C": "a small striped face of a cat, versus a heavy square-jawed dog face and radial things tabby, lynx, Egyptian cat, tiger cat, kit fox, tiger, leopard: striped fur around a round face Saint Bernard, bull mastiff, Rottweiler, American Staffordshire, indigo bunting, car wheel: heavy muzzles and radial",
+"D": "a lattice of crossing thin lines chainlink fence, worm fence, ballplayer behind backstop, cage, cougar behind wire car wheel, washbasin, assault rifle, whiskey jug, analog clock, slow cooker: smooth solids and dials",
+"E": "a field of small separate dark dots on a lighter ground cassette player and remote control (button grids), dalmatian, hyena, leopard, cheetah, German shepherd in muzzle, joystick, custard apple analog clock, church, umbrella, Siamese cat, digital clock, union jack shield, beach wagon: radial dials, plain solids"
+}
+},
+{
+"item": "same052",
+"child": "a slender long-legged body seen in side view on open ground, versus a stocky compact body borzoi, saluki, coyote, malamute, Irish wolfhound, gazelle, llama, oystercatcher, ice bear walking: tall thin legs, narrow head, lone figure on snow, grass or sand Yorkshire and Norfolk terrier, marmot, wombat, hippo, water buffalo, Maltese: low, round, shaggy, compact. It keeps out squat round bodies",
+"candidates": {
+"A": "a big uniformly coloured smooth face (plastic, cloth, metal) with no radial or dial structure whistle, sleeping bag, kitchen scale, bath towel, mortar, safe, mosquito net, screws, sandal; nearly one bundle (48 of 64) Doberman, shower cap, cowboy hat, barometer, wall clock, sunglasses, monastery, lace: round/radial or finely detailed things",
+"B": "a small slender-legged animal or object in profile on plain open ground, versus a radial round disc bloodhound beside a child, redshank, dogsled, impala, oystercatcher, whiptail lizard, coyote, newt; mountain bike rider dome, car wheel, umbrella, compass, digital clock, Norwegian elkhound: radial discs and dials",
+"C": "white or pale body with dark patches on contrasting ground, versus uniform rufous brown Maltese dog on lap, ptarmigan, dalmatian, Cardigan, miniature schnauzer, kuvasz, Norwegian elkhound, digital clock redbone, miniature pinscher, Ibizan hound, Blenheim spaniel, buckeye, hamster, tiger: warm reddish brown",
+"D": "a dark rounded dome or smooth convex blob on a lighter ground (helmet, pot lid, hat, head), versus radial dials Dutch oven lid, hatchet head, shield, bearskin hat, swimsuit, hare, albatross, sunglass; weak (peak 1.0) car wheel, wall clock, compass, daisy, barometer, analog clock: radial dials",
+"E": "a lattice of crossing thin lines chainlink fence, worm fence, ballplayer behind backstop, cage, cougar behind wire car wheel, washbasin, assault rifle, whiskey jug, analog clock, slow cooker: smooth solids and dials"
+}
+},
+{
+"item": "same053",
+"child": "a big, heavy, broad-headed animal mass seen close and face-on or resting, versus thin slender things Rottweiler, cougar, lynx, tabby, English setter, Newfoundland, tusker, pug in a suit, bison: round heavy bodies and faces with eyes; mass not legs toy terrier, Ibizan hound, oystercatcher, cockroach, black and white stork, red panda: thin legs, pointed beaks and snouts. It is the mirror of [node]",
+"candidates": {
+"A": "a white smooth rounded body, against radial or hard-edged metallic form giant panda face, black stork, piggy bank, toaster, soccer ball, Shih-Tzu, Maltese dome, rickshaw wheel, car wheel, cannon, green snake, Siamese cat: spoked or tubular dark-and-light structure",
+"B": "a thin green or grey elongated body pressed along a branch or trunk green anole, chameleon, iguana, agama, leafhopper, frilled lizard radial-spoke objects: bolo tie, milk can, electric fan, car wheel, umbrella, rickshaw wheel; also wine glass",
+"C": "a bundle of fine bristle ends, parallel and uncovered shaving brush, thatch roof, beaver tail, paintbrush, digital 7-segment digits (parallel bars), porcupine pointed upright ears and smooth taut coats: dingo, basenji, toy terrier, German shepherd",
+"D": "soft rounded small body, against spindly jointed legs and rigid rods babies, puppies, Pekinese, Pomeranian, poodle, swing, cradle, dishwasher, wine glass tabby, corkscrew, remote control, tripod, tick, spiders, Crock Pot, solar dish",
+"E": "a smooth, soft-eared dog head, against a radial symmetric or pointed form floppy-eared dogs with a plain face (retrievers, beagle, redbone, foxhound), at the head radial or domed symmetry (umbrella ribs, dome, electric fan, vault) and pointed fox or terrier faces"
+}
+},
+{
+"item": "same054",
+"child": "fine, high-contrast pattern on a small body (stripes, bars, bands, a mask) versus smooth plain surfaces black-footed ferret, indigo bunting, partridge, abacus, upright piano, tick, black widow, solar dish, custard apple: repeated thin bars or textured skin sleeping bag, scale, bath towel, whistle, mortar, sandal, safe: exactly the top photos of [node]",
+"candidates": {
+"A": "a dark rounded dome or smooth convex blob on a lighter ground (helmet, pot lid, hat, head), versus radial dials Dutch oven lid, hatchet head, shield, bearskin hat, swimsuit, hare, albatross, sunglass; weak (peak 1.0) car wheel, wall clock, compass, daisy, barometer, analog clock: radial dials",
+"B": "vivid small body with thin legs or thin repeated weave pattern, versus dark or grey plain things indigo bunting, paintbrush weave, bee eater, black grouse, redshank, fly, ladybug, prairie chicken; weak peak 0.6 Norfolk terrier, keyboard, giant schnauzer, cassette player, apron, pop bottles, digital watch: dark grey and cluttered",
+"C": "a small slender-legged animal or object in profile on plain open ground, versus a radial round disc bloodhound beside a child, redshank, dogsled, impala, oystercatcher, whiptail lizard, coyote, newt; mountain bike rider dome, car wheel, umbrella, compass, digital clock, Norwegian elkhound: radial discs and dials",
+"D": "a small striped face of a cat, versus a heavy square-jawed dog face and radial things tabby, lynx, Egyptian cat, tiger cat, kit fox, tiger, leopard: striped fur around a round face Saint Bernard, bull mastiff, Rottweiler, American Staffordshire, indigo bunting, car wheel: heavy muzzles and radial",
+"E": "a field of small separate dark dots on a lighter ground cassette player and remote control (button grids), dalmatian, hyena, leopard, cheetah, German shepherd in muzzle, joystick, custard apple analog clock, church, umbrella, Siamese cat, digital clock, union jack shield, beach wagon: radial dials, plain solids"
+}
+},
+{
+"item": "same055",
+"child": "a diamond lattice of crossing thin lines (a mesh) between the camera and the subject chainlink fence at 100% in all 8 top photos; padlock and chain, worm fence, cage with animals behind, ballplayer behind a backstop table lamp, scuba diver, barometer, hairless dog, crutch, harmonica: smooth single bodies and dials, no crossing lines",
+"candidates": {
+"A": "a small slender-legged animal or object in profile on plain open ground, versus a radial round disc bloodhound beside a child, redshank, dogsled, impala, oystercatcher, whiptail lizard, coyote, newt; mountain bike rider dome, car wheel, umbrella, compass, digital clock, Norwegian elkhound: radial discs and dials",
+"B": "vivid small body with thin legs or thin repeated weave pattern, versus dark or grey plain things indigo bunting, paintbrush weave, bee eater, black grouse, redshank, fly, ladybug, prairie chicken; weak peak 0.6 Norfolk terrier, keyboard, giant schnauzer, cassette player, apron, pop bottles, digital watch: dark grey and cluttered",
+"C": "a big uniformly coloured smooth face (plastic, cloth, metal) with no radial or dial structure whistle, sleeping bag, kitchen scale, bath towel, mortar, safe, mosquito net, screws, sandal; nearly one bundle (48 of 64) Doberman, shower cap, cowboy hat, barometer, wall clock, sunglasses, monastery, lace: round/radial or finely detailed things",
+"D": "a lattice of crossing thin lines chainlink fence, worm fence, ballplayer behind backstop, cage, cougar behind wire car wheel, washbasin, assault rifle, whiskey jug, analog clock, slow cooker: smooth solids and dials",
+"E": "a field of small separate dark dots on a lighter ground cassette player and remote control (button grids), dalmatian, hyena, leopard, cheetah, German shepherd in muzzle, joystick, custard apple analog clock, church, umbrella, Siamese cat, digital clock, union jack shield, beach wagon: radial dials, plain solids"
+}
+},
+{
+"item": "same056",
+"child": "a coat or surface made of many separate dark spots on a lighter ground, versus a plain single-colour surface German short-haired pointer, dalmatian, Great Dane (merle), English setter, bluetick, snow leopard, leopard, horned viper, sidewinder, custard apple coil, Rhodesian ridgeback, Chesapeake Bay, vizsla, eggnog, ice bear: smooth plain brown or cream",
+"candidates": {
+"A": "a smooth plump rounded body half out of its surroundings or held up in front (fish, burrito, seal), versus radial things barracouta held up, killer whale leaping, black-footed ferret held, burrito, sea lion, gar, Maltese dog on lap umbrella, dome, car wheel, Egyptian cat, bolo tie, daisy, wall clock, oscilloscope: radial",
+"B": "a field of small separate dark dots on a lighter ground cassette player and remote control (button grids), dalmatian, hyena, leopard, cheetah, German shepherd in muzzle, joystick, custard apple analog clock, church, umbrella, Siamese cat, digital clock, union jack shield, beach wagon: radial dials, plain solids",
+"C": "white or pale body with dark patches on contrasting ground, versus uniform rufous brown Maltese dog on lap, ptarmigan, dalmatian, Cardigan, miniature schnauzer, kuvasz, Norwegian elkhound, digital clock redbone, miniature pinscher, Ibizan hound, Blenheim spaniel, buckeye, hamster, tiger: warm reddish brown",
+"D": "vivid small body with thin legs or thin repeated weave pattern, versus dark or grey plain things indigo bunting, paintbrush weave, bee eater, black grouse, redshank, fly, ladybug, prairie chicken; weak peak 0.6 Norfolk terrier, keyboard, giant schnauzer, cassette player, apron, pop bottles, digital watch: dark grey and cluttered",
+"E": "a small striped face of a cat, versus a heavy square-jawed dog face and radial things tabby, lynx, Egyptian cat, tiger cat, kit fox, tiger, leopard: striped fur around a round face Saint Bernard, bull mastiff, Rottweiler, American Staffordshire, indigo bunting, car wheel: heavy muzzles and radial"
+}
+},
+{
+"item": "same057",
+"child": "a bright pale (white or lit) object against a dark or contrasting ground, versus warm brown earthy bodies red-glow digital clock digits, white shaggy dogs (Samoyed, kuvasz, Eskimo dog), scale dial, barometer, digital watch, snow leopard face wood rabbit, dung beetle, dumbbell, cassette, Airedale, Norfolk terrier, brown vase, partridge: brown earth-coloured things",
+"candidates": {
+"A": "a dark rounded dome or smooth convex blob on a lighter ground (helmet, pot lid, hat, head), versus radial dials Dutch oven lid, hatchet head, shield, bearskin hat, swimsuit, hare, albatross, sunglass; weak (peak 1.0) car wheel, wall clock, compass, daisy, barometer, analog clock: radial dials",
+"B": "a big uniformly coloured smooth face (plastic, cloth, metal) with no radial or dial structure whistle, sleeping bag, kitchen scale, bath towel, mortar, safe, mosquito net, screws, sandal; nearly one bundle (48 of 64) Doberman, shower cap, cowboy hat, barometer, wall clock, sunglasses, monastery, lace: round/radial or finely detailed things",
+"C": "vivid small body with thin legs or thin repeated weave pattern, versus dark or grey plain things indigo bunting, paintbrush weave, bee eater, black grouse, redshank, fly, ladybug, prairie chicken; weak peak 0.6 Norfolk terrier, keyboard, giant schnauzer, cassette player, apron, pop bottles, digital watch: dark grey and cluttered",
+"D": "a small slender-legged animal or object in profile on plain open ground, versus a radial round disc bloodhound beside a child, redshank, dogsled, impala, oystercatcher, whiptail lizard, coyote, newt; mountain bike rider dome, car wheel, umbrella, compass, digital clock, Norwegian elkhound: radial discs and dials",
+"E": "white or pale body with dark patches on contrasting ground, versus uniform rufous brown Maltese dog on lap, ptarmigan, dalmatian, Cardigan, miniature schnauzer, kuvasz, Norwegian elkhound, digital clock redbone, miniature pinscher, Ibizan hound, Blenheim spaniel, buckeye, hamster, tiger: warm reddish brown"
+}
+},
+{
+"item": "same058",
+"child": "a thin rigid open frame of straight struts with air between them (a skeleton of rods), versus smooth solid bodies warplane in flight, throne chair, park bench, wheelbarrow, shopping cart, jinrikisha, space heater grille, abacus, cannon wheels spatula, egret, gazelle, hartebeest, whippet, miniature pinscher, perfume, loudspeaker: smooth curved slim bodies and glossy solids",
+"candidates": {
+"A": "a vessel body with a loop handle on its side pitcher, cup, coffeepot, mug, teapot, cocktail shaker with cup (probe: handle 0.28, no handle 0.01) radial spokes and studs seen face-on: bolo tie, car wheel, umbrella, saltshaker, jinrikisha wheel",
+"B": "a smooth dark body in water or on bare ground sharks, stingray, loggerhead, grey whale, spiders, zebra unread",
+"C": "a seat or chair standing by itself folding chair, swing bench, jinrikisha, barber chair, park bench, patio, cassette radial spokes and furry faces: umbrella, dome, black widow, sunglasses, cougar",
+"D": "a slender pointed head on a plain background borzoi, Saluki, whippet, juncos, ouzel, kite, oystercatcher unread",
+"E": "a thin jet of bright spray rising from below fireboat spray, geyser, fountains lit at night, a city with a fountain jet unread dark ground animals: hyena, tiger cat, gas pump, digital watch"
+}
+},
+{
+"item": "same059",
+"child": "one big smooth rounded dark bulk rising from a flat plane (water, ground), versus small thin pointed things grey whale, tusker, hippo, leatherback turtle, sea lion, Indian elephant, black bear: wrinkled grey-brown hulls, whales breaching standard schnauzer, European gallinule, pencil sharpener, reel, vulture, wolf spider, airliner, violin: thin or small or sharp",
+"candidates": {
+"A": "vivid small body with thin legs or thin repeated weave pattern, versus dark or grey plain things indigo bunting, paintbrush weave, bee eater, black grouse, redshank, fly, ladybug, prairie chicken; weak peak 0.6 Norfolk terrier, keyboard, giant schnauzer, cassette player, apron, pop bottles, digital watch: dark grey and cluttered",
+"B": "a small striped face of a cat, versus a heavy square-jawed dog face and radial things tabby, lynx, Egyptian cat, tiger cat, kit fox, tiger, leopard: striped fur around a round face Saint Bernard, bull mastiff, Rottweiler, American Staffordshire, indigo bunting, car wheel: heavy muzzles and radial",
+"C": "a smooth plump rounded body half out of its surroundings or held up in front (fish, burrito, seal), versus radial things barracouta held up, killer whale leaping, black-footed ferret held, burrito, sea lion, gar, Maltese dog on lap umbrella, dome, car wheel, Egyptian cat, bolo tie, daisy, wall clock, oscilloscope: radial",
+"D": "a big uniformly coloured smooth face (plastic, cloth, metal) with no radial or dial structure whistle, sleeping bag, kitchen scale, bath towel, mortar, safe, mosquito net, screws, sandal; nearly one bundle (48 of 64) Doberman, shower cap, cowboy hat, barometer, wall clock, sunglasses, monastery, lace: round/radial or finely detailed things",
+"E": "a field of small separate dark dots on a lighter ground cassette player and remote control (button grids), dalmatian, hyena, leopard, cheetah, German shepherd in muzzle, joystick, custard apple analog clock, church, umbrella, Siamese cat, digital clock, union jack shield, beach wagon: radial dials, plain solids"
+}
+},
+{
+"item": "same060",
+"child": "a big uniformly coloured smooth face (plastic, cloth, metal) with no radial or dial structure whistle, sleeping bag, kitchen scale, bath towel, mortar, safe, mosquito net, screws, sandal; nearly one bundle (48 of 64) Doberman, shower cap, cowboy hat, barometer, wall clock, sunglasses, monastery, lace: round/radial or finely detailed things",
+"candidates": {
+"A": "a sturdy standing animal seen whole from the side, feet on the ground (heat is on legs and feet), versus symmetrical upright cylinders and fine fur faces Greater Swiss, beagle, Walker hound, Labrador, dingo, Tibetan mastiff, horse cart, wire-haired fox terrier: full-body side view Norfolk terrier, saltshaker, pill bottle, car wheel, table lamp, plunger, cup, tick: tall symmetric bottles and radial items",
+"B": "a dog head in side view with drooping ears (heat is on the ear), versus fluffy upright-eared or small pointed faces beagle, redbone, Appenzeller, kuvasz, Labrador, Weimaraner, bloodhound, Rhodesian ridgeback, Walker hound lesser panda, groenendael, Persian cat, papillon, house finch, Lhasa, Yorkshire terrier, keeshond: upright ears and fluffy rounded faces",
+"C": "a big plain-coloured face of an object versus small repeated buttons and mechanical detail whistle, safe, apron, mortar, carton, tray, mosquito net, nail, screws, sleeping bag scale with keypad, combination lock, phone keypad, typewriter keys, cannon, reel, magnetic compass, Border collie face: grids of small buttons or fine mechanism. It keeps out small-part detail",
+"D": "thin straight rods or poles standing in a scene (a rack of wires, a pole, a horn) cat in dishwasher rack, French horn, sax, swab, mountain bikers, zebra, dalmatian, redshank, solar dish, damselfly, crane German shepherd on green, matchstick heart, beacon, kite, albatross, pinwheel, ladle: solid shapes or radial arrangements",
+"E": "a small round furry face with a pale muzzle and forward nose, versus long drooping-eared dogs black-footed ferret, mink, weasel, tabby, grey fox, hamster, guinea pig, porcupine, kit fox Welsh springer, Tibetan mastiff, Appenzeller, bull mastiff, Saint Bernard, bluetick, basset: big drooping-eared dogs. Its negative pole is [node]'s positive"
+}
+},
+{
+"item": "same061",
+"child": "a small slender-legged animal or object in profile on plain open ground, versus a radial round disc bloodhound beside a child, redshank, dogsled, impala, oystercatcher, whiptail lizard, coyote, newt; mountain bike rider dome, car wheel, umbrella, compass, digital clock, Norwegian elkhound: radial discs and dials",
+"candidates": {
+"A": "a big plain-coloured face of an object versus small repeated buttons and mechanical detail whistle, safe, apron, mortar, carton, tray, mosquito net, nail, screws, sleeping bag scale with keypad, combination lock, phone keypad, typewriter keys, cannon, reel, magnetic compass, Border collie face: grids of small buttons or fine mechanism. It keeps out small-part detail",
+"B": "thin straight rods or poles standing in a scene (a rack of wires, a pole, a horn) cat in dishwasher rack, French horn, sax, swab, mountain bikers, zebra, dalmatian, redshank, solar dish, damselfly, crane German shepherd on green, matchstick heart, beacon, kite, albatross, pinwheel, ladle: solid shapes or radial arrangements",
+"C": "a small round furry face with a pale muzzle and forward nose, versus long drooping-eared dogs black-footed ferret, mink, weasel, tabby, grey fox, hamster, guinea pig, porcupine, kit fox Welsh springer, Tibetan mastiff, Appenzeller, bull mastiff, Saint Bernard, bluetick, basset: big drooping-eared dogs. Its negative pole is [node]'s positive",
+"D": "a thin curved line or chain of loops against a plain ground chain links, hummingbird, thunder snake, toucan with wire, necklace, corkscrew spiral, swing with chains, padlock chain, chainlink fence West Highland and Tibetan terrier faces, combination lock keypad, cassette, Siamese cat, car wheel: fluffy faces and dials",
+"E": "a sturdy standing animal seen whole from the side, feet on the ground (heat is on legs and feet), versus symmetrical upright cylinders and fine fur faces Greater Swiss, beagle, Walker hound, Labrador, dingo, Tibetan mastiff, horse cart, wire-haired fox terrier: full-body side view Norfolk terrier, saltshaker, pill bottle, car wheel, table lamp, plunger, cup, tick: tall symmetric bottles and radial items"
+}
+},
+{
+"item": "same062",
+"child": "a small striped face of a cat, versus a heavy square-jawed dog face and radial things tabby, lynx, Egyptian cat, tiger cat, kit fox, tiger, leopard: striped fur around a round face Saint Bernard, bull mastiff, Rottweiler, American Staffordshire, indigo bunting, car wheel: heavy muzzles and radial",
+"candidates": {
+"A": "a small round furry face with a pale muzzle and forward nose, versus long drooping-eared dogs black-footed ferret, mink, weasel, tabby, grey fox, hamster, guinea pig, porcupine, kit fox Welsh springer, Tibetan mastiff, Appenzeller, bull mastiff, Saint Bernard, bluetick, basset: big drooping-eared dogs. Its negative pole is [node]'s positive",
+"B": "a sturdy standing animal seen whole from the side, feet on the ground (heat is on legs and feet), versus symmetrical upright cylinders and fine fur faces Greater Swiss, beagle, Walker hound, Labrador, dingo, Tibetan mastiff, horse cart, wire-haired fox terrier: full-body side view Norfolk terrier, saltshaker, pill bottle, car wheel, table lamp, plunger, cup, tick: tall symmetric bottles and radial items",
+"C": "separate dark spots across a coat or surface, versus a plain shaggy face English setter, German short-haired pointer, dalmatian, Great Dane merle, hyena, leopard, banded gecko, digital clock, analog gauges Yorkshire and Norfolk terrier faces, daisy, golden retriever, collie, red-breasted merganser: smooth or fluffy single-tone close faces",
+"D": "thin straight rods or poles standing in a scene (a rack of wires, a pole, a horn) cat in dishwasher rack, French horn, sax, swab, mountain bikers, zebra, dalmatian, redshank, solar dish, damselfly, crane German shepherd on green, matchstick heart, beacon, kite, albatross, pinwheel, ladle: solid shapes or radial arrangements",
+"E": "a thin curved line or chain of loops against a plain ground chain links, hummingbird, thunder snake, toucan with wire, necklace, corkscrew spiral, swing with chains, padlock chain, chainlink fence West Highland and Tibetan terrier faces, combination lock keypad, cassette, Siamese cat, car wheel: fluffy faces and dials"
+}
+},
+{
+"item": "same063",
+"child": "a lattice of crossing thin lines chainlink fence, worm fence, ballplayer behind backstop, cage, cougar behind wire car wheel, washbasin, assault rifle, whiskey jug, analog clock, slow cooker: smooth solids and dials",
+"candidates": {
+"A": "a thin curved line or chain of loops against a plain ground chain links, hummingbird, thunder snake, toucan with wire, necklace, corkscrew spiral, swing with chains, padlock chain, chainlink fence West Highland and Tibetan terrier faces, combination lock keypad, cassette, Siamese cat, car wheel: fluffy faces and dials",
+"B": "a small round furry face with a pale muzzle and forward nose, versus long drooping-eared dogs black-footed ferret, mink, weasel, tabby, grey fox, hamster, guinea pig, porcupine, kit fox Welsh springer, Tibetan mastiff, Appenzeller, bull mastiff, Saint Bernard, bluetick, basset: big drooping-eared dogs. Its negative pole is [node]'s positive",
+"C": "a dog head in side view with drooping ears (heat is on the ear), versus fluffy upright-eared or small pointed faces beagle, redbone, Appenzeller, kuvasz, Labrador, Weimaraner, bloodhound, Rhodesian ridgeback, Walker hound lesser panda, groenendael, Persian cat, papillon, house finch, Lhasa, Yorkshire terrier, keeshond: upright ears and fluffy rounded faces",
+"D": "thin straight rods or poles standing in a scene (a rack of wires, a pole, a horn) cat in dishwasher rack, French horn, sax, swab, mountain bikers, zebra, dalmatian, redshank, solar dish, damselfly, crane German shepherd on green, matchstick heart, beacon, kite, albatross, pinwheel, ladle: solid shapes or radial arrangements",
+"E": "a sturdy standing animal seen whole from the side, feet on the ground (heat is on legs and feet), versus symmetrical upright cylinders and fine fur faces Greater Swiss, beagle, Walker hound, Labrador, dingo, Tibetan mastiff, horse cart, wire-haired fox terrier: full-body side view Norfolk terrier, saltshaker, pill bottle, car wheel, table lamp, plunger, cup, tick: tall symmetric bottles and radial items"
+}
+},
+{
+"item": "same064",
+"child": "a field of small separate dark dots on a lighter ground cassette player and remote control (button grids), dalmatian, hyena, leopard, cheetah, German shepherd in muzzle, joystick, custard apple analog clock, church, umbrella, Siamese cat, digital clock, union jack shield, beach wagon: radial dials, plain solids",
+"candidates": {
+"A": "a dog head in side view with drooping ears (heat is on the ear), versus fluffy upright-eared or small pointed faces beagle, redbone, Appenzeller, kuvasz, Labrador, Weimaraner, bloodhound, Rhodesian ridgeback, Walker hound lesser panda, groenendael, Persian cat, papillon, house finch, Lhasa, Yorkshire terrier, keeshond: upright ears and fluffy rounded faces",
+"B": "separate dark spots across a coat or surface, versus a plain shaggy face English setter, German short-haired pointer, dalmatian, Great Dane merle, hyena, leopard, banded gecko, digital clock, analog gauges Yorkshire and Norfolk terrier faces, daisy, golden retriever, collie, red-breasted merganser: smooth or fluffy single-tone close faces",
+"C": "thin straight rods or poles standing in a scene (a rack of wires, a pole, a horn) cat in dishwasher rack, French horn, sax, swab, mountain bikers, zebra, dalmatian, redshank, solar dish, damselfly, crane German shepherd on green, matchstick heart, beacon, kite, albatross, pinwheel, ladle: solid shapes or radial arrangements",
+"D": "a big plain-coloured face of an object versus small repeated buttons and mechanical detail whistle, safe, apron, mortar, carton, tray, mosquito net, nail, screws, sleeping bag scale with keypad, combination lock, phone keypad, typewriter keys, cannon, reel, magnetic compass, Border collie face: grids of small buttons or fine mechanism. It keeps out small-part detail",
+"E": "a sturdy standing animal seen whole from the side, feet on the ground (heat is on legs and feet), versus symmetrical upright cylinders and fine fur faces Greater Swiss, beagle, Walker hound, Labrador, dingo, Tibetan mastiff, horse cart, wire-haired fox terrier: full-body side view Norfolk terrier, saltshaker, pill bottle, car wheel, table lamp, plunger, cup, tick: tall symmetric bottles and radial items"
+}
+},
+{
+"item": "same065",
+"child": "a small round furry face with a pale muzzle and forward nose, versus long drooping-eared dogs black-footed ferret, mink, weasel, tabby, grey fox, hamster, guinea pig, porcupine, kit fox Welsh springer, Tibetan mastiff, Appenzeller, bull mastiff, Saint Bernard, bluetick, basset: big drooping-eared dogs. Its negative pole is [node]'s positive",
+"candidates": {
+"A": "A thin dark curved line or ridge lying across a plain surface (a snake coil, a strap, a curved edge), against smooth long pale things. Snakes (Indian cobra, garter, thunder snake, sea snake), pool table, cuirass, notebook edge, gas pump handle, harp, camel, cheetah, snorkel, bra strap, mask. Heat on the dark curve. Smooth long pale or segmented items: corkscrew, cocker spaniel, ear of corn, cucumber, pan pipe, disk brake, chocolate sauce, goblet.",
+"B": "Small figures scattered on open ground (a flock, a herd, a rider), against a close frontal animal face. Flocks of dowitchers, penguins, hens, cock, dogsled team, camel rider, yurt with people, kuvasz and collie in a field; also pineapple field, banana pile, vulture. Heat on each small figure. Close frontal faces: Pembroke, grey fox, lesser panda, kit fox, dingo, Shetland sheep, white wolf, Maltese, wig.",
+"C": "An animal head with a snout or beak pushed forward, against a human or frontal face. Flat-coated retriever, border collie, otterhound, malamute, coyote; also oystercatcher, jay, bulbul, heron beaks. Heat on the snout or beak. People: tench-holder, boy, suit, graduate, laptop user; also keyboard and candle.",
+"D": "A dark dog with sharply separated tan and white markings, against light fawn or long-coated dogs. Entlebucher, toy terrier, Bernese, Rottweiler, black-and-tan, miniature pinscher, Doberman, Greater Swiss, bluetick, Cardigan; heat on the face markings and chest. Light fawn, red or long-coated dogs: Tibetan mastiff puppy, Shetland sheepdog, dhole, Welsh springer, golden retriever, collie, lesser panda, trimaran, monarch butterfly.",
+"E": "The bill tip of a long-billed bird against a plain, flat ground, against frontal dog faces. European gallinule, redshank, ruddy turnstone, coucal, drake, egret, little blue heron, hummingbird, bee eater, hartebeest horn, robin; heat on the bill. Frontal dog faces: Italian greyhound, Irish setter, Lakeland terrier, basset, Chihuahua; jersey, lab coat, hoopskirt."
+}
+}
+]

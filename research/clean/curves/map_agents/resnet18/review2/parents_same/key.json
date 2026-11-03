@@ -1,0 +1,332 @@
+{
+"same000": {
+"child": "s4b1:32",
+"parent": "s4b1i:317",
+"answer": "D"
+},
+"same001": {
+"child": "s4b1i:317",
+"parent": "s4b0:418",
+"answer": "B"
+},
+"same002": {
+"child": "s4b0:418",
+"parent": "s4b0i:261",
+"answer": "C"
+},
+"same003": {
+"child": "s4b1:400",
+"parent": "s4b1i:408",
+"answer": "B"
+},
+"same004": {
+"child": "s4b1:461",
+"parent": "s4b1i:243",
+"answer": "D"
+},
+"same005": {
+"child": "s4b1:269",
+"parent": "s4b1i:221",
+"answer": "A"
+},
+"same006": {
+"child": "s4b1i:408",
+"parent": "s4b0:266",
+"answer": "A"
+},
+"same007": {
+"child": "s4b1i:243",
+"parent": "s4b0:245",
+"answer": "E"
+},
+"same008": {
+"child": "s4b1:486",
+"parent": "s4b1i:383",
+"answer": "D"
+},
+"same009": {
+"child": "s4b1:329",
+"parent": "s4b1i:500",
+"answer": "E"
+},
+"same010": {
+"child": "s4b1:277",
+"parent": "s4b1i:68",
+"answer": "A"
+},
+"same011": {
+"child": "s4b1:403",
+"parent": "s4b1i:356",
+"answer": "B"
+},
+"same012": {
+"child": "s4b1:367",
+"parent": "s4b1i:153",
+"answer": "A"
+},
+"same013": {
+"child": "s4b1i:68",
+"parent": "s4b0:329",
+"answer": "E"
+},
+"same014": {
+"child": "s4b1i:153",
+"parent": "s4b0:99",
+"answer": "E"
+},
+"same015": {
+"child": "s4b0:237",
+"parent": "s4b0i:507",
+"answer": "E"
+},
+"same016": {
+"child": "s4b0:329",
+"parent": "s4b0i:26",
+"answer": "E"
+},
+"same017": {
+"child": "s4b0:266",
+"parent": "s4b0i:347",
+"answer": "A"
+},
+"same018": {
+"child": "s4b0:245",
+"parent": "s4b0i:507",
+"answer": "C"
+},
+"same019": {
+"child": "s4b0:452",
+"parent": "s4b0i:426",
+"answer": "C"
+},
+"same020": {
+"child": "s4b0:99",
+"parent": "s4b0i:176",
+"answer": "B"
+},
+"same021": {
+"child": "s4b0:173",
+"parent": "s4b0i:347",
+"answer": "E"
+},
+"same022": {
+"child": "s4b1:226",
+"parent": "s4b1i:23",
+"answer": "A"
+},
+"same023": {
+"child": "s4b1:456",
+"parent": "s4b1i:420",
+"answer": "A"
+},
+"same024": {
+"child": "s4b1:175",
+"parent": "s4b1i:110",
+"answer": "B"
+},
+"same025": {
+"child": "s4b1:168",
+"parent": "s4b1i:349",
+"answer": "B"
+},
+"same026": {
+"child": "s4b1:474",
+"parent": "s4b1i:60",
+"answer": "E"
+},
+"same027": {
+"child": "s4b1:56",
+"parent": "s4b1i:146",
+"answer": "C"
+},
+"same028": {
+"child": "s4b1:131",
+"parent": "s4b1i:452",
+"answer": "A"
+},
+"same029": {
+"child": "s4b1:182",
+"parent": "s4b1i:377",
+"answer": "C"
+},
+"same030": {
+"child": "s4b1:391",
+"parent": "s4b1i:73",
+"answer": "A"
+},
+"same031": {
+"child": "s4b1:270",
+"parent": "s4b1i:17",
+"answer": "E"
+},
+"same032": {
+"child": "s4b1i:23",
+"parent": "s4b0:226",
+"answer": "E"
+},
+"same033": {
+"child": "s4b1i:420",
+"parent": "s4b0:456",
+"answer": "C"
+},
+"same034": {
+"child": "s4b1i:110",
+"parent": "s4b0:327",
+"answer": "C"
+},
+"same035": {
+"child": "s4b1i:349",
+"parent": "s4b0:168",
+"answer": "E"
+},
+"same036": {
+"child": "s4b1i:452",
+"parent": "s4b0:79",
+"answer": "B"
+},
+"same037": {
+"child": "s4b1i:377",
+"parent": "s4b0:418",
+"answer": "E"
+},
+"same038": {
+"child": "s4b1i:73",
+"parent": "s4b0:245",
+"answer": "E"
+},
+"same039": {
+"child": "s4b1:242",
+"parent": "s4b1i:49",
+"answer": "A"
+},
+"same040": {
+"child": "s4b1:429",
+"parent": "s4b1i:460",
+"answer": "A"
+},
+"same041": {
+"child": "s4b1:28",
+"parent": "s4b1i:83",
+"answer": "D"
+},
+"same042": {
+"child": "s4b1:31",
+"parent": "s4b1i:406",
+"answer": "A"
+},
+"same043": {
+"child": "s4b1i:406",
+"parent": "s4b0:31",
+"answer": "C"
+},
+"same044": {
+"child": "s4b1:162",
+"parent": "s4b1i:108",
+"answer": "C"
+},
+"same045": {
+"child": "s4b1:467",
+"parent": "s4b1i:265",
+"answer": "A"
+},
+"same046": {
+"child": "s4b1:172",
+"parent": "s4b1i:70",
+"answer": "C"
+},
+"same047": {
+"child": "s4b1:219",
+"parent": "s4b1i:94",
+"answer": "B"
+},
+"same048": {
+"child": "s4b1:418",
+"parent": "s4b0:418",
+"answer": "D"
+},
+"same049": {
+"child": "s4b1:42",
+"parent": "s4b0:42",
+"answer": "E"
+},
+"same050": {
+"child": "s4b1:255",
+"parent": "s4b1i:64",
+"answer": "C"
+},
+"same051": {
+"child": "s4b1:297",
+"parent": "s4b1i:198",
+"answer": "A"
+},
+"same052": {
+"child": "s4b1:9",
+"parent": "s4b1i:47",
+"answer": "B"
+},
+"same053": {
+"child": "s4b1:156",
+"parent": "s4b1i:460",
+"answer": "E"
+},
+"same054": {
+"child": "s4b1:163",
+"parent": "s4b1i:196",
+"answer": "B"
+},
+"same055": {
+"child": "s4b1:393",
+"parent": "s4b1i:393",
+"answer": "D"
+},
+"same056": {
+"child": "s4b1:35",
+"parent": "s4b1i:189",
+"answer": "B"
+},
+"same057": {
+"child": "s4b1:362",
+"parent": "s4b1i:419",
+"answer": "E"
+},
+"same058": {
+"child": "s4b1:431",
+"parent": "s4b1i:452",
+"answer": "C"
+},
+"same059": {
+"child": "s4b1:424",
+"parent": "s4b1i:239",
+"answer": "C"
+},
+"same060": {
+"child": "s4b1i:64",
+"parent": "s4b0:154",
+"answer": "C"
+},
+"same061": {
+"child": "s4b1i:47",
+"parent": "s4b0:9",
+"answer": "E"
+},
+"same062": {
+"child": "s4b1i:58",
+"parent": "s4b0:345",
+"answer": "A"
+},
+"same063": {
+"child": "s4b1i:393",
+"parent": "s4b0:393",
+"answer": "A"
+},
+"same064": {
+"child": "s4b1i:189",
+"parent": "s4b0:35",
+"answer": "B"
+},
+"same065": {
+"child": "s4b0:345",
+"parent": "s4b0i:261",
+"answer": "C"
+}
+}
