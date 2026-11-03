@@ -1,0 +1,2 @@
+stream direction from its neurons {'n50': 109.0, 'inputs': 3073.0, 'signal4': 0.159, 'share4': 0.161, 'signal16': 0.117, 'share16': 0.12, 'signal64': 0.065, 'share64': 0.065}
+neuron from its stream directions {'n50': 156.5, 'inputs': 768.0, 'signal4': 0.799, 'share4': 5.146, 'signal16': 0.595, 'share16': 3.74, 'signal64': 0.267, 'share64': 1.569}

@@ -139,3 +139,43 @@ Reading, said plainly:
 | Position inside the 3 x 3 window, as (channel, offset) inputs, s4 block 1 inner, k = 64 | About .15, no better than channel lists by much. Finer inputs are a harder count, so a large gain would be strong evidence |
 | ConvNeXt-Tiny, last block: a stream direction from its 3072 neurons | k = 64 below .05. A reference only |
 | ConvNeXt-Tiny, last block: a neuron from its 768 stream directions | Inputs for 50% at or above 100 of 768, since the stream has no privileged basis. A reference only |
+
+## Round 2, second check: results (2026-11-03; `one_layer_map.json`, `reference_convnext.json`; 15 random channels per layer; ConvNeXt 30 random, 3000 photos per half; validation crops, not N's training photos)
+
+| Layer | Inputs | For 50% of the effect | Left at k = 4 | k = 16 | k = 64 |
+|---|---|---|---|---|---|
+| s4b1 stream | 513 | 78 | .483 | .156 | .038 |
+| s4b1 inner | 512 | 119 | .733 | .456 | .179 |
+| s4b0 stream | 768 | 131 | .664 | .337 | .126 |
+| s4b0 inner | 256 | 50 | .569 | .238 | .058 |
+| s3b1 stream | 257 | 11 | .066 | .044 | .009 |
+| s3b1 inner | 256 | 49 | .632 | .295 | .047 |
+| s3b0 stream | 384 | 63 | .642 | .305 | .077 |
+| s3b0 inner | 128 | 18 | .359 | .070 | .004 |
+| s2b1 stream | 129 | 3 | .086 | .034 | .002 |
+| s2b1 inner | 128 | 18 | .422 | .122 | .005 |
+| s2b0 stream | 192 | 29 | .457 | .144 | .011 |
+| s2b0 inner | 64 | 8 | .338 | .035 | 0 |
+| s1b1 stream | 65 | 2 | .074 | .006 | 0 |
+| s1b1 inner | 64 | 10 | .331 | .055 | 0 |
+| s1b0 stream | 65 | 3 | .027 | .007 | 0 |
+| s1b0 inner | 64 | 10 | .319 | .030 | 0 |
+| ConvNeXt-Tiny last block: stream direction from its neurons | 3073 | 109 | .159 | .117 | .065 |
+| ConvNeXt-Tiny last block: neuron from its stream directions | 768 | 156 | .799 | .595 | .267 |
+
+"Left" is the share of the change from the mean that stays outside the list, over sealed photos.
+
+| Prediction | Result | Verdict |
+|---|---|---|
+| A stream layer is clearer than the inner layer below it, every stage | Holds at block 1, all stages. At block 0 only at stage 1. Stages 2, 3, 4: the stream is less clear (.144, .305, .337 against .035, .070, .238). A block 0 stream reads the stage below through a 1 x 1 downsample | FAILED at block 0 |
+| Stages 1 to 3 clearer than stage 4 | True layer by layer, except s3b1 inner (.295) against s4b0 inner (.238), where the input counts differ | Mostly held |
+| s4b0 inner less clear than s4b1 inner | .238 against .456, with half as many inputs | FAILED |
+| Position, s4b1 inner, k = 64: about .15 | .496 on (channel, offset) inputs, against .179 on channels. 64 offsets use the weights of about 7 channels, where the channel list leaves about .65. So position gives a modest gain per weight | No large gain, so this suspect is set aside |
+| ConvNeXt: direction from neurons, k = 64 below .05 | .065 | FAILED, narrowly |
+| ConvNeXt: neuron from directions, 50% at 100 or more | 156 | Held |
+
+Reading, said plainly:
+
+1. On this measure, ResNet-18 looks about as dense as ConvNeXt-Tiny, or less. So "76 inputs for half of the effect" does not separate them, and my prediction of 30 was too tight. This is not like for like: ConvNeXt's stream has no privileged basis, it has more units, and it has fewer photos here.
+2. So this measure gives no reason to doubt the tree. It also does not prove the tree. Agents and sealed tests must do that.
+3. The lower stages are much clearer than stage 4 at one layer. The old blind test scored them worst (s1 13%, s2 20%, s3 29%), so that test is the first suspect there.

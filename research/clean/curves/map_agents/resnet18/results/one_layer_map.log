@@ -1,0 +1,20 @@
+s4b1 {'n50': 78.0, 'inputs': 513.0, 'signal4': 0.483, 'share4': 0.485, 'signal16': 0.156, 'share16': 0.155, 'signal64': 0.038, 'share64': 0.038}
+s4b1i {'n50': 119.0, 'inputs': 512.0, 'signal4': 0.733, 'share4': 1.176, 'signal16': 0.456, 'share16': 0.766, 'signal64': 0.179, 'share64': 0.267}
+   by window {'n50': 850.0, 'inputs': 4608.0, 'signal4': 0.899, 'share4': 1.343, 'signal16': 0.757, 'share16': 1.12, 'signal64': 0.496, 'share64': 0.777}
+s4b0 {'n50': 131.0, 'inputs': 768.0, 'signal4': 0.664, 'share4': 0.847, 'signal16': 0.337, 'share16': 0.437, 'signal64': 0.126, 'share64': 0.163}
+s4b0i {'n50': 50.0, 'inputs': 256.0, 'signal4': 0.569, 'share4': 0.825, 'signal16': 0.238, 'share16': 0.35, 'signal64': 0.058, 'share64': 0.08}
+   by window {'n50': 385.0, 'inputs': 2304.0, 'signal4': 0.827, 'share4': 1.24, 'signal16': 0.581, 'share16': 0.876, 'signal64': 0.304, 'share64': 0.446}
+s3b1 {'n50': 11.0, 'inputs': 257.0, 'signal4': 0.066, 'share4': 0.074, 'signal16': 0.044, 'share16': 0.045, 'signal64': 0.009, 'share64': 0.008}
+s3b1i {'n50': 49.0, 'inputs': 256.0, 'signal4': 0.632, 'share4': 0.879, 'signal16': 0.295, 'share16': 0.401, 'signal64': 0.047, 'share64': 0.061}
+   by window {'n50': 385.0, 'inputs': 2304.0, 'signal4': 0.766, 'share4': 1.003, 'signal16': 0.582, 'share16': 0.752, 'signal64': 0.285, 'share64': 0.397}
+s3b0 {'n50': 63.0, 'inputs': 384.0, 'signal4': 0.642, 'share4': 0.607, 'signal16': 0.305, 'share16': 0.331, 'signal64': 0.077, 'share64': 0.074}
+s3b0i {'n50': 18.0, 'inputs': 128.0, 'signal4': 0.359, 'share4': 0.391, 'signal16': 0.07, 'share16': 0.081, 'signal64': 0.004, 'share64': 0.005}
+   by window {'n50': 163.0, 'inputs': 1152.0, 'signal4': 0.722, 'share4': 0.785, 'signal16': 0.405, 'share16': 0.431, 'signal64': 0.099, 'share64': 0.117}
+s2b1 {'n50': 3.0, 'inputs': 129.0, 'signal4': 0.086, 'share4': 0.094, 'signal16': 0.034, 'share16': 0.036, 'signal64': 0.002, 'share64': 0.002}
+s2b1i {'n50': 18.0, 'inputs': 128.0, 'signal4': 0.422, 'share4': 0.496, 'signal16': 0.122, 'share16': 0.147, 'signal64': 0.005, 'share64': 0.006}
+s2b0 {'n50': 29.0, 'inputs': 192.0, 'signal4': 0.457, 'share4': 0.426, 'signal16': 0.144, 'share16': 0.155, 'signal64': 0.011, 'share64': 0.013}
+s2b0i {'n50': 8.0, 'inputs': 64.0, 'signal4': 0.338, 'share4': 0.341, 'signal16': 0.035, 'share16': 0.038, 'signal64': 0.0, 'share64': 0.0}
+s1b1 {'n50': 2.0, 'inputs': 65.0, 'signal4': 0.074, 'share4': 0.059, 'signal16': 0.006, 'share16': 0.005, 'signal64': 0.0, 'share64': 0.0}
+s1b1i {'n50': 10.0, 'inputs': 64.0, 'signal4': 0.331, 'share4': 0.377, 'signal16': 0.055, 'share16': 0.054, 'signal64': 0.0, 'share64': 0.0}
+s1b0 {'n50': 3.0, 'inputs': 65.0, 'signal4': 0.027, 'share4': 0.027, 'signal16': 0.007, 'share16': 0.005, 'signal64': 0.0, 'share64': 0.0}
+s1b0i {'n50': 10.0, 'inputs': 64.0, 'signal4': 0.319, 'share4': 0.368, 'signal16': 0.03, 'share16': 0.034, 'signal64': 0.0, 'share64': 0.0}
