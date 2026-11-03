@@ -3438,7 +3438,7 @@ Why it matters: on a YES instance the loss is of order eta and on a NO instance 
 
 ## 53. Row 3: the essay test of the hard network, and what it says about "clean" (2026-11-02; plan i-need-you-to-tingly-orbit.md; COARSE-THEORY.md B.Q.12; cards 3-37, 3-39)
 
-**Row 3 is NOT closed. Line I5 is not met, and the test showed something larger: the paper's clean numbers do not separate hard tables from clean ones.** I expected the hard network to simply fail. It does fail as built. But the hardness does not need that build.
+**Row 3 is NOT closed. Line I5 is not met, and the test showed something larger: the paper's clean numbers, restricted to the photo list, do not separate hard tables from clean ones (see the correction at the end of this section).** I expected the hard network to simply fail. It does fail as built. But the hardness does not need that build.
 
 | Word | Meaning here |
 |---|---|
@@ -3457,7 +3457,7 @@ reading:   a lookup table with a small toggle. Nothing is a fold, a judgment or 
 
 Why it matters: this is what I expected, and by itself it would have said the hard family is not clean.
 
-**Step 2. But the same hard table can be carried cleanly by the paper's numbers (Proposition TQ34, on small graphs).**
+**Step 2. But a table of the same hard family can be carried cleanly by the paper's numbers, on three small instances.**
 
 ```
 build E:   a family gate  ->  two shared poles  ->  a coarse reader  ->  class judgments
@@ -3493,3 +3493,14 @@ Why it matters: the IMPOSSIBLE side is further from real networks than the headl
 | checks | Part C. `rounds/round4/i5/` |
 | your calls | card 3-39 (recommend: clean means more than D42 and D45). Card 3-38 (recommend: keep I2 strict). I continue under both recommendations unless you say otherwise |
 | next, my view | (a) referee TQ33 and the per-area text of TQ31. (b) Define "every link has a shared cause" and measure it on the read, with held-out photos. Screen it before any proof, and it must leave TQ30's, TQ31's and TQ33's graphs out. (c) Settle gates on enough rows, since P4 reads the box |
+
+**Corrected the same day, after the referee's fourth round. I told you these wrongly in chat.**
+
+| I said | True |
+|---|---|
+| every clean error of D42 and D45 is exactly 0 on the hand-built network | only with D42 restricted to the photo list. D42 as written integrates over the whole input box, and there its error is above 0. It also holds on three small instances, after two hand adjustments, in floating point |
+| "an equally hard table" | those three instances are not hard: C4 has U = 0, and C5 has U = 1. Hardness is about the family, as n grows |
+| Proposition TQ34 | withdrawn. It is a Part C row now |
+| TQ33's hardness | not proved as first written: a constant was not bounded. Repaired with per-area weights, Definition DQ25. The repaired text has my check only |
+
+Also fixed: constants in TQ31, and DQ24's reason. TQ31's core and K hold, now with four readers on the argument. Step 3's reading is unchanged: D42's V rewards not reusing anything, and the agent reads this build as clean inside a family, and not across families.
