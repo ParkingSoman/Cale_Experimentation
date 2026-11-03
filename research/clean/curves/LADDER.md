@@ -3515,3 +3515,90 @@ Why it matters: the IMPOSSIBLE side is further from real networks than the headl
 Also fixed: constants in TQ31, and DQ24's reason. TQ31's core and K hold, now with four readers on the argument. Step 3's reading is unchanged: D42's V rewards not reusing anything, and the agent reads this build as clean inside a family, and not across families.
 
 **A check on my own next step.** LADDER 53 Step 3 suggested the claim "every link in the table has a shared cause". As stated it does not separate: build G has one shared unit per edge and carries the same hard table. So a claim must also limit how many causes there are against how many links, so that each cause explains many links. I have no definition of this yet. Whatever it is, it gets a screen on the read, with held-out photos, before any proof.
+
+## 54. Row 3: the new bar, tested on two real networks (2026-11-03; plan pasted-content-id-c43d-okay-we-ve-serialized-possum.md; COARSE-THEORY.md B.Q.13, C.R5; cards 3-40, 3-41)
+
+**Row 3 is NOT closed. The bar is now yours: "given this particular goal the developer has, are we optimizing KL". No method passes every line on both networks.** Your idea about goals held up, in a sharper form than I expected. The closed-form rule does not yet earn the new label. Every number here is an upper value, on sealed photos.
+
+| Word | Meaning here |
+|---|---|
+| goal | weights on the input photos. "Don't care" is weight 0 |
+| read | k numbers, each a linear function of the last block's z, then one linear map to the 1000 logits |
+| the rule | a span in closed form, then a convex fit of the write (Definition DG2, Lemma TG1) |
+| logit start | top directions of N's logits, with a least-squares read, then training stopped on validation photos |
+
+**Step 1. What the bar changed.** Trunk T5 became T6, with your approval. At a squeeze there are three lines.
+
+```
+(a)  on new photos from the goal:   KL  <=  1.3 x the best trained read
+(b)  both sizes together cost less than training one level
+(c)  one fixed calculation: same inputs, same network
+```
+
+Why it matters: this removes the proof that nothing is better, which took four rounds and did not arrive. A referee caught one claim of mine, and I withdrew it: "the hardness proofs limit only the old bar" was not proved. What is true is Proposition TG4: they do not stop a rule from passing, and a pass on those tables carries no promise of being near the least.
+
+**Step 2. A goal only helps when it is a family.** Best trained read, ResNet-18:
+
+```
+                              k = 14     k = 38
+all 1000 classes               1.508      .656
+123 random classes             1.245      .628
+dogs and cats, 123 classes      .402      .149
+```
+
+ResNet-50 shows the same order: 1.624, 1.290, .400 at k = 14, and .559, .544, .124 at k = 38.
+
+Why it matters: the number of classes alone buys little. A group of related classes buys a lot. This fits the essay's picture of real networks. I have not ruled out that dog photos are easier for any read, apart from the goal.
+
+**Step 3. The rule against the lines.**
+
+| Line | ResNet-18 | ResNet-50 |
+|---|---|---|
+| (a) at most 1.3 | passes on all 12 runs. Ratios .94 to 1.30. All classes at k = 14 passes by .001 | fails on 6 of 12. Ratios 1.02 to 1.74. Dogs and cats pass (1.02, 1.04) |
+| (b) cost | fails on 5 of 6 goals | fails on all 6 |
+| (c) same numbers | passes, on 2 goals tested | passes, on 2 goals tested |
+| dogs and cats beat random classes | yes, by 3.8 and 5.1 times | yes, by 5.2 and 5.1 times |
+
+```
+why (a) may fail on ResNet-50, not proved:
+   12 fit photos per class, z has 2048 numbers
+   a 123-class goal has 1476 rows, fewer than 2048
+   whitening then fits the list for any z:    random goals, k = 14:   fit .29     sealed 2.12
+```
+
+Why it matters: the two networks are not compared on equal terms, since ResNet-18 has 30 fit photos per class. So "ResNet-50 fails" may be "too few photos fails". It does not explain why dogs and cats stay near 1 with the same row count. And on all classes the rule also costs something apart from noise: on ResNet-18 at k = 14 it is 1.762 against 1.159 on its own fit photos.
+
+**Step 4. What I did not plan to find.**
+
+```
+logit start, then short training on validation:
+   lowest sealed KL on 22 of 24 runs, within 1.065 on the other 2
+   no random start
+   one level is quicker than one level from a random start on 11 of 12 runs at k = 14
+   both sizes together cost more than one random-start level on 11 of 12 goal runs
+```
+
+Why it matters: this is training, so it is what line (b) was written to keep out. But at the last block a read is a small fit, seconds to minutes, so line (b) may say little here. It may say much more on a whole network. Its ratio of 1 is selected over four starts, so it is not an independent test. This is on card 3-41.
+
+**Step 5. Things to be careful about.**
+
+| Item | Said plainly |
+|---|---|
+| Rule below 1 on dogs and cats, ResNet-18 | not optimal. Trained reads overfit there (fit .12, sealed .40). Regularised training or more photos could beat it |
+| Agreement with N | dogs and cats .75, .86 (ResNet-18), .79, .88 (ResNet-50). All classes .34, .62, and .35, .67. Passing a KL line does not mean good enough for an app |
+| Off the goal | KL 4.5 to 6.8 on photos outside dogs and cats. That is what "don't care" costs |
+| The read | always-on. Gated reads stay unsettled |
+| The photos | ImageNet validation crops, not N's training photos |
+| Middle layers | not touched. The convex picture holds at the last layer only |
+| rule_fast | added after the fact. Same KL within 2%, and it does not fix line (b). My prediction on it missed |
+| My predictions | dogs and cats did better than I predicted. On ResNet-18, line (a) passed everywhere where I predicted one failure, and line (b) failed where I predicted a pass. All in Part C |
+
+| | |
+|---|---|
+| Trunk check | used: "or a developer's" inputs (now the center); "new units that read only that group's units" (the read); the new (a), (b), (c). Not used: the map, the nested zoom beyond one shared span, the graded clause |
+| proved | Lemmas TG1, TG3, Propositions TG2, TG4. Labels: tools and a limit. The final wording of TG4's comment has my check only |
+| checks | `model/tg_goal.py`, 0 fails; Lean `goal_exchange`, `goal_exchange_approx`; `rounds/round5/` |
+| label of the rule | ONE-BUILD. No method earned OPT-GOAL |
+| referee | `REFEREE-BQ13-2026-11-03.md`, two reads |
+| your calls | card 3-41 |
+| next, my view | test the logit start at one middle layer, against ordinary distillation of that level, before any trunk text changes. Run ResNet-18 at 12 fit photos per class, to separate the network from the row count |

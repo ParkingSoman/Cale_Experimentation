@@ -10651,6 +10651,34 @@ Reading. A narrow goal helps when it is a family: trained k = 14 falls from 1.50
 
 Predictions written before the run: equal k = 14 about 1.5, held; ratio 1.1 to 1.4, held; equal k = 38 about .6, near (.656); dogs and cats trained about .7 and .35, missed (.402, .149); ratio 1.0 to 1.3, slightly below; (a) fails on at least one goal, missed, it passed on all; (b) passes, missed.
 
+**ResNet-50 (`rounds/round5/goal_resnet50.json`; same script, prediction committed before the run).** d = 2048, 12 fit, 3 validation, 5 sealed photos per class, from `cache/map`. So a 123-class goal has 1476 fit rows, fewer than d.
+
+| Goal | k | rule | trained best | ratio | line (a), at most 1.3 | agreement with N, rule | sealed KL off the goal, rule |
+|---|---|---|---|---|---|---|---|
+| dogs and cats, 123 classes | 14 | .410 | .400 | 1.024 | pass | .789 | 6.79 |
+| dogs and cats | 38 | .130 | .124 | 1.044 | pass | .878 | 4.76 |
+| 123 random classes, 3 draws, mean | 14 | 2.120 | 1.290 | 1.646 (worst 1.738) | FAIL, all 3 | .511 | 5.28 |
+| 123 random classes, 3 draws, mean | 38 | .660 | .544 | 1.215 (worst 1.254) | pass | .739 | 2.30 |
+| dogs and cats at .9, the rest at .1 | 14 | .822 | .705 | 1.165 | pass | .718 | none |
+| dogs and cats at .9, the rest at .1 | 38 | .334 | .255 | 1.313 | FAIL | .842 | none |
+| all classes, equal | 14 | 2.238 | 1.624 | 1.378 | FAIL | .349 | none |
+| all classes, equal | 38 | .806 | .559 | 1.441 | FAIL | .667 | none |
+
+| Line | Result |
+|---|---|
+| (a) | fails on 6 of 12 goal-and-size runs: all 3 random draws at k = 14, the .9 goal at k = 38, and all classes at both sizes. rule2 does not repair this (ratios 1.28 to 1.94 on these runs) |
+| (b) | FAILS on all 6 goals. rule_fast lowers the time and fails on all 6 too |
+| (c) | passes on the two goals tested |
+| (d) | passes: .410 against 2.120, .130 against .660 |
+
+rule_fast, added after the ResNet-18 result: sealed KL within 2% of rule on both networks. On ResNet-18, line (b) stays failed on 5 of 6 goals. Its prediction on line (b) missed. Predictions for ResNet-50 written before the run: (a) fails on at least one goal, most likely all classes at k = 14, held; (b) fails on small goals, held, and passes on all classes, missed (50 seconds against 24); dogs and cats trained about .45 and .2, near and missed (.400, .124); all classes trained about 1.3 and .55, missed and held (1.624, .559); ratio on all classes 1.2 to 1.5 and 1.1 to 1.4, held and slightly above (1.378, 1.441).
+
+Summary against the bar. No method earned the label OPT-GOAL. The rule is ONE-BUILD on these runs. Line (a) passes on dogs and cats on both networks, and fails on half of ResNet-50's runs. Line (b) fails nearly everywhere.
+
+Reading, not proved. (1) With rows at most d, the whitened z of Definition DG2 is orthonormal on the list, so V_q M_k on the list is a rank-k principal part of the logits in F's metric for any z, and it says little about new inputs. This fits the random goals at k = 14 (fit about .29, sealed about 2.12). It does not explain why dogs and cats stay near 1 with the same row count. Network and row count are not separated here: ResNet-50 has 12 fit photos per class, against 30 for ResNet-18. (2) On all classes, the rule is also far above trained on its own fit rows on ResNet-18 at k = 14 (1.762 against 1.159), so the span in F's metric costs something apart from noise. This is compatible with the earlier finding that a dropped part can be large as a quadratic and cheap in KL.
+
+Unplanned observation, after the fact. The trained start logitpca (top directions of the logits, a least-squares read, then training stopped on validation) had the lowest sealed KL on 22 of 24 runs, and was within 1.065 of the lowest on the other two. It has no random start, so it meets line (c), though only one repeat of the rule was tested, not of this. One level from it took less time than one level from a random start on 11 of 12 runs at k = 14. Both sizes from it cost less than one random-start level on only 1 of 12 goal runs (all classes, ResNet-18). The lowest sealed value is selected over four starts, one of them this one, so its ratio of 1 is not an independent test. It is training, not a closed form.
+
 # Part D: where the math leads
 
 This part extrapolates. Each item is a conjecture with a route, or a program. Nothing here is claimed as proved.

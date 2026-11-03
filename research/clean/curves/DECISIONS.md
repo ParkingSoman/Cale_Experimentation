@@ -150,6 +150,29 @@ not forced by any theorem, and they are withdrawn. The decisions below are force
 options are exactly the premises of those theorems: to escape a theorem, one of its premises must go. R-least comes
 first, because the other two speak of "the least build".
 
+### 3-41. Does a short fixed training count as the calculation? (2026-11-03; COARSE-THEORY.md C.R5; LADDER 54)
+
+Directional because: this sets what a developer's one up-front computation is, and it changes line (b) of trunk T6.
+
+```
+closed-form rule (DG2):        line (a): passes on ResNet-18, fails on 6 of 12 runs on ResNet-50
+                               line (b): fails on 11 of 12 goal runs
+closed-form start, then        lowest sealed KL on 22 of 24 runs, no random start
+short training on validation:  both sizes cost more than one random-start level on 11 of 12 goal runs
+```
+
+Why it matters: at the last block, a read is such a small fit that training takes seconds to minutes. So line (b) may say little here. It may say much more on a whole network, where one distillation run is long. I have not measured that.
+
+| Option | What it means | Gains | Loses |
+|---|---|---|---|
+| (a) Keep T6 as written. Look for a better closed-form rule | The rule stays free of training | It stays a calculation, and it could be much cheaper on whole networks | No such rule passes today. At the last block it may not be able to beat a fit this small on cost |
+| (b) A closed-form start plus short training on validation counts as the calculation. Line (b) becomes: the whole zoom costs less than one level of ordinary distillation of the same network, judged on a whole network, not at the last block | It works like distillation with a fixed start, which is close to your words on card 3-40 | It already meets lines (a) and (c) on these runs, by a test that is selected and not independent. It gives a real thing to test at a middle layer | It is training. A developer needs validation photos. Whether it stays cheap on a whole network is unmeasured, and it may not |
+| (c) Keep line (b) as written, and accept the rule only on family goals | Only dogs and cats style goals get the promise | The rule's (a) holds on those, on both networks | Line (b) still fails. "Everything equal" is a goal you named, and it would be left out |
+
+My recommendation: (b), with a test first at one middle layer before any trunk text changes. Reason: it is the only option with something that works today, and the question it leaves open is the one that decides Cale's value. I do not change the trunk until you say so.
+
+Also yours to judge: agreement with N. On dogs and cats the rule reaches .75 and .86 on ResNet-18, and .79 and .88 on ResNet-50. On all classes, .34 and .62, and .35 and .67. A line on KL does not say whether that is good enough for an app.
+
 ### 3-40. Row 3's bar: optimize KL for the developer's goal (2026-11-03; ANSWERED by Shonu; plan pasted-content-id-c43d-okay-we-ve-serialized-possum.md)
 
 Directional because: this sets what a developer is promised at a squeeze, and it replaces the end of row 3.
