@@ -24,3 +24,11 @@ roadcar: s4:400 (clump of round bumps) fed by both isolated blobs s3:106 and pac
 roadcar: s3:2 looked like a parent in trace of photo 17895 but acts on s4:344 is only .11. Trace picks show the photo, not the channel's main parent. Check with acts.
 roadcar: Car link is weak. The car classes (wagon, convertible) vote through 32, 461, 269, 400 by shape: smooth sweep, long tapered body, blunt front with two dots. None is a car channel.
 roadcar: acts removals are small at s4 (2-17% of peak): many parents share each job.
+early: s1 channels are dials on stroke SIZE and SHAPE: dot vs line (s1:19, 61, 40), bold vs fine stripe pitch (s1:43, 44, 25 bold; 55, 60, 47 fine), outline vs ridge (s1:51). Colour appears once: s1:37 (green, negative pole).
+early: every s1 channel's main parent is the SAME-number stem channel (s0:19 for s1:19 etc., 40 to 80% of positive feed). Stage 1 refines the stem; real branching is at s1 -> s2.
+early: acts that held (child falls, controls ~0): s1:19->s2:85 .76; s1:51->s2:59 .82; s1:29->s2:71 1.09; s1:43->s2:23 .51.
+early: s2:71 (tiny dark dot) feeds s3:134 (+2.69) which is in both sports-car traces (28595, 28597). Dog eyes land on the same dot: dog and car share it early, nothing separates them in stage 2.
+early: s2:23 big dark disc -> s3:60 (tabby trace). s2:59 sparse wire junction is opposite to dense ridges (s1:55).
+early: dog and car traces use the same few s1 channels (19, 51, 60, 47, 43, 44, 29, 25): the early dials are not class-specific.
+early: failures: s1:37 grayscale edit measures the weak positive pole, not green; s2:25 blur kept 0.70 (I expected under 0.5); s1:44 rot90 kept .64 (expected over .8).
+early: blur and rot90 edits take 3 minutes each under load; sheet takes seconds.
