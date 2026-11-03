@@ -185,6 +185,23 @@ theorem tq30_two_two (uw vj uj vw : ℝ) :
   rw [abs_mul (uw * vj) (uj * vw)]
   nlinarith
 
+/-- Proposition TG2 part 2 of COARSE-THEORY.md, for near-minimisers with errors e and e'. -/
+theorem goal_exchange_approx (a b a' b' l m e e' Il Im : ℝ) (hl : 0 ≤ l) (hlm : l < m) (hm : m < 1)
+    (h1 : (1 - l) * a + l * b ≤ Il + e) (h1' : Il ≤ (1 - l) * a' + l * b')
+    (h2 : (1 - m) * a' + m * b' ≤ Im + e') (h2' : Im ≤ (1 - m) * a + m * b) :
+    (m - l) * (a - a') ≤ m * e + l * e' ∧
+      (m - l) * (b' - b) ≤ (1 - m) * e + (1 - l) * e' := by
+  have hm0 : 0 ≤ m := by linarith
+  have h1'' : (1 - l) * (a - a') + l * (b - b') ≤ e := by nlinarith
+  have h2'' : -(1 - m) * (a - a') - m * (b - b') ≤ e' := by nlinarith
+  constructor
+  · have := mul_le_mul_of_nonneg_left h1'' hm0
+    have := mul_le_mul_of_nonneg_left h2'' hl
+    nlinarith
+  · have := mul_le_mul_of_nonneg_left h1'' (by linarith : (0 : ℝ) ≤ 1 - m)
+    have := mul_le_mul_of_nonneg_left h2'' (by linarith : (0 : ℝ) ≤ 1 - l)
+    nlinarith
+
 /-- Proposition TG2 part 2 of COARSE-THEORY.md: moving weight from A to B cannot help A or hurt B. -/
 theorem goal_exchange (a b a' b' l m : ℝ) (hl : 0 ≤ l) (hlm : l < m) (hm : m < 1)
     (h1 : (1 - l) * a + l * b ≤ (1 - l) * a' + l * b')

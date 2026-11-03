@@ -166,7 +166,7 @@ new bar at a squeeze:
    (c)  one fixed calculation: the same inputs give the same network
 ```
 
-Why it matters: the proof that no better network exists is no longer required. TQ23, TQ30 and TQ31 stay true, and they limit the old bar only.
+Why it matters: the proof that no better network exists is no longer required. TQ23, TQ30 and TQ31 stay true. They do not stop a rule from meeting line (a), since (a) compares with training. They do say that on those hard tables a rule that passes carries no promise of being near the least (Proposition TG4). My first wording, "they limit the old bar only", was not proved, and the referee caught it.
 
 | What he accepted, said plainly | Detail |
 |---|---|
@@ -2270,7 +2270,8 @@ node named by a tag is on the path, and prints the table with distances.
 | Theorem TL6 | R-map, R-tree, S-plainff, R-linread | with errors: eps_lin(w) <= |P_perp W_out|^2 eps_L^2, eps built layer by layer from absolute defects, weight norms, shelter values and inverse gate margins; uses no claim; bounds the gap to the least only where TP1 applies |
 | Lemma TG1 | S-lastlayer, R-group, R-goalbar | with the read or the write fixed, D_P for a goal is convex, attained, with an exact gradient test and a dual lower bound; a tool for the bar of T6 |
 | Proposition TG2 | (none) | a goal's weights steer the optimum: a weighted bound on the part kept, and monotone exchange between the two parts; a tool |
-| Lemma TG3 | S-lastlayer, R-group, R-goalbar | at most k + 1 inputs: some read of size k has loss 0, so a score on the list says nothing; a tool |
+| Lemma TG3 | S-lastlayer, R-group, R-goalbar | at most k + 1 inputs: some read of size k has loss 0, so a score on a short list says nothing; a tool |
+| Proposition TG4 | R-map, R-tree, R-branch, R-oninside, R-linread, S-plainff, R-group, R-readweights, R-readbias, S-lastlayer, R-goalbar | on the hard tables, a rule within c of training, and training within K of the least, is within cK of the least, so a small cK gives P = NP: passing the bar need not mean near the least; a limit |
 <!-- /paths -->
 
 ## 7. The guard

@@ -1,2 +1,28 @@
 loaded [torch.Size([30000, 512]), torch.Size([5000, 512]), torch.Size([10000, 512])]
 dogcat rows 3690 615 1230 span sec 0.13
+dogcat 14 rule {'kl': 0.3845, 'agree': 0.7504, 'fit': 0.241, 'grad': 0.0, 'sec': 20.8829} rule2 0.4418 114.2
+dogcat 14 logitpca {'kl': 0.4183, 'agree': 0.7431, 'fit': 0.1441, 'val': 0.4369, 'sec': 11.7274} validation
+dogcat 14 rand0 {'kl': 0.4766, 'agree': 0.7244, 'fit': 0.1156, 'val': 0.4852, 'sec': 10.8422} validation
+dogcat 14 rand1 {'kl': 0.4971, 'agree': 0.7179, 'fit': 0.1194, 'val': 0.4964, 'sec': 11.1433} validation
+dogcat 14 rule {'kl': 0.4024, 'agree': 0.7447, 'fit': 0.1228, 'val': 0.4342, 'sec': 8.1926} validation
+dogcat 14 RATIO rule 0.956 rule2 1.098
+dogcat 38 rule {'kl': 0.141, 'agree': 0.8569, 'fit': 0.0385, 'grad': 0.0, 'sec': 48.4374} rule2 0.1675 133.8
+dogcat 38 logitpca {'kl': 0.1591, 'agree': 0.8398, 'fit': 0.0207, 'val': 0.1488, 'sec': 13.1943} validation
+dogcat 38 rand0 {'kl': 0.1815, 'agree': 0.8244, 'fit': 0.0148, 'val': 0.1724, 'sec': 11.6698} validation
+dogcat 38 rand1 {'kl': 0.1868, 'agree': 0.8366, 'fit': 0.0156, 'val': 0.1755, 'sec': 9.7586} validation
+dogcat 38 rule {'kl': 0.1494, 'agree': 0.8537, 'fit': 0.0179, 'val': 0.1445, 'sec': 3.6059} validation
+dogcat 38 RATIO rule 0.944 rule2 1.121
+ctrl0 rows 3690 615 1230 span sec 0.12
+ctrl0 14 rule {'kl': 1.3797, 'agree': 0.5683, 'fit': 0.7475, 'grad': 0.0, 'sec': 6.7573} rule2 1.3849 50.0
+ctrl0 14 logitpca {'kl': 1.2004, 'agree': 0.6041, 'fit': 0.3602, 'val': 1.2581, 'sec': 3.6813} validation
+ctrl0 14 rand0 {'kl': 1.5167, 'agree': 0.5618, 'fit': 0.2987, 'val': 1.5282, 'sec': 4.5713} validation
+ctrl0 14 rand1 {'kl': 1.4817, 'agree': 0.5846, 'fit': 0.3016, 'val': 1.5306, 'sec': 4.6029} validation
+ctrl0 14 rule {'kl': 1.2946, 'agree': 0.6106, 'fit': 0.3702, 'val': 1.3812, 'sec': 3.0638} validation
+ctrl0 14 RATIO rule 1.149 rule2 1.154
+ctrl0 38 rule {'kl': 0.6813, 'agree': 0.6829, 'fit': 0.1137, 'grad': 0.0, 'sec': 9.9195} rule2 0.63 55.2
+ctrl0 38 logitpca {'kl': 0.58, 'agree': 0.7171, 'fit': 0.0633, 'val': 0.6125, 'sec': 12.4961} validation
+ctrl0 38 rand0 {'kl': 0.6613, 'agree': 0.7041, 'fit': 0.0554, 'val': 0.7113, 'sec': 7.6484} validation
+ctrl0 38 rand1 {'kl': 0.6884, 'agree': 0.7024, 'fit': 0.0573, 'val': 0.6958, 'sec': 7.2669} validation
+ctrl0 38 rule {'kl': 0.6406, 'agree': 0.6967, 'fit': 0.073, 'val': 0.6902, 'sec': 4.1543} validation
+ctrl0 38 RATIO rule 1.175 rule2 1.086
+ctrl1 rows 3690 615 1230 span sec 0.09
