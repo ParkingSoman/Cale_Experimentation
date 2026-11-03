@@ -3325,6 +3325,15 @@ the mistake:  I assumed a YES build fits every row. TQ30 puts the gap in the row
 | S5 | gates | gain above 10% | train 5.3%, sealed -13%, not converged, too few rows: not settled | train gain held; warm start missed |
 | S6 | packing dual | at least 10% of the fit | already dead: round 2 measured 1e-7. My plan was wrong to list it | |
 
+**Corrected 2026-11-03, row S5. I reported this number without saying what it covered.** The photo lists are sorted by class, and the script takes the first rows of each.
+
+| Run | Fit rows | "Sealed" rows | Read: fit, sealed | Best gate: fit, sealed | Gain: fit, sealed |
+|---|---|---|---|---|---|
+| the one in row S5 | first 8000: classes 0 to 228 | first 3000: classes 0 to 299 | .346, 1.21 | .327, 1.37 | 5.4%, -13% |
+| finished later, not reported until now | all 35000: all 1000 classes | first 3000: classes 0 to 299 | 1.172, 1.133 | 1.187, 1.153 | -1.2%, -1.7% |
+
+The comparison inside each run is fair, since all of its builds use the same rows. But neither "sealed" number says anything about all 1000 classes. The 8000-row number also tests photos of classes 229 to 299, which that fit never saw at all. All runs stopped at the chunk limit, so gates stay unsettled. No gate beat the read on the full fit rows.
+
 **Step 4. Three things the screens showed that I did not expect.**
 
 ```

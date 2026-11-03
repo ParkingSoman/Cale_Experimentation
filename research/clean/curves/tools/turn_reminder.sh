@@ -4,7 +4,7 @@ CURVES="$(cd "$(dirname "$0")/.." && pwd)"
 [ -f "$CURVES/.math-mode" ] || exit 0
 cat <<'EOF'
 [math mode: research/clean/curves/CLAUDE.md is the rule set]
-0. THE BAR (Shonu, 2026-10-31): nothing is "done" until it has confronted optimality: the least distillation loss (KL) itself, with bounds that depend only on how clean the network is. Label every result OPT-KL / EQ / OPT-D2 / ONE-BUILD; say any move off OPT-KL to Shonu in plain words.
+0. THE BAR (Shonu, 2026-11-03, card 3-40): "given this particular goal the developer has, are we optimizing KL". A goal is weights on the inputs. At a squeeze: on sealed inputs from the goal, at most 1.3 times the best trained network of the same form; one computation for the whole zoom costs less than training one level; one fixed calculation. No proof of "least of all networks" is required at a squeeze, so do NOT chase floors. Dropped and kept-whole groups keep their exact promise. Label every result OPT-GOAL / OPT-KL / EQ / OPT-D2 / ONE-BUILD.
 1. The paper (COARSE-THEORY.md) must stand with every measurement deleted. Numbers only in Part C. Every theorem says "(under: ...)".
 2. Prove first (hand + Lean + sympy), check on the exact small instance, then a real network. A failed proof or check goes back to the paper. Never a chain of probes.
 3. No SAE / dictionary / superposition framing. Literature enters through the compatibility table.

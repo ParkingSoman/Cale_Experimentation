@@ -2,7 +2,7 @@
 
 The goal: a mathematical argument, from facts known for sure, for how to derive an optimal smaller network from a
 larger one. It should generalize across networks. InceptionV1 curves are the first example, not the subject.
-The fixed form of that goal is the trunk T5 in `DECISIONS.md`. Every session serves the trunk.
+The fixed form of that goal is the trunk T6 in `DECISIONS.md`. Every session serves the trunk.
 Paper: `COARSE-THEORY.md`. `NEURON-MATH.md`, `PAPER.md` and `CURVES-LOG.md` are the record. Cite them as log, never as
 proof. Shonu's reasons for these rules: memory note `feedback-math-method`.
 
@@ -13,7 +13,8 @@ then you realize, oh, a lot of things actually fit". A LADDER section states whi
 
 | Trunk words | What it gives | Question to ask |
 |---|---|---|
-| distillation loss D_P | teacher outputs on P, one fixed goal | Am I aiming at anything else? |
+| distillation loss D_P | teacher outputs on P, one fixed objective | Am I aiming at anything else? |
+| P = the developer's goal (weights on inputs; "don't care" is weight 0) | what the small network is for, as in distillation | Which goal is this number for? Is it on sealed inputs from that goal? |
 | P = inputs N was trained on | stationarity (Fact F8), labels, N's own objective | Does this premise follow from training? |
 | a map of claims, found by people, agents or a program | agents find it with judgment; code only computes each claim's error; we may define claim types | Which claim would make this exact? Am I writing a map algorithm? (If yes, stop.) |
 | complete for the zoom | we define it; a map can be made complete | Am I trying to prove more than the promise? |
@@ -33,17 +34,19 @@ then you realize, oh, a lot of things actually fit". A LADDER section states whi
 | Anything the trunk settles | Do not ask | |
 | Maps | Subagents read the network the essay's way and propose claims. Code computes each error. Never one algorithm for all networks (Shonu, 2026-11-01) | |
 
-## The bar: optimality (Shonu, 2026-10-31; read before calling anything done)
+## The bar: optimize KL for the developer's goal (Shonu, 2026-11-03, card 3-40; read before calling anything done)
 
-Shonu: "this cannot ever be classified as 'done' or 'well executed' if we haven't confronted the optimality question.
-for now, we are keeping the bar at ensuring we have found optimality with the bounds dependent on network
-cleanliness."
+Shonu: "our bar for row 3 was probably too high and vague since we were saying least of all networks. ... given this
+particular goal the developer has, are we optimizing KL".
 
-The object is V(G): the least distillation loss E_P KL(softmax(y_N) || softmax(y_B)) over every allowed small network
-B. That is what well-executed distillation converges to. No approximation stands in for it.
+The objective stays E_P KL(softmax(y_N) || softmax(y_B)). P is the developer's goal: weights on inputs. At a squeeze the
+bar is the trunk's (a), (b), (c): measured on sealed inputs against the best trained network of the same form, cheaper
+than training one level, and one fixed calculation. Do not chase floors or a proof of "least of all networks" at a
+squeeze. Groups that are dropped or kept whole keep the old bar: V(G), the least over every allowed small network.
 
 | Label | Meaning | Meets the bar? |
 |---|---|---|
+| OPT-GOAL | at a squeeze: meets the trunk's (a), (b) and (c) on the stated goals and sizes, on real networks | Yes, at a squeeze |
 | OPT-KL | gives V(G), or a build with loss V(G) + gap, gap bounded by the claims' errors only, 0 when clean, and when every claim is 0 the build reaches V(G) even where V(G) > 0 | Yes |
 | EQ | proves two least losses are equal | Yes |
 | OPT-D2 | the least of another loss (squared centred logits, node R-obj) | No |
@@ -51,7 +54,7 @@ B. That is what well-executed distillation converges to. No approximation stands
 
 1. Every result in the paper, LADDER and chat carries one label.
 2. A session, a Part or a track is not "done" while its main result is OPT-D2 or ONE-BUILD. Say so in plain words.
-3. A move off OPT-KL is shown to Shonu in chat and LADDER, never only in the paper.
+3. A real-network number names its goal, and it is on sealed inputs. Small lists make KL on the list trivially 0.
 4. A blocked proof becomes a conjecture with a Route and a card, never a weaker rule called the optimum.
 
 ## The roadmap and Shonu's standing rules (2026-10-31)

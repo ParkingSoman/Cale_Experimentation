@@ -22,16 +22,15 @@ Rules (enforced by `tools/paper_lint.py` and `tools/ledger.py`, see section 7):
 
 ## 1. The trunk
 
-**Status: CONFIRMED by Shonu (2026-10-28), by approving the plan
-`~/.claude/plans/ok-we-made-nice-wiggly-lampson.md`, which states this exact text and says that approval confirms it.
-Amended 2026-10-29 (areas, node R-streamregion): Shonu answered card 3-23 ("I'm going to be fine with some like
-subspace crossing") and approved the plan `~/.claude/plans/you-did-some-great-radiant-matsumoto.md`, which states the
-added sentence and says that approval approves it.**
-It replaces T4 (2026-10-27), which replaced T\*\*\*, T\*\* and the draft T\*. The old texts are kept below the table as
-a record.
+**Status: CONFIRMED by Shonu (2026-11-03), by approving the plan
+`~/.claude/plans/pasted-content-id-c43d-okay-we-ve-serialized-possum.md`, which states the new output text and says
+that approval confirms it (card 3-40, node R-goalbar).**
+It replaces T5 (2026-10-28, amended 2026-10-29), which replaced T4 (2026-10-27), T\*\*\*, T\*\* and the draft T\*. The old
+texts are kept below the table as a record. One connecting phrase is mine, not in the approved text: "For such groups:"
+in front of the exactness sentence, so that the old sentence and the new one do not conflict.
 
 <!-- trunk -->
-**Trunk T5.** Input: a network N with L hidden layers; base inputs P (a finite list of inputs with weights: the
+**Trunk T6.** Input: a network N with L hidden layers; base inputs P (a finite list of inputs with weights: the
 inputs N was trained on, or a developer's); a map M of N on P; and a zoom chosen by the developer: groupings G_0, G_1,
 ..., G_m, from fine to coarse. A map is a finite list of claims about N and P. Each claim has one of the types named in
 the paper. Each claim has an error eps >= 0 that is computed from N, P and the claim alone, in time polynomial in their
@@ -40,11 +39,15 @@ set of districts: disjoint sets of N's units, each inside one hidden layer, or, 
 subspaces of the stream that run through every block. An area group is replaced by k_g stream directions inside the
 area. A grouping is a set of disjoint groups.
 Each group is a union of the map's districts, with a target size k_g. Units in no group are kept. Each group of
-G_(j+1) is a union of groups of G_j. Output, by a rule that reads N, P, M and the zoom and does not train: for each
-level j, a network B_j of the same kind as N in which each group of G_j is replaced by k_g new units that read only
-that group's units, with the least distillation loss D_P(B_j) = E_P KL(softmax(y_N(x)) || softmax(y_B(x))) among all
-such networks. The rule may do a one-time computation up front for the zoom. After it, switching to any level is
-instant: it costs time that does not grow with the size of N. The exactness promise applies only when M is complete
+G_(j+1) is a union of groups of G_j. Output, for each level j, a network B_j of the same kind as N, in which each group
+of G_j is replaced by k_g new units that read only that group's units. B_j optimizes the distillation loss
+D_P(B_j) = E_P KL(softmax(y_N(x)) || softmax(y_B(x))) for the developer's goal P, in this sense: (a) on new inputs from
+the goal, D_P(B_j) is at most 1.3 times the D_P of the best trained network of the same form, with starts from random
+and from B_j; (b) one up-front computation for the whole zoom costs less than training one level; (c) the computation
+is one fixed calculation with no random starts, so the same inputs give the same network. After that computation,
+switching to any level is instant: it costs time that does not grow with the size of N. D_P on the goal is measured and
+reported at each level. A group that is dropped or kept whole keeps its exact promise and its proved bound. For such
+groups: the exactness promise applies only when M is complete
 for the zoom (a condition between map and zoom, checkable in polynomial time, defined in the paper): when M is complete
 for the zoom and every claim of M has eps = 0, the rule is an exact closed form. When some claim of M has eps > 0, the
 rule comes with a proved bound that depends only on the list of the claims' eps values, and the bound is 0 when all of
@@ -72,6 +75,8 @@ Shonu's choices that fix the trunk:
 | Complete maps (card 3-19, option (a)) | "i would say yes, the exactness promise applies only to complete maps". The trunk restricts the exactness promise only. (A first edit also restricted the graded promise, as my reading; referee round 3 showed TM3 does not force that, so it was taken back out. Whether the graded promise should also need complete maps is asked of Shonu) | 2026-10-28 |
 | "Well-trained" | folded into the cleanliness distance eps(N) (a reading stated in the approved plan): with a developer's mix, N's training law is not P, and "optimal on its own labels" adds no condition (Lemma T24a) | 2026-10-25 |
 | The image mix is an input (SUPERSEDED by "No input data", then restored by "A mix is an input again") | "the image mix Q is a declared input (generalist = training mix; developer = list of capabilities)" | 2026-10-23 |
+
+Trunk T5 (2026-10-28, amended 2026-10-29; replaced 2026-11-03 by T6), kept as a record. Its input part is the same as T6's. Its output part read: "Output, by a rule that reads N, P, M and the zoom and does not train: for each level j, a network B_j of the same kind as N in which each group of G_j is replaced by k_g new units that read only that group's units, with the least distillation loss D_P(B_j) = E_P KL(softmax(y_N(x)) || softmax(y_B(x))) among all such networks. The rule may do a one-time computation up front for the zoom. After it, switching to any level is instant: it costs time that does not grow with the size of N. The exactness promise applies only when M is complete for the zoom (a condition between map and zoom, checkable in polynomial time, defined in the paper): when M is complete for the zoom and every claim of M has eps = 0, the rule is an exact closed form. When some claim of M has eps > 0, the rule comes with a proved bound that depends only on the list of the claims' eps values, and the bound is 0 when all of them are 0. How M is found (by people, agents or a program) is outside the trunk." Results in the paper that say "T5" were stated against this text.
 
 Trunk T4 (2026-10-27; replaced 2026-10-28 by T5), kept as a record: "Input: a network N with L hidden layers; base inputs P (a finite list of inputs with weights: the inputs N was trained on, or a developer's); and a zoom chosen by the developer: groupings G_0, G_1, ..., G_m, from fine to coarse. A grouping is a set of disjoint groups. Each group is a set of N's units in one hidden layer, with a target size k_g. Units in no group are kept. Each group of G_(j+1) is a union of groups of G_j. Output, by a rule that reads N, P and the zoom and does not train: for each level j, a network B_j of the same kind as N in which each group of G_j is replaced by k_g new units that read only that group's units, with the least distillation loss D_P(B_j) = E_P KL(softmax(y_N(x)) || softmax(y_B(x))) among all such networks. The rule may do a one-time computation up front for the zoom. After it, switching to any level is instant: it costs time that does not grow with the size of N. When N is perfectly clean (eps(N) = 0) the rule is an exact closed form. When eps(N) > 0, the rule comes with a proved bound that depends only on eps(N), and the bound is 0 at eps = 0."
 
@@ -145,7 +150,39 @@ not forced by any theorem, and they are withdrawn. The decisions below are force
 options are exactly the premises of those theorems: to escape a theorem, one of its premises must go. R-least comes
 first, because the other two speak of "the least build".
 
-### 3-39. Line I5: what does "clean" have to mean for an impossibility to count? (2026-11-02; COARSE-THEORY.md B.Q.12; LADDER 53)
+### 3-40. Row 3's bar: optimize KL for the developer's goal (2026-11-03; ANSWERED by Shonu; plan pasted-content-id-c43d-okay-we-ve-serialized-possum.md)
+
+Directional because: this sets what a developer is promised at a squeeze, and it replaces the end of row 3.
+
+Shonu (2026-11-03), on what a goal is: "if you have a big image network and someone wanted to create a small network, they might say hey i want everything valued equally, hey i want dogs and cats to be detected with detail and i don't care about these other things, etc. ... this is literally how distillation starts. you can distill based on certain inputs, and those inputs are essentially being abstracted into choices the developer is trying to imbue within smaller models."
+
+Shonu (2026-11-03), on the bar: "our bar for row 3 was probably too high and vague since we were saying least of all networks. ... i think it's a much easier optimization thing to say roughly 'given this particular goal the developer has, are we optimizing KL' rather than 'are we optimizing KL across all possible networks'". He approved the plan with the trunk text in section 1.
+
+```
+what a goal is:     weights on the inputs.  "don't care" is weight 0
+new bar at a squeeze:
+   (a)  on new inputs from the goal:   KL  <=  1.3 x best trained network of the same form
+   (b)  one computation for the whole zoom costs less than training one level
+   (c)  one fixed calculation: the same inputs give the same network
+```
+
+Why it matters: the proof that no better network exists is no longer required. TQ23, TQ30 and TQ31 stay true, and they limit the old bar only.
+
+| What he accepted, said plainly | Detail |
+|---|---|
+| Nobody can say "no better network exists" at a squeeze | The comparison is the best trained network, and that is a reference, not a floor |
+| The number 1.3 and the cost line (b) are mine | He can change them. Line (b) is what keeps plain training from passing |
+| The middle layers stay open | Convexity with a fixed read or write holds at the last layer only |
+| "I don't care" means no promise on those inputs | We measure them and report them |
+
+| Item | Result |
+|---|---|
+| Card 3-37, tests P1 to P4 and I1 to I5 | Replaced for squeezed groups. His rule stays: it has to pass on real networks |
+| Cards 3-35, 3-36, 3-38, 3-39, node S-polescope | Closed as overtaken. The theorems stay in the paper as mathematics |
+| Search for floors and new claims on the all-classes table | Stopped |
+| Rows 1 and 2 | No change |
+
+### 3-39. Line I5: what does "clean" have to mean for an impossibility to count? (2026-11-02; COARSE-THEORY.md B.Q.12; LADDER 53; CLOSED 2026-11-03, overtaken by card 3-40)
 
 Directional because: this sets what card 3-37's IMPOSSIBLE test means, and only you can say what "clean" means. Node R-cleannet is still PENDING.
 
@@ -163,7 +200,7 @@ the agent's read:  clean inside a family, not clean across families. When a shar
 
 My recommendation: (a). Reason: by your rule, a counterexample is first read as a network to find the missing claim, and this one points at one. You do not need to answer now, and I continue under (a) unless you say otherwise.
 
-### 3-38. Does line I2 count under the Unique Games Conjecture? (2026-11-02; COARSE-THEORY.md B.Q.12; LADDER 52; nothing blocks on this)
+### 3-38. Does line I2 count under the Unique Games Conjecture? (2026-11-02; COARSE-THEORY.md B.Q.12; LADDER 52; nothing blocks on this; CLOSED 2026-11-03, overtaken by card 3-40)
 
 Directional because: this changes the end condition of card 3-37. Line I2 says "unless P = NP".
 
@@ -180,7 +217,7 @@ at k = 1 with no conjecture:     every factor asks for NP-hardness of least-uncu
 
 My recommendation: (a). You asked for a proof, and I5 is the larger gap anyway, so the choice does not change the state today.
 
-### 3-37. How row 3 ends: it passes on real networks, or it is proved impossible (2026-11-02; ANSWERED by Shonu; plan i-need-you-to-tingly-orbit.md)
+### 3-37. How row 3 ends: it passes on real networks, or it is proved impossible (2026-11-02; ANSWERED by Shonu; plan i-need-you-to-tingly-orbit.md; tests REPLACED 2026-11-03 for squeezed groups by card 3-40)
 
 Directional because: this sets what "closed" means for row 3, and so what the next sessions wait for.
 
@@ -205,7 +242,7 @@ This answers card 3-35 question 1: option (a), row 3 stays open. The roadmap's w
 
 Said plainly: one fixed network has one fixed least, so no hardness theorem can say that ResNet-50 itself cannot be solved. IMPOSSIBLE means that a family that looks like ResNet has no rule. Shonu may still object that real tables are not in that family. An IMPOSSIBLE result conflicts with the ResNet-50 end condition, so it returns to him on a new card with the theorem.
 
-### 3-36. The general form of row 3 is proved hard. What should the exact promise at a squeeze mean? (2026-11-02; COARSE-THEORY.md B.Q.11; LADDER 50; nothing blocks on this)
+### 3-36. The general form of row 3 is proved hard. What should the exact promise at a squeeze mean? (2026-11-02; COARSE-THEORY.md B.Q.11; LADDER 50; nothing blocks on this; CLOSED 2026-11-03, overtaken by card 3-40)
 
 Directional because: this sets what "exact" promises a developer at 0 < k < rank, after a theorem limits it. No theorem forces one answer, and option (c) moves off the least KL.
 
@@ -228,7 +265,7 @@ Which promise should a squeeze carry?
 
 My recommendation: (a), and keep working on the claim with agents reading the network. I would try (c) only if you say so. You do not need to answer now: you said intermediate results need no call from you, and work continues under (a) unless you say otherwise.
 
-### 3-35. Row 3 has its first exact theorems, and real networks miss their premises (2026-11-01; COARSE-THEORY.md B.Q.9; LADDER 46)
+### 3-35. Row 3 has its first exact theorems, and real networks miss their premises (2026-11-01; COARSE-THEORY.md B.Q.9; LADDER 46; CLOSED 2026-11-03, overtaken by card 3-40)
 
 Directional because: this sets what "exact" promises a developer, and node S-polescope is a narrowing left after the general attempt failed.
 
@@ -1782,7 +1819,8 @@ evening, waits for Shonu's review), DROPPED (Shonu removed the branch; its resul
 | R-constclaim | STRUCT | map | maps whose claims are of the types named so far -> also constancy claims of Definition DQ10 (a partition of P; error: the information N holds inside the regions) and KL-quiet claims of Definition DQ12. It adds a claim type, so it narrows no network; it names no build, size or zoom | COARSE-THEORY.md B.Q.9, Theorem TQ14 | me (2026-11-01); DECIDED by delegation, Shonu (2026-11-01): "some of the decisions you asked of me are more mathematical details you should've ironed out"; I chose accept: a new claim type only widens what a map can say | 2026-11-01 | DECIDED |
 | R-poleclaim | STRUCT | map | maps whose claims are of the types named so far, and complete maps (DM6) that squeeze only at two logits -> also pole claims of Definition DQ13 (a partition, one class per region, a pairing, a split of the pairs among the groups and the kept units, real numbers; error from N's outputs, pre-activations and values), and DM6 item 5 reads: for k_S < c(S), a blend claim at two logits, or a pole claim whose sets are the groups. It adds a claim type and a second way to be complete, and that second way drops DM6 items 2, 3 and 4 (shelter, judgment and flat claims), since Corollary TQ17.1 uses none of them. Its real numbers depart from DM1 | COARSE-THEORY.md B.Q.9, Theorem TQ17, Corollary TQ17.1 | me (2026-11-01); DECIDED by delegation, Shonu (2026-11-01): "some of the decisions you asked of me are more mathematical details you should've ironed out"; I chose accept: the old item 5 made T5 promise nothing at C logits. Its narrow scope is node S-polescope, which is yours | 2026-11-01 | DECIDED |
 | R-certclaim | STRUCT | map | maps whose claims are of the types named so far -> also certificate claims naming a triple of some rank | COARSE-THEORY.md B.Q.9, Definition DQ14 | me (2026-11-01); removed the same day after REFEREE-BQ10: a triple is a build, and one claim per rank is one claim per target size, against the trunk's words. The test of Theorem TQ18 stays inside the one-time computation | 2026-11-01 | DROPPED |
-| S-polescope | SCOPE | zoom | every squeezed size of any zoom on a map made complete for it (ROADMAP.md) -> for now, at C logits, only levels whose total written rank is C/2 (kept rank plus the sum of k_g), with many groups and kept units allowed (DM6 item 5, Corollary TQ17.1). This is the narrowing left after the general attempt: no other exact class in the map's terms is proved | card 3-35 | me (2026-11-01), for Shonu's decision on card 3-35 | 2026-11-01 | PENDING |
+| S-polescope | SCOPE | zoom | every squeezed size of any zoom on a map made complete for it (ROADMAP.md) -> for now, at C logits, only levels whose total written rank is C/2 (kept rank plus the sum of k_g), with many groups and kept units allowed (DM6 item 5, Corollary TQ17.1). This is the narrowing left after the general attempt: no other exact class in the map's terms is proved | card 3-35 | me (2026-11-01), for Shonu's decision on card 3-35. DROPPED 2026-11-03, overtaken by card 3-40, Shonu: "our bar for row 3 was probably too high and vague". TQ17.1 stays as mathematics | 2026-11-01 | DROPPED |
+| R-goalbar | ROOT | goal | at a squeezed group, the least D_P among all such networks -> a build that optimizes D_P for the developer's goal P: on new inputs from the goal at most 1.3 times the best trained network of the same form; one computation for the whole zoom costs less than training one level; one fixed calculation. Dropped and kept-whole groups keep T5's promise | this file, section 1, card 3-40 | Shonu (2026-11-03): "given this particular goal the developer has, are we optimizing KL" rather than "are we optimizing KL across all possible networks"; he approved the plan that states the text | 2026-11-03 | DECIDED |
 | R-readcurv | STRUCT | map | maps whose claims are of the types named so far -> also read curvature claims of Definition DQ23 (a partition; error: the spectral distance of the read's Fisher information from a sum of Kronecker products, one per region). It adds a claim type, so it narrows no network; it names no build, size or zoom | COARSE-THEORY.md B.Q.12 | me (2026-11-02); DECIDED by delegation, Shonu (2026-11-01): "some of the decisions you asked of me are more mathematical details you should've ironed out rather than directional decisions i needed to make"; a new claim type only widens what a map can say | 2026-11-02 | DECIDED |
 | R-weightgap | STRUCT | map | maps whose claims are of the types named so far -> also weight gap claims of Definition DQ22 (a partition and one common set of near classes; error: sigma_2 of the doubly scaled table outside the near classes, plus eps_const). It adds a claim type, so it narrows no network; it names no build, size or zoom | COARSE-THEORY.md B.Q.12 | me (2026-11-02); DECIDED by delegation, Shonu (2026-11-01): "some of the decisions you asked of me are more mathematical details you should've ironed out rather than directional decisions i needed to make"; a new claim type only widens what a map can say | 2026-11-02 | DECIDED |
 | R-prodtail | STRUCT | map | maps whose claims are of the types named so far -> also product tail claims of Definition DQ16 (a partition and near classes per region; error: the weighted log-scale distance from the product shape outside the near classes, plus eps_const). It adds a claim type, so it narrows no network; it names no build, size or zoom | COARSE-THEORY.md B.Q.11 | me (2026-11-02); DECIDED by delegation, Shonu (2026-11-01): "some of the decisions you asked of me are more mathematical details you should've ironed out rather than directional decisions i needed to make"; a new claim type only widens what a map can say | 2026-11-02 | DECIDED |
@@ -2230,6 +2268,9 @@ node named by a tag is on the path, and prints the table with distances.
 | Proposition TL4 | R-map, R-tree, S-plainff, R-oninside, R-branch, R-linread | at a lift the parent's table is the sum of its children's tables plus one between table of the children's masses and mean outputs (law of total variance) |
 | Corollary TL5 | R-map, R-group, R-readweights, R-readbias, R-tree, R-branch, S-plainff, R-oninside, R-linread, R-obj | for a tree grouping whose nodes meet TL3: least D2 = sum of (1/2)(E - top_k Sigma), attained by always-on boxes; tables by add (merge) and add plus between (lift) from the layer-L tables, the masses and c_N; nested; switching selects stored weights; scope: subtrees with no switching below the top except along flat 0/1 directions of the top layer (linear subtrees at points in general position, TL3.2) |
 | Theorem TL6 | R-map, R-tree, S-plainff, R-linread | with errors: eps_lin(w) <= |P_perp W_out|^2 eps_L^2, eps built layer by layer from absolute defects, weight norms, shelter values and inverse gate margins; uses no claim; bounds the gap to the least only where TP1 applies |
+| Lemma TG1 | S-lastlayer, R-group, R-goalbar | with the read or the write fixed, D_P for a goal is convex, attained, with an exact gradient test and a dual lower bound; a tool for the bar of T6 |
+| Proposition TG2 | (none) | a goal's weights steer the optimum: a weighted bound on the part kept, and monotone exchange between the two parts; a tool |
+| Lemma TG3 | S-lastlayer, R-group, R-goalbar | at most k + 1 inputs: some read of size k has loss 0, so a score on the list says nothing; a tool |
 <!-- /paths -->
 
 ## 7. The guard

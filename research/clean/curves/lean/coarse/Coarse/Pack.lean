@@ -184,3 +184,30 @@ theorem tq30_two_two (uw vj uj vw : ℝ) :
   have h2 : |uj * vw| ^ 2 = (uj * vw) ^ 2 := sq_abs _
   rw [abs_mul (uw * vj) (uj * vw)]
   nlinarith
+
+/-- Proposition TG2 part 2 of COARSE-THEORY.md: moving weight from A to B cannot help A or hurt B. -/
+theorem goal_exchange (a b a' b' l m : ℝ) (hl : 0 ≤ l) (hlm : l < m) (hm : m < 1)
+    (h1 : (1 - l) * a + l * b ≤ (1 - l) * a' + l * b')
+    (h2 : (1 - m) * a' + m * b' ≤ (1 - m) * a + m * b) : a ≤ a' ∧ b' ≤ b := by
+  have hm0 : 0 < m := lt_of_le_of_lt hl hlm
+  have h3 : (m - l) * ((b - b') - (a - a')) ≥ 0 := by nlinarith
+  have h4 : a - a' ≤ b - b' := by
+    by_contra h
+    push_neg at h
+    have : (m - l) * ((b - b') - (a - a')) < 0 :=
+      mul_neg_of_pos_of_neg (by linarith) (by linarith)
+    linarith
+  have hc : b' ≤ b := by
+    by_contra h
+    push_neg at h
+    have hC : b - b' < 0 := by linarith
+    have hA : a - a' < 0 := by linarith
+    have e1 : (1 - m) * (a - a') < 0 := mul_neg_of_pos_of_neg (by linarith) hA
+    have e2 : m * (b - b') < 0 := mul_neg_of_pos_of_neg hm0 hC
+    nlinarith
+  refine ⟨?_, hc⟩
+  by_contra h
+  push_neg at h
+  have e1 : 0 < (1 - l) * (a - a') := mul_pos (by linarith) (by linarith)
+  have e2 : 0 ≤ l * (b - b') := mul_nonneg hl (by linarith)
+  nlinarith
