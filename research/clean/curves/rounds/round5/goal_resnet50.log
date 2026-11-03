@@ -1,0 +1,2 @@
+loaded [torch.Size([12000, 2048]), torch.Size([3000, 2048]), torch.Size([5000, 2048])]
+dogcat rows 1476 369 615 span sec 3.09
