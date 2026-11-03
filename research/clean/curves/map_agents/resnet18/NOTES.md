@@ -18,3 +18,9 @@ furbody: carry on cat photos that N calls lynx / weasel / wood rabbit: the chann
 furbody: s4:154 feeds s4:255 by +16 from block 0 (largest sibling I saw). Not read by me.
 furbody: acts results: s3:17->s4:362 falls 1.21/20.1 (ctrl ~0.1); s3:71->s4:163 3.36/13.5; s3:30->s4:393 1.68/21.3; s3:128->s4:9 1.75/20.3; s3:76->s4:156 0.54/17.0 (weak); s3:158->s4:431 0.83, ->s4:424 0.51 (weak); s2:71->s3:222 0.32/2.1; s2:6->s3:76 0.38/3.3, ->s3:128 0.12/3.6 (weak).
 furbody: every parent I tested fell more than its controls, but the drop is 3 to 20 percent of the firing. One parent never carries a channel; feeds are spread (top feeder 4 to 13 percent).
+roadcar: s4:329 = rigid straight-line triangle (rigging, cables, tripod) vs soft fur with small pointed ears. Clean gate. Parent s3:207 (taper on a body) acts 17% of peak. Card exists.
+roadcar: s4:486 (pointed sweep vs closed loop) and s4:367 (soft dark cover vs sticking-out part) are antagonists. 367 negative pole = fins, wings, legs.
+roadcar: s4:400 (clump of round bumps) fed by both isolated blobs s3:106 and packed blobs s3:140; each acts ~1.2 of 18.
+roadcar: s3:2 looked like a parent in trace of photo 17895 but acts on s4:344 is only .11. Trace picks show the photo, not the channel's main parent. Check with acts.
+roadcar: Car link is weak. The car classes (wagon, convertible) vote through 32, 461, 269, 400 by shape: smooth sweep, long tapered body, blunt front with two dots. None is a car channel.
+roadcar: acts removals are small at s4 (2-17% of peak): many parents share each job.
