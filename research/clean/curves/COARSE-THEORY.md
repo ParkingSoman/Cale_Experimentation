@@ -10768,6 +10768,40 @@ The means are over the reading photos of all classes, not the goal's photos. So 
 
 Reading, not proved. The essay predicts broad neurons in a small network, and predicts narrower ones with size. These numbers fit the first half. The second half is not measured.
 
+## C.R7 One convolution at a time: ResNet-18 (H-map, Definition DC4; `map_agents/resnet18/one_layer_check.py`, `one_layer_map.py`, `reference_convnext.py`; predictions and results in `results/PREDICTIONS.md`; added 2026-11-03)
+
+Sealed photos, validation crops, not N's training photos. A node at its own peak on its 64 strongest photos. Lists are chosen on reading photos. By Definition DC4 the inputs of a node sum exactly to its change from the fill. The script stops when the sum misses by more than a float error. 38 slice channels and 30 random channels of stage 4 agree on these measures.
+
+| Share of z^2 changed, stage 4 block 1, median | k = 4 | k = 16 | k = 64 |
+|---|---|---|---|
+| Stage 3 feeders, filled at both blocks, the list of C.R6 | .968 | .907 | .770 |
+| The same, a random list | .992 | .996 | .978 |
+| Direct inputs, list by effect | .428 | .151 | .036 |
+| Direct inputs, a random list | .950 | .916 | .755 |
+
+| Layer, 15 random channels | Inputs | For half of the summed effect | Change from the mean left at k = 16 |
+|---|---|---|---|
+| s4b1 stream | 513 | 78 | .156 |
+| s4b1 inner | 512 | 119 | .456 |
+| s4b0 stream | 768 | 131 | .337 |
+| s4b0 inner | 256 | 50 | .238 |
+| s3b1 stream | 257 | 11 | .044 |
+| s3b1 inner | 256 | 49 | .295 |
+| s3b0 stream | 384 | 63 | .305 |
+| s3b0 inner | 128 | 18 | .070 |
+| s2b1 stream | 129 | 3 | .034 |
+| s2b1 inner | 128 | 18 | .122 |
+| s2b0 stream | 192 | 29 | .144 |
+| s2b0 inner | 64 | 8 | .035 |
+| s1b1 stream | 65 | 2 | .006 |
+| s1b1 inner | 64 | 10 | .055 |
+| s1b0 stream | 65 | 3 | .007 |
+| s1b0 inner | 64 | 10 | .030 |
+| Reference, ConvNeXt-Tiny last block, stream direction from neurons | 3073 | 109 | .117 |
+| Reference, ConvNeXt-Tiny last block, neuron from stream directions | 768 | 156 | .595 |
+
+The reference is not like for like: that stream has no privileged basis, and it has more units and fewer photos (3000 per half). These numbers carry no claim about a tree. Blind crop test of the old cards, 12 crops per card, share of channels at gap at least .2: s1 .27, s2 .64, s3 .48 (chance .28; line .85). Wrong cards, 9 of them: mean gap -.11.
+
 # Part D: where the math leads
 
 This part extrapolates. Each item is a conjecture with a route, or a program. Nothing here is claimed as proved.

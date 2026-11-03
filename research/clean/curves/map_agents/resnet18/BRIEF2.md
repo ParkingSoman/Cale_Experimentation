@@ -53,9 +53,19 @@ Run from `research/clean/curves`:
 
     .venv/bin/python map_agents/resnet18/ev2.py COMMAND ...
 
-Run it with no command for the list: `deep`, `edit`, `probe`, `fv`, `inputs`, `readers`, `bundles`, `trace`, `acts`, `classes`, `photos-of`. A `deep` or `bundles` run prints a PNG path. Open it with Read. The inputs are exact. They sum to the value at the peak, and `acts` is an exact one-layer test.
+Run it with no command for the list: `deep`, `edit`, `probe`, `fv`, `inputs`, `readers`, `bundles`, `trace`, `acts`, `classes`, `photos-of`. `fv` is optional and not yet proven useful on this network: the one view I checked was faint. Do not spend a call on it unless real photos leave you stuck. A `deep` or `bundles` run prints a PNG path. Open it with Read. The inputs are exact. They sum to the value at the peak, and `acts` is an exact one-layer test.
 
 Do not write a clustering or grouping program. You may write a small test script in `map_agents/resnet18/tests/`. Its first line must be `# serves: H-map`. Keep to about 7 tool calls per node. Other agents run at the same time.
+
+## Your scope in this wave
+
+This wave covers stage 4 only: `s4b1`, `s4b1i`, `s4b0`, `s4b0i`. A main parent of an `s4b0i` node lies in `s3b1`. Name it, and do not read onward into stage 3.
+
+Start from your starting nodes. Work down: for each one, read its main parent, then that parent's main parent. Read at most 35 nodes, then stop. Reach all four layers. Do not read only the top layer.
+
+Do not read the old cards in `cards/`, the old notes, or `results/`. They used the old setup and they would anchor you.
+
+Strength varies a lot. Some inner channels fire at 4.0 and read at once. Others fire at 1.0 and do not read at a glance. A weak one is a lead too: look at its readers and its negative pole, and try a test image.
 
 ## Coordination
 

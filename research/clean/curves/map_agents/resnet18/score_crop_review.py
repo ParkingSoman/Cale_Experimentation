@@ -21,7 +21,7 @@ for item, k in key.items():
     if item not in picks:
         continue
     named, true = set(picks[item]), set(k["fires"])
-    others = 12 - len(true)
+    others = k.get("crops", 24) - len(true)
     rows.append(dict(item=item, node=k["node"], stage=k["stage"], layer=k["layer"], wrong=k["wrong_card"],
                      gap=len(named & true) / len(true) - len(named - true) / others))
 print(f"{len(rows)} of {len(key)} items answered")

@@ -1,12 +1,12 @@
 # serves: H-map
 """A blind crop test, fixed before any scoring. It is the plan's replacement for the class test at stages 1 to 3.
 
-For each card: 12 crops from SEALED photos on one sheet, in random order, labelled A to L.
-   6 fire     the node's own peak, on photos where its firing is at least half of its largest on the sealed photos.
-   3 near     the peak of the node in the same layer most correlated with it over the sealed photos, on crops where this node's firing at the centre is under 20% of its largest.
-   3 random   the same, for a random node in the same layer.
-A reviewer sees only the words of a card and the sheet, and names the 6 that fire. Gap = share of the 6 firing crops named - share of the 6 others named.
-Chance is 0. A channel passes at gap >= .2, which needs 4 of 6 (chance about .28 per channel). The line is 85% of channels.
+For each card: 24 crops from SEALED photos on one sheet, in random order, labelled A to X. (The old cards were scored on 12 crops, with gaps in steps of 1/3.)
+   12 fire    the node's own peak, on photos where its firing is at least half of its largest on the sealed photos.
+   6 near     the peak of the node in the same layer most correlated with it over the sealed photos, on crops where this node's firing at the centre is under 20% of its largest.
+   6 random   the same, for a random node in the same layer.
+A reviewer sees only the words of a card and the sheet, and names the 12 that fire. Gap = share of the 12 firing crops named - share of the 12 others named.
+Chance is 0. A channel passes at gap >= .2, which needs 8 of 12 (chance about .11 per channel). The line is 85% of channels.
 Wrong cards: 1 item in 4 shows the words of another card from the same layer, on this node's sheet. The reviewer cannot tell which items these are. Their mean gap must be under .05.
 Old cards read channel s3:17 as s3b1:17, as they were read then. Seed 0. The key stays in review2/<tag>/key.json, which a reviewer must not read.
 Usage: build_crop_review.py TAG CARD_DIR [--stages 1,2,3]"""
@@ -86,9 +86,9 @@ for num, (k, card) in enumerate(cards.items()):
     hx, hp, hm = arr(n, "x"), arr(n, "p"), arr(n, "m")
     v = hx[:, n["c"]].astype(np.float64)
     big = v.max()
-    fire = rng.permutation(np.where(v >= .5 * big)[0])[:6]
-    if len(fire) < 6:
-        fire = np.argsort(-v)[:6]
+    fire = rng.permutation(np.where(v >= .5 * big)[0])[:12]
+    if len(fire) < 12:
+        fire = np.argsort(-v)[:12]
     hmf = hm.astype(np.float64)
     u = hmf[:, n["c"]] - hmf[:, n["c"]].mean()
     corr = (hmf - hmf.mean(0)).T @ u / (hmf.std(0) * u.std() * len(u) + 1e-9)
@@ -115,21 +115,21 @@ for num, (k, card) in enumerate(cards.items()):
     near = None
     for near_c in np.argsort(-corr).tolist():
         if near_c != n["c"]:
-            near = others(near_c, 3, set(fire.tolist()))
+            near = others(near_c, 6, set(fire.tolist()))
             if near is not None:
                 break
     rnd = None
     for rand_c in rng.permutation(hx.shape[1]).tolist():
         if rand_c not in (n["c"], near_c):
-            rnd = others(rand_c, 3, set(fire.tolist()) | set(near.tolist()))
+            rnd = others(rand_c, 6, set(fire.tolist()) | set(near.tolist()))
             if rnd is not None:
                 break
     tiles = crops(fire, hp[fire, n["c"]], n["s"]) + crops(near, hp[near, near_c], n["s"]) + crops(rnd, hp[rnd, rand_c], n["s"])
     truth = [True] * len(fire) + [False] * (len(near) + len(rnd))
     order = rng.permutation(len(tiles))
-    sheet = Image.new("RGB", (6 * 164, 2 * 184), "white")
+    sheet = Image.new("RGB", (6 * 164, 4 * 184), "white")
     d = ImageDraw.Draw(sheet)
-    letters = "ABCDEFGHIJKL"
+    letters = "ABCDEFGHIJKLMNOPQRSTUVWX"
     answer = []
     for pos_, t in enumerate(order):
         x, y = (pos_ % 6) * 164, (pos_ // 6) * 184

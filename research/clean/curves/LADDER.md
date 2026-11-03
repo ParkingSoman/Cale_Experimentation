@@ -3767,7 +3767,61 @@ what I measured at stage 4:
                  |______________________ 4 convolutions ______________________|
 ```
 
-Why it matters: 0 of the 119 links lie inside a stage, although the skip is .07 of z at stage 4. Several sparse layers in a row can multiply into a dense result, so the density may come from my distance. That is a suspect and it is not proved. The one-layer check tests it.
+Why it matters: 0 of the 119 links lie inside a stage, although the skip is .07 of z at stage 4. Several sparse layers in a row can multiply into a dense result, so the density may come from my distance. The one-layer check tested this.
+
+**Step 2. The one-layer check: distance was a large part of the old number.** All on sealed photos. These are validation crops, not N's training photos.
+
+```
+keep k inputs of a stage 4 channel, the rest at their mean:   share of z^2 that changes
+
+                                        k = 4    k = 16    k = 64
+old setup, four convolutions away        .97      .91       .77
+new, one convolution away                .43      .15       .04
+new, a random list                       .95      .92       .76
+```
+
+Why it matters: "no 64 inputs carry a child" came from the setup. With one convolution, 16 inputs of 513 come close, with a root mean square error of about .39 of z. The comparison is not like for like: the old setup kept 64 of 256 and crossed three ReLUs.
+
+**Step 3. Where I was wrong, and the reference.** My counts failed: half of the summed effect takes 76 inputs at stage 4, and I predicted 30. Three-way bundles did not lower that count. Position inside the 3 x 3 window gave no large gain.
+
+```
+inputs for half of the effect, and what k = 16 leaves
+
+ResNet-18 s4b1 stream from its inner channels         78 of 513     .156
+ResNet-18 s4b1 inner from s4b0 stream                119 of 512     .456
+ConvNeXt-Tiny stream direction from its neurons      109 of 3073    .117
+ConvNeXt-Tiny neuron from its stream directions      156 of 768     .595
+```
+
+Why it matters: on this measure ResNet-18 looks about as dense as a network the essay calls clean. So my prediction of 30 was too tight, and the count is no defect in itself. This is a reference and it is not like for like: ConvNeXt's stream has no privileged basis, and it has more units and fewer photos here. It does not prove your tree. Agents and sealed tests must do that.
+
+**Step 4. The old cards also fail a better test.** A reviewer sees a card's words and 12 sealed crops, and names the 6 that fire. A wrong card scores low (-.11 on 9 cards), so the test can tell cards apart.
+
+| Stage | Old class test | New crop test | Line |
+|---|---|---|---|
+| s1 | 13% | 27% (chance 28%) | 85% |
+| s2 | 20% | 64% | 85% |
+| s3 | 29% | 48% | 85% |
+
+Why it matters: the old test was only part of the problem. The old cards are not specific enough. Stage 1 sits at chance, which fits weak cards and also fits a test that cannot score a dial, so stage 1 gets a test with drawn images when a later wave reaches it.
+
+**Step 5. A first look at inner channels, and its limit.**
+
+```
+s4b1i:191  firing to 4.0   a spoked wheel under a rider          dogs on the negative side
+s4b1i:58   firing to 2.6   tabby faces                           dogs and blue birds on the negative side
+4 random inner channels    firing to 1.0 to 2.1                  none reads at a glance
+```
+
+Why it matters: the old map read no inner channel, and two of them read at once. But I chose those two because they were strong inputs, and the random four did not read. So this is a lead, not a result. The words above are my reading, and no test has checked them.
+
+**Step 6. What changed in the lines before the new cards.** "Parents carry" could not be passed by any card as written, so its measure changed. The crop test moved to 24 crops. The next wave covers stage 4's four layers only, since per-block nodes use up the token limit there. All of this is in `PREDICTIONS.md`, with my predictions, before any new card exists.
+
+| | |
+|---|---|
+| Word | Meaning |
+|---|---|
+| wave | one round of agents over part of the network |
 
 | | |
 |---|---|
@@ -3775,4 +3829,5 @@ Why it matters: 0 of the 119 links lie inside a stage, although the skip is .07 
 | Cale line | nothing yet |
 | Whole-network build | no |
 | label | none. This section holds no theorem. Definition DC4 adds inner channels as nodes |
-| next | the one-layer check, then a better microscope, then the same slice read again |
+| checks | `map_agents/resnet18/tests/test_ev2.py`: the exact sum holds on 12 kinds of node, and a fill by hand matches it. Results: `results/one_layer_check.json`, `one_layer_map.json`, `reference_convnext.json`, `review2/old/` |
+| next | agents read stage 4's four layers, then the sealed lines |

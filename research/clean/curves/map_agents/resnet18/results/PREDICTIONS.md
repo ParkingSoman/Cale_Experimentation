@@ -179,3 +179,42 @@ Reading, said plainly:
 1. On this measure, ResNet-18 looks about as dense as ConvNeXt-Tiny, or less. So "76 inputs for half of the effect" does not separate them, and my prediction of 30 was too tight. This is not like for like: ConvNeXt's stream has no privileged basis, it has more units, and it has fewer photos here.
 2. So this measure gives no reason to doubt the tree. It also does not prove the tree. Agents and sealed tests must do that.
 3. The lower stages are much clearer than stage 4 at one layer. The old blind test scored them worst (s1 13%, s2 20%, s3 29%), so that test is the first suspect there.
+
+## Old cards on the new crop test (2026-11-03; `review2/old/`, sealed photos, two blind reviewers; stages 1 to 3 only)
+
+No number was predicted before this run. The plan says: if they pass, the test was the problem.
+
+| Stage | Cards | Old class test, share of channels at gap .2 | New crop test, share at gap .2 | Mean gap |
+|---|---|---|---|---|
+| s1 | 15 | 13% | 27% | -.11 |
+| s2 | 11 | 20% | 64% | .27 |
+| s3 | 31 | 29% | 48% | .13 |
+| All | 57 | | 46% (line 85%) | .09 |
+| Wrong cards | 9 | | | -.11 (line under .05) |
+
+Chance for one channel to reach gap .2 is about 28%. So s2 and s3 sit above chance, and s1 sits at chance. The wrong cards score low, so the test can tell cards apart.
+
+Reading: the old cards FAIL the new test as well. So the old test was only part of the problem. It scored s2 and s3 lower than the new test does. The cards themselves are not specific enough, above all at stage 1. Nine wrong cards is a small control.
+
+# Round 2: lines and predictions for the new cards (fixed before any new card exists, 2026-11-03)
+
+**Scope.** Per-block nodes multiply the slice, and 2.5M tokens end inside stage 4. So this wave reads stage 4's four layers, with at most 140 nodes. It says nothing about stages 1 to 3, except for links into `s3b1`. Stage 3 and below are a later wave.
+
+**Two instruments changed before use, said plainly.**
+
+1. "Parents carry" as written asked named inputs to reach 50% of the summed |effect|. The one-layer check shows that takes about 76 inputs, since small votes cancel. No card naming a few inputs could pass, whatever its quality. New measure: on sealed photos, the share of the change from the mean explained when only the named inputs stay real. A child passes when that share is at least .25 and at least 3 times a random list of the same size. Line: 80% of children, unchanged. On this measure the top 4 by effect explain .52 at s4b1 and .27 at s4b1 inner.
+2. The crop test moves from 12 to 24 crops. Gaps came in steps of 1/3, and chance per channel was .28. It is now .11. The line stays 85% at gap .2.
+
+**Stage 1's test is a suspect, and this is decided now.** A mean gap of -.11 at chance level fits "cards not specific". It also fits a test that cannot score a dial: a graded stroke-width description has no clear fire or not-fire crop. So when a later wave reaches stage 1, its test is a synthetic battery: images drawn with fixed stroke, width, angle and frequency, the card predicts an ordering, and code scores the ordering. The crop test stays as a second number there.
+
+| Line | Pass | My prediction, stage 4 |
+|---|---|---|
+| Tree cover: the main parent moves the child by at least 2 times matched controls (root mean square, one layer, sealed) | 90% of nodes | 85%. It may miss |
+| Parents act: the same, on all named inputs | 90% of links | 90% |
+| Parents carry (above) | 80% of children | 60%. It may fail |
+| Specific enough to lose: 24-crop test, gap .2 | 85% of nodes | s4b1 75%, inner 60%, overall 65%. It may fail |
+| Real parents: pick the true parent of 5 from words alone | 70% | 60%. It may fail |
+| Wrong cards lose | mean gap under .05 | Holds |
+| Shonu's read | his | Not mine to predict |
+
+I checked by eye 2 strong inner channels, which read at once, and 4 random ones, which fire weakly and did not read at a glance. So I expect the weak channels to set these numbers.
