@@ -1,0 +1,61 @@
+s4_slice 156 {'n50_list': 79, 'n50_bundle': 73.234, 'n50_photo': 35.5, 'share64': 0.037, 'share64_rand': 0.711}
+s4_slice 162 {'n50_list': 58, 'n50_bundle': 52.203, 'n50_photo': 23.5, 'share64': 0.021, 'share64_rand': 0.803}
+s4_slice 163 {'n50_list': 85, 'n50_bundle': 85.328, 'n50_photo': 32.0, 'share64': 0.021, 'share64_rand': 0.511}
+s4_slice 168 {'n50_list': 45, 'n50_bundle': 44.125, 'n50_photo': 19.5, 'share64': 0.013, 'share64_rand': 0.774}
+s4_slice 172 {'n50_list': 68, 'n50_bundle': 66.516, 'n50_photo': 32.0, 'share64': 0.021, 'share64_rand': 0.754}
+s4_slice 182 {'n50_list': 95, 'n50_bundle': 90.062, 'n50_photo': 46.0, 'share64': 0.06, 'share64_rand': 0.694}
+s4_slice 219 {'n50_list': 75, 'n50_bundle': 68.438, 'n50_photo': 32.5, 'share64': 0.027, 'share64_rand': 0.717}
+s4_slice 226 {'n50_list': 77, 'n50_bundle': 78.141, 'n50_photo': 34.5, 'share64': 0.029, 'share64_rand': 0.727}
+s4_slice 242 {'n50_list': 87, 'n50_bundle': 81.812, 'n50_photo': 39.0, 'share64': 0.057, 'share64_rand': 0.723}
+s4_slice 255 {'n50_list': 96, 'n50_bundle': 95.719, 'n50_photo': 50.0, 'share64': 0.064, 'share64_rand': 0.71}
+s4_slice 269 {'n50_list': 90, 'n50_bundle': 86.484, 'n50_photo': 40.0, 'share64': 0.058, 'share64_rand': 0.775}
+s4_slice 270 {'n50_list': 58, 'n50_bundle': 59.266, 'n50_photo': 21.0, 'share64': 0.022, 'share64_rand': 0.888}
+s4_slice 277 {'n50_list': 73, 'n50_bundle': 74.344, 'n50_photo': 30.5, 'share64': 0.039, 'share64_rand': 0.81}
+s4_slice 28 {'n50_list': 72, 'n50_bundle': 74.594, 'n50_photo': 33.0, 'share64': 0.036, 'share64_rand': 0.894}
+s4_slice 297 {'n50_list': 89, 'n50_bundle': 83.141, 'n50_photo': 42.0, 'share64': 0.042, 'share64_rand': 0.673}
+s4_slice 31 {'n50_list': 71, 'n50_bundle': 68.5, 'n50_photo': 33.0, 'share64': 0.026, 'share64_rand': 0.835}
+s4_slice 32 {'n50_list': 85, 'n50_bundle': 83.844, 'n50_photo': 34.5, 'share64': 0.029, 'share64_rand': 0.757}
+s4_slice 329 {'n50_list': 75, 'n50_bundle': 73.406, 'n50_photo': 33.0, 'share64': 0.038, 'share64_rand': 0.761}
+s4_slice 344 {'n50_list': 89, 'n50_bundle': 87.906, 'n50_photo': 41.0, 'share64': 0.043, 'share64_rand': 0.74}
+s4_slice 35 {'n50_list': 61, 'n50_bundle': 58.703, 'n50_photo': 26.5, 'share64': 0.022, 'share64_rand': 0.692}
+s4_slice 362 {'n50_list': 60, 'n50_bundle': 57.266, 'n50_photo': 24.5, 'share64': 0.017, 'share64_rand': 0.737}
+s4_slice 367 {'n50_list': 84, 'n50_bundle': 83.156, 'n50_photo': 40.0, 'share64': 0.049, 'share64_rand': 0.753}
+s4_slice 391 {'n50_list': 76, 'n50_bundle': 74.656, 'n50_photo': 33.0, 'share64': 0.048, 'share64_rand': 0.763}
+s4_slice 393 {'n50_list': 72, 'n50_bundle': 70.594, 'n50_photo': 29.5, 'share64': 0.06, 'share64_rand': 0.705}
+s4_slice 400 {'n50_list': 68, 'n50_bundle': 66.109, 'n50_photo': 35.0, 'share64': 0.028, 'share64_rand': 0.654}
+s4_slice 403 {'n50_list': 72, 'n50_bundle': 66.031, 'n50_photo': 31.0, 'share64': 0.029, 'share64_rand': 0.774}
+s4_slice 418 {'n50_list': 48, 'n50_bundle': 45.578, 'n50_photo': 26.0, 'share64': 0.015, 'share64_rand': 0.796}
+s4_slice 42 {'n50_list': 79, 'n50_bundle': 78.156, 'n50_photo': 38.5, 'share64': 0.044, 'share64_rand': 0.727}
+s4_slice 424 {'n50_list': 90, 'n50_bundle': 87.141, 'n50_photo': 42.0, 'share64': 0.04, 'share64_rand': 0.738}
+s4_slice 429 {'n50_list': 70, 'n50_bundle': 63.516, 'n50_photo': 29.0, 'share64': 0.035, 'share64_rand': 0.775}
+s4_slice 431 {'n50_list': 86, 'n50_bundle': 81.203, 'n50_photo': 36.0, 'share64': 0.06, 'share64_rand': 0.788}
+s4_slice 456 {'n50_list': 75, 'n50_bundle': 74.281, 'n50_photo': 36.0, 'share64': 0.034, 'share64_rand': 0.77}
+s4_slice 461 {'n50_list': 46, 'n50_bundle': 47.047, 'n50_photo': 19.0, 'share64': 0.019, 'share64_rand': 0.799}
+s4_slice 467 {'n50_list': 77, 'n50_bundle': 73.984, 'n50_photo': 33.5, 'share64': 0.043, 'share64_rand': 0.787}
+s4_slice 474 {'n50_list': 85, 'n50_bundle': 83.891, 'n50_photo': 41.0, 'share64': 0.046, 'share64_rand': 0.774}
+s4_slice 486 {'n50_list': 95, 'n50_bundle': 91.109, 'n50_photo': 42.0, 'share64': 0.062, 'share64_rand': 0.741}
+s4_slice 56 {'n50_list': 84, 'n50_bundle': 80.938, 'n50_photo': 40.0, 'share64': 0.028, 'share64_rand': 0.745}
+s4_slice 9 {'n50_list': 64, 'n50_bundle': 58.438, 'n50_photo': 30.0, 'share64': 0.023, 'share64_rand': 0.762}
+
+s4_slice: 38 children, 513 inputs. z 15.32. Left with every input at its mean: 0.02 of z
+  inputs for 50% of the effect: list 76, bundle 74, photo 33, best list on these photos 72
+  inputs for 80% of the effect: list 230, bundle 230, photo 150, best list on these photos 224
+  k = 4: share of z^2 changed 0.428 (random 0.950); share of the change from the mean 0.458 (random 0.991)
+  k = 16: share of z^2 changed 0.151 (random 0.916); share of the change from the mean 0.152 (random 0.949)
+  k = 64: share of z^2 changed 0.036 (random 0.755); share of the change from the mean 0.037 (random 0.791)
+s4_random 321 {'n50_list': 89, 'n50_bundle': 85.594, 'n50_photo': 39.0, 'share64': 0.049, 'share64_rand': 0.757}
+s4_random 272 {'n50_list': 73, 'n50_bundle': 68.953, 'n50_photo': 30.0, 'share64': 0.024, 'share64_rand': 0.775}
+s4_random 167 {'n50_list': 83, 'n50_bundle': 81.969, 'n50_photo': 36.0, 'share64': 0.042, 'share64_rand': 0.756}
+s4_random 42 {'n50_list': 79, 'n50_bundle': 78.156, 'n50_photo': 38.5, 'share64': 0.044, 'share64_rand': 0.752}
+s4_random 63 {'n50_list': 70, 'n50_bundle': 68.719, 'n50_photo': 33.0, 'share64': 0.04, 'share64_rand': 0.761}
+s4_random 435 {'n50_list': 88, 'n50_bundle': 82.438, 'n50_photo': 41.0, 'share64': 0.071, 'share64_rand': 0.771}
+s4_random 230 {'n50_list': 80, 'n50_bundle': 80.219, 'n50_photo': 36.0, 'share64': 0.023, 'share64_rand': 0.721}
+s4_random 366 {'n50_list': 97, 'n50_bundle': 87.75, 'n50_photo': 39.0, 'share64': 0.057, 'share64_rand': 0.652}
+s4_random 402 {'n50_list': 66, 'n50_bundle': 61.203, 'n50_photo': 28.0, 'share64': 0.04, 'share64_rand': 0.857}
+s4_random 13 {'n50_list': 74, 'n50_bundle': 71.672, 'n50_photo': 29.0, 'share64': 0.027, 'share64_rand': 0.799}
+s4_random 414 {'n50_list': 93, 'n50_bundle': 87.578, 'n50_photo': 40.5, 'share64': 0.044, 'share64_rand': 0.7}
+s4_random 122 {'n50_list': 81, 'n50_bundle': 78.969, 'n50_photo': 34.0, 'share64': 0.041, 'share64_rand': 0.75}
+s4_random 135 {'n50_list': 79, 'n50_bundle': 77.109, 'n50_photo': 36.0, 'share64': 0.048, 'share64_rand': 0.766}
+s4_random 274 {'n50_list': 65, 'n50_bundle': 59.219, 'n50_photo': 31.0, 'share64': 0.019, 'share64_rand': 0.775}
+s4_random 203 {'n50_list': 71, 'n50_bundle': 67.438, 'n50_photo': 33.0, 'share64': 0.027, 'share64_rand': 0.8}
+s4_random 464 {'n50_list': 85, 'n50_bundle': 87.438, 'n50_photo': 37.0, 'share64': 0.034, 'share64_rand': 0.717}

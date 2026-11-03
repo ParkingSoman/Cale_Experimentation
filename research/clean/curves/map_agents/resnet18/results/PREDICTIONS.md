@@ -75,3 +75,23 @@ Bug found and fixed before these numbers: the tools filled a channel at both blo
 | novehicle: eps_par under .1 at s3, under .2 at s4, KL under .1 | Held |
 | novehicle beats random controls by 1.5 times or more | FAILED. 1.22 times the mean of the seeds, and one seed ties it |
 | Against strongest channels it is close | It beats them by 1.57 times, more than I expected |
+
+# Round 2: the one-layer check (written before `one_layer_check.py` ran, 2026-11-03)
+
+Plan `im-looking-at-the-playful-whisper.md`, Step 1. Shonu: "i don't accept the network isn't clean, id rather guess the map is wrong". So a miss below blames the setup, and it names the next suspect.
+
+Lists are chosen on reading photos. Numbers are on sealed photos. Children are at their own peak, on their 64 strongest photos.
+
+| Item | Prediction |
+|---|---|
+| The sum of all direct inputs equals z | Float error. If not, the script stops and I fix the script |
+| Old measure at stage 4, k = 64 | The old list (share of z^2 changed .77) beats a random 64 |
+| Stage 4 block 1: inputs to reach 50% of the summed effect, one list per child | 30 or fewer of 512, median |
+| The same, one list per bundle | 15 or fewer |
+| The same, one list per photo | 15 or fewer. This one is in-sample, and it only describes a photo |
+| 30 random stage 4 channels | The same lines hold. They are not chosen by agents, so they are the fair sample |
+| Inner channels: inputs from the block's stream to reach 50% | 30 or fewer of 512 |
+| Stage 3 block 1, with the skip counted as one input | 5 or fewer, since the skip is about .77 of z |
+| Share of z^2 changed at k = 64, one layer | Under .3, against .77 across four convolutions |
+
+If stage 4 stays dense at one layer, the next suspects are position inside the 3 x 3 window, then near-twin channels that act as one parent.

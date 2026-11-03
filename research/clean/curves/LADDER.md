@@ -3748,3 +3748,31 @@ Why it matters: this is the first whole-network number on this track, on the dog
 | predictions | `map_agents/resnet18/results/PREDICTIONS.md`. Wrong: the skip at stage 4, the blind test at s3, s2, s1, the density, and beating random by 1.5 times. Right: real parents 50 to 75%, and which families pass |
 | your calls | your read of the page, and card 3-42 |
 | next, my view | ResNet-50's density first, then your neuron idea on the network with clearer parents, then the fill |
+
+## 57. The map first: I withdraw "the tree does not hold", and I fix the microscope (2026-11-03; plan im-looking-at-the-playful-whisper.md; COARSE-THEORY.md C.R6, DC4; card 3-42 closed)
+
+**LADDER 56's reading "many weak parents" and "the tree does not hold at the top" is withdrawn. It is a result about my microscope. Nothing else runs until the map is clean.** You said: "we cannot move forward until we get a clean mapping of the network, and i don't accept the network isn't clean, id rather guess the map is wrong".
+
+| Word | Meaning here |
+|---|---|
+| inner channel | a channel between the two convolutions of a block, with its own ReLU |
+| direct input | a channel one convolution below the child |
+
+**Step 1. What I got wrong.**
+
+```
+what I measured at stage 4:
+
+   s3 parent -> conv -> inner -> conv -> s4 block 0 -> conv -> inner -> conv -> s4 block 1 child
+                 |______________________ 4 convolutions ______________________|
+```
+
+Why it matters: 0 of the 119 links lie inside a stage, although the skip is .07 of z at stage 4. Several sparse layers in a row can multiply into a dense result, so the density may come from my distance. That is a suspect and it is not proved. The one-layer check tests it.
+
+| | |
+|---|---|
+| Trunk check | used: "a map M of N on P", "each inside one hidden layer", "How M is found ... is outside the trunk". No trunk text changes |
+| Cale line | nothing yet |
+| Whole-network build | no |
+| label | none. This section holds no theorem. Definition DC4 adds inner channels as nodes |
+| next | the one-layer check, then a better microscope, then the same slice read again |
