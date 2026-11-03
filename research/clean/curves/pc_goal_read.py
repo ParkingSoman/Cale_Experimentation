@@ -39,6 +39,13 @@ ADDED 2026-11-03, AFTER the ResNet-18 run, because line (b) failed on 5 of 6 goa
 1e-4 in place of 1e-6. This is one value, not tuned. On ResNet-18 it is a look after the fact. ResNet-50 is the clean test of it.
 PREDICTION, written before any rule_fast run: sealed KL within 3% of rule on every goal, so equal at k = 14 goes over 1.3. Time about a third of rule. (b) passes on about half the goals.
 
+RESULT of rule_fast on ResNet-18 (2026-11-03): KL within 1% of rule on all goals, so equal at k = 14 stayed at 1.299 (predicted over 1.3: missed). (b) still fails on 5 of 6 (predicted about half: missed).
+
+PREDICTION for ResNet-50, written before its first full run (2026-11-03), after seeing ResNet-18. It has 12 fit photos per class, and d = 2048, so a small goal has fewer rows than z has dimensions.
+   equal: trained k = 14 about 1.3, k = 38 about .55, rule/best 1.2 to 1.5 at k = 14, 1.1 to 1.4 at k = 38.
+   dogcat: trained k = 14 about .45, k = 38 about .2, rule/best .9 to 1.3. Beats the controls at both sizes.
+   (a) fails on at least one goal, most likely equal at k = 14. (b) fails on the small goals and passes on equal. (c) passes.
+
 Usage: pc_goal_read.py --net resnet18 [--smoke] [--goals dogcat,ctrl0] [--fast-only]
 """
 import argparse
