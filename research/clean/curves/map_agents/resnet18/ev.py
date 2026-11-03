@@ -10,14 +10,14 @@ These are ImageNet validation crops, not N's training photos. Sealed photos are 
   edit CH                 largest firing kept on the top 32 photos after grayscale, blur, rotation by 90, flip
  Connections
   parents CH --band top|mid|neg   the channels of the stage below that feed CH, through every route, skip included
-  siblings CH --band top|mid|neg  the channels of this stage that feed CH inside the stage; its own skip share; correlated channels
+  siblings CH --band top|mid|neg  the channels of this stage that feed CH inside the stage; its own channel's entry; correlated channels
   readers CH              what reads CH: the next stage's channels, or the logits for stage 4
   by-photo CH             top 24 photos, top 4 feeders of each: firings grouped by route, by eye
   job CH                  skip share of the variance, and how far the channel keeps one job across the stage
   trace PHOTO             one photo followed from N's top class down through all stages
  Test
   score CH --high a,b --near c,d    percentile of the largest firing on these class numbers
-  drop CH,CH,... [--per-class 2]    set these channels to their mean through their whole stage: KL of N, classes that lose most
+  drop CH,CH,... [--per-class 1]    takes 1 to 2 minutes. Set these channels to their mean through their whole stage: KL of N, classes that lose most
   acts PARENT CHILD       remove PARENT through its stage. How far CHILD falls on CHILD's top 64 photos, against a matched control
   carry I,J,...           on these photos: the stage 4 channels that carry N's top class against its second
  Names
@@ -47,7 +47,7 @@ ap.add_argument("--inner", action="store_true")
 ap.add_argument("--k", type=int, default=3)
 ap.add_argument("--high", default="")
 ap.add_argument("--near", default="")
-ap.add_argument("--per-class", type=int, default=2)
+ap.add_argument("--per-class", type=int, default=1)
 ap.add_argument("--threads", type=int, default=2)
 a = ap.parse_args()
 if a.command in ("by-photo", "bundles", "trace", "acts", "drop"):
@@ -186,7 +186,7 @@ elif cmd == "siblings":
     own = lat[c]
     lat[c] = 0
     o = np.argsort(-lat)
-    print(f"s{s}:{c} band {a.band}: from block 0 to block 1 of the stage. Own skip {own:+.2f}. Sum of the others {lat.sum():+.2f}")
+    print(f"s{s}:{c} band {a.band}: from block 0 to block 1 of the stage. Own channel {own:+.2f} (the skip plus block 1 reading it). Sum of the others {lat.sum():+.2f}")
     print("feed +:", fmt([(f"s{s}:{i}", lat[i]) for i in o[:8]]))
     print("feed -:", fmt([(f"s{s}:{i}", lat[i]) for i in o[::-1][:6]]))
     hm = np.asarray(arr(f"s{s}b1_hm"), dtype=np.float32)
@@ -202,7 +202,7 @@ elif cmd == "readers":
     if s == 4:
         import torch
         sd = torch.load(os.path.expanduser("~/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth"), map_location="cpu", weights_only=True)
-        W = sd["fc.weight"].numpy()
+        W = sd["fc.weight"].detach().numpy()
         w = W[:, c] - W[:, c].mean()
         o = np.argsort(-w)
         print("strongest + logits:", [(cats[i], round(float(w[i]), 2)) for i in o[:12]])
@@ -341,12 +341,12 @@ elif cmd in ("drop", "acts"):
         chs = a.arg.split(",")
         fill = fill_of(chs)
         kl = []
+        stored = Y()
         with torch.no_grad():
             for b in range(0, len(idx), 64):
-                x = P.tensor(idx[b:b + 64])
-                y0, _ = forward(m, x)
-                y1, _ = forward(m, x, fill)
-                s0 = F.log_softmax(y0, 1)
+                sel = idx[b:b + 64]
+                y1, _ = forward(m, P.tensor(sel), fill)
+                s0 = F.log_softmax(torch.as_tensor(np.asarray(stored[sel], dtype=np.float32)), 1)  # N's logits, from the store
                 kl.append((s0.exp() * (s0 - F.log_softmax(y1, 1))).sum(1).numpy())
         kl = np.concatenate(kl)
         lab, cats = labels()[idx], names()
@@ -382,7 +382,7 @@ elif cmd in ("drop", "acts"):
 elif cmd == "carry":
     import torch
     sd = torch.load(os.path.expanduser("~/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth"), map_location="cpu", weights_only=True)
-    W = sd["fc.weight"].numpy()
+    W = sd["fc.weight"].detach().numpy()
     cats, y, hm, lab = names(), Y(), arr("s4b1_hm"), labels()
     for i in [int(t) for t in a.arg.split(",")]:
         o = np.argsort(-y[i])

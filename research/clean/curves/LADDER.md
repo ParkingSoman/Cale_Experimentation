@@ -3657,6 +3657,17 @@ Why it matters: the pilot's agents could read the channels, with 23 of 24 blind 
 
 **Step 4. The new guard.** Each section from this one on must have a "Cale line" row and a "Whole-network build" row that says yes or no. You said a note is too weak, so this is in `tools/ladder_lint.py`, with four new self-tests.
 
+**Step 5. A correction that came in the same day.**
+
+```
+stage 4, at a channel's peak:    z = 18.45    the skip gives 1.32    the residual path of block 1 gives the rest
+stages 1, 2, 3, at the peak:     the skip gives .70 to .77 of z
+```
+
+Why it matters: correction of LADDER 45 ("mostly its own skip") and card 3-34 (".88 skip"), both wrong for stage 4. My plan of today repeated the claim. The large "own" entry in the feeder table is the skip plus block 1 reading the same channel and amplifying it. So in stage 4 the job forms in block 1, and links inside the stage are real links. Details: `map_agents/resnet18/results/PREDICTIONS.md`.
+
+The photo-count control finished. Its result is in LADDER 54 and Part C (C.R5): photo count alone does not explain ResNet-50's misses. Row 3 stays parked, and that is the last line on it.
+
 | | |
 |---|---|
 | Trunk check | used: "a map M of N on P", "How M is found (by people, agents or a program) is outside the trunk". No trunk text changes |

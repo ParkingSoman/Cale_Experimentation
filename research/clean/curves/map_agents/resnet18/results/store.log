@@ -3,3 +3,16 @@
 3200/35000 19s
 6400/35000 39s
 9600/35000 65s
+12800/35000 89s
+16000/35000 116s
+19200/35000 144s
+22400/35000 163s
+25600/35000 190s
+28800/35000 219s
+32000/35000 239s
+done 35000 photos 267s; hand-written net against torchvision, largest logit difference 0.00e+00
+0/10000 2s
+3200/10000 32s
+6400/10000 59s
+9600/10000 84s
+done 10000 photos 86s; hand-written net against torchvision, largest logit difference 0.00e+00

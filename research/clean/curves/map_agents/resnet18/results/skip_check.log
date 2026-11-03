@@ -1,0 +1,7 @@
+/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/skip_check.py:44: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:821.)
+  rows.append((float(z.mean()), float(skip.mean()), float(at[c] / at[at > 0].sum()), float(at.sum())))
+s1: median z at the peak 5.59, skip there 3.84, skip / z 0.71; own skip's share of positive input x gradient 0.62; sum of input x gradient 3.89
+s2: median z at the peak 3.51, skip there 2.36, skip / z 0.70; own skip's share of positive input x gradient 0.64; sum of input x gradient 3.08
+s3: median z at the peak 2.44, skip there 1.74, skip / z 0.77; own skip's share of positive input x gradient 0.61; sum of input x gradient 1.93
+s4: median z at the peak 18.45, skip there 1.32, skip / z 0.07; own skip's share of positive input x gradient 0.21; sum of input x gradient 7.72

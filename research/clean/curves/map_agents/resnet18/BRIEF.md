@@ -22,7 +22,16 @@ torchvision ResNet-18, on ImageNet. Read `map_agents/resnet18/net.py` for the na
 | stage s3 | 256 | 14 x 14 | The same |
 | stage s4 | 512 | 7 x 7 | Then a mean over positions and one linear layer to 1000 logits |
 
-Each stage has 2 blocks. Block 1 adds to the same channel numbers through its skip. So `s4:179` is one stream channel through the stage. The real branching is at the boundary between stages. `parents` looks through the skip, so use it instead of asking what the block before feeds.
+Each stage has 2 blocks. Block 1 adds to the same channel numbers through its skip. So `s4:179` is one stream channel through the stage, and every command reads it at block 1 unless you pass `--block 0`. `parents` looks through the skip and counts every route.
+
+Measured today, so you do not repeat an old error:
+
+| Stage | Skip's share of z at a channel's peak | What it means |
+|---|---|---|
+| s1, s2, s3 | .70 to .77 | A channel mostly carries its job across the stage. Branching is at the boundary between stages |
+| s4 | .07 | Block 1 does nearly all the work. Block 0's channel has only about 12 of its top 100 photos in common with block 1's. So look at `sheet --block 0` too, and count channels from `siblings` as real parents, in the same list |
+
+The large "own channel" entry in `siblings` is the skip plus block 1 reading the same channel. It is not the skip. The numbers in `parents` are input x gradient. A batch norm adds constants that they leave out, so they do not sum to the firing. `acts` is the causal test.
 
 The photos are 35000 ImageNet validation crops, 35 per class. They are not N's training photos. **Do not read anything under `cache/map18/sealed`.** Those photos score your work.
 

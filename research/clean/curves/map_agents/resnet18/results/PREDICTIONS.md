@@ -27,3 +27,20 @@ If a stage has a median correlation under .5, the unit becomes the block in that
 | Line | Pass line | My prediction |
 |---|---|---|
 | The map earns its place | KL at least 1.5 times below both controls, at three sizes, on dogs and cats | Beats random groups clearly. Against strongest channels, it is close and may fail, since the old tree on ConvNeXt tied with energy as a removal order |
+
+# Results
+
+## One channel, one job across a stage (2026-11-03; `job_table.json`, `skip_check.log`)
+
+| Stage | Predicted skip share at block 1 | Measured, variance (median) | Measured, skip / z at the peak | Predicted correlation | Measured (median) | Top 100 photos shared |
+|---|---|---|---|---|---|---|
+| s4 | about .88 | .01 | .07 | above .7 | .55 | 12 |
+| s3 | .6 to .85 | .42 | .77 | above .6 | .82 | 39 |
+| s2 | .5 to .8 | .51 | .70 | above .6 | .88 | 33 |
+| s1 | .5 to .8 | .43 | .71 | above .6 | .75 | 32 |
+
+**My s4 prediction failed badly.** It rested on card 3-34 and LADDER 45. Those read the feeder table, where the entry for a channel's own number looks large. That entry is the skip plus block 1's residual path reading the same channel. At s4 the skip itself is .07 of z at the peak.
+
+The second prediction, in `skip_check.py`, held at s4: skip under .2 of z, and own share of input x gradient above that (.21 against .07). At stages 1 to 3 it predicted .3 to .7, and the measured values are .70 to .77, at or just above the top.
+
+**Decision (technical, by delegation):** the stream channel stays the unit, read at block 1. No stage has a median correlation under .5, which was the line fixed in advance. Stage 4 is close (.55), and its top photos differ, so links inside stage 4 count as real links.

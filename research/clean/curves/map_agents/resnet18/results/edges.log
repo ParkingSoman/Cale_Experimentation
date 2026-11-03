@@ -1,0 +1,26 @@
+stage 1 top 0s
+stage 1 mid 1s
+stage 1 neg 1s
+stage 2 top 1s
+stage 2 mid 2s
+stage 2 neg 2s
+stage 3 top 2s
+stage 3 mid 3s
+stage 3 neg 3s
+stage 4 top 3s
+stage 4 mid 3s
+stage 4 neg 4s
+done
+stage 1 top 8s
+stage 1 mid 16s
+stage 1 neg 22s
+stage 2 top 35s
+stage 2 mid 48s
+stage 2 neg 60s
+stage 3 top 86s
+stage 3 mid 115s
+stage 3 neg 140s
+stage 4 top 203s
+stage 4 mid 260s
+stage 4 neg 315s
+done
