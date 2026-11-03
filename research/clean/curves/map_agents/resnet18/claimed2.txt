@@ -120,3 +120,12 @@ s4b1i:356 east
 s4b1i:153 east
 s4b1i:173 south
 s4b0i:292 west
+s4b0:237 east
+s4b0:329 east
+s4b0:266 east
+s4b0:245 east
+s4b0:452 east
+s4b0:476 east
+s4b0:99 east
+s4b0:467 south
+s4b0i:245 south
