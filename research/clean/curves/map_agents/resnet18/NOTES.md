@@ -1,1 +1,12 @@
 # Shared notes: ResNet-18 map (short lines, with your name)
+wheels: PREDICTIONS written before wheels_score runs: s4:456 trains pct>.85, bikes/air<.6 (score already seen: held). s4:168 fireboat 554, speedboat 814, steam loco 820 >.8, aircraft <.6. s4:474 steam loco 820 >.8, others <.6. s4:56 canoe 472 and yawl 914 >.7, trains <.5. s4:175 freight car 565 >.85, rest <.6. s4:226 bullet train 466 >.8, other trains <.7.
+wheels: s4:226 is a mountain-slope/valley channel, not a train channel. Bullet train (466) uses it as backdrop. Its top parent s3:33 (acts: -2.02 vs controls 0.09/0.02/0.12). Neg pole: small glossy hand-held toys, balls, whistles (round smooth small things).
+wheels: s4:456 pos: horizontal bands of parallel rails/keys/rims (trains, piano, steel drum). neg: thin spoke/wing/limb shapes on open background (bicycles, warplane, birds in flight, crab). Reads trains logits. A real train vs bike/plane split lives here, in s4 only so far.
+wheels: s4:175 pos: large smooth painted/glazed surface with decoration (ceramic jugs, graffiti boxcars). neg: screens, bottles, helmets. Reads freight car 0.47.
+wheels: s4:168 pos: spray/plume/jet of water or steam. neg: smooth round things (car wheel, pill bottle, bubble, nipple). A V against O.
+wheels: s4:474 pos: dark black body mass (dogs, siamang, joystick, abaya, fire smoke). neg: tan/light-brown dogs, white bears. A dark-vs-light colour channel.
+wheels: s4:56 pos: water surface and underwater view. neg: fine banded or furred land animals, hourglass.
+- gate: no gate at stage 2 by the numbers. 15 car classes vs 4130 dog photos: car and dog mean z-min per channel differ by under 0.1 in the top 10 stage 2 channels (tests/gate_scan.py). Stage 2 splits by texture (smooth round rim vs fine fur or mesh: s2:127, s2:109), not by object.
+- gate: stage 3 has the gate-shaped channels. Dog (and other furry) faces are the NEGATIVE pole of s3:17, 101, 154, 190, 226, 128, 164. Positive poles differ: printed marks (17), smooth surface (101), lone tall structure (154), repeated pattern (226), vehicle side with wheel (164), body in profile on grass (128). So the dog-face negative is shared; the car part is one channel, s3:164.
+- gate: s3:164 is the closest to the essay: wheel on painted body through, faces and daisies turned away. Parent s2:127 (acts: falls 0.58 of 3.13, controls ~0). s2:109 builds s3:101 (0.35 vs 0.05) but not s3:17 or s3:164.
+- gate: s3:79 is the opposite sign (dog nose, fur, petals positive). s3:128 is a pose split inside dogs (body in profile vs frontal face).
