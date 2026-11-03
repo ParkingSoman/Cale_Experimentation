@@ -26,3 +26,10 @@ ctrl0 38 rand1 {'kl': 0.6884, 'agree': 0.7024, 'fit': 0.0573, 'val': 0.6958, 'se
 ctrl0 38 rule {'kl': 0.6406, 'agree': 0.6967, 'fit': 0.073, 'val': 0.6902, 'sec': 4.1543} validation
 ctrl0 38 RATIO rule 1.175 rule2 1.086
 ctrl1 rows 3690 615 1230 span sec 0.09
+ctrl1 14 rule {'kl': 1.5394, 'agree': 0.5203, 'fit': 0.7644, 'grad': 0.0, 'sec': 6.8729} rule2 1.5213 51.6
+ctrl1 14 logitpca {'kl': 1.275, 'agree': 0.5813, 'fit': 0.3861, 'val': 1.3768, 'sec': 3.8605} validation
+ctrl1 14 rand0 {'kl': 1.6755, 'agree': 0.5138, 'fit': 0.3323, 'val': 1.6111, 'sec': 4.7607} validation
+ctrl1 14 rand1 {'kl': 1.6219, 'agree': 0.5488, 'fit': 0.3307, 'val': 1.6818, 'sec': 4.7475} validation
+ctrl1 14 rule {'kl': 1.437, 'agree': 0.561, 'fit': 0.393, 'val': 1.5258, 'sec': 3.1431} validation
+ctrl1 14 RATIO rule 1.207 rule2 1.193
+ctrl1 38 rule {'kl': 0.741, 'agree': 0.6675, 'fit': 0.1302, 'grad': 0.0, 'sec': 8.7143} rule2 0.7195 54.5
