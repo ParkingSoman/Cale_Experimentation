@@ -3,7 +3,7 @@
 
 For each card: 12 crops from SEALED photos on one sheet, in random order, labelled A to L.
    6 fire     the node's own peak, on photos where its firing is at least half of its largest on the sealed photos.
-   3 near     the peak of the node in the same layer most correlated with it over the sealed photos, on photos where this node's firing is under 20% of its largest.
+   3 near     the peak of the node in the same layer most correlated with it over the sealed photos, on crops where this node's firing at the centre is under 20% of its largest.
    3 random   the same, for a random node in the same layer.
 A reviewer sees only the words of a card and the sheet, and names the 6 that fire. Gap = share of the 6 firing crops named - share of the 6 others named.
 Chance is 0. A channel passes at gap >= .2, which needs 4 of 6 (chance about .28 per channel). The line is 85% of channels.
@@ -21,8 +21,13 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from ev2 import CROP, grid, parse  # noqa: E402
-from net import HERE, STORE, STRIDE, Photos  # noqa: E402
+import torch  # noqa: E402
+
+from ev2 import CROP, grid, parse, value_field  # noqa: E402
+from net import HERE, STORE, STRIDE, Photos, load  # noqa: E402
+
+torch.set_num_threads(4)
+M = load()
 
 ap = argparse.ArgumentParser()
 ap.add_argument("tag")
@@ -88,16 +93,37 @@ for num, (k, card) in enumerate(cards.items()):
     u = hmf[:, n["c"]] - hmf[:, n["c"]].mean()
     corr = (hmf - hmf.mean(0)).T @ u / (hmf.std(0) * u.std() * len(u) + 1e-9)
     corr[n["c"]] = -1
-    near_c = int(np.argmax(corr))
-    rand_c = int(rng.choice([q for q in range(hx.shape[1]) if q not in (n["c"], near_c)]))
 
     def others(c, count, avoid):
-        o = np.argsort(-hx[:, c].astype(np.float64))
-        o = [int(i) for i in o if v[i] < .2 * big and i not in avoid]
-        return np.array(o[:count])
+        """Strong crops of channel c where THIS node is under 20% of its largest firing, at that crop's centre. Judged per crop: an early dial fires somewhere on every photo."""
+        o = [int(i) for i in np.argsort(-hx[:, c].astype(np.float64))[:200] if int(i) not in avoid]
+        picked = []
+        for b in range(0, len(o), 32):
+            sel = np.array(o[b:b + 32])
+            with torch.no_grad():
+                f = torch.relu(value_field(M, P.tensor(sel), n)).flatten(1).numpy()
+            for j, i in enumerate(sel):
+                if f[j, int(hp[i, c])] < .2 * big:
+                    picked.append(int(i))
+            if len(picked) >= count:
+                break
+        if len(picked) < count:
+            return None
+        return np.array(picked[:count], dtype=np.int64)
 
-    near = others(near_c, 3, set(fire.tolist()))
-    rnd = others(rand_c, 3, set(fire.tolist()) | set(near.tolist()))
+    # a channel too close to have crops where this node is quiet gives way to the next most correlated one
+    near = None
+    for near_c in np.argsort(-corr).tolist():
+        if near_c != n["c"]:
+            near = others(near_c, 3, set(fire.tolist()))
+            if near is not None:
+                break
+    rnd = None
+    for rand_c in rng.permutation(hx.shape[1]).tolist():
+        if rand_c not in (n["c"], near_c):
+            rnd = others(rand_c, 3, set(fire.tolist()) | set(near.tolist()))
+            if rnd is not None:
+                break
     tiles = crops(fire, hp[fire, n["c"]], n["s"]) + crops(near, hp[near, near_c], n["s"]) + crops(rnd, hp[rnd, rand_c], n["s"])
     truth = [True] * len(fire) + [False] * (len(near) + len(rnd))
     order = rng.permutation(len(tiles))

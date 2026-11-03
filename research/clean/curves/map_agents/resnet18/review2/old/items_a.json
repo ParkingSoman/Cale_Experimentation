@@ -1,0 +1,233 @@
+[
+{
+"item": "item058",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item058.png",
+"distinction": "thin straight parallel stripes of strong contrast",
+"positive": "zebra, picket fence, typewriter keys, clock hand, stripes on a sleeve, safety pin",
+"negative": "not read"
+},
+{
+"item": "item012",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item012.png",
+"distinction": "Is the local pattern fine parallel stripes or thin lines at one slant, or broad shapes? Fine slanted stripes push up.",
+"positive": "fine dark and light stripes and hairlines (striped shirts, zebra, bicycle spokes, wheel fork, clock hand, handlebar), mostly one slant",
+"negative": "wide thick bars and big curved bands (wheel rims, window frames, blinds) at the other orientations"
+},
+{
+"item": "item049",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item049.png",
+"distinction": "a vivid saturated colour patch that differs strongly from the colours around it",
+"positive": "purple, magenta, yellow and blue patches: toy, bottle, pretzel, anemone, parrot, mask",
+"negative": "not read (neg sheet not looked at)"
+},
+{
+"item": "item029",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item029.png",
+"distinction": "Is there a single dark round disc (pupil, polka dot, hole) in a lighter surround, bigger than s2:71's dot? Big dark discs push up.",
+"positive": "single dark round discs: cat pupil, polka dots, a sign circle, tomato slice hole, totem hole, trigger buttons, wheel hubs",
+"negative": "not read"
+},
+{
+"item": "item019",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item019.png",
+"distinction": "Is the stripe pitch very fine (one or two pixels) and parallel, or wide? Fine parallel stripes push up strongly.",
+"positive": "the finest parallel stripe patterns at any slant: zebra, vacuum hose coils, accordion, honeycomb ridges, fire engine slats, bikini edge",
+"negative": "wider stripes (striped shirts), text and rings at normal pitch"
+},
+{
+"item": "item052",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item052.png",
+"distinction": "a small round saturated blob sitting on a contrasting ground",
+"positive": "berries, tomatoes, red dots on a joystick, balls, ladybug, strawberry on cream",
+"negative": "not read"
+},
+{
+"item": "item041",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item041.png",
+"distinction": "a single tall or sky-backed structure against a furry eyed face",
+"positive": "towers, lighthouses, chimneys, airship, umbrella on open sky; also two dog photos",
+"negative": "dog faces plus one fox face and one human face; keeps out faces"
+},
+{
+"item": "item014",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item014.png",
+"distinction": "Is there a bold bright vertical or slanted bar on a dark ground, or a thin ring or hairline? Bold bars push up, thin curved lines push down (large negative values).",
+"positive": "bold bright strokes on dark: thick letters (Model T, DEAD), tow truck stripes, clock numerals, neon letters",
+"negative": "very strong negative on thin ring outlines and hairlines (rings, ruler ticks, gown seam, neon thin lines)"
+},
+{
+"item": "item039",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item039.png",
+"distinction": "a round wheel set in a long smooth painted body (side view of a vehicle) against a soft centered face or radial bloom with a dark nose or eye-like middle",
+"positive": "side views of vans, fire engines, cabs, a go-kart: wheel plus flat body panel; top 16 are all vehicles with a visible wheel",
+"negative": "human and dog faces (nose, mouth), daisies and other flowers with a round centre; keeps out faces and radial organic shapes"
+},
+{
+"item": "item050",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item050.png",
+"distinction": "a smooth empty field with a thin edge object entering at its border",
+"positive": "plain blue sky or plain background, with a pole, wire, shaker or hull entering at an edge",
+"negative": "not read"
+},
+{
+"item": "item057",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item057.png",
+"distinction": "thin dark straight lines that cross at an angle over a pale, bright ground",
+"positive": "bare twigs on sky, wires, music stand, chrome rim, panel edges, car roof edge, pan rim",
+"negative": "not read (stage 2 here: crops are tiny)"
+},
+{
+"item": "item030",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item030.png",
+"distinction": "Detects printed letters, digits and marks on a surface.",
+"positive": "Text and logos on laptop, phone, odometer, book jacket, helmet, digital clock.",
+"negative": "Not opened."
+},
+{
+"item": "item016",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item016.png",
+"distinction": "Is there a dark patch or heavy letter on white, or a smooth gradient? Dark bold patches on white push up.",
+"positive": "dark heavy letters and dots on white or pale ground (PHP, Cheese, dots on a lighter, bird silhouettes)",
+"negative": "smooth gradients and soft edges, fur, dark-to-light shaded surfaces"
+},
+{
+"item": "item032",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item032.png",
+"distinction": "Detects four-legged body seen from the side on a ground.",
+"positive": "Dogs on lawn: Leonberg, Rottweiler, collie, wild boar, bear, dingo, rat, dowitchers with legs in view.",
+"negative": "Not opened."
+},
+{
+"item": "item018",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item018.png",
+"distinction": "Is the patch dark with a hard corner against light, or a small round spot? Large dark flat areas push up weakly.",
+"positive": "large dark flat regions with a hard edge: black clothing, tyre, dark panels, wheel well",
+"negative": "small round dark holes and dots on white (pen dots, skull eyes, bead holes, boat windows)"
+},
+{
+"item": "item004",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item004.png",
+"distinction": "Saturated orange or yellow patch.",
+"positive": "Macaw, bell pepper, lemon, sarong, king penguin patch.",
+"negative": "Dog faces and screens, at very low strength (-.5)."
+},
+{
+"item": "item024",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item024.png",
+"distinction": "Is there a dark curved band across lighter bumpy or mixed texture? Weak. Mid-width curved bands push up.",
+"positive": "mixed texture with a curved dark band: honeycomb cells, bicycle brake cable, apples, goblet letters, blue chair bars",
+"negative": "not read"
+},
+{
+"item": "item001",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item001.png",
+"distinction": "Head with two upright pointed ears on a front face.",
+"positive": "Collie, Australian terrier, Groenendael, Eskimo dog, hyena, toy terrier.",
+"negative": "Not read with a sheet."
+},
+{
+"item": "item055",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item055.png",
+"distinction": "a narrow tip or neck that tapers up from a wider body, standing upright",
+"positive": "bottle necks, spires, shaker caps, baby bottle teats, stupa, bell tower tops",
+"negative": "not read"
+},
+{
+"item": "item010",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item010.png",
+"distinction": "Is there a small dark round dot on a plain light ground, or a thin dark stroke? Dot pushes up, thin stroke pushes down.",
+"positive": "isolated small dark dots and round holes on light ground: eyes, skull sockets, pen dots, punctuation, bold letter blobs",
+"negative": "thin dark strokes and hairlines on light ground (script writing, twigs, clock hands): the opposite of a dot is a line"
+},
+{
+"item": "item035",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item035.png",
+"distinction": "Detects long thin edges lying across a plain ground, like feathers, spokes or ties.",
+"positive": "Wing feathers, cart wheel, bow tie, pineapple scales, tail, knife blade.",
+"negative": "Not opened."
+},
+{
+"item": "item011",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item011.png",
+"distinction": "Is there a short bright outline stroke or edge, or a long straight line? Short curved outline strokes push up, long straight lines push down.",
+"positive": "thin bright outlines of letters, logos and rims, repeated small stripes (zebra, mesh): many short edges close together",
+"negative": "long straight smooth lines crossing the crop (rails, wires, bars) and big rings at low contrast"
+},
+{
+"item": "item038",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item038.png",
+"distinction": "Detects a small pale blob on a darker area, near a dark edge.",
+"positive": "White paws, ping-pong ball, pale muzzle, dalmatian spot, candle flame, white feet of dogs.",
+"negative": "Not opened."
+},
+{
+"item": "item036",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item036.png",
+"distinction": "Detects dark patches scattered on a lighter ground.",
+"positive": "Dalmatian, setter, ladybug, snake skin, goose bill, Doberman, Rottweiler tan marks, mantis.",
+"negative": "Not opened."
+},
+{
+"item": "item003",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item003.png",
+"distinction": "Pale cream face of a dog or sheep.",
+"positive": "Labrador, Saluki, whippet, dalmatian, bighorn, Great Pyrenees faces.",
+"negative": "Not read."
+},
+{
+"item": "item059",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item059.png",
+"distinction": "Warm dark silhouette shapes with sharp steps against a glow.",
+"positive": "Staircase, throne bust, pier railing, drilling platform at dusk, honeycomb.",
+"negative": "Not read."
+},
+{
+"item": "item023",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item023.png",
+"distinction": "Are there many dense horizontal parallel bars (louvres, grille slats)? Dense horizontal bars push up.",
+"positive": "dense horizontal bars and ridges: grille, vent slats, accordion, coils, striped shirt, steam locomotive grille",
+"negative": "not read (sheet made, no image opened)"
+},
+{
+"item": "item000",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item000.png",
+"distinction": "Thin lines fanning out from a centre, versus dense dark bristle with a centre.",
+"positive": "Bolo tie, daisy petals, fan feathers, wheel spokes, a dome from below.",
+"negative": "Dense bristles: daisy centre, echidna, porcupine, Pomeranian face, macaque."
+},
+{
+"item": "item046",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item046.png",
+"distinction": "a small round or lettered mark on a smooth ground against fine irregular fur or mesh",
+"positive": "hub caps, letters, dials, eyes of birds: small bold mark on smooth ground",
+"negative": "fur, chainlink fence, honeycomb, hair, moss: dense fine irregular texture; keeps out fine texture"
+},
+{
+"item": "item006",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item006.png",
+"distinction": "Fine regular ridges and ribs wound around.",
+"positive": "Brain coral, ammonite, hose ribs, snake scales, baseball seams, typewriter bar.",
+"negative": "Not read."
+},
+{
+"item": "item027",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item027.png",
+"distinction": "Is there a tiny isolated dark dot (eye, hole, screw), or something else? Tiny dark dots on a lighter surface push up.",
+"positive": "tiny isolated dark dots on a lighter surface: eye of bird or cockatoo, screw holes, puck, dalmatian spots, pen dots, flying birds far away",
+"negative": "not read (sheet made, not opened)"
+},
+{
+"item": "item021",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item021.png",
+"distinction": "Is there a small round ring or dot with an outline (a screw, a circled mark), or a straight thin line? Small rings push up (to 14), straight lines push down (to -12).",
+"positive": "small closed round outlines: circled (c), knob rings, screws, coins, round buttons, mushroom spots, neon circles",
+"negative": "long straight thin lines and strokes: spokes, hands, bridge wires, thin edges. Strong, -12."
+},
+{
+"item": "item040",
+"sheet": "/Users/shonusengupta/Cale_Experimentation/research/clean/curves/map_agents/resnet18/review2/old/item040.png",
+"distinction": "a smooth blank surface or soft blur against a furry face with eyes",
+"positive": "plain wall, painted car side, bib, perfume bottle, blurred feathers: low-texture areas; also two dog close-ups with grey fur",
+"negative": "frontal dog faces and a gibbon face; keeps out furry eyed faces"
+}
+]

@@ -1,0 +1,1124 @@
+{
+"item000": {
+"node": "s3b1:118",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"C",
+"D",
+"E",
+"F",
+"G",
+"K"
+],
+"wrong_card": false,
+"words_from": "s3b1:118",
+"near": 9,
+"random": 188
+},
+"item001": {
+"node": "s3b1:32",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"E",
+"F",
+"G",
+"I",
+"K"
+],
+"wrong_card": false,
+"words_from": "s3b1:32",
+"near": 142,
+"random": 1
+},
+"item002": {
+"node": "s3b1:186",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"B",
+"C",
+"F",
+"H",
+"J",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:186",
+"near": 193,
+"random": 76
+},
+"item003": {
+"node": "s3b1:255",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"C",
+"D",
+"F",
+"H",
+"J"
+],
+"wrong_card": false,
+"words_from": "s3b1:255",
+"near": 141,
+"random": 105
+},
+"item004": {
+"node": "s3b1:90",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"D",
+"F",
+"H",
+"I",
+"K"
+],
+"wrong_card": false,
+"words_from": "s3b1:90",
+"near": 171,
+"random": 26
+},
+"item005": {
+"node": "s3b1:89",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"E",
+"H",
+"J",
+"K",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:89",
+"near": 162,
+"random": 238
+},
+"item006": {
+"node": "s3b1:125",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"B",
+"C",
+"E",
+"F",
+"G",
+"K"
+],
+"wrong_card": false,
+"words_from": "s3b1:125",
+"near": 79,
+"random": 202
+},
+"item007": {
+"node": "s3b1:141",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"C",
+"D",
+"E",
+"I",
+"J"
+],
+"wrong_card": false,
+"words_from": "s3b1:141",
+"near": 84,
+"random": 173
+},
+"item008": {
+"node": "s2b1:112",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"A",
+"C",
+"E",
+"F",
+"H",
+"I"
+],
+"wrong_card": false,
+"words_from": "s2b1:112",
+"near": 22,
+"random": 25
+},
+"item009": {
+"node": "s2b1:73",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"A",
+"C",
+"D",
+"E",
+"I",
+"K"
+],
+"wrong_card": false,
+"words_from": "s2b1:73",
+"near": 22,
+"random": 89
+},
+"item010": {
+"node": "s1b1:19",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"C",
+"D",
+"E",
+"H",
+"J",
+"K"
+],
+"wrong_card": false,
+"words_from": "s1b1:19",
+"near": 20,
+"random": 40
+},
+"item011": {
+"node": "s1b1:51",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"A",
+"B",
+"E",
+"I",
+"K",
+"L"
+],
+"wrong_card": false,
+"words_from": "s1b1:51",
+"near": 46,
+"random": 17
+},
+"item012": {
+"node": "s1b1:60",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"B",
+"D",
+"F",
+"G",
+"J",
+"K"
+],
+"wrong_card": false,
+"words_from": "s1b1:60",
+"near": 19,
+"random": 7
+},
+"item013": {
+"node": "s1b1:47",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"A",
+"B",
+"E",
+"G",
+"H",
+"J"
+],
+"wrong_card": false,
+"words_from": "s1b1:47",
+"near": 60,
+"random": 22
+},
+"item014": {
+"node": "s1b1:43",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"B",
+"C",
+"D",
+"F",
+"G",
+"L"
+],
+"wrong_card": false,
+"words_from": "s1b1:43",
+"near": 60,
+"random": 52
+},
+"item015": {
+"node": "s1b1:44",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"A",
+"B",
+"H",
+"I",
+"K",
+"L"
+],
+"wrong_card": false,
+"words_from": "s1b1:44",
+"near": 41,
+"random": 8
+},
+"item016": {
+"node": "s1b1:29",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"D",
+"E",
+"F",
+"H",
+"I",
+"L"
+],
+"wrong_card": false,
+"words_from": "s1b1:29",
+"near": 20,
+"random": 58
+},
+"item017": {
+"node": "s1b1:25",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"A",
+"B",
+"C",
+"D",
+"E",
+"K"
+],
+"wrong_card": false,
+"words_from": "s1b1:25",
+"near": 20,
+"random": 2
+},
+"item018": {
+"node": "s1b1:61",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"A",
+"B",
+"C",
+"E",
+"H",
+"L"
+],
+"wrong_card": false,
+"words_from": "s1b1:61",
+"near": 16,
+"random": 18
+},
+"item019": {
+"node": "s1b1:55",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"A",
+"D",
+"E",
+"F",
+"I",
+"K"
+],
+"wrong_card": false,
+"words_from": "s1b1:55",
+"near": 53,
+"random": 33
+},
+"item020": {
+"node": "s1b1:37",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"B",
+"C",
+"D",
+"E",
+"I",
+"J"
+],
+"wrong_card": false,
+"words_from": "s1b1:37",
+"near": 43,
+"random": 62
+},
+"item021": {
+"node": "s1b1:40",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"C",
+"D",
+"F",
+"G",
+"H",
+"L"
+],
+"wrong_card": false,
+"words_from": "s1b1:40",
+"near": 38,
+"random": 46
+},
+"item022": {
+"node": "s1b1:57",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"B",
+"D",
+"F",
+"H",
+"I",
+"L"
+],
+"wrong_card": false,
+"words_from": "s1b1:57",
+"near": 19,
+"random": 36
+},
+"item023": {
+"node": "s1b1:0",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"A",
+"C",
+"F",
+"I",
+"J",
+"K"
+],
+"wrong_card": false,
+"words_from": "s1b1:0",
+"near": 24,
+"random": 63
+},
+"item024": {
+"node": "s1b1:22",
+"stage": 1,
+"layer": "s1b1",
+"fires": [
+"C",
+"E",
+"G",
+"H",
+"I",
+"J"
+],
+"wrong_card": false,
+"words_from": "s1b1:22",
+"near": 13,
+"random": 21
+},
+"item025": {
+"node": "s2b1:59",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"C",
+"E",
+"F",
+"G",
+"I",
+"L"
+],
+"wrong_card": true,
+"words_from": "s2b1:6",
+"near": 72,
+"random": 17
+},
+"item026": {
+"node": "s2b1:25",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"C",
+"D",
+"E",
+"F",
+"G",
+"K"
+],
+"wrong_card": false,
+"words_from": "s2b1:25",
+"near": 72,
+"random": 42
+},
+"item027": {
+"node": "s2b1:71",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"B",
+"D",
+"G",
+"H",
+"I",
+"J"
+],
+"wrong_card": false,
+"words_from": "s2b1:71",
+"near": 91,
+"random": 33
+},
+"item028": {
+"node": "s2b1:115",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"A",
+"B",
+"C",
+"G",
+"K",
+"L"
+],
+"wrong_card": true,
+"words_from": "s2b1:109",
+"near": 74,
+"random": 72
+},
+"item029": {
+"node": "s2b1:23",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"A",
+"B",
+"D",
+"E",
+"I",
+"K"
+],
+"wrong_card": false,
+"words_from": "s2b1:23",
+"near": 18,
+"random": 48
+},
+"item030": {
+"node": "s3b1:17",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"E",
+"G",
+"H",
+"I",
+"J",
+"K"
+],
+"wrong_card": false,
+"words_from": "s3b1:17",
+"near": 188,
+"random": 246
+},
+"item031": {
+"node": "s3b1:71",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"B",
+"C",
+"D",
+"H",
+"K",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:71",
+"near": 237,
+"random": 138
+},
+"item032": {
+"node": "s3b1:128",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"B",
+"C",
+"E",
+"G",
+"I"
+],
+"wrong_card": false,
+"words_from": "s3b1:128",
+"near": 225,
+"random": 56
+},
+"item033": {
+"node": "s3b1:76",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"B",
+"E",
+"F",
+"J",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:76",
+"near": 191,
+"random": 27
+},
+"item034": {
+"node": "s3b1:30",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"C",
+"G",
+"H",
+"K",
+"L"
+],
+"wrong_card": true,
+"words_from": "s3b1:140",
+"near": 70,
+"random": 218
+},
+"item035": {
+"node": "s3b1:158",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"B",
+"C",
+"D",
+"F",
+"H"
+],
+"wrong_card": false,
+"words_from": "s3b1:158",
+"near": 169,
+"random": 51
+},
+"item036": {
+"node": "s3b1:222",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"B",
+"C",
+"E",
+"F",
+"I",
+"K"
+],
+"wrong_card": false,
+"words_from": "s3b1:222",
+"near": 7,
+"random": 51
+},
+"item037": {
+"node": "s3b1:33",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"D",
+"E",
+"G",
+"H",
+"I",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:33",
+"near": 235,
+"random": 255
+},
+"item038": {
+"node": "s2b1:6",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"A",
+"B",
+"D",
+"G",
+"H",
+"I"
+],
+"wrong_card": false,
+"words_from": "s2b1:6",
+"near": 73,
+"random": 68
+},
+"item039": {
+"node": "s3b1:164",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"C",
+"D",
+"F",
+"J",
+"K",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:164",
+"near": 142,
+"random": 30
+},
+"item040": {
+"node": "s3b1:101",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"B",
+"C",
+"D",
+"E",
+"J"
+],
+"wrong_card": false,
+"words_from": "s3b1:101",
+"near": 237,
+"random": 186
+},
+"item041": {
+"node": "s3b1:154",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"B",
+"C",
+"E",
+"F",
+"H",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:154",
+"near": 179,
+"random": 66
+},
+"item042": {
+"node": "s3b1:226",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"B",
+"E",
+"I",
+"J",
+"K",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:226",
+"near": 134,
+"random": 147
+},
+"item043": {
+"node": "s3b1:190",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"B",
+"C",
+"D",
+"E",
+"H"
+],
+"wrong_card": true,
+"words_from": "s3b1:222",
+"near": 77,
+"random": 227
+},
+"item044": {
+"node": "s3b1:79",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"C",
+"G",
+"I",
+"J",
+"L"
+],
+"wrong_card": true,
+"words_from": "s3b1:71",
+"near": 116,
+"random": 214
+},
+"item045": {
+"node": "s2b1:127",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"D",
+"E",
+"F",
+"G",
+"I",
+"J"
+],
+"wrong_card": false,
+"words_from": "s2b1:127",
+"near": 79,
+"random": 36
+},
+"item046": {
+"node": "s2b1:109",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"A",
+"B",
+"C",
+"E",
+"G",
+"H"
+],
+"wrong_card": false,
+"words_from": "s2b1:109",
+"near": 111,
+"random": 95
+},
+"item047": {
+"node": "s2b1:31",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"A",
+"B",
+"E",
+"F",
+"H",
+"K"
+],
+"wrong_card": true,
+"words_from": "s2b1:115",
+"near": 95,
+"random": 114
+},
+"item048": {
+"node": "s2b1:117",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"C",
+"E",
+"G",
+"H",
+"J",
+"L"
+],
+"wrong_card": false,
+"words_from": "s2b1:117",
+"near": 90,
+"random": 92
+},
+"item049": {
+"node": "s3b1:103",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"B",
+"D",
+"G",
+"H",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:103",
+"near": 201,
+"random": 92
+},
+"item050": {
+"node": "s3b1:59",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"E",
+"F",
+"H",
+"K",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:59",
+"near": 57,
+"random": 118
+},
+"item051": {
+"node": "s3b1:99",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"B",
+"C",
+"F",
+"H",
+"K"
+],
+"wrong_card": false,
+"words_from": "s3b1:99",
+"near": 25,
+"random": 206
+},
+"item052": {
+"node": "s3b1:106",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"C",
+"E",
+"H",
+"I",
+"K",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:106",
+"near": 9,
+"random": 234
+},
+"item053": {
+"node": "s3b1:140",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"C",
+"G",
+"H",
+"I",
+"J"
+],
+"wrong_card": true,
+"words_from": "s3b1:79",
+"near": 45,
+"random": 241
+},
+"item054": {
+"node": "s3b1:64",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"D",
+"E",
+"G",
+"I",
+"K"
+],
+"wrong_card": false,
+"words_from": "s3b1:64",
+"near": 213,
+"random": 167
+},
+"item055": {
+"node": "s3b1:207",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"D",
+"E",
+"F",
+"H",
+"J",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:207",
+"near": 20,
+"random": 200
+},
+"item056": {
+"node": "s3b1:2",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"D",
+"E",
+"G",
+"H",
+"J",
+"K"
+],
+"wrong_card": false,
+"words_from": "s3b1:2",
+"near": 93,
+"random": 145
+},
+"item057": {
+"node": "s2b1:79",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"A",
+"C",
+"E",
+"I",
+"J",
+"K"
+],
+"wrong_card": false,
+"words_from": "s2b1:79",
+"near": 127,
+"random": 107
+},
+"item058": {
+"node": "s2b1:39",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"B",
+"D",
+"F",
+"J",
+"K",
+"L"
+],
+"wrong_card": false,
+"words_from": "s2b1:39",
+"near": 111,
+"random": 63
+},
+"item059": {
+"node": "s3b1:98",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"D",
+"E",
+"F",
+"G",
+"H",
+"I"
+],
+"wrong_card": false,
+"words_from": "s3b1:98",
+"near": 162,
+"random": 224
+},
+"item060": {
+"node": "s3b1:46",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"B",
+"H",
+"I",
+"J",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:46",
+"near": 217,
+"random": 87
+},
+"item061": {
+"node": "s3b1:217",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"B",
+"D",
+"F",
+"H",
+"J",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:217",
+"near": 155,
+"random": 174
+},
+"item062": {
+"node": "s3b1:7",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"F",
+"G",
+"H",
+"I",
+"J"
+],
+"wrong_card": false,
+"words_from": "s3b1:7",
+"near": 155,
+"random": 2
+},
+"item063": {
+"node": "s3b1:191",
+"stage": 3,
+"layer": "s3b1",
+"fires": [
+"A",
+"C",
+"F",
+"H",
+"K",
+"L"
+],
+"wrong_card": false,
+"words_from": "s3b1:191",
+"near": 172,
+"random": 212
+},
+"item064": {
+"node": "s2b1:120",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"A",
+"D",
+"F",
+"G",
+"H",
+"L"
+],
+"wrong_card": true,
+"words_from": "s2b1:59",
+"near": 116,
+"random": 88
+},
+"item065": {
+"node": "s2b1:32",
+"stage": 2,
+"layer": "s2b1",
+"fires": [
+"B",
+"F",
+"I",
+"J",
+"K",
+"L"
+],
+"wrong_card": true,
+"words_from": "s2b1:31",
+"near": 22,
+"random": 98
+}
+}

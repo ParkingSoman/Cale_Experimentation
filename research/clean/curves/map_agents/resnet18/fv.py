@@ -113,7 +113,7 @@ def show(text, natural, through):
     for view, helpers in views.items():
         p = os.path.join(OUT, f"{name(n).replace(':', '_')}_{view}.png")
         if not os.path.exists(p) or view == "through":
-            Image.fromarray(render([n], [helpers], steps=128)[0]).save(p)
+            Image.fromarray(render([n], [helpers], steps=256)[0]).save(p)
         out.append(p)
     print("\n".join(out))
 
