@@ -1,0 +1,322 @@
+[
+{
+"item": "item000",
+"node": "s4b1:242",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.0
+},
+{
+"item": "item001",
+"node": "s4b1:429",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item002",
+"node": "s4b1:28",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.16666666666666669
+},
+{
+"item": "item003",
+"node": "s4b1:31",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.6666666666666667
+},
+{
+"item": "item004",
+"node": "s4b1:172",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.0
+},
+{
+"item": "item005",
+"node": "s4b1:162",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.16666666666666669
+},
+{
+"item": "item006",
+"node": "s4b1:467",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.6666666666666667
+},
+{
+"item": "item007",
+"node": "s4b1:219",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item008",
+"node": "s4b1:418",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 1.0
+},
+{
+"item": "item009",
+"node": "s4b1:42",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.6666666666666667
+},
+{
+"item": "item010",
+"node": "s4b1:255",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": -0.6666666666666667
+},
+{
+"item": "item011",
+"node": "s4b1:297",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.3333333333333333
+},
+{
+"item": "item012",
+"node": "s4b1:9",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.6666666666666667
+},
+{
+"item": "item013",
+"node": "s4b1:156",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.6666666666666667
+},
+{
+"item": "item014",
+"node": "s4b1:163",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.0
+},
+{
+"item": "item015",
+"node": "s4b1:393",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item016",
+"node": "s4b1:35",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.8333333333333333
+},
+{
+"item": "item017",
+"node": "s4b1:362",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.3333333333333333
+},
+{
+"item": "item018",
+"node": "s4b1:431",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item019",
+"node": "s4b1:424",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.0
+},
+{
+"item": "item020",
+"node": "s4b1:32",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.3333333333333333
+},
+{
+"item": "item021",
+"node": "s4b1:400",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.6666666666666667
+},
+{
+"item": "item022",
+"node": "s4b1:461",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item023",
+"node": "s4b1:269",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item024",
+"node": "s4b1:344",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item025",
+"node": "s4b1:486",
+"stage": 4,
+"layer": "s4b1",
+"wrong": true,
+"gap": 0.3333333333333333
+},
+{
+"item": "item026",
+"node": "s4b1:329",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item027",
+"node": "s4b1:277",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.0
+},
+{
+"item": "item028",
+"node": "s4b1:403",
+"stage": 4,
+"layer": "s4b1",
+"wrong": true,
+"gap": -0.3333333333333333
+},
+{
+"item": "item029",
+"node": "s4b1:367",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item030",
+"node": "s4b1:226",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.6666666666666667
+},
+{
+"item": "item031",
+"node": "s4b1:456",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item032",
+"node": "s4b1:175",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.3333333333333333
+},
+{
+"item": "item033",
+"node": "s4b1:168",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 1.0
+},
+{
+"item": "item034",
+"node": "s4b1:474",
+"stage": 4,
+"layer": "s4b1",
+"wrong": true,
+"gap": -0.3333333333333333
+},
+{
+"item": "item035",
+"node": "s4b1:56",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.3333333333333333
+},
+{
+"item": "item036",
+"node": "s4b1:131",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item037",
+"node": "s4b1:182",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item038",
+"node": "s4b1:391",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": 0.5
+},
+{
+"item": "item039",
+"node": "s4b1:270",
+"stage": 4,
+"layer": "s4b1",
+"wrong": false,
+"gap": -0.3333333333333333
+}
+]
