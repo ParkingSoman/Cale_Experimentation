@@ -3504,3 +3504,5 @@ Why it matters: the IMPOSSIBLE side is further from real networks than the headl
 | TQ33's hardness | not proved as first written: a constant was not bounded. Repaired with per-area weights, Definition DQ25. The repaired text has my check only |
 
 Also fixed: constants in TQ31, and DQ24's reason. TQ31's core and K hold, now with four readers on the argument. Step 3's reading is unchanged: D42's V rewards not reusing anything, and the agent reads this build as clean inside a family, and not across families.
+
+**A check on my own next step.** LADDER 53 Step 3 suggested the claim "every link in the table has a shared cause". As stated it does not separate: build G has one shared unit per edge and carries the same hard table. So a claim must also limit how many causes there are against how many links, so that each cause explains many links. I have no definition of this yet. Whatever it is, it gets a screen on the read, with held-out photos, before any proof.
