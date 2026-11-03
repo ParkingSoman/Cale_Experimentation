@@ -35,7 +35,11 @@ PREDICTION, written before the first run (2026-11-03). ResNet-18.
    dogcat beats the controls at both sizes. (a) passes on most goals and fails on at least one. (b) and (c) pass.
 Every number here is an upper value on what the read can do. Label ONE-BUILD until the lines are read; OPT-GOAL only if all pass on both nets.
 
-Usage: pc_goal_read.py --net resnet18 [--smoke] [--goals dogcat,ctrl0]
+ADDED 2026-11-03, AFTER the ResNet-18 run, because line (b) failed on 5 of 6 goals: rule_fast, the same rule with its convex fit stopped at a chunk gain under
+1e-4 in place of 1e-6. This is one value, not tuned. On ResNet-18 it is a look after the fact. ResNet-50 is the clean test of it.
+PREDICTION, written before any rule_fast run: sealed KL within 3% of rule on every goal, so equal at k = 14 goes over 1.3. Time about a third of rule. (b) passes on about half the goals.
+
+Usage: pc_goal_read.py --net resnet18 [--smoke] [--goals dogcat,ctrl0] [--fast-only]
 """
 import argparse
 import json
@@ -49,6 +53,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--net", default="resnet18", choices=["resnet18", "resnet50"])
 ap.add_argument("--smoke", action="store_true")
 ap.add_argument("--goals", default="dogcat,ctrl0,ctrl1,ctrl2,dogcat90,equal")
+ap.add_argument("--fast-only", action="store_true", help="add rule_fast to an existing result file, nothing else")
 a = ap.parse_args()
 HERE = os.path.dirname(os.path.abspath(__file__))
 torch.set_default_dtype(torch.float64)
@@ -169,9 +174,9 @@ def lbfgs(params, fn, maxchunk=None, tol=1e-6):
     return last, chunks, "chunk limit"
 
 
-def fit_write(F, c, V0, t0):
+def fit_write(F, c, V0, t0, tol=1e-6):
     V, t = V0.detach().contiguous().clone().requires_grad_(True), t0.detach().contiguous().clone().requires_grad_(True)
-    val, ch, stop = lbfgs([V, t], lambda: wkl(F, c @ V.T + t))
+    val, ch, stop = lbfgs([V, t], lambda: wkl(F, c @ V.T + t), tol=tol)
     with torch.no_grad():
         q = torch.softmax(c @ V.T + t, 1)
         w = F.p[:, None] * (q - F.s)
@@ -205,12 +210,12 @@ def rule_span(F):
     return dict(W=W, B=B, UA=UA, ybar=ybar, sec=time.time() - t0, top=[float(v) for v in evA.flip(0)[:5]])
 
 
-def rule_level(F, sp, k):
+def rule_level(F, sp, k, tol=1e-6):
     t0 = time.time()
     Uk = sp["UA"][:, :k]
     M = Uk.T @ sp["W"]
     V0 = sp["B"].T @ Uk
-    V, t, info = fit_write(F, F.x @ M.T, V0, sp["ybar"])
+    V, t, info = fit_write(F, F.x @ M.T, V0, sp["ybar"], tol=tol)
     info["sec"] = time.time() - t0
     return M, V, t, info
 
@@ -279,6 +284,32 @@ if a.smoke:
 data = load()
 print("loaded", [d[0].shape for d in data], flush=True)
 results = json.load(open(PATH)) if os.path.exists(PATH) and not a.smoke else {}
+FAST = 1e-4
+
+
+def add_fast(F, Se, sp, k, lv):
+    M, V, t, info = rule_level(F, sp, k, tol=FAST)
+    lv["rule_fast"] = dict(info, **scores(Se, M, V, t))
+    lv["ratio_rule_fast"] = lv["rule_fast"]["kl"] / lv["best_trained"]
+
+
+if a.fast_only:
+    for goal in a.goals.split(","):
+        w = class_weights(goal)
+        F = Part(data[0], w)
+        Se = Part(data[2], w, F.mu, F.sd)
+        sp = rule_span(F)
+        for k in SIZES:
+            add_fast(F, Se, sp, k, results[goal][str(k)])
+        res = results[goal]
+        res["span_sec_fast"] = sp["sec"]
+        zoom = sp["sec"] + sum(res[str(k)]["rule_fast"]["sec"] for k in SIZES)
+        rand = np.mean([res["14"]["trained"][f"rand{i}"]["sec"] for i in range(2)])
+        print(goal, "zoom sec", round(zoom, 1), "rand sec", round(rand, 1), "(b)", bool(zoom < rand), [(k, round(res[str(k)]["rule_fast"]["kl"], 3), round(res[str(k)]["ratio_rule_fast"], 3), res[str(k)]["rule_fast"]["chunks"]) for k in SIZES], flush=True)
+        with open(PATH, "w") as f:
+            json.dump(results, f, indent=1)
+    raise SystemExit(0)
+
 for goal in a.goals.split(","):
     w = class_weights(goal)
     F = Part(data[0], w)
@@ -305,6 +336,8 @@ for goal in a.goals.split(","):
         lv["best_trained"] = min(v["kl"] for v in lv["trained"].values())
         lv["ratio_rule"] = lv["rule"]["kl"] / lv["best_trained"]
         lv["ratio_rule2"] = lv["rule2"]["kl"] / lv["best_trained"]
+        add_fast(F, Se, sp, k, lv)
+        print(goal, k, "rule_fast", round(lv["rule_fast"]["kl"], 4), "ratio", round(lv["ratio_rule_fast"], 3), "sec", round(lv["rule_fast"]["sec"], 1), flush=True)
         res[str(k)] = lv
         results[goal] = res
         with open(PATH, "w") as f:
