@@ -59,3 +59,164 @@ s4_random 135 {'n50_list': 79, 'n50_bundle': 77.109, 'n50_photo': 36.0, 'share64
 s4_random 274 {'n50_list': 65, 'n50_bundle': 59.219, 'n50_photo': 31.0, 'share64': 0.019, 'share64_rand': 0.775}
 s4_random 203 {'n50_list': 71, 'n50_bundle': 67.438, 'n50_photo': 33.0, 'share64': 0.027, 'share64_rand': 0.8}
 s4_random 464 {'n50_list': 85, 'n50_bundle': 87.438, 'n50_photo': 37.0, 'share64': 0.034, 'share64_rand': 0.717}
+s4_random 423 {'n50_list': 79, 'n50_bundle': 73.938, 'n50_photo': 35.0, 'share64': 0.069, 'share64_rand': 0.734}
+s4_random 247 {'n50_list': 84, 'n50_bundle': 84.531, 'n50_photo': 37.5, 'share64': 0.037, 'share64_rand': 0.786}
+s4_random 127 {'n50_list': 43, 'n50_bundle': 43.188, 'n50_photo': 18.5, 'share64': 0.019, 'share64_rand': 0.712}
+s4_random 228 {'n50_list': 98, 'n50_bundle': 93.344, 'n50_photo': 44.5, 'share64': 0.07, 'share64_rand': 0.642}
+s4_random 70 {'n50_list': 83, 'n50_bundle': 78.219, 'n50_photo': 34.0, 'share64': 0.048, 'share64_rand': 0.837}
+s4_random 209 {'n50_list': 92, 'n50_bundle': 90.203, 'n50_photo': 42.0, 'share64': 0.083, 'share64_rand': 0.727}
+s4_random 16 {'n50_list': 94, 'n50_bundle': 94.578, 'n50_photo': 44.0, 'share64': 0.038, 'share64_rand': 0.832}
+s4_random 379 {'n50_list': 58, 'n50_bundle': 57.938, 'n50_photo': 24.0, 'share64': 0.03, 'share64_rand': 0.728}
+s4_random 428 {'n50_list': 78, 'n50_bundle': 76.188, 'n50_photo': 34.0, 'share64': 0.041, 'share64_rand': 0.77}
+s4_random 153 {'n50_list': 66, 'n50_bundle': 65.0, 'n50_photo': 29.0, 'share64': 0.036, 'share64_rand': 0.708}
+s4_random 155 {'n50_list': 69, 'n50_bundle': 71.562, 'n50_photo': 31.0, 'share64': 0.032, 'share64_rand': 0.77}
+s4_random 509 {'n50_list': 73, 'n50_bundle': 72.938, 'n50_photo': 35.5, 'share64': 0.033, 'share64_rand': 0.823}
+s4_random 410 {'n50_list': 84, 'n50_bundle': 81.062, 'n50_photo': 38.5, 'share64': 0.03, 'share64_rand': 0.69}
+s4_random 461 {'n50_list': 46, 'n50_bundle': 47.047, 'n50_photo': 19.0, 'share64': 0.019, 'share64_rand': 0.875}
+
+s4_random: 30 children, 513 inputs. z 14.48. Left with every input at its mean: 0.02 of z
+  inputs for 50% of the effect: list 79, bundle 78, photo 35, best list on these photos 76
+  inputs for 80% of the effect: list 230, bundle 230, photo 149, best list on these photos 226
+  k = 4: share of z^2 changed 0.462 (random 0.958); share of the change from the mean 0.469 (random 0.988)
+  k = 16: share of z^2 changed 0.149 (random 0.927); share of the change from the mean 0.154 (random 0.956)
+  k = 64: share of z^2 changed 0.039 (random 0.759); share of the change from the mean 0.039 (random 0.774)
+s3_slice 101 {'n50_list': 12, 'n50_bundle': 12.219, 'n50_photo': 11.0, 'share64': 0.003, 'share64_rand': 0.626}
+s3_slice 118 {'n50_list': 5, 'n50_bundle': 4.0, 'n50_photo': 3.0, 'share64': 0.01, 'share64_rand': 0.515}
+s3_slice 128 {'n50_list': 17, 'n50_bundle': 16.406, 'n50_photo': 9.5, 'share64': 0.065, 'share64_rand': 0.769}
+s3_slice 141 {'n50_list': 7, 'n50_bundle': 6.859, 'n50_photo': 6.0, 'share64': 0.006, 'share64_rand': 1.049}
+s3_slice 158 {'n50_list': 31, 'n50_bundle': 27.031, 'n50_photo': 11.0, 'share64': 0.016, 'share64_rand': 0.379}
+s3_slice 164 {'n50_list': 8, 'n50_bundle': 8.047, 'n50_photo': 5.5, 'share64': 0.01, 'share64_rand': 0.732}
+s3_slice 17 {'n50_list': 1, 'n50_bundle': 1.516, 'n50_photo': 1.0, 'share64': 0.005, 'share64_rand': 0.774}
+s3_slice 186 {'n50_list': 10, 'n50_bundle': 6.0, 'n50_photo': 3.0, 'share64': 0.013, 'share64_rand': 0.818}
+s3_slice 207 {'n50_list': 8, 'n50_bundle': 6.75, 'n50_photo': 5.0, 'share64': 0.008, 'share64_rand': 0.88}
+s3_slice 217 {'n50_list': 3, 'n50_bundle': 2.328, 'n50_photo': 2.0, 'share64': 0.003, 'share64_rand': 0.629}
+s3_slice 222 {'n50_list': 9, 'n50_bundle': 6.672, 'n50_photo': 4.0, 'share64': 0.025, 'share64_rand': 0.586}
+s3_slice 64 {'n50_list': 14, 'n50_bundle': 8.156, 'n50_photo': 5.0, 'share64': 0.01, 'share64_rand': 0.853}
+s3_slice 71 {'n50_list': 1, 'n50_bundle': 1.0, 'n50_photo': 1.0, 'share64': 0.0, 'share64_rand': 0.525}
+s3_slice 76 {'n50_list': 5, 'n50_bundle': 4.5, 'n50_photo': 3.0, 'share64': 0.008, 'share64_rand': 0.851}
+
+s3_slice: 14 children, 257 inputs. z 2.77. Left with every input at its mean: -0.04 of z
+  inputs for 50% of the effect: list 8, bundle 7, photo 4, best list on these photos 8
+  inputs for 80% of the effect: list 80, bundle 79, photo 42, best list on these photos 77
+  k = 4: share of z^2 changed 0.070 (random 1.042); share of the change from the mean 0.065 (random 0.989)
+  k = 16: share of z^2 changed 0.029 (random 0.943); share of the change from the mean 0.027 (random 0.908)
+  k = 64: share of z^2 changed 0.009 (random 0.750); share of the change from the mean 0.008 (random 0.738)
+s4_inner 460 {'n50_list': 54, 'n50_bundle': 54.094, 'n50_photo': 32.0, 'share64': 0.033, 'share64_rand': 1.11}
+s4_inner 58 {'n50_list': 87, 'n50_bundle': 85.438, 'n50_photo': 42.5, 'share64': 0.238, 'share64_rand': 1.276}
+s4_inner 354 {'n50_list': 93, 'n50_bundle': 88.797, 'n50_photo': 46.0, 'share64': 0.264, 'share64_rand': 1.327}
+s4_inner 108 {'n50_list': 88, 'n50_bundle': 80.062, 'n50_photo': 43.0, 'share64': 0.198, 'share64_rand': 1.328}
+s4_inner 282 {'n50_list': 100, 'n50_bundle': 99.688, 'n50_photo': 40.5, 'share64': 0.22, 'share64_rand': 1.331}
+s4_inner 196 {'n50_list': 108, 'n50_bundle': 94.891, 'n50_photo': 41.0, 'share64': 0.103, 'share64_rand': 0.49}
+s4_inner 326 {'n50_list': 109, 'n50_bundle': 107.875, 'n50_photo': 42.5, 'share64': 0.132, 'share64_rand': 0.636}
+s4_inner 217 {'n50_list': 126, 'n50_bundle': 118.75, 'n50_photo': 50.0, 'share64': 0.199, 'share64_rand': 0.775}
+s4_inner 349 {'n50_list': 80, 'n50_bundle': 78.75, 'n50_photo': 35.0, 'share64': 0.076, 'share64_rand': 1.207}
+s4_inner 250 {'n50_list': 109, 'n50_bundle': 105.172, 'n50_photo': 49.5, 'share64': 0.213, 'share64_rand': 1.361}
+s4_inner 70 {'n50_list': 101, 'n50_bundle': 96.5, 'n50_photo': 48.5, 'share64': 0.29, 'share64_rand': 1.352}
+s4_inner 106 {'n50_list': 103, 'n50_bundle': 99.391, 'n50_photo': 50.0, 'share64': 0.241, 'share64_rand': 1.231}
+s4_inner 377 {'n50_list': 117, 'n50_bundle': 113.594, 'n50_photo': 51.0, 'share64': 0.237, 'share64_rand': 0.975}
+s4_inner 383 {'n50_list': 92, 'n50_bundle': 87.75, 'n50_photo': 44.0, 'share64': 0.287, 'share64_rand': 1.489}
+s4_inner 120 {'n50_list': 118, 'n50_bundle': 113.891, 'n50_photo': 52.0, 'share64': 0.319, 'share64_rand': 1.253}
+s4_inner 94 {'n50_list': 87, 'n50_bundle': 84.391, 'n50_photo': 43.0, 'share64': 0.169, 'share64_rand': 1.382}
+s4_inner 173 {'n50_list': 109, 'n50_bundle': 107.062, 'n50_photo': 46.0, 'share64': 0.299, 'share64_rand': 1.275}
+s4_inner 23 {'n50_list': 128, 'n50_bundle': 118.562, 'n50_photo': 54.0, 'share64': 0.344, 'share64_rand': 1.345}
+s4_inner 222 {'n50_list': 122, 'n50_bundle': 106.625, 'n50_photo': 53.5, 'share64': 0.293, 'share64_rand': 1.228}
+s4_inner 29 {'n50_list': 104, 'n50_bundle': 94.453, 'n50_photo': 42.5, 'share64': 0.211, 'share64_rand': 1.381}
+s4_inner 215 {'n50_list': 109, 'n50_bundle': 100.422, 'n50_photo': 45.5, 'share64': 0.273, 'share64_rand': 1.086}
+s4_inner 64 {'n50_list': 73, 'n50_bundle': 77.75, 'n50_photo': 29.5, 'share64': 0.1, 'share64_rand': 1.587}
+s4_inner 307 {'n50_list': 107, 'n50_bundle': 100.141, 'n50_photo': 46.5, 'share64': 0.224, 'share64_rand': 1.435}
+s4_inner 87 {'n50_list': 92, 'n50_bundle': 91.469, 'n50_photo': 45.5, 'share64': 0.277, 'share64_rand': 1.693}
+s4_inner 221 {'n50_list': 103, 'n50_bundle': 94.344, 'n50_photo': 48.5, 'share64': 0.21, 'share64_rand': 1.346}
+s4_inner 152 {'n50_list': 88, 'n50_bundle': 88.062, 'n50_photo': 43.0, 'share64': 0.175, 'share64_rand': 1.358}
+s4_inner 17 {'n50_list': 104, 'n50_bundle': 102.0, 'n50_photo': 45.5, 'share64': 0.184, 'share64_rand': 1.419}
+s4_inner 223 {'n50_list': 106, 'n50_bundle': 105.469, 'n50_photo': 46.0, 'share64': 0.194, 'share64_rand': 1.041}
+s4_inner 487 {'n50_list': 97, 'n50_bundle': 94.859, 'n50_photo': 42.0, 'share64': 0.112, 'share64_rand': 1.259}
+s4_inner 68 {'n50_list': 111, 'n50_bundle': 102.438, 'n50_photo': 48.0, 'share64': 0.353, 'share64_rand': 1.376}
+s4_inner 83 {'n50_list': 92, 'n50_bundle': 87.078, 'n50_photo': 43.0, 'share64': 0.124, 'share64_rand': 1.233}
+s4_inner 211 {'n50_list': 101, 'n50_bundle': 100.234, 'n50_photo': 48.0, 'share64': 0.276, 'share64_rand': 1.391}
+s4_inner 198 {'n50_list': 98, 'n50_bundle': 98.797, 'n50_photo': 48.0, 'share64': 0.11, 'share64_rand': 0.757}
+s4_inner 318 {'n50_list': 110, 'n50_bundle': 112.594, 'n50_photo': 52.0, 'share64': 0.156, 'share64_rand': 0.698}
+s4_inner 406 {'n50_list': 111, 'n50_bundle': 110.5, 'n50_photo': 51.0, 'share64': 0.288, 'share64_rand': 1.322}
+s4_inner 317 {'n50_list': 92, 'n50_bundle': 87.391, 'n50_photo': 45.0, 'share64': 0.242, 'share64_rand': 1.305}
+s4_inner 500 {'n50_list': 114, 'n50_bundle': 110.891, 'n50_photo': 50.0, 'share64': 0.202, 'share64_rand': 1.207}
+s4_inner 479 {'n50_list': 109, 'n50_bundle': 93.594, 'n50_photo': 47.0, 'share64': 0.244, 'share64_rand': 1.321}
+s4_inner 98 {'n50_list': 85, 'n50_bundle': 83.438, 'n50_photo': 42.0, 'share64': 0.158, 'share64_rand': 1.317}
+s4_inner 129 {'n50_list': 116, 'n50_bundle': 112.281, 'n50_photo': 51.5, 'share64': 0.278, 'share64_rand': 1.434}
+
+s4_inner: 40 children, 512 inputs. z 1.25. Left with every input at its mean: -0.33 of z
+  inputs for 50% of the effect: list 104, bundle 99, photo 46, best list on these photos 98
+  inputs for 80% of the effect: list 275, bundle 270, photo 172, best list on these photos 266
+  k = 4: share of z^2 changed 1.056 (random 1.656); share of the change from the mean 0.635 (random 0.986)
+  k = 16: share of z^2 changed 0.575 (random 1.572); share of the change from the mean 0.385 (random 0.942)
+  k = 64: share of z^2 changed 0.217 (random 1.319); share of the change from the mean 0.146 (random 0.780)
+s3_inner 147 {'n50_list': 18, 'n50_bundle': 18.594, 'n50_photo': 18.0, 'share64': 0.005, 'share64_rand': 0.357}
+s3_inner 245 {'n50_list': 5, 'n50_bundle': 5.188, 'n50_photo': 5.0, 'share64': 0.002, 'share64_rand': 0.629}
+s3_inner 246 {'n50_list': 38, 'n50_bundle': 35.734, 'n50_photo': 24.0, 'share64': 0.034, 'share64_rand': 0.833}
+s3_inner 198 {'n50_list': 46, 'n50_bundle': 42.422, 'n50_photo': 26.0, 'share64': 0.057, 'share64_rand': 0.803}
+s3_inner 248 {'n50_list': 56, 'n50_bundle': 54.5, 'n50_photo': 35.0, 'share64': 0.083, 'share64_rand': 1.01}
+s3_inner 169 {'n50_list': 33, 'n50_bundle': 29.734, 'n50_photo': 20.0, 'share64': 0.02, 'share64_rand': 0.975}
+s3_inner 88 {'n50_list': 33, 'n50_bundle': 32.344, 'n50_photo': 23.5, 'share64': 0.039, 'share64_rand': 0.661}
+s3_inner 240 {'n50_list': 27, 'n50_bundle': 26.656, 'n50_photo': 17.5, 'share64': 0.026, 'share64_rand': 0.961}
+s3_inner 157 {'n50_list': 57, 'n50_bundle': 56.188, 'n50_photo': 31.0, 'share64': 0.057, 'share64_rand': 0.594}
+s3_inner 47 {'n50_list': 35, 'n50_bundle': 33.844, 'n50_photo': 22.0, 'share64': 0.039, 'share64_rand': 0.848}
+s3_inner 112 {'n50_list': 38, 'n50_bundle': 35.906, 'n50_photo': 25.0, 'share64': 0.042, 'share64_rand': 0.795}
+s3_inner 187 {'n50_list': 24, 'n50_bundle': 22.969, 'n50_photo': 15.0, 'share64': 0.009, 'share64_rand': 0.78}
+s3_inner 192 {'n50_list': 43, 'n50_bundle': 42.75, 'n50_photo': 28.0, 'share64': 0.046, 'share64_rand': 0.823}
+s3_inner 51 {'n50_list': 39, 'n50_bundle': 38.781, 'n50_photo': 26.0, 'share64': 0.047, 'share64_rand': 0.861}
+s3_inner 14 {'n50_list': 53, 'n50_bundle': 52.719, 'n50_photo': 29.0, 'share64': 0.097, 'share64_rand': 0.748}
+s3_inner 98 {'n50_list': 49, 'n50_bundle': 48.656, 'n50_photo': 30.0, 'share64': 0.091, 'share64_rand': 0.809}
+s3_inner 92 {'n50_list': 64, 'n50_bundle': 62.359, 'n50_photo': 32.0, 'share64': 0.044, 'share64_rand': 0.251}
+s3_inner 208 {'n50_list': 56, 'n50_bundle': 51.375, 'n50_photo': 32.0, 'share64': 0.067, 'share64_rand': 0.607}
+s3_inner 113 {'n50_list': 35, 'n50_bundle': 34.812, 'n50_photo': 24.0, 'share64': 0.021, 'share64_rand': 0.777}
+s3_inner 40 {'n50_list': 35, 'n50_bundle': 30.891, 'n50_photo': 22.0, 'share64': 0.031, 'share64_rand': 0.972}
+s3_inner 175 {'n50_list': 4, 'n50_bundle': 4.609, 'n50_photo': 4.0, 'share64': 0.004, 'share64_rand': 0.487}
+s3_inner 73 {'n50_list': 8, 'n50_bundle': 7.625, 'n50_photo': 7.0, 'share64': 0.005, 'share64_rand': 0.487}
+
+s3_inner: 22 children, 256 inputs. z 1.64. Left with every input at its mean: -0.18 of z
+  inputs for 50% of the effect: list 36, bundle 35, photo 24, best list on these photos 36
+  inputs for 80% of the effect: list 122, bundle 119, photo 86, best list on these photos 120
+  k = 4: share of z^2 changed 0.585 (random 1.340); share of the change from the mean 0.449 (random 0.976)
+  k = 16: share of z^2 changed 0.210 (random 1.241); share of the change from the mean 0.165 (random 0.887)
+  k = 64: share of z^2 changed 0.039 (random 0.788); share of the change from the mean 0.028 (random 0.567)
+old 156 {'old4': 0.954, 'rand4': 0.972, 'old16': 0.923, 'rand16': 0.977, 'old64': 0.752, 'rand64': 0.98}
+old 162 {'old4': 0.984, 'rand4': 0.985, 'old16': 0.962, 'rand16': 0.98, 'old64': 0.843, 'rand64': 0.999}
+old 163 {'old4': 0.596, 'rand4': 0.871, 'old16': 0.554, 'rand16': 0.898, 'old64': 0.488, 'rand64': 0.87}
+old 168 {'old4': 0.977, 'rand4': 0.998, 'old16': 0.894, 'rand16': 0.989, 'old64': 0.844, 'rand64': 0.955}
+old 172 {'old4': 0.952, 'rand4': 0.955, 'old16': 0.912, 'rand16': 0.967, 'old64': 0.766, 'rand64': 1.035}
+old 182 {'old4': 0.565, 'rand4': 0.528, 'old16': 0.57, 'rand16': 0.607, 'old64': 0.559, 'rand64': 0.487}
+old 219 {'old4': 0.97, 'rand4': 0.99, 'old16': 0.903, 'rand16': 0.939, 'old64': 0.742, 'rand64': 0.919}
+old 226 {'old4': 0.988, 'rand4': 0.995, 'old16': 0.948, 'rand16': 1.008, 'old64': 0.56, 'rand64': 0.935}
+old 242 {'old4': 0.966, 'rand4': 0.989, 'old16': 0.961, 'rand16': 1.0, 'old64': 0.927, 'rand64': 0.993}
+old 255 {'old4': 0.589, 'rand4': 0.592, 'old16': 0.584, 'rand16': 0.64, 'old64': 0.914, 'rand64': 0.823}
+old 269 {'old4': 1.031, 'rand4': 1.13, 'old16': 1.009, 'rand16': 1.1, 'old64': 1.026, 'rand64': 1.025}
+old 270 {'old4': 1.015, 'rand4': 1.05, 'old16': 0.929, 'rand16': 1.13, 'old64': 0.793, 'rand64': 0.981}
+old 277 {'old4': 1.09, 'rand4': 1.111, 'old16': 1.043, 'rand16': 1.063, 'old64': 0.974, 'rand64': 1.08}
+old 28 {'old4': 0.984, 'rand4': 1.004, 'old16': 0.898, 'rand16': 1.041, 'old64': 0.55, 'rand64': 0.985}
+old 297 {'old4': 0.612, 'rand4': 1.049, 'old16': 0.467, 'rand16': 1.128, 'old64': 0.476, 'rand64': 0.814}
+old 31 {'old4': 0.877, 'rand4': 0.885, 'old16': 0.859, 'rand16': 0.888, 'old64': 0.722, 'rand64': 0.974}
+old 32 {'old4': 0.951, 'rand4': 0.937, 'old16': 0.928, 'rand16': 0.958, 'old64': 0.885, 'rand64': 1.01}
+old 329 {'old4': 0.984, 'rand4': 1.053, 'old16': 0.892, 'rand16': 1.048, 'old64': 0.959, 'rand64': 0.956}
+old 344 {'old4': 0.785, 'rand4': 0.898, 'old16': 0.725, 'rand16': 0.871, 'old64': 0.494, 'rand64': 0.679}
+old 35 {'old4': 1.078, 'rand4': 1.054, 'old16': 1.03, 'rand16': 1.059, 'old64': 0.83, 'rand64': 0.973}
+old 362 {'old4': 0.935, 'rand4': 0.934, 'old16': 0.953, 'rand16': 0.965, 'old64': 0.929, 'rand64': 0.997}
+old 367 {'old4': 0.912, 'rand4': 1.008, 'old16': 0.826, 'rand16': 1.091, 'old64': 0.754, 'rand64': 0.981}
+old 391 {'old4': 0.942, 'rand4': 0.946, 'old16': 0.914, 'rand16': 0.991, 'old64': 1.079, 'rand64': 1.073}
+old 393 {'old4': 0.822, 'rand4': 0.863, 'old16': 0.567, 'rand16': 0.864, 'old64': 0.293, 'rand64': 0.85}
+old 400 {'old4': 1.039, 'rand4': 1.113, 'old16': 0.631, 'rand16': 1.112, 'old64': 0.5, 'rand64': 1.012}
+old 403 {'old4': 0.951, 'rand4': 0.951, 'old16': 0.885, 'rand16': 0.957, 'old64': 0.713, 'rand64': 0.914}
+old 418 {'old4': 0.925, 'rand4': 0.979, 'old16': 0.898, 'rand16': 0.967, 'old64': 0.68, 'rand64': 0.868}
+old 42 {'old4': 0.853, 'rand4': 0.925, 'old16': 0.859, 'rand16': 0.984, 'old64': 0.641, 'rand64': 0.977}
+old 424 {'old4': 0.975, 'rand4': 1.029, 'old16': 0.873, 'rand16': 1.013, 'old64': 0.962, 'rand64': 1.083}
+old 429 {'old4': 1.113, 'rand4': 1.119, 'old16': 1.081, 'rand16': 1.091, 'old64': 0.943, 'rand64': 0.96}
+old 431 {'old4': 1.003, 'rand4': 1.04, 'old16': 0.996, 'rand16': 1.054, 'old64': 0.999, 'rand64': 1.078}
+old 456 {'old4': 1.069, 'rand4': 1.074, 'old16': 0.949, 'rand16': 1.006, 'old64': 0.774, 'rand64': 0.853}
+old 461 {'old4': 1.145, 'rand4': 1.156, 'old16': 1.124, 'rand16': 1.145, 'old64': 0.991, 'rand64': 1.093}
+old 467 {'old4': 1.064, 'rand4': 1.063, 'old16': 0.941, 'rand16': 1.056, 'old64': 0.767, 'rand64': 1.054}
+old 474 {'old4': 1.027, 'rand4': 1.056, 'old16': 1.019, 'rand16': 1.091, 'old64': 0.91, 'rand64': 1.186}
+old 486 {'old4': 1.157, 'rand4': 1.178, 'old16': 1.081, 'rand16': 1.087, 'old64': 0.958, 'rand64': 1.067}
+old 56 {'old4': 0.688, 'rand4': 0.731, 'old16': 0.578, 'rand16': 0.723, 'old64': 0.351, 'rand64': 0.733}
+old 9 {'old4': 0.85, 'rand4': 0.877, 'old16': 0.804, 'rand16': 0.902, 'old64': 0.707, 'rand64': 0.923}
+
+old measure, stage 4, across four convolutions: share of z^2 changed
+  k = 4: old list 0.968, random list 0.992
+  k = 16: old list 0.907, random list 0.996
+  k = 64: old list 0.770, random list 0.978

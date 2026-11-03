@@ -95,3 +95,47 @@ Lists are chosen on reading photos. Numbers are on sealed photos. Children are a
 | Share of z^2 changed at k = 64, one layer | Under .3, against .77 across four convolutions |
 
 If stage 4 stays dense at one layer, the next suspects are position inside the 3 x 3 window, then near-twin channels that act as one parent.
+
+## Round 2 results: the one-layer check (2026-11-03; `one_layer_check.json`, `one_layer_check.log`; sealed photos; validation crops, not N's training photos)
+
+Lists were chosen on reading photos. Bundles are k-means, k = 3, inside one child. The per-photo count is in-sample.
+
+| Item | Prediction | Result | Verdict |
+|---|---|---|---|
+| The sum of all direct inputs equals z | float error | stops above 1e-6 of z; never stopped | Held |
+| Old measure, stage 4, k = 64: old list against random 64 | old is better | .770 against .978. 33 of 38 children | Held |
+| s4 block 1: inputs for 50% of the summed effect, one list | 30 or fewer of 513 | 76 (range 45 to 96) | FAILED |
+| The same, one list per bundle | 15 or fewer | 74 | FAILED. Bundles of this kind barely help |
+| The same, one list per photo | 15 or fewer | 33 | FAILED |
+| 30 random stage 4 channels | the same lines hold | 79, 78, 35. Same as the slice, so the slice is a fair sample on this measure | Same misses |
+| Inner channels from the block's stream, 50% of the effect | 30 or fewer of 512 | s4 104, s3 36 | FAILED |
+| s3 block 1, skip as one input | 5 or fewer | 8 | FAILED, narrowly |
+| Share of z^2 changed at k = 64, one layer | under .3, against .77 | .036 | Held, far beyond |
+
+| Share of z^2 changed, median | k = 4 | k = 16 | k = 64 |
+|---|---|---|---|
+| Old setup: s3 feeders of s4 block 1, four convolutions | .968 | .907 | .770 |
+| Same setup, random list | .992 | .996 | .978 |
+| s4 block 1 from its direct inputs | .428 | .151 | .036 |
+| Same layer, random list | .950 | .916 | .755 |
+| s3 block 1 from its direct inputs | .070 | .029 | .009 |
+| s4 block 1 inner from s4 block 0, over the change from the mean | .635 | .385 | .146 |
+| s3 block 1 inner from s3 block 0, over the change from the mean | .449 | .165 | .028 |
+
+Reading, said plainly:
+
+1. Distance was a large part of the old number. At one convolution, 16 inputs of 513 leave .151, where the old setup left .907. This does not compare like with like: the old setup kept 64 of 256 and crossed three ReLUs.
+2. .151 of z^2 is a root mean square error of about .39 of z. So 16 inputs are close, and they are not the whole child.
+3. The two measures disagree. It takes 76 inputs to reach half of the summed |effect|, yet 64 inputs leave only .036 of z^2. So the many small inputs largely cancel at the peak. I did not predict this. It fits the essay's "built from votes", and I have not shown that this is why.
+4. Three-way bundles did not lower the count. So defect 4 in the plan has no support from this measure.
+5. Stage 4's inner channels are the least clear layer measured. That is the next lead in the map's tools, with position inside the 3 x 3 window as the first suspect.
+
+# Round 2, second check (written before `one_layer_map.py` and `reference_convnext.py` ran, 2026-11-03)
+
+| Item | Prediction |
+|---|---|
+| Every layer of ResNet-18, k = 16, over the change from the mean | A stream layer is clearer than the inner layer below it, at every stage. Stages 1 to 3 are clearer than stage 4 |
+| Block 0 inner, which reads the stage below | Less clear than block 1 inner at stage 4 (above .385 at k = 16) |
+| Position inside the 3 x 3 window, as (channel, offset) inputs, s4 block 1 inner, k = 64 | About .15, no better than channel lists by much. Finer inputs are a harder count, so a large gain would be strong evidence |
+| ConvNeXt-Tiny, last block: a stream direction from its 3072 neurons | k = 64 below .05. A reference only |
+| ConvNeXt-Tiny, last block: a neuron from its 768 stream directions | Inputs for 50% at or above 100 of 768, since the stream has no privileged basis. A reference only |
