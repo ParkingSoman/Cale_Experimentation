@@ -103,3 +103,5 @@ s3:98 wheels
 s3:46 wheels
 s2:120 wheels
 s2:32 wheels
+s2:112 dogface
+s2:73 dogface

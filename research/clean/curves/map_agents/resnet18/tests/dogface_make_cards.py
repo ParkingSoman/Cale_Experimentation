@@ -1,0 +1,189 @@
+# serves: H-map
+# Writes cards/dogface.jsonl from dogface's reading. Numbers come from ev.py acts:
+# fall of the child at its top 64 photos when the parent is removed, against 3 matched controls.
+import json
+import os
+
+H = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def P(ch, gives, sign, sure):
+    return {"channel": ch, "gives": gives, "sign": sign, "sure": sure}
+
+
+C = []
+
+
+def add(**k):
+    C.append(k)
+
+
+add(channel="s4:242", distinction="Long loose strands hanging in thin lines against a body, versus smooth blunt skin folds with no strands.",
+    positive="Long hanging hair fringes and thin crossing lines: colobus tail, Afghan ears, Bernese coat, and also clock hands.",
+    negative="Smooth short coat on a wide blunt wrinkled head (boxer, bull mastiff, pug), and an elephant's wrinkled trunk. Keeps out folds and smooth skin.",
+    parents=[P("s3:118", "thin lines fanning out from a centre (acts: 242 falls .82; controls -.04 to .15; sheet checked)", "+", 0.8),
+             P("s3:32", "upright-eared head (acts: falls .64; controls -.07 to .18; sheet checked)", "+", 0.5),
+             P("s3:125", "fine ridges and ribs; removing it RAISES 242 by .36 (controls near 0), so it holds 242 down", "-", 0.6)],
+    gate="Ribbed or folded skin is turned away: s3:125 pushes 242 down while pushing 467 up.",
+    readers="Not read. Logit readers were not checked.", offshoots="Clock faces arrive by the thin-line route, not by dogs.",
+    family="hanging strands vs smooth folds",
+    prediction="Before acts: a channel that fans thin lines from a centre (s3:118) is a parent of 242, because 242 fires on clock hands and fringes.",
+    prediction_held=True, sure=0.7, unread="Why chimpanzee and colobus fire as strongly as dogs.")
+
+add(channel="s4:429", distinction="Rounded body with limp lobes or thin legs hanging from it, versus upright compact pointed things.",
+    positive="Floppy-eared spaniels and hounds, a spider's legs, clock hands, a dial phone with its cord.",
+    negative="Erect-eared or upright forms: wallaby, Westie, rabbit, scooter, crab. Keeps out upright points.",
+    parents=[P("s3:147", "upright dark-and-white body on a plain field (acts: falls .36; controls -.06 to .19; weak)", "+", 0.3)],
+    gate=None, readers="Not read.", offshoots="Clocks, phones, spiders: they share thin hanging parts, not dogs.",
+    family="hanging lobes vs upright points",
+    prediction="Before acts: s3:71 (blue sky field, top feeder) makes 429 fall more than controls.",
+    prediction_held=False, sure=0.3,
+    unread="s3:71 did not fall (fall .19, controls .21 to .29). The real parent is not found. The verb is a sheet guess.")
+
+add(channel="s4:28", distinction="Pale cream-white body, versus dark solid brown body.",
+    positive="White or cream: polar bear, cockatoo, egret, pale Labrador, white poodle.",
+    negative="Dark chocolate or orange solid colour: chocolate and black Labrador, orange fruit, ferret, beaver. Keeps out dark brown.",
+    parents=[P("s3:186", "white surface (acts: 28 falls 2.70; controls -.22 to .17; sheet checked)", "+", 0.9),
+             P("s3:159", "sheet not read; acts: falls .90; controls -.14 to .16", "+", 0.3)],
+    gate="Same white feeder as s4:31. 28 splits white against dark; 31 splits white against mid tan.", readers="Not read.",
+    offshoots="Birds and bears arrive by the same white route, not by dog routes.", family="coat tone: pale",
+    prediction="Before acts: white-surface channel s3:186 is the main parent of 28.", prediction_held=True, sure=0.8,
+    unread="What s3:159 detects.")
+
+add(channel="s4:31", distinction="Pure white fluffy body, versus mid tan or brown body.",
+    positive="Maltese, Samoyed, cockatoo, flamingo, spoonbill, a white airship.",
+    negative="Tan, brown, grey-brown bodies: warthog, hare, meerkat, jackfruit, border terrier. Keeps out mid tan.",
+    parents=[P("s3:186", "white surface (acts: 31 falls 3.54; controls .01 to .33; sheet checked)", "+", 0.9),
+             P("s3:255", "cream face on a dog head (acts: falls 1.49; controls .06 to .15; sheet checked)", "+", 0.7)],
+    gate=None, readers="Not read.", offshoots="Banjo and airship fire it by the white-and-round route.",
+    family="coat tone: pale", prediction="Before acts: s3:186 and s3:255 make 31 fall more than any control.",
+    prediction_held=True, sure=0.8, unread="Why tan is the negative pole and not dark.")
+
+add(channel="s4:172", distinction="Warm orange or russet patch on a body, versus black or very dark body.",
+    positive="Red-orange: proboscis monkey face, ladybug, goldfish, merganser head, fox-coloured dog.",
+    negative="Black or very dark: black bear, black Affenpinscher, black pug, buffalo, otter. Keeps out black.",
+    parents=[P("s3:90", "saturated orange and yellow patches (acts: 172 falls 1.73; controls -.07 to .02; sheet checked)", "+", 0.9),
+             P("s3:254", "dark fabric and fur folds (acts: falls 1.59; controls -.24 to 0; sheet checked)", "+", 0.5)],
+    gate=None, readers="Not read.", offshoots="Insects and fish arrive via the same orange route.", family="coat tone: warm",
+    prediction="Before acts: s3:90 (orange patches) is a parent of 172.", prediction_held=True, sure=0.8,
+    unread="Why s3:254 (dark cloth) helps a channel whose negative pole is dark. It may be a contrast edge.")
+
+add(channel="s4:162", distinction="Curled or wavy loops of strand, versus straight sleek smooth short coat.",
+    positive="Spaniel and poodle ears and curls, chain links, rope knots, siamang fur.",
+    negative="Sleek short coats and radiating spikes: Weimaraner, pug, Rhodesian ridgeback, starfish, spider, fan blades.",
+    parents=[P("s3:118", "fanning thin lines (acts: 162 falls 1.55; controls -.13 to .15; sheet checked)", "+", 0.7)],
+    gate=None, readers="Not read.", offshoots="Chain and rope arrive by loop shape, not through dogs.",
+    family="strand shape: curled", prediction="Before acts: 162 shares the s3:118 parent with 242 and 219.",
+    prediction_held=True, sure=0.6, unread="How loops differ from fans at stage 3.")
+
+add(channel="s4:467", distinction="Many parallel straight strands in a bundle, versus pebbly dimpled short surface.",
+    positive="Brush bristles, paintbrush, broom, wig, komondor cords, pelican feather, sloth hair.",
+    negative="Dimpled or stippled short surface: golf ball, koala fur, shield, beetle, doormat. Keeps out dimples.",
+    parents=[P("s3:240", "regular straight scale lines and rulers (acts: 467 falls 1.56; controls -.07 to .10; sheet checked)", "+", 0.8),
+             P("s3:125", "fine regular ridges (acts: falls .52; controls 0 to .11; sheet checked)", "+", 0.6)],
+    gate="s3:125 feeds 467 and holds 242 down: ridges go to straight bundles, away from folds.", readers="Not read.",
+    offshoots="Brushes and brooms are not animals.", family="strand shape: straight",
+    prediction="Before acts: a ruler-line channel (s3:240) is a parent of the bristle channel.", prediction_held=True, sure=0.7,
+    unread="Why the dimple pole is so specific.")
+
+add(channel="s4:219", distinction="A long smooth drape falling in one piece, versus small hard compact parts.",
+    positive="Gowns, cloaks, abaya, Afghan ear, long wig hair, lizard on a trunk.",
+    negative="Small hard items: mouse, phone, iPod, bottle, comb, Boston bull face. Keeps out compact things.",
+    parents=[P("s3:118", "fanning lines (acts: 219 falls .89; controls -.14 to .01; sheet checked)", "+", 0.5)],
+    gate=None, readers="Not read.", offshoots="Clothing arrives by the drape route.", family="strand shape: draped",
+    prediction="Before acts: s3:118 feeds 219 too.", prediction_held=True, sure=0.5,
+    unread="Other parents. s3:125 is a listed negative feeder at -0.94 and was not tested.")
+
+add(channel="s4:418", distinction="Long narrow tapered muzzle, versus flat short squashed face.",
+    positive="Wolf, red wolf, dhole, borzoi, Italian greyhound, whippet, dingo, grizzly.",
+    negative="Flat short faces: Boston bull, pug, Shih-Tzu, Pekinese, Japanese spaniel, Angora, hamster.",
+    parents=[P("s3:141", "smooth narrow face with dark nose, no ruff (acts: 418 falls 6.61; controls -.18 to .28; sheet checked)", "+", 0.9)],
+    gate="s3:141 is itself a gate: smooth narrow faces pass; ruffed faces (collie, papillon, Pomeranian) are negative.",
+    readers="Not read.", offshoots="Bears arrive by the same long-face route.", family="face length",
+    prediction="Before acts: s3:141 (narrow face) is the main parent of 418.", prediction_held=True, sure=0.9,
+    unread="Whether the face-length axis reaches the dog class logits.")
+
+add(channel="s4:42", distinction="Smooth warm red-brown bare body, versus white-and-black high contrast pattern.",
+    positive="Redbone, ridgeback, Irish setter, sorrel horse, bare skin in bikini photos, unicycle leg.",
+    negative="White and black pattern: polar bear, husky, malamute, clock, toucan, dumbbell, snow scenes.",
+    parents=[P("s3:90", "saturated warm patches (acts: 42 falls .94; controls -.05 to .11; sheet checked)", "+", 0.7)],
+    gate=None, readers="Not read.", offshoots="Skin and horses arrive by the warm-brown route.", family="coat tone: warm",
+    prediction="Before acts: the orange channel s3:90 also feeds 42.", prediction_held=True, sure=0.7,
+    unread="Why the negative pole is contrast, not dark.")
+
+add(channel="s3:118", distinction="Thin lines fanning out from a centre, versus dense dark bristle with a centre.",
+    positive="Bolo tie, daisy petals, fan feathers, wheel spokes, a dome from below.",
+    negative="Dense bristles: daisy centre, echidna, porcupine, Pomeranian face, macaque.",
+    parents=[P("s2:112", "thin straight lines on a field (acts: 118 falls .67; controls .01 to .02; sheet checked)", "+", 0.8)],
+    gate=None, readers="Feeds s4:242, 219 and 162, all with large falls.", offshoots="Flowers arrive by the same route.",
+    family="fan of lines", prediction="Before acts: s2:112 (strings, spokes, keys) is a parent of 118.",
+    prediction_held=True, sure=0.8, unread="Whether fans and bundles are one verb or two.")
+
+add(channel="s3:32", distinction="Head with two upright pointed ears on a front face.",
+    positive="Collie, Australian terrier, Groenendael, Eskimo dog, hyena, toy terrier.",
+    negative="Not read with a sheet.", parents=[], gate=None, readers="Feeds s4:242 (falls .64) and s4:31.",
+    offshoots="Hyena arrives by ear shape.", family="pointed ears pair",
+    prediction="Before acts: s3:32 matters for the strands channel 242.", prediction_held=True, sure=0.5,
+    unread="No parent found: s2:101 fell only .07 against controls near 0. Negative pole not read.")
+
+add(channel="s3:186", distinction="White surface, versus blue sky and hard-edged man-made things.",
+    positive="White poodle, Samoyed, Saluki, egg, vulture head, white blossom.",
+    negative="Blue sky scenes: lighthouse, planetarium, alp, castle, radio telescope.",
+    parents=[P("s2:28", "bars and pale rails (acts: 186 falls .25; controls .01 to .04; weak)", "+", 0.3)],
+    gate=None, readers="Feeds s4:28 (falls 2.70) and s4:31 (falls 3.54).", offshoots="Egg and penguin chest arrive by white.",
+    family="white", prediction="Before acts: 186 is a stage 3 parent of both pale channels 28 and 31.",
+    prediction_held=True, sure=0.8, unread="The s2 parent is weak. Mixed negative pole.")
+
+add(channel="s3:255", distinction="Pale cream face of a dog or sheep.",
+    positive="Labrador, Saluki, whippet, dalmatian, bighorn, Great Pyrenees faces.",
+    negative="Not read.", parents=[], gate=None, readers="Feeds s4:31 (falls 1.49).", offshoots="Bighorn arrives by cream face.",
+    family="cream face", prediction="Before acts: 255 builds 31.", prediction_held=True, sure=0.6,
+    unread="No s2 parent read. No negative pole read.")
+
+add(channel="s3:90", distinction="Saturated orange or yellow patch.",
+    positive="Macaw, bell pepper, lemon, sarong, king penguin patch.",
+    negative="Dog faces and screens, at very low strength (-.5).", parents=[], gate=None,
+    readers="Feeds s4:172 (falls 1.73) and s4:42 (falls .94).", offshoots="Fruit and cloth arrive by colour.",
+    family="warm colour", prediction="Before acts: 90 builds both warm channels 172 and 42.", prediction_held=True,
+    sure=0.8, unread="No s2 parent read.")
+
+add(channel="s3:89", distinction="Flat blank sky or bright smooth field.",
+    positive="Blue sky, white sky, plain background.", negative="Not read.", parents=[],
+    gate="Listed as a negative feeder of 242, 162, 467, 219 and 429 by input x gradient. Not confirmed.",
+    readers="Acts did not confirm: removing it moved 242 by .07 against controls -.15 to .07.",
+    offshoots="None read.", family="blank field", prediction="Before acts: removing 89 raises the strand channel 242.",
+    prediction_held=False, sure=0.2, unread="Negative effect not shown. Role as a gate is unproven.")
+
+add(channel="s3:125", distinction="Fine regular ridges and ribs wound around.",
+    positive="Brain coral, ammonite, hose ribs, snake scales, baseball seams, typewriter bar.",
+    negative="Not read.", parents=[],
+    gate="Pushes s4:242 down (removal raises it .36) and s4:467 up (removal drops it .52).",
+    readers="s4:467 and s4:242 read it with opposite signs.", offshoots="Corals and hoses arrive by ridge pattern.",
+    family="ribs", prediction="Before acts: 125 holds 242 down.", prediction_held=True, sure=0.7,
+    unread="No s2 parent read. Why 467 wants ribs is not shown.")
+
+add(channel="s3:141", distinction="Smooth narrow front face with a dark nose, versus fluffy-ruffed face.",
+    positive="Dingo, toy terrier, red wolf, whippet, Doberman, Great Pyrenees front face.",
+    negative="Ruffed faces: collie, papillon, Pomeranian, Eskimo dog, gibbon.",
+    parents=[P("s2:73", "sheet not opened; acts: 141 falls .72; controls -.02 to .01", "+", 0.5)],
+    gate="Passes smooth-faced heads to s4:418; ruffed heads are negative.",
+    readers="Feeds s4:418 (falls 6.61), the largest fall I measured.", offshoots="Fox faces arrive by shape.",
+    family="face without ruff", prediction="Before acts: 141 is the key parent of 418.", prediction_held=True,
+    sure=0.8, unread="s2:73 sheet not read.")
+
+add(channel="s2:112", distinction="Thin straight lines against a contrasting field.",
+    positive="Guitar strings, spokes, piano keys, wing feathers, leopard whiskers.",
+    negative="Not read.", parents=[], gate=None, readers="Feeds s3:118 (falls .67).", offshoots="None.",
+    family="thin lines", prediction="Before acts: 112 builds the fan channel s3:118.", prediction_held=True,
+    sure=0.7, unread="Stem parents not read. Negative pole not read.")
+
+add(channel="s2:73", distinction="Not read: its sheet was made, not opened.",
+    positive="Not read.", negative="Not read.", parents=[], gate=None,
+    readers="Feeds s3:141 (falls .72 against controls near 0).", offshoots="None.", family="unread",
+    prediction="Before acts: 73, the top s2 feeder, feeds s3:141.", prediction_held=True, sure=0.2,
+    unread="Everything except its edge to s3:141.")
+
+with open(os.path.join(H, "cards", "dogface.jsonl"), "w") as f:
+    for c in C:
+        f.write(json.dumps(c) + "\n")
+print(len(C))

@@ -33,3 +33,9 @@ early: dog and car traces use the same few s1 channels (19, 51, 60, 47, 43, 44, 
 early: failures: s1:37 grayscale edit measures the weak positive pole, not green; s2:25 blur kept 0.70 (I expected under 0.5); s1:44 rot90 kept .64 (expected over .8).
 early: blur and rot90 edits take 3 minutes each under load; sheet takes seconds.
 early: acts s1:60->s2:25 fell .169 (controls ~0.03, weak link); s1:55->s2:25 fell 0 (no link).
+dogface: dog heads route is mostly hair and colour, not dog shape. s4 carriers of dog photos: 242 strands vs folds, 162 curls, 467 straight bundles, 219 drape, 28/31 white vs dark/tan, 172/42 warm vs dark, 418 long muzzle vs flat face.
+dogface: s3:118 (fan of thin lines, from s2:112) feeds s4:242, 219 and 162 (acts falls .8, .9, 1.5; controls ~0).
+dogface: s3:186 (white) feeds s4:28 (falls 2.7) and s4:31 (3.5). s3:90 (orange) feeds s4:172 (1.7) and s4:42 (.9). s3:141 (smooth narrow face) feeds s4:418 (6.6).
+dogface: s3:125 (ribs) pushes s4:242 DOWN (removal raises it .36) and s4:467 up (+.52). Opposite signs from one parent.
+dogface: failed: s3:71 for s4:429 (no fall above controls); s3:89 as negative feeder of 242 (no effect). s4:429 parent not found.
+dogface: input x gradient top feeders are not always true parents. Check by acts every time.
