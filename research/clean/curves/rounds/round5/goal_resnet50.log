@@ -1,2 +1,84 @@
 loaded [torch.Size([12000, 2048]), torch.Size([3000, 2048]), torch.Size([5000, 2048])]
 dogcat rows 1476 369 615 span sec 3.09
+dogcat 14 rule {'kl': 0.4095, 'agree': 0.7886, 'fit': 0.1264, 'grad': 0.0, 'sec': 6.6435} rule2 0.7031 56.8
+dogcat 14 logitpca {'kl': 0.3999, 'agree': 0.7691, 'fit': 0.0376, 'val': 0.3463, 'sec': 2.329} validation
+dogcat 14 rand0 {'kl': 0.5931, 'agree': 0.722, 'fit': 0.0285, 'val': 0.5081, 'sec': 5.2334} validation
+dogcat 14 rand1 {'kl': 0.5862, 'agree': 0.7366, 'fit': 0.0262, 'val': 0.5295, 'sec': 9.8584} validation
+dogcat 14 rule {'kl': 0.435, 'agree': 0.7707, 'fit': 0.0372, 'val': 0.3711, 'sec': 3.3809} validation
+dogcat 14 rule_fast 0.4094 ratio 1.024 sec 2.3
+dogcat 14 RATIO rule 1.024 rule2 1.758
+dogcat 38 rule {'kl': 0.1298, 'agree': 0.878, 'fit': 0.011, 'grad': 0.0, 'sec': 11.2573} rule2 0.1653 78.1
+dogcat 38 logitpca {'kl': 0.1243, 'agree': 0.8764, 'fit': 0.0045, 'val': 0.1047, 'sec': 10.0742} validation
+dogcat 38 rand0 {'kl': 0.176, 'agree': 0.852, 'fit': 0.0042, 'val': 0.1505, 'sec': 17.502} validation
+dogcat 38 rand1 {'kl': 0.1783, 'agree': 0.8569, 'fit': 0.0032, 'val': 0.1457, 'sec': 29.3866} validation
+dogcat 38 rule {'kl': 0.1274, 'agree': 0.8976, 'fit': 0.0048, 'val': 0.1049, 'sec': 6.2614} validation
+dogcat 38 rule_fast 0.13 ratio 1.045 sec 5.4
+dogcat 38 RATIO rule 1.044 rule2 1.33
+ctrl0 rows 1476 369 615 span sec 2.99
+ctrl0 14 rule {'kl': 2.0805, 'agree': 0.5171, 'fit': 0.2709, 'grad': 0.0, 'sec': 7.6434} rule2 2.4388 55.8
+ctrl0 14 logitpca {'kl': 1.2573, 'agree': 0.6195, 'fit': 0.0771, 'val': 1.3499, 'sec': 2.7191} validation
+ctrl0 14 rand0 {'kl': 1.9786, 'agree': 0.5496, 'fit': 0.0731, 'val': 2.1392, 'sec': 4.2137} validation
+ctrl0 14 rand1 {'kl': 1.9583, 'agree': 0.5642, 'fit': 0.0716, 'val': 2.1467, 'sec': 9.4216} validation
+ctrl0 14 rule {'kl': 1.673, 'agree': 0.5854, 'fit': 0.1192, 'val': 1.8153, 'sec': 4.4272} validation
+ctrl0 14 rule_fast 2.0821 ratio 1.656 sec 4.2
+ctrl0 14 RATIO rule 1.655 rule2 1.94
+ctrl0 38 rule {'kl': 0.6511, 'agree': 0.7333, 'fit': 0.0261, 'grad': 0.0, 'sec': 14.4519} rule2 0.7384 77.7
+ctrl0 38 logitpca {'kl': 0.5451, 'agree': 0.7463, 'fit': 0.0129, 'val': 0.5713, 'sec': 9.0573} validation
+ctrl0 38 rand0 {'kl': 0.8076, 'agree': 0.6927, 'fit': 0.013, 'val': 0.8025, 'sec': 12.732} validation
+ctrl0 38 rand1 {'kl': 0.7315, 'agree': 0.7252, 'fit': 0.0106, 'val': 0.7433, 'sec': 18.7255} validation
+ctrl0 38 rule {'kl': 0.6051, 'agree': 0.7301, 'fit': 0.0174, 'val': 0.612, 'sec': 4.7237} validation
+ctrl0 38 rule_fast 0.6444 ratio 1.182 sec 4.8
+ctrl0 38 RATIO rule 1.194 rule2 1.355
+ctrl1 rows 1476 369 615 span sec 2.46
+ctrl1 14 rule {'kl': 2.1035, 'agree': 0.5041, 'fit': 0.304, 'grad': 0.0, 'sec': 6.3687} rule2 2.6059 46.3
+ctrl1 14 logitpca {'kl': 1.3608, 'agree': 0.6016, 'fit': 0.0873, 'val': 1.2424, 'sec': 5.545} validation
+ctrl1 14 rand0 {'kl': 2.1956, 'agree': 0.5138, 'fit': 0.0845, 'val': 2.0066, 'sec': 7.5737} validation
+ctrl1 14 rand1 {'kl': 2.0935, 'agree': 0.5317, 'fit': 0.0804, 'val': 1.8902, 'sec': 7.3805} validation
+ctrl1 14 rule {'kl': 1.813, 'agree': 0.548, 'fit': 0.1345, 'val': 1.7448, 'sec': 3.541} validation
+ctrl1 14 rule_fast 2.1047 ratio 1.547 sec 3.2
+ctrl1 14 RATIO rule 1.546 rule2 1.915
+ctrl1 38 rule {'kl': 0.6863, 'agree': 0.7138, 'fit': 0.0301, 'grad': 0.0, 'sec': 11.6644} rule2 0.7927 70.3
+ctrl1 38 logitpca {'kl': 0.5727, 'agree': 0.7154, 'fit': 0.0164, 'val': 0.4871, 'sec': 12.181} validation
+ctrl1 38 rand0 {'kl': 0.8476, 'agree': 0.6683, 'fit': 0.0124, 'val': 0.7459, 'sec': 18.0912} validation
+ctrl1 38 rand1 {'kl': 0.8981, 'agree': 0.665, 'fit': 0.0122, 'val': 0.7015, 'sec': 24.4207} validation
+ctrl1 38 rule {'kl': 0.649, 'agree': 0.7154, 'fit': 0.0204, 'val': 0.5871, 'sec': 3.3873} validation
+ctrl1 38 rule_fast 0.6783 ratio 1.184 sec 3.4
+ctrl1 38 RATIO rule 1.198 rule2 1.384
+ctrl2 rows 1476 369 615 span sec 2.38
+ctrl2 14 rule {'kl': 2.1756, 'agree': 0.5122, 'fit': 0.2846, 'grad': 0.0, 'sec': 5.0357} rule2 2.4131 45.0
+ctrl2 14 logitpca {'kl': 1.2519, 'agree': 0.6569, 'fit': 0.0826, 'val': 1.3725, 'sec': 4.009} validation
+ctrl2 14 rand0 {'kl': 2.0382, 'agree': 0.5431, 'fit': 0.0871, 'val': 2.0376, 'sec': 3.3113} validation
+ctrl2 14 rand1 {'kl': 1.9821, 'agree': 0.5821, 'fit': 0.0834, 'val': 2.3346, 'sec': 5.174} validation
+ctrl2 14 rule {'kl': 1.7507, 'agree': 0.5805, 'fit': 0.1289, 'val': 1.7676, 'sec': 3.1938} validation
+ctrl2 14 rule_fast 2.1643 ratio 1.729 sec 3.4
+ctrl2 14 RATIO rule 1.738 rule2 1.927
+ctrl2 38 rule {'kl': 0.6434, 'agree': 0.7707, 'fit': 0.0268, 'grad': 0.0, 'sec': 30.2467} rule2 0.6912 78.3
+ctrl2 38 logitpca {'kl': 0.5132, 'agree': 0.7577, 'fit': 0.0151, 'val': 0.5898, 'sec': 5.4532} validation
+ctrl2 38 rand0 {'kl': 0.7675, 'agree': 0.7203, 'fit': 0.012, 'val': 0.8556, 'sec': 11.3216} validation
+ctrl2 38 rand1 {'kl': 0.7526, 'agree': 0.7252, 'fit': 0.011, 'val': 0.7775, 'sec': 14.6297} validation
+ctrl2 38 rule {'kl': 0.6018, 'agree': 0.7724, 'fit': 0.0184, 'val': 0.6554, 'sec': 3.3944} validation
+ctrl2 38 rule_fast 0.6373 ratio 1.242 sec 9.8
+ctrl2 38 RATIO rule 1.254 rule2 1.347
+dogcat90 rows 12000 3000 5000 span sec 12.61
+dogcat90 14 rule {'kl': 0.8216, 'agree': 0.7182, 'fit': 0.4795, 'grad': 0.0, 'sec': 40.3278} rule2 0.9418 317.9
+dogcat90 14 logitpca {'kl': 0.7052, 'agree': 0.7193, 'fit': 0.1753, 'val': 0.621, 'sec': 22.4722} validation
+dogcat90 14 rand0 {'kl': 1.066, 'agree': 0.6377, 'fit': 0.1879, 'val': 1.0025, 'sec': 37.7973} validation
+dogcat90 14 rand1 {'kl': 1.0184, 'agree': 0.6476, 'fit': 0.1922, 'val': 0.9472, 'sec': 30.0088} validation
+dogcat90 14 rule {'kl': 0.7127, 'agree': 0.7248, 'fit': 0.2583, 'val': 0.651, 'sec': 19.4201} validation
+dogcat90 14 rule_fast 0.8216 ratio 1.165 sec 39.9
+dogcat90 14 RATIO rule 1.165 rule2 1.336
+dogcat90 38 rule {'kl': 0.3344, 'agree': 0.8418, 'fit': 0.0972, 'grad': 0.0, 'sec': 111.2153} rule2 0.3261 507.4
+dogcat90 38 logitpca {'kl': 0.2547, 'agree': 0.8369, 'fit': 0.0359, 'val': 0.2219, 'sec': 24.9727} validation
+dogcat90 38 rand0 {'kl': 0.3561, 'agree': 0.7897, 'fit': 0.0267, 'val': 0.3345, 'sec': 46.5291} validation
+dogcat90 38 rand1 {'kl': 0.3665, 'agree': 0.7711, 'fit': 0.0214, 'val': 0.3532, 'sec': 54.7415} validation
+dogcat90 38 rule {'kl': 0.2743, 'agree': 0.8361, 'fit': 0.0421, 'val': 0.2429, 'sec': 18.8567} validation
+dogcat90 38 rule_fast 0.3327 ratio 1.306 sec 51.5
+dogcat90 38 RATIO rule 1.313 rule2 1.28
+equal rows 12000 3000 5000 span sec 2.11
+equal 14 rule {'kl': 2.238, 'agree': 0.3488, 'fit': 1.5548, 'grad': 0.0, 'sec': 17.5837} rule2 2.1977 441.5
+equal 14 logitpca {'kl': 1.6243, 'agree': 0.4854, 'fit': 0.4506, 'val': 1.619, 'sec': 17.0664} validation
+equal 14 rand0 {'kl': 2.0315, 'agree': 0.4506, 'fit': 0.4567, 'val': 2.0706, 'sec': 24.9257} validation
+equal 14 rand1 {'kl': 2.0415, 'agree': 0.4366, 'fit': 0.4924, 'val': 2.0552, 'sec': 22.2508} validation
+equal 14 rule {'kl': 1.8413, 'agree': 0.4318, 'fit': 0.6724, 'val': 1.8473, 'sec': 49.1096} validation
+equal 14 rule_fast 2.238 ratio 1.378 sec 33.6
+equal 14 RATIO rule 1.378 rule2 1.353
