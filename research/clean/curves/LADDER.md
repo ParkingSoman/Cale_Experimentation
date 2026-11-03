@@ -3577,6 +3577,8 @@ why (a) may fail on ResNet-50, not proved:
 
 Why it matters: the two networks are not compared on equal terms, since ResNet-18 has 30 fit photos per class. So "ResNet-50 fails" may be "too few photos fails". It does not explain why dogs and cats stay near 1 with the same row count. And on all classes the rule also costs something apart from noise: on ResNet-18 at k = 14 it is 1.762 against 1.159 on its own fit photos.
 
+**Added the same day, the photo-count control. It finished after the order changed in LADDER 55, so it opens no new round.** ResNet-18 at 12 fit photos per class passes line (a) on all 12 runs, against the four starts. All classes reach 1.18 and 1.20, against ResNet-50's 1.38 and 1.44. So photo count alone does not explain ResNet-50's failures. The network, or rows against the size of z, still could. Numbers are in Part C.
+
 **Step 4. What I did not plan to find.**
 
 ```

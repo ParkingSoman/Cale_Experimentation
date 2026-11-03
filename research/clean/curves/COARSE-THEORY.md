@@ -10679,6 +10679,17 @@ Reading, not proved. (1) With rows at most d, the whitened z of Definition DG2 i
 
 Two references for line (a), found after the first write-up of these results. The script's line, fixed before the run, took the best of four starts: logitpca, rand0, rand1 and rule. Trunk T6 names only "starts from random and from B_j". Against those three, the rule passes on all 24 runs: ResNet-18 ratios .94 to 1.30, ResNet-50 ratios .94 to 1.24. Against the script's four, it passes on 18 of 24, as in the tables above. So all 6 failures come from the added start. A better read of the same form is known on those runs, so the stricter number is the one that says how far the rule is from what can be reached, and the table keeps it.
 
+Photo-count control (`rounds/round5/goal_resnet18_pc12.json`; prediction committed before the run). ResNet-18 at 12 fit, 3 validation and 10 sealed photos per class, the same fit and validation counts as ResNet-50. A 123-class goal has 1476 rows, above ResNet-18's d = 512, so this does not match rows against d. Against the four starts, the rule passes (a) on all 12 runs.
+
+| Goal | k = 14: rule, best, ratio | k = 38: rule, best, ratio | ResNet-50 ratios, for comparison |
+|---|---|---|---|
+| dogs and cats | .471, .535, .880 | .173, .179, .966 | 1.024, 1.044 |
+| 123 random classes, 3 draws, mean | 2.109, 1.653, 1.276 (worst 1.295) | .859, .774, 1.109 (worst 1.124) | 1.646, 1.215 |
+| dogs and cats at .9 | .871, .808, 1.079 | .387, .338, 1.146 | 1.165, 1.313 |
+| all classes | 2.149, 1.822, 1.180 | .952, .791, 1.204 | 1.378, 1.441 |
+
+Reading. Fewer photos raise the ratio on random goals at k = 14, from about 1.17 to about 1.28, and they lower it on all classes at k = 14, from 1.299 to 1.180. So photo count alone does not explain ResNet-50's failures. What remains is the network or the ratio of rows to d, and this run does not separate those two. Line (b) fails on 5 of 6 goals here too: rule seconds against random-start seconds 28 / 3, 15 / 3, 14 / 3, 11 / 13, 106 / 25, 33.3 / 32.9, and the one pass rests on a slow random start. Predictions: random goals at k = 14, 1.3 to 1.6, slightly below (1.25 to 1.30); all classes at k = 14, 1.3 to 1.5, missed (1.180); dogs and cats under 1.3, held; "part, and not all, of ResNet-50's failures", held on random goals, missed on all classes, where photo count explains none.
+
 Unplanned observation, after the fact. The trained start logitpca (top directions of the logits, a least-squares read, then training stopped on validation) had the lowest sealed KL on 22 of 24 runs, and was within 1.065 of the lowest on the other two. It has no random start, so it meets line (c), though only one repeat of the rule was tested, not of this. One level from it took less time than one level from a random start on 11 of 12 runs at k = 14. Both sizes from it cost less than one random-start level on only 1 of 12 goal runs (all classes, ResNet-18). The lowest sealed value is selected over four starts, one of them this one, so its ratio of 1 is not an independent test. It is training, not a closed form.
 
 # Part D: where the math leads

@@ -86,3 +86,20 @@ equal 38 rule {'kl': 0.9518, 'agree': 0.576, 'fit': 0.3308, 'grad': 0.0, 'sec': 
 equal 38 logitpca {'kl': 0.7907, 'agree': 0.612, 'fit': 0.1918, 'val': 0.8045, 'sec': 24.0882} validation
 equal 38 rand0 {'kl': 0.8463, 'agree': 0.6068, 'fit': 0.1728, 'val': 0.8686, 'sec': 43.562} validation
 equal 38 rand1 {'kl': 0.847, 'agree': 0.6018, 'fit': 0.176, 'val': 0.8634, 'sec': 24.4096} validation
+equal 38 rule {'kl': 0.8487, 'agree': 0.6024, 'fit': 0.1884, 'val': 0.8617, 'sec': 33.9786} validation
+equal 38 rule_fast 0.9515 ratio 1.203 sec 9.7
+equal 38 RATIO rule 1.204 rule2 1.047
+
+summary (sealed KL)
+dogcat 14 rule 0.471 rule2 0.791 best 0.535 ratio 0.88 1.48 agree 0.722 rule sec 14.4 rand sec 3.2
+dogcat 38 rule 0.173 rule2 0.253 best 0.179 ratio 0.966 1.411 agree 0.833 rule sec 13.3 rand sec 8.3
+ctrl0 14 rule 2.03 rule2 2.2 best 1.58 ratio 1.285 1.392 agree 0.48 rule sec 6.8 rand sec 3.4
+ctrl0 38 rule 0.799 rule2 0.94 best 0.723 ratio 1.105 1.299 agree 0.664 rule sec 7.9 rand sec 5.7
+ctrl1 14 rule 2.217 rule2 2.405 best 1.712 ratio 1.295 1.404 agree 0.428 rule sec 6.6 rand sec 2.6
+ctrl1 38 rule 0.908 rule2 1.076 best 0.808 ratio 1.124 1.332 agree 0.644 rule sec 7.3 rand sec 4.8
+ctrl2 14 rule 2.079 rule2 2.356 best 1.668 ratio 1.247 1.413 agree 0.45 rule sec 4.4 rand sec 13.2
+ctrl2 38 rule 0.869 rule2 1.021 best 0.792 ratio 1.097 1.29 agree 0.632 rule sec 6.2 rand sec 4.5
+dogcat90 14 rule 0.871 rule2 0.798 best 0.808 ratio 1.079 0.988 agree 0.659 rule sec 41.0 rand sec 24.8
+dogcat90 38 rule 0.387 rule2 0.321 best 0.338 ratio 1.146 0.949 agree 0.791 rule sec 65.7 rand sec 28.0
+equal 14 rule 2.149 rule2 1.876 best 1.822 ratio 1.18 1.03 agree 0.304 rule sec 12.2 rand sec 32.9
+equal 38 rule 0.952 rule2 0.828 best 0.791 ratio 1.204 1.047 agree 0.576 rule sec 21.3 rand sec 34.0
