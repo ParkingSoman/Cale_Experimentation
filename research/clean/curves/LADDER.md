@@ -3427,3 +3427,11 @@ Why it matters: on photos the fit did not see, no decoder I tried beats the plai
 | checks | Part C. `model/tq31_anytail.py`, `model/tq31_trained.py`, `pc_r4_s4_eval.py`, `pc_r4_s7_info.py`, `pc_r4_s8_decoder.py`, `pc_r4_s8b_joint.py` |
 | referee | `REFEREE-BQ12-2026-11-02.md`, two rounds. TQ31 part 2 has not had a third reader |
 | your calls | none are forced. Two to think about: does I2 count under the Unique Games Conjecture? And is the 2-layer test above worth repeating on N's real training photos, which needs a download of about 2.5 GB for 20 per class? |
+
+**Corrected the same day, LADDER 52 Step 1.** A third reader showed that "loss of ordinary size" was false on the instances the reduction builds: with filler columns, the loss falls with the graph's largest degree, and the movement sits on a small part of the tail. I had told you this in chat. The reader gave a repair, and I checked it by hand: one weight and one heavy-class size per area, no filler (Definition DQ24). Then V_b(1) is of the order of U / E, the share of edges no two-siding can cut.
+
+```
+36 small graphs, 0 fails:   tail about .34, more than .998 of it moving;   fit / (U / E) stays within a factor of about 1.6 at each setting;   fit 0 when U = 0
+```
+
+Why it matters: on a YES instance the loss is of order eta and on a NO instance of order eta^(1/2), a constant at fixed factor, and not 1/poly. The final text of the repair has my check and the reader's sketch, with no separate referee read yet. Everything in this family stays conditional on the Unique Games Conjecture and stays on tables of graphs.
