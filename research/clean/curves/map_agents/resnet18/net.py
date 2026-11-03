@@ -55,21 +55,22 @@ def head(m, h):
 
 def forward(m, x, fill=None):
     """Whole network. Returns logits and every block's parts.
-    fill: optional {stage: (channels, values)}. Those stream channels become those constants at every position, at both
-    blocks of the stage, so a removal goes through the whole stage (stem counts as stage 0)."""
-    def apply(h, s):
+    fill: optional {stage: (channels, values at block 0, values at block 1)}. Those stream channels become those constants at every
+    position, at both blocks, so a removal goes through the whole stage. Each block has its own mean (Definition DC1). The stem is stage 0,
+    block 0: its values at block 1 are not used."""
+    def apply(h, s, b):
         if fill and s in fill:
-            ch, val = fill[s]
+            ch, val = fill[s][0], fill[s][1 + b]
             h = h.clone()
             h[:, ch] = val.to(h).view(1, -1, 1, 1)
         return h
     out = {}
-    h = apply(stem(m, x), 0)
+    h = apply(stem(m, x), 0, 0)
     out[(0, 0)] = dict(h=h)
     for s, lay in stages(m).items():
         for b, bl in enumerate(lay):
             p = block_parts(bl, h)
-            p["h"] = apply(p["h"], s)
+            p["h"] = apply(p["h"], s, b)
             h = p["h"]
             out[(s, b)] = p
     return head(m, h), out
@@ -126,6 +127,16 @@ class Photos:
 
 def class_names():
     return torchvision.models.ResNet18_Weights.IMAGENET1K_V1.meta["categories"]
+
+
+def block_means(read_dir):
+    """Mean of each stream channel, per stage and block, over the reading photos: {stage: (block 0 means, block 1 means)}."""
+    out = {0: None}
+    a = np.asarray(np.load(os.path.join(read_dir, "s0b0_hm.npy"), mmap_mode="r"), dtype=np.float32).mean(0)
+    out[0] = (torch.as_tensor(a), torch.as_tensor(a))
+    for s in (1, 2, 3, 4):
+        out[s] = tuple(torch.as_tensor(np.asarray(np.load(os.path.join(read_dir, f"s{s}b{b}_hm.npy"), mmap_mode="r"), dtype=np.float32).mean(0)) for b in (0, 1))
+    return out
 
 
 def parse(ch):

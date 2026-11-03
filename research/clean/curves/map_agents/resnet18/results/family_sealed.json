@@ -1,0 +1,167 @@
+[
+{
+"id": "f00",
+"name": "dark dot to blotch to spots",
+"n": 4,
+"hits": 5,
+"on_pick": 0.32796332240104675,
+"ctrl_on_pick": 0.013797215186059475,
+"total": 0.060098886489868164,
+"ctrl_total": 0.031397887505590916,
+"ok": false
+},
+{
+"id": "f01",
+"name": "fan of thin lines to strand shape",
+"n": 6,
+"hits": 7,
+"on_pick": 0.1502416580915451,
+"ctrl_on_pick": 0.022750635631382465,
+"total": 0.050989218056201935,
+"ctrl_total": 0.027152136899530888,
+"ok": true
+},
+{
+"id": "f02",
+"name": "ruled straight lines to bundles",
+"n": 3,
+"hits": 5,
+"on_pick": 0.04708845540881157,
+"ctrl_on_pick": 0.011759958695620298,
+"total": 0.013549759052693844,
+"ctrl_total": 0.01242502499371767,
+"ok": false
+},
+{
+"id": "f03",
+"name": "whole-body tone",
+"n": 9,
+"hits": 7,
+"on_pick": 0.2704443335533142,
+"ctrl_on_pick": 0.02161241602152586,
+"total": 0.05867632105946541,
+"ctrl_total": 0.03870115615427494,
+"ok": true
+},
+{
+"id": "f04",
+"name": "face length",
+"n": 3,
+"hits": 8,
+"on_pick": 0.16490301489830017,
+"ctrl_on_pick": 0.011217253748327494,
+"total": 0.023660901933908463,
+"ctrl_total": 0.0173921468667686,
+"ok": true
+},
+{
+"id": "f05",
+"name": "body build: lean legs versus round bulk",
+"n": 5,
+"hits": 6,
+"on_pick": 0.18352751433849335,
+"ctrl_on_pick": 0.01552607398480177,
+"total": 0.0269748754799366,
+"ctrl_total": 0.024354567751288414,
+"ok": true
+},
+{
+"id": "f06",
+"name": "plain ground beside an edge",
+"n": 7,
+"hits": 5,
+"on_pick": 0.13477139174938202,
+"ctrl_on_pick": 0.01984347775578499,
+"total": 0.0404549241065979,
+"ctrl_total": 0.03089958429336548,
+"ok": false
+},
+{
+"id": "f07",
+"name": "hard flat marks versus soft or limbed body",
+"n": 3,
+"hits": 6,
+"on_pick": 0.04858331382274628,
+"ctrl_on_pick": 0.012328763026744127,
+"total": 0.010539493523538113,
+"ctrl_total": 0.010672223754227161,
+"ok": true
+},
+{
+"id": "f08",
+"name": "furry face as the turned-away pole",
+"n": 8,
+"hits": 3,
+"on_pick": 0.07271082699298859,
+"ctrl_on_pick": 0.07506641186773777,
+"total": 0.05660715699195862,
+"ctrl_total": 0.08199803158640862,
+"ok": false
+},
+{
+"id": "f09",
+"name": "thin edge on empty ground to spread shapes",
+"n": 5,
+"hits": 2,
+"on_pick": 0.22438398003578186,
+"ctrl_on_pick": 0.012770857196301222,
+"total": 0.022821417078375816,
+"ctrl_total": 0.02004300430417061,
+"ok": false
+},
+{
+"id": "f10",
+"name": "object entering a smooth empty field",
+"n": 5,
+"hits": 4,
+"on_pick": 0.12082479894161224,
+"ctrl_on_pick": 0.022215543314814568,
+"total": 0.02337299846112728,
+"ctrl_total": 0.021619177423417568,
+"ok": false
+},
+{
+"id": "f11",
+"name": "round bumps to clump",
+"n": 3,
+"hits": 5,
+"on_pick": 0.18758359551429749,
+"ctrl_on_pick": 0.008834250271320343,
+"total": 0.018073588609695435,
+"ctrl_total": 0.014704092871397734,
+"ok": false
+},
+{
+"id": "f12",
+"name": "pointed and tapered shapes",
+"n": 6,
+"hits": 3,
+"on_pick": 0.12444250285625458,
+"ctrl_on_pick": 0.05551696754992008,
+"total": 0.08614769577980042,
+"ctrl_total": 0.058770570904016495,
+"ok": false
+},
+{
+"id": "f13",
+"name": "long straight edge to lattice",
+"n": 2,
+"hits": 5,
+"on_pick": 0.24482174217700958,
+"ctrl_on_pick": 0.01375359483063221,
+"total": 0.010140814818441868,
+"ctrl_total": 0.007927264552563429,
+"ok": false
+},
+{
+"id": "f14",
+"name": "hard parallel hardware versus spokes",
+"n": 5,
+"hits": 3,
+"on_pick": 0.06891549378633499,
+"ctrl_on_pick": 0.02053807210177183,
+"total": 0.03186683729290962,
+"ctrl_total": 0.02791727799922228,
+"ok": false
+}
+]

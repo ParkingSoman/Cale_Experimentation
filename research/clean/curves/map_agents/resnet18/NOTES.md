@@ -39,3 +39,6 @@ dogface: s3:186 (white) feeds s4:28 (falls 2.7) and s4:31 (3.5). s3:90 (orange) 
 dogface: s3:125 (ribs) pushes s4:242 DOWN (removal raises it .36) and s4:467 up (+.52). Opposite signs from one parent.
 dogface: failed: s3:71 for s4:429 (no fall above controls); s3:89 as negative feeder of 242 (no effect). s4:429 parent not found.
 dogface: input x gradient top feeders are not always true parents. Check by acts every time.
+wheels: RESULT ground vs boat/plane split exists at s4:56 (water/sky scene): boats .85-.93, aircraft .84-.89, trains .42-.59, bikes .56-.65 (score). Axis is background (open water/sky), not vehicle class. Chain: s2:120 hard edges -> s3:71 blue-sky edge (acts .38 vs .01) -> s4:56 (acts .28 vs .06). Same sky parent feeds s4:117,163,154.
+wheels: trains: s4:456 (parallel bars; bikes/planes on neg, trains .91-.97 vs bikes .36). Freight car: s4:175 (painted face). Steam loco: s4:168 (plume) and s4:474 (dark mass). Bikes: s4:131 (frame with panel, with sails/rickshaw). Bullet train rides s4:226 (hill backdrop). s3:158 (edge on bare ground) feeds s4:168,182,391,131.
+wheels: failed predictions: 226 (other trains not low), 168 (warplane .68), 56 (trains not <.5). Failed parent: s3:33 -> s4:474 (acts 0.00); s3:33 -> s4:168 control noisy.

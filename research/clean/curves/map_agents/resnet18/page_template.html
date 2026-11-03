@@ -1,0 +1,116 @@
+<title>ResNet-18 Channel Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column of nested dropdowns, the way the map is meant to be read: family, then stage, then channel, then crops. */
+:root {
+  --bg: #f3f5f7; --panel: #ffffff; --fg: #17222c; --muted: #566573; --line: #d5dce3; --accent: #0e6e8c;
+  --good: #1b7f4b; --bad: #b3372c; --mid: #9a6a00;
+  --sans: "IBM Plex Sans", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11171d; --panel: #18212a; --fg: #e4eaf0; --muted: #9aa8b5; --line: #2c3945; --accent: #54b8d8;
+  --good: #58c48a; --bad: #ee7f73; --mid: #dcae4b; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #11171d; --panel: #18212a; --fg: #e4eaf0; --muted: #9aa8b5; --line: #2c3945; --accent: #54b8d8;
+  --good: #58c48a; --bad: #ee7f73; --mid: #dcae4b; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--sans); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 64px; }
+main { max-width: 920px; margin: 0 auto; display: grid; gap: 20px; min-width: 0; }
+h1 { font-size: 26px; font-weight: 600; margin: 0; text-wrap: balance; }
+h2 { font-size: 17px; font-weight: 600; margin: 0 0 8px; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); }
+code, .mono { font-family: var(--mono); font-size: 13px; }
+.scoretable { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 14px; }
+th { color: var(--muted); font-weight: 500; }
+.pill { font: 500 12px var(--mono); padding: 1px 7px; border: 1px solid currentColor; white-space: nowrap; }
+.good { color: var(--good); } .bad { color: var(--bad); } .mid { color: var(--mid); }
+details { background: var(--panel); border: 1px solid var(--line); }
+details details { border-width: 1px 0 0; background: transparent; }
+summary { cursor: pointer; padding: 10px 12px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.fname { font-weight: 600; }
+.body { padding: 0 12px 12px; display: grid; gap: 8px; min-width: 0; }
+.stage { padding-left: 12px; }
+.chan { padding-left: 12px; }
+.cid { font: 500 13px var(--mono); color: var(--accent); }
+.crops { display: flex; flex-wrap: wrap; gap: 3px; }
+.crops figure { margin: 0; line-height: 0; position: relative; }
+.crops img { width: 76px; height: 76px; display: block; }
+.crops .n img { outline: 2px solid var(--bad); outline-offset: -2px; }
+.key { font-size: 13px; }
+ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
+a { color: var(--accent); }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; }
+button { font: 500 13px var(--sans); color: var(--fg); background: var(--panel); border: 1px solid var(--line); padding: 5px 10px; cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--accent); }
+@media (prefers-reduced-motion: no-preference) { details[open] > .body { animation: none; } }
+</style>
+<main>
+<header style="display:grid;gap:8px">
+  <h1>ResNet-18 channel map: test slice</h1>
+  <p class="muted">106 of 960 stream channels, read by six agents on routes for dogs, cats and transport. Every score below is on sealed photos that no agent saw. Open a family, then a stage, then a channel. The question for you: is this a good map?</p>
+</header>
+<section><h2>How the slice scored</h2><div class="scoretable" id="scores"></div></section>
+<section><h2>What shape the agents found</h2><p id="shape"></p></section>
+<section style="display:grid;gap:8px">
+  <div class="tools"><button id="openAll" type="button">Open all families</button><button id="closeAll" type="button">Close all</button></div>
+  <p class="key muted">Crops: strongest firings first. A red outline marks the negative pole, what the channel keeps out. Stage 1 crops are small because those channels read small patches.</p>
+  <div id="tree" style="display:grid;gap:6px"></div>
+</section>
+<section><h2>Channels in no family</h2><ul id="nofam"></ul></section>
+</main>
+<script>
+const D = __DATA__;
+const SCORES = __SCORES__;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const stageName = {4:"Stage 4 (512 channels, read by the logits)",3:"Stage 3 (256)",2:"Stage 2 (128)",1:"Stage 1 (64)"};
+document.getElementById("scores").innerHTML = `<table><tr><th>Line</th><th>Pass line</th><th>Result</th><th></th></tr>` + SCORES.map(r => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td><span class="pill ${r[3]==="passes"?"good":(r[3]==="fails"?"bad":"mid")}">${esc(r[3])}</span></td></tr>`).join("") + `</table>`;
+document.getElementById("shape").textContent = D.shape;
+function card(ch) {
+  const c = D.channels[ch];
+  if (!c) return `<details class="chan" id="ch-${ch}"><summary><span class="cid">${ch}</span><span class="muted">no card yet</span></summary></details>`;
+  const gap = c.gap == null ? `<span class="pill mid">not scored</span>` : `<span class="pill ${c.gap>=.2?"good":"bad"}">blind gap ${c.gap.toFixed(2)}</span>`;
+  const tests = c.tests.map(t => `<li><a href="#ch-${t.parent}" data-jump="${t.parent}">${t.parent}</a> <span class="${t.ok?"good":"bad"}">${t.ok?"acts":"did not beat controls"}</span>: ${t.sign==="-"?"holds it down, ":""}effect ${t.effect.toFixed(2)} of z ${t.z.toFixed(1)}, controls ${t.control.toFixed(2)}</li>`).join("");
+  const text = c.parents.map(p => `<li><a href="#ch-${p.channel}" data-jump="${p.channel}">${p.channel}</a>: ${esc(p.gives)}</li>`).join("");
+  const together = c.together != null ? `<p class="muted">All listed parents removed together: z falls ${c.together.toFixed(2)} of ${c.z.toFixed(1)}.</p>` : "";
+  return `<details class="chan" id="ch-${ch}"><summary><span class="cid">${ch}</span><span>${esc(c.distinction)}</span>${gap}</summary><div class="body">
+    <div class="crops" data-ch="${ch}"></div>
+    <p><b>Fires on:</b> ${esc(c.positive)}</p><p><b>Keeps out:</b> ${esc(c.negative)}</p>
+    ${c.gate ? `<p><b>Gate:</b> ${esc(c.gate)}</p>` : ""}${c.offshoots ? `<p><b>Offshoots:</b> ${esc(c.offshoots)}</p>` : ""}
+    ${tests ? `<div><b>Parents, tested on sealed photos:</b><ul>${tests}</ul></div>` : ""}${together}
+    ${text ? `<details><summary class="muted">What the agent wrote about its parents</summary><div class="body"><ul>${text}</ul></div></details>` : ""}
+    ${c.unread ? `<p class="muted"><b>Could not explain:</b> ${esc(c.unread)}</p>` : ""}
+    <p class="muted key">Read by ${esc(c.agent)}; agent's own confidence ${esc(c.sure)}</p></div></details>`;
+}
+function fillCrops(root) {
+  root.querySelectorAll(".crops:empty").forEach(el => {
+    el.innerHTML = D.channels[el.dataset.ch].crops.map(c => `<figure class="${c.k}"><img src="${c.d}" alt="${esc(c.c)}" title="N's top class: ${esc(c.c)}" loading="lazy"></figure>`).join("");
+  });
+}
+const tree = document.getElementById("tree");
+tree.innerHTML = D.families.map((f, i) => {
+  const by = {};
+  f.channels.forEach(ch => { const s = +ch[1]; (by[s] = by[s] || []).push(ch); });
+  const t = f.test;
+  const res = t ? `<span class="pill ${t.ok?"good":"bad"}">predicted ${t.hits}/10 losers</span>` : "";
+  const stages = [4,3,2,1].filter(s => by[s]).map(s => `<details class="stage" ${by[s].length<=4?"open":""}><summary><span>${stageName[s]}</span><span class="muted">${by[s].length} here</span></summary><div class="body">${by[s].map(card).join("")}</div></details>`).join("");
+  return `<details class="fam"><summary><span class="fname">${esc(f.name)}</span><span class="muted">${f.channels.length} channels</span>${res}</summary><div class="body"><p>${esc(f.pattern)}</p><p class="muted">${esc(f.evidence)}</p>${t?`<p class="muted">Removed together: KL ${t.total.toFixed(3)} against ${t.ctrl_total.toFixed(3)} for same-size random channels.</p>`:""}${stages}</div></details>`;
+}).join("");
+document.getElementById("nofam").innerHTML = D.no_family.map(x => `<li><span class="cid">${esc(x.channel)}</span> ${esc(x.why)}</li>`).join("");
+tree.addEventListener("toggle", e => { if (e.target.open) fillCrops(e.target); }, true);
+document.getElementById("openAll").onclick = () => tree.querySelectorAll(":scope > details").forEach(d => d.open = true);
+document.getElementById("closeAll").onclick = () => tree.querySelectorAll("details").forEach(d => d.open = false);
+document.addEventListener("click", e => {
+  const a = e.target.closest("a[data-jump]");
+  if (!a) return;
+  e.preventDefault();
+  const el = document.getElementById("ch-" + a.dataset.jump);
+  if (!el) { a.textContent += " (no card)"; a.removeAttribute("data-jump"); return; }
+  for (let p = el; p; p = p.parentElement) if (p.tagName === "DETAILS") p.open = true;
+  fillCrops(el);
+  el.scrollIntoView({block:"center"});
+});
+</script>

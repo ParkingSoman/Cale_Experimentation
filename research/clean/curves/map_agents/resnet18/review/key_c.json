@@ -1,0 +1,151 @@
+{
+"f00": {
+"name": "dark dot to blotch to spots",
+"channels": [
+"s1:29",
+"s2:71",
+"s3:222",
+"s4:35"
+]
+},
+"f01": {
+"name": "fan of thin lines to strand shape",
+"channels": [
+"s2:112",
+"s3:118",
+"s4:242",
+"s4:162",
+"s4:219",
+"s3:32"
+]
+},
+"f02": {
+"name": "ruled straight lines to bundles",
+"channels": [
+"s3:240",
+"s4:467",
+"s3:125"
+]
+},
+"f03": {
+"name": "whole-body tone",
+"channels": [
+"s3:186",
+"s3:255",
+"s3:90",
+"s3:254",
+"s3:159",
+"s4:28",
+"s4:31",
+"s4:172",
+"s4:42"
+]
+},
+"f04": {
+"name": "face length",
+"channels": [
+"s2:73",
+"s3:141",
+"s4:418"
+]
+},
+"f05": {
+"name": "body build: lean legs versus round bulk",
+"channels": [
+"s2:6",
+"s3:128",
+"s3:76",
+"s4:9",
+"s4:156"
+]
+},
+"f06": {
+"name": "plain ground beside an edge",
+"channels": [
+"s2:120",
+"s3:71",
+"s3:33",
+"s4:56",
+"s4:163",
+"s4:277",
+"s4:226"
+]
+},
+"f07": {
+"name": "hard flat marks versus soft or limbed body",
+"channels": [
+"s3:17",
+"s4:255",
+"s4:362"
+]
+},
+"f08": {
+"name": "furry face as the turned-away pole",
+"channels": [
+"s3:101",
+"s3:154",
+"s3:190",
+"s3:226",
+"s3:164",
+"s3:79",
+"s2:127",
+"s2:109"
+]
+},
+"f09": {
+"name": "thin edge on empty ground to spread shapes",
+"channels": [
+"s3:158",
+"s3:98",
+"s4:168",
+"s4:431",
+"s4:424"
+]
+},
+"f10": {
+"name": "object entering a smooth empty field",
+"channels": [
+"s3:59",
+"s3:99",
+"s3:103",
+"s4:32",
+"s4:403"
+]
+},
+"f11": {
+"name": "round bumps to clump",
+"channels": [
+"s3:106",
+"s3:140",
+"s4:400"
+]
+},
+"f12": {
+"name": "pointed and tapered shapes",
+"channels": [
+"s2:79",
+"s3:207",
+"s4:329",
+"s2:39",
+"s3:64",
+"s4:486"
+]
+},
+"f13": {
+"name": "long straight edge to lattice",
+"channels": [
+"s3:30",
+"s4:393"
+]
+},
+"f14": {
+"name": "hard parallel hardware versus spokes",
+"channels": [
+"s2:32",
+"s3:217",
+"s3:191",
+"s3:7",
+"s4:456"
+]
+}
+}

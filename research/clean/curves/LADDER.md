@@ -3675,3 +3675,76 @@ The photo-count control finished. Its result is in LADDER 54 and Part C (C.R5): 
 | Whole-network build | no |
 | label | none. This section holds no theorem |
 | next | the better microscope, then a test slice of about 120 channels |
+
+## 56. The ResNet-18 map: test slice. The channels read well at the top, and the tree you drew does not hold there (2026-11-03; plan pasted-content-id-1c9a-okay-before-serialized-snail.md; COARSE-THEORY.md B.CT, C.R6; card 3-42)
+
+**The map works, and its shape is not your tree. At stage 4 the channels are readable and the links are causal. But one child has many weak parents, so a child that disappears has no one parent to take up the error. This is measured on ResNet-18 only, and 3 of my 4 pass lines failed.** All numbers are on sealed photos that no agent saw. These are validation crops, not N's training photos.
+
+| Word | Meaning here |
+|---|---|
+| stream channel | one channel number through both blocks of a stage. `s4:179` is channel 179 of stage 4 |
+| fill | set a channel to its mean, so it carries nothing |
+| z | a channel's value before its ReLU |
+| cut | the set of channels a smaller network keeps |
+
+**Step 1. What the agents read.** Six agents read 106 of 960 channels, with 119 parent links. A seventh merged them into 17 families. About 1.2M tokens in all.
+
+```
+s1:29 tiny dark dot  ->  s2:71 dark dot  ->  s3:222 dark blotches on pale  ->  s4:35 spotted against plain coat
+s3:118 thin lines fanning from a centre  ->  s4:242 hanging strands, s4:219 drape, s4:162 curls
+s3:164 wheel on a painted body comes through, faces and daisies are turned away    (the closest thing to the essay's gate)
+```
+
+Why it matters: no channel is a car channel, a dog channel or a cat channel. Each one splits by a shape, a coat or a tone. This is the essay's picture of verbs and not nouns, found again on this network. Only the first chain runs from stage 1 to stage 4 among those read. Dog eyes and car lights share `s2:71`.
+
+**Step 2. The lines I fixed before the runs.**
+
+| Line | Pass | Result | Verdict |
+|---|---|---|---|
+| Specific enough to lose: a reviewer predicts firing from the words alone | 85% | 44%. s4 80%, s3 29%, s2 20%, s1 13% | Fails |
+| Real parents: pick the true parent of 5 from the words alone | 70% | 57%, chance 20% | Fails |
+| Parents act: a parent's removal moves the child 2 times more than controls | most | 92% of 119 links | Passes |
+| Families act: name the classes that lose most | most of 15 | 5 of 15. Mean 4.9 of 10 named, chance 1 | Fails |
+
+Why it matters: stage 4 is near the line, and the lower stages are far from it. I believe the test is weak below stage 4, since a stroke dial fires somewhere in nearly every class. That is plausible, and I have not shown it. So the failure stands as scored. The fix I propose is a crop-based blind test for stages 1 to 3, fixed before it runs.
+
+**Step 3. The main finding: density.**
+
+```
+a stage 4 channel, on its 64 strongest sealed photos
+   one listed parent removed                   ->  falls 3.8% of z
+   all its listed parents removed together     ->  falls 6%
+   only the top 4 of 256 feeders stay real     ->  97% of z^2 changes
+   only the top 64 of 256 feeders stay real    ->  77% of z^2 changes
+```
+
+Why it matters: this is the direct test of "a child disappears and a parent takes up some of the error". At stage 4 a child is built from many small votes, so no single parent could take up its error. The tree agent reads the same thing from the cards: a graph with strong edges, and in places one parent pushes two children in opposite directions (`s3:17`, `s3:125`).
+
+Two cautions. The feeders were chosen by input x gradient, which the agents found unreliable, so this may overstate the density. And the essay predicts exactly this for a small model, with narrower neurons at larger size. I have not measured the larger size.
+
+**Step 4. A mistake of mine corrected.** LADDER 45 and card 3-34 said a last-layer channel is fed mostly by its own skip, about .88. My plan repeated it. It is wrong for stage 4.
+
+```
+stage 4, at a channel's peak:    z = 18.45    the skip gives 1.32    block 1's residual path gives the rest
+stages 1 to 3, at the peak:      the skip gives .70 to .77 of z
+```
+
+**Step 5. The object in the paper, and what the referee did to it.** Definitions DC1 to DC3 write down channels, parent claims, the channel graph and cuts. Theorem TC1: when each kept channel's error is 0 on the exact kept set below it, every kept channel keeps N's value, and the whole cut loses only what its top layer loses. Label ONE-BUILD. The referee found TC2 false in one corner, and showed that no bound in the errors alone exists for this build (now Proposition TC3). It also said TC1 is close to a tautology, and the paper now says so. Its one piece of content: tests of one layer each certify the whole cut. The exact check has 0 fails. The fixed version has my check only.
+
+```
+keep only the dog and cat cards (22 + 20 channels):  median error .71 to 1.24     KL 5.88     agreement .001     random: 5.71 to 5.80
+remove the vehicle cards (13 + 20 channels):         median error .02 to .04      KL .090     agreement .885     random: .090 to .124
+```
+
+Why it matters: this is the first whole-network number on this track, on the dogs and cats goal. The premise is far from true on a small cut and nearly true on a thin one. But on the thin cut the map did not clearly beat random: one seed ties it. That is LADDER 30's result again. It is a removal of about 4% of the channels of those two stages, so it is a small test. The network is not much smaller, since the lower stages and inner channels stay whole. So I do not call this the Step 6 build.
+
+| | |
+|---|---|
+| Trunk check | used: "a map M of N on P", "a finite list of claims", "Each claim has one of the types named in the paper" (new type, node R-channeltree), "How M is found ... is outside the trunk", "D_P on the goal is measured". Not used: "new units", since a fill is not one. No trunk text changes |
+| Cale line | nothing yet. If parents are many, a child's error has to go to many channels, and that decides the method carried to SmolLM2 and Gemma 3n's widths. Unknown today |
+| Whole-network build | no. Whole-network fills were scored, but no smaller network was built |
+| label | TC1, TC2 ONE-BUILD; TC3 a limit; TC4 a tool. Nothing earned OPT-GOAL or OPT-KL |
+| checks | `model/tc_tree.py`, 0 fails; `REFEREE-BCT-2026-11-03.md`, one read of the first version; a bug in my fill (each layer needs its own mean) was fixed before these numbers, moving 93% to 92% |
+| predictions | `map_agents/resnet18/results/PREDICTIONS.md`. Wrong: the skip at stage 4, the blind test at s3, s2, s1, the density, and beating random by 1.5 times. Right: real parents 50 to 75%, and which families pass |
+| your calls | your read of the page, and card 3-42 |
+| next, my view | ResNet-50's density first, then your neuron idea on the network with clearer parents, then the fill |

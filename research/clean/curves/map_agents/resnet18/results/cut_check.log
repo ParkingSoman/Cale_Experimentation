@@ -1,0 +1,10 @@
+dogs {"kl": 5.879023525579189, "agree": 0.0008130081300813008, "photos": 1230, "kept": {"3": 22, "4": 20}, "s3b0": {"eps_median": 0.0, "share_median": 0.0}, "s3b1": {"eps_median": 0.7072303295135498, "share_median": 0.5390105247497559}, "s4b0": {"eps_median": 1.241121530532837, "share_median": 0.8932600021362305}, "s4b1": {"eps_median": 0.9102683067321777, "share_median": 0.8176966905593872}}
+  random0 kl 5.7856 agree 0.001
+  random1 kl 5.8004 agree 0.001
+  random2 kl 5.7067 agree 0.001
+  strongest kl 6.2928 agree 0.001
+novehicle {"kl": 0.08986187388257283, "agree": 0.8853658536585366, "photos": 1230, "kept": {"3": 243, "4": 492}, "s3b0": {"eps_median": 0.0, "share_median": 0.0}, "s3b1": {"eps_median": 0.016881942749023438, "share_median": 0.013449166901409626}, "s4b0": {"eps_median": 0.036600157618522644, "share_median": 0.021394571289420128}, "s4b1": {"eps_median": 0.03254058212041855, "share_median": 0.030619844794273376}}
+  random0 kl 0.1155 agree 0.873
+  random1 kl 0.0897 agree 0.880
+  random2 kl 0.1242 agree 0.860
+  strongest kl 0.1410 agree 0.841

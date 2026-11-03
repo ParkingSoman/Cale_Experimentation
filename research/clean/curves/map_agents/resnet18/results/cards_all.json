@@ -1,0 +1,2600 @@
+[
+{
+"channel": "s4:242",
+"distinction": "Long loose strands hanging in thin lines against a body, versus smooth blunt skin folds with no strands.",
+"positive": "Long hanging hair fringes and thin crossing lines: colobus tail, Afghan ears, Bernese coat, and also clock hands.",
+"negative": "Smooth short coat on a wide blunt wrinkled head (boxer, bull mastiff, pug), and an elephant's wrinkled trunk. Keeps out folds and smooth skin.",
+"parents": [
+{
+"channel": "s3:118",
+"gives": "thin lines fanning out from a centre (acts: 242 falls .82; controls -.04 to .15; sheet checked)",
+"sign": "+",
+"sure": 0.8
+},
+{
+"channel": "s3:32",
+"gives": "upright-eared head (acts: falls .64; controls -.07 to .18; sheet checked)",
+"sign": "+",
+"sure": 0.5
+},
+{
+"channel": "s3:125",
+"gives": "fine ridges and ribs; removing it RAISES 242 by .36 (controls near 0), so it holds 242 down",
+"sign": "-",
+"sure": 0.6
+}
+],
+"gate": "Ribbed or folded skin is turned away: s3:125 pushes 242 down while pushing 467 up.",
+"readers": "Not read. Logit readers were not checked.",
+"offshoots": "Clock faces arrive by the thin-line route, not by dogs.",
+"family": "hanging strands vs smooth folds",
+"prediction": "Before acts: a channel that fans thin lines from a centre (s3:118) is a parent of 242, because 242 fires on clock hands and fringes.",
+"prediction_held": true,
+"sure": 0.7,
+"unread": "Why chimpanzee and colobus fire as strongly as dogs.",
+"_a": "dogface"
+},
+{
+"channel": "s4:429",
+"distinction": "Rounded body with limp lobes or thin legs hanging from it, versus upright compact pointed things.",
+"positive": "Floppy-eared spaniels and hounds, a spider's legs, clock hands, a dial phone with its cord.",
+"negative": "Erect-eared or upright forms: wallaby, Westie, rabbit, scooter, crab. Keeps out upright points.",
+"parents": [
+{
+"channel": "s3:147",
+"gives": "upright dark-and-white body on a plain field (acts: falls .36; controls -.06 to .19; weak)",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "Not read.",
+"offshoots": "Clocks, phones, spiders: they share thin hanging parts, not dogs.",
+"family": "hanging lobes vs upright points",
+"prediction": "Before acts: s3:71 (blue sky field, top feeder) makes 429 fall more than controls.",
+"prediction_held": false,
+"sure": 0.3,
+"unread": "s3:71 did not fall (fall .19, controls .21 to .29). The real parent is not found. The verb is a sheet guess.",
+"_a": "dogface"
+},
+{
+"channel": "s4:28",
+"distinction": "Pale cream-white body, versus dark solid brown body.",
+"positive": "White or cream: polar bear, cockatoo, egret, pale Labrador, white poodle.",
+"negative": "Dark chocolate or orange solid colour: chocolate and black Labrador, orange fruit, ferret, beaver. Keeps out dark brown.",
+"parents": [
+{
+"channel": "s3:186",
+"gives": "white surface (acts: 28 falls 2.70; controls -.22 to .17; sheet checked)",
+"sign": "+",
+"sure": 0.9
+},
+{
+"channel": "s3:159",
+"gives": "sheet not read; acts: falls .90; controls -.14 to .16",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": "Same white feeder as s4:31. 28 splits white against dark; 31 splits white against mid tan.",
+"readers": "Not read.",
+"offshoots": "Birds and bears arrive by the same white route, not by dog routes.",
+"family": "coat tone: pale",
+"prediction": "Before acts: white-surface channel s3:186 is the main parent of 28.",
+"prediction_held": true,
+"sure": 0.8,
+"unread": "What s3:159 detects.",
+"_a": "dogface"
+},
+{
+"channel": "s4:31",
+"distinction": "Pure white fluffy body, versus mid tan or brown body.",
+"positive": "Maltese, Samoyed, cockatoo, flamingo, spoonbill, a white airship.",
+"negative": "Tan, brown, grey-brown bodies: warthog, hare, meerkat, jackfruit, border terrier. Keeps out mid tan.",
+"parents": [
+{
+"channel": "s3:186",
+"gives": "white surface (acts: 31 falls 3.54; controls .01 to .33; sheet checked)",
+"sign": "+",
+"sure": 0.9
+},
+{
+"channel": "s3:255",
+"gives": "cream face on a dog head (acts: falls 1.49; controls .06 to .15; sheet checked)",
+"sign": "+",
+"sure": 0.7
+}
+],
+"gate": null,
+"readers": "Not read.",
+"offshoots": "Banjo and airship fire it by the white-and-round route.",
+"family": "coat tone: pale",
+"prediction": "Before acts: s3:186 and s3:255 make 31 fall more than any control.",
+"prediction_held": true,
+"sure": 0.8,
+"unread": "Why tan is the negative pole and not dark.",
+"_a": "dogface"
+},
+{
+"channel": "s4:172",
+"distinction": "Warm orange or russet patch on a body, versus black or very dark body.",
+"positive": "Red-orange: proboscis monkey face, ladybug, goldfish, merganser head, fox-coloured dog.",
+"negative": "Black or very dark: black bear, black Affenpinscher, black pug, buffalo, otter. Keeps out black.",
+"parents": [
+{
+"channel": "s3:90",
+"gives": "saturated orange and yellow patches (acts: 172 falls 1.73; controls -.07 to .02; sheet checked)",
+"sign": "+",
+"sure": 0.9
+},
+{
+"channel": "s3:254",
+"gives": "dark fabric and fur folds (acts: falls 1.59; controls -.24 to 0; sheet checked)",
+"sign": "+",
+"sure": 0.5
+}
+],
+"gate": null,
+"readers": "Not read.",
+"offshoots": "Insects and fish arrive via the same orange route.",
+"family": "coat tone: warm",
+"prediction": "Before acts: s3:90 (orange patches) is a parent of 172.",
+"prediction_held": true,
+"sure": 0.8,
+"unread": "Why s3:254 (dark cloth) helps a channel whose negative pole is dark. It may be a contrast edge.",
+"_a": "dogface"
+},
+{
+"channel": "s4:162",
+"distinction": "Curled or wavy loops of strand, versus straight sleek smooth short coat.",
+"positive": "Spaniel and poodle ears and curls, chain links, rope knots, siamang fur.",
+"negative": "Sleek short coats and radiating spikes: Weimaraner, pug, Rhodesian ridgeback, starfish, spider, fan blades.",
+"parents": [
+{
+"channel": "s3:118",
+"gives": "fanning thin lines (acts: 162 falls 1.55; controls -.13 to .15; sheet checked)",
+"sign": "+",
+"sure": 0.7
+}
+],
+"gate": null,
+"readers": "Not read.",
+"offshoots": "Chain and rope arrive by loop shape, not through dogs.",
+"family": "strand shape: curled",
+"prediction": "Before acts: 162 shares the s3:118 parent with 242 and 219.",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "How loops differ from fans at stage 3.",
+"_a": "dogface"
+},
+{
+"channel": "s4:467",
+"distinction": "Many parallel straight strands in a bundle, versus pebbly dimpled short surface.",
+"positive": "Brush bristles, paintbrush, broom, wig, komondor cords, pelican feather, sloth hair.",
+"negative": "Dimpled or stippled short surface: golf ball, koala fur, shield, beetle, doormat. Keeps out dimples.",
+"parents": [
+{
+"channel": "s3:240",
+"gives": "regular straight scale lines and rulers (acts: 467 falls 1.56; controls -.07 to .10; sheet checked)",
+"sign": "+",
+"sure": 0.8
+},
+{
+"channel": "s3:125",
+"gives": "fine regular ridges (acts: falls .52; controls 0 to .11; sheet checked)",
+"sign": "+",
+"sure": 0.6
+}
+],
+"gate": "s3:125 feeds 467 and holds 242 down: ridges go to straight bundles, away from folds.",
+"readers": "Not read.",
+"offshoots": "Brushes and brooms are not animals.",
+"family": "strand shape: straight",
+"prediction": "Before acts: a ruler-line channel (s3:240) is a parent of the bristle channel.",
+"prediction_held": true,
+"sure": 0.7,
+"unread": "Why the dimple pole is so specific.",
+"_a": "dogface"
+},
+{
+"channel": "s4:219",
+"distinction": "A long smooth drape falling in one piece, versus small hard compact parts.",
+"positive": "Gowns, cloaks, abaya, Afghan ear, long wig hair, lizard on a trunk.",
+"negative": "Small hard items: mouse, phone, iPod, bottle, comb, Boston bull face. Keeps out compact things.",
+"parents": [
+{
+"channel": "s3:118",
+"gives": "fanning lines (acts: 219 falls .89; controls -.14 to .01; sheet checked)",
+"sign": "+",
+"sure": 0.5
+}
+],
+"gate": null,
+"readers": "Not read.",
+"offshoots": "Clothing arrives by the drape route.",
+"family": "strand shape: draped",
+"prediction": "Before acts: s3:118 feeds 219 too.",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "Other parents. s3:125 is a listed negative feeder at -0.94 and was not tested.",
+"_a": "dogface"
+},
+{
+"channel": "s4:418",
+"distinction": "Long narrow tapered muzzle, versus flat short squashed face.",
+"positive": "Wolf, red wolf, dhole, borzoi, Italian greyhound, whippet, dingo, grizzly.",
+"negative": "Flat short faces: Boston bull, pug, Shih-Tzu, Pekinese, Japanese spaniel, Angora, hamster.",
+"parents": [
+{
+"channel": "s3:141",
+"gives": "smooth narrow face with dark nose, no ruff (acts: 418 falls 6.61; controls -.18 to .28; sheet checked)",
+"sign": "+",
+"sure": 0.9
+}
+],
+"gate": "s3:141 is itself a gate: smooth narrow faces pass; ruffed faces (collie, papillon, Pomeranian) are negative.",
+"readers": "Not read.",
+"offshoots": "Bears arrive by the same long-face route.",
+"family": "face length",
+"prediction": "Before acts: s3:141 (narrow face) is the main parent of 418.",
+"prediction_held": true,
+"sure": 0.9,
+"unread": "Whether the face-length axis reaches the dog class logits.",
+"_a": "dogface"
+},
+{
+"channel": "s4:42",
+"distinction": "Smooth warm red-brown bare body, versus white-and-black high contrast pattern.",
+"positive": "Redbone, ridgeback, Irish setter, sorrel horse, bare skin in bikini photos, unicycle leg.",
+"negative": "White and black pattern: polar bear, husky, malamute, clock, toucan, dumbbell, snow scenes.",
+"parents": [
+{
+"channel": "s3:90",
+"gives": "saturated warm patches (acts: 42 falls .94; controls -.05 to .11; sheet checked)",
+"sign": "+",
+"sure": 0.7
+}
+],
+"gate": null,
+"readers": "Not read.",
+"offshoots": "Skin and horses arrive by the warm-brown route.",
+"family": "coat tone: warm",
+"prediction": "Before acts: the orange channel s3:90 also feeds 42.",
+"prediction_held": true,
+"sure": 0.7,
+"unread": "Why the negative pole is contrast, not dark.",
+"_a": "dogface"
+},
+{
+"channel": "s3:118",
+"distinction": "Thin lines fanning out from a centre, versus dense dark bristle with a centre.",
+"positive": "Bolo tie, daisy petals, fan feathers, wheel spokes, a dome from below.",
+"negative": "Dense bristles: daisy centre, echidna, porcupine, Pomeranian face, macaque.",
+"parents": [
+{
+"channel": "s2:112",
+"gives": "thin straight lines on a field (acts: 118 falls .67; controls .01 to .02; sheet checked)",
+"sign": "+",
+"sure": 0.8
+}
+],
+"gate": null,
+"readers": "Feeds s4:242, 219 and 162, all with large falls.",
+"offshoots": "Flowers arrive by the same route.",
+"family": "fan of lines",
+"prediction": "Before acts: s2:112 (strings, spokes, keys) is a parent of 118.",
+"prediction_held": true,
+"sure": 0.8,
+"unread": "Whether fans and bundles are one verb or two.",
+"_a": "dogface"
+},
+{
+"channel": "s3:32",
+"distinction": "Head with two upright pointed ears on a front face.",
+"positive": "Collie, Australian terrier, Groenendael, Eskimo dog, hyena, toy terrier.",
+"negative": "Not read with a sheet.",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:242 (falls .64) and s4:31.",
+"offshoots": "Hyena arrives by ear shape.",
+"family": "pointed ears pair",
+"prediction": "Before acts: s3:32 matters for the strands channel 242.",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "No parent found: s2:101 fell only .07 against controls near 0. Negative pole not read.",
+"_a": "dogface"
+},
+{
+"channel": "s3:186",
+"distinction": "White surface, versus blue sky and hard-edged man-made things.",
+"positive": "White poodle, Samoyed, Saluki, egg, vulture head, white blossom.",
+"negative": "Blue sky scenes: lighthouse, planetarium, alp, castle, radio telescope.",
+"parents": [
+{
+"channel": "s2:28",
+"gives": "bars and pale rails (acts: 186 falls .25; controls .01 to .04; weak)",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "Feeds s4:28 (falls 2.70) and s4:31 (falls 3.54).",
+"offshoots": "Egg and penguin chest arrive by white.",
+"family": "white",
+"prediction": "Before acts: 186 is a stage 3 parent of both pale channels 28 and 31.",
+"prediction_held": true,
+"sure": 0.8,
+"unread": "The s2 parent is weak. Mixed negative pole.",
+"_a": "dogface"
+},
+{
+"channel": "s3:255",
+"distinction": "Pale cream face of a dog or sheep.",
+"positive": "Labrador, Saluki, whippet, dalmatian, bighorn, Great Pyrenees faces.",
+"negative": "Not read.",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:31 (falls 1.49).",
+"offshoots": "Bighorn arrives by cream face.",
+"family": "cream face",
+"prediction": "Before acts: 255 builds 31.",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "No s2 parent read. No negative pole read.",
+"_a": "dogface"
+},
+{
+"channel": "s3:90",
+"distinction": "Saturated orange or yellow patch.",
+"positive": "Macaw, bell pepper, lemon, sarong, king penguin patch.",
+"negative": "Dog faces and screens, at very low strength (-.5).",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:172 (falls 1.73) and s4:42 (falls .94).",
+"offshoots": "Fruit and cloth arrive by colour.",
+"family": "warm colour",
+"prediction": "Before acts: 90 builds both warm channels 172 and 42.",
+"prediction_held": true,
+"sure": 0.8,
+"unread": "No s2 parent read.",
+"_a": "dogface"
+},
+{
+"channel": "s3:89",
+"distinction": "Flat blank sky or bright smooth field.",
+"positive": "Blue sky, white sky, plain background.",
+"negative": "Not read.",
+"parents": [],
+"gate": "Listed as a negative feeder of 242, 162, 467, 219 and 429 by input x gradient. Not confirmed.",
+"readers": "Acts did not confirm: removing it moved 242 by .07 against controls -.15 to .07.",
+"offshoots": "None read.",
+"family": "blank field",
+"prediction": "Before acts: removing 89 raises the strand channel 242.",
+"prediction_held": false,
+"sure": 0.2,
+"unread": "Negative effect not shown. Role as a gate is unproven.",
+"_a": "dogface"
+},
+{
+"channel": "s3:125",
+"distinction": "Fine regular ridges and ribs wound around.",
+"positive": "Brain coral, ammonite, hose ribs, snake scales, baseball seams, typewriter bar.",
+"negative": "Not read.",
+"parents": [],
+"gate": "Pushes s4:242 down (removal raises it .36) and s4:467 up (removal drops it .52).",
+"readers": "s4:467 and s4:242 read it with opposite signs.",
+"offshoots": "Corals and hoses arrive by ridge pattern.",
+"family": "ribs",
+"prediction": "Before acts: 125 holds 242 down.",
+"prediction_held": true,
+"sure": 0.7,
+"unread": "No s2 parent read. Why 467 wants ribs is not shown.",
+"_a": "dogface"
+},
+{
+"channel": "s3:141",
+"distinction": "Smooth narrow front face with a dark nose, versus fluffy-ruffed face.",
+"positive": "Dingo, toy terrier, red wolf, whippet, Doberman, Great Pyrenees front face.",
+"negative": "Ruffed faces: collie, papillon, Pomeranian, Eskimo dog, gibbon.",
+"parents": [
+{
+"channel": "s2:73",
+"gives": "sheet not opened; acts: 141 falls .72; controls -.02 to .01",
+"sign": "+",
+"sure": 0.5
+}
+],
+"gate": "Passes smooth-faced heads to s4:418; ruffed heads are negative.",
+"readers": "Feeds s4:418 (falls 6.61), the largest fall I measured.",
+"offshoots": "Fox faces arrive by shape.",
+"family": "face without ruff",
+"prediction": "Before acts: 141 is the key parent of 418.",
+"prediction_held": true,
+"sure": 0.8,
+"unread": "s2:73 sheet not read.",
+"_a": "dogface"
+},
+{
+"channel": "s2:112",
+"distinction": "Thin straight lines against a contrasting field.",
+"positive": "Guitar strings, spokes, piano keys, wing feathers, leopard whiskers.",
+"negative": "Not read.",
+"parents": [],
+"gate": null,
+"readers": "Feeds s3:118 (falls .67).",
+"offshoots": "None.",
+"family": "thin lines",
+"prediction": "Before acts: 112 builds the fan channel s3:118.",
+"prediction_held": true,
+"sure": 0.7,
+"unread": "Stem parents not read. Negative pole not read.",
+"_a": "dogface"
+},
+{
+"channel": "s2:73",
+"distinction": "Not read: its sheet was made, not opened.",
+"positive": "Not read.",
+"negative": "Not read.",
+"parents": [],
+"gate": null,
+"readers": "Feeds s3:141 (falls .72 against controls near 0).",
+"offshoots": "None.",
+"family": "unread",
+"prediction": "Before acts: 73, the top s2 feeder, feeds s3:141.",
+"prediction_held": true,
+"sure": 0.2,
+"unread": "Everything except its edge to s3:141.",
+"_a": "dogface"
+},
+{
+"channel": "s1:19",
+"distinction": "Is there a small dark round dot on a plain light ground, or a thin dark stroke? Dot pushes up, thin stroke pushes down.",
+"positive": "isolated small dark dots and round holes on light ground: eyes, skull sockets, pen dots, punctuation, bold letter blobs",
+"negative": "thin dark strokes and hairlines on light ground (script writing, twigs, clock hands): the opposite of a dot is a line",
+"parents": [
+{
+"channel": "s0:19",
+"gives": "same-number stem channel, +2.08 of +5.7 positive feed; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s0:58",
+"gives": "small extra, +0.38 (not tested)",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": "Lets dot-like things through and turns line-like things away: it feeds s2:85 and s2:13 and pushes thin-line s2 channels (s2:24, s2:6) the other way.",
+"readers": "s2:85 (+0.90), s2:13, s2:73. acts: removing s1:19 through its stage drops s2:85 by 0.755 on its top 64 photos; 3 controls fall -0.01 to 0.01. s2:85 and s2:13 appear in dog traces (golden retriever 7245, 7247).",
+"offshoots": "dog eye and cockatoo eye arrive here by the same dot; so do periods and letter counters. Same pattern, many nouns.",
+"family": "dot against line dial",
+"prediction": "Removing s1:19 will lower s2:85 on its top photos by far more than three random s1 controls; blur will cut it by half or more because dots are small.",
+"prediction_held": true,
+"sure": 0.7,
+"unread": "s2:13 was started in a run that did not finish; no acts for it. Size range of dot not measured. Edit: grayscale keeps 0.99, blur keeps 0.47.",
+"_a": "early"
+},
+{
+"channel": "s1:51",
+"distinction": "Is there a short bright outline stroke or edge, or a long straight line? Short curved outline strokes push up, long straight lines push down.",
+"positive": "thin bright outlines of letters, logos and rims, repeated small stripes (zebra, mesh): many short edges close together",
+"negative": "long straight smooth lines crossing the crop (rails, wires, bars) and big rings at low contrast",
+"parents": [
+{
+"channel": "s0:51",
+"gives": "same-number stem channel, +3.59; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s0:49",
+"gives": "+0.93 extra (not tested)",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "s2:59 (+1.20), s2:127, s2:39, s2:51. acts: removing s1:51 drops s2:59 by 0.817 on s2:59's top 64 photos; controls s1:1, s1:57, s1:19 fall 0.004, -0.006, 0.039. Reader sheet (outline/line junctions in a chain, grille, clock) matches the 'short edges' reading. s2:39 also in the golden retriever trace.",
+"offshoots": "s2:59's top photos are wiry or latticed things (chain fence, violin strings, clock). A different object each time, one pattern.",
+"family": "short outline stroke dial",
+"prediction": "Removing s1:51 lowers s2:59 more than controls.",
+"prediction_held": true,
+"sure": 0.65,
+"unread": "The negative pole reads 'long straight line' from 16 photos; not scored with `score`. Edit: grayscale 0.99, blur 0.34, rot90 0.78, flip 0.77.",
+"_a": "early"
+},
+{
+"channel": "s1:60",
+"distinction": "Is the local pattern fine parallel stripes or thin lines at one slant, or broad shapes? Fine slanted stripes push up.",
+"positive": "fine dark and light stripes and hairlines (striped shirts, zebra, bicycle spokes, wheel fork, clock hand, handlebar), mostly one slant",
+"negative": "wide thick bars and big curved bands (wheel rims, window frames, blinds) at the other orientations",
+"parents": [
+{
+"channel": "s0:60",
+"gives": "same-number stem channel, +4.88; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s0:63",
+"gives": "+0.88 extra (not tested)",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "s2:112 (+0.90), s2:62, s2:80, s2:2, s2:118. s2:112 and s2:62 are in the golden retriever 7245 trace and the tabby 9836 trace, so fur lines and cat whisker or fur strokes use it. acts for s2:25 as child not run to completion.",
+"offshoots": "fur strands and spokes both fire it. Same fine-line pattern, different noun.",
+"family": "fine stripe dial",
+"prediction": "Blur will remove most of it (keep under 0.35) because the stripes are one to two pixels wide.",
+"prediction_held": true,
+"sure": 0.55,
+"unread": "No acts on s2:112. The slant is from eye, not measured. Edit: grayscale 1.00, blur 0.29 (see prediction), rot90 0.76.",
+"_a": "early"
+},
+{
+"channel": "s1:47",
+"distinction": "Is there a very fine bright curl, tooth or stripe, or a round ring? Fine curls and teeth push up, rings and discs push down.",
+"positive": "finest repeated bright lines and teeth: zebra stripes, comb teeth, wing feather tips, logo curls, game-pad symbols",
+"negative": "round rings, circles and discs (keyboard keys, joystick dots, owl eye, bold letters)",
+"parents": [
+{
+"channel": "s0:47",
+"gives": "same-number stem channel, +5.98; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.6
+}
+],
+"gate": "Ring against tooth: turns round shapes away. A cat or owl eye ring is pushed negative.",
+"readers": "s2:112 (+0.85), s2:64, s2:58, s2:9, s2:115. s2:112 and s2:115 are fed by it (s2:115 also in the 7249 and 9837 traces).",
+"offshoots": "eyes (owl, cat) appear on the negative side, so the dog-eye dot route goes through s1:19 and s1:40 instead of s1:47.",
+"family": "fine tooth against ring dial",
+"prediction": "Blur will remove it (keep under 0.3) and grayscale will keep it.",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "No acts. Edit: grayscale 1.00, blur 0.19.",
+"_a": "early"
+},
+{
+"channel": "s1:43",
+"distinction": "Is there a bold bright vertical or slanted bar on a dark ground, or a thin ring or hairline? Bold bars push up, thin curved lines push down (large negative values).",
+"positive": "bold bright strokes on dark: thick letters (Model T, DEAD), tow truck stripes, clock numerals, neon letters",
+"negative": "very strong negative on thin ring outlines and hairlines (rings, ruler ticks, gown seam, neon thin lines)",
+"parents": [
+{
+"channel": "s0:43",
+"gives": "same-number stem channel, +2.89; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s0:47",
+"gives": "-1.03, pushes it down: the fine-tooth stem channel is its opposite",
+"sign": "-",
+"sure": 0.5
+},
+{
+"channel": "s0:60",
+"gives": "-0.78, same",
+"sign": "-",
+"sure": 0.4
+}
+],
+"gate": "Opposed to s1:47 and s1:60 (fine) on stem inputs: bold against fine.",
+"readers": "s2:23 (+0.49), s2:115 (+0.48), s2:95, s2:31, s2:112. s2:23 big-dot reader: acts held: removing s1:43 drops s2:23 by 0.509, controls 0.02 to 0.05 (see s2:23 card).",
+"offshoots": "cab and tow truck stripes arrive by the same bold stripe pattern as letters.",
+"family": "bold stroke against hairline dial",
+"prediction": "s1:43 and s1:47 will have opposite signs on the same photo: fine hairline photos in s1:47's top sheet will appear in s1:43's negative sheet.",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "Anchored on sheets: s1:47 top (zebra, fine teeth) and s1:43 neg (thin rings, ruler ticks) share photos such as #24008 analog clock and #25515-type teeth. Not scored numerically. Edit: grayscale 1.00, blur 0.41.",
+"_a": "early"
+},
+{
+"channel": "s1:44",
+"distinction": "Is there a thick bold stroke (heavy letters), or a ring or fine zebra stripe? Heavy strokes push up.",
+"positive": "heavy bold lettering and thick dark bars on a plain ground (Yale, Marc, BARB, 110 numerals)",
+"negative": "rings, circled marks, zebra stripes, wheel rims, honeycomb thin walls: thin repeated structure",
+"parents": [
+{
+"channel": "s0:44",
+"gives": "same-number stem channel, +4.29; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s0:22",
+"gives": "+0.33 extra (not tested)",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": null,
+"readers": "s2:34 (+0.78), s2:101 (+0.64, in the golden retriever 7245 trace), s2:31 (+0.62), s2:80, s2:108.",
+"offshoots": "wheel rims of cars and zebra stripes both land on the negative side.",
+"family": "bold stroke dial (with s1:43, s1:25)",
+"prediction": "Rot90 will keep it above 0.8 because heavy strokes appear at all orientations.",
+"prediction_held": false,
+"sure": 0.5,
+"unread": "Rot90 kept only 0.64, so it likes one orientation (vertical bars). No acts. Edit: grayscale 0.99, blur 0.29, flip 0.92.",
+"_a": "early"
+},
+{
+"channel": "s1:29",
+"distinction": "Is there a dark patch or heavy letter on white, or a smooth gradient? Dark bold patches on white push up.",
+"positive": "dark heavy letters and dots on white or pale ground (PHP, Cheese, dots on a lighter, bird silhouettes)",
+"negative": "smooth gradients and soft edges, fur, dark-to-light shaded surfaces",
+"parents": [
+{
+"channel": "s0:29",
+"gives": "same-number stem channel, +1.61; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.5
+},
+{
+"channel": "s0:58",
+"gives": "+0.37 (not tested)",
+"sign": "+",
+"sure": 0.2
+},
+{
+"channel": "s0:21",
+"gives": "-0.53; pushes down",
+"sign": "-",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "s2:71 (+0.65 into it). acts: removing s1:29 drops s2:71 by 1.092 on its top 64 photos; controls s1:1, s1:51, s1:42 fall 0.069, 0.095, 0.072. A fall of ten times the controls.",
+"offshoots": "eyes of cockatoo and dalmatian spots reach s2:71 partly by this dark patch.",
+"family": "dark patch on pale ground dial",
+"prediction": "Removing s1:29 will lower s2:71 more than controls.",
+"prediction_held": true,
+"sure": 0.55,
+"unread": "s1:29 sheet is close to s1:19 (both dot-like); the pair differs by blob size, not tested. Edit: grayscale 0.98, blur 0.45.",
+"_a": "early"
+},
+{
+"channel": "s1:25",
+"distinction": "Is there a bold broad stroke, or fine repeated stripes? Bold strokes push up (weakly), fine periodic stripes push down.",
+"positive": "bold broad strokes and shapes: letters, skull, wheel spokes, keys, wide stripes",
+"negative": "dense fine periodic stripes (zebra, spider web, wrapped cord, iris threads): the pitch is too fine",
+"parents": [
+{
+"channel": "s0:25",
+"gives": "same-number stem channel, +2.64; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.5
+},
+{
+"channel": "s0:22",
+"gives": "+0.66 (not tested)",
+"sign": "+",
+"sure": 0.2
+},
+{
+"channel": "s0:14",
+"gives": "+0.55 (not tested)",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": "s1:25 against s1:55: bold against fine pitch. s1:55's top is zebra and s1:25's negative is zebra.",
+"readers": "s2:24 (+0.73), s2:80, s2:69. s1:25 feeds s2:25 only weakly (+0.16).",
+"offshoots": "wheels of a bicycle and a car and a bold F of a sign share it.",
+"family": "bold against fine pitch dial",
+"prediction": "s1:25's negative sheet will list the same zebra and web photos as s1:55's top sheet.",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "Same photos: #11929, #11932, #11908 zebra, #28540 web. Not scored with a number. Edit: grayscale 0.99, blur 0.56. Small values (top 4.5, neg -0.9): a weak channel.",
+"_a": "early"
+},
+{
+"channel": "s1:61",
+"distinction": "Is the patch dark with a hard corner against light, or a small round spot? Large dark flat areas push up weakly.",
+"positive": "large dark flat regions with a hard edge: black clothing, tyre, dark panels, wheel well",
+"negative": "small round dark holes and dots on white (pen dots, skull eyes, bead holes, boat windows)",
+"parents": [
+{
+"channel": "s0:61",
+"gives": "same-number stem channel, +1.18, almost all of the feed; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.5
+}
+],
+"gate": "Opposed to s1:19 on dots: a dot at s1:19 gives a small negative here.",
+"readers": "s2:126 (+1.37, a single strong reader), s2:29, s2:6, s2:14. s2:29 in the 7245 and 7247 traces.",
+"offshoots": "none seen",
+"family": "large dark area against dot dial",
+"prediction": "Blur keeps over 0.7 (large flat regions survive blur).",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "Blur kept 0.76, grayscale 0.99. Peak only 2.6, weakest channel in this set. s2:126 not read.",
+"_a": "early"
+},
+{
+"channel": "s1:55",
+"distinction": "Is the stripe pitch very fine (one or two pixels) and parallel, or wide? Fine parallel stripes push up strongly.",
+"positive": "the finest parallel stripe patterns at any slant: zebra, vacuum hose coils, accordion, honeycomb ridges, fire engine slats, bikini edge",
+"negative": "wider stripes (striped shirts), text and rings at normal pitch",
+"parents": [
+{
+"channel": "s0:55",
+"gives": "same-number stem channel, +6.19; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s0:40",
+"gives": "+1.50 extra: the ring-and-dot stem channel adds stripe curvature (not tested)",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": "Pitch dial: turns wider stripes away (s1:25, s1:44 like wide).",
+"readers": "s2:112 (+0.82), s2:64, s2:61, s2:31. s2:112 in the 7245, 9836 traces.",
+"offshoots": "vacuum hose and zebra are the same fine ridge pattern. s2:59 negative sheet (vacuum, comb, compass ticks) shows the same fine ridge: s2:59 turns those away.",
+"family": "fine stripe pitch dial",
+"prediction": "Blur keeps under 0.2 and rot90 keeps under 0.7 (it likes some slants).",
+"prediction_held": true,
+"sure": 0.65,
+"unread": "Edit: grayscale 1.00, blur 0.14, rot90 0.59, flip 0.69. acts s1:55 to s2:25 queued but not read. Peak 8.8, strongest of the stage 1 set.",
+"_a": "early"
+},
+{
+"channel": "s1:37",
+"distinction": "Is the patch saturated green, or any other colour? Pure bright green pushes this channel strongly down; other colours push it up weakly.",
+"positive": "weak: neutral or warm surfaces with edges (gray, tan, clock face, text)",
+"negative": "saturated green of any shape: green lights, vine, green umbrella, beetle, green kitchen items",
+"parents": [
+{
+"channel": "s0:37",
+"gives": "same-number stem channel, +0.39, a small share; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.4
+}
+],
+"gate": null,
+"readers": "s2:55 (+0.43), s2:10, s2:0, s2:32, s2:73. s2:10 and s2:55 are in dog and cat traces.",
+"offshoots": "none seen",
+"family": "green colour dial (negative pole)",
+"prediction": "Grayscale will remove most of it.",
+"prediction_held": false,
+"sure": 0.5,
+"unread": "Edit kept 0.82 under grayscale: but the edit scores the top 32 photos which are the positive (weak) side. The colour is the negative pole, which the edit does not test. Not retested.",
+"_a": "early"
+},
+{
+"channel": "s1:40",
+"distinction": "Is there a small round ring or dot with an outline (a screw, a circled mark), or a straight thin line? Small rings push up (to 14), straight lines push down (to -12).",
+"positive": "small closed round outlines: circled (c), knob rings, screws, coins, round buttons, mushroom spots, neon circles",
+"negative": "long straight thin lines and strokes: spokes, hands, bridge wires, thin edges. Strong, -12.",
+"parents": [
+{
+"channel": "s0:40",
+"gives": "same-number stem channel, +1.80; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.5
+},
+{
+"channel": "s0:53",
+"gives": "+0.76 (not tested)",
+"sign": "+",
+"sure": 0.3
+},
+{
+"channel": "s0:43",
+"gives": "+0.50 (not tested)",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": "Ring against line. Turns straight lines away.",
+"readers": "s2:91 (+2.62, by far the strongest), s2:109, s2:71 (+0.51), s2:64. s2:71 big sibling: small dot channel gets the ring route.",
+"offshoots": "eye rings of birds, camera lens rings, wheel hubs.",
+"family": "ring against line dial",
+"prediction": "s1:40's negative sheet will show the same straight-line photos as s1:51's negative (long lines).",
+"prediction_held": true,
+"sure": 0.55,
+"unread": "s1:40 neg sheet shows wires, clock hand, sea anemone threads, as does s1:51 neg: shared photos #29399-type wires. s2:91 not read. Edit not read.",
+"_a": "early"
+},
+{
+"channel": "s1:57",
+"distinction": "Is there a small bright spot in the dark, or a flat uniform area? Bright spots on black push up.",
+"positive": "small bright lights and bright letters on black: stage lights, candle, sparks, street lights, white text on black",
+"negative": "flat uniform surfaces: grey wall, dark cloth, soft shadow gradient, the bottom border",
+"parents": [
+{
+"channel": "s0:57",
+"gives": "same-number stem channel, +1.61; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.5
+},
+{
+"channel": "s0:60",
+"gives": "-0.52 pushes down (fine stripes)",
+"sign": "-",
+"sure": 0.2
+}
+],
+"gate": null,
+"readers": "s2:45 (+0.91), s2:102 (+0.78), s2:100, s2:73 (in the 7247 trace).",
+"offshoots": "car headlights and stage lights are the same bright spot on dark.",
+"family": "bright spot on dark dial",
+"prediction": "Grayscale keeps over 0.9 (brightness not colour).",
+"prediction_held": null,
+"sure": 0.45,
+"unread": "Edit not read. No acts. Readers s2:45 and s2:102 not read.",
+"_a": "early"
+},
+{
+"channel": "s1:0",
+"distinction": "Are there many dense horizontal parallel bars (louvres, grille slats)? Dense horizontal bars push up.",
+"positive": "dense horizontal bars and ridges: grille, vent slats, accordion, coils, striped shirt, steam locomotive grille",
+"negative": "not read (sheet made, no image opened)",
+"parents": [
+{
+"channel": "s0:0",
+"gives": "same-number stem channel, +6.62; stem channel with the same number carries it through the skip (feeds the skip unchanged; input x gradient only, acts not run)",
+"sign": "+",
+"sure": 0.6
+}
+],
+"gate": null,
+"readers": "s2:33 (+1.34, in the 15260 beach wagon trace), s2:44, s2:117 (in the 7249 trace), s2:40.",
+"offshoots": "car grille and a striped shirt (gondola) share horizontal bars. s2:33 is the car side of the trace.",
+"family": "horizontal bars dial",
+"prediction": "rot90 will cut it by more than half.",
+"prediction_held": null,
+"sure": 0.5,
+"unread": "Edit not run, rot90 not run. Negative pole not read. Only the top sheet and the reader list.",
+"_a": "early"
+},
+{
+"channel": "s1:22",
+"distinction": "Is there a dark curved band across lighter bumpy or mixed texture? Weak. Mid-width curved bands push up.",
+"positive": "mixed texture with a curved dark band: honeycomb cells, bicycle brake cable, apples, goblet letters, blue chair bars",
+"negative": "not read",
+"parents": [
+{
+"channel": "s0:22",
+"gives": "same-number stem channel, +0.42, no strong feeder",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "s2:103 (+1.04, in the 7247 trace), s2:17, s2:38. s2:71 (+0.14).",
+"offshoots": "none",
+"family": "mixed texture band (weak)",
+"prediction": "none written before the test",
+"prediction_held": null,
+"sure": 0.25,
+"unread": "Weak channel (peak 5.8 but no clear shared pattern, my reading is unclear after one sheet). Did not read negative pole, edit or acts. Not claimed to be messy: I did not check enough.",
+"_a": "early"
+},
+{
+"channel": "s2:59",
+"distinction": "Are there thin separate lines or wires meeting at an angle, or dense regular ridges? Thin lines at junctions push up, dense ridges push down.",
+"positive": "thin separate edges forming junctions: chain-link fence, violin strings, clock hands, wire harness, buckle, ruler corner, kite wing feathers",
+"negative": "dense regular ridges: vacuum hose coils, typewriter ridges, compass ticks, ruler marks, honeycomb, comb teeth",
+"parents": [
+{
+"channel": "s1:51",
+"gives": "short bright outline strokes; acts: removing s1:51 drops s2:59 by 0.817 on its top 64 photos, controls ~0",
+"sign": "+",
+"sure": 0.75
+},
+{
+"channel": "s1:39",
+"gives": "+0.84 feed (not tested, other agent may hold)",
+"sign": "+",
+"sure": 0.3
+},
+{
+"channel": "s1:53",
+"gives": "+0.59 (not tested)",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": "Turns dense regular ridges away (s1:55's pattern): fine stripe pitch comes in at s2:112 etc. while s2:59 wants single sparse lines. A split inside the line family.",
+"readers": "s3:153 (+0.59), s3:6, s3:40, s3:199; negative readers s3:187, s3:214. s2:59 is in the golden retriever 7245 and 7247 and tabby 9836 traces (s3:49, s3:32).",
+"offshoots": "dog trace passes the same channel for fur strands near a fence-like pattern; kite feathers on the sheet.",
+"family": "sparse wire junction dial",
+"prediction": "Removing s1:51 will drop s2:59; blur will cut it by half.",
+"prediction_held": true,
+"sure": 0.65,
+"unread": "Edit: grayscale 0.96, blur 0.34, rot90 0.61, flip 0.65. s3 readers not read. The top sheet has red and orange parts as well, color not studied.",
+"_a": "early"
+},
+{
+"channel": "s2:25",
+"distinction": "Is there a thin curved arc or rim, or a filled round disc? Thin round rims push up, filled discs and soft round shapes push down.",
+"positive": "thin curved rims and arcs: bicycle wheels, bucket handle, wheel rims, brake lights, domes, eye rims, French horn tube",
+"negative": "filled soft round discs and plates: paper lanterns, CD, plates, round buttons, sea slug blob, bobsled helmet",
+"parents": [
+{
+"channel": "s1:51",
+"gives": "+0.23 short outline strokes (not isolated in acts)",
+"sign": "+",
+"sure": 0.3
+},
+{
+"channel": "s1:60",
+"gives": "+0.23 fine slant lines; acts: removing s1:60 drops s2:25 by 0.169 on its top 64 photos, controls 0.036, -0.001, -0.005 (small but above controls)",
+"sign": "+",
+"sure": 0.4
+},
+{
+"channel": "s1:44",
+"gives": "+0.15",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": "Rim against disc. Dog eyes (silky terrier on sheet, a dark eye with rim) and car wheels both go through the rim side.",
+"readers": "s3:233 (+0.38), s3:183, s3:18. Weak, many readers.",
+"offshoots": "wheels of cars, eyes of a dog (silky terrier #7045), crash helmet panda face all land on the positive side by the same rim.",
+"family": "thin rim against disc dial",
+"prediction": "Blur keeps under 0.5 because rims are thin lines.",
+"prediction_held": false,
+"sure": 0.4,
+"unread": "Edit: grayscale 0.90, blur 0.70. The blur prediction failed: rims are wide enough that blur keeps 0.70. Parents are weak (largest feed +0.23): possibly several small contributions. acts s1:55 to s2:25 fell -0.001 (no link, as expected).",
+"_a": "early"
+},
+{
+"channel": "s2:71",
+"distinction": "Is there a tiny isolated dark dot (eye, hole, screw), or something else? Tiny dark dots on a lighter surface push up.",
+"positive": "tiny isolated dark dots on a lighter surface: eye of bird or cockatoo, screw holes, puck, dalmatian spots, pen dots, flying birds far away",
+"negative": "not read (sheet made, not opened)",
+"parents": [
+{
+"channel": "s1:29",
+"gives": "dark patch on pale ground; acts: removing s1:29 drops s2:71 by 1.092 on its top 64 photos; controls 0.07 to 0.10",
+"sign": "+",
+"sure": 0.7
+},
+{
+"channel": "s1:20",
+"gives": "+0.68 feed (not tested)",
+"sign": "+",
+"sure": 0.3
+},
+{
+"channel": "s1:40",
+"gives": "+0.51 ring (not tested)",
+"sign": "+",
+"sure": 0.3
+},
+{
+"channel": "s1:19",
+"gives": "+0.33 dot (not tested separately)",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "s3:134 (+2.69, by far the strongest; s3:134 is in the sports car 28595 and 28597 traces and feeds s4:295 and s4:112), s3:198, s3:120.",
+"offshoots": "eyes (dog, bird) and car lights, screws, spots arrive by the same dot. In the sports car trace s2:71 -> s3:134 -> s4:295/112.",
+"family": "tiny dark dot dial",
+"prediction": "Removing s1:29 lowers s2:71; and the dot is also on dog photos (eye).",
+"prediction_held": true,
+"sure": 0.65,
+"unread": "Edit: grayscale 0.95, blur 0.39. Negative pole not read. Only one trace (cars) goes through s3:134. A dog route via s2:71 not seen in my 3 dog traces.",
+"_a": "early"
+},
+{
+"channel": "s2:115",
+"distinction": "Is the patch a smooth broad surface (curved, plain, shaded) or small bold print? Smooth surfaces push up, bold print and rings push down.",
+"positive": "smooth broad coloured surfaces and gentle curves: fig, pumpkin, camera barrel, loafer, red paper, thimble, clothing",
+"negative": "bold print and ring patterns: rings on cloth, lettering, keyboard keys, remote buttons, dials",
+"parents": [
+{
+"channel": "s1:63",
+"gives": "+0.56 (not tested)",
+"sign": "+",
+"sure": 0.3
+},
+{
+"channel": "s1:43",
+"gives": "+0.48 bold bar (not tested)",
+"sign": "+",
+"sure": 0.3
+},
+{
+"channel": "s1:60",
+"gives": "+0.35 (not tested)",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": "Turns small print away; passes smooth object skin on to s3:187 (+3.52) and s3:101.",
+"readers": "s3:187 (+3.52), s3:101 (+1.94, held by another agent 'gate'), s3:229, s3:117, s3:19. In traces 7249 and 9837 (dog and cat).",
+"offshoots": "fruit and a camera lens share smoothness. Dog fur on trace 7249 route.",
+"family": "smooth surface against print dial",
+"prediction": "Blur keeps over 0.65 (smooth shapes survive blur).",
+"prediction_held": true,
+"sure": 0.45,
+"unread": "Edit: grayscale 0.91, blur 0.72. Parents spread across many weak feeders, none above 0.56: no acts. 'Smooth surface' may be too broad: not checked in-depth.",
+"_a": "early"
+},
+{
+"channel": "s2:23",
+"distinction": "Is there a single dark round disc (pupil, polka dot, hole) in a lighter surround, bigger than s2:71's dot? Big dark discs push up.",
+"positive": "single dark round discs: cat pupil, polka dots, a sign circle, tomato slice hole, totem hole, trigger buttons, wheel hubs",
+"negative": "not read",
+"parents": [
+{
+"channel": "s1:43",
+"gives": "+0.49 bold shape; acts: removing s1:43 drops s2:23 by 0.509 on its top 64 photos; controls 0.02, 0.01, 0.05",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s1:63",
+"gives": "+0.56 (not tested)",
+"sign": "+",
+"sure": 0.2
+},
+{
+"channel": "s1:29",
+"gives": "+0.33 dark patch",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "s3:60 (+1.18, in the tabby 9836 trace into s4:225), s3:47 (+1.09), s3:88.",
+"offshoots": "cat eyes (Egyptian cat x2 on sheet) and car parts (moped, toaster badge) land by the same disc.",
+"family": "big dark disc dial",
+"prediction": "Its top sheet will have larger discs than s2:71.",
+"prediction_held": true,
+"sure": 0.55,
+"unread": "Held only by sheet comparison, no number. Edit: grayscale 0.98, blur 0.52. Negative pole not read. acts for s1:43 done.",
+"_a": "early"
+},
+{
+"channel": "s4:255",
+"distinction": "Separates a flat, smooth, near-uniform surface filling the frame (positive) from a body with thin limbs sticking out of a compact core (negative).",
+"positive": "Close-ups of smooth plastic, cloth, metal or a product face, no limbs, often a shop watermark across the photo; whistles, sleeping bag, towel, scale, safe.",
+"negative": "Bodies with outlines and appendages on a ground: harvestmen, spiders, beetles, ticks, and dogs (Boston bull, schnauzer, kuvasz, beagle). Dogs sit with the leggy bugs, not with cats.",
+"parents": [
+{
+"channel": "s3:17",
+"gives": "printed letters and marks (sheet); acts: s4:255 falls 1.60 of 18.4 vs controls -0.02..0",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s3:33",
+"gives": "saturated colour patches (sheet); acts: falls 0.86 vs controls 0.22,-0.02,0.06",
+"sign": "+",
+"sure": 0.4
+},
+{
+"channel": "s3:143",
+"gives": "not read; acts: falls 1.05 vs controls 0.14,-0.03,-0.09",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "Logits: red fox, badger, green mamba, lesser panda, baboon (furry or scaly animals) positive; weevil, racket, ladle negative. Weak. Positive pole is flat product shots but the logits it feeds are animals: the readers use it mainly through the negative pole (limbs present => animal).",
+"offshoots": "Largest feeder is block 0 of the same stage, s4:154 (+16). Not read. Positive sheet is nearly all Chinese product-shop photos with watermarks: a photo-source cue, not an object cue.",
+"family": "flat surface vs limbed body",
+"prediction": "Removing s3:17 (printed text) lowers s4:255 on its top photos by more than three random controls do.",
+"prediction_held": true,
+"sure": 0.55,
+"unread": "s4:154 (its big block-0 feeder). Why a dog and a spider share the negative pole: I see only 'outline with legs on a ground'.",
+"_a": "furbody"
+},
+{
+"channel": "s4:297",
+"distinction": "Separates a small sharp bright thing set against a soft blurred green field (positive) from a sharp full-frame detail or texture (negative).",
+"positive": "Small or isolated coloured subject (bird, child's hand, ice lolly, kart, bill and eye) against out-of-focus green or fence; indigo bunting, black stork, grasshopper.",
+"negative": "Hard detail filling the frame or a pale/dark texture: junco, green mamba scales, screws, basket weave, Siamese cat face, candle flames, beagle on pavement.",
+"parents": [
+{
+"channel": "s3:160",
+"gives": "top feeder by number only (+1.36); not opened",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": null,
+"readers": "Logits: indigo bunting, tench, black stork, capuchin, tiger cat, kit fox: small animals in foliage. Matches distinction (focus on subject in soft ground).",
+"offshoots": "Mixed: kids, go-kart, bird bills share the shallow-focus look.",
+"family": "subject in soft green ground",
+"prediction": "Its top photos have a blurred background in most of the 16.",
+"prediction_held": null,
+"sure": 0.4,
+"unread": "No parent tested with acts; feed is spread over many s3 channels (top 1 = 7 percent). Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s4:9",
+"distinction": "Separates a long, lean, tall-legged body (positive) from a low, round, bulky or heavily furred body (negative).",
+"positive": "Slender canids and lean animals, legs often in frame: borzoi, saluki, wolves, coyote, malamute, llama; short or smooth coat showing the legs.",
+"negative": "Stout round bodies: water buffalo, marmot, wombat, hippo, boxer, fluffy small dogs (Yorkie, Maltese, Shih-Tzu), plus violin, flute (thin things held to a face).",
+"parents": [
+{
+"channel": "s3:128",
+"gives": "four legs in profile on a ground (sheet); acts: s4:9 falls 1.75 of 20.3 vs controls -0.01,0.01,-0.12",
+"sign": "+",
+"sure": 0.6
+}
+],
+"gate": "Used in N's own decision: on a golden retriever photo that N calls brown bear, s4:9 is -0.58 against the bear (and -0.83 against Tibetan terrier over retriever). It turns away a wrong lean-legged call for fluffy bulky animals.",
+"readers": "Not read directly. Carry: s4:9 is among the channels that argue against the top class on 3 of 4 dog photos I traced.",
+"offshoots": "llama and flute on the same channel by body shape.",
+"family": "lean legs vs round bulk",
+"prediction": "Removing s3:128 (legs in profile) drops s4:9 more than controls.",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "Why it carries violin and flute on the negative side (thin hands/face shapes?).",
+"_a": "furbody"
+},
+{
+"channel": "s4:156",
+"distinction": "Separates a broad, round, frontal head with ears or a big rounded furry mass (positive) from thin, narrow, pointed shapes (negative).",
+"positive": "Faces and heads of furry or big animals looking at the camera: cow, Rottweiler, snow leopard, retrievers, tabby, lynx, Newfoundland, elephant.",
+"negative": "Narrow pointed forms: toy terrier, Ibizan hound, storks, oystercatcher, turnstone, beaver, porcupine nose, wallaby face; also climber. Birds with a spike bill.",
+"parents": [
+{
+"channel": "s3:76",
+"gives": "pointed-ear fox/dog heads (sheet); acts: s4:156 falls 0.54 of 17.0 vs controls 0.03,0.03,0.10",
+"sign": "+",
+"sure": 0.35
+}
+],
+"gate": "In N's decision on lean dogs vs cats, s4:156 is -0.38 to -0.57 against the top class on 2 dog photos. Not a cat-vs-dog gate: it puts cats and dogs together (tabby, lynx, retrievers all positive).",
+"readers": "Not read.",
+"offshoots": "Elephants and cow with the dogs: head size and roundness, not carnivore.",
+"family": "round furry head vs pointed narrow form",
+"prediction": "Cat faces (tabby, lynx) are on the positive side together with dogs.",
+"prediction_held": true,
+"sure": 0.45,
+"unread": "Parent effect is small (3 percent of firing); the real feed is spread.",
+"_a": "furbody"
+},
+{
+"channel": "s4:163",
+"distinction": "Separates a small or isolated figure against a contrasting ground (positive) from a flat close-up surface filling the frame (negative).",
+"positive": "Animals and objects set apart: ferret, indigo bunting, partridge, hares, badger, snowmobile, abacus, planetarium.",
+"negative": "Exactly s4:255's top photos: smooth plastic, cloth, scale, whistle, towel with watermarks.",
+"parents": [
+{
+"channel": "s3:71",
+"gives": "plain smooth sky/ground next to an object edge (sheet); acts: s4:163 falls 3.36 of 13.5 vs controls 0.19,0.08,0.13",
+"sign": "+",
+"sure": 0.65
+},
+{
+"channel": "s3:17",
+"gives": "printed marks; weight -1.8 on the negative band, so it pushes the negative pole, same channel as 255's parent",
+"sign": "-",
+"sure": 0.4
+}
+],
+"gate": "Mirror of s4:255: s3:17 pushes 255 up and 163 down. One input draws two opposite channels.",
+"readers": "Not read.",
+"offshoots": "Oboe, piano, abacus (long ruled lines) are not isolated figures; maybe a different route.",
+"family": "isolated figure vs flat surface",
+"prediction": "s3:71 (plain ground next to an edge) is the strong parent, since parents shows +7.5 for it.",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "Why abacus, piano keys and oboe fire it.",
+"_a": "furbody"
+},
+{
+"channel": "s4:393",
+"distinction": "Detects a regular criss-cross lattice of thin lines laid across the scene.",
+"positive": "Chain-link fence, in front of animals (cougar, wallaby, gibbon, squirrel monkey), padlock and chain.",
+"negative": "Not opened.",
+"parents": [
+{
+"channel": "s3:30",
+"gives": "long straight thin edges against plain ground (sheet); acts: s4:393 falls 1.68 of 21.3 vs controls 0.09,-0.20,-0.12",
+"sign": "+",
+"sure": 0.5
+}
+],
+"gate": null,
+"readers": "Not read. It is a context cue: the animal behind it is caged.",
+"offshoots": "Animals behind fence carry it, which gives a zoo cue a dog or cat photo might not have.",
+"family": "lattice of thin crossing lines",
+"prediction": "Removing s3:30 (long straight edges) drops s4:393 on its top photos more than controls.",
+"prediction_held": true,
+"sure": 0.65,
+"unread": "Negative pole.",
+"_a": "furbody"
+},
+{
+"channel": "s4:35",
+"distinction": "Separates dark spots scattered on a pale coat or skin (positive) from one even colour, a smooth sheen or a fine mesh (negative).",
+"positive": "Spotted or ticked coats: Dalmatian, English setter, bluetick, Great Dane, snow leopard, hyena, German pointer, an ox.",
+"negative": "Plain warm-brown coat (Rhodesian ridgeback, vizsla, malinois, Chesapeake), spirals, mesh, foam, even-coloured leather.",
+"parents": [
+{
+"channel": "s3:222",
+"gives": "dark blotches on pale (sheet); acts: s4:35 falls 2.30 of 22.7 vs controls 0.26,0.12,0.11",
+"sign": "+",
+"sure": 0.7
+}
+],
+"gate": null,
+"readers": "Not read.",
+"offshoots": "Snow leopard and hyena join dogs through spots.",
+"family": "spots vs plain coat",
+"prediction": "Spotted non-dogs (snow leopard, hyena) join the top; plain-coloured brown dogs are on the negative side.",
+"prediction_held": true,
+"sure": 0.7,
+"unread": "Readers.",
+"_a": "furbody"
+},
+{
+"channel": "s4:362",
+"distinction": "Separates a bright, clean shape on a contrasting ground (positive) from a brown mottled mid-tone mass (negative).",
+"positive": "Glowing digits and dials on dark, and clean white or pale dogs on coloured ground: digital clock, scale, stopwatch, kuvasz, Eskimo dog, Arctic fox, grey parrot.",
+"negative": "Brown mottled things: wood rabbit, dung beetle, limpkin, Airedale, grouse, dingo, bighorn, frog.",
+"parents": [
+{
+"channel": "s3:17",
+"gives": "printed digits and marks (sheet); acts: s4:362 falls 1.21 of 20.1 vs controls 0,0.22,0.06",
+"sign": "+",
+"sure": 0.4
+}
+],
+"gate": null,
+"readers": "Not read.",
+"offshoots": "White fluffy dogs by brightness, not by digits.",
+"family": "bright clean shape vs brown mottle",
+"prediction": "White or pale dogs are on the positive pole; brown mottled dogs and rabbits on the negative.",
+"prediction_held": null,
+"sure": 0.5,
+"unread": "Why digits and white dogs share this channel; I read it as brightness against dark. Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s4:431",
+"distinction": "Separates thin strands or bars crossing a plain ground, including long shaggy hair (positive), from smooth, sleek, closed surfaces (negative).",
+"positive": "Shaggy coats and thin frames: komondor, Lhasa, Bouvier, Old English sheepdog, rickshaw wheels, chair legs, wheelbarrow, warplane gear, shopping cart.",
+"negative": "Smooth sleek bodies: whippet, gazelle, impala, miniature pinscher, Doberman, borzoi, egret, balloon-like shapes (soccer ball, perfume bottle, bikini).",
+"parents": [
+{
+"channel": "s3:158",
+"gives": "long thin parallel edges such as feather vanes and spokes (sheet); acts: s4:431 falls 0.83 of 17.6 vs controls -0.04,0.14,0.15",
+"sign": "+",
+"sure": 0.45
+}
+],
+"gate": "On the Tibetan terrier photo N misread over golden retriever, s4:431 is +0.84 for the terrier: it is the coat cue that tips shaggy dogs.",
+"readers": "Not read.",
+"offshoots": "Rickshaws and chairs by thin crossing bars.",
+"family": "strands vs sleek",
+"prediction": "Long-haired dogs and metal frames share the top; short-haired smooth dogs are on the negative side.",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "Why the plain red-velvet chair and orange armchair fire.",
+"_a": "furbody"
+},
+{
+"channel": "s4:424",
+"distinction": "Separates a huge, smooth, thick-skinned body (positive) from fine wiry hair and small thin parts (negative).",
+"positive": "Grey whale, elephant (tusker), turtle, hippo, bison: dark wet hide, tails, big heads half out of water.",
+"negative": "Wiry or fine-detail things: standard schnauzer, Dandie Dinmont, affenpinscher, gallinule, vulture, keyboard, reel, beetles.",
+"parents": [
+{
+"channel": "s3:158",
+"gives": "thin edges (sheet); acts: s4:424 falls 0.51 of 15.5 vs controls 0.14,0.12,-0.11",
+"sign": "+",
+"sure": 0.25
+}
+],
+"gate": "On the golden retriever photo N misread as brown bear, s4:424 is +0.77 for the bear: big smooth mass is the cue. s4:431/424 are the coat axis: shaggy strand vs sleek vs thick hide.",
+"readers": "Not read.",
+"offshoots": "Weak parent: the real feed is spread.",
+"family": "thick hide vs wiry fine hair",
+"prediction": "Bears, elephants and whales are on the positive side and wire-haired dogs on the negative.",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "Parent effect barely above controls; true parents unknown.",
+"_a": "furbody"
+},
+{
+"channel": "s3:17",
+"distinction": "Detects printed letters, digits and marks on a surface.",
+"positive": "Text and logos on laptop, phone, odometer, book jacket, helmet, digital clock.",
+"negative": "Not opened.",
+"parents": [],
+"gate": null,
+"readers": "s4:255 +, s4:362 +, s4:163 negative; acts above.",
+"offshoots": "none",
+"family": "printed marks",
+"prediction": "Top 16 all have letters or digits.",
+"prediction_held": null,
+"sure": 0.8,
+"unread": "Parents in stage 2 not opened. Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s3:71",
+"distinction": "Detects a plain smooth sky or ground with the edge of an object at the side.",
+"positive": "Tops of towers, mountains, crane, mast, a dog head cut off at the corner on a blue sky.",
+"negative": "Not opened.",
+"parents": [],
+"gate": null,
+"readers": "s4:163 (+7.5 by parents; acts falls 3.36).",
+"offshoots": "none",
+"family": "plain ground beside an edge",
+"prediction": "Top photos have a flat blue ground.",
+"prediction_held": null,
+"sure": 0.75,
+"unread": "Parents in stage 2 not opened. Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s3:128",
+"distinction": "Detects four-legged body seen from the side on a ground.",
+"positive": "Dogs on lawn: Leonberg, Rottweiler, collie, wild boar, bear, dingo, rat, dowitchers with legs in view.",
+"negative": "Not opened.",
+"parents": [
+{
+"channel": "s2:6",
+"gives": "small pale-or-bright patches against dark (sheet); acts: s3:128 falls 0.12 of 3.6 vs controls 0.01-0.03",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "s4:9 (acts falls 1.75).",
+"offshoots": "boar, bear, rat and shorebirds share the leg-in-profile look.",
+"family": "legs under a body",
+"prediction": "Legs are visible in most of the top photos.",
+"prediction_held": null,
+"sure": 0.65,
+"unread": "Real parents (feed is spread, top parent 7 percent). Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s3:76",
+"distinction": "Detects a pointed-ear head with tan muzzle facing the camera.",
+"positive": "Dingo, cairn, red fox, dhole, red wolf, gazelle, impala, basset, beagle, lesser panda.",
+"negative": "Not opened.",
+"parents": [
+{
+"channel": "s2:6",
+"gives": "pale muzzle and paws patches (sheet); acts: s3:76 falls 0.38 of 3.3 vs controls 0.02-0.03",
+"sign": "+",
+"sure": 0.4
+}
+],
+"gate": null,
+"readers": "s4:156 (acts falls 0.54).",
+"offshoots": "Gazelle and impala share the pointed ears and tan coat.",
+"family": "pointed ears on a tan head",
+"prediction": "Most top photos have erect or hanging ears and a tan coat.",
+"prediction_held": null,
+"sure": 0.65,
+"unread": "Why a groom in a suit is in the top 16. Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s3:30",
+"distinction": "Detects long straight edges with plain ground on both sides.",
+"positive": "Tower, mast, church spire, modem edge, jersey edge, dog's muzzle in side view.",
+"negative": "Not opened.",
+"parents": [],
+"gate": null,
+"readers": "s4:393 (acts falls 1.68).",
+"offshoots": "Straight posts and sails give the lattice later.",
+"family": "long straight edge",
+"prediction": "Straight edges present in the top photos.",
+"prediction_held": null,
+"sure": 0.6,
+"unread": "Parents. Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s3:158",
+"distinction": "Detects long thin edges lying across a plain ground, like feathers, spokes or ties.",
+"positive": "Wing feathers, cart wheel, bow tie, pineapple scales, tail, knife blade.",
+"negative": "Not opened.",
+"parents": [],
+"gate": null,
+"readers": "s4:431 (acts falls 0.83), s4:424 (0.51).",
+"offshoots": "none",
+"family": "long thin edges",
+"prediction": "Thin repeated or crossing edges in the top 16.",
+"prediction_held": null,
+"sure": 0.5,
+"unread": "Parents: top is s2:115 only at +0.18. Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s3:222",
+"distinction": "Detects dark patches scattered on a lighter ground.",
+"positive": "Dalmatian, setter, ladybug, snake skin, goose bill, Doberman, Rottweiler tan marks, mantis.",
+"negative": "Not opened.",
+"parents": [
+{
+"channel": "s2:71",
+"gives": "dark round dot on a light field (sheet); acts: s3:222 falls 0.32 of 2.1 vs controls 0.03,-0.01,0.01",
+"sign": "+",
+"sure": 0.5
+}
+],
+"gate": null,
+"readers": "s4:35 (acts falls 2.30), s4:424.",
+"offshoots": "Rottweiler and Doberman by black and tan contrast.",
+"family": "dark marks on light",
+"prediction": "Dark marks on light ground in every top photo.",
+"prediction_held": null,
+"sure": 0.65,
+"unread": "Goose and bolete: yes mark on pale? Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s3:33",
+"distinction": "Detects a saturated pink or bright colour patch.",
+"positive": "Pink umbrella, jellyfish, lotion, handkerchief, picks, parachute, patterned skirt.",
+"negative": "Not opened.",
+"parents": [],
+"gate": null,
+"readers": "s4:255 (acts falls 0.86).",
+"offshoots": "none",
+"family": "saturated colour patch",
+"prediction": "A saturated pink or blue region in each top photo.",
+"prediction_held": null,
+"sure": 0.5,
+"unread": "Parents; reading is by sheet only. Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s2:6",
+"distinction": "Detects a small pale blob on a darker area, near a dark edge.",
+"positive": "White paws, ping-pong ball, pale muzzle, dalmatian spot, candle flame, white feet of dogs.",
+"negative": "Not opened.",
+"parents": [],
+"gate": null,
+"readers": "s3:128, s3:76 (acts: s3:76 falls 0.38 of 3.3, s3:128 falls 0.12 of 3.6, controls 0.01-0.03).",
+"offshoots": "none",
+"family": "pale blob on dark",
+"prediction": "A pale small part (paw, muzzle, ball) in each top photo.",
+"prediction_held": null,
+"sure": 0.5,
+"unread": "Stage 1 feeders (s1:61, 20, 57) not opened. Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s2:71",
+"distinction": "Detects one small dark round dot on a lighter field.",
+"positive": "Hole in a pen, eye of a cockatoo, dot on manhole, puck, hole in flute.",
+"negative": "Not opened.",
+"parents": [],
+"gate": null,
+"readers": "s3:222 (top feeder +0.35).",
+"offshoots": "Dots on dalmatian legs, bird eyes.",
+"family": "dark dot on light",
+"prediction": "Each top crop has one round dark dot.",
+"prediction_held": null,
+"sure": 0.75,
+"unread": "Stage 1 feeders (s1:20, 29, 49) not opened. Prediction was written after I saw the top sheet, so it is not a real test.",
+"_a": "furbody"
+},
+{
+"channel": "s3:164",
+"distinction": "a round wheel set in a long smooth painted body (side view of a vehicle) against a soft centered face or radial bloom with a dark nose or eye-like middle",
+"positive": "side views of vans, fire engines, cabs, a go-kart: wheel plus flat body panel; top 16 are all vehicles with a visible wheel",
+"negative": "human and dog faces (nose, mouth), daisies and other flowers with a round centre; keeps out faces and radial organic shapes",
+"parents": [
+{
+"channel": "s2:127",
+"gives": "round disc/wheel rim on a smooth surface; acts: s3:164 falls 0.58 of 3.13 when removed, controls -0.003 to 0.007",
+"sign": "+",
+"sure": 0.8
+}
+],
+"gate": "Closest thing to the essay's gate: lets wheel-and-body vehicles through, turns faces and flowers away on its negative side (z -2.4 on dogs/faces). It is not dog-vs-car in particular: human faces and daisies sit on the same pole",
+"readers": "feeds s4:468, 168, 503, 447, 277 (277 is a roadcar channel by another agent) - matches vehicle use; negative side is cut by the ReLU, so s4 sees it only as zero",
+"offshoots": "s2:109 removal does not drop it (+0.06 rise), so the wheel route is s2:127 only",
+"family": "wheel on smooth body vs soft face",
+"prediction": "removing s2:127 drops s3:164 on its top 64 photos by more than 10 percent of its mean z, controls near zero",
+"prediction_held": true,
+"sure": 0.7,
+"unread": "which s2 channels build the face/flower negative pole (neg parents are small, top share 0.11, no clear leader); no head-on car front photos checked",
+"_a": "gate"
+},
+{
+"channel": "s3:17",
+"distinction": "hard-edged printed marks (letters, dials, logos) on a flat panel against a soft furry face",
+"positive": "lettering, dial and key legends, odometer, helmet logos, crossword grid: sharp graphic on flat surface",
+"negative": "dog faces (many breeds) and one human face; keeps out furry faces",
+"parents": [
+{
+"channel": "s2:92",
+"gives": "fine regular marks; parents --band top share 0.12, not tested with acts",
+"sign": "+",
+"sure": 0.3
+},
+{
+"channel": "s2:109",
+"gives": "round printed disc and letters; acts: s3:17 rose 0.08 instead of falling, so it is not a builder",
+"sign": "-",
+"sure": 0.4
+}
+],
+"gate": "Dog-face negative pole (z -4.1, strongest of my set), but the positive is printed marks, not cars. A gate against dogs for text-on-panel things; not the car gate",
+"readers": "top readers s4:154 (+13.96), s4:129, 174, 255 (255 is a furbody channel), s4:33",
+"offshoots": "none read",
+"family": "printed marks vs furry face",
+"prediction": "top 16 are lettering on flat surfaces and neg 16 are faces",
+"prediction_held": true,
+"sure": 0.55,
+"unread": "parents not shown by acts; why s4:255 furbody reads it",
+"_a": "gate"
+},
+{
+"channel": "s3:101",
+"distinction": "a smooth blank surface or soft blur against a furry face with eyes",
+"positive": "plain wall, painted car side, bib, perfume bottle, blurred feathers: low-texture areas; also two dog close-ups with grey fur",
+"negative": "frontal dog faces and a gibbon face; keeps out furry eyed faces",
+"parents": [
+{
+"channel": "s2:115",
+"gives": "strongest feeder +1.94, sheet not read, no acts",
+"sign": "+",
+"sure": 0.25
+},
+{
+"channel": "s2:109",
+"gives": "acts: s3:101 falls 0.35 of 2.89 against controls -0.02 to 0.08",
+"sign": "+",
+"sure": 0.55
+}
+],
+"gate": "Yes on the negative side: dog faces are the whole neg sheet (z -3.5). Positive is smooth surfaces including car bodies, not a car detector",
+"readers": "feeds s4:437, 404, 47, 93; and lowers s4:403 (roadcar) and 140",
+"offshoots": "top sheet also holds dog close-ups, so it is not clean on top",
+"family": "smooth surface vs furry face",
+"prediction": "removing s2:109 drops s3:101 more than the controls",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "s2:115 sheet; why dog close-ups with grey fur sit on the positive side",
+"_a": "gate"
+},
+{
+"channel": "s3:154",
+"distinction": "a single tall or sky-backed structure against a furry eyed face",
+"positive": "towers, lighthouses, chimneys, airship, umbrella on open sky; also two dog photos",
+"negative": "dog faces plus one fox face and one human face; keeps out faces",
+"parents": [],
+"gate": "Negative pole is dog faces (z -2.8); positive is isolated tall structures. Not car",
+"readers": "not read",
+"offshoots": "dogs on positive side (redbone, Boston bull) with plain background",
+"family": "lone structure vs furry face",
+"prediction": "neg pole is dog faces like s3:17",
+"prediction_held": true,
+"sure": 0.35,
+"unread": "parents and readers not run; positive pole has two dog photos",
+"_a": "gate"
+},
+{
+"channel": "s3:226",
+"distinction": "a repeated small pattern (scales, dots, keys, bands) against a furry face",
+"positive": "snake skin, accordion keys, ladybug, spider, keypad: regular repeated marks",
+"negative": "dog and monkey faces (z -5.1, deepest of the set); keeps out faces",
+"parents": [],
+"gate": "Negative pole is faces of fur-covered animals. Positive is pattern, not cars",
+"readers": "not read",
+"offshoots": "none",
+"family": "repeated pattern vs furry face",
+"prediction": "neg pole is dog and monkey faces",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "parents and readers",
+"_a": "gate"
+},
+{
+"channel": "s3:190",
+"distinction": "a hand-made object on a plain ground against a furry face",
+"positive": "watch, laptop, kayak, rifle, hand blower: small man-made objects, weak firing (peak 2.1)",
+"negative": "dog faces (z -1.8) and a corn cob, a perforated board",
+"parents": [],
+"gate": "Weak; same dog-face negative pole as 17, 101, 154, 226",
+"readers": "not read",
+"offshoots": "corn and wall on neg",
+"family": "object on plain ground vs furry face",
+"prediction": "neg is dog faces",
+"prediction_held": true,
+"sure": 0.3,
+"unread": "parents, readers",
+"_a": "gate"
+},
+{
+"channel": "s3:128",
+"distinction": "a four-legged body seen from the side on grass against a frontal face",
+"positive": "whole dogs, bear, boar, rat on grass or ground: legs and body in profile",
+"negative": "frontal faces of dogs and also of children and a woman (z -5.9); keeps out frontal faces",
+"parents": [],
+"gate": "This is the pose split, inside dogs: body-in-profile through, frontal face turned away. No car on either side in my sheets, so it is the dog branch of a pose grouping, not a car gate",
+"readers": "not read",
+"offshoots": "birds on shore on top; people on neg",
+"family": "body in profile vs frontal face",
+"prediction": "cars not on the top 16",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "parents, readers, whether the car side view is a sibling",
+"_a": "gate"
+},
+{
+"channel": "s3:79",
+"distinction": "soft organic bloom or fur patch (radial or furry mass) against the man-made channels' side",
+"positive": "dog nose, gibbon, thistle, daisy, sunflower pictures, pelican bill: furry or petal mass, not cars",
+"negative": "not looked at",
+"parents": [],
+"gate": "Opposite sign to s3:164 and s3:17: dog faces here are positive. Shows that the dog side is a channel too, and the gate channels' neg pole is the same photos",
+"readers": "not read",
+"offshoots": "sunscreen box and monastery on top",
+"family": "furry or petal mass",
+"prediction": "dog faces on the positive top sheet",
+"prediction_held": true,
+"sure": 0.3,
+"unread": "neg band, parents, readers",
+"_a": "gate"
+},
+{
+"channel": "s2:127",
+"distinction": "a smooth round rim or disc on a flat glossy surface",
+"positive": "wheels of vans, rims of cups, bottle necks, joystick: round smooth edge on plain surface",
+"negative": "not looked at",
+"parents": [],
+"gate": null,
+"readers": "feeds s3:164 (acts 0.58 fall); matches vehicles with wheels",
+"offshoots": "cups, bottles, chain: it is a shape, not a vehicle",
+"family": "smooth round rim",
+"prediction": "removing it drops s3:164",
+"prediction_held": true,
+"sure": 0.7,
+"unread": "stem parents (stage 1 not run)",
+"_a": "gate"
+},
+{
+"channel": "s2:109",
+"distinction": "a small round or lettered mark on a smooth ground against fine irregular fur or mesh",
+"positive": "hub caps, letters, dials, eyes of birds: small bold mark on smooth ground",
+"negative": "fur, chainlink fence, honeycomb, hair, moss: dense fine irregular texture; keeps out fine texture",
+"parents": [],
+"gate": "Texture split, not car vs dog: man-made hubs and dials on top, fur and fence on bottom",
+"readers": "feeds s3:101 (acts 0.35 fall); no fall for s3:17, s3:164",
+"offshoots": "bird eyes on top",
+"family": "small mark on smooth ground vs fine texture",
+"prediction": "it also builds s3:17 and s3:164",
+"prediction_held": false,
+"sure": 0.5,
+"unread": "stem parents",
+"_a": "gate"
+},
+{
+"channel": "s2:31",
+"distinction": "a bold painted body part with a glossy curve (wheel arch, grille, lens) against a plain flat thing",
+"positive": "vehicle fronts, wheels, grilles, tractors, pinwheel; paint on curved metal",
+"negative": "street sign, space bar, telephone, one dog nose: plain flat or thin-lined man-made things",
+"parents": [],
+"gate": null,
+"readers": "not read",
+"offshoots": "toy bib and bird feathers on top",
+"family": "painted curved body part",
+"prediction": "car on top, no dogs on neg",
+"prediction_held": false,
+"sure": 0.3,
+"unread": "dog nose and an Italian greyhound on neg",
+"_a": "gate"
+},
+{
+"channel": "s2:117",
+"distinction": "tight parallel ridges that curve (coil, bellows, fan) against straight dense lines",
+"positive": "typewriter, spring, hose, fan palm, fish fin, accordion: curved ribs",
+"negative": "compass dial, mesh, striped sock, blinds: straight dense lines or grids",
+"parents": [],
+"gate": null,
+"readers": "not read",
+"offshoots": "none",
+"family": "curved ribs vs straight lines",
+"prediction": "dogs not involved",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "parents and readers",
+"_a": "gate"
+},
+{
+"channel": "s4:32",
+"distinction": "one smooth, glossy, streamlined surface that sweeps in a single curve, against dense warm brown or red surfaces that are full of small parts",
+"positive": "smooth glossy bodies with one long curve: car bonnets, boat hulls, jet fuselage, shark and gator skin, plain white duvet. Blue-grey and white dominate",
+"negative": "warm brown/red/tan close-ups with rounded edges and detail (barn, red pan, cello, baseball, mortar, trilobite, isopod). Keeps out textured, small-part things",
+"parents": [
+{
+"channel": "s3:103",
+"gives": "vivid saturated colour blobs; acts: s4:32 falls .42 of 15.9, controls -.03 to -.21 (checked sheet + acts)",
+"sign": "+",
+"sure": 0.45
+},
+{
+"channel": "s3:99",
+"gives": "tapered narrow forms against a pale edge; acts falls .36, controls ~0 (checked sheet + acts)",
+"sign": "+",
+"sure": 0.35
+},
+{
+"channel": "s3:59",
+"gives": "empty smooth sky with a thing at the edge; acts falls .31, controls ~0 (sheet + acts)",
+"sign": "+",
+"sure": 0.4
+}
+],
+"gate": "Lets smooth glossy vehicles through (racer, sports car, speedboat, convertible are its top output votes) and turns away dense warm-textured things. It is the same smooth-vs-detailed split in cars and in animals, not a car gate",
+"readers": "Output votes racer, sports car, space shuttle, speedboat, bullet train, alligator: matches a smooth-streamlined verb, not a car noun",
+"offshoots": "quilt, projector, gator and peacock reach it via the smooth/glossy route, not a vehicle route",
+"family": "smooth-sweep vs detailed-small-parts",
+"prediction": "held-out classes submarine, bullet train, killer whale, limousine fire higher than barn, plunger, cello, isopod",
+"prediction_held": true,
+"sure": 0.55,
+"unread": "Each parent removal drops only 2-3% of the peak, so many parents share the job. Prediction classes were partly seen in logits (circular). Sibling channels in s4 not read.",
+"_a": "roadcar"
+},
+{
+"channel": "s4:400",
+"distinction": "a dense clump of small round bumps, in green, against warm thin-limbed forms on plain ground",
+"positive": "broccoli and other green clumped fractal masses; also tree-covered hills and a dome among trees",
+"negative": "warm brown/tan thin-limbed bodies on plain ground, rows of roasted birds, red-brown fur (impala, bighorn, fox, rotisserie)",
+"parents": [
+{
+"channel": "s3:106",
+"gives": "small round saturated blobs on contrasting ground; acts: s4:400 falls 1.23 of 18.1, controls -.15 to .06 (sheet + acts)",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s3:140",
+"gives": "clusters of round oval blobs (olives, peas, lemons, coral); acts falls 1.24, controls .0-.07 (sheet + acts)",
+"sign": "+",
+"sure": 0.6
+}
+],
+"gate": "Turns away warm thin-legged animals and roast birds; keeps in cool green clumps",
+"readers": "Top output vote broccoli (.50) then zucchini; convertible .23 and Model T .24 also vote for it, which is not green clumps",
+"offshoots": "monastery in trees, valley, planetarium: green mass with a smooth dome. Car votes (convertible, Model T, golfcart) come from green-vegetation backdrops of open-top cars, a guess I did not test",
+"family": "round-blob clump",
+"prediction": "held-out cauliflower, artichoke, head cabbage fire higher than rotisserie, impala, ski",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "Artichoke (.46) is below impala (.59), so the green part may matter more than the clump. The car votes are not explained.",
+"_a": "roadcar"
+},
+{
+"channel": "s4:461",
+"distinction": "a long tapered body seen side-on whose surface has parallel streaks along its length, against short round bodies with a circular central part",
+"positive": "feathered wings and flanks with parallel streaks (brambling, robin), boat hulls, leafhoppers, striped cat fur, a paddle",
+"negative": "round or squat bodies with a ring or opening on the front: mask, soap dispenser, coffee pot, trombone bell, fluffy white dogs, barometer",
+"parents": [
+{
+"channel": "s3:78",
+"gives": "top feeder by number; acts: s4:461 falls 1.21 of 20.9, controls ~0 (acts only, its sheet not read)",
+"sign": "+",
+"sure": 0.35
+}
+],
+"gate": "Lets slender hulls and wings through. Output votes gondola, canoe, speedboat, cello, violin, grand piano, convertible: long smooth curved bodies",
+"readers": "Output votes match long curved bodies, including convertible .28. This lines up with the distinction",
+"offshoots": "pool table and grand piano votes come from long parallel edges, not from a body",
+"family": "long streaked taper",
+"prediction": "held-out gondola, canoe, violin, speedboat fire higher than soap dispenser, mask, trombone",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "Trombone (.77) is high, so my negative pole is wrong in part. Parent s3:78 sheet not read. Block 0 not read.",
+"_a": "roadcar"
+},
+{
+"channel": "s4:269",
+"distinction": "a short blunt front with paired dots or lights on top, against a long tube or long snout that extends away",
+"positive": "blunt fronts with two eyes or lights: hamster, mink, beaver, bird face, car and school-bus fronts, mouse, digital watch face",
+"negative": "long cylinders and long snouts: pen, projectile, cannon, Weimaraner, wolf, fish head, whistle",
+"parents": [
+{
+"channel": "s3:116",
+"gives": "top feeder by number; acts: s4:269 falls 1.16 of 16.5, controls -.01 to .12 (acts only, sheet not read)",
+"sign": "+",
+"sure": 0.4
+}
+],
+"gate": "Keeps car fronts together with animal faces by shape (the essay's shared pose). Turns away long things. Positive output votes ambulance, RV, convertible, minibus, minivan, hamster, beaver, beach wagon",
+"readers": "Votes split vehicles with a flat blunt front from long-nosed animals; matches the distinction",
+"offshoots": "stove, buckle, digital clock votes: a panel with two round dots",
+"family": "blunt face with two dots",
+"prediction": "held-out school bus, hamster, beaver, mink fire higher than cannon, fountain pen, Weimaraner, projectile",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "Parent sheets not read. Which car types (wagon or convertible) it prefers is not shown. The essay's wagon-vs-convertible split probably sits in 400, 461 and 269 together, I did not isolate it.",
+"_a": "roadcar"
+},
+{
+"channel": "s4:344",
+"distinction": "a slender upright line standing alone in open space, against a short wide tube or bell seen close up",
+"positive": "thin vertical things on plain ground: impala legs, wheat ear, parking meters, flagpole-like bird box, flamingo, stork, camel legs, parachute line",
+"negative": "short wide hollow forms close up: trombone bell, microphone, oboe, planetarium, shaggy dogs, radiator",
+"parents": [
+{
+"channel": "s3:114",
+"gives": "top feeder by number; acts: s4:344 falls 1.38 of 14.6, controls -.02 to .18 (acts only, sheet not read)",
+"sign": "+",
+"sure": 0.4
+},
+{
+"channel": "s3:2",
+"gives": "thin blades over a textured ground; acts falls only .11 (weak), controls ~0 (sheet + acts)",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": null,
+"readers": "Not read (readers not run). Only appears in the carry list for the beach wagon vs convertible photo 17895",
+"offshoots": "wardrobe with hanging clothes, velvet skirt: vertical hanging strands",
+"family": "lone slender upright",
+"prediction": "held-out flamingo, parking meter, impala, white stork fire higher than trombone, oboe, Bedlington terrier",
+"prediction_held": true,
+"sure": 0.45,
+"unread": "Car link: it was only a for-top channel on one wagon photo. s3:2 is weak, so the trace parent was misleading.",
+"_a": "roadcar"
+},
+{
+"channel": "s4:486",
+"distinction": "a thin pointed shape swept out against open sky or empty ground, against closed loops, grids and dark enclosed forms",
+"positive": "wing-spread planes and storks against sky, pen nib, snake head, hammerhead, bustard",
+"negative": "enclosed loops, grids and mesh: padlock shackle, waffle iron, gas mask, syringe, spatula, beetle, snowmobile",
+"parents": [
+{
+"channel": "s3:64",
+"gives": "pointed-ear, narrow-muzzle V faces; acts: s4:486 falls .37 of 16.4, controls -.02 to .12 (sheet + acts)",
+"sign": "+",
+"sure": 0.4
+},
+{
+"channel": "s3:59",
+"gives": "empty smooth sky with an edge object; acts falls .39, controls .04-.15 (sheet + acts, modest)",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": "Pointed vs closed. It is the antagonist of s4:367 (soft closed cover), whose negative pole holds fins and wings",
+"readers": "Not run; appears as a carry channel for beach wagon photo 17895",
+"offshoots": "paper towel roll and soap dispenser: a pale tall form against a plain wall",
+"family": "pointed sweep vs closed loop",
+"prediction": "held-out warplane, black stork, kite, albatross fire higher than padlock, waffle iron, gasmask",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "s3:64 is dog faces, so the V link to wings is by shape only; the acts effect is 2% of the peak. Not checked by bundles.",
+"_a": "roadcar"
+},
+{
+"channel": "s4:329",
+"distinction": "rigid straight lines meeting at an angle to make a triangular frame, against soft furry shapes with small pointed ears",
+"positive": "taut lines and A-frames: sailboat rigging, suspension bridge cables, tent edge, tripod, harp strings, mosquito net, pelican bill",
+"negative": "soft fur with small pointed ears: coyote, tabby, fox squirrel, Siamese cat, rabbit, brown bear, miniature pinscher",
+"parents": [
+{
+"channel": "s3:207",
+"gives": "a narrow taper on a wider body (bottle necks, spires, caps); acts: s4:329 falls 3.29 of 19.8 (17%), controls -.05 to .24 (sheet + acts)",
+"sign": "+",
+"sure": 0.7
+}
+],
+"gate": "Yes, the cleanest I saw: both poles contain a pointed triangle. The positive side is hard straight lines, the negative side is soft fur ears. The pointed-ear shape is let in for rigid forms and turned away for furry ones",
+"readers": "Not run. It is a for-top channel on photo 17895 (convertible labelled, wagon predicted)",
+"offshoots": "pelican, triceratops, snowplow, gas pump: a long straight edge at an angle",
+"family": "straight-line triangle vs soft pointed ears",
+"prediction": "held-out suspension bridge, tripod, harp, catamaran fire higher than coyote, tabby, Siamese cat, wood rabbit",
+"prediction_held": true,
+"sure": 0.65,
+"unread": "Whether the V shape is the same shape the essay saw in 4e:55 is not shown. Readers not run.",
+"_a": "roadcar"
+},
+{
+"channel": "s4:277",
+"distinction": "one smooth convex arc or dome, against small round dials with radial hands",
+"positive": "domes and arcs: fireboat water arcs, radio dish, planetarium, armadillo shell, iron, fountain, mountain tent",
+"negative": "round dials with spokes and hands: analog and wall clocks, cart wheel, brass plaque, dippers and ouzels with white breast",
+"parents": [
+{
+"channel": "s3:71",
+"gives": "top feeder by number; acts: s4:277 falls .31 of 19.0, controls -.01 to .14 (acts only, sheet not read). Weak",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": null,
+"readers": "Not run. Output negatives include water tower, fire engine, wheel-like items",
+"offshoots": "iron and armadillo come by a bump-ridge texture, not by a dome",
+"family": "smooth dome vs spoked dial",
+"prediction": "held-out fireboat, armadillo, planetarium, radio telescope fire higher than analog clock, wall clock, water ouzel",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "Parent is weak (acts barely above controls). The channel may be fed through many small parents. Not linked to cars.",
+"_a": "roadcar"
+},
+{
+"channel": "s4:403",
+"distinction": "a narrow metal tube with small round loops, keys or guards on it held close up, against large smooth round enclosures and legged forms",
+"positive": "revolver and rifle barrel with trigger guard, oboe and flute keys, harmonica, ballpoint, trombone, poodle and guenon muzzle",
+"negative": "large round smooth enclosures and spidery forms: clock, steel drum, ladle, vault, potter wheel, tarantula, bird heads",
+"parents": [
+{
+"channel": "s3:99",
+"gives": "narrow tapered forms at a pale edge; acts: s4:403 falls .59 of 17.4, one control .22 (sheet + acts, modest)",
+"sign": "+",
+"sure": 0.3
+},
+{
+"channel": "s3:103",
+"gives": "vivid colour blobs; feed +.61 by number only",
+"sign": "+",
+"sure": 0.15
+}
+],
+"gate": null,
+"readers": "Not run. Output negatives are gasmask, yurt, church, clock: round enclosures, which matches the negative pole",
+"offshoots": "poodle and guenon face with a pale muzzle spot",
+"family": "rod with small rings",
+"prediction": "held-out revolver, oboe, assault rifle, harmonica fire higher than analog clock, steel drum, ladle, vault",
+"prediction_held": true,
+"sure": 0.45,
+"unread": "Parent evidence is thin. Car link: appears as a for-top channel on a sports-car photo only.",
+"_a": "roadcar"
+},
+{
+"channel": "s4:367",
+"distinction": "a soft dark cover folded around a form, against a pointed or flat part sticking out of a body into open water or sky",
+"positive": "dark fabric wraps: gas mask hood, abaya, mortarboard gown, backpack, knee pad, scooter cover, bulletproof vest",
+"negative": "projecting appendages in open space: orca fin, dragonfly wings, airliner wing, beetle horn, seal flipper, spider legs",
+"parents": [
+{
+"channel": "s3:185",
+"gives": "top feeder by number; acts: s4:367 falls 1.09 of 15.3, controls -.01 to .13 (acts only, sheet not read)",
+"sign": "+",
+"sure": 0.4
+}
+],
+"gate": "It is the opposite pole of s4:486: 486 likes pointed things sticking out, 367 turns them away. For the sports car, 367 votes for the sports car and against beach wagon (carry on photos 17886 and 17905)",
+"readers": "Output negatives balance beam, fountain, book jacket, Rottweiler: not read further",
+"offshoots": "pickup bin and motor scooter: a dark smooth rounded cover",
+"family": "soft cover vs sticking-out part",
+"prediction": "held-out abaya, gasmask, mortarboard, backpack fire higher than killer whale, dragonfly, rhinoceros beetle, airliner",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "Parent sheet not read. The wagon/sports-car link rests on the carry numbers only.",
+"_a": "roadcar"
+},
+{
+"channel": "s3:103",
+"distinction": "a vivid saturated colour patch that differs strongly from the colours around it",
+"positive": "purple, magenta, yellow and blue patches: toy, bottle, pretzel, anemone, parrot, mask",
+"negative": "not read (neg sheet not looked at)",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:32: acts removes .42 of 15.9 vs controls -.03 to -.21. Also feeds s4:403 (+.61 by number) and s4:449 most (+6.06)",
+"offshoots": "pug on a yellow bench, banjo player: any strong colour blob",
+"family": "vivid colour patch",
+"prediction": "s4:32 (smooth glossy) falls more than controls when s3:103 is removed",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "No stage-2 parent verified: only numbers (s2:104 +.21, s2:28 +.15). The link from colour patch to smooth glossy body is a guess: shiny surfaces carry saturated reflections.",
+"_a": "roadcar"
+},
+{
+"channel": "s3:59",
+"distinction": "a smooth empty field with a thin edge object entering at its border",
+"positive": "plain blue sky or plain background, with a pole, wire, shaker or hull entering at an edge",
+"negative": "not read",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:32 (acts .31 of 15.9) and s4:486 (.39 of 16.4, controls to .15). Both like objects against open sky",
+"offshoots": "harp, maraca, corkscrew: a thin dark line on a plain pale ground",
+"family": "empty ground with an edge item",
+"prediction": "removing s3:59 hurts s4:32 and s4:486 more than controls",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "Parent s2:115 (+.67, 26% of the feed) not read. The sky photos show an almost blank patch, so the firing may be at the border pixel; I did not check position.",
+"_a": "roadcar"
+},
+{
+"channel": "s3:99",
+"distinction": "a narrow shape that tapers into a pale or open region at the edge of the view",
+"positive": "dog snouts at the frame edge, flute, bridge arches, tower, camera barrel, scooter handle, croquet hoop",
+"negative": "not read",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:32 (acts .36 of 15.9, controls ~0) and s4:403 (.59 of 17.4; one control .22)",
+"offshoots": "hand-held computer, pencil box: a dark band against a pale one",
+"family": "taper at the edge",
+"prediction": "removing s3:99 hurts s4:32 and s4:403 more than controls",
+"prediction_held": true,
+"sure": 0.3,
+"unread": "Mixed sheet: I describe it as one shape but I may be merging a dog-snout part and an arch part. No parent checked.",
+"_a": "roadcar"
+},
+{
+"channel": "s3:106",
+"distinction": "a small round saturated blob sitting on a contrasting ground",
+"positive": "berries, tomatoes, red dots on a joystick, balls, ladybug, strawberry on cream",
+"negative": "not read",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:400: acts removes 1.23 of 18.1 vs controls -.15 to .06. Also top feeder of s4:400 by number (+2.31)",
+"offshoots": "radio dial, cocktail shaker: a small round shiny dot",
+"family": "small round blob",
+"prediction": "removing s3:106 hurts s4:400 (green clump) more than controls",
+"prediction_held": true,
+"sure": 0.55,
+"unread": "Parent s2:125 (+.24) not read. Colour is mostly red here, while s4:400 is green: the shared piece is roundness, not colour.",
+"_a": "roadcar"
+},
+{
+"channel": "s3:140",
+"distinction": "a cluster of small round or oval bumps packed together",
+"positive": "olives, peas, lemons in a bowl, daisy centre, brain coral, knotted rope, pom-poms",
+"negative": "not read",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:400: acts removes 1.24 of 18.1 vs controls .0-.07",
+"offshoots": "duck, dog and snake: a bumpy-feather or scaled pattern",
+"family": "packed round bumps",
+"prediction": "removing s3:140 hurts s4:400 more than controls",
+"prediction_held": true,
+"sure": 0.55,
+"unread": "Parents not read. s3:106 (isolated blobs) and s3:140 (packed blobs) both feed 400: the clump verb builds from isolated and packed pieces.",
+"_a": "roadcar"
+},
+{
+"channel": "s3:64",
+"distinction": "a pointed pair of ears over a narrow muzzle, facing the viewer",
+"positive": "dog, fox, wolf, collie faces; a Polaroid camera front",
+"negative": "not read",
+"parents": [
+{
+"channel": "s2:39",
+"gives": "thin straight parallel stripes; acts: s3:64 falls .18 of 2.31, controls -.002 to .065 (sheet + acts, modest)",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": null,
+"readers": "Feeds s4:486 (acts .37 of 16.4, controls to .12) and s4:277 (+1.0 by number). This is a V shape (ears and muzzle) so it is the V-neuron story. Top s4:486 sheet is wings and planes, not faces, so the link is shape only",
+"offshoots": "Polaroid camera front: a dark circle between pale corners",
+"family": "pointed V face",
+"prediction": "removing s3:64 hurts s4:486 more than controls, though the sheet is dogs",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "I did not test whether s4:486's dog photos (if any) are fed by s3:64 and its plane photos by another route (by-photo not run).",
+"_a": "roadcar"
+},
+{
+"channel": "s3:207",
+"distinction": "a narrow tip or neck that tapers up from a wider body, standing upright",
+"positive": "bottle necks, spires, shaker caps, baby bottle teats, stupa, bell tower tops",
+"negative": "not read",
+"parents": [
+{
+"channel": "s2:79",
+"gives": "thin dark lines crossing on pale ground; acts: s3:207 falls .24 of 3.07, controls .0-.10 (sheet + acts)",
+"sign": "+",
+"sure": 0.4
+}
+],
+"gate": null,
+"readers": "s4:329: acts removes 3.29 of 19.8 (17%), controls -.05 to .24. Best parent link I found",
+"offshoots": "sunscreen bottles, assault rifle: the same neck-on-body outline",
+"family": "taper on a body",
+"prediction": "removing s3:207 hurts s4:329 (rigid triangle) more than controls",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "s2:95 (+.31) and s2:81 not read. Why taper-on-body makes a triangle frame for rigging is plausible (both are narrowing lines) but not proven.",
+"_a": "roadcar"
+},
+{
+"channel": "s3:2",
+"distinction": "long thin blades or stalks laid across a darker textured ground",
+"positive": "grass and leaf blades, snake over leaves, fur whiskers, mushroom stem, flute",
+"negative": "not read",
+"parents": [],
+"gate": null,
+"readers": "Weak: acts to s4:344 removes only .11 of 14.6 (controls ~0), to s4:486 pending. It showed up in photo trace 17895 as a top feeder, which was misleading",
+"offshoots": "people in suits (academic gown, guillotine): upright dark vertical strokes",
+"family": "thin blades on ground",
+"prediction": "removing s3:2 hurts s4:344 (slender upright) more than controls",
+"prediction_held": false,
+"sure": 0.3,
+"unread": "Prediction failed: the effect is .11, close to controls. s4:344 is mainly fed by s3:114. s3:2 may be read mainly by other channels.",
+"_a": "roadcar"
+},
+{
+"channel": "s2:79",
+"distinction": "thin dark straight lines that cross at an angle over a pale, bright ground",
+"positive": "bare twigs on sky, wires, music stand, chrome rim, panel edges, car roof edge, pan rim",
+"negative": "not read (stage 2 here: crops are tiny)",
+"parents": [],
+"gate": null,
+"readers": "Feeds s3:207 (acts .24 of 3.07, controls .0-.10). Top feeders by number are s1:51 and s1:56, not read",
+"offshoots": "convertible and Model T car edges: any pair of crossing straight lines",
+"family": "crossing thin lines",
+"prediction": "removing s2:79 hurts s3:207 more than controls",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "Stem/stage-1 parents not read. The crop is small so 'object' words are unreliable here.",
+"_a": "roadcar"
+},
+{
+"channel": "s2:39",
+"distinction": "thin straight parallel stripes of strong contrast",
+"positive": "zebra, picket fence, typewriter keys, clock hand, stripes on a sleeve, safety pin",
+"negative": "not read",
+"parents": [],
+"gate": null,
+"readers": "Feeds s3:64 (acts .18 of 2.31, controls to .065), top number feeder of s3:64 (+.33)",
+"offshoots": "beagle ear and white muzzle stripe, car window edge",
+"family": "parallel stripes",
+"prediction": "removing s2:39 hurts s3:64 (pointed faces) more than controls",
+"prediction_held": true,
+"sure": 0.3,
+"unread": "Stage-1 parents not read (s1:51 leads by number). Link from stripes to pointed faces is by the face stripe markings (dog blaze) only: guess.",
+"_a": "roadcar"
+},
+{
+"channel": "s4:226",
+"distinction": "Smooth far-away slope or ridge edge filling the frame, against small glossy near objects.",
+"positive": "Distant hills, volcano cones, valley walls and snow slopes: one big smooth diagonal ridge.",
+"negative": "Small glossy hand-sized things with round or whistle shapes (toys, balls, whistles, dials) and furry faces.",
+"parents": [
+{
+"channel": "s3:33",
+"gives": "smooth saturated colour patch; sheet checked, acts: 226 falls 2.02, controls 0.09/0.02/0.12",
+"sign": "+",
+"sure": 0.6
+}
+],
+"gate": null,
+"readers": "Reads alp, volcano, valley, bullet train 0.52, mountain bike, balloon, parachute. Matches: bullet train and mountain bike are photographed against hills.",
+"offshoots": "Bullet train (466) 0.94 percentile and mountain bike 0.90 come through the backdrop, not the vehicle.",
+"family": "hill-slope backdrop",
+"prediction": "bullet train 466 above .8 but other trains below .7",
+"prediction_held": false,
+"sure": 0.6,
+"unread": "Why s3:33 (a colour patch) builds a ridge. Many weak parents (top 1 share .14).",
+"prediction_note": "false: 547 is .87, 820 .75. Backdrop use is wider than one train.",
+"_a": "wheels"
+},
+{
+"channel": "s4:456",
+"distinction": "Long row of parallel straight bars, against thin spokes or wings on open background.",
+"positive": "Train sides and rails, piano keys, steel-drum rims, spoon rows: repeated parallel horizontal bands.",
+"negative": "Bicycle wheels and riders, warplanes in formation, soaring birds, crab legs, ladybug: thin diagonal spokes, wings, legs.",
+"parents": [
+{
+"channel": "s3:217",
+"gives": "small hard-edged hardware (trains, dial, padlock); sheet checked; acts: 456 falls 0.36, controls .10/.15/.05",
+"sign": "+",
+"sure": 0.5
+},
+{
+"channel": "s3:191",
+"gives": "unclear; acts: falls 0.37, controls .09/.02/.00",
+"sign": "+",
+"sure": 0.4
+},
+{
+"channel": "s3:7",
+"gives": "unclear warm glossy; acts: falls 0.41, controls ~.11",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": "Yes, weak: trains pass (percentile .91-.97); bicycles .35-.37, warplane in the negative sheet, aircraft .55, boats .33-.49.",
+"readers": "Reads electric locomotive, bullet train, freight car, steam locomotive, hog, steel drum, passenger car. Matches the sheet.",
+"offshoots": "Steel drums and pianos arrive by the same rows pattern, not by a train route.",
+"family": "parallel bars vs spokes",
+"prediction": "trains above .85, bikes and aircraft below .6",
+"prediction_held": true,
+"sure": 0.7,
+"unread": "The three s3 parents each carry only about 2 percent of the feed. Their sheets did not reveal why they would build rows.",
+"prediction_note": "true (from score: bikes .35-.37, aircraft .55, .44)",
+"_a": "wheels"
+},
+{
+"channel": "s4:175",
+"distinction": "Large smooth painted or glazed surface with drawn decoration, against glass screens and rigid glossy things.",
+"positive": "Glazed jugs, teapots, mugs, graffiti-covered boxcars: a wide curved or flat painted face.",
+"negative": "Screens, bottles, helmets, jackfruit, brushes.",
+"parents": [],
+"gate": null,
+"readers": "Reads freight car 0.47, shower curtain, odometer, crib, jersey. Matches painted wide surfaces.",
+"offshoots": "Freight car (565, .94) arrives by graffiti, not by train shape.",
+"family": "painted-face",
+"prediction": "freight car 565 above .85, other transport below .6",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "No parents: top 20 s3 feeders hold 44 percent and none stood out. No bundles run, so no acts test.",
+"prediction_note": "true (.94; others .22-.57)",
+"_a": "wheels"
+},
+{
+"channel": "s4:168",
+"distinction": "A jet or plume spreading out from a point, against round smooth closed shapes.",
+"positive": "Geyser plumes, fountains, wave splash, steam, fire-boat jets, killer whale spray: a V or fan of white.",
+"negative": "Round smooth closed things: car wheel hub, pill bottles, bubble, nipple, carousel, ostrich head.",
+"parents": [
+{
+"channel": "s3:158",
+"gives": "object edge against bare background; acts: 168 falls 1.55, controls .16/-.28/.03",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s3:98",
+"gives": "warm silhouette shapes against glow; acts: falls 2.64, controls .22/-.22/.05",
+"sign": "+",
+"sure": 0.6
+},
+{
+"channel": "s3:33",
+"gives": "colour patch; acts: falls 1.26 but one control fell 1.11",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": "Weak: lets steam locomotive (.96), fireboat (.91), speedboat (.93) through; keeps closed round forms out.",
+"readers": "Reads geyser 0.54, fountain, steam locomotive 0.44, fireboat, speedboat. Matches.",
+"offshoots": "Steam locomotive and speedboats arrive through smoke and wake, not through vehicle shape.",
+"family": "V vs O (plume)",
+"prediction": "fireboat, speedboat and steam locomotive above .8, aircraft below .6",
+"prediction_held": false,
+"sure": 0.7,
+"unread": "s3:98 sheet looks like warm silhouettes and steps. Why this builds a plume is unclear.",
+"prediction_note": "false: 895 warplane is .68 (404 is .52)",
+"_a": "wheels"
+},
+{
+"channel": "s4:474",
+"distinction": "Dark solid body mass, against pale tan or white bodies.",
+"positive": "Black dogs, siamang, joystick, black abaya, hippo, elephant silhouette, fire smoke: dark mass.",
+"negative": "Tan bull mastiffs, whippets, polar bears, meerkat: light warm bodies.",
+"parents": [
+{
+"channel": "s3:136",
+"gives": "unchecked: top feeder +2.41, not read",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": "Colour gate only: steam locomotive (.90) in, tan things out.",
+"readers": "Reads Labrador, steam locomotive 0.30, submarine, Doberman, abaya. Matches dark mass.",
+"offshoots": "Steam locomotive arrives by its black colour.",
+"family": "dark mass vs light body",
+"prediction": "steam locomotive 820 above .8, other transport below .6",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "s3:33 is not a parent (acts -0.003). s3:136 not read.",
+"prediction_note": "true (.90; others .32-.60)",
+"_a": "wheels"
+},
+{
+"channel": "s4:56",
+"distinction": "Water or sky surface around the subject, against fine banded land animals.",
+"positive": "Underwater views, swimmers, sharks, whales, submarine, seashore: subject in water.",
+"negative": "Zebra, hourglass, fox, poodle, tree frog, viper: fine banded or furred land things.",
+"parents": [
+{
+"channel": "s3:71",
+"gives": "clear-sky edge; acts: 56 falls 0.28, controls -.02/.01/.06",
+"sign": "+",
+"sure": 0.5
+},
+{
+"channel": "s3:33",
+"gives": "colour patch; acts: falls 0.39, controls .04/.22/.06",
+"sign": "+",
+"sure": 0.3
+}
+],
+"gate": "THE SPLIT: boats .85-.93 and aircraft .84-.89 high; trains .42-.59 and bikes .56-.65 low.",
+"readers": "Reads scuba diver, shark, catamaran, dugong, paddlewheel, container ship, submarine. Matches.",
+"offshoots": "Aircraft arrive by sky backdrop.",
+"family": "open water-or-sky scene",
+"prediction": "canoe 472 and yawl 914 above .7, trains below .5",
+"prediction_held": false,
+"sure": 0.6,
+"unread": "Neg pole is land animals, not ground vehicles. Ground vehicles sit mid. Acts effect on 56 is small (about 2 percent of z).",
+"prediction_note": "false: trains are .42-.59 (565 .42 only). The channel split is boats+aircraft against ground, which was not predicted.",
+"_a": "wheels"
+},
+{
+"channel": "s4:131",
+"distinction": "Thin open frame holding a flat panel (seat, sail, basket), against filled round blobs.",
+"positive": "Shopping carts, rickshaws, barber chairs, thrones, sailboats and sails, steel drums.",
+"negative": "Spiders, balls, pill bottle, cheeseburger, plunger: filled round or radiating shapes.",
+"parents": [],
+"gate": "Mild: bicycle (.92), yawl (.94), airliner (.85) in; filled round shapes out.",
+"readers": "Reads catamaran, yawl, Model T, schooner, bicycle-built-for-two, barber chair, jinrikisha. Matches.",
+"offshoots": "Sails and rickshaw arrive by frame shape.",
+"family": "frame with panel",
+"prediction": "bicycle-built-for-two 444 above .8",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "No parent checked: top s3 feeders (143, 109, 190, 158) are all weak. No acts run.",
+"prediction_note": "true (.92)",
+"_a": "wheels"
+},
+{
+"channel": "s4:182",
+"distinction": "Slim body alone in open empty space, against close frontal faces and screens.",
+"positive": "Kite, storks, eagle, ostrich, crane, radio telescope, balloon: a thin object on empty sky or ground.",
+"negative": "Pug and bulldog faces, monitors, laptops, goblet, guitar: close filled frontal view.",
+"parents": [
+{
+"channel": "s3:158",
+"gives": "object edge on bare background; top feeder +1.03; acts not run",
+"sign": "+",
+"sure": 0.4
+}
+],
+"gate": "Yes, mild: trains, boats and aircraft all .75-.95; bicycles .54-.64.",
+"readers": "Reads radio telescope, water tower, oystercatcher, eagle, fireboat, yawl, airliner. Matches.",
+"offshoots": "Boats and planes arrive through emptiness around them.",
+"family": "lone slim object",
+"prediction": "boats, aircraft and trains above .75, bicycles below .7",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "No acts test.",
+"prediction_note": "true",
+"_a": "wheels"
+},
+{
+"channel": "s4:391",
+"distinction": "Fine ruled ticks or dial marks in a row, against furry round faces.",
+"positive": "Slide rules, scales, barometers, watch faces, salamander spots, streetcar windows: repeated small marks.",
+"negative": "Primate and dog faces, tusker, red panda, drain filter.",
+"parents": [
+{
+"channel": "s3:240",
+"gives": "top feeder +2.72, not read",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": null,
+"readers": "Reads slide rule 0.39, salamanders, scale, electric locomotive 0.32, passenger car.",
+"offshoots": "Trains arrive by window rows.",
+"family": "repeated small marks",
+"prediction": "trains above .8, boats below .7",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "s3:240 unread.",
+"prediction_note": "true except 554 fireboat .80",
+"_a": "wheels"
+},
+{
+"channel": "s4:270",
+"distinction": "Pale matte white sheet or roll, against nothing named.",
+"positive": "Paper towels, tents, yurts, lab coats, white sails, bee boxes.",
+"negative": "Not read.",
+"parents": [
+{
+"channel": "s3:186",
+"gives": "top feeder +3.09, not read",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": null,
+"readers": "Reads lab coat, daisy, apiary, toilet tissue, yawl, paper towel, yurt.",
+"offshoots": "Yawl (.89) arrives by white sail.",
+"family": "white matte cloth",
+"prediction": "yawl 914 above .8 and all others below .6",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "Neg pole sheet not read. Parents unread.",
+"prediction_note": "true (.89; others .29-.61)",
+"_a": "wheels"
+},
+{
+"channel": "s3:33",
+"distinction": "Smooth uniform saturated colour patch (pink, magenta, blue), against textured faces and fur.",
+"positive": "Pink umbrella, jellyfish, pink dress, yellow banner, parachute canopy.",
+"negative": "Faces, dog fur, zebra, beer bottle: texture and detail.",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:154 (+12.2), s4:129, s4:226 (+4.9), s4:168, s4:56. Sky and water channels use it.",
+"offshoots": "Parachute and jellyfish as colour only.",
+"family": "flat colour patch",
+"prediction": "removal hurts s4:226 more than controls",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "Parents not read (s2 feeders each below 0.13, spread).",
+"prediction_note": "true for 226 (2.02 vs .09) and 56, not for 474 (0.00); 168 control noisy",
+"_a": "wheels"
+},
+{
+"channel": "s3:158",
+"distinction": "An object's edge against bare plain background.",
+"positive": "Wing against water, bow tie, cart wheel against pavement, corkscrew on white: a curved edge with empty background.",
+"negative": "Not read.",
+"parents": [
+{
+"channel": "s2:115",
+"gives": "top feeder +0.18, card by another agent not read",
+"sign": "+",
+"sure": 0.2
+}
+],
+"gate": null,
+"readers": "Feeds s4:168 (+4.77), s4:182, s4:391, s4:131.",
+"offshoots": "Wings and cart wheels.",
+"family": "edge on empty ground",
+"prediction": "removal hurts s4:168",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "Neg pole not read.",
+"prediction_note": "true (1.55 vs .16)",
+"_a": "wheels"
+},
+{
+"channel": "s3:98",
+"distinction": "Warm dark silhouette shapes with sharp steps against a glow.",
+"positive": "Staircase, throne bust, pier railing, drilling platform at dusk, honeycomb.",
+"negative": "Not read.",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:168 (+6.57).",
+"offshoots": "",
+"family": "warm silhouette",
+"prediction": "removal hurts s4:168",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "Why this builds a plume channel is unclear.",
+"prediction_note": "true (2.64 vs .22)",
+"_a": "wheels"
+},
+{
+"channel": "s3:71",
+"distinction": "Clear blue sky meeting a thin tall structure edge.",
+"positive": "Airship, crane, minaret, bell tower, alp, liner, obelisk: structure against flat blue sky.",
+"negative": "Not read (neg sheet not made).",
+"parents": [
+{
+"channel": "s2:120",
+"gives": "hard edges on contrast; acts: 71 falls 0.379, controls .009/.001/.003",
+"sign": "+",
+"sure": 0.6
+}
+],
+"gate": null,
+"readers": "Feeds s4:117 (+11.8), s4:163, s4:154, s4:56.",
+"offshoots": "Liner, airship, missile arrive by sky.",
+"family": "edge on blue sky",
+"prediction": "removal hurts s4:56",
+"prediction_held": true,
+"sure": 0.6,
+"unread": "Neg pole unread.",
+"prediction_note": "true (0.28 vs .06)",
+"_a": "wheels"
+},
+{
+"channel": "s3:46",
+"distinction": "Fine check or woven pattern on a body, against plain.",
+"positive": "Plaid shirts, gingham, toaster, rugby ball, newt, fur: small repeated texture.",
+"negative": "Not read.",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:154, s4:450, s4:510, s4:56.",
+"offshoots": "",
+"family": "fine pattern",
+"prediction": "none run",
+"prediction_held": null,
+"sure": 0.2,
+"unread": "Mixed sheet. I could not say what ties shuttle, toaster and checked shirts. Not tested.",
+"prediction_note": "null",
+"_a": "wheels"
+},
+{
+"channel": "s3:217",
+"distinction": "Small hard-edged dark-and-light hardware detail.",
+"positive": "Locomotive window band, telephone dial, padlock, tandem frame, photocopier panel.",
+"negative": "Not read.",
+"parents": [
+{
+"channel": "s2:32",
+"gives": "bright-flat blob edge; acts: 217 falls 0.168, controls .01/-.005/.02",
+"sign": "+",
+"sure": 0.4
+}
+],
+"gate": null,
+"readers": "Feeds s4:456 (acts: 0.36 vs .1), s4:313, s4:55.",
+"offshoots": "Trains and bicycle both appear.",
+"family": "hard small hardware",
+"prediction": "removal hurts s4:456",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "The sheet is mixed (dog, butterfly). Reading is partial.",
+"prediction_note": "true (0.36 vs .10)",
+"_a": "wheels"
+},
+{
+"channel": "s3:7",
+"distinction": "Warm saturated orange-red glossy surface.",
+"positive": "Fig, stew, agaric, crab, egg yolk, car window glare.",
+"negative": "Not read.",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:456 weakly (acts 0.41 vs ~.11).",
+"offshoots": "",
+"family": "warm gloss",
+"prediction": "removal hurts s4:456",
+"prediction_held": true,
+"sure": 0.3,
+"unread": "Why a food-colour channel feeds a train rows channel is unexplained.",
+"prediction_note": "true (0.41 vs ~.11)",
+"_a": "wheels"
+},
+{
+"channel": "s3:191",
+"distinction": "Rounded curved warm brown or metal body parts in close crop.",
+"positive": "Trombone, throne post, bull mastiff legs, brass finial, weasel fur.",
+"negative": "Not read.",
+"parents": [],
+"gate": null,
+"readers": "Feeds s4:456 (acts 0.37 vs .09).",
+"offshoots": "",
+"family": "curved warm metal-brown",
+"prediction": "removal hurts s4:456",
+"prediction_held": true,
+"sure": 0.3,
+"unread": "Weak reading.",
+"prediction_note": "true (0.37 vs ~.04)",
+"_a": "wheels"
+},
+{
+"channel": "s2:120",
+"distinction": "Dark thin hard edge on bright ground (bars, letters, grille).",
+"positive": "Grilles, prison bars, lettering, street signs, window frames.",
+"negative": "Round or curved saturated colour (lemons, banana, maraca, wheel).",
+"parents": [],
+"gate": null,
+"readers": "Feeds s3:71 (acts 0.38 vs .01).",
+"offshoots": "",
+"family": "straight dark edge",
+"prediction": "removal hurts s3:71",
+"prediction_held": true,
+"sure": 0.5,
+"unread": "Stem parents not read.",
+"prediction_note": "true (0.379 vs .009)",
+"_a": "wheels"
+},
+{
+"channel": "s2:32",
+"distinction": "A body edge against flat bright ground.",
+"positive": "Cuirass straps, bird tail on sky, dog on grass, bottles on white.",
+"negative": "Not read.",
+"parents": [],
+"gate": null,
+"readers": "Feeds s3:217 (acts 0.168 vs .01).",
+"offshoots": "",
+"family": "edge on bright flat",
+"prediction": "removal hurts s3:217",
+"prediction_held": true,
+"sure": 0.4,
+"unread": "Neg pole sheet made but not read.",
+"prediction_note": "true (0.168 vs .01)",
+"_a": "wheels"
+}
+]

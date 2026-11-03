@@ -1,0 +1,688 @@
+{
+ "families": [
+  {
+   "name": "dark dot to blotch to spots",
+   "pattern": "One small dark round mark on pale ground grows into scattered dark blotches, then into a spotted versus plain coat.",
+   "channels": [
+    "s1:29",
+    "s2:71",
+    "s3:222",
+    "s4:35"
+   ],
+   "backbone": [
+    [
+     "s1:29",
+     "s2:71"
+    ],
+    [
+     "s2:71",
+     "s3:222"
+    ],
+    [
+     "s3:222",
+     "s4:35"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "acts held at every step: s1:29->s2:71 drops 1.09; s2:71->s3:222 0.32/2.1 (controls ~0); s3:222->s4:35 2.30/22.7. A chain, not a split: each channel has one tested child here. s2:71 also feeds s3:134 (no card) and dog eyes use the same dot.",
+   "sure": 0.65,
+   "main": [
+    "s1:29",
+    "s2:71",
+    "s3:222",
+    "s4:35"
+   ]
+  },
+  {
+   "name": "fan of thin lines to strand shape",
+   "pattern": "Thin lines fanning from a centre split into three kinds of strand: hanging, curled, draped.",
+   "channels": [
+    "s2:112",
+    "s3:118",
+    "s4:242",
+    "s4:162",
+    "s4:219",
+    "s3:32",
+    "s3:125"
+   ],
+   "backbone": [
+    [
+     "s2:112",
+     "s3:118"
+    ],
+    [
+     "s3:118",
+     "s4:242"
+    ],
+    [
+     "s3:118",
+     "s4:162"
+    ],
+    [
+     "s3:118",
+     "s4:219"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "s2:112->s3:118 acts .67 (controls ~0); s3:118 -> 242/219/162 falls .82/.89/1.55 (controls ~0). Real one-parent, three-child split. s3:32 (ears) also feeds 242 (.64) and s3:125 pushes 242 DOWN, so 242 has opposing parents. Each drop is a small share of the firing.",
+   "sure": 0.6,
+   "main": [
+    "s2:112",
+    "s3:118",
+    "s4:242",
+    "s4:162",
+    "s4:219",
+    "s3:32"
+   ]
+  },
+  {
+   "name": "ruled straight lines to bundles",
+   "pattern": "Regular straight ruled lines build many parallel straight strands in a bundle versus a pebbly surface.",
+   "channels": [
+    "s3:240",
+    "s3:125",
+    "s4:467"
+   ],
+   "backbone": [
+    [
+     "s3:240",
+     "s4:467"
+    ],
+    [
+     "s3:125",
+     "s4:467"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "s3:240->s4:467 falls 1.56; s3:125->s4:467 .52 (controls ~0). s3:125 has the opposite sign on s4:242, so it cuts across the fan-of-lines family. Only one tested child.",
+   "sure": 0.5,
+   "main": [
+    "s3:240",
+    "s4:467",
+    "s3:125"
+   ]
+  },
+  {
+   "name": "whole-body tone",
+   "pattern": "Which overall tone fills the body: pale, warm, or dark, as a split of one coat colour.",
+   "channels": [
+    "s3:186",
+    "s3:255",
+    "s3:90",
+    "s3:254",
+    "s3:159",
+    "s4:28",
+    "s4:31",
+    "s4:172",
+    "s4:42"
+   ],
+   "backbone": [
+    [
+     "s3:186",
+     "s4:28"
+    ],
+    [
+     "s3:186",
+     "s4:31"
+    ],
+    [
+     "s3:255",
+     "s4:31"
+    ],
+    [
+     "s3:90",
+     "s4:172"
+    ],
+    [
+     "s3:90",
+     "s4:42"
+    ],
+    [
+     "s3:254",
+     "s4:172"
+    ],
+    [
+     "s3:159",
+     "s4:28"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "acts held: s3:186->28 2.70, ->31 3.54; s3:255->31 1.49; s3:90->172 1.73, ->42 .94; s3:254->172 1.59; s3:159->28 .90 (controls ~0). Two hubs (pale, warm) each with two children. s4:270 (white cloth) is probably a third child of s3:186 but was not tested.",
+   "sure": 0.75,
+   "main": [
+    "s3:186",
+    "s3:255",
+    "s3:90",
+    "s3:254",
+    "s3:159",
+    "s4:28",
+    "s4:31",
+    "s4:172",
+    "s4:42"
+   ]
+  },
+  {
+   "name": "face length",
+   "pattern": "Narrow tapered face versus flat short face, built from a smooth narrow face without a ruff.",
+   "channels": [
+    "s2:73",
+    "s3:141",
+    "s4:418"
+   ],
+   "backbone": [
+    [
+     "s2:73",
+     "s3:141"
+    ],
+    [
+     "s3:141",
+     "s4:418"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "s3:141->s4:418 falls 6.61 (largest seen), s2:73->s3:141 .72 (controls ~0). s2:73 sheet never opened, so what it is is unknown.",
+   "sure": 0.5,
+   "main": [
+    "s2:73",
+    "s3:141",
+    "s4:418"
+   ]
+  },
+  {
+   "name": "body build: lean legs versus round bulk",
+   "pattern": "Long lean legged body versus low round bulky or heavily furred body; the head version splits pointed from round.",
+   "channels": [
+    "s2:6",
+    "s3:128",
+    "s3:76",
+    "s4:9",
+    "s4:156"
+   ],
+   "backbone": [
+    [
+     "s3:128",
+     "s4:9"
+    ],
+    [
+     "s3:76",
+     "s4:156"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "s3:128->s4:9 falls 1.75/20.3 (held). s3:76->s4:156 .54/17.0 (weak). s2:6->s3:128 .12/3.6 and s2:6->s3:76 .38/3.3 are weak; one parent s2:6 of two siblings is suggested only.",
+   "sure": 0.4,
+   "main": [
+    "s2:6",
+    "s3:128",
+    "s3:76",
+    "s4:9",
+    "s4:156"
+   ]
+  },
+  {
+   "name": "plain ground beside an edge",
+   "pattern": "A smooth plain field (sky, water, slope, colour patch) fills the frame beside or behind the subject, versus fine texture or close detail.",
+   "channels": [
+    "s2:120",
+    "s3:71",
+    "s3:33",
+    "s4:56",
+    "s4:163",
+    "s4:277",
+    "s4:226"
+   ],
+   "backbone": [
+    [
+     "s2:120",
+     "s3:71"
+    ],
+    [
+     "s3:71",
+     "s4:56"
+    ],
+    [
+     "s3:71",
+     "s4:163"
+    ],
+    [
+     "s3:71",
+     "s4:277"
+    ],
+    [
+     "s3:33",
+     "s4:226"
+    ],
+    [
+     "s3:33",
+     "s4:56"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "s2:120->s3:71 .38 (controls ~.005); s3:71->56 .28, ->163 3.36/13.5, ->277 .31 (held). s3:33->226 2.02 held, ->56 .39 held. s3:33 failed on s4:474 (0.00) and was noisy on s4:168, so it is a broad parent with uneven reach.",
+   "sure": 0.55,
+   "main": [
+    "s2:120",
+    "s3:71",
+    "s3:33",
+    "s4:56",
+    "s4:163",
+    "s4:277",
+    "s4:226"
+   ]
+  },
+  {
+   "name": "hard flat marks versus soft or limbed body",
+   "pattern": "Hard printed marks on a flat surface versus a soft furry or limbed body.",
+   "channels": [
+    "s3:17",
+    "s4:255",
+    "s4:362"
+   ],
+   "backbone": [
+    [
+     "s3:17",
+     "s4:255"
+    ],
+    [
+     "s3:17",
+     "s4:362"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "s3:17->255 1.60/18.4; ->362 1.21/20.1 (controls ~.1). s3:17 also pushes s4:163 DOWN (weight -1.8), so one parent gives opposite signs to two children. s3:33->255 .86 held. s2:109->s3:17 failed (rose .08).",
+   "sure": 0.55,
+   "main": [
+    "s3:17",
+    "s4:255",
+    "s4:362"
+   ]
+  },
+  {
+   "name": "furry face as the turned-away pole",
+   "pattern": "At stage 3 several channels differ in what they let through, but they share a furry eyed face on the negative side.",
+   "channels": [
+    "s3:17",
+    "s3:101",
+    "s3:154",
+    "s3:190",
+    "s3:226",
+    "s3:164",
+    "s3:128",
+    "s3:79",
+    "s2:127",
+    "s2:109"
+   ],
+   "backbone": [
+    [
+     "s2:127",
+     "s3:164"
+    ],
+    [
+     "s2:109",
+     "s3:101"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "A shared negative pole read from sheets (neg), not from a parent. Tested links: s2:127->s3:164 .58/3.13, s2:109->s3:101 .35/2.89 (controls ~0). No stage 4 child tested, so this is a co-pole group, not a parent and children. s3:79 has the opposite sign. By the numbers no gate exists at stage 2.",
+   "sure": 0.35,
+   "main": [
+    "s3:101",
+    "s3:154",
+    "s3:190",
+    "s3:226",
+    "s3:164",
+    "s3:79",
+    "s2:127",
+    "s2:109"
+   ]
+  },
+  {
+   "name": "thin edge on empty ground to spread shapes",
+   "pattern": "A thin or spreading shape on bare ground versus round smooth closed shapes.",
+   "channels": [
+    "s3:158",
+    "s3:98",
+    "s4:168",
+    "s4:431",
+    "s4:424",
+    "s4:182"
+   ],
+   "backbone": [
+    [
+     "s3:158",
+     "s4:168"
+    ],
+    [
+     "s3:98",
+     "s4:168"
+    ],
+    [
+     "s3:158",
+     "s4:431"
+    ],
+    [
+     "s3:158",
+     "s4:424"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "s3:158->168 1.55, ->431 .83, ->424 .51 (weak); s3:98->168 2.64 (controls .22). s4:182 untested (only top feeder number). 424 is a thick-hide channel so the pattern fits it loosely.",
+   "sure": 0.4,
+   "main": [
+    "s3:158",
+    "s3:98",
+    "s4:168",
+    "s4:431",
+    "s4:424"
+   ]
+  },
+  {
+   "name": "object entering a smooth empty field",
+   "pattern": "A narrow or vivid object enters from the edge of a smooth empty field; one smooth sweep versus dense small parts.",
+   "channels": [
+    "s3:59",
+    "s3:99",
+    "s3:103",
+    "s4:32",
+    "s4:403"
+   ],
+   "backbone": [
+    [
+     "s3:59",
+     "s4:32"
+    ],
+    [
+     "s3:99",
+     "s4:32"
+    ],
+    [
+     "s3:103",
+     "s4:32"
+    ],
+    [
+     "s3:99",
+     "s4:403"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "acts: s3:59->32 .31, s3:99->32 .36, s3:103->32 .42 (controls ~0) of 15.9; s3:99->403 .59/17.4. s4:32 has three small parents, each 2-3% of peak. s3:59 also feeds s4:486 (see pointed shapes).",
+   "sure": 0.4,
+   "main": [
+    "s3:59",
+    "s3:99",
+    "s3:103",
+    "s4:32",
+    "s4:403"
+   ]
+  },
+  {
+   "name": "round bumps to clump",
+   "pattern": "Small round blobs, alone or packed, build a dense clump of round bumps.",
+   "channels": [
+    "s3:106",
+    "s3:140",
+    "s4:400"
+   ],
+   "backbone": [
+    [
+     "s3:106",
+     "s4:400"
+    ],
+    [
+     "s3:140",
+     "s4:400"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "Both parents act about 1.2 of 18 on s4:400 (controls ~0). Two parents, one child.",
+   "sure": 0.55,
+   "main": [
+    "s3:106",
+    "s3:140",
+    "s4:400"
+   ]
+  },
+  {
+   "name": "pointed and tapered shapes",
+   "pattern": "A narrow tapered or pointed shape (tip, ears, rigging) versus soft furry or closed shapes.",
+   "channels": [
+    "s2:79",
+    "s3:207",
+    "s4:329",
+    "s2:39",
+    "s3:64",
+    "s4:486"
+   ],
+   "backbone": [
+    [
+     "s2:79",
+     "s3:207"
+    ],
+    [
+     "s3:207",
+     "s4:329"
+    ],
+    [
+     "s3:64",
+     "s4:486"
+    ],
+    [
+     "s3:59",
+     "s4:486"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "s2:79->s3:207 .24/3.0, s3:207->s4:329 17% of peak (held). s2:39->s3:64 .18/2.31 (weak), s3:64->s4:486 .37/16.4; s3:59->486 .39 also held.",
+   "sure": 0.45,
+   "main": [
+    "s2:79",
+    "s3:207",
+    "s4:329",
+    "s2:39",
+    "s3:64",
+    "s4:486"
+   ]
+  },
+  {
+   "name": "long straight edge to lattice",
+   "pattern": "Long straight thin edges across plain ground build a criss-cross lattice.",
+   "channels": [
+    "s3:30",
+    "s4:393"
+   ],
+   "backbone": [
+    [
+     "s3:30",
+     "s4:393"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "s3:30->s4:393 falls 1.68/21.3 (controls ~0). One pair.",
+   "sure": 0.5,
+   "main": [
+    "s3:30",
+    "s4:393"
+   ]
+  },
+  {
+   "name": "hard parallel hardware versus spokes",
+   "pattern": "Rows of small hard parallel parts versus thin spokes or wings on open ground.",
+   "channels": [
+    "s2:32",
+    "s3:217",
+    "s3:191",
+    "s3:7",
+    "s4:456"
+   ],
+   "backbone": [
+    [
+     "s3:217",
+     "s4:456"
+    ],
+    [
+     "s2:32",
+     "s3:217"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "s3:217->456 held (sheet checked); s3:191 .37 and s3:7 .41 held but sheets unclear; s2:32->s3:217 .168 weak. Fits train versus bike/plane split (score .91-.97 vs .36).",
+   "sure": 0.4,
+   "main": [
+    "s2:32",
+    "s3:217",
+    "s3:191",
+    "s3:7",
+    "s4:456"
+   ]
+  },
+  {
+   "name": "stage 1 to 2 stroke pairs",
+   "pattern": "Stage 1 stroke dials combine into thin junction, disc or rim shapes in stage 2.",
+   "channels": [
+    "s2:59",
+    "s2:23",
+    "s2:25",
+    "s1:51",
+    "s1:43",
+    "s1:60"
+   ],
+   "backbone": [
+    [
+     "s1:51",
+     "s2:59"
+    ],
+    [
+     "s1:43",
+     "s2:23"
+    ],
+    [
+     "s1:60",
+     "s2:25"
+    ]
+   ],
+   "parent_family": null,
+   "evidence": "acts: s1:51->s2:59 .81, s1:43->s2:23 .51 (controls ~0); s1:60->s2:25 .169 (weak). Children of these s2 channels are mostly unread (s2:23 -> s3:60 only by trace).",
+   "sure": 0.35,
+   "main": [
+    "s2:59",
+    "s2:23",
+    "s2:25"
+   ]
+  },
+  {
+   "name": "stem-refinement dials",
+   "pattern": "Each stage 1 channel is its same-number stem channel, sharpened as a dial on stroke size or shape.",
+   "channels": [
+    "s1:19",
+    "s1:51",
+    "s1:60",
+    "s1:47",
+    "s1:43",
+    "s1:44",
+    "s1:25",
+    "s1:61",
+    "s1:55",
+    "s1:37",
+    "s1:40",
+    "s1:57",
+    "s1:0",
+    "s1:22"
+   ],
+   "backbone": [],
+   "parent_family": null,
+   "evidence": "Same-number stem channel gives 40-80% of the positive feed in every card. Not tested by acts. This is one-to-one copying, not branching.",
+   "sure": 0.6,
+   "main": [
+    "s1:19",
+    "s1:47",
+    "s1:44",
+    "s1:25",
+    "s1:61",
+    "s1:55",
+    "s1:37",
+    "s1:40",
+    "s1:57",
+    "s1:0",
+    "s1:22",
+    "s1:51",
+    "s1:60",
+    "s1:43"
+   ]
+  }
+ ],
+ "no_family": [
+  {
+   "channel": "s4:429",
+   "why": "only parent s3:147 gave .36 (weak) and its sheet was never read; failed s3:71"
+  },
+  {
+   "channel": "s4:297",
+   "why": "top feeder s3:160 never opened"
+  },
+  {
+   "channel": "s4:474",
+   "why": "s3:136 unchecked; s3:33 failed (acts 0.00)"
+  },
+  {
+   "channel": "s4:175",
+   "why": "no parent found"
+  },
+  {
+   "channel": "s4:131",
+   "why": "no parent found"
+  },
+  {
+   "channel": "s4:461",
+   "why": "acts held from s3:78 (1.21/20.9) but s3:78 has no card, so no pattern can be named"
+  },
+  {
+   "channel": "s4:269",
+   "why": "acts held from s3:116 (1.16/16.5) but s3:116 never read"
+  },
+  {
+   "channel": "s4:344",
+   "why": "acts held from s3:114 (1.38/14.6) but s3:114 never read; s3:2 failed (.11)"
+  },
+  {
+   "channel": "s4:367",
+   "why": "acts held from s3:185 (1.09/15.3) but s3:185 never read"
+  },
+  {
+   "channel": "s4:182",
+   "why": "only a number-based feeder (s3:158), acts not run"
+  },
+  {
+   "channel": "s4:391",
+   "why": "feeder s3:240 not read, no acts"
+  },
+  {
+   "channel": "s4:270",
+   "why": "feeder s3:186 not tested; probably belongs to whole-body tone"
+  },
+  {
+   "channel": "s3:2",
+   "why": "traced as parent but acts .11: not a real parent"
+  },
+  {
+   "channel": "s3:46",
+   "why": "no link, weak card"
+  },
+  {
+   "channel": "s3:89",
+   "why": "blank field, no link, sure .2"
+  },
+  {
+   "channel": "s2:115",
+   "why": "feeds s3:101 and s3:158 by number only; no acts"
+  },
+  {
+   "channel": "s2:117",
+   "why": "no link"
+  },
+  {
+   "channel": "s2:31",
+   "why": "no link"
+  }
+ ],
+ "shape": "Not a clean tree. The tested links form a layered graph with strong edges: a stage 3 parent often has 2 to 3 children (s3:118, s3:186, s3:90, s3:71, s3:17, s3:158), but every stage 4 child has 2 to 4 parents, each worth 2 to 20% of its firing, and one parent gives opposite signs to two children (s3:17, s3:125). Chains are rare: only one runs stage 1 to 4 (dots to spots). Branching starts at stages 1 to 2 only as one-to-one copies. Evidence stops at the removal of single parents; unread parents hide most feed, and no s4 to logits link was used."
+}

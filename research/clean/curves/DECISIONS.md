@@ -150,6 +150,25 @@ not forced by any theorem, and they are withdrawn. The decisions below are force
 options are exactly the premises of those theorems: to escape a theorem, one of its premises must go. R-least comes
 first, because the other two speak of "the least build".
 
+### 3-42. The tree you drew does not hold at the top of ResNet-18. What next? (2026-11-03; COARSE-THEORY.md C.R6; LADDER 56)
+
+Directional because: this sets which network the map is built on, and whether about 10M more tokens go to it now.
+
+```
+a stage 4 channel:   all its listed parents removed together    ->  falls 6%
+                     only its top 64 of 256 feeders stay real   ->  77% of its squared firing changes
+```
+
+The channels are readable at stage 4, and the links are causal. But one child has many weak parents, so the shape there is a graph with some strong edges. The essay predicts broad neurons in a small network, and narrower ones with size. That second half is not measured.
+
+| Option | What happens | Cost, an estimate | Gives | Loses |
+|---|---|---|---|---|
+| (a) Measure the same density on ResNet-50's last stage first | One data pass and the same script | About 1 hour, almost no agent tokens | The number that says whether a larger network has real parents. ResNet-50 is the roadmap's target | It delays the complete ResNet-18 map you asked for |
+| (b) Try your neuron idea now on the slice | Remove a family's child. Write its firing as a least-squares sum of kept channels, with one linear solve per child. Move its readers' weights. Compare with the plain removal and with distillation | Hours, no fill needed | The direct test of "a parent takes up some of the error", with no complete map | It runs before the map you said should come first. Parents may need to be many channels, not one |
+| (c) Fill ResNet-18 now | Waves of agents over the other 854 channels, after one fix: a crop-based blind test for stages 1 to 3, and rereading stage 3 | 7M to 17M tokens | The complete map you asked for | The lower stages failed their test today, so part of the spend may be wasted until that fix is tested |
+
+My recommendation: (a), then (b) on whichever network has the clearer parents, and (c) only after those. Reason: both cost little, and each can change where the fill should go. Your read of the page may change this.
+
 ### 3-41. Does a short fixed training count as the calculation? (2026-11-03; COARSE-THEORY.md C.R5; LADDER 54)
 
 Directional because: this sets what a developer's one up-front computation is, and it changes line (b) of trunk T6.
@@ -1979,6 +1998,7 @@ so the lint fails until it gets a node.
 | part 3 under the Unique Games Conjecture | TECH |
 | part 2's last line under the Unique Games Conjecture | TECH |
 | part 3's last line under the Unique Games Conjecture | TECH |
+| channel parent claims | R-channeltree |
 <!-- /aliases -->
 
 ## 6. The path of every result
@@ -2299,6 +2319,10 @@ node named by a tag is on the path, and prints the table with distances.
 | Proposition TG2 | (none) | a goal's weights steer the optimum: a weighted bound on the part kept, and monotone exchange between the two parts; a tool |
 | Lemma TG3 | S-lastlayer, R-group, R-goalbar | at most k + 1 inputs: some read of size k has loss 0, so a score on a short list says nothing; a tool |
 | Proposition TG4 | R-map, R-tree, R-branch, R-oninside, R-linread, S-plainff, R-group, R-readweights, R-readbias, S-lastlayer, R-goalbar | on the hard tables, a rule within c of training, and training within K of the least, is within cK of the least, so a small cK gives P = NP: passing the bar need not mean near the least; a limit |
+| Theorem TC1 | R-map, R-channeltree | a cut whose kept channels have parent claims at 0 on the exact kept set: every kept channel keeps N's value, and the whole cut loses exactly what its top layer's drop loses; nested cuts; ONE-BUILD |
+| Proposition TC2 | R-map, R-channeltree | with parent claims above 0: a layer-by-layer bound on the kept channels' change, carried by N's norms; ONE-BUILD; tightness not claimed |
+| Proposition TC3 | R-map, R-channeltree | no function of the parent claim errors alone bounds D_P(N_K) over all networks: a four-point network with a weight 1/d; a limit |
+| Lemma TC4 | R-map, R-channeltree | on an affine read, one covariance per layer gives e(c, Q) for every set Q; a tool |
 <!-- /paths -->
 
 ## 7. The guard

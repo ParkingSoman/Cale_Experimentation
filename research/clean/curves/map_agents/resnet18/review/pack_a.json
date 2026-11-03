@@ -1,0 +1,638 @@
+[
+{
+"id": "c000",
+"distinction": "Is the local pattern fine parallel stripes or thin lines at one slant, or broad shapes? Fine slanted stripes push up.",
+"positive": "fine dark and light stripes and hairlines (striped shirts, zebra, bicycle spokes, wheel fork, clock hand, handlebar), mostly one slant",
+"negative": "wide thick bars and big curved bands (wheel rims, window frames, blinds) at the other orientations"
+},
+{
+"id": "c001",
+"distinction": "a bold painted body part with a glossy curve (wheel arch, grille, lens) against a plain flat thing",
+"positive": "vehicle fronts, wheels, grilles, tractors, pinwheel; paint on curved metal",
+"negative": "street sign, space bar, telephone, one dog nose: plain flat or thin-lined man-made things"
+},
+{
+"id": "c002",
+"distinction": "a narrow metal tube with small round loops, keys or guards on it held close up, against large smooth round enclosures and legged forms",
+"positive": "revolver and rifle barrel with trigger guard, oboe and flute keys, harmonica, ballpoint, trombone, poodle and guenon muzzle",
+"negative": "large round smooth enclosures and spidery forms: clock, steel drum, ladle, vault, potter wheel, tarantula, bird heads"
+},
+{
+"id": "c003",
+"distinction": "A body edge against flat bright ground.",
+"positive": "Cuirass straps, bird tail on sky, dog on grass, bottles on white.",
+"negative": "Not read."
+},
+{
+"id": "c004",
+"distinction": "Is there a thick bold stroke (heavy letters), or a ring or fine zebra stripe? Heavy strokes push up.",
+"positive": "heavy bold lettering and thick dark bars on a plain ground (Yale, Marc, BARB, 110 numerals)",
+"negative": "rings, circled marks, zebra stripes, wheel rims, honeycomb thin walls: thin repeated structure"
+},
+{
+"id": "c005",
+"distinction": "Separates a small or isolated figure against a contrasting ground (positive) from a flat close-up surface filling the frame (negative).",
+"positive": "Animals and objects set apart: ferret, indigo bunting, partridge, hares, badger, snowmobile, abacus, planetarium.",
+"negative": "Exactly s4:255's top photos: smooth plastic, cloth, scale, whistle, towel with watermarks."
+},
+{
+"id": "c006",
+"distinction": "a dense clump of small round bumps, in green, against warm thin-limbed forms on plain ground",
+"positive": "broccoli and other green clumped fractal masses; also tree-covered hills and a dome among trees",
+"negative": "warm brown/tan thin-limbed bodies on plain ground, rows of roasted birds, red-brown fur (impala, bighorn, fox, rotisserie)"
+},
+{
+"id": "c007",
+"distinction": "a long tapered body seen side-on whose surface has parallel streaks along its length, against short round bodies with a circular central part",
+"positive": "feathered wings and flanks with parallel streaks (brambling, robin), boat hulls, leafhoppers, striped cat fur, a paddle",
+"negative": "round or squat bodies with a ring or opening on the front: mask, soap dispenser, coffee pot, trombone bell, fluffy white dogs, barometer"
+},
+{
+"id": "c008",
+"distinction": "Thin straight lines against a contrasting field.",
+"positive": "Guitar strings, spokes, piano keys, wing feathers, leopard whiskers.",
+"negative": "Not read."
+},
+{
+"id": "c009",
+"distinction": "Small hard-edged dark-and-light hardware detail.",
+"positive": "Locomotive window band, telephone dial, padlock, tandem frame, photocopier panel.",
+"negative": "Not read."
+},
+{
+"id": "c010",
+"distinction": "a hand-made object on a plain ground against a furry face",
+"positive": "watch, laptop, kayak, rifle, hand blower: small man-made objects, weak firing (peak 2.1)",
+"negative": "dog faces (z -1.8) and a corn cob, a perforated board"
+},
+{
+"id": "c011",
+"distinction": "a pointed pair of ears over a narrow muzzle, facing the viewer",
+"positive": "dog, fox, wolf, collie faces; a Polaroid camera front",
+"negative": "not read"
+},
+{
+"id": "c012",
+"distinction": "Saturated orange or yellow patch.",
+"positive": "Macaw, bell pepper, lemon, sarong, king penguin patch.",
+"negative": "Dog faces and screens, at very low strength (-.5)."
+},
+{
+"id": "c013",
+"distinction": "Is there a bold broad stroke, or fine repeated stripes? Bold strokes push up (weakly), fine periodic stripes push down.",
+"positive": "bold broad strokes and shapes: letters, skull, wheel spokes, keys, wide stripes",
+"negative": "dense fine periodic stripes (zebra, spider web, wrapped cord, iris threads): the pitch is too fine"
+},
+{
+"id": "c014",
+"distinction": "Water or sky surface around the subject, against fine banded land animals.",
+"positive": "Underwater views, swimmers, sharks, whales, submarine, seashore: subject in water.",
+"negative": "Zebra, hourglass, fox, poodle, tree frog, viper: fine banded or furred land things."
+},
+{
+"id": "c015",
+"distinction": "Is there a thin curved arc or rim, or a filled round disc? Thin round rims push up, filled discs and soft round shapes push down.",
+"positive": "thin curved rims and arcs: bicycle wheels, bucket handle, wheel rims, brake lights, domes, eye rims, French horn tube",
+"negative": "filled soft round discs and plates: paper lanterns, CD, plates, round buttons, sea slug blob, bobsled helmet"
+},
+{
+"id": "c016",
+"distinction": "a cluster of small round or oval bumps packed together",
+"positive": "olives, peas, lemons in a bowl, daisy centre, brain coral, knotted rope, pom-poms",
+"negative": "not read"
+},
+{
+"id": "c017",
+"distinction": "Is there a short bright outline stroke or edge, or a long straight line? Short curved outline strokes push up, long straight lines push down.",
+"positive": "thin bright outlines of letters, logos and rims, repeated small stripes (zebra, mesh): many short edges close together",
+"negative": "long straight smooth lines crossing the crop (rails, wires, bars) and big rings at low contrast"
+},
+{
+"id": "c018",
+"distinction": "a narrow tip or neck that tapers up from a wider body, standing upright",
+"positive": "bottle necks, spires, shaker caps, baby bottle teats, stupa, bell tower tops",
+"negative": "not read"
+},
+{
+"id": "c019",
+"distinction": "thin dark straight lines that cross at an angle over a pale, bright ground",
+"positive": "bare twigs on sky, wires, music stand, chrome rim, panel edges, car roof edge, pan rim",
+"negative": "not read (stage 2 here: crops are tiny)"
+},
+{
+"id": "c020",
+"distinction": "Is there a dark curved band across lighter bumpy or mixed texture? Weak. Mid-width curved bands push up.",
+"positive": "mixed texture with a curved dark band: honeycomb cells, bicycle brake cable, apples, goblet letters, blue chair bars",
+"negative": "not read"
+},
+{
+"id": "c021",
+"distinction": "Separates a long, lean, tall-legged body (positive) from a low, round, bulky or heavily furred body (negative).",
+"positive": "Slender canids and lean animals, legs often in frame: borzoi, saluki, wolves, coyote, malamute, llama; short or smooth coat showing the legs.",
+"negative": "Stout round bodies: water buffalo, marmot, wombat, hippo, boxer, fluffy small dogs (Yorkie, Maltese, Shih-Tzu), plus violin, flute (thin things held to a face)."
+},
+{
+"id": "c022",
+"distinction": "White surface, versus blue sky and hard-edged man-made things.",
+"positive": "White poodle, Samoyed, Saluki, egg, vulture head, white blossom.",
+"negative": "Blue sky scenes: lighthouse, planetarium, alp, castle, radio telescope."
+},
+{
+"id": "c023",
+"distinction": "Separates a broad, round, frontal head with ears or a big rounded furry mass (positive) from thin, narrow, pointed shapes (negative).",
+"positive": "Faces and heads of furry or big animals looking at the camera: cow, Rottweiler, snow leopard, retrievers, tabby, lynx, Newfoundland, elephant.",
+"negative": "Narrow pointed forms: toy terrier, Ibizan hound, storks, oystercatcher, turnstone, beaver, porcupine nose, wallaby face; also climber. Birds with a spike bill."
+},
+{
+"id": "c024",
+"distinction": "a round wheel set in a long smooth painted body (side view of a vehicle) against a soft centered face or radial bloom with a dark nose or eye-like middle",
+"positive": "side views of vans, fire engines, cabs, a go-kart: wheel plus flat body panel; top 16 are all vehicles with a visible wheel",
+"negative": "human and dog faces (nose, mouth), daisies and other flowers with a round centre; keeps out faces and radial organic shapes"
+},
+{
+"id": "c025",
+"distinction": "Detects a plain smooth sky or ground with the edge of an object at the side.",
+"positive": "Tops of towers, mountains, crane, mast, a dog head cut off at the corner on a blue sky.",
+"negative": "Not opened."
+},
+{
+"id": "c026",
+"distinction": "thin straight parallel stripes of strong contrast",
+"positive": "zebra, picket fence, typewriter keys, clock hand, stripes on a sleeve, safety pin",
+"negative": "not read"
+},
+{
+"id": "c027",
+"distinction": "Fine regular ridges and ribs wound around.",
+"positive": "Brain coral, ammonite, hose ribs, snake scales, baseball seams, typewriter bar.",
+"negative": "Not read."
+},
+{
+"id": "c028",
+"distinction": "a soft dark cover folded around a form, against a pointed or flat part sticking out of a body into open water or sky",
+"positive": "dark fabric wraps: gas mask hood, abaya, mortarboard gown, backpack, knee pad, scooter cover, bulletproof vest",
+"negative": "projecting appendages in open space: orca fin, dragonfly wings, airliner wing, beetle horn, seal flipper, spider legs"
+},
+{
+"id": "c029",
+"distinction": "Not read: its sheet was made, not opened.",
+"positive": "Not read.",
+"negative": "Not read."
+},
+{
+"id": "c030",
+"distinction": "Large smooth painted or glazed surface with drawn decoration, against glass screens and rigid glossy things.",
+"positive": "Glazed jugs, teapots, mugs, graffiti-covered boxcars: a wide curved or flat painted face.",
+"negative": "Screens, bottles, helmets, jackfruit, brushes."
+},
+{
+"id": "c031",
+"distinction": "a thin pointed shape swept out against open sky or empty ground, against closed loops, grids and dark enclosed forms",
+"positive": "wing-spread planes and storks against sky, pen nib, snake head, hammerhead, bustard",
+"negative": "enclosed loops, grids and mesh: padlock shackle, waffle iron, gas mask, syringe, spatula, beetle, snowmobile"
+},
+{
+"id": "c032",
+"distinction": "rigid straight lines meeting at an angle to make a triangular frame, against soft furry shapes with small pointed ears",
+"positive": "taut lines and A-frames: sailboat rigging, suspension bridge cables, tent edge, tripod, harp strings, mosquito net, pelican bill",
+"negative": "soft fur with small pointed ears: coyote, tabby, fox squirrel, Siamese cat, rabbit, brown bear, miniature pinscher"
+},
+{
+"id": "c033",
+"distinction": "Pure white fluffy body, versus mid tan or brown body.",
+"positive": "Maltese, Samoyed, cockatoo, flamingo, spoonbill, a white airship.",
+"negative": "Tan, brown, grey-brown bodies: warthog, hare, meerkat, jackfruit, border terrier. Keeps out mid tan."
+},
+{
+"id": "c034",
+"distinction": "Dark thin hard edge on bright ground (bars, letters, grille).",
+"positive": "Grilles, prison bars, lettering, street signs, window frames.",
+"negative": "Round or curved saturated colour (lemons, banana, maraca, wheel)."
+},
+{
+"id": "c035",
+"distinction": "Is there a small round ring or dot with an outline (a screw, a circled mark), or a straight thin line? Small rings push up (to 14), straight lines push down (to -12).",
+"positive": "small closed round outlines: circled (c), knob rings, screws, coins, round buttons, mushroom spots, neon circles",
+"negative": "long straight thin lines and strokes: spokes, hands, bridge wires, thin edges. Strong, -12."
+},
+{
+"id": "c036",
+"distinction": "Long narrow tapered muzzle, versus flat short squashed face.",
+"positive": "Wolf, red wolf, dhole, borzoi, Italian greyhound, whippet, dingo, grizzly.",
+"negative": "Flat short faces: Boston bull, pug, Shih-Tzu, Pekinese, Japanese spaniel, Angora, hamster."
+},
+{
+"id": "c037",
+"distinction": "a slender upright line standing alone in open space, against a short wide tube or bell seen close up",
+"positive": "thin vertical things on plain ground: impala legs, wheat ear, parking meters, flagpole-like bird box, flamingo, stork, camel legs, parachute line",
+"negative": "short wide hollow forms close up: trombone bell, microphone, oboe, planetarium, shaggy dogs, radiator"
+},
+{
+"id": "c038",
+"distinction": "a short blunt front with paired dots or lights on top, against a long tube or long snout that extends away",
+"positive": "blunt fronts with two eyes or lights: hamster, mink, beaver, bird face, car and school-bus fronts, mouse, digital watch face",
+"negative": "long cylinders and long snouts: pen, projectile, cannon, Weimaraner, wolf, fish head, whistle"
+},
+{
+"id": "c039",
+"distinction": "Warm saturated orange-red glossy surface.",
+"positive": "Fig, stew, agaric, crab, egg yolk, car window glare.",
+"negative": "Not read."
+},
+{
+"id": "c040",
+"distinction": "Dark solid body mass, against pale tan or white bodies.",
+"positive": "Black dogs, siamang, joystick, black abaya, hippo, elephant silhouette, fire smoke: dark mass.",
+"negative": "Tan bull mastiffs, whippets, polar bears, meerkat: light warm bodies."
+},
+{
+"id": "c041",
+"distinction": "Is there a tiny isolated dark dot (eye, hole, screw), or something else? Tiny dark dots on a lighter surface push up.",
+"positive": "tiny isolated dark dots on a lighter surface: eye of bird or cockatoo, screw holes, puck, dalmatian spots, pen dots, flying birds far away",
+"negative": "not read (sheet made, not opened)"
+},
+{
+"id": "c042",
+"distinction": "Thin lines fanning out from a centre, versus dense dark bristle with a centre.",
+"positive": "Bolo tie, daisy petals, fan feathers, wheel spokes, a dome from below.",
+"negative": "Dense bristles: daisy centre, echidna, porcupine, Pomeranian face, macaque."
+},
+{
+"id": "c043",
+"distinction": "one smooth convex arc or dome, against small round dials with radial hands",
+"positive": "domes and arcs: fireboat water arcs, radio dish, planetarium, armadillo shell, iron, fountain, mountain tent",
+"negative": "round dials with spokes and hands: analog and wall clocks, cart wheel, brass plaque, dippers and ouzels with white breast"
+},
+{
+"id": "c044",
+"distinction": "Detects a saturated pink or bright colour patch.",
+"positive": "Pink umbrella, jellyfish, lotion, handkerchief, picks, parachute, patterned skirt.",
+"negative": "Not opened."
+},
+{
+"id": "c045",
+"distinction": "Is the patch dark with a hard corner against light, or a small round spot? Large dark flat areas push up weakly.",
+"positive": "large dark flat regions with a hard edge: black clothing, tyre, dark panels, wheel well",
+"negative": "small round dark holes and dots on white (pen dots, skull eyes, bead holes, boat windows)"
+},
+{
+"id": "c046",
+"distinction": "Fine ruled ticks or dial marks in a row, against furry round faces.",
+"positive": "Slide rules, scales, barometers, watch faces, salamander spots, streetcar windows: repeated small marks.",
+"negative": "Primate and dog faces, tusker, red panda, drain filter."
+},
+{
+"id": "c047",
+"distinction": "Long loose strands hanging in thin lines against a body, versus smooth blunt skin folds with no strands.",
+"positive": "Long hanging hair fringes and thin crossing lines: colobus tail, Afghan ears, Bernese coat, and also clock hands.",
+"negative": "Smooth short coat on a wide blunt wrinkled head (boxer, bull mastiff, pug), and an elephant's wrinkled trunk. Keeps out folds and smooth skin."
+},
+{
+"id": "c048",
+"distinction": "Is there a dark patch or heavy letter on white, or a smooth gradient? Dark bold patches on white push up.",
+"positive": "dark heavy letters and dots on white or pale ground (PHP, Cheese, dots on a lighter, bird silhouettes)",
+"negative": "smooth gradients and soft edges, fur, dark-to-light shaded surfaces"
+},
+{
+"id": "c049",
+"distinction": "Long row of parallel straight bars, against thin spokes or wings on open background.",
+"positive": "Train sides and rails, piano keys, steel-drum rims, spoon rows: repeated parallel horizontal bands.",
+"negative": "Bicycle wheels and riders, warplanes in formation, soaring birds, crab legs, ladybug: thin diagonal spokes, wings, legs."
+},
+{
+"id": "c050",
+"distinction": "a smooth round rim or disc on a flat glossy surface",
+"positive": "wheels of vans, rims of cups, bottle necks, joystick: round smooth edge on plain surface",
+"negative": "not looked at"
+},
+{
+"id": "c051",
+"distinction": "long thin blades or stalks laid across a darker textured ground",
+"positive": "grass and leaf blades, snake over leaves, fur whiskers, mushroom stem, flute",
+"negative": "not read"
+},
+{
+"id": "c052",
+"distinction": "a small round or lettered mark on a smooth ground against fine irregular fur or mesh",
+"positive": "hub caps, letters, dials, eyes of birds: small bold mark on smooth ground",
+"negative": "fur, chainlink fence, honeycomb, hair, moss: dense fine irregular texture; keeps out fine texture"
+},
+{
+"id": "c053",
+"distinction": "Is there a single dark round disc (pupil, polka dot, hole) in a lighter surround, bigger than s2:71's dot? Big dark discs push up.",
+"positive": "single dark round discs: cat pupil, polka dots, a sign circle, tomato slice hole, totem hole, trigger buttons, wheel hubs",
+"negative": "not read"
+},
+{
+"id": "c054",
+"distinction": "one smooth, glossy, streamlined surface that sweeps in a single curve, against dense warm brown or red surfaces that are full of small parts",
+"positive": "smooth glossy bodies with one long curve: car bonnets, boat hulls, jet fuselage, shark and gator skin, plain white duvet. Blue-grey and white dominate",
+"negative": "warm brown/red/tan close-ups with rounded edges and detail (barn, red pan, cello, baseball, mortar, trilobite, isopod). Keeps out textured, small-part things"
+},
+{
+"id": "c055",
+"distinction": "a smooth blank surface or soft blur against a furry face with eyes",
+"positive": "plain wall, painted car side, bib, perfume bottle, blurred feathers: low-texture areas; also two dog close-ups with grey fur",
+"negative": "frontal dog faces and a gibbon face; keeps out furry eyed faces"
+},
+{
+"id": "c056",
+"distinction": "Separates a small sharp bright thing set against a soft blurred green field (positive) from a sharp full-frame detail or texture (negative).",
+"positive": "Small or isolated coloured subject (bird, child's hand, ice lolly, kart, bill and eye) against out-of-focus green or fence; indigo bunting, black stork, grasshopper.",
+"negative": "Hard detail filling the frame or a pale/dark texture: junco, green mamba scales, screws, basket weave, Siamese cat face, candle flames, beagle on pavement."
+},
+{
+"id": "c057",
+"distinction": "Are there many dense horizontal parallel bars (louvres, grille slats)? Dense horizontal bars push up.",
+"positive": "dense horizontal bars and ridges: grille, vent slats, accordion, coils, striped shirt, steam locomotive grille",
+"negative": "not read (sheet made, no image opened)"
+},
+{
+"id": "c058",
+"distinction": "Slim body alone in open empty space, against close frontal faces and screens.",
+"positive": "Kite, storks, eagle, ostrich, crane, radio telescope, balloon: a thin object on empty sky or ground.",
+"negative": "Pug and bulldog faces, monitors, laptops, goblet, guitar: close filled frontal view."
+},
+{
+"id": "c059",
+"distinction": "Separates dark spots scattered on a pale coat or skin (positive) from one even colour, a smooth sheen or a fine mesh (negative).",
+"positive": "Spotted or ticked coats: Dalmatian, English setter, bluetick, Great Dane, snow leopard, hyena, German pointer, an ox.",
+"negative": "Plain warm-brown coat (Rhodesian ridgeback, vizsla, malinois, Chesapeake), spirals, mesh, foam, even-coloured leather."
+},
+{
+"id": "c060",
+"distinction": "a repeated small pattern (scales, dots, keys, bands) against a furry face",
+"positive": "snake skin, accordion keys, ladybug, spider, keypad: regular repeated marks",
+"negative": "dog and monkey faces (z -5.1, deepest of the set); keeps out faces"
+},
+{
+"id": "c061",
+"distinction": "Detects long straight edges with plain ground on both sides.",
+"positive": "Tower, mast, church spire, modem edge, jersey edge, dog's muzzle in side view.",
+"negative": "Not opened."
+},
+{
+"id": "c062",
+"distinction": "Smooth far-away slope or ridge edge filling the frame, against small glossy near objects.",
+"positive": "Distant hills, volcano cones, valley walls and snow slopes: one big smooth diagonal ridge.",
+"negative": "Small glossy hand-sized things with round or whistle shapes (toys, balls, whistles, dials) and furry faces."
+},
+{
+"id": "c063",
+"distinction": "Separates thin strands or bars crossing a plain ground, including long shaggy hair (positive), from smooth, sleek, closed surfaces (negative).",
+"positive": "Shaggy coats and thin frames: komondor, Lhasa, Bouvier, Old English sheepdog, rickshaw wheels, chair legs, wheelbarrow, warplane gear, shopping cart.",
+"negative": "Smooth sleek bodies: whippet, gazelle, impala, miniature pinscher, Doberman, borzoi, egret, balloon-like shapes (soccer ball, perfume bottle, bikini)."
+},
+{
+"id": "c064",
+"distinction": "Is the stripe pitch very fine (one or two pixels) and parallel, or wide? Fine parallel stripes push up strongly.",
+"positive": "the finest parallel stripe patterns at any slant: zebra, vacuum hose coils, accordion, honeycomb ridges, fire engine slats, bikini edge",
+"negative": "wider stripes (striped shirts), text and rings at normal pitch"
+},
+{
+"id": "c065",
+"distinction": "Is there a small dark round dot on a plain light ground, or a thin dark stroke? Dot pushes up, thin stroke pushes down.",
+"positive": "isolated small dark dots and round holes on light ground: eyes, skull sockets, pen dots, punctuation, bold letter blobs",
+"negative": "thin dark strokes and hairlines on light ground (script writing, twigs, clock hands): the opposite of a dot is a line"
+},
+{
+"id": "c066",
+"distinction": "Is there a bold bright vertical or slanted bar on a dark ground, or a thin ring or hairline? Bold bars push up, thin curved lines push down (large negative values).",
+"positive": "bold bright strokes on dark: thick letters (Model T, DEAD), tow truck stripes, clock numerals, neon letters",
+"negative": "very strong negative on thin ring outlines and hairlines (rings, ruler ticks, gown seam, neon thin lines)"
+},
+{
+"id": "c067",
+"distinction": "Many parallel straight strands in a bundle, versus pebbly dimpled short surface.",
+"positive": "Brush bristles, paintbrush, broom, wig, komondor cords, pelican feather, sloth hair.",
+"negative": "Dimpled or stippled short surface: golf ball, koala fur, shield, beetle, doormat. Keeps out dimples."
+},
+{
+"id": "c068",
+"distinction": "Thin open frame holding a flat panel (seat, sail, basket), against filled round blobs.",
+"positive": "Shopping carts, rickshaws, barber chairs, thrones, sailboats and sails, steel drums.",
+"negative": "Spiders, balls, pill bottle, cheeseburger, plunger: filled round or radiating shapes."
+},
+{
+"id": "c069",
+"distinction": "a smooth empty field with a thin edge object entering at its border",
+"positive": "plain blue sky or plain background, with a pole, wire, shaker or hull entering at an edge",
+"negative": "not read"
+},
+{
+"id": "c070",
+"distinction": "Separates a huge, smooth, thick-skinned body (positive) from fine wiry hair and small thin parts (negative).",
+"positive": "Grey whale, elephant (tusker), turtle, hippo, bison: dark wet hide, tails, big heads half out of water.",
+"negative": "Wiry or fine-detail things: standard schnauzer, Dandie Dinmont, affenpinscher, gallinule, vulture, keyboard, reel, beetles."
+},
+{
+"id": "c071",
+"distinction": "A jet or plume spreading out from a point, against round smooth closed shapes.",
+"positive": "Geyser plumes, fountains, wave splash, steam, fire-boat jets, killer whale spray: a V or fan of white.",
+"negative": "Round smooth closed things: car wheel hub, pill bottles, bubble, nipple, carousel, ostrich head."
+},
+{
+"id": "c072",
+"distinction": "Are there thin separate lines or wires meeting at an angle, or dense regular ridges? Thin lines at junctions push up, dense ridges push down.",
+"positive": "thin separate edges forming junctions: chain-link fence, violin strings, clock hands, wire harness, buckle, ruler corner, kite wing feathers",
+"negative": "dense regular ridges: vacuum hose coils, typewriter ridges, compass ticks, ruler marks, honeycomb, comb teeth"
+},
+{
+"id": "c073",
+"distinction": "Detects long thin edges lying across a plain ground, like feathers, spokes or ties.",
+"positive": "Wing feathers, cart wheel, bow tie, pineapple scales, tail, knife blade.",
+"negative": "Not opened."
+},
+{
+"id": "c074",
+"distinction": "Fine check or woven pattern on a body, against plain.",
+"positive": "Plaid shirts, gingham, toaster, rugby ball, newt, fur: small repeated texture.",
+"negative": "Not read."
+},
+{
+"id": "c075",
+"distinction": "Smooth warm red-brown bare body, versus white-and-black high contrast pattern.",
+"positive": "Redbone, ridgeback, Irish setter, sorrel horse, bare skin in bikini photos, unicycle leg.",
+"negative": "White and black pattern: polar bear, husky, malamute, clock, toucan, dumbbell, snow scenes."
+},
+{
+"id": "c076",
+"distinction": "Pale cream-white body, versus dark solid brown body.",
+"positive": "White or cream: polar bear, cockatoo, egret, pale Labrador, white poodle.",
+"negative": "Dark chocolate or orange solid colour: chocolate and black Labrador, orange fruit, ferret, beaver. Keeps out dark brown."
+},
+{
+"id": "c077",
+"distinction": "Warm orange or russet patch on a body, versus black or very dark body.",
+"positive": "Red-orange: proboscis monkey face, ladybug, goldfish, merganser head, fox-coloured dog.",
+"negative": "Black or very dark: black bear, black Affenpinscher, black pug, buffalo, otter. Keeps out black."
+},
+{
+"id": "c078",
+"distinction": "Detects a pointed-ear head with tan muzzle facing the camera.",
+"positive": "Dingo, cairn, red fox, dhole, red wolf, gazelle, impala, basset, beagle, lesser panda.",
+"negative": "Not opened."
+},
+{
+"id": "c079",
+"distinction": "Detects printed letters, digits and marks on a surface.",
+"positive": "Text and logos on laptop, phone, odometer, book jacket, helmet, digital clock.",
+"negative": "Not opened."
+},
+{
+"id": "c080",
+"distinction": "Is there a very fine bright curl, tooth or stripe, or a round ring? Fine curls and teeth push up, rings and discs push down.",
+"positive": "finest repeated bright lines and teeth: zebra stripes, comb teeth, wing feather tips, logo curls, game-pad symbols",
+"negative": "round rings, circles and discs (keyboard keys, joystick dots, owl eye, bold letters)"
+},
+{
+"id": "c081",
+"distinction": "Separates a bright, clean shape on a contrasting ground (positive) from a brown mottled mid-tone mass (negative).",
+"positive": "Glowing digits and dials on dark, and clean white or pale dogs on coloured ground: digital clock, scale, stopwatch, kuvasz, Eskimo dog, Arctic fox, grey parrot.",
+"negative": "Brown mottled things: wood rabbit, dung beetle, limpkin, Airedale, grouse, dingo, bighorn, frog."
+},
+{
+"id": "c082",
+"distinction": "a single tall or sky-backed structure against a furry eyed face",
+"positive": "towers, lighthouses, chimneys, airship, umbrella on open sky; also two dog photos",
+"negative": "dog faces plus one fox face and one human face; keeps out faces"
+},
+{
+"id": "c083",
+"distinction": "tight parallel ridges that curve (coil, bellows, fan) against straight dense lines",
+"positive": "typewriter, spring, hose, fan palm, fish fin, accordion: curved ribs",
+"negative": "compass dial, mesh, striped sock, blinds: straight dense lines or grids"
+},
+{
+"id": "c084",
+"distinction": "Separates a flat, smooth, near-uniform surface filling the frame (positive) from a body with thin limbs sticking out of a compact core (negative).",
+"positive": "Close-ups of smooth plastic, cloth, metal or a product face, no limbs, often a shop watermark across the photo; whistles, sleeping bag, towel, scale, safe.",
+"negative": "Bodies with outlines and appendages on a ground: harvestmen, spiders, beetles, ticks, and dogs (Boston bull, schnauzer, kuvasz, beagle). Dogs sit with the leggy bugs, not with cats."
+},
+{
+"id": "c085",
+"distinction": "Curled or wavy loops of strand, versus straight sleek smooth short coat.",
+"positive": "Spaniel and poodle ears and curls, chain links, rope knots, siamang fur.",
+"negative": "Sleek short coats and radiating spikes: Weimaraner, pug, Rhodesian ridgeback, starfish, spider, fan blades."
+},
+{
+"id": "c086",
+"distinction": "a vivid saturated colour patch that differs strongly from the colours around it",
+"positive": "purple, magenta, yellow and blue patches: toy, bottle, pretzel, anemone, parrot, mask",
+"negative": "not read (neg sheet not looked at)"
+},
+{
+"id": "c087",
+"distinction": "Pale matte white sheet or roll, against nothing named.",
+"positive": "Paper towels, tents, yurts, lab coats, white sails, bee boxes.",
+"negative": "Not read."
+},
+{
+"id": "c088",
+"distinction": "Is there a small bright spot in the dark, or a flat uniform area? Bright spots on black push up.",
+"positive": "small bright lights and bright letters on black: stage lights, candle, sparks, street lights, white text on black",
+"negative": "flat uniform surfaces: grey wall, dark cloth, soft shadow gradient, the bottom border"
+},
+{
+"id": "c089",
+"distinction": "Detects a regular criss-cross lattice of thin lines laid across the scene.",
+"positive": "Chain-link fence, in front of animals (cougar, wallaby, gibbon, squirrel monkey), padlock and chain.",
+"negative": "Not opened."
+},
+{
+"id": "c090",
+"distinction": "Detects four-legged body seen from the side on a ground.",
+"positive": "Dogs on lawn: Leonberg, Rottweiler, collie, wild boar, bear, dingo, rat, dowitchers with legs in view.",
+"negative": "Not opened."
+},
+{
+"id": "c091",
+"distinction": "Is the patch a smooth broad surface (curved, plain, shaded) or small bold print? Smooth surfaces push up, bold print and rings push down.",
+"positive": "smooth broad coloured surfaces and gentle curves: fig, pumpkin, camera barrel, loafer, red paper, thimble, clothing",
+"negative": "bold print and ring patterns: rings on cloth, lettering, keyboard keys, remote buttons, dials"
+},
+{
+"id": "c092",
+"distinction": "Warm dark silhouette shapes with sharp steps against a glow.",
+"positive": "Staircase, throne bust, pier railing, drilling platform at dusk, honeycomb.",
+"negative": "Not read."
+},
+{
+"id": "c093",
+"distinction": "Detects a small pale blob on a darker area, near a dark edge.",
+"positive": "White paws, ping-pong ball, pale muzzle, dalmatian spot, candle flame, white feet of dogs.",
+"negative": "Not opened."
+},
+{
+"id": "c094",
+"distinction": "A long smooth drape falling in one piece, versus small hard compact parts.",
+"positive": "Gowns, cloaks, abaya, Afghan ear, long wig hair, lizard on a trunk.",
+"negative": "Small hard items: mouse, phone, iPod, bottle, comb, Boston bull face. Keeps out compact things."
+},
+{
+"id": "c095",
+"distinction": "Rounded curved warm brown or metal body parts in close crop.",
+"positive": "Trombone, throne post, bull mastiff legs, brass finial, weasel fur.",
+"negative": "Not read."
+},
+{
+"id": "c096",
+"distinction": "soft organic bloom or fur patch (radial or furry mass) against the man-made channels' side",
+"positive": "dog nose, gibbon, thistle, daisy, sunflower pictures, pelican bill: furry or petal mass, not cars",
+"negative": "not looked at"
+},
+{
+"id": "c097",
+"distinction": "Smooth narrow front face with a dark nose, versus fluffy-ruffed face.",
+"positive": "Dingo, toy terrier, red wolf, whippet, Doberman, Great Pyrenees front face.",
+"negative": "Ruffed faces: collie, papillon, Pomeranian, Eskimo dog, gibbon."
+},
+{
+"id": "c098",
+"distinction": "Pale cream face of a dog or sheep.",
+"positive": "Labrador, Saluki, whippet, dalmatian, bighorn, Great Pyrenees faces.",
+"negative": "Not read."
+},
+{
+"id": "c099",
+"distinction": "Flat blank sky or bright smooth field.",
+"positive": "Blue sky, white sky, plain background.",
+"negative": "Not read."
+},
+{
+"id": "c100",
+"distinction": "a narrow shape that tapers into a pale or open region at the edge of the view",
+"positive": "dog snouts at the frame edge, flute, bridge arches, tower, camera barrel, scooter handle, croquet hoop",
+"negative": "not read"
+},
+{
+"id": "c101",
+"distinction": "a small round saturated blob sitting on a contrasting ground",
+"positive": "berries, tomatoes, red dots on a joystick, balls, ladybug, strawberry on cream",
+"negative": "not read"
+},
+{
+"id": "c102",
+"distinction": "Is the patch saturated green, or any other colour? Pure bright green pushes this channel strongly down; other colours push it up weakly.",
+"positive": "weak: neutral or warm surfaces with edges (gray, tan, clock face, text)",
+"negative": "saturated green of any shape: green lights, vine, green umbrella, beetle, green kitchen items"
+},
+{
+"id": "c103",
+"distinction": "Head with two upright pointed ears on a front face.",
+"positive": "Collie, Australian terrier, Groenendael, Eskimo dog, hyena, toy terrier.",
+"negative": "Not read with a sheet."
+},
+{
+"id": "c104",
+"distinction": "Rounded body with limp lobes or thin legs hanging from it, versus upright compact pointed things.",
+"positive": "Floppy-eared spaniels and hounds, a spider's legs, clock hands, a dial phone with its cord.",
+"negative": "Erect-eared or upright forms: wallaby, Westie, rabbit, scooter, crab. Keeps out upright points."
+},
+{
+"id": "c105",
+"distinction": "Detects dark patches scattered on a lighter ground.",
+"positive": "Dalmatian, setter, ladybug, snake skin, goose bill, Doberman, Rottweiler tan marks, mantis.",
+"negative": "Not opened."
+}
+]

@@ -1,0 +1,16 @@
+dark dot to blotch to spots                  n 4 hits 5/10 KL on picks 0.328 controls 0.014 whole-list KL 0.060 controls 0.031 fail
+fan of thin lines to strand shape            n 6 hits 7/10 KL on picks 0.150 controls 0.023 whole-list KL 0.051 controls 0.027 PASS
+ruled straight lines to bundles              n 3 hits 5/10 KL on picks 0.047 controls 0.012 whole-list KL 0.014 controls 0.012 fail
+whole-body tone                              n 9 hits 7/10 KL on picks 0.270 controls 0.022 whole-list KL 0.059 controls 0.039 PASS
+face length                                  n 3 hits 8/10 KL on picks 0.165 controls 0.011 whole-list KL 0.024 controls 0.017 PASS
+body build: lean legs versus round bulk      n 5 hits 6/10 KL on picks 0.184 controls 0.016 whole-list KL 0.027 controls 0.024 PASS
+plain ground beside an edge                  n 7 hits 5/10 KL on picks 0.135 controls 0.020 whole-list KL 0.040 controls 0.031 fail
+hard flat marks versus soft or limbed body   n 3 hits 6/10 KL on picks 0.049 controls 0.012 whole-list KL 0.011 controls 0.011 PASS
+furry face as the turned-away pole           n 8 hits 3/10 KL on picks 0.073 controls 0.075 whole-list KL 0.057 controls 0.082 fail
+thin edge on empty ground to spread shapes   n 5 hits 2/10 KL on picks 0.224 controls 0.013 whole-list KL 0.023 controls 0.020 fail
+object entering a smooth empty field         n 5 hits 4/10 KL on picks 0.121 controls 0.022 whole-list KL 0.023 controls 0.022 fail
+round bumps to clump                         n 3 hits 5/10 KL on picks 0.188 controls 0.009 whole-list KL 0.018 controls 0.015 fail
+pointed and tapered shapes                   n 6 hits 3/10 KL on picks 0.124 controls 0.056 whole-list KL 0.086 controls 0.059 fail
+long straight edge to lattice                n 2 hits 5/10 KL on picks 0.245 controls 0.014 whole-list KL 0.010 controls 0.008 fail
+hard parallel hardware versus spokes         n 5 hits 3/10 KL on picks 0.069 controls 0.021 whole-list KL 0.032 controls 0.028 fail
+families 15: pass 0.33; mean hits 4.9 of 10 (chance 1); KL family / control, median 1.23

@@ -1,0 +1,196 @@
+s0:0 -> s1:0 + effect +4.824 control 0.002 z 5.48 PASS
+s0:19 -> s1:19 + effect +1.361 control 0.025 z 4.58 PASS
+s0:58 -> s1:19 + effect +0.277 control 0.019 z 4.58 PASS
+s0:22 -> s1:22 + effect +0.244 control 0.028 z 4.11 PASS
+s0:14 -> s1:25 + effect +0.399 control 0.008 z 3.69 PASS
+s0:22 -> s1:25 + effect +0.369 control 0.011 z 3.69 PASS
+s0:25 -> s1:25 + effect +2.159 control 0.011 z 3.69 PASS
+s0:21 -> s1:29 - effect +0.147 control 0.022 z 5.21 PASS
+s0:29 -> s1:29 + effect +1.146 control 0.032 z 5.21 PASS
+s0:58 -> s1:29 + effect +0.319 control 0.032 z 5.21 PASS
+s0:37 -> s1:37 + effect +0.105 control 0.003 z 2.80 PASS
+s0:40 -> s1:40 + effect +1.663 control 0.096 z 8.45 PASS
+s0:43 -> s1:40 + effect +0.262 control 0.022 z 8.45 PASS
+s0:53 -> s1:40 + effect +0.682 control 0.051 z 8.45 PASS
+s0:43 -> s1:43 + effect +2.009 control 0.011 z 4.84 PASS
+s0:47 -> s1:43 - effect +0.437 control 0.007 z 4.84 PASS
+s0:60 -> s1:43 - effect +0.202 control 0.011 z 4.84 PASS
+s0:22 -> s1:44 + effect +0.221 control 0.018 z 5.01 PASS
+s0:44 -> s1:44 + effect +3.313 control 0.045 z 5.01 PASS
+s0:47 -> s1:47 + effect +4.952 control 0.016 z 6.64 PASS
+s0:49 -> s1:51 + effect +0.739 control 0.020 z 5.08 PASS
+s0:51 -> s1:51 + effect +3.004 control 0.042 z 5.08 PASS
+s0:40 -> s1:55 + effect +0.866 control 0.003 z 5.98 PASS
+s0:55 -> s1:55 + effect +4.661 control 0.003 z 5.98 PASS
+s0:57 -> s1:57 + effect +1.503 control 0.027 z 4.63 PASS
+s0:60 -> s1:57 - effect +0.208 control 0.065 z 4.63 PASS
+s0:60 -> s1:60 + effect +3.560 control 0.002 z 5.34 PASS
+s0:63 -> s1:60 + effect +0.571 control 0.020 z 5.34 PASS
+s0:61 -> s1:61 + effect +0.595 control 0.006 z 2.38 PASS
+s1:43 -> s2:115 + effect +0.127 control 0.051 z 6.00 PASS
+s1:60 -> s2:115 + effect +0.066 control 0.056 z 6.00 fail
+s1:63 -> s2:115 + effect +0.136 control 0.097 z 6.00 fail
+s1:29 -> s2:23 + effect +0.132 control 0.062 z 5.68 PASS
+s1:43 -> s2:23 + effect +0.360 control 0.022 z 5.68 PASS
+s1:63 -> s2:23 + effect +0.091 control 0.115 z 5.68 fail
+s1:44 -> s2:25 + effect +0.146 control 0.020 z 3.48 PASS
+s1:51 -> s2:25 + effect +0.079 control 0.043 z 3.48 fail
+s1:60 -> s2:25 + effect +0.184 control 0.020 z 3.48 PASS
+s1:39 -> s2:59 + effect +0.578 control 0.024 z 3.35 PASS
+s1:51 -> s2:59 + effect +0.781 control 0.020 z 3.35 PASS
+s1:53 -> s2:59 + effect +0.329 control 0.024 z 3.35 PASS
+s1:19 -> s2:71 + effect +0.393 control 0.062 z 6.47 PASS
+s1:20 -> s2:71 + effect +0.706 control 0.070 z 6.47 PASS
+s1:29 -> s2:71 + effect +0.920 control 0.053 z 6.47 PASS
+s1:40 -> s2:71 + effect +0.531 control 0.039 z 6.47 PASS
+s2:109 -> s3:101 + effect +0.350 control 0.054 z 2.79 PASS
+s2:115 -> s3:101 + effect +1.572 control 0.016 z 2.79 PASS
+s2:112 -> s3:118 + effect +0.631 control 0.018 z 3.42 PASS
+s2:6 -> s3:128 + effect +0.114 control 0.008 z 3.17 PASS
+s2:73 -> s3:141 + effect +0.685 control 0.005 z 7.09 PASS
+s2:115 -> s3:158 + effect +0.331 control 0.009 z 1.80 PASS
+s2:127 -> s3:164 + effect +0.528 control 0.002 z 2.81 PASS
+s2:109 -> s3:17 - effect +0.090 control 0.006 z 3.37 PASS
+s2:92 -> s3:17 + effect +0.538 control 0.030 z 3.37 PASS
+s2:28 -> s3:186 + effect +0.229 control 0.017 z 1.76 PASS
+s2:79 -> s3:207 + effect +0.239 control 0.034 z 2.75 PASS
+s2:32 -> s3:217 + effect +0.164 control 0.010 z 1.41 PASS
+s2:71 -> s3:222 + effect +0.249 control 0.014 z 1.99 PASS
+s2:39 -> s3:64 + effect +0.202 control 0.017 z 2.07 PASS
+s2:120 -> s3:71 + effect +0.389 control 0.001 z 2.06 PASS
+s2:6 -> s3:76 + effect +0.307 control 0.019 z 2.81 PASS
+s3:76 -> s4:156 + effect +0.484 control 0.043 z 15.14 PASS
+s3:118 -> s4:162 + effect +1.195 control 0.023 z 18.65 PASS
+s3:17 -> s4:163 - effect -0.058 control 0.123 z 12.24 fail
+s3:71 -> s4:163 + effect +2.865 control 0.102 z 12.24 PASS
+s3:158 -> s4:168 + effect +0.593 control 0.097 z 20.18 PASS
+s3:33 -> s4:168 + effect +0.766 control 0.348 z 20.18 PASS
+s3:98 -> s4:168 + effect +1.827 control 0.102 z 20.18 PASS
+s3:254 -> s4:172 + effect +1.429 control 0.129 z 17.56 PASS
+s3:90 -> s4:172 + effect +1.490 control 0.036 z 17.56 PASS
+s3:158 -> s4:182 + effect +0.339 control 0.046 z 11.78 PASS
+s3:118 -> s4:219 + effect +0.731 control 0.015 z 16.05 PASS
+s3:33 -> s4:226 + effect +0.735 control 0.068 z 15.26 PASS
+s3:118 -> s4:242 + effect +0.565 control 0.082 z 16.67 PASS
+s3:125 -> s4:242 - effect +0.117 control 0.063 z 16.67 fail
+s3:32 -> s4:242 + effect +0.630 control 0.067 z 16.67 PASS
+s3:143 -> s4:255 + effect +0.074 control 0.068 z 14.49 fail
+s3:17 -> s4:255 + effect +0.193 control 0.015 z 14.49 PASS
+s3:33 -> s4:255 + effect +0.242 control 0.056 z 14.49 PASS
+s3:116 -> s4:269 + effect +0.878 control 0.045 z 13.85 PASS
+s3:186 -> s4:270 + effect +1.819 control 0.050 z 15.17 PASS
+s3:71 -> s4:277 + effect +0.112 control 0.105 z 15.38 fail
+s3:159 -> s4:28 + effect +0.752 control 0.041 z 15.27 PASS
+s3:186 -> s4:28 + effect +2.431 control 0.094 z 15.27 PASS
+s3:160 -> s4:297 + effect +1.357 control 0.059 z 11.86 PASS
+s3:186 -> s4:31 + effect +3.222 control 0.048 z 18.07 PASS
+s3:255 -> s4:31 + effect +1.416 control 0.024 z 18.07 PASS
+s3:103 -> s4:32 + effect +0.272 control 0.020 z 13.79 PASS
+s3:59 -> s4:32 + effect +0.295 control 0.032 z 13.79 PASS
+s3:99 -> s4:32 + effect +0.291 control 0.060 z 13.79 PASS
+s3:207 -> s4:329 + effect +2.889 control 0.072 z 16.48 PASS
+s3:114 -> s4:344 + effect +0.913 control 0.030 z 12.93 PASS
+s3:2 -> s4:344 + effect +0.118 control 0.065 z 12.93 fail
+s3:222 -> s4:35 + effect +1.577 control 0.065 z 18.31 PASS
+s3:17 -> s4:362 + effect +0.351 control 0.055 z 17.13 PASS
+s3:185 -> s4:367 + effect +0.848 control 0.080 z 13.53 PASS
+s3:240 -> s4:391 + effect +0.973 control 0.087 z 16.14 PASS
+s3:30 -> s4:393 + effect +1.157 control 0.110 z 15.57 PASS
+s3:106 -> s4:400 + effect +0.862 control 0.051 z 15.45 PASS
+s3:140 -> s4:400 + effect +0.879 control 0.014 z 15.45 PASS
+s3:103 -> s4:403 + effect +0.188 control 0.048 z 15.27 PASS
+s3:99 -> s4:403 + effect +0.404 control 0.097 z 15.27 PASS
+s3:141 -> s4:418 + effect +6.364 control 0.204 z 19.01 PASS
+s3:90 -> s4:42 + effect +0.899 control 0.050 z 14.35 PASS
+s3:158 -> s4:424 + effect +0.424 control 0.060 z 12.74 PASS
+s3:147 -> s4:429 + effect +0.283 control 0.081 z 17.06 PASS
+s3:158 -> s4:431 + effect +0.665 control 0.060 z 16.00 PASS
+s3:191 -> s4:456 + effect +0.248 control 0.053 z 14.07 PASS
+s3:217 -> s4:456 + effect +0.180 control 0.086 z 14.07 PASS
+s3:7 -> s4:456 + effect +0.222 control 0.114 z 14.07 fail
+s3:78 -> s4:461 + effect +0.636 control 0.058 z 17.65 PASS
+s3:125 -> s4:467 + effect +0.468 control 0.026 z 15.05 PASS
+s3:240 -> s4:467 + effect +1.129 control 0.112 z 15.05 PASS
+s3:136 -> s4:474 + effect +1.515 control 0.249 z 16.31 PASS
+s3:59 -> s4:486 + effect +0.208 control 0.079 z 13.95 PASS
+s3:64 -> s4:486 + effect +0.315 control 0.038 z 13.95 PASS
+s3:33 -> s4:56 + effect +0.239 control 0.075 z 13.08 PASS
+s3:71 -> s4:56 + effect +0.190 control 0.030 z 13.08 PASS
+s3:128 -> s4:9 + effect +1.681 control 0.062 z 18.49 PASS
+s1:0 together 4.82 z 5.48 {4: 3.919, 'share4': 0.038, 16: 0.543, 'share16': 0.005, 64: 0.0, 'share64': 0.0}
+s1:19 together 1.63 z 4.58 {4: 141.552, 'share4': 0.283, 16: 60.571, 'share16': 0.121, 64: 0.0, 'share64': 0.0}
+s1:22 together 0.24 z 4.11 {4: 377.014, 'share4': 0.697, 16: 160.664, 'share16': 0.297, 64: 0.0, 'share64': 0.0}
+s1:25 together 2.99 z 3.69 {4: 8.326, 'share4': 0.008, 16: 14.439, 'share16': 0.013, 64: 0.0, 'share64': 0.0}
+s1:29 together 1.33 z 5.21 {4: 128.153, 'share4': 0.489, 16: 73.821, 'share16': 0.282, 64: 0.0, 'share64': 0.0}
+s1:37 together 0.11 z 2.8 {4: 154.413, 'share4': 0.284, 16: 58.873, 'share16': 0.108, 64: 0.0, 'share64': 0.0}
+s1:40 together 2.62 z 8.45 {4: 52.166, 'share4': 0.337, 16: 12.966, 'share16': 0.084, 64: 0.0, 'share64': 0.0}
+s1:43 together 1.59 z 4.84 {4: 124.266, 'share4': 0.272, 16: 20.571, 'share16': 0.045, 64: 0.0, 'share64': 0.0}
+s1:44 together 3.55 z 5.01 {4: 6.178, 'share4': 0.036, 16: 1.991, 'share16': 0.012, 64: 0.0, 'share64': 0.0}
+s1:47 together 4.95 z 6.64 {4: 2.697, 'share4': 0.007, 16: 1.363, 'share16': 0.003, 64: 0.0, 'share64': 0.0}
+s1:51 together 3.74 z 5.08 {4: 18.516, 'share4': 0.054, 16: 6.723, 'share16': 0.02, 64: 0.0, 'share64': 0.0}
+s1:55 together 5.69 z 5.98 {4: 2.31, 'share4': 0.023, 16: 0.374, 'share16': 0.004, 64: 0.0, 'share64': 0.0}
+s1:57 together 1.32 z 4.63 {4: 253.881, 'share4': 0.438, 16: 115.473, 'share16': 0.199, 64: 0.0, 'share64': 0.0}
+s1:60 together 4.11 z 5.34 {4: 4.099, 'share4': 0.016, 16: 1.442, 'share16': 0.006, 64: 0.0, 'share64': 0.0}
+s1:61 together 0.6 z 2.38 {4: 93.406, 'share4': 0.079, 16: 52.25, 'share16': 0.044, 64: 0.0, 'share64': 0.0}
+s2:115 together 0.37 z 6.0 {4: 209.973, 'share4': 0.273, 16: 99.147, 'share16': 0.129, 64: 0.0, 'share64': 0.0}
+s2:23 together 0.7 z 5.68 {4: 466.807, 'share4': 0.935, 16: 157.22, 'share16': 0.315, 64: 0.0, 'share64': 0.0}
+s2:25 together 0.39 z 3.48 {4: 161.935, 'share4': 0.566, 16: 67.67, 'share16': 0.237, 64: 0.0, 'share64': 0.0}
+s2:59 together 1.87 z 3.35 {4: 78.086, 'share4': 0.268, 16: 53.601, 'share16': 0.184, 64: 0.0, 'share64': 0.0}
+s2:71 together 2.55 z 6.47 {4: 137.378, 'share4': 0.559, 16: 48.936, 'share16': 0.199, 64: 0.0, 'share64': 0.0}
+s3:101 together 1.65 z 2.79 {4: 285.067, 'share4': 0.608, 16: 165.858, 'share16': 0.354, 64: 75.749, 'share64': 0.162}
+s3:118 together 0.63 z 3.42 {4: 43.323, 'share4': 0.466, 16: 30.71, 'share16': 0.33, 64: 13.912, 'share64': 0.15}
+s3:128 together 0.11 z 3.17 {4: 256.09, 'share4': 1.223, 16: 250.095, 'share16': 1.194, 64: 173.01, 'share64': 0.826}
+s3:141 together 0.69 z 7.09 {4: 70.354, 'share4': 1.019, 16: 62.647, 'share16': 0.907, 64: 14.815, 'share64': 0.215}
+s3:158 together 0.33 z 1.8 {4: 159.08, 'share4': 0.352, 16: 128.022, 'share16': 0.283, 64: 40.95, 'share64': 0.091}
+s3:164 together 0.53 z 2.81 {4: 43.413, 'share4': 0.769, 16: 20.06, 'share16': 0.355, 64: 5.317, 'share64': 0.094}
+s3:17 together 0.48 z 3.37 {4: 168.395, 'share4': 0.766, 16: 125.617, 'share16': 0.572, 64: 38.093, 'share64': 0.173}
+s3:186 together 0.23 z 1.76 {4: 197.348, 'share4': 0.966, 16: 156.71, 'share16': 0.767, 64: 66.828, 'share64': 0.327}
+s3:207 together 0.24 z 2.75 {4: 58.934, 'share4': 0.71, 16: 52.178, 'share16': 0.629, 64: 20.649, 'share64': 0.249}
+s3:217 together 0.16 z 1.41 {4: 192.509, 'share4': 0.717, 16: 144.003, 'share16': 0.536, 64: 56.234, 'share64': 0.209}
+s3:222 together 0.25 z 1.99 {4: 158.374, 'share4': 1.135, 16: 132.405, 'share16': 0.949, 64: 53.065, 'share64': 0.38}
+s3:64 together 0.2 z 2.07 {4: 111.916, 'share4': 0.725, 16: 81.776, 'share16': 0.53, 64: 35.038, 'share64': 0.227}
+s3:71 together 0.39 z 2.06 {4: 1154.774, 'share4': 0.294, 16: 752.197, 'share16': 0.191, 64: 84.312, 'share64': 0.021}
+s3:76 together 0.31 z 2.81 {4: 44.541, 'share4': 0.671, 16: 44.443, 'share16': 0.67, 64: 30.152, 'share64': 0.454}
+s4:156 together 0.48 z 15.14 {4: 77.317, 'share4': 0.954, 16: 74.842, 'share16': 0.923, 64: 60.908, 'share64': 0.752}
+s4:162 together 1.19 z 18.65 {4: 46.077, 'share4': 0.984, 16: 45.02, 'share16': 0.962, 64: 39.47, 'share64': 0.843}
+s4:163 together 2.92 z 12.24 {4: 201.109, 'share4': 0.596, 16: 187.029, 'share16': 0.554, 64: 164.803, 'share64': 0.488}
+s4:168 together 3.14 z 20.18 {4: 14.041, 'share4': 0.977, 16: 12.854, 'share16': 0.894, 64: 12.131, 'share64': 0.844}
+s4:172 together 2.98 z 17.56 {4: 45.189, 'share4': 0.952, 16: 43.289, 'share16': 0.912, 64: 36.357, 'share64': 0.766}
+s4:182 together 0.34 z 11.78 {4: 80.677, 'share4': 0.565, 16: 81.347, 'share16': 0.57, 64: 79.76, 'share64': 0.559}
+s4:219 together 0.73 z 16.05 {4: 66.572, 'share4': 0.97, 16: 61.977, 'share16': 0.903, 64: 50.976, 'share64': 0.742}
+s4:226 together 0.73 z 15.26 {4: 31.503, 'share4': 0.988, 16: 30.235, 'share16': 0.948, 64: 17.845, 'share64': 0.56}
+s4:242 together 1.1 z 16.67 {4: 55.614, 'share4': 0.966, 16: 55.282, 'share16': 0.961, 64: 53.365, 'share64': 0.927}
+s4:255 together 0.57 z 14.49 {4: 36.991, 'share4': 0.589, 16: 36.644, 'share16': 0.584, 64: 57.381, 'share64': 0.914}
+s4:269 together 0.88 z 13.85 {4: 88.349, 'share4': 1.031, 16: 86.506, 'share16': 1.009, 64: 87.979, 'share64': 1.026}
+s4:270 together 1.82 z 15.17 {4: 32.138, 'share4': 1.015, 16: 29.408, 'share16': 0.929, 64: 25.11, 'share64': 0.793}
+s4:277 together 0.11 z 15.38 {4: 36.149, 'share4': 1.09, 16: 34.599, 'share16': 1.043, 64: 32.29, 'share64': 0.974}
+s4:28 together 3.19 z 15.27 {4: 35.114, 'share4': 0.984, 16: 32.068, 'share16': 0.898, 64: 19.631, 'share64': 0.55}
+s4:297 together 1.36 z 11.86 {4: 56.718, 'share4': 0.612, 16: 43.243, 'share16': 0.467, 64: 44.06, 'share64': 0.476}
+s4:31 together 4.69 z 18.07 {4: 32.588, 'share4': 0.877, 16: 31.929, 'share16': 0.859, 64: 26.847, 'share64': 0.722}
+s4:32 together 0.86 z 13.79 {4: 67.788, 'share4': 0.951, 16: 66.184, 'share16': 0.928, 64: 63.08, 'share64': 0.885}
+s4:329 together 2.89 z 16.48 {4: 34.053, 'share4': 0.984, 16: 30.876, 'share16': 0.892, 64: 33.198, 'share64': 0.959}
+s4:344 together 1.04 z 12.93 {4: 58.307, 'share4': 0.785, 16: 53.84, 'share16': 0.725, 64: 36.682, 'share64': 0.494}
+s4:35 together 1.58 z 18.31 {4: 35.577, 'share4': 1.078, 16: 33.985, 'share16': 1.03, 64: 27.373, 'share64': 0.83}
+s4:362 together 0.35 z 17.13 {4: 49.44, 'share4': 0.935, 16: 50.383, 'share16': 0.953, 64: 49.109, 'share64': 0.929}
+s4:367 together 0.85 z 13.53 {4: 54.238, 'share4': 0.912, 16: 49.12, 'share16': 0.826, 64: 44.857, 'share64': 0.754}
+s4:391 together 0.97 z 16.14 {4: 90.097, 'share4': 0.942, 16: 87.509, 'share16': 0.914, 64: 103.232, 'share64': 1.079}
+s4:393 together 1.16 z 15.57 {4: 22.172, 'share4': 0.822, 16: 15.301, 'share16': 0.567, 64: 7.9, 'share64': 0.293}
+s4:400 together 1.74 z 15.45 {4: 49.506, 'share4': 1.039, 16: 30.052, 'share16': 0.631, 64: 23.839, 'share64': 0.5}
+s4:403 together 0.6 z 15.27 {4: 31.644, 'share4': 0.951, 16: 29.453, 'share16': 0.885, 64: 23.742, 'share64': 0.713}
+s4:418 together 6.36 z 19.01 {4: 62.039, 'share4': 0.925, 16: 60.271, 'share16': 0.898, 64: 45.587, 'share64': 0.68}
+s4:42 together 0.9 z 14.35 {4: 55.652, 'share4': 0.853, 16: 56.042, 'share16': 0.859, 64: 41.817, 'share64': 0.641}
+s4:424 together 0.42 z 12.74 {4: 36.038, 'share4': 0.975, 16: 32.25, 'share16': 0.873, 64: 35.564, 'share64': 0.962}
+s4:429 together 0.28 z 17.06 {4: 75.426, 'share4': 1.113, 16: 73.241, 'share16': 1.081, 64: 63.919, 'share64': 0.943}
+s4:431 together 0.67 z 16.0 {4: 35.41, 'share4': 1.003, 16: 35.182, 'share16': 0.996, 64: 35.27, 'share64': 0.999}
+s4:456 together 0.63 z 14.07 {4: 40.102, 'share4': 1.069, 16: 35.593, 'share16': 0.949, 64: 29.021, 'share64': 0.774}
+s4:461 together 0.64 z 17.65 {4: 77.413, 'share4': 1.145, 16: 75.955, 'share16': 1.124, 64: 66.994, 'share64': 0.991}
+s4:467 together 1.64 z 15.05 {4: 86.901, 'share4': 1.064, 16: 76.867, 'share16': 0.941, 64: 62.664, 'share64': 0.767}
+s4:474 together 1.51 z 16.31 {4: 68.25, 'share4': 1.027, 16: 67.716, 'share16': 1.019, 64: 60.433, 'share64': 0.91}
+s4:486 together 0.51 z 13.95 {4: 59.094, 'share4': 1.157, 16: 55.196, 'share16': 1.081, 64: 48.907, 'share64': 0.958}
+s4:56 together 0.43 z 13.08 {4: 59.313, 'share4': 0.688, 16: 49.851, 'share16': 0.578, 64: 30.275, 'share64': 0.351}
+s4:9 together 1.68 z 18.49 {4: 40.725, 'share4': 0.85, 16: 38.508, 'share16': 0.804, 64: 33.877, 'share64': 0.707}
+s1: links 29, pass 1.00, median share 0.145; parents together / z median 0.36; err4 52.166 err16 14.439 err64 0.000; share4 0.079 share16 0.044 share64 0.000
+s2: links 16, pass 0.75, median share 0.057; parents together / z median 0.12; err4 161.935 err16 67.670 err64 0.000; share4 0.559 share16 0.199 share64 0.000
+s3: links 16, pass 1.00, median share 0.125; parents together / z median 0.13; err4 158.727 err16 126.820 err64 39.521; share4 0.721 share16 0.554 share64 0.212
+s4: links 58, pass 0.90, median share 0.038; parents together / z median 0.06; err4 51.872 err16 47.070 err64 40.644; share4 0.968 share16 0.907 share64 0.770
+all links 119: pass 0.916

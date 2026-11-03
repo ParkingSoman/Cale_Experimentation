@@ -10395,6 +10395,40 @@ Label: a limit. Comment. Line (a) of the trunk compares with training, not with 
 
 Comment on the hard step. In TQ30's upper side the build is direct once the areas given up are named (X = 1_I 1_I^T for the complement I of a cover), and in TQ31's upper side once the two sides are named (X = sigma sigma^T). These named builds are within 1 + O(delta) of the least in TQ30, and within a fixed constant plus a term of order n^2 / (D E) in TQ31. They are not shown to be the least. So those results locate the hard step in that choice, up to those factors.
 
+## B.CT The channel graph: parents, children and cuts (added 2026-11-03; node R-channeltree; plan pasted-content-id-1c9a-okay-before-serialized-snail.md)
+
+Why this section. The tree of Definition DH1 has regions of photos as its nodes. It needs units that are off outside a region. Source (Shonu, 2026-11-03): "if you actually have an understanding of the tree and an understanding of the map, just like the mathematics we've used". His picture has channels as its nodes: a parent channel builds child channels, and a child can disappear. These definitions make that picture a mathematical object. They use no region of photos.
+
+**Definition DC1 (layers, means, a fill).** N is a composition of layers. Layer l + 1 is a function of layer l alone, with h_1 a function of the input. Up to its last activation the function may be any function: a residual block is one layer, with its skip inside it. A layer's value is an array h_l(x, tau) over channels u and positions tau, and z_l is the same array before the layer's last activation. That activation acts on each channel and position alone. The logits read layer L by a mean over positions and a linear map W. The **mean** of channel u is a_u = sum_x p_x (mean over tau of h_u(x, tau)). A **fill** of layer l on a set of channels D sets each h_u, u in D, to the constant a_u at every position. For a set K of channels, with K_l its part in layer l, N_K is N with a fill of each layer on the complement of K_l, carried forward.
+
+**Definition DC2 (parent claim).** A **parent claim** (c, Q) names a channel c of layer l + 1 and a set Q of channels of layer l. It says: c's pre-activation does not change when layer l, at N's values, has a fill on the complement of Q. Let z_c^Q be that changed pre-activation. Its error is eps_par(c, Q) = e(c, Q) / V_c, with e(c, Q) = sum_x p_x mean over tau of (z_c(x, tau) - z_c^Q(x, tau))^2, and V_c the variance of z_c over P and positions. When V_c = 0 the error is e(c, Q). It is computed by one pass of N over P and one pass of layer l + 1, so in polynomial time. It is 0 exactly when the claim holds. It names no build, target size or zoom. A map may hold many such claims, one for each set Q. The claim on the whole of layer l always has error 0, so it says nothing by itself. In spirit, a claim on the kept set of a cut is close to naming that cut: Q is a set of N's channels and the error is N's, but a map that holds it was written with the cut in view. Copy test, for a layer that reads layer l through an affine map first: replace a channel of layer l by n copies whose read weights are divided by n. A claim whose Q holds all copies or none has the same error. Replacing c by copies leaves each copy's error the same.
+
+**Definition DC3 (channel graph, tree, family, cut).** The **channel graph** of a map has an edge p -> c when the map holds a parent claim (c, Q) with p in Q, and the claim (c, Q minus p) has a larger error, so that p is needed in Q. Its **strength** on a set of inputs is the root mean square change in z_c when p alone has a fill. A signed mean change will not do: for a layer that reads layer l through an affine map, it is 0 on the whole of P. A **channel tree** is a choice of at most one main parent for each channel, along edges. A **family** is a channel with what lies below it in a channel tree. A **cut** is a set K of channels. A map is **closed on a cut** when it holds (c, K_l) for every l < L and every c in K_(l+1). This is a condition of its own, and Definition DM6 is not changed by it. Nothing here requires one parent per child: a channel tree is a choice inside the graph, not a claim about N.
+
+**Theorem TC1 (a cut closed under its parents loses only what its top loses) (under: channel parent claims).** Let K be a cut. Suppose the map holds (c, K_l) with eps_par(c, K_l) = 0 for every l < L and every c in K_(l+1). Then:
+1. For every x in P and every c in K, c has the same value in N_K as in N, at every position.
+2. y_N - y_(N_K) = W_D (h_D - a) at each x, where D is the complement of K_L, h_D is the mean over positions of layer L's channels in D, and a is their means. So D_P(N_K) equals the loss of N with a fill of layer L alone on D.
+3. D_P(N_K) <= (1/8) sum_x p_x osc(W_D (h_D(x) - a))^2, where osc is the largest entry minus the smallest. This is 0 exactly when W_D (h_D(x) - a) is the same in every logit for every x.
+4. If K' lies in K and the map also holds (c, K'_l) at error 0 for every l < L and every c in K'_(l+1), then N_K' has the same three properties. So a nested series of such cuts gives nested builds. Each build is N with a list of fills, so all of them are found from the list of means alone.
+Proof. Part 1, by induction on l. Layer 1 is a function of the input, so each kept channel of layer 1 has N's value. Suppose every channel of K_l has N's value in N_K. Then layer l in N_K is exactly layer l at N's values with a fill on the complement of K_l, since the channels outside K_l hold their means. So for c in K_(l+1), the pre-activation in N_K is z_c^(K_l). The claim's error is 0 and every p_x > 0, so z_c^(K_l) = z_c at every point and position. The value of c is the layer's activation of z_c. Part 2. By part 1 the channels of K_L hold N's values, and the others hold their means. The logits are linear in layer L's pooled values, which gives the difference and the equality of the two losses. Part 3 is Hoeffding's lemma applied at each x, as in Definition DQ12. Part 4 is parts 1 to 3 for K'; the means are those of N, whatever the cut. QED.
+Lean: none, by hand: an induction over layers with no arithmetic beyond part 3, which is the bound already used for Definition DQ12. Exact check: `model/tc_tree.py`.
+Label: ONE-BUILD. It says nothing about the least of a dropped group, and N_K need not reach it. Comment on its weight. This theorem is close to a tautology once Definition DC2 is written: part 1 unrolls the premise, part 2 is linearity, and part 3 is borrowed. Its one piece of content is that tests of one layer each, at N's values, certify the whole cut. It uses no tree. Comment on scope. A cut of a residual network keeps a block's inner channels, so this theorem does not say the build is smaller; a build that also removes inner channels needs its own claims. A fill folds into a bias only where the next read is affine. Comment. The set Q in the premise is the exact kept set, on purpose. A claim on a smaller Q does not cover a larger cut: take z = q + |u - v| on points where u = v, with values 0 and 2 in equal weight, so both means are 1. Then (z, {q}) has error 0, since |1 - 1| = 0 and |u - v| = 0. With K holding q and u, the input is |u - 1| = 1, and z moves. So the error must be read per cut. The closed map of Definition DC3 is a condition between map and cut, in the same spirit as the trunk's words "a condition between map and zoom", and it is not DM6. Comment on lines (b) and (c) of the trunk: the up-front computation here is one pass for the means, with no random start. Line (a) is not addressed here. Comment on cuts and trees: removing a channel of the last layer changes nothing below it, so a leaf can always go first. Below the top, Proposition TC2 bounds what a cut costs.
+
+**Proposition TC2 (a recursion for the change in kept channels) (under: channel parent claims).** Let K be a cut, and let delta_l be the root of sum_x p_x mean over tau of the squared change of K_l's values between N and N_K. Let the activations be 1-Lipschitz. Let Lip_l be a number such that, on the values that occur, changing K_l's channels by a root-mean-square amount r moves the pre-activations of K_(l+1) by at most Lip_l r in root mean square. Then delta_1 = 0, and delta_(l+1) <= Lip_l delta_l + (sum over c in K_(l+1) of e(c, K_l))^(1/2).
+Proof. Layer 1 has no fill before it. For c in K_(l+1), write the change in its pre-activation as the sum of two terms: from N_K's layer l to layer l at N's values with a fill on the complement of K_l, and from there to N's layer l. The first has size at most Lip_l delta_l, since the two inputs differ only on K_l. The second, over all such c, has squared size the sum of e(c, K_l). Minkowski's inequality adds the two in root mean square. The activation is 1-Lipschitz, so the values' change is at most the pre-activations' change. QED.
+Lean: none, by hand: a triangle inequality in a weighted L2 space. Exact check: `model/tc_tree.py`.
+Label: ONE-BUILD. Tightness is not claimed. It stops at delta_L and gives no bound on the loss by itself. It depends on N's norms twice: through Lip_l and through the scales V_c inside e. So it is not the trunk's graded promise, which asks for a bound in the list of errors alone.
+
+**Proposition TC3 (no bound in the errors alone, for this build) (under: channel parent claims).** No function of the list of parent claim errors, tending to 0 as the errors tend to 0, bounds D_P(N_K) over all networks of Definition DC1 and all cuts.
+Proof. Take P as the four points with (q, w) in {10, 12} x {0, 2} at equal weight, and d in (0, 1). Layer 1 holds q and w. Layer 2 holds c = q + d (w - 1) and c' = q. Layer 3 holds one channel e with z_e = (c - c') / d + 5. All of these stay above 0, so each ReLU passes its input. The logits are (h_e, 0). Take K holding q, c, c', e. Then e(c, {q}) = d^2 and V_c is at least the variance of q, which is 1, so eps_par(c, {q}) <= d^2. Also eps_par(c', {q}) = 0, and eps_par(e, {c, c'}) = 0 since all of layer 2 is kept. So all errors tend to 0 with d. In N, z_e = w + 4, which is 4 or 6. In N_K, w is filled with 1, so c = c' and z_e = 5. So the logits at each point do not depend on d, and D_P(N_K) is a fixed positive number. QED.
+Lean: none, by hand: a direct computation on four points. Exact check: `model/tc_tree.py`.
+Label: a limit. Comment. The read weight 1/d grows as the errors shrink, so this is a blow-up of the kind in Theorem TM4's setting, though TM4 is about V_b and this is about one build. Whether a bound in the errors alone holds on networks with bounded weights, or on clean networks, is open.
+
+**Lemma TC4 (one covariance per layer gives every cut's error, on affine reads) (under: channel parent claims).** Suppose z_(l+1) reads layer l through an affine map A at each position, with no other use of layer l, and take one position. Then for every set Q, with D its complement, e(c, Q) = A_(c,D)^T Cov(h_D) A_(c,D), where Cov is the weighted covariance of layer l's channels over P.
+Proof. z_c - z_c^Q = A_(c,D) (h_D - a_D), and a_D is the weighted mean of h_D. Take the weighted mean of the square. QED.
+Lean: none, by hand: one expansion of a square. Exact check: `model/tc_tree.py`.
+Label: a tool. Comment. So on such layers one covariance matrix, stored once, gives the error of every cut with no new pass over P. A residual block is not such a read, except for a downsample path.
+
 # Part C: distance of InceptionV1 from each hypothesis
 
 Each hypothesis gets one distance eps, defined before it is measured.
@@ -10691,6 +10725,44 @@ Photo-count control (`rounds/round5/goal_resnet18_pc12.json`; prediction committ
 Reading. Fewer photos raise the ratio on random goals at k = 14, from about 1.17 to about 1.28, and they lower it on all classes at k = 14, from 1.299 to 1.180. So photo count alone does not explain ResNet-50's failures. What remains is the network or the ratio of rows to d, and this run does not separate those two. Line (b) fails on 5 of 6 goals here too: rule seconds against random-start seconds 28 / 3, 15 / 3, 14 / 3, 11 / 13, 106 / 25, 33.3 / 32.9, and the one pass rests on a slow random start. Predictions: random goals at k = 14, 1.3 to 1.6, slightly below (1.25 to 1.30); all classes at k = 14, 1.3 to 1.5, missed (1.180); dogs and cats under 1.3, held; "part, and not all, of ResNet-50's failures", held on random goals, missed on all classes, where photo count explains none.
 
 Unplanned observation, after the fact. The trained start logitpca (top directions of the logits, a least-squares read, then training stopped on validation) had the lowest sealed KL on 22 of 24 runs, and was within 1.065 of the lowest on the other two. It has no random start, so it meets line (c), though only one repeat of the rule was tested, not of this. One level from it took less time than one level from a random start on 11 of 12 runs at k = 14. Both sizes from it cost less than one random-start level on only 1 of 12 goal runs (all classes, ResNet-18). The lowest sealed value is selected over four starts, one of them this one, so its ratio of 1 is not an independent test. It is training, not a closed form.
+
+## C.R6 The channel map of ResNet-18: test slice (H-map, Definitions DC1 to DC3, Theorem TC1; `map_agents/resnet18/`, numbers in `results/`, predictions in `results/PREDICTIONS.md`; added 2026-11-03)
+
+N is torchvision ResNet-18. Reading photos: 35 ImageNet validation crops per class. Sealed photos: 10 per class, seen by no agent. These are not N's training photos. Six agents read 106 of the 960 stream channels by hand (40 in stage 4, 40 in stage 3, 17 in stage 2, 15 in stage 1, with 6 read twice), and wrote 119 parent links. A seventh merged them into 17 families. Blind reviewers saw only the words. About 1.2M tokens in all.
+
+| Line, fixed before the run | Pass | Result | Verdict |
+|---|---|---|---|
+| Specific enough to lose: gap of at least .2 between predicted and near-miss classes, per channel | 85% of channels | 44%. s4 80%, s3 29%, s2 20%, s1 13%. Mean gap .34, .13, .10, .08 | Fails |
+| Real parents: true parent chosen of 5, from words alone | 70% | 57%, chance 20%. One agent wrote both cards 57%, different agents 54% | Fails |
+| Parents act: signed fall in z at the child's peaks when the parent is filled, at least 2 times matched controls | most links | 92% of 119. s1 100%, s2 75%, s3 100%, s4 90% | Passes |
+| Families act: at least 6 of 10 predicted classes in the top 100 losers, and at least 2 times the controls on them | most of 15 families | 5 of 15. Mean 4.9 of 10, chance 1. At least 2 times the controls on the predicted classes in 14 of 15 | Fails |
+
+| How much of a child its parents carry (median, sealed photos, the child's top 64) | s1 | s2 | s3 | s4 |
+|---|---|---|---|---|
+| One listed parent filled: fall as a share of z | .145 | .057 | .125 | .038 |
+| All listed parents filled together: fall as a share of z | .36 | .12 | .13 | .06 |
+| Share of z^2 changed when only the top 4 feeders stay real | .08 | .56 | .72 | .97 |
+| The same, top 16 | .04 | .20 | .55 | .91 |
+| The same, top 64 | 0 (the whole layer) | 0 (half the layer) | .21 | .77 |
+
+The feeders above were chosen by input x gradient, which the agents found to be an unreliable guide to true parents. So these numbers may overstate how many parents a child needs. They do not measure the strength of Definition DC3, which is a root mean square change.
+
+| Skip's share of z at a channel's peak, median of 40 channels | s1 | s2 | s3 | s4 |
+|---|---|---|---|---|
+| Skip / z at block 1 | .71 | .70 | .77 | .07 |
+
+This corrects LADDER 45 and card 3-34 for stage 4.
+
+Realism check of Theorem TC1's premise, on the goal dogs and cats, on sealed photos. Label ONE-BUILD. A fill of each layer on the complement of K, with each layer's own mean.
+
+| Cut | Kept at s3, s4 | Median eps_par at s3 b1, s4 b0, s4 b1 | D_P | Agreement with N | Random, same counts | Strongest, same counts |
+|---|---|---|---|---|---|---|
+| keep only the dog and cat cards | 22, 20 | .71, 1.24, .91 | 5.88 | .001 | 5.71 to 5.80 | 6.29 |
+| remove the vehicle cards | 243, 492 | .017, .037, .033 | .090 | .885 | .090 to .124 | .141 |
+
+So the premise is far from 0 on a small kept set, and close to 0 on a thin cut. On the thin cut the map's choice does not clearly beat random: one random seed ties it. Neither cut is smaller by much, since the stages below and the inner channels stay whole. These are upper values on what the build can do at these cuts, on one goal.
+
+Reading, not proved. The essay predicts broad neurons in a small network, and predicts narrower ones with size. These numbers fit the first half. The second half is not measured.
 
 # Part D: where the math leads
 

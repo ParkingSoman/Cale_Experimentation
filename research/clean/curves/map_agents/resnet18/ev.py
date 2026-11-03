@@ -334,7 +334,9 @@ elif cmd in ("drop", "acts"):
         for ch in chs:
             s, c = parse(ch)
             fill.setdefault(s, []).append(c)
-        return {s: (torch.tensor(cs), torch.as_tensor(np.asarray(arr(f"s{s}b{block_of(s)}_hm")[:, cs], dtype=np.float32).mean(0))) for s, cs in fill.items()}
+        from net import block_means
+        means = block_means(READ)
+        return {s: (torch.tensor(cs, dtype=torch.long), means[s][0][cs], means[s][1][cs]) for s, cs in fill.items()}
 
     if cmd == "drop":
         idx = P.per_class(a.per_class)

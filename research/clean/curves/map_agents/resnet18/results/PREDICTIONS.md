@@ -44,3 +44,34 @@ If a stage has a median correlation under .5, the unit becomes the block in that
 The second prediction, in `skip_check.py`, held at s4: skip under .2 of z, and own share of input x gradient above that (.21 against .07). At stages 1 to 3 it predicted .3 to .7, and the measured values are .70 to .77, at or just above the top.
 
 **Decision (technical, by delegation):** the stream channel stays the unit, read at block 1. No stage has a median correlation under .5, which was the line fixed in advance. Stage 4 is close (.55), and its top photos differ, so links inside stage 4 count as real links.
+
+## The test slice, first scoring (2026-11-03; sealed photos; `blind_a.json`, `blind_b.json`, `acts_sealed.json`, `families.json`)
+
+106 channels, 119 links, 17 families, 15 of them with stage 3 or 4 channels and so in the family test. About 0.8M tokens for the reading.
+
+| Line | Pass line | Prediction | Result | Verdict |
+|---|---|---|---|---|
+| Specific enough to lose | 85% at gap >= .2 | Passes at s4 and s3. Near the line at s2 and s1 | 44% overall. s4 80%, s3 29%, s2 20%, s1 13%. Mean gap s4 .34, s3 .13, s2 .10, s1 .08 | FAILS. Prediction wrong at s3, s2, s1 |
+| Real parents, 1 of 5 | 70% | 50 to 75% | 57%. Same agent wrote both cards 57%, different agents 54%, so wording leak looks small | FAILS. Prediction held |
+| Parents act, 2 times the controls | no share fixed; "most links" predicted | 70 to 90% | 92% of 119 links. s1 100%, s2 75%, s3 100%, s4 90% | PASSES, above the prediction |
+| Effect of one parent at s4 | | 2 to 20% of z | Median 3.8% | Held, at the low end |
+| Error keeping k feeders | | k = 4 above .5, k = 16 about .2 to .5, k = 64 under .2 | Share of z^2 changed at s4: .97, .91, .77 at k = 4, 16, 64. s3: .72, .55, .21. s2: .56, .20, 0 (the median, with 64 of 128 kept). s1: .08, .04, 0 (64 is the whole layer) | FAILS at s4 and s3 |
+| Families act | most of 15 families: 6 of 10 predicted classes in the top 100 losers, and 2 times the controls on them | About half pass. Tone and strand pass. Furry face does not | 5 of 15 pass. Mean 4.9 of 10 (chance 1). KL on the predicted classes beats the controls by 2 times or more in 14 of 15. Tone and strand passed, furry face failed | FAILS the line. The family predictions held |
+
+Change of measure, said plainly: the script's fixed measure divides by the variance of z over the child's top 64 photos. That variance is tiny, so the numbers run into the hundreds and say little. They are in the JSON. I read the share of z^2 in its place, which the same script also recorded before any result was seen.
+
+Bug found and fixed before these numbers: the tools filled a channel at both blocks with its block 1 mean. Definition DC1 needs each layer's own mean. `acts_sealed_wrongmean.json` holds the old run: 93% against 92%, so the effect is small. The agents' own `acts` numbers on their cards came from the old fill.
+
+## The cut check, TC1's premise on real cuts (`cut_check.json`; dogs and cats goal, sealed photos)
+
+| Cut | Kept at s3, s4 | Median eps_par at s3 b1, s4 b0, s4 b1 | KL | Agreement | Random (3 seeds) | Strongest |
+|---|---|---|---|---|---|---|
+| dogs: keep only the dog and cat cards | 22, 20 | .71, 1.24, .91 | 5.88 | .001 | 5.71, 5.79, 5.80 | 6.29 |
+| novehicle: remove the vehicle cards | 243, 492 | .017, .037, .033 | .090 | .885 | .090, .116, .124 | .141 |
+
+| Prediction | Result |
+|---|---|
+| dogs: median eps_par above .5, KL above 1 | Held |
+| novehicle: eps_par under .1 at s3, under .2 at s4, KL under .1 | Held |
+| novehicle beats random controls by 1.5 times or more | FAILED. 1.22 times the mean of the seeds, and one seed ties it |
+| Against strongest channels it is close | It beats them by 1.57 times, more than I expected |
