@@ -3,3 +3,5 @@ s3:64>s4:486 | s4:486 at its own peaks, top 64 photos: mean z 16.38. It falls +0
 s3:207>s4:329 | s4:329 at its own peaks, top 64 photos: mean z 19.75. It falls +3.288 when s3:207 is removed. matched controls (same spread, not in the top 30 feeders) [82, 58, 66]: falls [-0.051, 0.066, 0.24]
 s3:116>s4:269 | s4:269 at its own peaks, top 64 photos: mean z 16.54. It falls +1.161 when s3:116 is removed. matched controls (same spread, not in the top 30 feeders) [18, 91, 226]: falls [-0.014, 0.092, 0.12]
 s3:78>s4:461 | s4:461 at its own peaks, top 64 photos: mean z 20.94. It falls +1.212 when s3:78 is removed. matched controls (same spread, not in the top 30 feeders) [119, 135, 233]: falls [0.002, 0.027, -0.049]
+s2:79>s3:207 | s3:207 at its own peaks, top 64 photos: mean z 3.07. It falls +0.243 when s2:79 is removed. matched controls (same spread, not in the top 30 feeders) [31, 12, 117]: falls [0.099, 0.018, 0.001]
+s2:39>s3:64 | s3:64 at its own peaks, top 64 photos: mean z 2.31. It falls +0.184 when s2:39 is removed. matched controls (same spread, not in the top 30 feeders) [123, 107, 41]: falls [0.016, -0.002, 0.065]

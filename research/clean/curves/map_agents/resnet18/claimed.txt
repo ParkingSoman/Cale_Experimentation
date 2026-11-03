@@ -99,3 +99,7 @@ s3:222 furbody
 s2:6 furbody
 s2:127 gate
 s2:109 gate
+s3:98 wheels
+s3:46 wheels
+s2:120 wheels
+s2:32 wheels
