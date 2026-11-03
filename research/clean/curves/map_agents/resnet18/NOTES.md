@@ -32,3 +32,4 @@ early: s2:23 big dark disc -> s3:60 (tabby trace). s2:59 sparse wire junction is
 early: dog and car traces use the same few s1 channels (19, 51, 60, 47, 43, 44, 29, 25): the early dials are not class-specific.
 early: failures: s1:37 grayscale edit measures the weak positive pole, not green; s2:25 blur kept 0.70 (I expected under 0.5); s1:44 rot90 kept .64 (expected over .8).
 early: blur and rot90 edits take 3 minutes each under load; sheet takes seconds.
+early: acts s1:60->s2:25 fell .169 (controls ~0.03, weak link); s1:55->s2:25 fell 0 (no link).
