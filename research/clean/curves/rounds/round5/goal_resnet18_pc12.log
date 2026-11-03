@@ -60,3 +60,10 @@ ctrl2 38 rule {'kl': 0.8405, 'agree': 0.6496, 'fit': 0.0358, 'val': 0.8843, 'sec
 ctrl2 38 rule_fast 0.8636 ratio 1.09 sec 4.1
 ctrl2 38 RATIO rule 1.097 rule2 1.29
 dogcat90 rows 12000 3000 10000 span sec 0.33
+dogcat90 14 rule {'kl': 0.871, 'agree': 0.6588, 'fit': 0.5492, 'grad': 0.0, 'sec': 40.6294} rule2 0.798 323.4
+dogcat90 14 logitpca {'kl': 0.817, 'agree': 0.6188, 'fit': 0.3055, 'val': 0.8183, 'sec': 14.8975} validation
+dogcat90 14 rand0 {'kl': 1.0157, 'agree': 0.5771, 'fit': 0.2592, 'val': 0.9415, 'sec': 26.709} validation
+dogcat90 14 rand1 {'kl': 0.9602, 'agree': 0.6034, 'fit': 0.2622, 'val': 0.9439, 'sec': 22.9538} validation
+dogcat90 14 rule {'kl': 0.8076, 'agree': 0.6643, 'fit': 0.3825, 'val': 0.8154, 'sec': 12.3565} validation
+dogcat90 14 rule_fast 0.871 ratio 1.078 sec 17.6
+dogcat90 14 RATIO rule 1.079 rule2 0.988
