@@ -155,7 +155,8 @@ first, because the other two speak of "the least build".
 Directional because: this sets what a developer's one up-front computation is, and it changes line (b) of trunk T6.
 
 ```
-closed-form rule (DG2):        line (a): passes on ResNet-18, fails on 6 of 12 runs on ResNet-50
+closed-form rule (DG2):        line (a), T6's named starts:    passes on all 24 runs
+                               line (a), adding the logit start:   fails on 6 of 12 runs on ResNet-50
                                line (b): fails on 11 of 12 goal runs
 closed-form start, then        lowest sealed KL on 22 of 24 runs, no random start
 short training on validation:  both sizes cost more than one random-start level on 11 of 12 goal runs
@@ -170,6 +171,8 @@ Why it matters: at the last block, a read is such a small fit that training take
 | (c) Keep line (b) as written, and accept the rule only on family goals | Only dogs and cats style goals get the promise | The rule's (a) holds on those, on both networks | Line (b) still fails. "Everything equal" is a goal you named, and it would be left out |
 
 My recommendation: (b), with a test first at one middle layer before any trunk text changes. Reason: it is the only option with something that works today, and the question it leaves open is the one that decides Cale's value. I do not change the trunk until you say so.
+
+Said plainly, this reverses what I told you in the plan: I wrote that line (b) is what keeps this from being only distillation. It failed on 11 of 12 goal runs, and a fixed start plus short training had the lowest KL on 22 of 24. You also need to know that ResNet-50's numbers are confounded with photo count, 12 fit photos per class against 30. A control run is in `rounds/round5/`, and this card can wait for it.
 
 Also yours to judge: agreement with N. On dogs and cats the rule reaches .75 and .86 on ResNet-18, and .79 and .88 on ResNet-50. On all classes, .34 and .62, and .35 and .67. A line on KL does not say whether that is good enough for an app.
 

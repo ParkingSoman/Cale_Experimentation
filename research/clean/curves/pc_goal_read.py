@@ -46,7 +46,10 @@ PREDICTION for ResNet-50, written before its first full run (2026-11-03), after 
    dogcat: trained k = 14 about .45, k = 38 about .2, rule/best .9 to 1.3. Beats the controls at both sizes.
    (a) fails on at least one goal, most likely equal at k = 14. (b) fails on the small goals and passes on equal. (c) passes.
 
-Usage: pc_goal_read.py --net resnet18 [--smoke] [--goals dogcat,ctrl0] [--fast-only]
+ADDED 2026-11-03, after both runs: --per-class N, the photo-count control. ResNet-18 at 12 fit and 3 validation photos per class, as on ResNet-50, with 10 sealed. It separates photo count from the network. It does not match rows against d: a 123-class goal has 1476 rows, above ResNet-18's 512 and below ResNet-50's 2048.
+PREDICTION, written before the run: ratio against the four starts rises from ResNet-18's run. Random goals at k = 14: 1.3 to 1.6. All classes at k = 14: 1.3 to 1.5. Dogs and cats stay under 1.3. So I expect photo count to explain part of ResNet-50's failures, and I do not expect it to explain all of them.
+
+Usage: pc_goal_read.py --net resnet18 [--smoke] [--goals dogcat,ctrl0] [--fast-only] [--per-class 12]
 """
 import argparse
 import json
@@ -61,6 +64,7 @@ ap.add_argument("--net", default="resnet18", choices=["resnet18", "resnet50"])
 ap.add_argument("--smoke", action="store_true")
 ap.add_argument("--goals", default="dogcat,ctrl0,ctrl1,ctrl2,dogcat90,equal")
 ap.add_argument("--fast-only", action="store_true", help="add rule_fast to an existing result file, nothing else")
+ap.add_argument("--per-class", type=int, default=0, help="resnet18 only: fit photos per class, with 3 validation")
 a = ap.parse_args()
 HERE = os.path.dirname(os.path.abspath(__file__))
 torch.set_default_dtype(torch.float64)
@@ -69,7 +73,7 @@ SIZES = [14, 38]
 CHUNK, MAXCHUNK = (5, 3) if a.smoke else (50, 30)
 OUT = os.path.join(HERE, "rounds/round5")
 os.makedirs(OUT, exist_ok=True)
-TAG = a.net + ("_smoke" if a.smoke else "")
+TAG = a.net + (f"_pc{a.per_class}" if a.per_class else "") + ("_smoke" if a.smoke else "")
 PATH = os.path.join(OUT, f"goal_{TAG}.json")
 DOGCAT = list(range(151, 269)) + list(range(281, 286))
 assert len(DOGCAT) == 123
@@ -91,7 +95,7 @@ def load():
     if a.net == "resnet18":
         lab = np.load(os.path.join(HERE, "cache/r18/lab_train.npy"))
         labs = np.load(os.path.join(HERE, "cache/r18/lab_sealed.npy"))
-        counts = (6, 2) if a.smoke else (30, 5)
+        counts = (6, 2) if a.smoke else ((a.per_class, 3) if a.per_class else (30, 5))
         fit, val = per_class_split(lab, counts)
         seal = per_class_split(labs, (3 if a.smoke else 10,))[0]
         Zt = np.load(os.path.join(HERE, "cache/r18/z_train.npy"), mmap_mode="r")
