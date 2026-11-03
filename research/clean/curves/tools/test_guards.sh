@@ -110,6 +110,24 @@ b="$TMP/l3.md"; grep -v 'Trunk check' "$lg" > "$b"
 python3 "$T/ladder_lint.py" "$b" "$lc" >/dev/null; check "ladder lint: section without trunk check fails" 1 $?
 b="$TMP/c1.md"; grep -v 'Directional because' "$lc" > "$b"
 python3 "$T/ladder_lint.py" "$lg" "$b" >/dev/null; check "ladder lint: card without directional line fails" 1 $?
+l55="$TMP/l55.md"
+cat > "$l55" <<'EOF'
+## 55. A section after the meta-analysis
+```
+photo --> channels --> logits
+```
+Why it matters: the build is a real network.
+| Trunk check | used "a map" |
+| Cale line | nothing yet |
+| Whole-network build | no |
+EOF
+python3 "$T/ladder_lint.py" "$l55" "$lc" >/dev/null; check "ladder lint: section 55 with both rows is clean" 0 $?
+b="$TMP/l55a.md"; grep -v 'Cale line' "$l55" > "$b"
+python3 "$T/ladder_lint.py" "$b" "$lc" >/dev/null; check "ladder lint: section 55 without a Cale line fails" 1 $?
+b="$TMP/l55b.md"; grep -v 'Whole-network build' "$l55" > "$b"
+python3 "$T/ladder_lint.py" "$b" "$lc" >/dev/null; check "ladder lint: section 55 without the build row fails" 1 $?
+b="$TMP/l55c.md"; sed 's/| Whole-network build | no |/| Whole-network build | later |/' "$l55" > "$b"
+python3 "$T/ladder_lint.py" "$b" "$lc" >/dev/null; check "ladder lint: build row must say yes or no" 1 $?
 python3 "$T/ladder_lint.py" >/dev/null; check "ladder lint: real files are clean" 0 $?
 
 # ---------- stop gate and reminder ----------

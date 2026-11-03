@@ -3611,3 +3611,54 @@ Why it matters: this is training, so it is what line (b) was written to keep out
 | referee | `REFEREE-BQ13-2026-11-03.md`, two reads |
 | your calls | card 3-41 |
 | next, my view | test the logit start at one middle layer, against ordinary distillation of that level, before any trunk text changes. Run ResNet-18 at 12 fit photos per class, to separate the network from the row count |
+
+## 55. A meta-analysis: the project drifted, and the map goes first (2026-11-03; plan pasted-content-id-1c9a-okay-before-serialized-snail.md; ROADMAP.md "The order changed"; node R-channeltree)
+
+**Yes, the project drifted. Nothing a developer or consumer can use has come out since 2026-10-18. Row 3 is parked. A complete agent-made map of ResNet-18 is now the next job.** You said: "before we can make any new progress, we need to have actually good maps."
+
+**Step 1. The root cause: the object you asked for was replaced by one that was easier to prove things about.** I did this several times.
+
+```
+you asked for:     parent channel -> child channels, collapse a child, the parent absorbs the error
+what I worked on:  proxy areas  ->  squared logits  ->  tables of class rows  ->  k linear numbers read from one layer
+```
+
+Why it matters: each step gave real theorems, and each step moved further from your picture. The "optimizer things" of LADDER 54 are the end of this chain.
+
+| Finding | Evidence |
+|---|---|
+| Your tree left the work | "parent" or "child" on 28 lines of LADDER 1-40, on 0 lines of LADDER 41-54. I counted this |
+| Row 3 took everything | 14 sections in a row. Two fan-out rounds cost about 6.6M tokens, the map pilot 0.55M |
+| The last session did not use the map | LADDER 54's trunk check: "Not used: the map, the nested zoom" |
+| The map sat behind a gate that was never passed | ROADMAP session 3 waited for session 2, which never started. That gate came from my plan, and you approved it |
+| No whole-network build in this track | Every ResNet build is the last block only |
+| Cale is absent from the math | "Gemma" appears 0 times in the roadmap, LADDER, decisions and paper. I counted this |
+| Each map request went elsewhere | 10-29 gave a script with one fixed rule. 10-31 put the map behind the gate. 11-01 gave a 20-minute pilot of about 60 channels, never extended |
+
+| Shared causes | Evidence |
+|---|---|
+| The direction changed often | The meta-analysis counts at least 14 question changes in 15 days, some yours and some mine. I did not recount this |
+| You pushed row 3 too | "close row 3 once and for all", 2026-11-02 |
+| The rules favor theorems over reading | The math guards gate runs behind paper items, so looking at neurons is discouraged by the structure |
+
+**Step 2. Two trees, and I chose yours.**
+
+| | The paper's tree (DH1) | Your tree |
+|---|---|---|
+| A node is | a layer and a region of photos | a channel |
+| An edge is | a smaller region inside a larger one | a parent channel that builds a child channel |
+| On ResNet-18 | district errors .31 to .96, channels on for 80 to 98% of photos | never built. The ConvNeXt map found a parent for 39 of 41 sampled neurons |
+
+Why it matters: the pilot's agents could read the channels, with 23 of 24 blind tests passed. So the reading worked, and the claim type failed. A map in the old vocabulary would have looked bad again. Node R-channeltree records this. The trunk does not change.
+
+**Step 3. What "complete" will mean, said plainly.** The map will read and link every stream channel. It will not be "complete for the zoom" in the sense of DM6, which gives the exact closed form. DM6 covers the last layer only, and its item 5 fails for real squeezes here. The new parent claim is a first attempt to fix that, and I do not promise that it works.
+
+**Step 4. The new guard.** Each section from this one on must have a "Cale line" row and a "Whole-network build" row that says yes or no. You said a note is too weak, so this is in `tools/ladder_lint.py`, with four new self-tests.
+
+| | |
+|---|---|
+| Trunk check | used: "a map M of N on P", "How M is found (by people, agents or a program) is outside the trunk". No trunk text changes |
+| Cale line | nothing yet. This section sets the route, which is a reading and not a proven result: ResNet for one question, then SmolLM2's MLP width, then Gemma 3n width tiers |
+| Whole-network build | no |
+| label | none. This section holds no theorem |
+| next | the better microscope, then a test slice of about 120 channels |

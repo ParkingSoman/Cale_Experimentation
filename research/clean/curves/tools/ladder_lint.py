@@ -5,6 +5,10 @@ Each LADDER.md section numbered FIRST_SECTION or later must have:
   - a code-block diagram of what happens in the network,
   - a "Why it matters" line,
   - a "Trunk check" row or line (which trunk words the work used, or why none applied).
+Each section numbered FIRST_CALE_SECTION or later must also have (added 2026-11-03, plan
+pasted-content-id-1c9a-okay-before-serialized-snail.md, after the meta-analysis of LADDER 55 found the work had left both):
+  - a "Cale line" row or line (what this gives the Cale equation, or "nothing yet"),
+  - a "Whole-network build" row or line saying yes or no.
 Each DECISIONS.md card numbered 3-FIRST_CARD or later must have a "Directional because" line, unless its heading says
 it is ANSWERED by delegation.
 
@@ -15,6 +19,7 @@ import re
 import sys
 
 FIRST_SECTION = 45
+FIRST_CALE_SECTION = 55
 FIRST_CARD = 34
 HERE = os.path.dirname(os.path.abspath(__file__))
 CURVES = os.path.dirname(HERE)
@@ -48,6 +53,12 @@ def check_ladder(text):
             probs.append(f"LADDER {num}: no 'Why it matters' line")
         if not re.search(r"trunk check", body, re.I):
             probs.append(f"LADDER {num}: no 'Trunk check' row (which trunk words did this use, or why none applied)")
+        if num < FIRST_CALE_SECTION:
+            continue
+        if not re.search(r"cale line", body, re.I):
+            probs.append(f"LADDER {num}: no 'Cale line' row (what does this give the Cale equation, or say 'nothing yet')")
+        if not re.search(r"whole-network build[^\n]*\b(yes|no)\b", body, re.I):
+            probs.append(f"LADDER {num}: no 'Whole-network build' row that says yes or no")
     return probs
 
 
