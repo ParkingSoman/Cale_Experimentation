@@ -10684,7 +10684,7 @@ Photo-count control (`rounds/round5/goal_resnet18_pc12.json`; prediction committ
 | Goal | k = 14: rule, best, ratio | k = 38: rule, best, ratio | ResNet-50 ratios, for comparison |
 |---|---|---|---|
 | dogs and cats | .471, .535, .880 | .173, .179, .966 | 1.024, 1.044 |
-| 123 random classes, 3 draws, mean | 2.109, 1.653, 1.276 (worst 1.295) | .859, .774, 1.109 (worst 1.124) | 1.646, 1.215 |
+| 123 random classes, 3 draws, mean | 2.109, 1.653, 1.276 (worst 1.295) | .859, .774, 1.108 (worst 1.124) | 1.646, 1.215 |
 | dogs and cats at .9 | .871, .808, 1.079 | .387, .338, 1.146 | 1.165, 1.313 |
 | all classes | 2.149, 1.822, 1.180 | .952, .791, 1.204 | 1.378, 1.441 |
 
