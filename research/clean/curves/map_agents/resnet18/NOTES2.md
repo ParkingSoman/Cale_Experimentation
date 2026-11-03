@@ -30,3 +30,4 @@ west: floppy ear vs small pale face. s4b0:153 (drooping ear on side-view dog hea
 west: spots chain. s4b1:35 <- s4b1i:189 <- s4b0:35 <- s4b0i:326 (small regular marks: clock digits, ticks, spots). Drawn dark spots on pale blob fire s4b0:35 7x more than plain blob.
 west: plain-face chain. s4b1:255 <- s4b1i:64 <- s4b0:154 (big plain face, keypads in negative) <- s4b0i:47 (horizontal base band) and s4b0i:292 (vertical shaft) <- s3b1:130 (knob on post).
 west: white-vs-brown drawn blobs did NOT separate s4b1i:419 (0.19 vs 0.21). Colour alone is not it; try two-tone patchy.
+south: s4b0:467 = repeated thin parallel ribs (typewriter keys, curtain folds, chain): same idea as s4b1i:265 bristles, s4b1:467. Lean-pointed-face chain: s4b0i:245 -> s4b0:219 / s4b0:418.
