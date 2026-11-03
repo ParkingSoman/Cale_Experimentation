@@ -124,7 +124,11 @@ for k, c in cards.items():
     ex = explained([tags.index(t) for t in in_tags]) if in_tags else 0.0
     rand = float(np.mean([explained(rng.choice(D.shape[1], len(in_tags), replace=False)) for _ in range(20)])) if in_tags else 0.0
     carry = ex >= .25 and ex >= 3 * max(rand, 1e-9)
-    rows.append(dict(node=k, layer=k.split(":")[0], agent=c["agent"], main=mp, tree=bool(tree), named=len(named), direct=len(in_tags), explained=ex, random=rand, carry=bool(carry), sure=c.get("sure")))
+    # added after the first scoring: "Parents act" passed 371 of 371, so it does not discriminate. These are descriptive, not lines.
+    order = np.argsort(-wt)
+    code = explained(order[:len(in_tags)].tolist()) if in_tags else 0.0
+    rank = int(np.where(order == tags.index(mp))[0][0]) + 1 if mp in tags else None
+    rows.append(dict(node=k, layer=k.split(":")[0], agent=c["agent"], main=mp, tree=bool(tree), named=len(named), direct=len(in_tags), explained=ex, random=rand, carry=bool(carry), sure=c.get("sure"), code_list=code, main_rank=rank))
     print(k, "main", mp, "tree", tree, f"named {len(named)} direct {len(in_tags)} explained {ex:.2f} random {rand:.2f}", flush=True)
 
 for layer in sorted({r["layer"] for r in rows}) + ["all"]:
@@ -132,4 +136,8 @@ for layer in sorted({r["layer"] for r in rows}) + ["all"]:
     ll = [x for x in links if layer == "all" or x["child"].split(":")[0] == layer]
     print(f"{layer}: {len(rr)} nodes. Tree cover {np.mean([r['tree'] for r in rr]):.2f} (line .90). Parents act {np.mean([x['ok'] for x in ll]):.2f} of {len(ll)} links (line .90). "
           f"Parents carry {np.mean([r['carry'] for r in rr]):.2f} (line .80). Median explained {np.median([r['explained'] for r in rr]):.2f}. Named links that are not direct inputs: {sum(not x['direct'] for x in ll)}")
+st4 = [r for r in rows if r["layer"].startswith("s4")]
+ranks = [r["main_rank"] for r in st4 if r["main_rank"]]
+print(f"stage 4 only: {len(st4)} nodes. Tree cover {np.mean([r['tree'] for r in st4]):.3f}. Parents carry {np.mean([r['carry'] for r in st4]):.3f}. No main parent or not direct: {sum(r['main_rank'] is None for r in st4)}")
+print(f"main parent's rank by effect: median {np.median(ranks):.0f}, rank 1 on {np.mean([q == 1 for q in ranks]):.2f}, top 5 on {np.mean([q <= 5 for q in ranks]):.2f}. Named list explains {np.median([r['explained'] for r in st4]):.2f}, code's top list of the same size {np.median([r['code_list'] for r in st4]):.2f}")
 json.dump(dict(nodes=rows, links=links), open(os.path.join(HERE, "results", "cards2_scores.json"), "w"), indent=0)

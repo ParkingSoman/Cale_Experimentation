@@ -129,3 +129,10 @@ s4b0:476 east
 s4b0:99 east
 s4b0:467 south
 s4b0i:245 south
+s4b0i:26 east
+s4b0i:347 east
+s4b0i:507 east
+s4b0:173 east
+s4b0i:176 east
+s4b0i:426 east
+s4b0i:130 east

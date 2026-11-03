@@ -31,3 +31,10 @@ west: spots chain. s4b1:35 <- s4b1i:189 <- s4b0:35 <- s4b0i:326 (small regular m
 west: plain-face chain. s4b1:255 <- s4b1i:64 <- s4b0:154 (big plain face, keypads in negative) <- s4b0i:47 (horizontal base band) and s4b0i:292 (vertical shaft) <- s3b1:130 (knob on post).
 west: white-vs-brown drawn blobs did NOT separate s4b1i:419 (0.19 vs 0.21). Colour alone is not it; try two-tone patchy.
 south: s4b0:467 = repeated thin parallel ribs (typewriter keys, curtain folds, chain): same idea as s4b1i:265 bristles, s4b1:467. Lean-pointed-face chain: s4b0i:245 -> s4b0:219 / s4b0:418.
+east CORRECTION: s4b0:237 is NOT radial. It is a slim glossy contrast body (salamander, snake, beetle, magpie, oboe). Read negatively by s4b1i:383, 98, 87. The radial/wheel/dome negative of s4b1i:68, 356, 153 comes from another node, unread.
+east: s4b0:266 (dark coat with tan markings; gray .23 invert .15) -> s4b1i:408 -> s4b1:400/266 (broccoli!). s4b0:329 boxy van side -> s4b1i:68 -> s4b1:277 dome/arc. 
+east: s4b0i:347 (dark dog with tan marks; colour-bound) -> s4b0:266 -> s4b1i:408 -> s4b1:400. Negative pole of 347 is light fawn long-coated dogs. s4b0i:507 (small coloured bird) -> s4b0:245 -> s4b1i:243 -> s4b1:461. s4b0i:26 (tall box vehicle) -> s4b0:329 -> s4b1i:68 -> s4b1:277.
+east: three chains reach s3b1 (named): dog muzzle ~ s3b1:141/214; tan-markings ~ s3b1:36/251/232; vans ~ s3b1:18/62/25; small bird ~ s3b1:211/0.
+east: bird chain confirmed: s4b0i:507 -> s4b0:245 (+0.88 reader) -> s4b1i:243 -> s4b1:461. Dark-tan chain: s4b0i:347 -> s4b0:266/173 -> s4b1i:408 -> s4b1:400. Thin-point chain: s4b0i:261 -> s4b0:452 -> s4b1i:383 -> s4b1:486; s4b0:452 also fires on water towers/bell towers (thin pole, round top), a link to s4b1:344.
+east: s3b1:149 and 214 feed both s4b0i:261 (dog muzzle/animal head) and s4b0i:426 (bird bill tip): muzzle and bill share an s3b1 source. s4b0i:176 has one clear parent, s3b1:14 (+0.76); s4b0i:130 has none (many +0.05 votes; many-small-figures dial).
+east: tests: drawn shapes work for line nodes, not for round-body nodes; edits (rot90, gray) are the cheap check; many nodes drop to ~0.2-0.4 on rot90.

@@ -1,0 +1,494 @@
+{
+"parent000": {
+"child": "s4b1:32",
+"parent": "s4b1i:317",
+"answer": "E",
+"same_agent": true
+},
+"parent001": {
+"child": "s4b1i:317",
+"parent": "s4b0:418",
+"answer": "E",
+"same_agent": true
+},
+"parent002": {
+"child": "s4b0:418",
+"parent": "s4b0i:261",
+"answer": "E",
+"same_agent": true
+},
+"parent003": {
+"child": "s4b1:400",
+"parent": "s4b1i:408",
+"answer": "A",
+"same_agent": true
+},
+"parent004": {
+"child": "s4b1:461",
+"parent": "s4b1i:243",
+"answer": "D",
+"same_agent": true
+},
+"parent005": {
+"child": "s4b1:269",
+"parent": "s4b1i:221",
+"answer": "A",
+"same_agent": true
+},
+"parent006": {
+"child": "s4b1i:408",
+"parent": "s4b0:266",
+"answer": "E",
+"same_agent": true
+},
+"parent007": {
+"child": "s4b1i:243",
+"parent": "s4b0:245",
+"answer": "E",
+"same_agent": true
+},
+"parent008": {
+"child": "s4b1:486",
+"parent": "s4b1i:383",
+"answer": "E",
+"same_agent": true
+},
+"parent009": {
+"child": "s4b1:329",
+"parent": "s4b1i:500",
+"answer": "A",
+"same_agent": true
+},
+"parent010": {
+"child": "s4b1:277",
+"parent": "s4b1i:68",
+"answer": "B",
+"same_agent": true
+},
+"parent011": {
+"child": "s4b1:403",
+"parent": "s4b1i:356",
+"answer": "E",
+"same_agent": true
+},
+"parent012": {
+"child": "s4b1:367",
+"parent": "s4b1i:153",
+"answer": "B",
+"same_agent": true
+},
+"parent013": {
+"child": "s4b1i:68",
+"parent": "s4b0:329",
+"answer": "B",
+"same_agent": true
+},
+"parent014": {
+"child": "s4b1i:153",
+"parent": "s4b0:99",
+"answer": "D",
+"same_agent": true
+},
+"parent015": {
+"child": "s4b0:237",
+"parent": "s4b0i:507",
+"answer": "C",
+"same_agent": true
+},
+"parent016": {
+"child": "s4b0:329",
+"parent": "s4b0i:26",
+"answer": "A",
+"same_agent": true
+},
+"parent017": {
+"child": "s4b0:266",
+"parent": "s4b0i:347",
+"answer": "E",
+"same_agent": true
+},
+"parent018": {
+"child": "s4b0:245",
+"parent": "s4b0i:507",
+"answer": "E",
+"same_agent": true
+},
+"parent019": {
+"child": "s4b0:452",
+"parent": "s4b0i:426",
+"answer": "D",
+"same_agent": true
+},
+"parent020": {
+"child": "s4b0:99",
+"parent": "s4b0i:176",
+"answer": "A",
+"same_agent": true
+},
+"parent021": {
+"child": "s4b0:173",
+"parent": "s4b0i:347",
+"answer": "D",
+"same_agent": true
+},
+"parent022": {
+"child": "s4b1:226",
+"parent": "s4b1i:23",
+"answer": "E",
+"same_agent": true
+},
+"parent023": {
+"child": "s4b1:456",
+"parent": "s4b1i:420",
+"answer": "C",
+"same_agent": true
+},
+"parent024": {
+"child": "s4b1:175",
+"parent": "s4b1i:110",
+"answer": "E",
+"same_agent": true
+},
+"parent025": {
+"child": "s4b1:168",
+"parent": "s4b1i:349",
+"answer": "B",
+"same_agent": true
+},
+"parent026": {
+"child": "s4b1:474",
+"parent": "s4b1i:60",
+"answer": "D",
+"same_agent": true
+},
+"parent027": {
+"child": "s4b1:56",
+"parent": "s4b1i:146",
+"answer": "E",
+"same_agent": true
+},
+"parent028": {
+"child": "s4b1:131",
+"parent": "s4b1i:452",
+"answer": "E",
+"same_agent": true
+},
+"parent029": {
+"child": "s4b1:182",
+"parent": "s4b1i:377",
+"answer": "D",
+"same_agent": true
+},
+"parent030": {
+"child": "s4b1:391",
+"parent": "s4b1i:73",
+"answer": "B",
+"same_agent": true
+},
+"parent031": {
+"child": "s4b1:270",
+"parent": "s4b1i:17",
+"answer": "C",
+"same_agent": true
+},
+"parent032": {
+"child": "s4b1i:23",
+"parent": "s4b0:226",
+"answer": "A",
+"same_agent": true
+},
+"parent033": {
+"child": "s4b1i:420",
+"parent": "s4b0:456",
+"answer": "B",
+"same_agent": true
+},
+"parent034": {
+"child": "s4b1i:110",
+"parent": "s4b0:327",
+"answer": "E",
+"same_agent": true
+},
+"parent035": {
+"child": "s4b1i:349",
+"parent": "s4b0:168",
+"answer": "A",
+"same_agent": true
+},
+"parent036": {
+"child": "s4b1i:452",
+"parent": "s4b0:79",
+"answer": "A",
+"same_agent": false
+},
+"parent037": {
+"child": "s4b1i:377",
+"parent": "s4b0:418",
+"answer": "B",
+"same_agent": false
+},
+"parent038": {
+"child": "s4b1i:73",
+"parent": "s4b0:245",
+"answer": "E",
+"same_agent": false
+},
+"parent039": {
+"child": "s4b0:226",
+"parent": "s4b0i:344",
+"answer": "A",
+"same_agent": true
+},
+"parent040": {
+"child": "s4b0:168",
+"parent": "s4b0i:146",
+"answer": "D",
+"same_agent": true
+},
+"parent041": {
+"child": "s4b0:327",
+"parent": "s4b0i:496",
+"answer": "D",
+"same_agent": true
+},
+"parent042": {
+"child": "s4b0:366",
+"parent": "s4b0i:60",
+"answer": "E",
+"same_agent": true
+},
+"parent043": {
+"child": "s4b0:456",
+"parent": "s4b0i:496",
+"answer": "C",
+"same_agent": true
+},
+"parent044": {
+"child": "s4b0i:344",
+"parent": "s3b1:154",
+"answer": "C",
+"same_agent": true
+},
+"parent045": {
+"child": "s4b0i:146",
+"parent": "s3b1:176",
+"answer": "A",
+"same_agent": true
+},
+"parent046": {
+"child": "s4b0i:496",
+"parent": "s3b1:60",
+"answer": "D",
+"same_agent": true
+},
+"parent047": {
+"child": "s4b0i:60",
+"parent": "s3b1:155",
+"answer": "C",
+"same_agent": true
+},
+"parent048": {
+"child": "s4b1:242",
+"parent": "s4b1i:49",
+"answer": "A",
+"same_agent": true
+},
+"parent049": {
+"child": "s4b1:429",
+"parent": "s4b1i:460",
+"answer": "A",
+"same_agent": true
+},
+"parent050": {
+"child": "s4b1:28",
+"parent": "s4b1i:83",
+"answer": "E",
+"same_agent": true
+},
+"parent051": {
+"child": "s4b1:31",
+"parent": "s4b1i:406",
+"answer": "A",
+"same_agent": true
+},
+"parent052": {
+"child": "s4b1i:406",
+"parent": "s4b0:31",
+"answer": "A",
+"same_agent": true
+},
+"parent053": {
+"child": "s4b0:31",
+"parent": "s3b1:186",
+"answer": "E",
+"same_agent": true
+},
+"parent054": {
+"child": "s4b1:162",
+"parent": "s4b1i:108",
+"answer": "E",
+"same_agent": true
+},
+"parent055": {
+"child": "s4b1:467",
+"parent": "s4b1i:265",
+"answer": "B",
+"same_agent": true
+},
+"parent056": {
+"child": "s4b1:172",
+"parent": "s4b1i:70",
+"answer": "D",
+"same_agent": true
+},
+"parent057": {
+"child": "s4b1:219",
+"parent": "s4b1i:94",
+"answer": "A",
+"same_agent": true
+},
+"parent058": {
+"child": "s4b1:418",
+"parent": "s4b0:418",
+"answer": "E",
+"same_agent": false
+},
+"parent059": {
+"child": "s4b1:42",
+"parent": "s4b0:42",
+"answer": "E",
+"same_agent": true
+},
+"parent060": {
+"child": "s4b1:255",
+"parent": "s4b1i:64",
+"answer": "A",
+"same_agent": true
+},
+"parent061": {
+"child": "s4b1:297",
+"parent": "s4b1i:198",
+"answer": "B",
+"same_agent": true
+},
+"parent062": {
+"child": "s4b1:9",
+"parent": "s4b1i:47",
+"answer": "B",
+"same_agent": true
+},
+"parent063": {
+"child": "s4b1:156",
+"parent": "s4b1i:460",
+"answer": "A",
+"same_agent": false
+},
+"parent064": {
+"child": "s4b1:163",
+"parent": "s4b1i:196",
+"answer": "E",
+"same_agent": true
+},
+"parent065": {
+"child": "s4b1:393",
+"parent": "s4b1i:393",
+"answer": "D",
+"same_agent": true
+},
+"parent066": {
+"child": "s4b1:35",
+"parent": "s4b1i:189",
+"answer": "B",
+"same_agent": true
+},
+"parent067": {
+"child": "s4b1:362",
+"parent": "s4b1i:419",
+"answer": "E",
+"same_agent": true
+},
+"parent068": {
+"child": "s4b1:431",
+"parent": "s4b1i:452",
+"answer": "C",
+"same_agent": false
+},
+"parent069": {
+"child": "s4b1:424",
+"parent": "s4b1i:239",
+"answer": "C",
+"same_agent": true
+},
+"parent070": {
+"child": "s4b1i:64",
+"parent": "s4b0:154",
+"answer": "E",
+"same_agent": true
+},
+"parent071": {
+"child": "s4b1i:47",
+"parent": "s4b0:9",
+"answer": "E",
+"same_agent": true
+},
+"parent072": {
+"child": "s4b1i:58",
+"parent": "s4b0:345",
+"answer": "C",
+"same_agent": true
+},
+"parent073": {
+"child": "s4b1i:393",
+"parent": "s4b0:393",
+"answer": "D",
+"same_agent": true
+},
+"parent074": {
+"child": "s4b1i:189",
+"parent": "s4b0:35",
+"answer": "D",
+"same_agent": true
+},
+"parent075": {
+"child": "s4b0:154",
+"parent": "s4b0i:47",
+"answer": "A",
+"same_agent": true
+},
+"parent076": {
+"child": "s4b0:35",
+"parent": "s4b0i:326",
+"answer": "D",
+"same_agent": true
+},
+"parent077": {
+"child": "s4b0:393",
+"parent": "s4b0i:167",
+"answer": "B",
+"same_agent": true
+},
+"parent078": {
+"child": "s4b0:345",
+"parent": "s4b0i:261",
+"answer": "C",
+"same_agent": false
+},
+"parent079": {
+"child": "s4b0i:47",
+"parent": "s3b1:130",
+"answer": "B",
+"same_agent": true
+},
+"parent080": {
+"child": "s4b0i:326",
+"parent": "s3b1:140",
+"answer": "A",
+"same_agent": true
+},
+"parent081": {
+"child": "s4b0i:167",
+"parent": "s3b1:201",
+"answer": "C",
+"same_agent": true
+}
+}
