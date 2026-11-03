@@ -1,0 +1,48 @@
+C6 q=6 t=1 n=6 a=1.0 E=6 U=0 lower=0.00e+00 fit=0.00002 build=0.00002 upper=0.0001 no_unit=0.0950 no_unit/fit=5775.75 ok=True
+C5 q=5 t=1 n=5 a=1.0 E=5 U=1 lower=7.25e-04 fit=0.02129 build=0.02504 upper=0.1181 no_unit=0.0950 no_unit/fit=4.46 ok=True
+C7 q=7 t=1 n=7 a=1.0 E=7 U=1 lower=5.18e-04 fit=0.01417 build=0.01790 upper=0.0844 no_unit=0.0950 no_unit/fit=6.70 ok=True
+K4 q=4 t=1 n=4 a=1.0 E=6 U=2 lower=1.21e-03 fit=0.04067 build=0.04437 upper=0.1968 no_unit=0.0950 no_unit/fit=2.34 ok=True
+K5 q=5 t=1 n=5 a=1.0 E=10 U=4 lower=1.45e-03 fit=0.04680 build=0.05125 upper=0.2362 no_unit=0.0950 no_unit/fit=2.03 ok=True
+K3+K3 q=6 t=1 n=6 a=1.0 E=6 U=2 lower=1.21e-03 fit=0.03792 build=0.04173 upper=0.1968 no_unit=0.0950 no_unit/fit=2.50 ok=True
+rnd0 q=6 t=1 n=6 a=1.0 E=6 U=0 lower=0.00e+00 fit=0.00001 build=0.00001 upper=0.0001 no_unit=0.0708 no_unit/fit=6198.22 ok=True
+rnd1 q=7 t=1 n=7 a=1.0 E=9 U=2 lower=3.49e-04 fit=0.01416 build=0.01693 upper=0.0927 no_unit=0.0588 no_unit/fit=4.15 ok=True
+rnd2 q=6 t=1 n=6 a=1.0 E=8 U=1 lower=2.57e-04 fit=0.01079 build=0.01186 upper=0.0661 no_unit=0.0716 no_unit/fit=6.64 ok=True
+rnd3 q=7 t=1 n=7 a=1.0 E=9 U=1 lower=2.20e-04 fit=0.00915 build=0.00998 upper=0.0567 no_unit=0.0700 no_unit/fit=7.65 ok=True
+a=1.0 t=1: Spearman fit vs U 0.68; fit vs E 0.04
+C6 q=6 t=2 n=12 a=1.0 E=6 U=0 lower=0.00e+00 fit=0.00000 build=0.00000 upper=0.0000 no_unit=0.0452 no_unit/fit=20316.10 ok=True
+C5 q=5 t=2 n=10 a=1.0 E=5 U=1 lower=2.21e-04 fit=0.00899 build=0.01116 upper=0.0532 no_unit=0.0452 no_unit/fit=5.04 ok=True
+C7 q=7 t=2 n=14 a=1.0 E=7 U=1 lower=1.58e-04 fit=0.00591 build=0.00797 upper=0.0380 no_unit=0.0452 no_unit/fit=7.66 ok=True
+K4 q=4 t=2 n=8 a=1.0 E=6 U=2 lower=4.80e-04 fit=0.02067 build=0.02342 upper=0.1086 no_unit=0.0552 no_unit/fit=2.67 ok=True
+K5 q=5 t=2 n=10 a=1.0 E=10 U=4 lower=6.78e-04 fit=0.02772 build=0.03114 upper=0.1467 no_unit=0.0620 no_unit/fit=2.23 ok=True
+K3+K3 q=6 t=2 n=12 a=1.0 E=6 U=2 lower=3.69e-04 fit=0.01614 build=0.01860 upper=0.0887 no_unit=0.0452 no_unit/fit=2.80 ok=True
+rnd0 q=6 t=2 n=12 a=1.0 E=4 U=1 lower=1.78e-04 fit=0.00807 build=0.00930 upper=0.0480 no_unit=0.0308 no_unit/fit=3.82 ok=True
+rnd1 q=6 t=2 n=12 a=1.0 E=8 U=1 lower=1.34e-04 fit=0.00607 build=0.00706 upper=0.0342 no_unit=0.0442 no_unit/fit=7.29 ok=True
+rnd2 q=7 t=2 n=14 a=1.0 E=6 U=1 lower=1.12e-04 fit=0.00520 build=0.00596 upper=0.0311 no_unit=0.0291 no_unit/fit=5.60 ok=True
+rnd3 q=6 t=2 n=12 a=1.0 E=10 U=1 lower=1.37e-04 fit=0.00601 build=0.00673 upper=0.0323 no_unit=0.0535 no_unit/fit=8.91 ok=True
+a=1.0 t=2: Spearman fit vs U 0.66; fit vs E -0.01
+C6 q=6 t=1 n=6 a=4.0 E=6 U=0 lower=0.00e+00 fit=0.00006 build=0.00012 upper=0.0896 no_unit=0.5842 no_unit/fit=9001.93 ok=True
+C5 q=5 t=1 n=5 a=4.0 E=5 U=1 lower=4.42e-04 fit=0.09943 build=0.29123 upper=142.5592 no_unit=0.5842 no_unit/fit=5.88 ok=True
+C7 q=7 t=1 n=7 a=4.0 E=7 U=1 lower=3.16e-04 fit=0.06859 build=0.20813 upper=101.8990 no_unit=0.5842 no_unit/fit=8.52 ok=True
+K4 q=4 t=1 n=4 a=4.0 E=6 U=2 lower=7.37e-04 fit=0.23298 build=0.51099 upper=237.5127 no_unit=0.5843 no_unit/fit=2.51 ok=True
+K5 q=5 t=1 n=5 a=4.0 E=10 U=4 lower=8.84e-04 fit=0.27224 build=0.59316 upper=285.0152 no_unit=0.5843 no_unit/fit=2.15 ok=True
+K3+K3 q=6 t=1 n=6 a=4.0 E=6 U=2 lower=7.36e-04 fit=0.18352 build=0.48535 upper=237.5819 no_unit=0.5842 no_unit/fit=3.18 ok=True
+rnd0 q=5 t=1 n=5 a=4.0 E=8 U=2 lower=3.66e-04 fit=0.16526 build=0.35035 upper=269.2637 no_unit=0.5632 no_unit/fit=3.41 ok=True
+rnd1 q=5 t=1 n=5 a=4.0 E=4 U=0 lower=0.00e+00 fit=0.00006 build=0.00012 upper=0.1355 no_unit=0.5594 no_unit/fit=8949.07 ok=True
+rnd2 q=6 t=1 n=6 a=4.0 E=9 U=2 lower=2.81e-04 fit=0.09884 build=0.28295 upper=404.0967 no_unit=0.5480 no_unit/fit=5.54 ok=True
+rnd3 q=7 t=1 n=7 a=4.0 E=9 U=2 lower=2.61e-04 fit=0.07933 build=0.26620 upper=192.4014 no_unit=0.5426 no_unit/fit=6.84 ok=True
+a=4.0 t=1: Spearman fit vs U 0.60; fit vs E 0.43
+C6 q=6 t=2 n=12 a=4.0 E=6 U=0 lower=0.00e+00 fit=0.00000 build=0.00001 upper=0.0104 no_unit=0.1177 no_unit/fit=55995.50 ok=True
+C5 q=5 t=2 n=10 a=4.0 E=5 U=1 lower=8.25e-06 fit=0.01383 build=0.08952 upper=44.9278 no_unit=0.1177 no_unit/fit=8.51 ok=True
+C7 q=7 t=2 n=14 a=4.0 E=7 U=1 lower=5.89e-06 fit=0.00975 build=0.06394 upper=32.0915 no_unit=0.1177 no_unit/fit=12.08 ok=True
+K4 q=4 t=2 n=8 a=4.0 E=6 U=2 lower=2.04e-05 fit=0.03819 build=0.19434 upper=97.0127 no_unit=0.1590 no_unit/fit=4.16 ok=True
+K5 q=5 t=2 n=10 a=4.0 E=10 U=4 lower=3.24e-05 fit=0.06168 build=0.26992 upper=136.6195 no_unit=0.1930 no_unit/fit=3.13 ok=True
+K3+K3 q=6 t=2 n=12 a=4.0 E=6 U=2 lower=1.37e-05 fit=0.02509 build=0.14920 upper=74.8782 no_unit=0.1177 no_unit/fit=4.69 ok=True
+rnd0 q=5 t=2 n=10 a=4.0 E=3 U=0 lower=0.00e+00 fit=0.00000 build=0.00001 upper=0.0114 no_unit=0.0733 no_unit/fit=41094.13 ok=True
+rnd1 q=7 t=2 n=14 a=4.0 E=11 U=2 lower=1.13e-05 fit=0.02140 build=0.09806 upper=72.9856 no_unit=0.1563 no_unit/fit=7.30 ok=True
+rnd2 q=7 t=2 n=14 a=4.0 E=9 U=2 lower=1.14e-05 fit=0.01944 build=0.10301 upper=73.7605 no_unit=0.1318 no_unit/fit=6.78 ok=True
+rnd3 q=6 t=2 n=12 a=4.0 E=10 U=1 lower=6.72e-06 fit=0.01272 build=0.05726 upper=32.0866 no_unit=0.1693 no_unit/fit=13.31 ok=True
+a=4.0 t=2: Spearman fit vs U 0.83; fit vs E 0.44
+holes-signed C5 q=5 t=2 n=10 a=1.0 E=5 U=1 lower=2.21e-04 fit=0.00898 build=0.01116 upper=0.0532 no_unit=0.0452 no_unit/fit=5.04 ok=True
+holes-signed C7 q=7 t=2 n=14 a=1.0 E=7 U=1 lower=1.58e-04 fit=0.00591 build=0.00797 upper=0.0380 no_unit=0.0452 no_unit/fit=7.66 ok=True
+holes-signed K4 q=4 t=2 n=8 a=1.0 E=6 U=2 lower=4.80e-04 fit=0.02067 build=0.02342 upper=0.1086 no_unit=0.0552 no_unit/fit=2.67 ok=True
+fails 0

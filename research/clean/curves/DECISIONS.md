@@ -145,6 +145,24 @@ not forced by any theorem, and they are withdrawn. The decisions below are force
 options are exactly the premises of those theorems: to escape a theorem, one of its premises must go. R-least comes
 first, because the other two speak of "the least build".
 
+### 3-39. Line I5: what does "clean" have to mean for an impossibility to count? (2026-11-02; COARSE-THEORY.md B.Q.12; LADDER 53)
+
+Directional because: this sets what card 3-37's IMPOSSIBLE test means, and only you can say what "clean" means. Node R-cleannet is still PENDING.
+
+```
+proved or built:   a hand-built network with every computed error of D42 and D45 at 0 carries a hard table (Proposition TQ34, small graphs)
+                   it has families, a gate, shared poles and a coarse reader. Nothing causes the links across families
+why it can be:     every hardness proof reads only the table. It does not read how units carry the table
+the agent's read:  clean inside a family, not clean across families. When a shared cause is added, the errors rise
+```
+
+| Option | What it means | Gains | Loses |
+|---|---|---|---|
+| (a) Clean means more than D42 and D45. Find what is missing: a shared cause for every link in the table | A sharper definition, and it may be the claim that row 3 needs, since it would force something on the table | It follows your "look at the network". It could separate real tables from hard ones | No such definition exists yet. ResNet-18's own numbers on D42 are poor (.91), so the definition has a lot to answer for |
+| (b) Clean means D42 and D45 as written | I5 is met on small instances, up to a general construction | The IMPOSSIBLE test gets closer | These definitions reward not reusing anything, and comment (g) of D42 warns of this. You may read this as a technicality, not as impossibility |
+
+My recommendation: (a). Reason: by your rule, a counterexample is first read as a network to find the missing claim, and this one points at one. You do not need to answer now, and I continue under (a) unless you say otherwise.
+
 ### 3-38. Does line I2 count under the Unique Games Conjecture? (2026-11-02; COARSE-THEORY.md B.Q.12; LADDER 52; nothing blocks on this)
 
 Directional because: this changes the end condition of card 3-37. Line I2 says "unless P = NP".
@@ -1894,6 +1912,7 @@ so the lint fails until it gets a node.
 | pole claims | R-poleclaim |
 | the Unique Games Conjecture | TECH |
 | part 3 under the Unique Games Conjecture | TECH |
+| part 2's last line under the Unique Games Conjecture | TECH |
 | part 3's last line under the Unique Games Conjecture | TECH |
 <!-- /aliases -->
 
@@ -2177,6 +2196,8 @@ node named by a tag is on the path, and prints the table with distances.
 | Proposition TQ30 | R-map, R-tree, R-branch, R-oninside, R-linread, S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | V_b(1) equals a vertex cover number within 1 + O(delta), with every claim at 0: a fixed factor below about 1.36 is NP-hard |
 | Proposition TQ31 | R-map, R-tree, R-branch, R-oninside, R-linread, S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | with signed M, every fixed factor is hard at k = 1 under the Unique Games Conjecture, at any movement and any tail mass |
 | Proposition TQ32 | (none) | on a finite list, an information floor over all decoders is 0: a limit of method |
+| Proposition TQ33 | R-map, R-tree, R-branch, R-oninside, R-linread, S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | TQ31's hardness on tables with families and no shared class; not refereed |
+| Proposition TQ34 | (none) | on small graphs, a hand-built network has every computed error of D42 and D45 at 0 and carries a hard table |
 | Lemma TQ29 | (none) | KL is a variance along the geometric path between s and q, at any amplitude; a tool, no lower bound over competitors |
 | Conjecture DQ21 | S-plainff, R-group, R-readweights, R-readbias, S-lastlayer | every fixed factor is NP-hard with no conjecture; the known routes and their limits |
 | Conjecture DQ17 | R-treeweight | at one unit, a least order of the wall program respects a monotone tree, with no scales |

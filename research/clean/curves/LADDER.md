@@ -3435,3 +3435,61 @@ Why it matters: on photos the fit did not see, no decoder I tried beats the plai
 ```
 
 Why it matters: on a YES instance the loss is of order eta and on a NO instance of order eta^(1/2), a constant at fixed factor, and not 1/poly. The final text of the repair has my check and the reader's sketch, with no separate referee read yet. Everything in this family stays conditional on the Unique Games Conjecture and stays on tables of graphs.
+
+## 53. Row 3: the essay test of the hard network, and what it says about "clean" (2026-11-02; plan i-need-you-to-tingly-orbit.md; COARSE-THEORY.md B.Q.12; cards 3-37, 3-39)
+
+**Row 3 is NOT closed. Line I5 is not met, and the test showed something larger: the paper's clean numbers do not separate hard tables from clean ones.** I expected the hard network to simply fail. It does fail as built. But the hardness does not need that build.
+
+| Word | Meaning here |
+|---|---|
+| shared cause | one unit or route that explains why two classes are linked |
+| side link | a class in a row's head that is not a relative of the row's class |
+| build E | the agent's hand-built network that carries a hard table |
+
+**Step 1. The hard network, read as a network.**
+
+```
+area       two input points, and only that area's two units are on there
+h_w        writes the whole row of the table
+s_w        toggles three classes between the two points
+reading:   a lookup table with a small toggle. Nothing is a fold, a judgment or a family
+```
+
+Why it matters: this is what I expected, and by itself it would have said the hard family is not clean.
+
+**Step 2. But the same hard table can be carried cleanly by the paper's numbers (Proposition TQ34, on small graphs).**
+
+```
+build E:   a family gate  ->  two shared poles  ->  a coarse reader  ->  class judgments
+           table error 0 against a hard table (Proposition TQ33)
+           every computed error of D42 and D45:  0
+```
+
+Why it matters: every hardness proof reads only the table, not how units carry it. So any principle about units can separate hard tables only if it forces something on the table. D42 and D45 do not.
+
+**Step 3. What E still lacks.** Inside a family it reads well. Across families nothing causes a side link. When the agent adds a unit per link (build G), the errors rise to .45 to .60. On ResNet-18, eps_V is .91, the worst of all. So D42's V rewards a network for not reusing anything.
+
+Why it matters: this may be the first real hint at the missing claim: **every link in the table has a shared cause in the network**. It would force something on the table. I have not defined it and it is not measured. It is on card 3-39.
+
+**Step 4. How far hard tables are from real ones, by the numbers.**
+
+| Number | Hard tables | ResNet-18 |
+|---|---|---|
+| side links that return | all | 3% |
+| effective off-own entries in a row | 2 to 6 | 50 |
+| share of a row's movement in one direction | 1 | .64 |
+| triangles among mutual competitive links (tau) | 0 on the reduction's graphs | .24, null .003 |
+
+Why it matters: real competition is mostly one way and spread over many classes. These hard tables are the reverse, by build. That is a direction for a claim. It does not make a real least computable.
+
+**Step 5. The budget.** At k = 2 the fit on sparse hard graphs falls to about 0 (C5: .021 at k = 1, under 1e-5 at k = 2). So all of this hardness is at k = 1 for now, and I do not have it at k = 14. Your target is k = 14 and 38.
+
+Why it matters: the IMPOSSIBLE side is further from real networks than the headline says. A hard family at k = 14 would need rows with heads longer than k, and padding, and that is not done.
+
+| | |
+|---|---|
+| Trunk check | used: "a map of claims" (M_N, and how units carry the same table); "the essay" (the reading, and the failure of D42 and D45 to capture it); "new units that read only that group's units" (the free code against the real read, Step 5). Not used: the nested zoom, the graded clause |
+| proved | Proposition TQ33 by the agent, checked by hand by me, not refereed. TQ34 is a computed check on small graphs. Labels: none of the four. No slot is filled |
+| checks | Part C. `rounds/round4/i5/` |
+| your calls | card 3-39 (recommend: clean means more than D42 and D45). Card 3-38 (recommend: keep I2 strict). I continue under both recommendations unless you say otherwise |
+| next, my view | (a) referee TQ33 and the per-area text of TQ31. (b) Define "every link has a shared cause" and measure it on the read, with held-out photos. Screen it before any proof, and it must leave TQ30's, TQ31's and TQ33's graphs out. (c) Settle gates on enough rows, since P4 reads the box |

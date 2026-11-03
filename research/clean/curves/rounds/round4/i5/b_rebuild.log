@@ -1,0 +1,34 @@
+--- a=1.0 rho=0.31
+N  C5 U=1: units [10] table_err=0.0e+00 eps_V=0.0997 V_rel=0.4146 G=None B=None pack=0.0000 unread=0.000 agree=0.347 (units with xi<=0: 5 of 10) min_lam=0.0386 median|xi|=6.55e-03
+A  C5: units [15] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=None B=None pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 15) min_lam=0.0760 median|xi|=5.77e-03
+B  C5: units [15, 15] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=0.0 B=0.0 pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 30) min_lam=0.0760 median|xi|=1.04e-01
+N  sub(K3) U=1: units [18] table_err=0.0e+00 eps_V=0.0839 V_rel=0.4129 G=None B=None pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 18) min_lam=0.0298 median|xi|=1.67e-03
+A  sub(K3): units [27] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=None B=None pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 27) min_lam=0.0798 median|xi|=4.62e-03
+B  sub(K3): units [27, 27] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=0.0 B=0.0 pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 54) min_lam=0.0798 median|xi|=1.23e-01
+sq C5 t=2: n=10 U=1 own mass 0.581/0.741 sib mass 0.216 side mass 0.043
+N-form sq C5 t=2: units [20] table_err=0.0e+00 eps_V=0.1101 V_rel=0.0000 G=None B=None pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 20) min_lam=0.0958 median|xi|=5.78e-02
+E C5 t=2: units [25, 25] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=0.0 B=0.0 pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 50) min_lam=0.0878 median|xi|=2.33e-01
+sq C5 t=3: n=15 U=1 own mass 0.598/0.731 sib mass 0.234 side mass 0.035
+N-form sq C5 t=3: units [30] table_err=0.0e+00 eps_V=0.1016 V_rel=0.0000 G=None B=None pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 30) min_lam=0.0681 median|xi|=4.32e-02
+E C5 t=3: units [30, 30] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=0.0 B=0.0 pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 60) min_lam=0.0585 median|xi|=2.67e-01
+sq C4 t=2: n=8 U=0 own mass 0.581/0.741 sib mass 0.216 side mass 0.043
+N-form sq C4 t=2: units [16] table_err=0.0e+00 eps_V=0.1032 V_rel=0.0000 G=None B=None pack=0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 16) min_lam=0.1032 median|xi|=6.19e-02
+E C4 t=2: units [20, 20] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=0.0 B=0.0 pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 40) min_lam=0.0905 median|xi|=2.23e-01
+F camp poles C5 t=2 U=1: units [20] table_err=0.0e+00 eps_V=0.0966 V_rel=0.2148 G=None B=None pack=0.0783 unread=0.035 agree=0.035 (units with xi<=0: 4 of 20) min_lam=-0.0235 median|xi|=2.84e-02
+--- a=4.0 rho=0.31
+N  C5 U=1: units [10] table_err=0.0e+00 eps_V=0.3224 V_rel=0.8642 G=None B=None pack=-0.0000 unread=0.000 agree=1.000 (units with xi<=0: 10 of 10) min_lam=0.0580 median|xi|=3.21e-02
+A  C5: units [15] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=None B=None pack=0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 15) min_lam=0.0682 median|xi|=1.43e-02
+B  C5: units [15, 15] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=0.0 B=0.0 pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 30) min_lam=0.0682 median|xi|=1.01e-01
+N  sub(K3) U=1: units [18] table_err=0.0e+00 eps_V=0.2772 V_rel=0.8633 G=None B=None pack=-0.0000 unread=0.000 agree=0.474 (units with xi<=0: 9 of 18) min_lam=0.0730 median|xi|=9.18e-03
+A  sub(K3): units [27] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=None B=None pack=0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 27) min_lam=0.0804 median|xi|=1.39e-02
+B  sub(K3): units [27, 27] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=0.0 B=0.0 pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 54) min_lam=0.0804 median|xi|=1.23e-01
+sq C5 t=2: n=10 U=1 own mass 0.480/0.696 sib mass 0.304 side mass 0.000
+N-form sq C5 t=2: units [20] table_err=0.0e+00 eps_V=0.3578 V_rel=0.3650 G=None B=None pack=-0.0000 unread=0.000 agree=0.472 (units with xi<=0: 10 of 20) min_lam=0.0630 median|xi|=3.44e-02
+E C5 t=2: units [25, 25] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=0.0 B=0.0 pack=0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 50) min_lam=0.0867 median|xi|=2.19e-01
+sq C5 t=3: n=15 U=1 own mass 0.519/0.694 sib mass 0.306 side mass 0.000
+N-form sq C5 t=3: units [30] table_err=0.0e+00 eps_V=0.3372 V_rel=0.2742 G=None B=None pack=-0.0000 unread=0.000 agree=0.521 (units with xi<=0: 15 of 30) min_lam=0.0464 median|xi|=2.46e-02
+E C5 t=3: units [30, 30] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=0.0 B=0.0 pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 60) min_lam=0.0579 median|xi|=2.47e-01
+sq C4 t=2: n=8 U=0 own mass 0.480/0.696 sib mass 0.304 side mass 0.000
+N-form sq C4 t=2: units [16] table_err=0.0e+00 eps_V=0.3762 V_rel=0.3706 G=None B=None pack=-0.0000 unread=0.000 agree=0.472 (units with xi<=0: 8 of 16) min_lam=0.0507 median|xi|=3.34e-02
+E C4 t=2: units [20, 20] table_err=0.0e+00 eps_V=0.0000 V_rel=0.0000 G=0.0 B=0.0 pack=-0.0000 unread=0.000 agree=0.000 (units with xi<=0: 0 of 40) min_lam=0.0887 median|xi|=2.10e-01
+F camp poles C5 t=2 U=1: units [20] table_err=0.0e+00 eps_V=0.2636 V_rel=0.4015 G=None B=None pack=0.1445 unread=0.088 agree=0.088 (units with xi<=0: 4 of 20) min_lam=-0.0142 median|xi|=5.79e-02
