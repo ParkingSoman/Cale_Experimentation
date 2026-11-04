@@ -19,7 +19,7 @@ Plans: `~/.claude/plans/im-realizing-this-neural-quirky-crystal.md` is the curre
 
 | Milestone | State |
 |---|---|
-| 0: set up CrakBox | Tests pass. The next session removes the temporary link at `research/mapping`, then runs the tests and guard again |
+| 0: set up CrakBox | Tests pass. **First action of the next session, before any agent runs:** remove the link at `research/mapping`, because the guard's folder rules may not cover it. `ROADMAP.md` has the check |
 | 1: the spaCy word tagger to 100% | Not started. `ROADMAP.md` lists its sessions |
 | ResNet-18 scope v1 | **Parked at 2 of 184**, and nothing is lost. It returns as milestone 3 |
 

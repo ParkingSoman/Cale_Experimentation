@@ -10,7 +10,7 @@ Each node count is an estimate until its milestone checks it.
 
 | # | Milestone | Network | Nodes | Done when | State |
 |---|---|---|---|---|---|
-| 0 | Set up CrakBox | None | None | The tool works from this folder, and all tests pass | Tests pass. One step left: the next session removes the temporary link at `research/mapping`, then runs the tests and guard again |
+| 0 | Set up CrakBox | None | None | The tool works from this folder, and all tests pass | Tests pass. **First action of the next session, before any agent runs:** remove the link at `research/mapping`, because the guard's folder rules may not cover it. Then run `test_core`, and confirm that a Read of `guards/sealed_guard.py` is still blocked |
 | 1 | Crack the first network | spaCy word tagger | About 500 | Every node is understood, on a progress bar | Not started |
 | 2 | Show that it repeats | spaCy name finder, which has its own weights (to confirm) | About 500 | With the workflow library frozen, it reaches 100% with no new workflow, at the same cost per node | Not started |
 | 3 | Go larger | ResNet-18: the parked 184 nodes, then more | 184, then up to about 3,900 | Set when milestone 2 ends. It needs a lower cost per node first | Parked at 2 of 184 |

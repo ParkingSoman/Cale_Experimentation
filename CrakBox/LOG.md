@@ -475,7 +475,8 @@ Shonu: "this neural network mapping idea is its own project, so I want to make a
 | `test_convnext` | 7 of 7 pass. It ran before the guard fix. It does not call the guard |
 | ResNet-18 bar, run `resnet18.v1` | Still 2 of 184 |
 | Old path | Named only in history: `LOG.md`, `DISK.md`, `LADDER.md` and the curves `ROADMAP.md` |
-| Temporary link | `research/mapping` still points here. **The next session removes it**, then runs the tests and guard again |
+| Temporary link | `research/mapping` still points here. It must stay this session, in case the running session still calls the guard at the old path. **It is a hole in the guard.** Unless the guard resolves links, the runs folder is reachable through the old path, and the guard's folder rules do not match that path. I did not test this, because a test would mean reaching for sealed data |
+| First action of the next session | Remove `research/mapping`, before any reader, critic or judge runs. Then run `test_core`, and confirm that a Read of `guards/sealed_guard.py` is still blocked. That shows that the hook runs from its new path |
 
 | What went wrong | Detail |
 |---|---|
