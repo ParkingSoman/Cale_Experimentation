@@ -1,0 +1,51 @@
+{
+ "calibration": {
+  "marks": {
+   "center": 0.4629502798942623,
+   "near": 0.16728015546245484,
+   "far": 0.12125986361179725
+  },
+  "wrong_items": 40,
+  "held_out": true,
+  "stated_on": 20,
+  "wrong_pass": 0,
+  "false_pass": 0.0,
+  "false_pass_upper": 0.13910834066826525
+ },
+ "real_items": 40,
+ "wrong_items": 40,
+ "real_mean": {
+  "center": 0.353,
+  "center_norm": 0.285,
+  "center_fire": 0.552,
+  "near": 0.243,
+  "far": 0.168,
+  "near_kind": 0.348,
+  "far_kind": 0.456
+ },
+ "wrong_mean": {
+  "center": 0.22,
+  "center_norm": -0.005,
+  "center_fire": 0.315,
+  "near": 0.237,
+  "far": 0.192,
+  "near_kind": 0.317,
+  "far_kind": 0.365
+ },
+ "separation": {
+  "center_norm": 0.686,
+  "near": 0.473,
+  "far": 0.542,
+  "near_kind": 0.524,
+  "far_kind": 0.578
+ },
+ "real_pass": 2,
+ "real_fail": 36,
+ "real_split": 2,
+ "wrong_pass": 0,
+ "wrong_fail": 39,
+ "wrong_split": 1,
+ "judge_agreement": 0.963,
+ "bar": 0,
+ "scope": 134
+}

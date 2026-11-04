@@ -1,0 +1,28 @@
+{
+ "nodes": [
+  "c17:1",
+  "c17:89",
+  "c17:150",
+  "c17:330",
+  "c17:596",
+  "c17:811",
+  "c17:1071",
+  "c17:1116",
+  "c17:1308",
+  "c17:1528",
+  "c17:1695",
+  "c17:1926",
+  "c17:1986",
+  "c17:2002",
+  "c17:2204",
+  "c17:2350",
+  "c17:2402",
+  "c17:2714",
+  "c17:2989",
+  "c17:3009"
+ ],
+ "goal": "control: all classes",
+ "control_goal": "none, this run is a control",
+ "threshold": "20 random neurons, seed 6",
+ "firings": "strong firings and both poles"
+}
