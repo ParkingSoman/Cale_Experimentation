@@ -37,6 +37,22 @@ Text may cost less than images. This is not measured yet.
 | 3 and on | Fill the network in waves, from the outputs down. Later readers see earlier cards. Each session ends with the bar, the open nodes and their suspects | The bar reaches 100%, or a limit in the constitution stops the work | |
 | Last | Shonu spot-checks a random sample. The whole-network check runs. The library freezes for milestone 2 | Shonu accepts the result | |
 
+### Session 1 also: the security review of 2026-11-04
+
+An automated review of the first CrakBox commit made 9 findings. They concern code that existed before the move, and nobody has checked them yet. Each one can weaken the blind test, so the bar could be wrong. Session 1 checks each one and fixes the real ones, before any agent reads a node. The review also suggests fixes, and they need the same check. The 2 of 184 result is not re-scored until finding 8 is checked.
+
+| # | File | Finding, as the review states it | Who can fix it |
+|---|---|---|---|
+| 1 | `guards/sealed_guard.py` | The check on a reader's shell command can be escaped, and readers may be able to overwrite tool code | Shonu, or Shonu allows the edit, because the guard blocks agents from this file |
+| 2 | `guards/sealed_guard.py` | The check on drawing scripts is a text scan, and a script can get past it | Same |
+| 3 | `guards/sealed_guard.py` | Path checks do not normalize case or path form | Same |
+| 4 | `mapper.py` | Answer files can pass as another judge's votes | Me |
+| 5 | `mapper.py` | An agent states its own role and author, and nothing checks them | Me, and the guard for the role check |
+| 6 | `mapper.py` | A tool barred for one node can be run by naming a different node | Me |
+| 7 | `mapper/judge.py` | The scan for leaks in a judge's packet reads encoded text, so a leak can hide | Me |
+| 8 | `mapper/judge.py` | A later vote can override a failed vote on the same test | Me |
+| 9 | `mapper/state.py` | An old attack can count against a new card | Me |
+
 ### Session 1 inputs
 
 | Use | File | Rule |
