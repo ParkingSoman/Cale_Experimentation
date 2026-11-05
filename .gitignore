@@ -19,6 +19,10 @@ demo/apps/*/__pycache__/
 
 # research: large data, caches and nested repos stay on the disk only
 .claude/
+# CrakBox keeps its own Claude config in git, so that it travels with the project
+!CrakBox/.claude/
+CrakBox/.claude/settings.local.json
+CrakBox/.claude/worktrees/
 cache/
 .lake/
 *.npy
@@ -38,3 +42,7 @@ research/clean/tools/src/moefication/
 research/clean/tools/pilots/hf_alias/
 research/clean/map/deep/*.png
 research/clean/map/tests/**/*.png
+
+# CrakBox is its own private repo since 2026-11-05: https://github.com/ParkingSoman/CrakBox
+# It stays at this path on disk, so its paths into research/ keep working.
+CrakBox/

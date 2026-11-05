@@ -1,3 +1,0 @@
-# runs hold per-run state, packets and judges' keys. They stay on the disk only.
-runs/
-__pycache__/
