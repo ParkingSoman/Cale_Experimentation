@@ -22,3 +22,4 @@
 15:07:44	test4	slot2	wait 8s	run 4s	exit 0	/bin/sleep 4
 15:07:46	test2	slot0	wait 10s	run 4s	exit 0	/bin/sleep 4
 15:08:59	JOINT	slot0	wait 2s	run 45s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/r2_joint_sweep.py --f 0.95,0.85 --rules r2_joint_p5_sfon_off,r2_joint_p5_sfon_on,r2_joint_p5_sfnull_on,r2_joint_floor_sfon_on
+15:11:37	P5	wait 360s	run 272s	exit 0	curves/.venv/bin/python -I distill/fanout/r2_p5_batch.py clip:r2_p5_mix50_mlp:0.95,0.85 clip:r2_p5_mix100_mlp:0.95,0.85 clip:r2_p5_mix25_mlp:0.95,0.85 clip:r2_p5_mix75_mlp:0.95,0.85 clip:p5rank_mlp:0.95,0.85 clip:r2_p5_heads_mix:h0:0.95,0.85 clip:r2_p5_heads_mix:h50:0.95,0.85 clip:r2_p5_heads_mix:h1
