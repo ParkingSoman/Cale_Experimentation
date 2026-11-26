@@ -7,10 +7,12 @@ Knobs:
   --K, --lr                 steps and Adam step size (make_input: 32, .05)
   --target ce   : CE to y ~ softmax(fc.bias), as make_input
            ent  : minimise the entropy of the network's own prediction (no drawn target; the network picks the class)
-           act  : maximise the mean squared post-ReLU activation of every residual block output, each block's term
+           act  : (r18 and clip) maximise the mean squared post-ReLU activation of every residual block output, each block's term
                   divided by its value at step 0 (a "wake every layer" target; no BatchNorm stat is read)
   --div w       : batch-statistics-free diversity: + w * mean pairwise cosine of the pooled 512-d features of the
                   batch (pushes images apart; reads no running_mean / running_var)
+  CLIP act: the block term is the mean relu(z)^2 of the MLP pre-activation z = fc(ln2(s)), all tokens (the units
+  whose firing rate on pink is .35 of the photo rate), each divided by its step-0 value.
   --color       : learn a 3x3 colour mixing per image (init identity), applied before chan_norm. The network chooses
                   how the channels co-vary. No photo statistic is used.
 Null (--kind null): the same recipe on the shuffled-weights copy (make_input.shuffle_r18).
@@ -45,8 +47,25 @@ def pooled_and_blocks(A, x):
     return A.fc(p), p, feats
 
 
+def clip_acts(T, x):
+    """CLIP: per block, the MLP pre-activation z = fc(ln2(s)) (all tokens). Same ops as vitgen.block."""
+    import vitgen
+    s = vitgen.embed(T, x)
+    zs = []
+    for B in T["blocks"]:
+        s = s + vitgen.attn(vitgen.norm(s, B["ln1"]), B)
+        z = F.linear(vitgen.norm(s, B["ln2"]), B["fc_w"], B["fc_b"])
+        zs.append(z)
+        s = s + F.linear(F.gelu(z), B["pr_w"], B["pr_b"])
+    return zs
+
+
 def run(a):
-    A, y = mi.load_net("r18", a.kind)
+    if a.net == "clip":
+        A, y = mi.load_net("clip", a.kind)
+        y = torch.zeros(256, dtype=torch.long)
+    else:
+        A, y = mi.load_net("r18", a.kind)
     x_all = torch.load(mi.PINK, weights_only=True)
     amp = mi.amp()
     gen = torch.Generator().manual_seed(mi.SEED)
@@ -75,6 +94,17 @@ def run(a):
 
         for _ in range(a.K):
             xt = mi.transform(image(), gen).to(DEV)
+            if a.net == "clip":
+                assert a.target == "act" and a.div == 0, "clip: only the act target here"
+                e = torch.stack([F.relu(z.float()).pow(2).mean() for z in clip_acts(A, xt)])
+                if base is None:
+                    base = e.detach()
+                L = -(e / base).mean()
+                opt.zero_grad(set_to_none=True)
+                L.backward()
+                opt.step()
+                losses.append(float(L.detach()))
+                continue
             logits, p, feats = pooled_and_blocks(A, xt)
             logits = logits.float()
             if a.target == "ce":
@@ -103,7 +133,7 @@ def run(a):
         outs.append(xk)
     X = torch.cat(outs).half().contiguous()
     assert torch.isfinite(X).all()
-    path = os.path.join(mi.CACHE, f"r18_{a.tag}_n256_s1.pt")
+    path = os.path.join(mi.CACHE, f"{a.net}_{a.tag}_n256_s1.pt")
     torch.save(X, path)
     meta = dict(vars(a), photo_use="none", minutes=round((time.time() - t_start) / 60, 2),
                 loss1=sum(r["loss1"] for r in log) / len(log), lossK=sum(r["lossK"] for r in log) / len(log),
@@ -116,6 +146,7 @@ def run(a):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", required=True)
+    ap.add_argument("--net", default="r18", choices=("r18", "clip"))
     ap.add_argument("--kind", default="self", choices=("self", "null"))
     ap.add_argument("--K", type=int, default=32)
     ap.add_argument("--lr", type=float, default=0.05)

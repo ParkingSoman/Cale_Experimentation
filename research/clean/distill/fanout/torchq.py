@@ -1,9 +1,12 @@
-"""Run ONE torch command at a time on the Mac, for many agents at once (FANOUT fast loop, 2026-11-26).
+"""Run torch commands for many agents: up to 3 at once, with a memory guard (FANOUT, Shonu 2026-11-26: "3 slots, swap guard").
 
-Usage: curves/.venv/bin/python -I distill/fanout/torchq.py --who P4 -- <command ...>
-It waits for the lock file fanout/.torch.lock (fcntl, released even if the process dies), waits while free swap
-is under 400 MB, runs the command with a timeout (default 600 s), prints its output, and logs one line to
-fanout/torchq.log (who, wait seconds, run seconds, exit code, command).
+Usage: curves/.venv/bin/python -I distill/fanout/torchq.py --who P4 [--long] [--timeout 600] -- <command ...>
+
+Short jobs share 3 slots (lock files .torch.slot0-2). --long jobs (over about 2 min, e.g. input generators) use their
+own single lane (.torch.long), so short tests never queue behind them. A long job also counts toward the memory guard.
+Before a job starts it waits until free swap >= 1,000 MB AND system memory free >= 30% (memory_pressure). The guard is
+checked while holding a slot, so at most one job starts per check. Locks are fcntl locks: released when the process dies.
+Each finished job adds one line to torchq.log: time, who, lane/slot, wait s, run s, exit code, command.
 """
 import argparse
 import fcntl
@@ -14,8 +17,11 @@ import sys
 import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LOCK = os.path.join(HERE, ".torch.lock")
 LOG = os.path.join(HERE, "torchq.log")
+GATE = os.path.join(HERE, ".torch.gate")
+N_SLOTS = 3
+MIN_SWAP_MB = 1000
+MIN_FREE_PCT = 30
 
 
 def free_swap_mb():
@@ -24,31 +30,53 @@ def free_swap_mb():
     return float(m.group(1)) if m else 1e9
 
 
+def free_mem_pct():
+    out = subprocess.run(["memory_pressure"], capture_output=True, text=True).stdout
+    m = re.search(r"free percentage: (\d+)%", out)
+    return int(m.group(1)) if m else 100
+
+
+def take_slot(long):
+    names = ["long"] if long else [f"slot{i}" for i in range(N_SLOTS)]
+    while True:
+        for nm in names:
+            fh = open(os.path.join(HERE, f".torch.{nm}"), "w")
+            try:
+                fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                return nm, fh
+            except BlockingIOError:
+                fh.close()
+        time.sleep(1)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--who", required=True)
+    ap.add_argument("--long", action="store_true")
     ap.add_argument("--timeout", type=int, default=600)
     ap.add_argument("cmd", nargs=argparse.REMAINDER)
     a = ap.parse_args()
     cmd = a.cmd[1:] if a.cmd[:1] == ["--"] else a.cmd
     t0 = time.time()
-    with open(LOCK, "w") as fh:
-        fcntl.flock(fh, fcntl.LOCK_EX)
-        while free_swap_mb() < 400:
-            if time.time() - t0 > 900:
-                print("torchq: free swap under 400 MB for 15 min, giving up", file=sys.stderr)
+    slot, fh = take_slot(a.long)
+    with open(GATE, "w") as g:                      # one job passes the memory guard at a time
+        fcntl.flock(g, fcntl.LOCK_EX)
+        while free_swap_mb() < MIN_SWAP_MB or free_mem_pct() < MIN_FREE_PCT:
+            if time.time() - t0 > 1800:
+                print("torchq: memory guard held for 30 min, giving up", file=sys.stderr)
                 sys.exit(3)
-            time.sleep(10)
-        t1 = time.time()
-        try:
-            r = subprocess.run(cmd, timeout=a.timeout)
-            code = r.returncode
-        except subprocess.TimeoutExpired:
-            code = -9
-            print(f"torchq: timeout after {a.timeout} s", file=sys.stderr)
-        t2 = time.time()
+            time.sleep(5)
+        time.sleep(2)                               # let the previous job allocate before the next check
+    t1 = time.time()
+    try:
+        code = subprocess.run(cmd, timeout=a.timeout).returncode
+    except subprocess.TimeoutExpired:
+        code = -9
+        print(f"torchq: timeout after {a.timeout} s", file=sys.stderr)
+    t2 = time.time()
+    fh.close()
     with open(LOG, "a") as lg:
-        lg.write(f"{time.strftime('%H:%M:%S')}\t{a.who}\twait {t1 - t0:.0f}s\trun {t2 - t1:.0f}s\texit {code}\t{' '.join(cmd)[:300]}\n")
+        lg.write(f"{time.strftime('%H:%M:%S')}\t{a.who}\t{slot}\twait {t1 - t0:.0f}s\trun {t2 - t1:.0f}s\texit {code}\t{' '.join(cmd)[:300]}\n")
     sys.exit(code)
 
 

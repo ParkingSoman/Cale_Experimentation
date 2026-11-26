@@ -96,3 +96,5 @@ Shonu, after round 1: "we need to be going faster rather than just completely st
 ### Round 2 (2026-11-26): fast loops
 
 Seven agents (P0, P1-P3, P4, P5, P6, JOINT, live CRITIC), each in its own loop: one change, one quick test through the lock, one note, about 25 tests or 45 minutes, then promote the best rows to the board.
+
+Mid-round change (15:07, Shonu: "3 slots, swap guard", and "any fixes you make i want to apply to the current round"). Round 2's first 17 minutes, 1 slot: 15 torch jobs, mean wait 245 s, mean run 66 s, so one test per agent every 5-6 min. `torchq.py` now runs up to 3 short jobs at once plus one `--long` lane (generators, big sweeps). A job starts only if free swap >= 1 GB and memory free >= 30%. Tested with sleep jobs before the switch. Old version kept as `torchq_v1_backup.py`. A monitor watches free swap and failed jobs. Agents told in NOTES.md.

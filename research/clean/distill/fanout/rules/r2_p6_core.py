@@ -120,6 +120,10 @@ def basis(T, X, k, kind, seed=0, plant=None):
     if kind in ("pca", "pcan"):
         e, V = torch.linalg.eigh(C)
         return _orth_centred(V[:, e.argsort(descending=True)[:k]]), None
+    if kind == "readG":                                # weights only: eigvecs of the summed reader Gram
+        G = sum(Gl / Gl.trace() for Gl in readers(T))
+        e, V = torch.linalg.eigh(G)
+        return _orth_centred(V[:, e.argsort(descending=True)[:k]]), None
     if kind == "read":
         Gs = readers(T)
         if plant is not None:

@@ -61,7 +61,25 @@ def _mask(n, keep):
 
 
 @torch.no_grad()
-def build_r18(A, f, X=None, order="floor", mean="off", fold="off", sets=("stream", "inner"), verbose=True):
+def _sfold_G(aTs, aSs, kept, n):
+    """Stream fold map with a constant unit: regress the teacher stream (n ch) on [kept student ch, 1]."""
+    mom = P4._Mom(n + 1, len(kept) + 1)
+    for aT, aS in zip(aTs, aSs):
+        one = torch.ones(aT.shape[0], 1, device=aT.device)
+        mom.add(torch.cat([aT, one], 1), torch.cat([aS, one], 1))
+    ka = torch.cat([torch.as_tensor(kept).long(), torch.tensor([n])])
+    G, _ = P4.fold_map(mom.Sx / mom.N, mom.Ss / mom.N, ka, mom.N, "slice")
+    return G[:n, :len(kept)], G[:n, len(kept)]
+
+
+def _sfold_conv(convT, bnT, convS, bnS, Gk, gc, kd):
+    W = convT.weight.cpu().double()
+    convS.weight.zero_()
+    convS.weight[:, kd] = torch.einsum("onhw,nk->okhw", W, Gk).float().to(convS.weight.device)
+    bnS.running_mean.copy_(bnT.running_mean - (W.sum((2, 3)) @ gc).float().to(bnS.running_mean.device))
+
+
+def build_r18(A, f, X=None, order="floor", mean="off", fold="off", sets=("stream", "inner"), verbose=True, sfold="off"):
     """sets: which sets are cut ('stream', 'inner'); the other set stays at full width."""
     import wide18
     X = _x(X)
@@ -116,7 +134,8 @@ def build_r18(A, f, X=None, order="floor", mean="off", fold="off", sets=("stream
 
     # ---- P4 inner fold, closed loop, front to back on the student
     resid = []
-    if fold != "off" and "inner" in sets:
+    assert sfold == "off" or mean == "off"
+    if (fold != "off" and "inner" in sets) or sfold != "off":
         Ad = copy.deepcopy(A).to(DEV).eval()
         Sd = S.to(DEV).eval()
         Xd = X.to(DEV).float()
@@ -127,6 +146,30 @@ def build_r18(A, f, X=None, order="floor", mean="off", fold="off", sets=("stream
         for s_ in range(4):
             for b in range(2):
                 blT, blS = wide18.layers(Ad)[s_][b], wide18.layers(Sd)[s_][b]
+                ss = s_ if (b == 1 or s_ == 0) else s_ - 1
+                if sfold != "off" and cut[ss].any():                     # stream fold of this block's readers
+                    ks = st[ss].cpu()
+                    aTs, aSs = [], []
+                    for sl in sls:
+                        aT = P4._rows(hT[sl])
+                        if sfold == "null":
+                            aT = aT.clone()
+                            cc = cut[ss].to(DEV)
+                            aT[:, cc] = P4._rows(hT[P4._roll(sl, nX).to(DEV)])[:, cc]
+                        aTs.append(aT)
+                        aSs.append(P4._rows(hS[sl])[:, ks.to(DEV)])
+                    Gk, gc = _sfold_G(aTs, aSs, ks, wide18.BASE[ss])
+                    del aTs, aSs
+                    _sfold_conv(blT.conv1, blT.bn1, blS.conv1, blS.bn1, Gk, gc, ks.to(DEV))
+                    if b == 0 and s_ > 0:
+                        _sfold_conv(blT.downsample[0], blT.downsample[1], blS.downsample[0], blS.downsample[1], Gk, gc, ks.to(DEV))
+                if not (fold != "off" and "inner" in sets):
+                    nT, nS = [], []
+                    for sl in sls:
+                        nT.append(P4._out(blT, hT[sl], P4._inner(blT, hT[sl])))
+                        nS.append(P4._out(blS, hS[sl], P4._inner(blS, hS[sl])))
+                    hT, hS = torch.cat(nT), torch.cat(nS)
+                    continue
                 nU = wide18.BASE[s_]
                 kept = inn[s_][b].cpu()
                 kd = kept.to(DEV)
@@ -150,17 +193,30 @@ def build_r18(A, f, X=None, order="floor", mean="off", fold="off", sets=("stream
                     nT.append(P4._out(blT, hT[sl], P4._inner(blT, hT[sl])))
                     nS.append(P4._out(blS, hS[sl], P4._inner(blS, hS[sl])))
                 hT, hS = torch.cat(nT), torch.cat(nS)
+        if sfold != "off" and cut[3].any():                               # fc reads the pooled stage-4 stream
+            ks = st[3].cpu()
+            pT = torch.cat([hT[sl].mean((2, 3)) for sl in sls])
+            pS = torch.cat([hS[sl].mean((2, 3)) for sl in sls])
+            if sfold == "null":
+                cc = cut[3].to(DEV)
+                pT = pT.clone()
+                pT[:, cc] = torch.roll(pT, -1, 0)[:, cc]
+            Gk, gc = _sfold_G([pT], [pS[:, ks.to(DEV)]], ks, 512)
+            Wf = Ad.fc.weight.cpu().double()
+            Sd.fc.weight.zero_()
+            Sd.fc.weight[:, ks.to(DEV)] = (Wf @ Gk).float().to(DEV)
+            Sd.fc.bias.copy_(Ad.fc.bias + (Wf @ gc).float().to(DEV))
         S = Sd.cpu().eval()
         del Ad, hT, hS, Xd
     if verbose:
-        print(f"[r2_joint r18 f={f:g}] order={order} mean={mean} fold={fold} sets={sets} n_contrib={len(contrib)}"
+        print(f"[r2_joint r18 f={f:g}] order={order} mean={mean} fold={fold} sfold={sfold} sets={sets} n_contrib={len(contrib)}"
               + (f" G_offslice mean {sum(resid) / len(resid):.3f}" if resid else ""), flush=True)
     if DEV == "mps":
         torch.mps.empty_cache()
     return S.eval()
 
 
-def make(order="floor", mean="off", fold="off", sets=("stream", "inner")):
+def make(order="floor", mean="off", fold="off", sets=("stream", "inner"), sfold="off"):
     def r18(A, f, X=None):
-        return build_r18(A, f, X, order=order, mean=mean, fold=fold, sets=sets)
+        return build_r18(A, f, X, order=order, mean=mean, fold=fold, sets=sets, sfold=sfold)
     return r18

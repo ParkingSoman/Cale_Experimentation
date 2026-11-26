@@ -134,12 +134,18 @@ def _owner(h, kept_mask):
     return own
 
 
-def _qcol(Z, rate):
-    """(1 - rate) quantile of each column of Z (N x k) by sort, CPU."""
+def _qcol(Z, rate, fallback):
+    """Threshold that leaves rate * N samples above it, per column of Z (N x k), by sort on the CPU: the midpoint
+    between the last sample below and the first above. Rate 0 or 1 (no crossing seen on X): the fallback value
+    (the kept unit's own natural threshold in the same units), so a group of one is the identity."""
     N = Z.shape[0]
     Zs = Z.sort(0).values
-    idx = ((1.0 - rate) * N).round().long().clamp(0, N - 1)
-    return Zs.gather(0, idx[None]).squeeze(0)
+    c = (rate * N).round().long()
+    lo = (N - c - 1).clamp(0, N - 1)
+    hi = (N - c).clamp(0, N - 1)
+    t = 0.5 * (Zs.gather(0, lo[None]) + Zs.gather(0, hi[None])).squeeze(0)
+    edge = (c <= 0) | (c >= N)
+    return torch.where(edge, fallback, t), int(edge.sum())
 
 
 @torch.no_grad()
@@ -185,19 +191,19 @@ def merged_reads(T, f, X, tree="r1rms", gate="or", merge=True, info=None):
             Zh = ((Z - mu) / sd) @ A
             S = Zh.std(0).clamp_min(1e-6)
             Zh = Zh / S
-            t = _qcol(Zh, rate)
             sk = sd[kept]
+            t, nedge = _qcol(Zh, rate, -mu[kept] / (sk * S))
             w = (sk / S)[:, None] * (A.T @ (fw / sd[:, None]))
             b = sk * ((A.T @ ((fb - mu) / sd)) / S - t)
         else:                                                      # gate-only: own read, threshold at the rate
             Zk = Z[:, kept]
-            t = _qcol(Zk, rate)
+            t, nedge = _qcol(Zk, rate, torch.zeros(len(kept)))
             w, b = fw[kept], fb[kept] - t
         out.append((w, b))
         if info is not None:
             gs = A.sum(0)
             info.append(dict(block=bi, k=len(kept), max_group=int(gs.max()), own_rate=float((Z[:, kept] > 0).float().mean()),
-                             rate=float(rate.mean()), **(finfo or {})))
+                             rate=float(rate.mean()), nedge=nedge, **(finfo or {})))
     return out, mk
 
 
@@ -246,7 +252,7 @@ def build(T, f, X=None, tree="r1rms", gate="or", merge=True, null=False, tag="")
     if info:
         mg = sum(r["max_group"] for r in info) / len(info)
         print(f"[r2_p1p3 {tag} f={f:g}] mean max group {mg:.1f}; own rate {sum(r['own_rate'] for r in info)/len(info):.3f}"
-              f" -> target rate {sum(r['rate'] for r in info)/len(info):.3f}"
+              f" -> target rate {sum(r['rate'] for r in info)/len(info):.3f}; edge units {sum(r['nedge'] for r in info)}"
               + (f"; sibling frac {sum(r.get('frac_sibling', 0) for r in info)/len(info):.3f}" if 'frac_sibling' in info[0] else ""),
               flush=True)
     return out

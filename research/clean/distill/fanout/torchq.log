@@ -12,3 +12,12 @@
 14:59:38	P0	wait 248s	run 21s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule noisecut --f 0.95,0.85 --quick --who P0 --input distill/fanout/cache/input_pink_n256_s1.pt
 15:01:27	P4	wait 173s	run 109s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p4write_null_mlp --f 0.95,0.85,0.5 --quick --who P4 --input distill/fanout/cache/input_pink_n256_s1.pt
 15:01:33	CRITIC	wait 244s	run 6s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule noisecut --f 0.95,0.85,0.5 --quick --who CRITIC --input distill/fanout/cache/input_pink_n256_s1.pt --note r2 CRITIC same-photo baseline
+15:03:24	P6	wait 206s	run 111s	exit 0	/bin/sh -c for r in r2_p6_read_rho r2_p6_pcan_rho r2_p6_rand_rho r2_p6_coord_rho; do /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule $r --f 0.95,0.85,0.5 --quick --who P6 --input distill/fanout/cache/input_pink_n256_s1.pt;
+15:05:53	P1-P3	wait 243s	run 150s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule r2_p1p3_d --f 1,0.95,0.85,0.5 --quick --who P1-P3 --input distill/fanout/cache/input_pink_n256_s1.pt
+15:06:15	P0	wait 376s	run 22s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule noisecut --f 0.95,0.85 --quick --who P0 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+15:07:06	JOINT	wait 346s	run 50s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/r2_joint_sweep.py --f 0.95,0.85 --rules noisecut,r2_joint_floor_off_off,r2_joint_p5_off_off,r2_joint_floor_mean_off,r2_joint_floor_off_on,r2_joint_p5_mean_off,r2_joint_p5_off_on,r2_joint_floor_mean_on,
+15:07:38	test3	slot0	wait 2s	run 4s	exit 0	/bin/sleep 4
+15:07:40	test1	slot1	wait 4s	run 4s	exit 0	/bin/sleep 4
+15:07:42	testlong	long	wait 6s	run 4s	exit 0	/bin/sleep 4
+15:07:44	test4	slot2	wait 8s	run 4s	exit 0	/bin/sleep 4
+15:07:46	test2	slot0	wait 10s	run 4s	exit 0	/bin/sleep 4
