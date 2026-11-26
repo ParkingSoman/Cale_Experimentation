@@ -7689,5 +7689,145 @@
   "note": "r3 TREE: off row (tilt 0 = r2_p4_wfold_mlp), anchor check",
   "who": "TREE",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_sm_kslice",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.4128342270851135,
+  "top1": 0.634,
+  "agree": 0.773,
+  "n": 1000,
+  "params": 79231164,
+  "shape": {
+   "d": 730,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 82.6,
+  "total_seconds": 129.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:24:04",
+  "note": "r3 WRITE: stream+MLP cut, heads full; kslice / roll null / off / plain fold",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_rG_rho",
+  "f": 0.7,
+  "split": "test",
+  "input": "clip_null_n256_k32_s1",
+  "kl": 2.7118310928344727,
+  "top1": 0.286,
+  "agree": 0.337,
+  "n": 1000,
+  "params": 60399060,
+  "shape": {
+   "d": 538,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 66.4,
+  "total_seconds": 122.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:24:12",
+  "note": "r3 STREAM: CLIP stream-only rG with C + rho from clip_null (the self-input null); rerun alone after a segfault",
+  "who": "STREAM",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_sm_kslice",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 2.623527765274048,
+  "top1": 0.321,
+  "agree": 0.365,
+  "n": 1000,
+  "params": 66065526,
+  "shape": {
+   "d": 653,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 57.2,
+  "total_seconds": 100.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:25:44",
+  "note": "r3 WRITE: stream+MLP cut, heads full; kslice / roll null / off / plain fold",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_joint_c_mrand",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 4.9234938621521,
+  "top1": 0.138,
+  "agree": 0.147,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 158.9,
+  "total_seconds": 217.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:27:30",
+  "note": "r3 JOINT: random MLP order null inside r3_joint_c_on",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_sm_ksroll",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.45228052139282227,
+  "top1": 0.627,
+  "agree": 0.758,
+  "n": 1000,
+  "params": 79231164,
+  "shape": {
+   "d": 730,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 95.8,
+  "total_seconds": 144.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:28:10",
+  "note": "r3 WRITE: stream+MLP cut, heads full; kslice / roll null / off / plain fold",
+  "who": "WRITE",
+  "quick": false
  }
 ]
