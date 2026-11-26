@@ -8275,5 +8275,145 @@
   "note": "r3 CRITIC: full OFF row (fold off) for the JOINT 85% milestone r3_joint_c_on",
   "who": "CRITIC",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_mix0_mlp",
+  "f": 0.7,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.694311141967773,
+  "top1": 0.083,
+  "agree": 0.099,
+  "n": 1000,
+  "params": 69187272,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2150
+   ]
+  },
+  "calc_seconds": 7.0,
+  "total_seconds": 22.1,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:39:22",
+  "note": "r3 WRITE: MLP-only weight order, fold off/on/roll-null at .7/.5",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_mix0_mlp",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 10.15135383605957,
+  "top1": 0.004,
+  "agree": 0.002,
+  "n": 1000,
+  "params": 57862656,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    1536
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 11.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:39:33",
+  "note": "r3 WRITE: MLP-only weight order, fold off/on/roll-null at .7/.5",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p4_wfold_mlp",
+  "f": 0.7,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 2.5132968425750732,
+  "top1": 0.319,
+  "agree": 0.376,
+  "n": 1000,
+  "params": 69187272,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2150
+   ]
+  },
+  "calc_seconds": 20.0,
+  "total_seconds": 34.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:40:09",
+  "note": "r3 WRITE: MLP-only weight order, fold off/on/roll-null at .7/.5",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p4_wfold_mlp",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.222867488861084,
+  "top1": 0.069,
+  "agree": 0.07,
+  "n": 1000,
+  "params": 57862656,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    1536
+   ]
+  },
+  "calc_seconds": 15.0,
+  "total_seconds": 26.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:40:35",
+  "note": "r3 WRITE: MLP-only weight order, fold off/on/roll-null at .7/.5",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_m_roll",
+  "f": 0.7,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 5.0959672927856445,
+  "top1": 0.123,
+  "agree": 0.141,
+  "n": 1000,
+  "params": 69187272,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2150
+   ]
+  },
+  "calc_seconds": 29.7,
+  "total_seconds": 44.1,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:41:20",
+  "note": "r3 WRITE: MLP-only weight order, fold off/on/roll-null at .7/.5",
+  "who": "WRITE",
+  "quick": false
  }
 ]
