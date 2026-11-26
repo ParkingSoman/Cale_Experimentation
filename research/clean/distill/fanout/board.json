@@ -7577,5 +7577,61 @@
   "note": "r3 STREAM: CLIP stream-only, one reader-weighted basis rG (G^1/2 C G^1/2) with C + rho from input clip_self_n256_k32_s1; family rG self / rG null-input / coord self (off) / rand seed 1 (null); input picked on quick photos",
   "who": "STREAM",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_stream_rand1_rho",
+  "f": 0.85,
+  "split": "test",
+  "input": "clip_self_n256_k32_s1",
+  "kl": 6.920276165008545,
+  "top1": 0.045,
+  "agree": 0.06,
+  "n": 1000,
+  "params": 73295850,
+  "shape": {
+   "d": 653,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 57.0,
+  "total_seconds": 130.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:19:07",
+  "note": "r3 STREAM: CLIP stream-only, one reader-weighted basis rG (G^1/2 C G^1/2) with C + rho from input clip_self_n256_k32_s1; family rG self / rG null-input / coord self (off) / rand seed 1 (null); input picked on quick photos",
+  "who": "STREAM",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_joint_c_sfloor",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 7.776281833648682,
+  "top1": 0.022,
+  "agree": 0.025,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 85.2,
+  "total_seconds": 122.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:19:28",
+  "note": "r3 JOINT: off row of r3_joint_c_on",
+  "who": "JOINT",
+  "quick": false
  }
 ]
