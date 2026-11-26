@@ -68,7 +68,7 @@ def main():
     slot, fh = take_slot(a.long)
     with open(GATE, "w") as g:                      # one job passes the memory guard at a time
         fcntl.flock(g, fcntl.LOCK_EX)
-        while free_swap_mb() < MIN_SWAP_MB or free_mem_pct() < MIN_FREE_PCT or used_swap_mb() > MAX_SWAP_USED_MB:
+        while free_mem_pct() < MIN_FREE_PCT or used_swap_mb() > MAX_SWAP_USED_MB:   # free swap dropped: macOS resizes the file
             if time.time() - t0 > 3600:
                 print("torchq: memory guard held for 30 min, giving up", file=sys.stderr)
                 sys.exit(3)

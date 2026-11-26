@@ -4412,5 +4412,89 @@
   "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
   "who": "P5",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_mix100_mlp",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.4732106924057007,
+  "top1": 0.591,
+  "agree": 0.7670000195503235,
+  "n": 1000,
+  "params": 83352264,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 45.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:39:42",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_mix100_mlp",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 2.525563955307007,
+  "top1": 0.333,
+  "agree": 0.3840000033378601,
+  "n": 1000,
+  "params": 77689956,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 0.2,
+  "total_seconds": 41.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:40:23",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_mlp",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.3212586045265198,
+  "top1": 0.611,
+  "agree": 0.8069999814033508,
+  "n": 1000,
+  "params": 83352264,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 115.7,
+  "total_seconds": 161.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:40:47",
+  "note": "r2 P4: MLP-only write fold, floor order vs weight order, with shuffled and same-form mean nulls",
+  "who": "P4",
+  "quick": false
  }
 ]
