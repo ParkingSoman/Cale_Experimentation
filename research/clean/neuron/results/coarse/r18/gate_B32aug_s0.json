@@ -1,0 +1,602 @@
+{
+ "block1": {
+  "breadth_A": [
+   30,
+   35,
+   40
+  ],
+  "breadth_B": [
+   40,
+   48,
+   50
+  ],
+  "best_corr_median": 0.5205901861190796,
+  "cars": [
+   {
+    "b": 16,
+    "a": 211,
+    "corr": 0.4188888967037201,
+    "breadth_b": 48,
+    "breadth_a": 35,
+    "top_b": [
+     "airliner",
+     "dalmatian",
+     "ambulance",
+     "kuvasz",
+     "cabbage_butterfly",
+     "soccer_ball",
+     "white_stork",
+     "sulphur_butterfly",
+     "wing",
+     "catamaran"
+    ],
+    "top_a": [
+     "flamingo",
+     "spoonbill",
+     "ambulance",
+     "goldfish",
+     "golden_retriever",
+     "chow",
+     "Rhodesian_ridgeback",
+     "macaw",
+     "Samoyed",
+     "hartebeest"
+    ],
+    "extra": [
+     "dalmatian",
+     "cabbage_butterfly",
+     "soccer_ball",
+     "sulphur_butterfly"
+    ]
+   },
+   {
+    "b": 29,
+    "a": 458,
+    "corr": 0.5910217761993408,
+    "breadth_b": 62,
+    "breadth_a": 48,
+    "top_b": [
+     "German_shepherd",
+     "standard_schnauzer",
+     "malinois",
+     "Norwegian_elkhound",
+     "Scotch_terrier",
+     "Border_collie",
+     "dingo",
+     "garbage_truck",
+     "schipperke",
+     "collie"
+    ],
+    "top_a": [
+     "Siberian_husky",
+     "chow",
+     "Eskimo_dog",
+     "malamute",
+     "harvestman",
+     "convertible",
+     "Old_English_sheepdog",
+     "chambered_nautilus",
+     "timber_wolf",
+     "minibus"
+    ],
+    "extra": [
+     "malinois",
+     "Norwegian_elkhound",
+     "Scotch_terrier",
+     "garbage_truck"
+    ]
+   },
+   {
+    "b": 3,
+    "a": 300,
+    "corr": 0.5716748237609863,
+    "breadth_b": 31,
+    "breadth_a": 0,
+    "top_b": [
+     "sports_car",
+     "red_wine",
+     "snowmobile",
+     "motor_scooter",
+     "saltshaker",
+     "go-kart",
+     "paddle",
+     "coffeepot",
+     "lotion",
+     "measuring_cup"
+    ],
+    "top_a": [
+     "pizza",
+     "potter's_wheel",
+     "knee_pad",
+     "fiddler_crab",
+     "burrito",
+     "dumbbell",
+     "conch",
+     "reel",
+     "manhole_cover",
+     "waffle_iron"
+    ],
+    "extra": [
+     "sports_car",
+     "red_wine",
+     "motor_scooter",
+     "saltshaker",
+     "paddle",
+     "coffeepot",
+     "lotion",
+     "measuring_cup"
+    ]
+   },
+   {
+    "b": 8,
+    "a": 156,
+    "corr": 0.5924214720726013,
+    "breadth_b": 49,
+    "breadth_a": 59,
+    "top_b": [
+     "ladybug",
+     "dingo",
+     "dhole",
+     "proboscis_monkey",
+     "bee_eater",
+     "chow",
+     "goldfinch",
+     "lifeboat",
+     "leaf_beetle",
+     "kit_fox"
+    ],
+    "top_a": [
+     "school_bus",
+     "trolleybus",
+     "toy_terrier",
+     "Pembroke",
+     "red_fox",
+     "fire_engine",
+     "Chihuahua",
+     "dingo",
+     "Yorkshire_terrier",
+     "streetcar"
+    ],
+    "extra": [
+     "bee_eater",
+     "lifeboat"
+    ]
+   },
+   {
+    "b": 27,
+    "a": 332,
+    "corr": 0.5198561549186707,
+    "breadth_b": 49,
+    "breadth_a": 24,
+    "top_b": [
+     "hartebeest",
+     "quail",
+     "hare",
+     "white_stork",
+     "junco",
+     "water_ouzel",
+     "bustard",
+     "dowitcher",
+     "gazelle",
+     "partridge"
+    ],
+    "top_a": [
+     "robin",
+     "bittern",
+     "bustard",
+     "ruffed_grouse",
+     "black_widow",
+     "partridge",
+     "dowitcher",
+     "hare",
+     "frilled_lizard",
+     "brambling"
+    ],
+    "extra": [
+     "white_stork",
+     "junco",
+     "water_ouzel"
+    ]
+   },
+   {
+    "b": 12,
+    "a": 477,
+    "corr": 0.4752460718154907,
+    "breadth_b": 41,
+    "breadth_a": 35,
+    "top_b": [
+     "fireboat",
+     "oystercatcher",
+     "pirate",
+     "drilling_platform",
+     "damselfly",
+     "lifeboat",
+     "crane",
+     "yawl",
+     "gondola",
+     "hip"
+    ],
+    "top_a": [
+     "parachute",
+     "snowplow",
+     "dining_table",
+     "studio_couch",
+     "black_widow",
+     "monarch",
+     "lifeboat",
+     "fireboat",
+     "washbasin",
+     "airship"
+    ],
+    "extra": [
+     "oystercatcher",
+     "crane",
+     "yawl"
+    ]
+   },
+   {
+    "b": 20,
+    "a": 107,
+    "corr": 0.558247983455658,
+    "breadth_b": 49,
+    "breadth_a": 43,
+    "top_b": [
+     "oystercatcher",
+     "American_coot",
+     "European_gallinule",
+     "black_stork",
+     "red-breasted_merganser",
+     "black_swan",
+     "limpkin",
+     "little_blue_heron",
+     "indigo_bunting",
+     "partridge"
+    ],
+    "top_a": [
+     "oystercatcher",
+     "great_grey_owl",
+     "German_short-haired_pointer",
+     "redshank",
+     "magpie",
+     "Bouvier_des_Flandres",
+     "junco",
+     "schipperke",
+     "bulbul",
+     "Newfoundland"
+    ],
+    "extra": [
+     "little_blue_heron",
+     "partridge"
+    ]
+   },
+   {
+    "b": 4,
+    "a": 156,
+    "corr": 0.453998863697052,
+    "breadth_b": 49,
+    "breadth_a": 59,
+    "top_b": [
+     "Australian_terrier",
+     "Yorkshire_terrier",
+     "Pekinese",
+     "Border_terrier",
+     "Norwich_terrier",
+     "silky_terrier",
+     "cairn",
+     "meerkat",
+     "redshank",
+     "Dandie_Dinmont"
+    ],
+    "top_a": [
+     "school_bus",
+     "trolleybus",
+     "toy_terrier",
+     "Pembroke",
+     "red_fox",
+     "fire_engine",
+     "Chihuahua",
+     "dingo",
+     "Yorkshire_terrier",
+     "streetcar"
+    ],
+    "extra": [
+     "redshank",
+     "Dandie_Dinmont"
+    ]
+   }
+  ]
+ },
+ "block0": {
+  "breadth_A": [
+   30,
+   35,
+   42
+  ],
+  "breadth_B": [
+   27,
+   37,
+   43
+  ],
+  "best_corr_median": 0.6231899857521057,
+  "cars": [
+   {
+    "b": 8,
+    "a": 212,
+    "corr": 0.49399301409721375,
+    "breadth_b": 28,
+    "breadth_a": 44,
+    "top_b": [
+     "ambulance",
+     "standard_poodle",
+     "minibus",
+     "minivan",
+     "convertible",
+     "black_swan",
+     "gibbon",
+     "golfcart",
+     "oystercatcher",
+     "sports_car"
+    ],
+    "top_a": [
+     "CD_player",
+     "cassette_player",
+     "Irish_wolfhound",
+     "Scottish_deerhound",
+     "convertible",
+     "West_Highland_white_terrier",
+     "ambulance",
+     "Lhasa",
+     "Newfoundland",
+     "standard_schnauzer"
+    ],
+    "extra": [
+     "black_swan",
+     "gibbon",
+     "oystercatcher"
+    ]
+   },
+   {
+    "b": 26,
+    "a": 64,
+    "corr": 0.6388800740242004,
+    "breadth_b": 26,
+    "breadth_a": 35,
+    "top_b": [
+     "minibus",
+     "trolleybus",
+     "minivan",
+     "school_bus",
+     "electric_locomotive",
+     "fire_engine",
+     "garbage_truck",
+     "streetcar",
+     "ambulance",
+     "pill_bottle"
+    ],
+    "top_a": [
+     "ambulance",
+     "police_van",
+     "trolleybus",
+     "minibus",
+     "forklift",
+     "medicine_chest",
+     "fire_engine",
+     "cab",
+     "switch",
+     "chiffonier"
+    ],
+    "extra": [
+     "pill_bottle"
+    ]
+   },
+   {
+    "b": 10,
+    "a": 278,
+    "corr": 0.6456547975540161,
+    "breadth_b": 35,
+    "breadth_a": 43,
+    "top_b": [
+     "golfcart",
+     "garbage_truck",
+     "forklift",
+     "ambulance",
+     "ground_beetle",
+     "convertible",
+     "lawn_mower",
+     "sports_car",
+     "police_van",
+     "tow_truck"
+    ],
+    "top_a": [
+     "car_wheel",
+     "file",
+     "washer",
+     "safe",
+     "screw",
+     "cocktail_shaker",
+     "CD_player",
+     "revolver",
+     "projector",
+     "dishwasher"
+    ],
+    "extra": [
+     "forklift",
+     "ground_beetle"
+    ]
+   },
+   {
+    "b": 11,
+    "a": 13,
+    "corr": 0.6687222719192505,
+    "breadth_b": 29,
+    "breadth_a": 35,
+    "top_b": [
+     "Australian_terrier",
+     "Yorkshire_terrier",
+     "cairn",
+     "forklift",
+     "ambulance",
+     "police_van",
+     "Norfolk_terrier",
+     "golfcart",
+     "minibus",
+     "sports_car"
+    ],
+    "top_a": [
+     "police_van",
+     "Polaroid_camera",
+     "minibus",
+     "revolver",
+     "golfcart",
+     "ambulance",
+     "airliner",
+     "beach_wagon",
+     "fountain_pen",
+     "assault_rifle"
+    ],
+    "extra": [
+     "Australian_terrier",
+     "Yorkshire_terrier",
+     "cairn",
+     "Norfolk_terrier"
+    ]
+   },
+   {
+    "b": 27,
+    "a": 371,
+    "corr": 0.5485596060752869,
+    "breadth_b": 40,
+    "breadth_a": 34,
+    "top_b": [
+     "tiger_beetle",
+     "green_snake",
+     "ambulance",
+     "European_fire_salamander",
+     "green_lizard",
+     "tree_frog",
+     "tench",
+     "leaf_beetle",
+     "toucan",
+     "vine_snake"
+    ],
+    "top_a": [
+     "ringneck_snake",
+     "ladybug",
+     "red-breasted_merganser",
+     "cockroach",
+     "cicada",
+     "centipede",
+     "weevil",
+     "black_widow",
+     "airliner",
+     "tailed_frog"
+    ],
+    "extra": [
+     "toucan"
+    ]
+   },
+   {
+    "b": 21,
+    "a": 442,
+    "corr": 0.677849292755127,
+    "breadth_b": 49,
+    "breadth_a": 35,
+    "top_b": [
+     "bookcase",
+     "grand_piano",
+     "hand-held_computer",
+     "slot",
+     "traffic_light",
+     "microwave",
+     "monitor",
+     "organ",
+     "bookshop",
+     "desk"
+    ],
+    "top_a": [
+     "slot",
+     "mosque",
+     "stage",
+     "restaurant",
+     "triumphal_arch",
+     "palace",
+     "toyshop",
+     "four-poster",
+     "torch",
+     "castle"
+    ],
+    "extra": [
+     "hand-held_computer",
+     "traffic_light"
+    ]
+   },
+   {
+    "b": 16,
+    "a": 81,
+    "corr": 0.5165551900863647,
+    "breadth_b": 27,
+    "breadth_a": 33,
+    "top_b": [
+     "tricycle",
+     "Model_T",
+     "magnetic_compass",
+     "ladybug",
+     "tractor",
+     "bicycle-built-for-two",
+     "mountain_bike",
+     "monarch",
+     "moped",
+     "snowmobile"
+    ],
+    "top_a": [
+     "bicycle-built-for-two",
+     "mountain_bike",
+     "moped",
+     "yellow_lady's_slipper",
+     "Model_T",
+     "tricycle",
+     "canoe",
+     "daisy",
+     "unicycle",
+     "jinrikisha"
+    ],
+    "extra": [
+     "ladybug",
+     "snowmobile"
+    ]
+   },
+   {
+    "b": 31,
+    "a": 48,
+    "corr": 0.6248062252998352,
+    "breadth_b": 32,
+    "breadth_a": 28,
+    "top_b": [
+     "bicycle-built-for-two",
+     "moped",
+     "mountain_bike",
+     "jinrikisha",
+     "tricycle",
+     "limpkin",
+     "Model_T",
+     "parallel_bars",
+     "tripod",
+     "radio_telescope"
+    ],
+    "top_a": [
+     "moped",
+     "bicycle-built-for-two",
+     "crane",
+     "rocking_chair",
+     "airliner",
+     "tricycle",
+     "cannon",
+     "mountain_bike",
+     "alp",
+     "French_horn"
+    ],
+    "extra": []
+   }
+  ]
+ }
+}

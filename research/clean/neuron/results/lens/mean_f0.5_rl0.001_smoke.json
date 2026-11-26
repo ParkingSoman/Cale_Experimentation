@@ -1,0 +1,51 @@
+{
+ "args": {
+  "mode": "mean",
+  "frac": 0.5,
+  "fit": "train",
+  "per_class": 4,
+  "ridge_lens": 0.001,
+  "ridge_w": 1e-06,
+  "ds_lens": false,
+  "head_lens": false,
+  "head_ridge": 0.001,
+  "smoke": true,
+  "nblocks": 30,
+  "save": false,
+  "tag": ""
+ },
+ "test": {
+  "kl": 0.005064276047050953,
+  "top1": 0.7933333516120911
+ },
+ "held": {
+  "kl": 0.004457636270672083,
+  "top1": 0.8299999833106995
+ },
+ "blocks": [
+  {
+   "g": 0,
+   "on_base": 0.1082288846373558,
+   "on_coarse": 0.1082288846373558,
+   "on_ratio_median": 1.0,
+   "lens_dev": 0.0,
+   "sec": 0.2
+  },
+  {
+   "g": 1,
+   "on_base": 0.13751807808876038,
+   "on_coarse": 0.13707035779953003,
+   "on_ratio_median": 0.9971455335617065,
+   "lens_dev": 0.0,
+   "sec": 0.2
+  },
+  {
+   "g": 2,
+   "on_base": 0.10234937816858292,
+   "on_coarse": 0.10235535353422165,
+   "on_ratio_median": 1.0013092756271362,
+   "lens_dev": 0.0,
+   "sec": 0.2
+  }
+ ]
+}

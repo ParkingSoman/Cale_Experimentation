@@ -1,0 +1,28 @@
+{
+ "session_id": "ffa60dd4-d4fe-418e-8927-8f6b5e58c4c4",
+ "grants": [
+  {
+   "time": "2026-11-25 15:09:57",
+   "plan_path": "/Users/shonusengupta/.claude/plans/ok-interesting-results-last-resilient-aurora-of-ffa60dd4-d4fe-418e-8927-8f6b5e58c4c4.md",
+   "allow": {
+    "neurons": [
+     "A:block0-all"
+    ],
+    "net": [
+     "A",
+     "C-ladder",
+     "L-ladder",
+     "R4C-ladder",
+     "WC-ladder",
+     "Z-ladder"
+    ],
+    "photos": [
+     "test"
+    ],
+    "where": [
+     "cluster"
+    ]
+   }
+  }
+ ]
+}

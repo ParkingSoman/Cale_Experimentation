@@ -1,0 +1,35 @@
+B128aug_s0: 16000 train photos decoded in 13s, device cuda
+A on test (center crops): {'kl': 6.017157883064783e-09, 'top1': 0.6775293946266174}
+A top-1 on 512 augmented train crops (no mixup): 0.643
+B at init: held KL 5.4829, trained numbers 2066944
+  step 300/300 loss 1.3889 held KL 1.5964 11s
+sweep lr 0.001: held KL 1.5964
+  step 300/300 loss 1.2592 held KL 1.4601 11s
+sweep lr 0.003: held KL 1.4601
+main run: lr 0.003, 6250 steps of 256
+  step 250/6250 loss 1.4692 held KL 2.0604 10s
+  step 500/6250 loss 1.1358 held KL 1.4691 19s
+  step 750/6250 loss 0.8680 held KL 1.2408 27s
+  step 1000/6250 loss 1.0125 held KL 1.1952 36s
+  step 1250/6250 loss 0.7584 held KL 1.1061 45s
+  step 1500/6250 loss 0.6599 held KL 1.0881 54s
+  step 1750/6250 loss 0.8711 held KL 1.0375 63s
+  step 2000/6250 loss 0.7997 held KL 1.0006 72s
+  step 2250/6250 loss 0.5686 held KL 0.9757 81s
+  step 2500/6250 loss 0.7034 held KL 0.9680 90s
+  step 2750/6250 loss 0.6575 held KL 0.9371 99s
+  step 3000/6250 loss 0.7052 held KL 0.9240 108s
+  step 3250/6250 loss 0.7053 held KL 0.8893 117s
+  step 3500/6250 loss 0.7036 held KL 0.8589 126s
+  step 3750/6250 loss 0.4385 held KL 0.8399 135s
+  step 4000/6250 loss 0.6490 held KL 0.8098 144s
+  step 4250/6250 loss 0.6160 held KL 0.7941 153s
+  step 4500/6250 loss 0.4484 held KL 0.7676 162s
+  step 4750/6250 loss 0.3850 held KL 0.7461 171s
+  step 5000/6250 loss 0.6339 held KL 0.7349 180s
+  step 5250/6250 loss 0.3470 held KL 0.7264 189s
+  step 5500/6250 loss 0.5939 held KL 0.7144 198s
+  step 5750/6250 loss 0.5698 held KL 0.7083 207s
+  step 6000/6250 loss 0.5337 held KL 0.7075 216s
+  step 6250/6250 loss 0.5762 held KL 0.7074 225s
+B best: stop step 6250, held KL 0.7074, fit KL (center crops) 0.2601, test {'kl': 0.6854553818702698, 'top1': 0.5470588207244873}

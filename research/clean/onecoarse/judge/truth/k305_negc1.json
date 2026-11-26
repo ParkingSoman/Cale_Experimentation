@@ -1,0 +1,19 @@
+{
+ "neuron": "k305_negc1",
+ "targets": [
+  3,
+  7,
+  9,
+  12,
+  17,
+  19,
+  21,
+  23,
+  24,
+  27,
+  30,
+  35
+ ],
+ "control_words_from": "p",
+ "photos": "held+test, unseen"
+}

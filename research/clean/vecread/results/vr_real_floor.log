@@ -1,0 +1,216 @@
+write_s4b0 {
+ "n_real": 512,
+ "top_score_real": {
+  "5th": 0.15,
+  "median": 0.245,
+  "95th": 0.411
+ },
+ "leftover_real": {
+  "5th": 0.689,
+  "median": 0.831,
+  "95th": 0.903
+ },
+ "top_iou_real": {
+  "5th": 0.02,
+  "median": 0.044,
+  "95th": 0.105
+ },
+ "top_iou_random": {
+  "5th": 0.015,
+  "median": 0.027,
+  "95th": 0.063
+ },
+ "hubs_top1": [
+  [
+   "zigzagged",
+   0.037
+  ],
+  [
+   "muzzle",
+   0.023
+  ],
+  [
+   "spiralled",
+   0.023
+  ],
+  [
+   "neck",
+   0.02
+  ],
+  [
+   "interlaced",
+   0.018
+  ],
+  [
+   "head",
+   0.018
+  ]
+ ],
+ "hubs_top5": [
+  [
+   "zigzagged",
+   0.109
+  ],
+  [
+   "dog",
+   0.076
+  ],
+  [
+   "muzzle",
+   0.068
+  ],
+  [
+   "neck",
+   0.066
+  ],
+  [
+   "spiralled",
+   0.064
+  ],
+  [
+   "head",
+   0.062
+  ]
+ ],
+ "uniform_share": 0.0026,
+ "w101": {
+  "top": [
+   "wheel",
+   "part",
+   0.129
+  ],
+  "top_score_pct_among_real": 1.4,
+  "leftover": 0.913,
+  "leftover_pct_among_real": 97.3,
+  "top_iou": [
+   "wheel",
+   "part",
+   0.03
+  ],
+  "top_iou_pct_among_real": 26.0
+ },
+ "wFold": {
+  "top": [
+   "zigzagged",
+   "texture",
+   0.412
+  ],
+  "top_score_pct_among_real": 94.9,
+  "leftover": 0.682,
+  "leftover_pct_among_real": 4.3,
+  "top_iou": [
+   "zigzagged",
+   "texture",
+   0.076
+  ],
+  "top_iou_pct_among_real": 85.5
+ }
+}
+read_s3k {
+ "n_real": 512,
+ "top_score_real": {
+  "5th": 2.093,
+  "median": 3.817,
+  "95th": 5.799
+ },
+ "leftover_real": {
+  "5th": 0.65,
+  "median": 0.799,
+  "95th": 0.927
+ },
+ "top_iou_real": {
+  "5th": 0.013,
+  "median": 0.026,
+  "95th": 0.083
+ },
+ "top_iou_random": {
+  "5th": 0.013,
+  "median": 0.02,
+  "95th": 0.054
+ },
+ "hubs_top1": [
+  [
+   "potholed",
+   0.033
+  ],
+  [
+   "crystalline",
+   0.023
+  ],
+  [
+   "landing_deck-s",
+   0.018
+  ],
+  [
+   "marbled",
+   0.018
+  ],
+  [
+   "wrinkled",
+   0.018
+  ],
+  [
+   "stained",
+   0.018
+  ]
+ ],
+ "hubs_top5": [
+  [
+   "potholed",
+   0.121
+  ],
+  [
+   "stained",
+   0.109
+  ],
+  [
+   "crystalline",
+   0.1
+  ],
+  [
+   "marbled",
+   0.096
+  ],
+  [
+   "blotchy",
+   0.096
+  ],
+  [
+   "wrinkled",
+   0.078
+  ]
+ ],
+ "uniform_share": 0.0027,
+ "r101": {
+  "top": [
+   "wheel",
+   "part",
+   5.983
+  ],
+  "top_score_pct_among_real": 95.9,
+  "leftover": 0.77,
+  "leftover_pct_among_real": 35.2,
+  "top_iou": [
+   "wheel",
+   "part",
+   0.06
+  ],
+  "top_iou_pct_among_real": 87.1
+ },
+ "rFold": {
+  "top": [
+   "fan",
+   "object",
+   4.745
+  ],
+  "top_score_pct_among_real": 77.0,
+  "leftover": 0.82,
+  "leftover_pct_among_real": 58.6,
+  "top_iou": [
+   "head",
+   "part",
+   0.029
+  ],
+  "top_iou_pct_among_real": 56.4
+ }
+}

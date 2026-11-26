@@ -1,0 +1,52 @@
+  50/2000 1s
+  550/2000 25s
+  1050/2000 38s
+  1550/2000 64s
+  50/4000 1s
+  550/4000 17s
+  1050/4000 49s
+  1550/4000 76s
+  2050/4000 102s
+  2550/4000 118s
+  3050/4000 135s
+  3550/4000 152s
+s2431~p3116 fire 0.50: R2 p 0.236 kids 0.276 nbr 0.289 rand 0.262 resid 0.316 | P4 kid -0.125 nbr -0.251
+s1940~p789 fire 0.55: R2 p 0.222 kids 0.262 nbr 0.253 rand 0.272 resid 0.385 | P4 kid -0.017 nbr +0.042
+s668~p241 fire 0.43: R2 p 0.201 kids 0.236 nbr 0.250 rand 0.282 resid 0.314 | P4 kid +0.035 nbr -0.090
+s189~p2491 fire 0.45: R2 p 0.242 kids 0.272 nbr 0.273 rand 0.273 resid 0.340 | P4 kid -0.175 nbr -0.098
+s1893~p3842 fire 0.49: R2 p 0.188 kids 0.211 nbr 0.200 rand 0.197 resid 0.289 | P4 kid -0.143 nbr +0.105
+s10~p3322 fire 0.53: R2 p 0.262 kids 0.285 nbr 0.312 rand 0.307 resid 0.332 | P4 kid -0.035 nbr -0.082
+s891~p3735 fire 0.48: R2 p 0.272 kids 0.315 nbr 0.311 rand 0.310 resid 0.343 | P4 kid -0.008 nbr -0.036
+s2260~p2387 fire 0.55: R2 p 0.152 kids 0.180 nbr 0.168 rand 0.171 resid 0.218 | P4 kid +0.280 nbr +0.144
+s926~p3795 fire 0.52: R2 p 0.211 kids 0.221 nbr 0.214 rand 0.218 resid 0.266 | P4 kid -0.053 nbr -0.078
+s2018~p2425 fire 0.52: R2 p 0.251 kids 0.264 nbr 0.274 rand 0.261 resid 0.332 | P4 kid -0.064 nbr -0.189
+s2158~p1915 fire 0.59: R2 p 0.320 kids 0.348 nbr 0.359 rand 0.364 resid 0.409 | P4 kid +0.126 nbr +0.027
+s2176~p854 fire 0.27: R2 p 0.230 kids 0.287 nbr 0.358 rand 0.281 resid 0.616 | P4 kid +0.030 nbr +0.326
+s2160~p2708 fire 0.63: R2 p 0.273 kids 0.304 nbr 0.309 rand 0.307 resid 0.324 | P4 kid +0.440 nbr -0.100
+s1289~p2970 fire 0.65: R2 p 0.306 kids 0.336 nbr 0.341 rand 0.358 resid 0.380 | P4 kid -0.104 nbr -0.097
+s244~p1255 fire 0.60: R2 p 0.213 kids 0.214 nbr 0.287 rand 0.246 resid 0.417 | P4 kid +0.330 nbr -0.142
+s2145~p854 fire 0.50: R2 p 0.064 kids 0.217 nbr 0.219 rand 0.155 resid 0.455 | P4 kid -0.629 nbr -0.419
+s603~p1711 fire 0.65: R2 p 0.275 kids 0.337 nbr 0.285 rand 0.307 resid 0.385 | P4 kid -0.087 nbr +0.150
+s802~p151 fire 0.70: R2 p 0.268 kids 0.331 nbr 0.305 rand 0.292 resid 0.428 | P4 kid -0.078 nbr +0.053
+s2776~p799 fire 0.71: R2 p 0.351 kids 0.402 nbr 0.393 rand 0.368 resid 0.415 | P4 kid -0.245 nbr -0.155
+s492~p377 fire 0.87: R2 p 0.649 kids 0.696 nbr 0.702 rand 0.695 resid 0.762 | P4 kid -0.113 nbr -0.189
+{
+ "r2_p": 0.24639073331677197,
+ "r2_kids": 0.28073898683464577,
+ "r2_nbr": 0.2884172215408967,
+ "r2_rand": 0.2813939558249549,
+ "r2_resid": 0.36115360719172784,
+ "r2_kids_resid": 0.37254181834920896,
+ "kids_beat_nbr": 8,
+ "kids_beat_rand": 12,
+ "p4_kid_mean": -0.031650812517485555,
+ "p4_nbr_mean": -0.05395350771953996,
+ "p4_kid_beats_nbr": 60,
+ "p4_n": 120,
+ "top1_test": {
+  "small": 0.8045,
+  "base": 0.8105
+ },
+ "resid_in_blocks_1_2_child_rank_median": 4196.5,
+ "resid_in_block0_share": 0.38333333333333336
+}

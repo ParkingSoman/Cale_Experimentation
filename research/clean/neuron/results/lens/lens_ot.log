@@ -1,0 +1,34 @@
+15:34:33 lens_ot on mps: {'mode': 'lens', 'frac': 0.5, 'fit': 'train', 'per_class': 4, 'ridge_lens': 0.0001, 'ridge_w': 1e-06, 'ds_lens': False, 'head_lens': False, 'head_ridge': 0.001, 'smoke': False, 'nblocks': 30, 'save': False, 'ot_lens': True, 'ot_writes': True, 'tag': 'lens_ot'}
+15:35:12 calibration done
+15:35:13 fit photos 4000
+15:35:23 block 0: on-rate Base 0.10853 coarse 0.10853 (median ratio 1.00), |L-I|/sqrt(d) 0.044, write OT {'amp_median': 1.0879760651869477, 'amp_max': 1.969585730171777, 'trace_ratio': 1.1039894403966726}, 10s
+15:35:33 block 1: on-rate Base 0.13301 coarse 0.13291 (median ratio 1.00), |L-I|/sqrt(d) 0.081, write OT {'amp_median': 1.2022424899858546, 'amp_max': 2.481355420826856, 'trace_ratio': 1.226749184464802}, 10s
+15:35:42 block 2: on-rate Base 0.10052 coarse 0.10031 (median ratio 1.00), |L-I|/sqrt(d) 0.076, write OT {'amp_median': 1.2026307406220476, 'amp_max': 2.55511612780482, 'trace_ratio': 1.2764753088691079}, 10s
+15:35:52 block 3: on-rate Base 0.08573 coarse 0.08554 (median ratio 1.00), |L-I|/sqrt(d) 0.089, write OT {'amp_median': 1.2056918537325034, 'amp_max': 2.408914752897796, 'trace_ratio': 1.3054296803768024}, 9s
+15:36:01 block 4: on-rate Base 0.08768 coarse 0.08751 (median ratio 1.00), |L-I|/sqrt(d) 0.094, write OT {'amp_median': 1.1636542906818288, 'amp_max': 2.2434866756365093, 'trace_ratio': 1.233418455871697}, 9s
+15:36:11 block 5: on-rate Base 0.09493 coarse 0.09478 (median ratio 1.00), |L-I|/sqrt(d) 0.086, write OT {'amp_median': 1.2348622151390516, 'amp_max': 2.5750706253012767, 'trace_ratio': 1.3376255675710216}, 9s
+15:36:20 block 6: on-rate Base 0.08469 coarse 0.08455 (median ratio 1.00), |L-I|/sqrt(d) 0.082, write OT {'amp_median': 1.2612445804993837, 'amp_max': 3.134530019189148, 'trace_ratio': 1.4361949697389507}, 9s
+15:36:29 block 7: on-rate Base 0.09069 coarse 0.09071 (median ratio 1.00), |L-I|/sqrt(d) 0.088, write OT {'amp_median': 1.3124350744499573, 'amp_max': 3.435984306752725, 'trace_ratio': 1.497160603079616}, 9s
+15:36:39 block 8: on-rate Base 0.06093 coarse 0.06078 (median ratio 1.00), |L-I|/sqrt(d) 0.101, write OT {'amp_median': 1.2653302063881395, 'amp_max': 2.937618154487475, 'trace_ratio': 1.427169041595889}, 9s
+15:36:48 block 9: on-rate Base 0.08304 coarse 0.08302 (median ratio 1.00), |L-I|/sqrt(d) 0.096, write OT {'amp_median': 1.2897427625698188, 'amp_max': 2.6184383043619146, 'trace_ratio': 1.333037143815984}, 9s
+15:36:57 block 10: on-rate Base 0.05744 coarse 0.05733 (median ratio 1.00), |L-I|/sqrt(d) 0.106, write OT {'amp_median': 1.3114177251089247, 'amp_max': 19.25964878475967, 'trace_ratio': 1.3797817258133518}, 9s
+15:37:07 block 11: on-rate Base 0.04430 coarse 0.04412 (median ratio 0.99), |L-I|/sqrt(d) 0.115, write OT {'amp_median': 1.3084212253244394, 'amp_max': 3.310891921220013, 'trace_ratio': 1.509550459343321}, 9s
+15:37:16 block 12: on-rate Base 0.04361 coarse 0.04344 (median ratio 1.00), |L-I|/sqrt(d) 0.121, write OT {'amp_median': 1.3335301197716898, 'amp_max': 4.236583654684898, 'trace_ratio': 1.5001262141691865}, 9s
+15:37:25 block 13: on-rate Base 0.06555 coarse 0.06553 (median ratio 1.00), |L-I|/sqrt(d) 0.096, write OT {'amp_median': 1.3635710281036115, 'amp_max': 2.8162950314018356, 'trace_ratio': 1.2943365799287196}, 9s
+15:37:35 block 14: on-rate Base 0.04687 coarse 0.04680 (median ratio 1.00), |L-I|/sqrt(d) 0.145, write OT {'amp_median': 1.3246499758287706, 'amp_max': 4.563492548348474, 'trace_ratio': 1.2063750771099213}, 9s
+15:37:44 block 15: on-rate Base 0.02745 coarse 0.02737 (median ratio 1.00), |L-I|/sqrt(d) 0.094, write OT {'amp_median': 1.422047321595316, 'amp_max': 2.8375316755903306, 'trace_ratio': 1.5338627152793032}, 9s
+15:37:53 block 16: on-rate Base 0.03455 coarse 0.03439 (median ratio 1.00), |L-I|/sqrt(d) 0.130, write OT {'amp_median': 1.3656023389094214, 'amp_max': 2.9967371512294196, 'trace_ratio': 1.1027608414285854}, 9s
+15:38:03 block 17: on-rate Base 0.01868 coarse 0.01852 (median ratio 0.99), |L-I|/sqrt(d) 0.134, write OT {'amp_median': 1.4230676559270345, 'amp_max': 5.2767131313552165, 'trace_ratio': 1.5185109463312447}, 9s
+15:38:12 block 18: on-rate Base 0.02446 coarse 0.02435 (median ratio 0.99), |L-I|/sqrt(d) 0.108, write OT {'amp_median': 1.3905449152394322, 'amp_max': 2.7909304886234754, 'trace_ratio': 1.1778453799613762}, 9s
+15:38:21 block 19: on-rate Base 0.02065 coarse 0.02062 (median ratio 1.00), |L-I|/sqrt(d) 0.139, write OT {'amp_median': 1.3494428955524265, 'amp_max': 2.793401502665592, 'trace_ratio': 1.0902320432036663}, 9s
+15:38:30 block 20: on-rate Base 0.01343 coarse 0.01324 (median ratio 0.98), |L-I|/sqrt(d) 0.115, write OT {'amp_median': 1.4371942755869063, 'amp_max': 2.89634092802335, 'trace_ratio': 1.145268252339997}, 9s
+15:38:40 block 21: on-rate Base 0.01114 coarse 0.01102 (median ratio 0.96), |L-I|/sqrt(d) 0.150, write OT {'amp_median': 1.3878827348266352, 'amp_max': 22.74004458781704, 'trace_ratio': 1.21786784540162}, 9s
+15:38:49 block 22: on-rate Base 0.00881 coarse 0.00865 (median ratio 0.96), |L-I|/sqrt(d) 0.194, write OT {'amp_median': 1.4717633536644927, 'amp_max': 15.19810121041347, 'trace_ratio': 1.3703303470479367}, 9s
+15:38:58 block 23: on-rate Base 0.02130 coarse 0.02117 (median ratio 0.99), |L-I|/sqrt(d) 0.149, write OT {'amp_median': 1.4071403938007994, 'amp_max': 2.829307072615554, 'trace_ratio': 1.266725219963313}, 9s
+15:39:07 block 24: on-rate Base 0.01337 coarse 0.01312 (median ratio 0.89), |L-I|/sqrt(d) 0.189, write OT {'amp_median': 1.3191897711843383, 'amp_max': 65.6293951690773, 'trace_ratio': 1.2824756433727107}, 9s
+15:39:17 block 25: on-rate Base 0.01605 coarse 0.01585 (median ratio 0.90), |L-I|/sqrt(d) 0.168, write OT {'amp_median': 1.3221858188506859, 'amp_max': 13.944551612750981, 'trace_ratio': 1.254852143859222}, 9s
+15:39:26 block 26: on-rate Base 0.01810 coarse 0.01796 (median ratio 0.93), |L-I|/sqrt(d) 0.180, write OT {'amp_median': 1.339963171884526, 'amp_max': 64.86584281117345, 'trace_ratio': 1.2037884483527035}, 9s
+15:39:36 block 27: on-rate Base 0.00818 coarse 0.00792 (median ratio 0.89), |L-I|/sqrt(d) 0.409, write OT {'amp_median': 1.4967824702531358, 'amp_max': 34.413197776743836, 'trace_ratio': 1.5683883395089264}, 10s
+15:39:44 block 28: on-rate Base 0.02161 coarse 0.02197 (median ratio 1.02), |L-I|/sqrt(d) 0.317, write OT {'amp_median': 1.4499856801798843, 'amp_max': 31.182016111529958, 'trace_ratio': 1.5636676259680884}, 8s
+15:39:53 block 29: on-rate Base 0.01519 coarse 0.01552 (median ratio 1.03), |L-I|/sqrt(d) 0.292, write OT {'amp_median': 1.399513246930228, 'amp_max': 19.34485474545071, 'trace_ratio': 1.5454702967361569}, 9s
+15:40:21 RESULT lens_ot: test KL 0.3519 top-1 0.7040 | held KL 0.3700

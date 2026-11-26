@@ -1,0 +1,16 @@
+{
+ "preact_std_ratio_median": 0.9826598167419434,
+ "on_share_build_median": 0.00236734701320529,
+ "on_share_trained_median": 0.0028299319092184305,
+ "linear_only": 0.2354159951210022,
+ "build": 0.674697995185852,
+ "build_plus_linear": 0.6925474405288696,
+ "greedy": 0.686785101890564,
+ "greedy_plus_linear": 0.7021843194961548,
+ "trained_reads": 0.7040873765945435,
+ "trained_reads_plus_linear": 0.713153600692749,
+ "dropped_output_share_of_y_var": 0.3481544554233551,
+ "dropped_output_linear_in_u": 0.0704922080039978,
+ "dropped_output_linear_in_kept": 0.06564003229141235,
+ "dropped_output_linear_in_kept_and_u": 0.11694633960723877
+}

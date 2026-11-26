@@ -54,4 +54,10 @@ F3. Every floor rung is at chance at 50% on both networks (KL 9.0-9.3). The trai
 
 ## 4. Rounds
 
-(round summaries go here)
+### Round 1 (2026-11-26)
+
+Propose workflow (5 theorists + 1 critic, 806k agent tokens, 18 min): summary table in `fanout/BOARD.md` round 1, full text `fanout/round1/propose.json`.
+
+Step 0 of round 1 (critic's request, rules `fanout/rules/split_*.py`): one set cut at a time. At 50% any one set alone already reaches or passes the flat-output level (CLIP 6.281, ResNet 5.737): CLIP heads 5.807, MLP 9.040, stream 11.104; ResNet inner 6.761, stream 18.051. At 95%: CLIP stream .280, heads .175, MLP .473; ResNet stream 1.076, inner .445. The noise ranking of CLIP MLP neurons is worse than the weight ranking at 95% (.473 vs .205).
+
+Shonu, mid-round: "they should communicate with each other too". Added a talk step: two turns of addressed messages between the theorists before the build.

@@ -1,0 +1,65 @@
+{
+ "share_T0": 0.4565309259012629,
+ "share_of_v1_in_T0_minus_A": 0.4364931639064896,
+ "cos_v1_A_top_direction": 0.5154511904161903,
+ "cos_v1_mean_rA": -0.700745454289649,
+ "cos_v1_mean_rT0": -0.5777832596503094,
+ "direct_up": [
+  "honeycomb",
+  "potter's wheel",
+  "hammer",
+  "cockroach",
+  "German short-haired pointer",
+  "bath towel",
+  "barrow",
+  "paintbrush",
+  "bluetick",
+  "dalmatian"
+ ],
+ "direct_down": [
+  "steel arch bridge",
+  "gibbon",
+  "ibex",
+  "reflex camera",
+  "triumphal arch",
+  "suspension bridge",
+  "paddlewheel",
+  "fireboat",
+  "hartebeest",
+  "groom"
+ ],
+ "corr_p_with_A_confidence": -0.01652784875929307,
+ "corr_p_with_A_entropy": 0.02167490141489726,
+ "classes_high_p": [
+  "pot",
+  "coral reef",
+  "hen-of-the-woods",
+  "diamondback",
+  "flatworm",
+  "leatherback turtle",
+  "spiny lobster",
+  "whiptail",
+  "coral fungus",
+  "African crocodile",
+  "pizza",
+  "Komodo dragon"
+ ],
+ "classes_low_p": [
+  "airliner",
+  "warplane",
+  "space shuttle",
+  "mosque",
+  "airship",
+  "flagpole",
+  "sandbar",
+  "alp",
+  "water tower",
+  "palace",
+  "screw",
+  "volcano"
+ ],
+ "B_stream_R2_vs_A": {
+  "h1": -11.822857281349682,
+  "h2": 0.006862171938608053
+ }
+}

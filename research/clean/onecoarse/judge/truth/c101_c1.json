@@ -1,0 +1,19 @@
+{
+ "neuron": "c101_c1",
+ "targets": [
+  3,
+  5,
+  7,
+  15,
+  17,
+  18,
+  25,
+  27,
+  28,
+  30,
+  34,
+  36
+ ],
+ "control_words_from": "p",
+ "photos": "held+test, unseen"
+}

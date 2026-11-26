@@ -1,0 +1,27 @@
+{
+ "session_id": "a0ad263e-f6c2-4045-99dc-706c3eda81c4",
+ "grants": [
+  {
+   "time": "2026-11-25 16:41:33",
+   "plan_path": "/Users/shonusengupta/.claude/plans/ok-we-ve-sorta-learned-serene-globe-of-a0ad263e-f6c2-4045-99dc-706c3eda81c4.md",
+   "allow": {
+    "neurons": [
+     "A:block0-all"
+    ],
+    "net": [
+     "A",
+     "C-ladder",
+     "L-ladder",
+     "R4C-ladder"
+    ],
+    "photos": [
+     "broden-held1",
+     "saved"
+    ],
+    "where": [
+     "mac"
+    ]
+   }
+  }
+ ]
+}

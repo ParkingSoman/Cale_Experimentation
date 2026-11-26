@@ -1,0 +1,237 @@
+{
+ "s4b0": {
+  "K2": {
+   "raw": {
+    "share": 0.843,
+    "n": 446,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.81,
+     "part": 0.92,
+     "material": 0.91,
+     "scene": 0.78,
+     "texture": 0.96
+    }
+   },
+   "whitened": {
+    "share": 0.798,
+    "n": 446,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.78,
+     "part": 0.83,
+     "material": 0.87,
+     "scene": 0.73,
+     "texture": 0.94
+    }
+   },
+   "pass": false
+  },
+  "K4": {
+   "raw": {
+    "logistic": 0.352,
+    "lda": 0.769,
+    "n": 108,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.804,
+    "lda": 0.843,
+    "n": 102,
+    "pass": true
+   },
+   "pass": true
+  },
+  "K5_read": {
+   "raw": {
+    "top_abs_cos_median": 0.599,
+    "top_abs_cos_95th": 0.757,
+    "leftover_median": 0.311
+   },
+   "whitened": {
+    "top_abs_cos_median": 0.268,
+    "top_abs_cos_95th": 0.35,
+    "leftover_median": 0.787
+   }
+  }
+ }
+}
+{
+ "s3k": {
+  "K2": {
+   "raw": {
+    "share": 0.77,
+    "n": 483,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.71,
+     "part": 0.84,
+     "material": 0.95,
+     "scene": 0.73,
+     "texture": 0.91
+    }
+   },
+   "whitened": {
+    "share": 0.698,
+    "n": 483,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.64,
+     "part": 0.73,
+     "material": 0.91,
+     "scene": 0.62,
+     "texture": 0.91
+    }
+   },
+   "pass": false
+  },
+  "K4": {
+   "raw": {
+    "logistic": 0.58,
+    "lda": 0.84,
+    "n": 100,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.701,
+    "lda": 0.784,
+    "n": 97,
+    "pass": false
+   },
+   "pass": false
+  },
+  "K5_read": {
+   "raw": {
+    "top_abs_cos_median": 0.512,
+    "top_abs_cos_95th": 0.693,
+    "leftover_median": 0.48
+   },
+   "whitened": {
+    "top_abs_cos_median": 0.186,
+    "top_abs_cos_95th": 0.27,
+    "leftover_median": 0.902
+   }
+  }
+ }
+}
+{
+ "s4b1": {
+  "K2": {
+   "raw": {
+    "share": 0.784,
+    "n": 444,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.76,
+     "part": 0.8,
+     "material": 0.87,
+     "scene": 0.72,
+     "texture": 0.91
+    }
+   },
+   "whitened": {
+    "share": 0.77,
+    "n": 444,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.77,
+     "part": 0.75,
+     "material": 0.78,
+     "scene": 0.68,
+     "texture": 0.94
+    }
+   },
+   "pass": false
+  },
+  "K4": {
+   "raw": {
+    "logistic": 0.192,
+    "lda": 0.779,
+    "n": 104,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.697,
+    "lda": 0.862,
+    "n": 109,
+    "pass": false
+   },
+   "pass": false
+  },
+  "K5_read": {
+   "raw": {
+    "top_abs_cos_median": 0.592,
+    "top_abs_cos_95th": 0.745,
+    "leftover_median": 0.373
+   },
+   "whitened": {
+    "top_abs_cos_median": 0.241,
+    "top_abs_cos_95th": 0.35,
+    "leftover_median": 0.822
+   }
+  }
+ }
+}
+{
+ "s3": {
+  "K2": {
+   "raw": {
+    "share": 0.74,
+    "n": 611,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.66,
+     "part": 0.86,
+     "material": 0.88,
+     "scene": 0.77,
+     "texture": 0.91
+    }
+   },
+   "whitened": {
+    "share": 0.728,
+    "n": 611,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.64,
+     "part": 0.86,
+     "material": 0.84,
+     "scene": 0.78,
+     "texture": 0.91
+    }
+   },
+   "pass": false
+  },
+  "K4": {
+   "raw": {
+    "logistic": 0.509,
+    "lda": 0.802,
+    "n": 106,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.777,
+    "lda": 0.728,
+    "n": 103,
+    "pass": false
+   },
+   "pass": false
+  },
+  "K5_read": {
+   "raw": {
+    "top_abs_cos_median": 0.476,
+    "top_abs_cos_95th": 0.628,
+    "leftover_median": 0.495
+   },
+   "whitened": {
+    "top_abs_cos_median": 0.269,
+    "top_abs_cos_95th": 0.353,
+    "leftover_median": 0.78
+   }
+  }
+ }
+}
+s4b0 {'K6': True, 'K2': False, 'K7': True, 'K4': True} write metric: whitened
+s3k {'K6': True, 'K2': False, 'K7': True, 'K4': False} write metric: whitened
+s4b1 {'K6': True, 'K2': False, 'K7': True, 'K4': False} write metric: whitened
+s3 {'K6': True, 'K2': False, 'K7': True, 'K4': False} write metric: whitened
+exit 0

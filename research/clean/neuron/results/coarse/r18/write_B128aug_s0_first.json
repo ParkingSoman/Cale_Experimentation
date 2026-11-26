@@ -1,0 +1,30 @@
+{
+ "a_copy": {
+  "R2_pooled": -5.689882775909823,
+  "corr_per_channel_median": 0.33469455199713727,
+  "varB_over_varA": 7.4761394835391215
+ },
+ "b_ruler_R2_heldout": 0.5977398268599206,
+ "b_cos_B_write_vs_ruler": {
+  "median": 0.27979370951652527,
+  "n122": 0.3060549795627594,
+  "q10": 0.25125664472579956,
+  "q90": 0.31329238414764404
+ },
+ "b_norm_ratio_B_over_ruler_median": 3.3723130226135254,
+ "c_end": {
+  "B": {
+   "kl": 0.6854576855827781,
+   "top1": 0.547
+  },
+  "B_ruler_writes": {
+   "kl": 4.3931716380399815,
+   "top1": 0.04576470588235294
+  }
+ },
+ "d_readers": {
+  "B_block1_from_A_stream_median_R2": 0.30356624101005214,
+  "B_block1_from_B_stream_median_R2": 0.9997104652819634,
+  "note": "block-1 pre-activation at the centre position, linear in the 3x3 x 512 stream patch; fit on half the test photos, scored on the other half"
+ }
+}

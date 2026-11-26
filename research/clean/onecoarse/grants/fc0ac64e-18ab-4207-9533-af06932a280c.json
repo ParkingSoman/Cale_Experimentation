@@ -1,0 +1,27 @@
+{
+ "session_id": "fc0ac64e-18ab-4207-9533-af06932a280c",
+ "grants": [
+  {
+   "time": "2026-11-24 12:05:13",
+   "plan_path": "/Users/shonusengupta/.claude/plans/before-we-move-forward-robust-glade-of-fc0ac64e-18ab-4207-9533-af06932a280c.md",
+   "allow": {
+    "neurons": [
+     "A:children",
+     "s3:69"
+    ],
+    "net": [
+     "A"
+    ],
+    "photos": [
+     "held",
+     "saved",
+     "test"
+    ],
+    "where": [
+     "cluster",
+     "mac"
+    ]
+   }
+  }
+ ]
+}

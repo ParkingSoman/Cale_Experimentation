@@ -1,0 +1,19 @@
+{
+ "neuron": "k23_negc2",
+ "targets": [
+  1,
+  8,
+  9,
+  12,
+  13,
+  14,
+  20,
+  22,
+  23,
+  24,
+  27,
+  32
+ ],
+ "control_words_from": "k275",
+ "photos": "held+test, unseen"
+}

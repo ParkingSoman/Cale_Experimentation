@@ -1,0 +1,68 @@
+{
+ "args": {
+  "mode": "lens",
+  "frac": 0.5,
+  "fit": "train",
+  "per_class": 4,
+  "ridge_lens": 0.001,
+  "ridge_w": 1e-06,
+  "ds_lens": false,
+  "head_lens": false,
+  "head_ridge": 0.001,
+  "smoke": true,
+  "nblocks": 30,
+  "save": false,
+  "ot_lens": true,
+  "ot_writes": true,
+  "tag": ""
+ },
+ "test": {
+  "kl": 0.004791843704879284,
+  "top1": 0.800000011920929
+ },
+ "held": {
+  "kl": 0.0038386285305023193,
+  "top1": 0.824999988079071
+ },
+ "blocks": [
+  {
+   "g": 0,
+   "on_base": 0.1082288846373558,
+   "on_coarse": 0.10822883993387222,
+   "on_ratio_median": 1.0,
+   "lens_dev": 0.04419417382535757,
+   "amp_writes": {
+    "amp_median": 1.0798196847164236,
+    "amp_max": 1.9616749226123913,
+    "trace_ratio": 1.0865318504678676
+   },
+   "sec": 0.3
+  },
+  {
+   "g": 1,
+   "on_base": 0.13751807808876038,
+   "on_coarse": 0.13746865093708038,
+   "on_ratio_median": 1.0,
+   "lens_dev": 0.09370317830357335,
+   "amp_writes": {
+    "amp_median": 1.184762955381473,
+    "amp_max": 2.3773922754789334,
+    "trace_ratio": 1.2065726885297021
+   },
+   "sec": 0.3
+  },
+  {
+   "g": 2,
+   "on_base": 0.10234937816858292,
+   "on_coarse": 0.10218475759029388,
+   "on_ratio_median": 0.9983118176460266,
+   "lens_dev": 0.09818303668964047,
+   "amp_writes": {
+    "amp_median": 1.1882037783052903,
+    "amp_max": 2.4617167121506247,
+    "trace_ratio": 1.2473562137641472
+   },
+   "sec": 0.3
+  }
+ ]
+}

@@ -1,0 +1,246 @@
+{
+ "s4b0": {
+  "kept_frozen": 387,
+  "tested": 373,
+  "K1": {
+   "share": 0.992
+  },
+  "K6": {
+   "share": 0.965,
+   "pass": true
+  },
+  "K2": {
+   "raw": {
+    "share": 0.906,
+    "n": 382,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.92,
+     "part": 0.93,
+     "material": 1.0,
+     "scene": 0.78,
+     "texture": 0.98
+    }
+   },
+   "whitened": {
+    "share": 0.885,
+    "n": 382,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.89,
+     "part": 0.89,
+     "material": 0.9,
+     "scene": 0.82,
+     "texture": 0.96
+    }
+   },
+   "pass": true
+  },
+  "K4": {
+   "whitened_no_hub_correction": {
+    "logistic": 0.896,
+    "lda": 0.981
+   },
+   "raw": {
+    "logistic": 0.651,
+    "lda": 0.623,
+    "n": 106,
+    "probe_cv_auc_median": NaN,
+    "C_median": 0.003,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.991,
+    "lda": 0.915,
+    "n": 106,
+    "probe_cv_auc_median": NaN,
+    "C_median": 0.003,
+    "pass": true
+   },
+   "pass": true
+  }
+ },
+ "s3k": {
+  "kept_frozen": 376,
+  "tested": 364,
+  "K1": {
+   "share": 0.992
+  },
+  "K6": {
+   "share": 0.956,
+   "pass": true
+  },
+  "K2": {
+   "raw": {
+    "share": 0.909,
+    "n": 372,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.92,
+     "part": 0.94,
+     "material": 1.0,
+     "scene": 0.78,
+     "texture": 0.98
+    }
+   },
+   "whitened": {
+    "share": 0.841,
+    "n": 372,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.83,
+     "part": 0.78,
+     "material": 0.95,
+     "scene": 0.77,
+     "texture": 0.98
+    }
+   },
+   "pass": true
+  },
+  "K4": {
+   "whitened_no_hub_correction": {
+    "logistic": 0.804,
+    "lda": 0.938
+   },
+   "raw": {
+    "logistic": 0.652,
+    "lda": 0.545,
+    "n": 112,
+    "probe_cv_auc_median": NaN,
+    "C_median": 0.001,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.938,
+    "lda": 0.938,
+    "n": 112,
+    "probe_cv_auc_median": NaN,
+    "C_median": 0.001,
+    "pass": true
+   },
+   "pass": true
+  }
+ },
+ "s4b1": {
+  "kept_frozen": 380,
+  "tested": 367,
+  "K1": {
+   "share": 0.992
+  },
+  "K6": {
+   "share": 0.981,
+   "pass": true
+  },
+  "K2": {
+   "raw": {
+    "share": 0.877,
+    "n": 374,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.9,
+     "part": 0.74,
+     "material": 1.0,
+     "scene": 0.82,
+     "texture": 0.96
+    }
+   },
+   "whitened": {
+    "share": 0.877,
+    "n": 374,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.88,
+     "part": 0.81,
+     "material": 0.95,
+     "scene": 0.82,
+     "texture": 0.98
+    }
+   },
+   "pass": true
+  },
+  "K4": {
+   "whitened_no_hub_correction": {
+    "logistic": 0.771,
+    "lda": 0.933
+   },
+   "raw": {
+    "logistic": 0.571,
+    "lda": 0.457,
+    "n": 105,
+    "probe_cv_auc_median": NaN,
+    "C_median": 0.001,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.943,
+    "lda": 0.829,
+    "n": 105,
+    "probe_cv_auc_median": NaN,
+    "C_median": 0.001,
+    "pass": true
+   },
+   "pass": true
+  }
+ },
+ "s3": {
+  "kept_frozen": 492,
+  "tested": 476,
+  "K1": {
+   "share": 0.987
+  },
+  "K6": {
+   "share": 0.96,
+   "pass": true
+  },
+  "K2": {
+   "raw": {
+    "share": 0.849,
+    "n": 484,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.84,
+     "part": 0.85,
+     "material": 1.0,
+     "scene": 0.75,
+     "texture": 0.98
+    }
+   },
+   "whitened": {
+    "share": 0.845,
+    "n": 484,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.84,
+     "part": 0.83,
+     "material": 0.95,
+     "scene": 0.77,
+     "texture": 0.96
+    }
+   },
+   "pass": true
+  },
+  "K4": {
+   "whitened_no_hub_correction": {
+    "logistic": 0.86,
+    "lda": 0.904
+   },
+   "raw": {
+    "logistic": 0.579,
+    "lda": 0.605,
+    "n": 114,
+    "probe_cv_auc_median": NaN,
+    "C_median": 0.003,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.886,
+    "lda": 0.825,
+    "n": 114,
+    "probe_cv_auc_median": NaN,
+    "C_median": 0.003,
+    "pass": true
+   },
+   "pass": true
+  }
+ }
+}

@@ -1,0 +1,9 @@
+setup 30s, device mps, local build differs from saved survivors in 6 indices (saved used)
+  20/60 photos, 2s, jvp mode jvp, Q1 cos median so far 0.773
+Q1: cos(sum_k J_k e_k, real logit error) median 0.758 (IQR 0.705-0.806), norm ratio 0.832, KL of Base+linear 0.040 vs real 0.025
+Q2 W2: real |1.08| cos +1.000 share +1.000, t1 |0.428| cos +0.421 share +0.167, t2 |1.52| cos -0.284 share -0.401, t3 |2.02| cos +0.660 share +1.234, ti |1.93| cos +0.579 share +1.034, tc |0.22| cos +0.076 share +0.015, tp |0.497| cos +0.400 share +0.184; gradient on even vs odd batches cos -0.012
+Q2 W1: real |2.22| cos +1.000 share +1.000, t1 |1.03| cos +0.369 share +0.170, t2 |3.45| cos -0.285 share -0.443, t3 |4.57| cos +0.618 share +1.273, ti |4.31| cos +0.570 share +1.109, tc |0.554| cos -0.003 share -0.001, tp |0.817| cos +0.449 share +0.165; gradient on even vs odd batches cos -0.039
+Q3: d* top 4 photos (0.067 of photos) carry 0.020 of |s read grad| (ratio 0.3), -0.001 of the push along the total; terms on those photos {'t1': 1.1035126447677612, 't2': 4.534924507141113, 't3': -4.638437271118164, 'ti': -4.286008834838867, 'tc': -0.5461227893829346, 'tp': 0.19369369745254517}
+Q4: owner-1581 survivors, percentile of score on d* photos: median 0.953; of ratio (d* photos / all) 0.601. Other E2 survivors of block 28: 0.949 / 0.738
+Q5/Q6 W1: s_cos_minus_grad +0.000, s_cos_minus_sign +0.000, s_rel_change +0.000, block_cos_minus_grad +0.000, block_cos_minus_sign +0.000, block_rel_change +0.000, s_cos_minus_t1 +0.000, s_cos_minus_t2 +0.000, s_cos_minus_t3 +0.000, s_cos_minus_ti +0.000, s_cos_minus_tc +0.000, s_cos_minus_tp +0.000
+Q5/Q6 W2: s_cos_minus_grad +0.000, s_cos_minus_sign +0.000, s_rel_change +0.000, block_cos_minus_grad +0.000, block_cos_minus_sign +0.000, block_rel_change +0.000, s_cos_minus_t1 +0.000, s_cos_minus_t2 +0.000, s_cos_minus_t3 +0.000, s_cos_minus_ti +0.000, s_cos_minus_tc +0.000, s_cos_minus_tp +0.000

@@ -1,0 +1,77 @@
+{
+ "s4b0": {
+  "raw": {
+   "mean_overlap": 1.318,
+   "null_99th": 0.232,
+   "pass": true
+  },
+  "whitened": {
+   "mean_overlap": 0.693,
+   "null_99th": 0.1,
+   "pass": true
+  },
+  "shrunk": {
+   "mean_overlap": 0.748,
+   "null_99th": 0.107,
+   "pass": true
+  },
+  "write_metric": "raw",
+  "n_writes": 512,
+  "confirm": {
+   "metric": "raw",
+   "mean_overlap": 1.258,
+   "null_99th": 0.213,
+   "pass": true
+  }
+ },
+ "s4b1": {
+  "raw": {
+   "mean_overlap": 1.154,
+   "null_99th": 0.102,
+   "pass": true
+  },
+  "whitened": {
+   "mean_overlap": 0.857,
+   "null_99th": 0.072,
+   "pass": true
+  },
+  "shrunk": {
+   "mean_overlap": 0.922,
+   "null_99th": 0.076,
+   "pass": true
+  },
+  "write_metric": "raw",
+  "n_writes": 512,
+  "confirm": {
+   "metric": "raw",
+   "mean_overlap": 1.193,
+   "null_99th": 0.109,
+   "pass": true
+  }
+ },
+ "s3": {
+  "raw": {
+   "mean_overlap": 0.75,
+   "null_99th": 0.164,
+   "pass": true
+  },
+  "whitened": {
+   "mean_overlap": 0.586,
+   "null_99th": 0.141,
+   "pass": true
+  },
+  "shrunk": {
+   "mean_overlap": 0.629,
+   "null_99th": 0.141,
+   "pass": true
+  },
+  "write_metric": "raw",
+  "n_writes": 256,
+  "confirm": {
+   "metric": "raw",
+   "mean_overlap": 0.73,
+   "null_99th": 0.156,
+   "pass": true
+  }
+ }
+}

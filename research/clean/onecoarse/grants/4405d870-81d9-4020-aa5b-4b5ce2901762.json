@@ -1,0 +1,28 @@
+{
+ "session_id": "4405d870-81d9-4020-aa5b-4b5ce2901762",
+ "grants": [
+  {
+   "time": "2026-11-25 16:17:05",
+   "plan_path": "/Users/shonusengupta/.claude/plans/i-honestly-feel-we-deep-pretzel-of-4405d870-81d9-4020-aa5b-4b5ce2901762.md",
+   "allow": {
+    "neurons": [
+     "A:block0-all"
+    ],
+    "net": [
+     "A",
+     "C-ladder",
+     "L-ladder",
+     "R4C-ladder",
+     "WC-ladder"
+    ],
+    "photos": [
+     "broden-held1",
+     "saved"
+    ],
+    "where": [
+     "mac"
+    ]
+   }
+  }
+ ]
+}

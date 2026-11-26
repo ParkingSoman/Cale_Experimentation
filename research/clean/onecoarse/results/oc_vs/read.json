@@ -1,0 +1,8750 @@
+{
+ "floor": {
+  "rand_top": [
+   0.152,
+   0.26,
+   0.152,
+   0.254,
+   0.253,
+   0.17,
+   0.182,
+   0.176,
+   0.313,
+   0.31,
+   0.253,
+   0.173,
+   0.248,
+   0.22,
+   0.136,
+   0.206,
+   0.234,
+   0.193,
+   0.318,
+   0.195,
+   0.253,
+   0.168,
+   0.286,
+   0.157,
+   0.18,
+   0.298,
+   0.191,
+   0.163,
+   0.343,
+   0.193,
+   0.14,
+   0.203,
+   0.16,
+   0.247,
+   0.154,
+   0.199,
+   0.168,
+   0.284,
+   0.189,
+   0.156,
+   0.211,
+   0.148,
+   0.257,
+   0.166,
+   0.196,
+   0.221,
+   0.234,
+   0.191,
+   0.237,
+   0.229,
+   0.253,
+   0.3,
+   0.183,
+   0.183,
+   0.169,
+   0.236,
+   0.145,
+   0.189,
+   0.195,
+   0.115,
+   0.296,
+   0.222,
+   0.287,
+   0.186,
+   0.149,
+   0.275,
+   0.186,
+   0.27,
+   0.261,
+   0.215,
+   0.193,
+   0.271,
+   0.156,
+   0.174,
+   0.234,
+   0.148,
+   0.231,
+   0.228,
+   0.191,
+   0.191,
+   0.318,
+   0.187,
+   0.182,
+   0.192,
+   0.287,
+   0.153,
+   0.193,
+   0.233,
+   0.258,
+   0.191,
+   0.179,
+   0.158,
+   0.25,
+   0.283,
+   0.29,
+   0.199,
+   0.224,
+   0.286,
+   0.256,
+   0.171,
+   0.266,
+   0.236,
+   0.169,
+   0.174,
+   0.181,
+   0.252,
+   0.229,
+   0.182,
+   0.204,
+   0.196,
+   0.224,
+   0.152,
+   0.234,
+   0.161,
+   0.229,
+   0.215,
+   0.228,
+   0.193,
+   0.25,
+   0.211,
+   0.271,
+   0.174,
+   0.21,
+   0.237,
+   0.192,
+   0.194,
+   0.155,
+   0.204,
+   0.182,
+   0.156,
+   0.189,
+   0.235,
+   0.166,
+   0.152,
+   0.2,
+   0.18,
+   0.174,
+   0.206,
+   0.169,
+   0.212,
+   0.25,
+   0.17,
+   0.229,
+   0.201,
+   0.231,
+   0.233,
+   0.223,
+   0.305,
+   0.195,
+   0.207,
+   0.158,
+   0.237,
+   0.284,
+   0.214,
+   0.259,
+   0.211,
+   0.148,
+   0.291,
+   0.187,
+   0.211,
+   0.208,
+   0.226,
+   0.162,
+   0.254,
+   0.123,
+   0.165,
+   0.216,
+   0.238,
+   0.257,
+   0.243,
+   0.191,
+   0.238,
+   0.158,
+   0.325,
+   0.182,
+   0.251,
+   0.146,
+   0.351,
+   0.22,
+   0.257,
+   0.194,
+   0.222,
+   0.329,
+   0.229,
+   0.155,
+   0.211,
+   0.196,
+   0.115,
+   0.218,
+   0.218,
+   0.198,
+   0.165,
+   0.173,
+   0.144,
+   0.306,
+   0.17,
+   0.181,
+   0.164,
+   0.297,
+   0.275
+  ],
+  "rand_left": [
+   0.857,
+   0.777,
+   0.89,
+   0.804,
+   0.815,
+   0.906,
+   0.902,
+   0.867,
+   0.77,
+   0.741,
+   0.789,
+   0.874,
+   0.749,
+   0.85,
+   0.873,
+   0.878,
+   0.778,
+   0.881,
+   0.77,
+   0.877,
+   0.805,
+   0.862,
+   0.784,
+   0.886,
+   0.855,
+   0.784,
+   0.888,
+   0.887,
+   0.808,
+   0.842,
+   0.899,
+   0.849,
+   0.894,
+   0.826,
+   0.854,
+   0.853,
+   0.807,
+   0.817,
+   0.898,
+   0.911,
+   0.855,
+   0.864,
+   0.802,
+   0.842,
+   0.891,
+   0.818,
+   0.817,
+   0.828,
+   0.834,
+   0.821,
+   0.796,
+   0.778,
+   0.847,
+   0.837,
+   0.866,
+   0.752,
+   0.867,
+   0.856,
+   0.868,
+   0.906,
+   0.783,
+   0.855,
+   0.785,
+   0.83,
+   0.896,
+   0.821,
+   0.883,
+   0.821,
+   0.811,
+   0.845,
+   0.835,
+   0.807,
+   0.853,
+   0.891,
+   0.798,
+   0.895,
+   0.845,
+   0.847,
+   0.833,
+   0.863,
+   0.753,
+   0.846,
+   0.837,
+   0.851,
+   0.814,
+   0.885,
+   0.845,
+   0.839,
+   0.826,
+   0.856,
+   0.86,
+   0.864,
+   0.842,
+   0.819,
+   0.846,
+   0.874,
+   0.855,
+   0.801,
+   0.778,
+   0.868,
+   0.847,
+   0.858,
+   0.883,
+   0.911,
+   0.888,
+   0.809,
+   0.85,
+   0.883,
+   0.85,
+   0.876,
+   0.789,
+   0.896,
+   0.847,
+   0.887,
+   0.841,
+   0.885,
+   0.858,
+   0.858,
+   0.804,
+   0.867,
+   0.806,
+   0.853,
+   0.808,
+   0.8,
+   0.857,
+   0.845,
+   0.841,
+   0.887,
+   0.869,
+   0.857,
+   0.872,
+   0.786,
+   0.88,
+   0.908,
+   0.868,
+   0.864,
+   0.878,
+   0.842,
+   0.839,
+   0.832,
+   0.813,
+   0.88,
+   0.88,
+   0.863,
+   0.855,
+   0.861,
+   0.883,
+   0.779,
+   0.835,
+   0.824,
+   0.845,
+   0.841,
+   0.837,
+   0.842,
+   0.84,
+   0.869,
+   0.888,
+   0.793,
+   0.869,
+   0.863,
+   0.853,
+   0.856,
+   0.897,
+   0.857,
+   0.911,
+   0.878,
+   0.789,
+   0.798,
+   0.861,
+   0.791,
+   0.809,
+   0.831,
+   0.892,
+   0.773,
+   0.888,
+   0.801,
+   0.881,
+   0.674,
+   0.766,
+   0.851,
+   0.849,
+   0.813,
+   0.77,
+   0.812,
+   0.851,
+   0.842,
+   0.833,
+   0.873,
+   0.863,
+   0.801,
+   0.845,
+   0.871,
+   0.885,
+   0.843,
+   0.747,
+   0.884,
+   0.854,
+   0.855,
+   0.82,
+   0.81
+  ]
+ },
+ "cuts": {
+  "11": {
+   "lost": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.412
+     ],
+     [
+      "chequered",
+      "texture",
+      0.353
+     ],
+     [
+      "studded",
+      "texture",
+      0.307
+     ],
+     [
+      "polka-dotted",
+      "texture",
+      0.304
+     ],
+     [
+      "interlaced",
+      "texture",
+      0.283
+     ],
+     [
+      "dotted",
+      "texture",
+      0.282
+     ],
+     [
+      "museum-indoor-s",
+      "scene",
+      0.282
+     ],
+     [
+      "art_gallery-s",
+      "scene",
+      0.267
+     ]
+    ],
+    "down": [
+     [
+      "matted",
+      "texture",
+      -0.392
+     ],
+     [
+      "flecked",
+      "texture",
+      -0.385
+     ],
+     [
+      "fibrous",
+      "texture",
+      -0.375
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.372
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.351
+     ],
+     [
+      "porous",
+      "texture",
+      -0.347
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.336
+     ],
+     [
+      "cracked",
+      "texture",
+      -0.32
+     ]
+    ],
+    "decomposition": [
+     [
+      "zigzagged",
+      "texture",
+      0.319
+     ],
+     [
+      "studded",
+      "texture",
+      0.262
+     ],
+     [
+      "jacuzzi-indoor-s",
+      "scene",
+      0.148
+     ],
+     [
+      "gymnasium-indoor-s",
+      "scene",
+      -0.199
+     ],
+     [
+      "museum-indoor-s",
+      "scene",
+      0.174
+     ]
+    ],
+    "leftover": 0.682,
+    "_top": 407
+   },
+   "C-A_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "zigzagged",
+       "texture",
+       0.357
+      ],
+      [
+       "chequered",
+       "texture",
+       0.323
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       0.296
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.281
+      ],
+      [
+       "dotted",
+       "texture",
+       0.28
+      ],
+      [
+       "studded",
+       "texture",
+       0.278
+      ],
+      [
+       "jacuzzi-indoor-s",
+       "scene",
+       0.261
+      ],
+      [
+       "art_gallery-s",
+       "scene",
+       0.26
+      ]
+     ],
+     "down": [
+      [
+       "matted",
+       "texture",
+       -0.373
+      ],
+      [
+       "fibrous",
+       "texture",
+       -0.352
+      ],
+      [
+       "flecked",
+       "texture",
+       -0.344
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.33
+      ],
+      [
+       "porous",
+       "texture",
+       -0.312
+      ],
+      [
+       "marbled",
+       "texture",
+       -0.312
+      ],
+      [
+       "cracked",
+       "texture",
+       -0.302
+      ],
+      [
+       "blotchy",
+       "texture",
+       -0.289
+      ]
+     ],
+     "decomposition": [
+      [
+       "matted",
+       "texture",
+       -0.253
+      ],
+      [
+       "flecked",
+       "texture",
+       -0.242
+      ],
+      [
+       "foot",
+       "part",
+       -0.151
+      ],
+      [
+       "jacuzzi-indoor-s",
+       "scene",
+       0.18
+      ],
+      [
+       "gymnasium-indoor-s",
+       "scene",
+       -0.146
+      ]
+     ],
+     "leftover": 0.731,
+     "_top": 407
+    },
+    "share": 0.2792829725177854
+   },
+   "C-A_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "paisley",
+       "texture",
+       0.309
+      ],
+      [
+       "swirly",
+       "texture",
+       0.238
+      ],
+      [
+       "lacelike",
+       "texture",
+       0.179
+      ],
+      [
+       "motorbike",
+       "object",
+       0.155
+      ],
+      [
+       "pottedplant",
+       "object",
+       0.148
+      ],
+      [
+       "interlaced",
+       "texture",
+       0.147
+      ],
+      [
+       "palm",
+       "object",
+       0.146
+      ],
+      [
+       "studded",
+       "texture",
+       0.143
+      ]
+     ],
+     "down": [
+      [
+       "ice rink",
+       "object",
+       -0.154
+      ],
+      [
+       "grooved",
+       "texture",
+       -0.152
+      ],
+      [
+       "baggage_claim-s",
+       "scene",
+       -0.148
+      ],
+      [
+       "ballroom-s",
+       "scene",
+       -0.144
+      ],
+      [
+       "grey-c",
+       "color",
+       -0.144
+      ],
+      [
+       "porous",
+       "texture",
+       -0.143
+      ],
+      [
+       "airport_terminal-s",
+       "scene",
+       -0.133
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.131
+      ]
+     ],
+     "decomposition": [
+      [
+       "paisley",
+       "texture",
+       0.321
+      ],
+      [
+       "ice rink",
+       "object",
+       -0.281
+      ],
+      [
+       "aircraft carrier",
+       "object",
+       0.2
+      ],
+      [
+       "ruins",
+       "object",
+       -0.18
+      ],
+      [
+       "forest-needleleaf-s",
+       "scene",
+       0.16
+      ]
+     ],
+     "leftover": 0.82,
+     "_top": 420
+    },
+    "share": 0.1334412191234426
+   },
+   "C-A_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "paper",
+       "material",
+       0.186
+      ],
+      [
+       "food",
+       "material",
+       0.176
+      ],
+      [
+       "flower",
+       "object",
+       0.174
+      ],
+      [
+       "rock",
+       "object",
+       0.146
+      ],
+      [
+       "plaything",
+       "object",
+       0.142
+      ],
+      [
+       "plastic-clear",
+       "material",
+       0.14
+      ],
+      [
+       "bedclothes",
+       "object",
+       0.139
+      ],
+      [
+       "lacelike",
+       "texture",
+       0.133
+      ]
+     ],
+     "down": [
+      [
+       "poolroom-home-s",
+       "scene",
+       -0.176
+      ],
+      [
+       "artists_loft-s",
+       "scene",
+       -0.157
+      ],
+      [
+       "cobwebbed",
+       "texture",
+       -0.156
+      ],
+      [
+       "grooved",
+       "texture",
+       -0.156
+      ],
+      [
+       "bar",
+       "object",
+       -0.139
+      ],
+      [
+       "stage",
+       "object",
+       -0.135
+      ],
+      [
+       "game_room-s",
+       "scene",
+       -0.116
+      ],
+      [
+       "ring",
+       "object",
+       -0.115
+      ]
+     ],
+     "decomposition": [
+      [
+       "paper",
+       "material",
+       0.194
+      ],
+      [
+       "poolroom-home-s",
+       "scene",
+       -0.313
+      ],
+      [
+       "ice rink",
+       "object",
+       -0.197
+      ],
+      [
+       "skyscraper-s",
+       "scene",
+       -0.204
+      ],
+      [
+       "zigzagged",
+       "texture",
+       0.132
+      ]
+     ],
+     "leftover": 0.88,
+     "_top": 282
+    },
+    "share": 0.12251378051838265
+   },
+   "C-A_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.397
+     ],
+     [
+      "chequered",
+      "texture",
+      0.341
+     ],
+     [
+      "polka-dotted",
+      "texture",
+      0.296
+     ],
+     [
+      "studded",
+      "texture",
+      0.284
+     ],
+     [
+      "museum-indoor-s",
+      "scene",
+      0.28
+     ],
+     [
+      "dotted",
+      "texture",
+      0.278
+     ],
+     [
+      "interlaced",
+      "texture",
+      0.265
+     ],
+     [
+      "art_gallery-s",
+      "scene",
+      0.263
+     ]
+    ],
+    "down": [
+     [
+      "matted",
+      "texture",
+      -0.383
+     ],
+     [
+      "flecked",
+      "texture",
+      -0.371
+     ],
+     [
+      "fibrous",
+      "texture",
+      -0.37
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.346
+     ],
+     [
+      "porous",
+      "texture",
+      -0.326
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.326
+     ],
+     [
+      "cracked",
+      "texture",
+      -0.312
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.302
+     ]
+    ],
+    "decomposition": [
+     [
+      "zigzagged",
+      "texture",
+      0.333
+     ],
+     [
+      "studded",
+      "texture",
+      0.216
+     ],
+     [
+      "jacuzzi-indoor-s",
+      "scene",
+      0.201
+     ],
+     [
+      "gymnasium-indoor-s",
+      "scene",
+      -0.192
+     ],
+     [
+      "knitted",
+      "texture",
+      -0.162
+     ]
+    ],
+    "leftover": 0.703,
+    "_top": 407
+   },
+   "WC-C_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "ashcan",
+       "object",
+       0.172
+      ],
+      [
+       "black-c",
+       "color",
+       0.168
+      ],
+      [
+       "loudspeaker",
+       "object",
+       0.154
+      ],
+      [
+       "braided",
+       "texture",
+       0.154
+      ],
+      [
+       "leather",
+       "material",
+       0.149
+      ],
+      [
+       "subway_interior-s",
+       "scene",
+       0.149
+      ],
+      [
+       "swivel chair",
+       "object",
+       0.146
+      ],
+      [
+       "bus_interior-s",
+       "scene",
+       0.146
+      ]
+     ],
+     "down": [
+      [
+       "paisley",
+       "texture",
+       -0.273
+      ],
+      [
+       "lacelike",
+       "texture",
+       -0.25
+      ],
+      [
+       "tapestry",
+       "object",
+       -0.214
+      ],
+      [
+       "chandelier",
+       "object",
+       -0.188
+      ],
+      [
+       "zigzagged",
+       "texture",
+       -0.162
+      ],
+      [
+       "vault",
+       "object",
+       -0.161
+      ],
+      [
+       "swirly",
+       "texture",
+       -0.156
+      ],
+      [
+       "childs_room-s",
+       "scene",
+       -0.152
+      ]
+     ],
+     "decomposition": [
+      [
+       "paisley",
+       "texture",
+       -0.344
+      ],
+      [
+       "cockpit-s",
+       "scene",
+       0.122
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       -0.163
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.133
+      ],
+      [
+       "guitar",
+       "object",
+       0.13
+      ]
+     ],
+     "leftover": 0.85,
+     "_top": 63
+    },
+    "share": 0.040802593617881584
+   },
+   "WC-C_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "sprinkled",
+       "texture",
+       0.128
+      ],
+      [
+       "paper",
+       "material",
+       0.095
+      ],
+      [
+       "tapestry",
+       "object",
+       0.094
+      ],
+      [
+       "bag",
+       "object",
+       0.089
+      ],
+      [
+       "monitor",
+       "part",
+       0.088
+      ],
+      [
+       "bumpy",
+       "texture",
+       0.086
+      ],
+      [
+       "cockpit-s",
+       "scene",
+       0.081
+      ],
+      [
+       "arcade machine",
+       "object",
+       0.08
+      ]
+     ],
+     "down": [
+      [
+       "spiralled",
+       "texture",
+       -0.133
+      ],
+      [
+       "cobwebbed",
+       "texture",
+       -0.102
+      ],
+      [
+       "fountain",
+       "object",
+       -0.097
+      ],
+      [
+       "fence",
+       "object",
+       -0.097
+      ],
+      [
+       "wheel",
+       "part",
+       -0.091
+      ],
+      [
+       "ice rink",
+       "object",
+       -0.083
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       -0.077
+      ],
+      [
+       "pleated",
+       "texture",
+       -0.076
+      ]
+     ],
+     "decomposition": [
+      [
+       "spiralled",
+       "texture",
+       -0.188
+      ],
+      [
+       "fence",
+       "object",
+       -0.244
+      ],
+      [
+       "balcony-interior-s",
+       "scene",
+       0.186
+      ],
+      [
+       "shop window",
+       "part",
+       0.138
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       -0.107
+      ]
+     ],
+     "leftover": 0.931,
+     "_top": 400
+    },
+    "share": 0.028991013585541996
+   },
+   "WC-C_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "pitted",
+       "texture",
+       0.218
+      ],
+      [
+       "blotchy",
+       "texture",
+       0.212
+      ],
+      [
+       "stained",
+       "texture",
+       0.211
+      ],
+      [
+       "sprinkled",
+       "texture",
+       0.209
+      ],
+      [
+       "porous",
+       "texture",
+       0.186
+      ],
+      [
+       "potholed",
+       "texture",
+       0.184
+      ],
+      [
+       "marbled",
+       "texture",
+       0.176
+      ],
+      [
+       "smeared",
+       "texture",
+       0.153
+      ]
+     ],
+     "down": [
+      [
+       "paisley",
+       "texture",
+       -0.231
+      ],
+      [
+       "interlaced",
+       "texture",
+       -0.206
+      ],
+      [
+       "studded",
+       "texture",
+       -0.203
+      ],
+      [
+       "chair",
+       "object",
+       -0.175
+      ],
+      [
+       "swirly",
+       "texture",
+       -0.168
+      ],
+      [
+       "back",
+       "part",
+       -0.16
+      ],
+      [
+       "canopy",
+       "part",
+       -0.15
+      ],
+      [
+       "armchair",
+       "object",
+       -0.141
+      ]
+     ],
+     "decomposition": [
+      [
+       "paisley",
+       "texture",
+       -0.298
+      ],
+      [
+       "sprinkled",
+       "texture",
+       0.202
+      ],
+      [
+       "trade name",
+       "object",
+       0.212
+      ],
+      [
+       "ice rink",
+       "object",
+       0.14
+      ],
+      [
+       "studded",
+       "texture",
+       -0.133
+      ]
+     ],
+     "leftover": 0.828,
+     "_top": 394
+    },
+    "share": 0.025623596986375948
+   },
+   "WC-C_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "cracked",
+      "texture",
+      0.241
+     ],
+     [
+      "creek-s",
+      "scene",
+      0.219
+     ],
+     [
+      "marbled",
+      "texture",
+      0.216
+     ],
+     [
+      "rock",
+      "object",
+      0.207
+     ],
+     [
+      "mountain_snowy-s",
+      "scene",
+      0.205
+     ],
+     [
+      "valley-s",
+      "scene",
+      0.202
+     ],
+     [
+      "pitted",
+      "texture",
+      0.201
+     ],
+     [
+      "field-wild-s",
+      "scene",
+      0.198
+     ]
+    ],
+    "down": [
+     [
+      "studded",
+      "texture",
+      -0.23
+     ],
+     [
+      "polka-dotted",
+      "texture",
+      -0.209
+     ],
+     [
+      "museum-indoor-s",
+      "scene",
+      -0.192
+     ],
+     [
+      "dotted",
+      "texture",
+      -0.185
+     ],
+     [
+      "water tower",
+      "object",
+      -0.182
+     ],
+     [
+      "dining_room-s",
+      "scene",
+      -0.168
+     ],
+     [
+      "living_room-s",
+      "scene",
+      -0.159
+     ],
+     [
+      "lobby-s",
+      "scene",
+      -0.158
+     ]
+    ],
+    "decomposition": [
+     [
+      "cracked",
+      "texture",
+      0.226
+     ],
+     [
+      "field-wild-s",
+      "scene",
+      0.256
+     ],
+     [
+      "clothing_store-s",
+      "scene",
+      0.182
+     ],
+     [
+      "poster",
+      "object",
+      0.188
+     ],
+     [
+      "paisley",
+      "texture",
+      -0.135
+     ]
+    ],
+    "leftover": 0.839,
+    "_top": 412
+   },
+   "WC-C_shift": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "polka-dotted",
+       "texture",
+       0.194
+      ],
+      [
+       "head",
+       "part",
+       0.19
+      ],
+      [
+       "dotted",
+       "texture",
+       0.178
+      ],
+      [
+       "zigzagged",
+       "texture",
+       0.162
+      ],
+      [
+       "muzzle",
+       "part",
+       0.155
+      ],
+      [
+       "swirly",
+       "texture",
+       0.154
+      ],
+      [
+       "ball",
+       "object",
+       0.132
+      ],
+      [
+       "house-s",
+       "scene",
+       0.122
+      ]
+     ],
+     "down": [
+      [
+       "warehouse-indoor-s",
+       "scene",
+       -0.158
+      ],
+      [
+       "grandstand",
+       "object",
+       -0.147
+      ],
+      [
+       "crosshatched",
+       "texture",
+       -0.142
+      ],
+      [
+       "waterfall",
+       "object",
+       -0.134
+      ],
+      [
+       "marbled",
+       "texture",
+       -0.133
+      ],
+      [
+       "flecked",
+       "texture",
+       -0.132
+      ],
+      [
+       "wrinkled",
+       "texture",
+       -0.127
+      ],
+      [
+       "bakery-shop-s",
+       "scene",
+       -0.127
+      ]
+     ],
+     "decomposition": [
+      [
+       "polka-dotted",
+       "texture",
+       0.123
+      ],
+      [
+       "head",
+       "part",
+       0.179
+      ],
+      [
+       "case",
+       "object",
+       -0.162
+      ],
+      [
+       "waterfall",
+       "object",
+       -0.159
+      ],
+      [
+       "crosswalk",
+       "part",
+       0.12
+      ]
+     ],
+     "leftover": 0.895,
+     "_top": 401
+    },
+    "norm": 0.008754706506293312
+   },
+   "W-A_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "paisley",
+       "texture",
+       0.317
+      ],
+      [
+       "zigzagged",
+       "texture",
+       0.242
+      ],
+      [
+       "dotted",
+       "texture",
+       0.23
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       0.221
+      ],
+      [
+       "swirly",
+       "texture",
+       0.22
+      ],
+      [
+       "tapestry",
+       "object",
+       0.217
+      ],
+      [
+       "childs_room-s",
+       "scene",
+       0.213
+      ],
+      [
+       "lacelike",
+       "texture",
+       0.201
+      ]
+     ],
+     "down": [
+      [
+       "matted",
+       "texture",
+       -0.254
+      ],
+      [
+       "fibrous",
+       "texture",
+       -0.237
+      ],
+      [
+       "flecked",
+       "texture",
+       -0.225
+      ],
+      [
+       "porous",
+       "texture",
+       -0.197
+      ],
+      [
+       "potholed",
+       "texture",
+       -0.196
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.192
+      ],
+      [
+       "cracked",
+       "texture",
+       -0.184
+      ],
+      [
+       "black-c",
+       "color",
+       -0.18
+      ]
+     ],
+     "decomposition": [
+      [
+       "paisley",
+       "texture",
+       0.328
+      ],
+      [
+       "fibrous",
+       "texture",
+       -0.245
+      ],
+      [
+       "ashcan",
+       "object",
+       -0.319
+      ],
+      [
+       "bathtub",
+       "object",
+       0.191
+      ],
+      [
+       "skin",
+       "material",
+       -0.152
+      ]
+     ],
+     "leftover": 0.758,
+     "_top": 420
+    },
+    "share": 0.1341934848268294
+   },
+   "W-A_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "ice rink",
+       "object",
+       0.186
+      ],
+      [
+       "pitted",
+       "texture",
+       0.176
+      ],
+      [
+       "porous",
+       "texture",
+       0.17
+      ],
+      [
+       "grey-c",
+       "color",
+       0.144
+      ],
+      [
+       "white-c",
+       "color",
+       0.133
+      ],
+      [
+       "painted",
+       "material",
+       0.123
+      ],
+      [
+       "stained",
+       "texture",
+       0.116
+      ],
+      [
+       "yellow-c",
+       "color",
+       0.114
+      ]
+     ],
+     "down": [
+      [
+       "paisley",
+       "texture",
+       -0.289
+      ],
+      [
+       "swirly",
+       "texture",
+       -0.225
+      ],
+      [
+       "interlaced",
+       "texture",
+       -0.199
+      ],
+      [
+       "motorbike",
+       "object",
+       -0.166
+      ],
+      [
+       "studded",
+       "texture",
+       -0.165
+      ],
+      [
+       "wheel",
+       "part",
+       -0.144
+      ],
+      [
+       "bicycle",
+       "object",
+       -0.137
+      ],
+      [
+       "guitar",
+       "object",
+       -0.135
+      ]
+     ],
+     "decomposition": [
+      [
+       "paisley",
+       "texture",
+       -0.371
+      ],
+      [
+       "ice rink",
+       "object",
+       0.252
+      ],
+      [
+       "signboard",
+       "object",
+       0.178
+      ],
+      [
+       "stairway",
+       "object",
+       -0.16
+      ],
+      [
+       "ruins",
+       "object",
+       0.11
+      ]
+     ],
+     "leftover": 0.819,
+     "_top": 204
+    },
+    "share": 0.07310746666251298
+   },
+   "W-A_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "spiralled",
+       "texture",
+       0.17
+      ],
+      [
+       "cobwebbed",
+       "texture",
+       0.159
+      ],
+      [
+       "fence",
+       "object",
+       0.156
+      ],
+      [
+       "grooved",
+       "texture",
+       0.155
+      ],
+      [
+       "poolroom-home-s",
+       "scene",
+       0.147
+      ],
+      [
+       "bridge",
+       "object",
+       0.145
+      ],
+      [
+       "pleated",
+       "texture",
+       0.145
+      ],
+      [
+       "kitchen-s",
+       "scene",
+       0.138
+      ]
+     ],
+     "down": [
+      [
+       "flower",
+       "object",
+       -0.2
+      ],
+      [
+       "plant",
+       "object",
+       -0.171
+      ],
+      [
+       "creek-s",
+       "scene",
+       -0.166
+      ],
+      [
+       "bag",
+       "object",
+       -0.163
+      ],
+      [
+       "field-wild-s",
+       "scene",
+       -0.162
+      ],
+      [
+       "sprinkled",
+       "texture",
+       -0.161
+      ],
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.161
+      ],
+      [
+       "bush",
+       "object",
+       -0.151
+      ]
+     ],
+     "decomposition": [
+      [
+       "flower",
+       "object",
+       -0.115
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.132
+      ],
+      [
+       "fence",
+       "object",
+       0.194
+      ],
+      [
+       "paper",
+       "material",
+       -0.152
+      ],
+      [
+       "sink",
+       "object",
+       0.135
+      ]
+     ],
+     "leftover": 0.888,
+     "_top": 409
+    },
+    "share": 0.06058838491626026
+   },
+   "W-A_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.35
+     ],
+     [
+      "chequered",
+      "texture",
+      0.292
+     ],
+     [
+      "polka-dotted",
+      "texture",
+      0.248
+     ],
+     [
+      "museum-indoor-s",
+      "scene",
+      0.242
+     ],
+     [
+      "dotted",
+      "texture",
+      0.24
+     ],
+     [
+      "jacuzzi-indoor-s",
+      "scene",
+      0.24
+     ],
+     [
+      "interlaced",
+      "texture",
+      0.239
+     ],
+     [
+      "paisley",
+      "texture",
+      0.234
+     ]
+    ],
+    "down": [
+     [
+      "matted",
+      "texture",
+      -0.349
+     ],
+     [
+      "fibrous",
+      "texture",
+      -0.333
+     ],
+     [
+      "flecked",
+      "texture",
+      -0.317
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.28
+     ],
+     [
+      "porous",
+      "texture",
+      -0.27
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.254
+     ],
+     [
+      "potholed",
+      "texture",
+      -0.253
+     ],
+     [
+      "cracked",
+      "texture",
+      -0.251
+     ]
+    ],
+    "decomposition": [
+     [
+      "zigzagged",
+      "texture",
+      0.295
+     ],
+     [
+      "jacuzzi-indoor-s",
+      "scene",
+      0.196
+     ],
+     [
+      "studded",
+      "texture",
+      0.154
+     ],
+     [
+      "gymnasium-indoor-s",
+      "scene",
+      -0.193
+     ],
+     [
+      "knitted",
+      "texture",
+      -0.155
+     ]
+    ],
+    "leftover": 0.767,
+    "_top": 407
+   },
+   "W-A_shift": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "paisley",
+       "texture",
+       0.206
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       0.199
+      ],
+      [
+       "zigzagged",
+       "texture",
+       0.199
+      ],
+      [
+       "dotted",
+       "texture",
+       0.193
+      ],
+      [
+       "swirly",
+       "texture",
+       0.192
+      ],
+      [
+       "interlaced",
+       "texture",
+       0.159
+      ],
+      [
+       "head",
+       "part",
+       0.148
+      ],
+      [
+       "chandelier",
+       "object",
+       0.148
+      ]
+     ],
+     "down": [
+      [
+       "bus_interior-s",
+       "scene",
+       -0.158
+      ],
+      [
+       "crosshatched",
+       "texture",
+       -0.151
+      ],
+      [
+       "matted",
+       "texture",
+       -0.146
+      ],
+      [
+       "gauzy",
+       "texture",
+       -0.141
+      ],
+      [
+       "warehouse-indoor-s",
+       "scene",
+       -0.138
+      ],
+      [
+       "cockpit-s",
+       "scene",
+       -0.137
+      ],
+      [
+       "black-c",
+       "color",
+       -0.13
+      ],
+      [
+       "grooved",
+       "texture",
+       -0.128
+      ]
+     ],
+     "decomposition": [
+      [
+       "paisley",
+       "texture",
+       0.182
+      ],
+      [
+       "cockpit-s",
+       "scene",
+       -0.202
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       0.128
+      ],
+      [
+       "head",
+       "part",
+       0.207
+      ],
+      [
+       "sheep",
+       "object",
+       -0.148
+      ]
+     ],
+     "leftover": 0.874,
+     "_top": 420
+    },
+    "norm": 0.013065183587844614
+   },
+   "overlap_top10_WC-C_vs_C-A": 0.3686837751443895,
+   "cos_net_WC-C_vs_C-A": -0.4417302075999212,
+   "widening": [
+    {
+     "unit": 5,
+     "partner": 464,
+     "build": "C",
+     "a": 1.0024914894089805,
+     "b": 0.10488225230033113,
+     "cos_w": 0.9093765395683916,
+     "pct_w": 0.9090909090909091,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": false,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "chequered",
+       "texture",
+       0.182
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.162
+      ],
+      [
+       "window_seat-s",
+       "scene",
+       0.157
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.151
+      ],
+      [
+       "utility_room-s",
+       "scene",
+       0.147
+      ]
+     ]
+    },
+    {
+     "unit": 5,
+     "partner": 464,
+     "build": "WC",
+     "a": 1.0035065321276584,
+     "b": 0.1087122038088856,
+     "cos_w": 0.8558360010335765,
+     "pct_w": 0.9090909090909091,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": false,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "chequered",
+       "texture",
+       0.186
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.164
+      ],
+      [
+       "window_seat-s",
+       "scene",
+       0.16
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.153
+      ],
+      [
+       "utility_room-s",
+       "scene",
+       0.151
+      ]
+     ]
+    },
+    {
+     "unit": 5,
+     "partner": 464,
+     "build": "L",
+     "a": 0.9966028689704746,
+     "b": 0.023917316384407902,
+     "cos_w": 0.44627976003353437,
+     "pct_w": 0.9090909090909091,
+     "cos_r": 0.6211612759189032,
+     "pct_r": 0.9090909090909091,
+     "shared_own": 8,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": false,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "chequered",
+       "texture",
+       0.184
+      ],
+      [
+       "window_seat-s",
+       "scene",
+       0.155
+      ],
+      [
+       "leg",
+       "part",
+       0.153
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.151
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.149
+      ]
+     ]
+    },
+    {
+     "unit": 5,
+     "partner": 464,
+     "build": "R4C",
+     "a": 1.0009127865327083,
+     "b": 0.10844733359127769,
+     "cos_w": 0.8688434071480426,
+     "pct_w": 0.9090909090909091,
+     "cos_r": 0.6282858868650328,
+     "pct_r": 0.9090909090909091,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": false,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "chequered",
+       "texture",
+       0.185
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.163
+      ],
+      [
+       "window_seat-s",
+       "scene",
+       0.16
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.154
+      ],
+      [
+       "utility_room-s",
+       "scene",
+       0.15
+      ]
+     ]
+    }
+   ]
+  },
+  "64": {
+   "lost": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.446
+     ],
+     [
+      "washer",
+      "object",
+      0.415
+     ],
+     [
+      "polka-dotted",
+      "texture",
+      0.392
+     ],
+     [
+      "studded",
+      "texture",
+      0.388
+     ],
+     [
+      "utility_room-s",
+      "scene",
+      0.371
+     ],
+     [
+      "spiralled",
+      "texture",
+      0.362
+     ],
+     [
+      "dining_room-s",
+      "scene",
+      0.361
+     ],
+     [
+      "galley-s",
+      "scene",
+      0.345
+     ]
+    ],
+    "down": [
+     [
+      "flecked",
+      "texture",
+      -0.5
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      -0.472
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.463
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.447
+     ],
+     [
+      "forest-needleleaf-s",
+      "scene",
+      -0.43
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.427
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.423
+     ],
+     [
+      "forest_path-s",
+      "scene",
+      -0.402
+     ]
+    ],
+    "decomposition": [
+     [
+      "flecked",
+      "texture",
+      -0.448
+     ],
+     [
+      "studded",
+      "texture",
+      0.344
+     ],
+     [
+      "kitchen island",
+      "object",
+      0.244
+     ],
+     [
+      "bag",
+      "object",
+      -0.27
+     ],
+     [
+      "meshed",
+      "texture",
+      -0.203
+     ]
+    ],
+    "leftover": 0.515,
+    "_top": 407
+   },
+   "C-A_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "zigzagged",
+       "texture",
+       0.443
+      ],
+      [
+       "studded",
+       "texture",
+       0.391
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       0.39
+      ],
+      [
+       "chequered",
+       "texture",
+       0.38
+      ],
+      [
+       "washer",
+       "object",
+       0.366
+      ],
+      [
+       "dotted",
+       "texture",
+       0.349
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.34
+      ],
+      [
+       "interlaced",
+       "texture",
+       0.33
+      ]
+     ],
+     "down": [
+      [
+       "flecked",
+       "texture",
+       -0.464
+      ],
+      [
+       "marbled",
+       "texture",
+       -0.439
+      ],
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.436
+      ],
+      [
+       "creek-s",
+       "scene",
+       -0.424
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.423
+      ],
+      [
+       "blotchy",
+       "texture",
+       -0.412
+      ],
+      [
+       "forest-needleleaf-s",
+       "scene",
+       -0.397
+      ],
+      [
+       "porous",
+       "texture",
+       -0.396
+      ]
+     ],
+     "decomposition": [
+      [
+       "flecked",
+       "texture",
+       -0.401
+      ],
+      [
+       "studded",
+       "texture",
+       0.344
+      ],
+      [
+       "foot",
+       "part",
+       -0.218
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.228
+      ],
+      [
+       "meshed",
+       "texture",
+       -0.177
+      ]
+     ],
+     "leftover": 0.562,
+     "_top": 407
+    },
+    "share": 0.12884366810823128
+   },
+   "C-A_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "wheel",
+       "part",
+       0.384
+      ],
+      [
+       "motorbike",
+       "object",
+       0.36
+      ],
+      [
+       "bicycle",
+       "object",
+       0.322
+      ],
+      [
+       "interlaced",
+       "texture",
+       0.299
+      ],
+      [
+       "washer",
+       "object",
+       0.283
+      ],
+      [
+       "car",
+       "object",
+       0.28
+      ],
+      [
+       "barrel",
+       "object",
+       0.272
+      ],
+      [
+       "swirly",
+       "texture",
+       0.256
+      ]
+     ],
+     "down": [
+      [
+       "stage",
+       "object",
+       -0.178
+      ],
+      [
+       "airport_terminal-s",
+       "scene",
+       -0.164
+      ],
+      [
+       "person",
+       "object",
+       -0.163
+      ],
+      [
+       "ballroom-s",
+       "scene",
+       -0.161
+      ],
+      [
+       "painted",
+       "material",
+       -0.155
+      ],
+      [
+       "flecked",
+       "texture",
+       -0.143
+      ],
+      [
+       "lined",
+       "texture",
+       -0.135
+      ],
+      [
+       "arm",
+       "part",
+       -0.134
+      ]
+     ],
+     "decomposition": [
+      [
+       "wheel",
+       "part",
+       0.423
+      ],
+      [
+       "airport_terminal-s",
+       "scene",
+       -0.22
+      ],
+      [
+       "person",
+       "object",
+       -0.161
+      ],
+      [
+       "dome",
+       "part",
+       -0.195
+      ],
+      [
+       "truck",
+       "object",
+       0.173
+      ]
+     ],
+     "leftover": 0.72,
+     "_top": 229
+    },
+    "share": 0.0473309096463502
+   },
+   "C-A_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "pantry",
+       "object",
+       0.171
+      ],
+      [
+       "file cabinet",
+       "object",
+       0.161
+      ],
+      [
+       "supermarket-s",
+       "scene",
+       0.16
+      ],
+      [
+       "poster",
+       "object",
+       0.152
+      ],
+      [
+       "signboard",
+       "object",
+       0.149
+      ],
+      [
+       "chequered",
+       "texture",
+       0.136
+      ],
+      [
+       "shelf",
+       "object",
+       0.129
+      ],
+      [
+       "shoe_shop-s",
+       "scene",
+       0.127
+      ]
+     ],
+     "down": [
+      [
+       "poolroom-home-s",
+       "scene",
+       -0.23
+      ],
+      [
+       "bicycle",
+       "object",
+       -0.23
+      ],
+      [
+       "gymnasium-indoor-s",
+       "scene",
+       -0.221
+      ],
+      [
+       "jacuzzi-indoor-s",
+       "scene",
+       -0.178
+      ],
+      [
+       "freckled",
+       "texture",
+       -0.176
+      ],
+      [
+       "dining_room-s",
+       "scene",
+       -0.168
+      ],
+      [
+       "beauty_salon-s",
+       "scene",
+       -0.168
+      ],
+      [
+       "ballroom-s",
+       "scene",
+       -0.165
+      ]
+     ],
+     "decomposition": [
+      [
+       "poolroom-home-s",
+       "scene",
+       -0.335
+      ],
+      [
+       "bicycle",
+       "object",
+       -0.196
+      ],
+      [
+       "shoe_shop-s",
+       "scene",
+       0.282
+      ],
+      [
+       "hovel",
+       "object",
+       0.253
+      ],
+      [
+       "fountain",
+       "object",
+       -0.166
+      ]
+     ],
+     "leftover": 0.795,
+     "_top": 214
+    },
+    "share": 0.03923490276994439
+   },
+   "C-A_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.435
+     ],
+     [
+      "polka-dotted",
+      "texture",
+      0.392
+     ],
+     [
+      "washer",
+      "object",
+      0.385
+     ],
+     [
+      "studded",
+      "texture",
+      0.368
+     ],
+     [
+      "dining_room-s",
+      "scene",
+      0.365
+     ],
+     [
+      "utility_room-s",
+      "scene",
+      0.35
+     ],
+     [
+      "dotted",
+      "texture",
+      0.349
+     ],
+     [
+      "poolroom-home-s",
+      "scene",
+      0.338
+     ]
+    ],
+    "down": [
+     [
+      "flecked",
+      "texture",
+      -0.489
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      -0.449
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.437
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.426
+     ],
+     [
+      "forest-needleleaf-s",
+      "scene",
+      -0.415
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.403
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.4
+     ],
+     [
+      "forest_path-s",
+      "scene",
+      -0.384
+     ]
+    ],
+    "decomposition": [
+     [
+      "flecked",
+      "texture",
+      -0.417
+     ],
+     [
+      "studded",
+      "texture",
+      0.287
+     ],
+     [
+      "foot",
+      "part",
+      -0.256
+     ],
+     [
+      "sink",
+      "object",
+      0.234
+     ],
+     [
+      "subway_interior-s",
+      "scene",
+      -0.148
+     ]
+    ],
+    "leftover": 0.549,
+    "_top": 407
+   },
+   "WC-C_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "kitchen island",
+       "object",
+       0.297
+      ],
+      [
+       "back",
+       "part",
+       0.275
+      ],
+      [
+       "galley-s",
+       "scene",
+       0.272
+      ],
+      [
+       "oven",
+       "part",
+       0.267
+      ],
+      [
+       "home_office-s",
+       "scene",
+       0.264
+      ],
+      [
+       "monitor",
+       "part",
+       0.262
+      ],
+      [
+       "computer",
+       "object",
+       0.26
+      ],
+      [
+       "bus",
+       "object",
+       0.257
+      ]
+     ],
+     "down": [
+      [
+       "field-wild-s",
+       "scene",
+       -0.345
+      ],
+      [
+       "lacelike",
+       "texture",
+       -0.329
+      ],
+      [
+       "field-cultivated-s",
+       "scene",
+       -0.322
+      ],
+      [
+       "valley-s",
+       "scene",
+       -0.307
+      ],
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.297
+      ],
+      [
+       "beach-s",
+       "scene",
+       -0.296
+      ],
+      [
+       "clouds",
+       "part",
+       -0.291
+      ],
+      [
+       "coast-s",
+       "scene",
+       -0.285
+      ]
+     ],
+     "decomposition": [
+      [
+       "field-wild-s",
+       "scene",
+       -0.342
+      ],
+      [
+       "lacelike",
+       "texture",
+       -0.24
+      ],
+      [
+       "ballroom-s",
+       "scene",
+       -0.2
+      ],
+      [
+       "skin",
+       "material",
+       0.156
+      ],
+      [
+       "fountain",
+       "object",
+       0.146
+      ]
+     ],
+     "leftover": 0.733,
+     "_top": 152
+    },
+    "share": 0.018924648083506707
+   },
+   "WC-C_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "lined",
+       "texture",
+       0.27
+      ],
+      [
+       "grooved",
+       "texture",
+       0.25
+      ],
+      [
+       "banded",
+       "texture",
+       0.211
+      ],
+      [
+       "blind",
+       "object",
+       0.206
+      ],
+      [
+       "pleated",
+       "texture",
+       0.193
+      ],
+      [
+       "cage / bird cage",
+       "object",
+       0.165
+      ],
+      [
+       "curtain",
+       "object",
+       0.16
+      ],
+      [
+       "fence",
+       "object",
+       0.152
+      ]
+     ],
+     "down": [
+      [
+       "plaything",
+       "object",
+       -0.141
+      ],
+      [
+       "granite",
+       "material",
+       -0.136
+      ],
+      [
+       "cow",
+       "object",
+       -0.134
+      ],
+      [
+       "lacelike",
+       "texture",
+       -0.129
+      ],
+      [
+       "bell",
+       "object",
+       -0.124
+      ],
+      [
+       "stern",
+       "part",
+       -0.12
+      ],
+      [
+       "dog",
+       "object",
+       -0.12
+      ],
+      [
+       "bottle",
+       "object",
+       -0.118
+      ]
+     ],
+     "decomposition": [
+      [
+       "lined",
+       "texture",
+       0.313
+      ],
+      [
+       "wheel",
+       "part",
+       0.187
+      ],
+      [
+       "stern",
+       "part",
+       -0.167
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       -0.129
+      ],
+      [
+       "granite",
+       "material",
+       -0.115
+      ]
+     ],
+     "leftover": 0.859,
+     "_top": 418
+    },
+    "share": 0.01546507758417642
+   },
+   "WC-C_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "court",
+       "object",
+       0.136
+      ],
+      [
+       "airport_terminal-s",
+       "scene",
+       0.126
+      ],
+      [
+       "beam",
+       "object",
+       0.12
+      ],
+      [
+       "balcony-interior-s",
+       "scene",
+       0.113
+      ],
+      [
+       "platform",
+       "object",
+       0.11
+      ],
+      [
+       "artists_loft-s",
+       "scene",
+       0.108
+      ],
+      [
+       "grooved",
+       "texture",
+       0.105
+      ],
+      [
+       "track",
+       "object",
+       0.104
+      ]
+     ],
+     "down": [
+      [
+       "sheep",
+       "object",
+       -0.145
+      ],
+      [
+       "ruins",
+       "object",
+       -0.14
+      ],
+      [
+       "bulletin board",
+       "object",
+       -0.133
+      ],
+      [
+       "paisley",
+       "texture",
+       -0.129
+      ],
+      [
+       "tower",
+       "object",
+       -0.123
+      ],
+      [
+       "interlaced",
+       "texture",
+       -0.121
+      ],
+      [
+       "truck",
+       "object",
+       -0.118
+      ],
+      [
+       "torso",
+       "part",
+       -0.117
+      ]
+     ],
+     "decomposition": [
+      [
+       "sheep",
+       "object",
+       -0.146
+      ],
+      [
+       "bulletin board",
+       "object",
+       -0.186
+      ],
+      [
+       "grid",
+       "texture",
+       0.192
+      ],
+      [
+       "awning",
+       "object",
+       0.138
+      ],
+      [
+       "matted",
+       "texture",
+       0.14
+      ]
+     ],
+     "leftover": 0.921,
+     "_top": 182
+    },
+    "share": 0.014558593311687355
+   },
+   "WC-C_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "brick",
+      "material",
+      0.146
+     ],
+     [
+      "warehouse-indoor-s",
+      "scene",
+      0.139
+     ],
+     [
+      "wrinkled",
+      "texture",
+      0.131
+     ],
+     [
+      "grandstand",
+      "object",
+      0.116
+     ],
+     [
+      "apparel",
+      "object",
+      0.112
+     ],
+     [
+      "alley-s",
+      "scene",
+      0.108
+     ],
+     [
+      "subway_interior-s",
+      "scene",
+      0.099
+     ],
+     [
+      "knitted",
+      "texture",
+      0.097
+     ]
+    ],
+    "down": [
+     [
+      "laminate",
+      "material",
+      -0.138
+     ],
+     [
+      "sink",
+      "object",
+      -0.138
+     ],
+     [
+      "lid",
+      "part",
+      -0.112
+     ],
+     [
+      "pool table",
+      "object",
+      -0.111
+     ],
+     [
+      "kitchen island",
+      "object",
+      -0.108
+     ],
+     [
+      "top",
+      "part",
+      -0.108
+     ],
+     [
+      "ceramic",
+      "material",
+      -0.107
+     ],
+     [
+      "work surface",
+      "object",
+      -0.106
+     ]
+    ],
+    "decomposition": [
+     [
+      "brick",
+      "material",
+      0.201
+     ],
+     [
+      "subway_interior-s",
+      "scene",
+      0.135
+     ],
+     [
+      "wrinkled",
+      "texture",
+      0.146
+     ],
+     [
+      "freckled",
+      "texture",
+      0.103
+     ],
+     [
+      "file cabinet",
+      "object",
+      0.1
+     ]
+    ],
+    "leftover": 0.923,
+    "_top": 289
+   },
+   "WC-C_shift": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "zigzagged",
+       "texture",
+       0.362
+      ],
+      [
+       "head",
+       "part",
+       0.315
+      ],
+      [
+       "muzzle",
+       "part",
+       0.303
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       0.302
+      ],
+      [
+       "dotted",
+       "texture",
+       0.263
+      ],
+      [
+       "dog",
+       "object",
+       0.259
+      ],
+      [
+       "washer",
+       "object",
+       0.255
+      ],
+      [
+       "perforated",
+       "texture",
+       0.237
+      ]
+     ],
+     "down": [
+      [
+       "flecked",
+       "texture",
+       -0.362
+      ],
+      [
+       "marbled",
+       "texture",
+       -0.348
+      ],
+      [
+       "blotchy",
+       "texture",
+       -0.325
+      ],
+      [
+       "stained",
+       "texture",
+       -0.298
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.285
+      ],
+      [
+       "porous",
+       "texture",
+       -0.271
+      ],
+      [
+       "wrinkled",
+       "texture",
+       -0.269
+      ],
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.241
+      ]
+     ],
+     "decomposition": [
+      [
+       "zigzagged",
+       "texture",
+       0.263
+      ],
+      [
+       "muzzle",
+       "part",
+       0.242
+      ],
+      [
+       "basket",
+       "object",
+       -0.262
+      ],
+      [
+       "mountain_snowy-s",
+       "scene",
+       -0.174
+      ],
+      [
+       "ball",
+       "object",
+       0.171
+      ]
+     ],
+     "leftover": 0.722,
+     "_top": 407
+    },
+    "norm": 0.041228667935341676
+   },
+   "W-A_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "dotted",
+       "texture",
+       0.26
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       0.259
+      ],
+      [
+       "studded",
+       "texture",
+       0.244
+      ],
+      [
+       "paisley",
+       "texture",
+       0.216
+      ],
+      [
+       "zigzagged",
+       "texture",
+       0.213
+      ],
+      [
+       "swirly",
+       "texture",
+       0.212
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.195
+      ],
+      [
+       "chandelier",
+       "object",
+       0.183
+      ]
+     ],
+     "down": [
+      [
+       "matted",
+       "texture",
+       -0.234
+      ],
+      [
+       "alley-s",
+       "scene",
+       -0.214
+      ],
+      [
+       "wrinkled",
+       "texture",
+       -0.211
+      ],
+      [
+       "flecked",
+       "texture",
+       -0.205
+      ],
+      [
+       "fibrous",
+       "texture",
+       -0.204
+      ],
+      [
+       "potholed",
+       "texture",
+       -0.188
+      ],
+      [
+       "porous",
+       "texture",
+       -0.179
+      ],
+      [
+       "armchair",
+       "object",
+       -0.178
+      ]
+     ],
+     "decomposition": [
+      [
+       "dotted",
+       "texture",
+       0.233
+      ],
+      [
+       "chandelier",
+       "object",
+       0.262
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.248
+      ],
+      [
+       "hand",
+       "part",
+       -0.199
+      ],
+      [
+       "pillar",
+       "object",
+       -0.189
+      ]
+     ],
+     "leftover": 0.8,
+     "_top": 386
+    },
+    "share": 0.043535915671275745
+   },
+   "W-A_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "wheel",
+       "part",
+       0.475
+      ],
+      [
+       "bicycle",
+       "object",
+       0.417
+      ],
+      [
+       "motorbike",
+       "object",
+       0.411
+      ],
+      [
+       "interlaced",
+       "texture",
+       0.33
+      ],
+      [
+       "washer",
+       "object",
+       0.31
+      ],
+      [
+       "car",
+       "object",
+       0.281
+      ],
+      [
+       "swivel chair",
+       "object",
+       0.263
+      ],
+      [
+       "barrel",
+       "object",
+       0.259
+      ]
+     ],
+     "down": [
+      [
+       "poster",
+       "object",
+       -0.176
+      ],
+      [
+       "lined",
+       "texture",
+       -0.173
+      ],
+      [
+       "hill",
+       "object",
+       -0.17
+      ],
+      [
+       "clouds",
+       "part",
+       -0.168
+      ],
+      [
+       "banded",
+       "texture",
+       -0.158
+      ],
+      [
+       "cloud",
+       "part",
+       -0.157
+      ],
+      [
+       "field-wild-s",
+       "scene",
+       -0.155
+      ],
+      [
+       "pink-c",
+       "color",
+       -0.154
+      ]
+     ],
+     "decomposition": [
+      [
+       "wheel",
+       "part",
+       0.54
+      ],
+      [
+       "dome",
+       "part",
+       -0.24
+      ],
+      [
+       "supermarket-s",
+       "scene",
+       -0.215
+      ],
+      [
+       "hair",
+       "part",
+       -0.144
+      ],
+      [
+       "beach-s",
+       "scene",
+       -0.142
+      ]
+     ],
+     "leftover": 0.665,
+     "_top": 229
+    },
+    "share": 0.029666261069570165
+   },
+   "W-A_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "grooved",
+       "texture",
+       0.267
+      ],
+      [
+       "pleated",
+       "texture",
+       0.254
+      ],
+      [
+       "lined",
+       "texture",
+       0.246
+      ],
+      [
+       "banded",
+       "texture",
+       0.223
+      ],
+      [
+       "stairway",
+       "object",
+       0.217
+      ],
+      [
+       "escalator",
+       "object",
+       0.182
+      ],
+      [
+       "file cabinet",
+       "object",
+       0.164
+      ],
+      [
+       "ring",
+       "object",
+       0.156
+      ]
+     ],
+     "down": [
+      [
+       "lacelike",
+       "texture",
+       -0.265
+      ],
+      [
+       "ruins",
+       "object",
+       -0.198
+      ],
+      [
+       "rock",
+       "object",
+       -0.162
+      ],
+      [
+       "porous",
+       "texture",
+       -0.16
+      ],
+      [
+       "land",
+       "object",
+       -0.16
+      ],
+      [
+       "hill",
+       "object",
+       -0.156
+      ],
+      [
+       "paisley",
+       "texture",
+       -0.152
+      ],
+      [
+       "mountain",
+       "object",
+       -0.149
+      ]
+     ],
+     "decomposition": [
+      [
+       "grooved",
+       "texture",
+       0.44
+      ],
+      [
+       "amusement_park-s",
+       "scene",
+       0.37
+      ],
+      [
+       "home_office-s",
+       "scene",
+       0.302
+      ],
+      [
+       "crosshatched",
+       "texture",
+       -0.161
+      ],
+      [
+       "hair",
+       "part",
+       0.117
+      ]
+     ],
+     "leftover": 0.799,
+     "_top": 431
+    },
+    "share": 0.029388184717344838
+   },
+   "W-A_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.362
+     ],
+     [
+      "polka-dotted",
+      "texture",
+      0.356
+     ],
+     [
+      "dining_room-s",
+      "scene",
+      0.344
+     ],
+     [
+      "washer",
+      "object",
+      0.325
+     ],
+     [
+      "studded",
+      "texture",
+      0.325
+     ],
+     [
+      "dotted",
+      "texture",
+      0.319
+     ],
+     [
+      "utility_room-s",
+      "scene",
+      0.317
+     ],
+     [
+      "poolroom-home-s",
+      "scene",
+      0.312
+     ]
+    ],
+    "down": [
+     [
+      "flecked",
+      "texture",
+      -0.41
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      -0.365
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.357
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.354
+     ],
+     [
+      "forest-needleleaf-s",
+      "scene",
+      -0.344
+     ],
+     [
+      "matted",
+      "texture",
+      -0.339
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.33
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.322
+     ]
+    ],
+    "decomposition": [
+     [
+      "flecked",
+      "texture",
+      -0.337
+     ],
+     [
+      "studded",
+      "texture",
+      0.29
+     ],
+     [
+      "jacuzzi-indoor-s",
+      "scene",
+      0.251
+     ],
+     [
+      "foot",
+      "part",
+      -0.157
+     ],
+     [
+      "bus_interior-s",
+      "scene",
+      -0.165
+     ]
+    ],
+    "leftover": 0.644,
+    "_top": 407
+   },
+   "W-A_shift": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "polka-dotted",
+       "texture",
+       0.228
+      ],
+      [
+       "dotted",
+       "texture",
+       0.207
+      ],
+      [
+       "zigzagged",
+       "texture",
+       0.193
+      ],
+      [
+       "perforated",
+       "texture",
+       0.18
+      ],
+      [
+       "muzzle",
+       "part",
+       0.18
+      ],
+      [
+       "swirly",
+       "texture",
+       0.179
+      ],
+      [
+       "wheel",
+       "part",
+       0.177
+      ],
+      [
+       "studded",
+       "texture",
+       0.17
+      ]
+     ],
+     "down": [
+      [
+       "warehouse-indoor-s",
+       "scene",
+       -0.225
+      ],
+      [
+       "wrinkled",
+       "texture",
+       -0.201
+      ],
+      [
+       "flecked",
+       "texture",
+       -0.192
+      ],
+      [
+       "gauzy",
+       "texture",
+       -0.187
+      ],
+      [
+       "bag",
+       "object",
+       -0.162
+      ],
+      [
+       "grandstand",
+       "object",
+       -0.158
+      ],
+      [
+       "bus_interior-s",
+       "scene",
+       -0.156
+      ],
+      [
+       "box",
+       "object",
+       -0.152
+      ]
+     ],
+     "decomposition": [
+      [
+       "polka-dotted",
+       "texture",
+       0.182
+      ],
+      [
+       "warehouse-indoor-s",
+       "scene",
+       -0.218
+      ],
+      [
+       "chandelier",
+       "object",
+       0.142
+      ],
+      [
+       "towel",
+       "object",
+       -0.136
+      ],
+      [
+       "wheel",
+       "part",
+       0.136
+      ]
+     ],
+     "leftover": 0.846,
+     "_top": 401
+    },
+    "norm": 0.04210494013172703
+   },
+   "overlap_top10_WC-C_vs_C-A": 0.16574669196131112,
+   "cos_net_WC-C_vs_C-A": -0.24142579843051526,
+   "widening": [
+    {
+     "unit": 339,
+     "partner": 476,
+     "build": "C",
+     "a": 1.0218646912117593,
+     "b": 0.17841338099289647,
+     "cos_w": 0.716472604990136,
+     "pct_w": 0.984375,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 8,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "car",
+       "object",
+       0.263
+      ],
+      [
+       "seat",
+       "part",
+       0.261
+      ],
+      [
+       "bus_interior-s",
+       "scene",
+       0.255
+      ],
+      [
+       "swivel chair",
+       "object",
+       0.24
+      ],
+      [
+       "back",
+       "part",
+       0.231
+      ]
+     ]
+    },
+    {
+     "unit": 339,
+     "partner": 476,
+     "build": "WC",
+     "a": 1.0313820555369904,
+     "b": 0.18678175014635717,
+     "cos_w": 0.6312483859255694,
+     "pct_w": 0.984375,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "car",
+       "object",
+       0.268
+      ],
+      [
+       "seat",
+       "part",
+       0.264
+      ],
+      [
+       "bus_interior-s",
+       "scene",
+       0.253
+      ],
+      [
+       "swivel chair",
+       "object",
+       0.246
+      ],
+      [
+       "back",
+       "part",
+       0.236
+      ]
+     ]
+    },
+    {
+     "unit": 339,
+     "partner": 476,
+     "build": "L",
+     "a": 0.9988161301487561,
+     "b": 0.05118900059009226,
+     "cos_w": 0.32152401518608736,
+     "pct_w": 0.984375,
+     "cos_r": 0.48605653076421246,
+     "pct_r": 0.984375,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": true,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "seat",
+       "part",
+       0.267
+      ],
+      [
+       "bus_interior-s",
+       "scene",
+       0.26
+      ],
+      [
+       "car",
+       "object",
+       0.252
+      ],
+      [
+       "swivel chair",
+       "object",
+       0.242
+      ],
+      [
+       "back",
+       "part",
+       0.23
+      ]
+     ]
+    },
+    {
+     "unit": 339,
+     "partner": 476,
+     "build": "R4C",
+     "a": 1.0232246053800778,
+     "b": 0.18799395096866608,
+     "cos_w": 0.6479546635279659,
+     "pct_w": 0.984375,
+     "cos_r": 0.5240932398823728,
+     "pct_r": 0.984375,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": true,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "car",
+       "object",
+       0.268
+      ],
+      [
+       "seat",
+       "part",
+       0.266
+      ],
+      [
+       "bus_interior-s",
+       "scene",
+       0.254
+      ],
+      [
+       "swivel chair",
+       "object",
+       0.246
+      ],
+      [
+       "back",
+       "part",
+       0.237
+      ]
+     ]
+    }
+   ]
+  },
+  "192": {
+   "lost": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.523
+     ],
+     [
+      "head",
+      "part",
+      0.461
+     ],
+     [
+      "dog",
+      "object",
+      0.453
+     ],
+     [
+      "spiralled",
+      "texture",
+      0.421
+     ],
+     [
+      "washer",
+      "object",
+      0.42
+     ],
+     [
+      "muzzle",
+      "part",
+      0.414
+     ],
+     [
+      "neck",
+      "part",
+      0.394
+     ],
+     [
+      "fireplace",
+      "object",
+      0.386
+     ]
+    ],
+    "down": [
+     [
+      "flecked",
+      "texture",
+      -0.56
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.527
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      -0.518
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.489
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.484
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.479
+     ],
+     [
+      "forest-needleleaf-s",
+      "scene",
+      -0.448
+     ],
+     [
+      "forest_path-s",
+      "scene",
+      -0.431
+     ]
+    ],
+    "decomposition": [
+     [
+      "flecked",
+      "texture",
+      -0.429
+     ],
+     [
+      "studded",
+      "texture",
+      0.241
+     ],
+     [
+      "warehouse-indoor-s",
+      "scene",
+      -0.253
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.341
+     ],
+     [
+      "light",
+      "object",
+      -0.217
+     ]
+    ],
+    "leftover": 0.432,
+    "_top": 407
+   },
+   "C-A_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "zigzagged",
+       "texture",
+       0.525
+      ],
+      [
+       "dog",
+       "object",
+       0.453
+      ],
+      [
+       "washer",
+       "object",
+       0.45
+      ],
+      [
+       "head",
+       "part",
+       0.448
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.444
+      ],
+      [
+       "muzzle",
+       "part",
+       0.405
+      ],
+      [
+       "studded",
+       "texture",
+       0.402
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.397
+      ]
+     ],
+     "down": [
+      [
+       "flecked",
+       "texture",
+       -0.56
+      ],
+      [
+       "marbled",
+       "texture",
+       -0.541
+      ],
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.529
+      ],
+      [
+       "creek-s",
+       "scene",
+       -0.501
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.498
+      ],
+      [
+       "blotchy",
+       "texture",
+       -0.489
+      ],
+      [
+       "forest-needleleaf-s",
+       "scene",
+       -0.469
+      ],
+      [
+       "porous",
+       "texture",
+       -0.452
+      ]
+     ],
+     "decomposition": [
+      [
+       "flecked",
+       "texture",
+       -0.459
+      ],
+      [
+       "studded",
+       "texture",
+       0.301
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.25
+      ],
+      [
+       "cage / bird cage",
+       "object",
+       -0.287
+      ],
+      [
+       "foot",
+       "part",
+       -0.285
+      ]
+     ],
+     "leftover": 0.391,
+     "_top": 407
+    },
+    "share": 0.15547423977561686
+   },
+   "C-A_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "plaza-s",
+       "scene",
+       0.366
+      ],
+      [
+       "castle-s",
+       "scene",
+       0.269
+      ],
+      [
+       "house-s",
+       "scene",
+       0.265
+      ],
+      [
+       "street-s",
+       "scene",
+       0.261
+      ],
+      [
+       "abbey-s",
+       "scene",
+       0.252
+      ],
+      [
+       "roundabout-s",
+       "scene",
+       0.249
+      ],
+      [
+       "apartment_building-outdoor-s",
+       "scene",
+       0.237
+      ],
+      [
+       "tree",
+       "object",
+       0.219
+      ]
+     ],
+     "down": [
+      [
+       "dinette-vehicle-s",
+       "scene",
+       -0.419
+      ],
+      [
+       "metal",
+       "material",
+       -0.344
+      ],
+      [
+       "seat",
+       "part",
+       -0.341
+      ],
+      [
+       "jacuzzi-indoor-s",
+       "scene",
+       -0.336
+      ],
+      [
+       "attic-s",
+       "scene",
+       -0.318
+      ],
+      [
+       "bathtub",
+       "object",
+       -0.314
+      ],
+      [
+       "youth_hostel-s",
+       "scene",
+       -0.311
+      ],
+      [
+       "hot tub",
+       "object",
+       -0.307
+      ]
+     ],
+     "decomposition": [
+      [
+       "dinette-vehicle-s",
+       "scene",
+       -0.369
+      ],
+      [
+       "concrete",
+       "material",
+       -0.313
+      ],
+      [
+       "motorbike",
+       "object",
+       -0.35
+      ],
+      [
+       "dome",
+       "part",
+       0.232
+      ],
+      [
+       "market-outdoor-s",
+       "scene",
+       0.158
+      ]
+     ],
+     "leftover": 0.609,
+     "_top": 366
+    },
+    "share": 0.03514778421717286
+   },
+   "C-A_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "hair",
+       "part",
+       0.248
+      ],
+      [
+       "freckled",
+       "texture",
+       0.247
+      ],
+      [
+       "head",
+       "part",
+       0.227
+      ],
+      [
+       "ear",
+       "part",
+       0.215
+      ],
+      [
+       "muzzle",
+       "part",
+       0.2
+      ],
+      [
+       "dog",
+       "object",
+       0.174
+      ],
+      [
+       "fur",
+       "material",
+       0.172
+      ],
+      [
+       "matted",
+       "texture",
+       0.165
+      ]
+     ],
+     "down": [
+      [
+       "shoe_shop-s",
+       "scene",
+       -0.265
+      ],
+      [
+       "paisley",
+       "texture",
+       -0.225
+      ],
+      [
+       "supermarket-s",
+       "scene",
+       -0.223
+      ],
+      [
+       "clothing_store-s",
+       "scene",
+       -0.214
+      ],
+      [
+       "case",
+       "object",
+       -0.213
+      ],
+      [
+       "bakery-shop-s",
+       "scene",
+       -0.208
+      ],
+      [
+       "classroom-s",
+       "scene",
+       -0.206
+      ],
+      [
+       "stage",
+       "object",
+       -0.202
+      ]
+     ],
+     "decomposition": [
+      [
+       "shoe_shop-s",
+       "scene",
+       -0.227
+      ],
+      [
+       "head",
+       "part",
+       0.345
+      ],
+      [
+       "paisley",
+       "texture",
+       -0.242
+      ],
+      [
+       "helicopter",
+       "object",
+       -0.215
+      ],
+      [
+       "ballroom-s",
+       "scene",
+       -0.147
+      ]
+     ],
+     "leftover": 0.763,
+     "_top": 231
+    },
+    "share": 0.03112283117256628
+   },
+   "C-A_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.529
+     ],
+     [
+      "head",
+      "part",
+      0.454
+     ],
+     [
+      "dog",
+      "object",
+      0.445
+     ],
+     [
+      "spiralled",
+      "texture",
+      0.423
+     ],
+     [
+      "washer",
+      "object",
+      0.415
+     ],
+     [
+      "muzzle",
+      "part",
+      0.399
+     ],
+     [
+      "neck",
+      "part",
+      0.394
+     ],
+     [
+      "fireplace",
+      "object",
+      0.387
+     ]
+    ],
+    "down": [
+     [
+      "flecked",
+      "texture",
+      -0.557
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.531
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      -0.523
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.494
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.492
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.48
+     ],
+     [
+      "forest-needleleaf-s",
+      "scene",
+      -0.453
+     ],
+     [
+      "forest_path-s",
+      "scene",
+      -0.44
+     ]
+    ],
+    "decomposition": [
+     [
+      "flecked",
+      "texture",
+      -0.423
+     ],
+     [
+      "studded",
+      "texture",
+      0.249
+     ],
+     [
+      "warehouse-indoor-s",
+      "scene",
+      -0.252
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.343
+     ],
+     [
+      "light",
+      "object",
+      -0.208
+     ]
+    ],
+    "leftover": 0.433,
+    "_top": 407
+   },
+   "WC-C_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "hot tub",
+       "object",
+       0.319
+      ],
+      [
+       "tank",
+       "object",
+       0.306
+      ],
+      [
+       "bathtub",
+       "object",
+       0.301
+      ],
+      [
+       "dinette-vehicle-s",
+       "scene",
+       0.296
+      ],
+      [
+       "conveyer belt",
+       "object",
+       0.292
+      ],
+      [
+       "countertop",
+       "object",
+       0.289
+      ],
+      [
+       "body",
+       "part",
+       0.287
+      ],
+      [
+       "pool table",
+       "object",
+       0.284
+      ]
+     ],
+     "down": [
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.353
+      ],
+      [
+       "plant",
+       "object",
+       -0.338
+      ],
+      [
+       "tree",
+       "object",
+       -0.334
+      ],
+      [
+       "palm",
+       "object",
+       -0.322
+      ],
+      [
+       "flower",
+       "object",
+       -0.322
+      ],
+      [
+       "bush",
+       "object",
+       -0.319
+      ],
+      [
+       "forest-needleleaf-s",
+       "scene",
+       -0.316
+      ],
+      [
+       "forest_path-s",
+       "scene",
+       -0.314
+      ]
+     ],
+     "decomposition": [
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.296
+      ],
+      [
+       "metal",
+       "material",
+       0.285
+      ],
+      [
+       "skin",
+       "material",
+       0.253
+      ],
+      [
+       "chequered",
+       "texture",
+       0.245
+      ],
+      [
+       "honeycombed",
+       "texture",
+       -0.167
+      ]
+     ],
+     "leftover": 0.701,
+     "_top": 179
+    },
+    "share": 0.017636671633984476
+   },
+   "WC-C_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "frilly",
+       "texture",
+       0.203
+      ],
+      [
+       "skyscraper-s",
+       "scene",
+       0.172
+      ],
+      [
+       "white-c",
+       "color",
+       0.152
+      ],
+      [
+       "amusement_park-s",
+       "scene",
+       0.152
+      ],
+      [
+       "cloud",
+       "part",
+       0.151
+      ],
+      [
+       "apartment_building-outdoor-s",
+       "scene",
+       0.151
+      ],
+      [
+       "paper",
+       "material",
+       0.145
+      ],
+      [
+       "tower-s",
+       "scene",
+       0.142
+      ]
+     ],
+     "down": [
+      [
+       "swivel chair",
+       "object",
+       -0.208
+      ],
+      [
+       "dinette-vehicle-s",
+       "scene",
+       -0.205
+      ],
+      [
+       "loudspeaker",
+       "object",
+       -0.198
+      ],
+      [
+       "galley-s",
+       "scene",
+       -0.194
+      ],
+      [
+       "poolroom-home-s",
+       "scene",
+       -0.192
+      ],
+      [
+       "wheel",
+       "part",
+       -0.188
+      ],
+      [
+       "bathroom-s",
+       "scene",
+       -0.188
+      ],
+      [
+       "swirly",
+       "texture",
+       -0.187
+      ]
+     ],
+     "decomposition": [
+      [
+       "swivel chair",
+       "object",
+       -0.196
+      ],
+      [
+       "frilly",
+       "texture",
+       0.21
+      ],
+      [
+       "skyscraper",
+       "object",
+       0.12
+      ],
+      [
+       "paper",
+       "material",
+       0.142
+      ],
+      [
+       "bathroom-s",
+       "scene",
+       -0.141
+      ]
+     ],
+     "leftover": 0.853,
+     "_top": 408
+    },
+    "share": 0.014334084303116142
+   },
+   "WC-C_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "matted",
+       "texture",
+       0.266
+      ],
+      [
+       "trench",
+       "object",
+       0.26
+      ],
+      [
+       "rock",
+       "object",
+       0.256
+      ],
+      [
+       "potholed",
+       "texture",
+       0.206
+      ],
+      [
+       "fibrous",
+       "texture",
+       0.198
+      ],
+      [
+       "dirt track",
+       "object",
+       0.193
+      ],
+      [
+       "tail",
+       "part",
+       0.193
+      ],
+      [
+       "bumpy",
+       "texture",
+       0.188
+      ]
+     ],
+     "down": [
+      [
+       "stage",
+       "object",
+       -0.214
+      ],
+      [
+       "dotted",
+       "texture",
+       -0.203
+      ],
+      [
+       "light",
+       "object",
+       -0.201
+      ],
+      [
+       "studded",
+       "texture",
+       -0.199
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       -0.197
+      ],
+      [
+       "screen",
+       "part",
+       -0.195
+      ],
+      [
+       "swirly",
+       "texture",
+       -0.188
+      ],
+      [
+       "signboard",
+       "object",
+       -0.188
+      ]
+     ],
+     "decomposition": [
+      [
+       "matted",
+       "texture",
+       0.198
+      ],
+      [
+       "stage",
+       "object",
+       -0.264
+      ],
+      [
+       "paisley",
+       "texture",
+       -0.176
+      ],
+      [
+       "seat",
+       "part",
+       0.215
+      ],
+      [
+       "plastic-opaque",
+       "material",
+       -0.164
+      ]
+     ],
+     "leftover": 0.821,
+     "_top": 411
+    },
+    "share": 0.013955355685651242
+   },
+   "WC-C_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "leg",
+      "part",
+      0.255
+     ],
+     [
+      "neck",
+      "part",
+      0.249
+     ],
+     [
+      "spiralled",
+      "texture",
+      0.249
+     ],
+     [
+      "torso",
+      "part",
+      0.245
+     ],
+     [
+      "braided",
+      "texture",
+      0.234
+     ],
+     [
+      "stairway",
+      "object",
+      0.229
+     ],
+     [
+      "bell",
+      "object",
+      0.215
+     ],
+     [
+      "bed",
+      "object",
+      0.211
+     ]
+    ],
+    "down": [
+     [
+      "park-s",
+      "scene",
+      -0.242
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.234
+     ],
+     [
+      "green-c",
+      "color",
+      -0.232
+     ],
+     [
+      "grass",
+      "object",
+      -0.23
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      -0.229
+     ],
+     [
+      "bush",
+      "object",
+      -0.222
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.22
+     ],
+     [
+      "golf_course-s",
+      "scene",
+      -0.218
+     ]
+    ],
+    "decomposition": [
+     [
+      "leg",
+      "part",
+      0.252
+     ],
+     [
+      "spiralled",
+      "texture",
+      0.245
+     ],
+     [
+      "box",
+      "object",
+      0.314
+     ],
+     [
+      "ashcan",
+      "object",
+      -0.226
+     ],
+     [
+      "windmill",
+      "object",
+      0.129
+     ]
+    ],
+    "leftover": 0.793,
+    "_top": 221
+   },
+   "WC-C_shift": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "zigzagged",
+       "texture",
+       0.469
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       0.406
+      ],
+      [
+       "head",
+       "part",
+       0.367
+      ],
+      [
+       "dotted",
+       "texture",
+       0.351
+      ],
+      [
+       "dog",
+       "object",
+       0.331
+      ],
+      [
+       "studded",
+       "texture",
+       0.33
+      ],
+      [
+       "chequered",
+       "texture",
+       0.322
+      ],
+      [
+       "muzzle",
+       "part",
+       0.319
+      ]
+     ],
+     "down": [
+      [
+       "marbled",
+       "texture",
+       -0.457
+      ],
+      [
+       "flecked",
+       "texture",
+       -0.443
+      ],
+      [
+       "blotchy",
+       "texture",
+       -0.431
+      ],
+      [
+       "stained",
+       "texture",
+       -0.397
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.386
+      ],
+      [
+       "porous",
+       "texture",
+       -0.36
+      ],
+      [
+       "wrinkled",
+       "texture",
+       -0.351
+      ],
+      [
+       "bag",
+       "object",
+       -0.339
+      ]
+     ],
+     "decomposition": [
+      [
+       "zigzagged",
+       "texture",
+       0.368
+      ],
+      [
+       "studded",
+       "texture",
+       0.252
+      ],
+      [
+       "bag",
+       "object",
+       -0.325
+      ],
+      [
+       "dog",
+       "object",
+       0.246
+      ],
+      [
+       "skyscraper",
+       "object",
+       -0.175
+      ]
+     ],
+     "leftover": 0.557,
+     "_top": 407
+    },
+    "norm": 0.24735382051099952
+   },
+   "W-A_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "washer",
+       "object",
+       0.458
+      ],
+      [
+       "dog",
+       "object",
+       0.443
+      ],
+      [
+       "zigzagged",
+       "texture",
+       0.442
+      ],
+      [
+       "head",
+       "part",
+       0.433
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.432
+      ],
+      [
+       "utility_room-s",
+       "scene",
+       0.408
+      ],
+      [
+       "studded",
+       "texture",
+       0.402
+      ],
+      [
+       "poolroom-home-s",
+       "scene",
+       0.4
+      ]
+     ],
+     "down": [
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.51
+      ],
+      [
+       "marbled",
+       "texture",
+       -0.493
+      ],
+      [
+       "creek-s",
+       "scene",
+       -0.481
+      ],
+      [
+       "flecked",
+       "texture",
+       -0.477
+      ],
+      [
+       "forest-needleleaf-s",
+       "scene",
+       -0.468
+      ],
+      [
+       "blotchy",
+       "texture",
+       -0.447
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.445
+      ],
+      [
+       "forest_path-s",
+       "scene",
+       -0.445
+      ]
+     ],
+     "decomposition": [
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.429
+      ],
+      [
+       "dog",
+       "object",
+       0.309
+      ],
+      [
+       "bag",
+       "object",
+       -0.31
+      ],
+      [
+       "wheel",
+       "part",
+       0.253
+      ],
+      [
+       "ball",
+       "object",
+       0.176
+      ]
+     ],
+     "leftover": 0.471,
+     "_top": 161
+    },
+    "share": 0.041567502832499686
+   },
+   "W-A_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "plaza-s",
+       "scene",
+       0.356
+      ],
+      [
+       "house-s",
+       "scene",
+       0.306
+      ],
+      [
+       "building",
+       "object",
+       0.288
+      ],
+      [
+       "apartment_building-outdoor-s",
+       "scene",
+       0.274
+      ],
+      [
+       "abbey-s",
+       "scene",
+       0.268
+      ],
+      [
+       "street-s",
+       "scene",
+       0.255
+      ],
+      [
+       "zigzagged",
+       "texture",
+       0.254
+      ],
+      [
+       "poster",
+       "object",
+       0.252
+      ]
+     ],
+     "down": [
+      [
+       "leather",
+       "material",
+       -0.416
+      ],
+      [
+       "seat",
+       "part",
+       -0.393
+      ],
+      [
+       "armchair",
+       "object",
+       -0.391
+      ],
+      [
+       "swivel chair",
+       "object",
+       -0.387
+      ],
+      [
+       "dinette-vehicle-s",
+       "scene",
+       -0.381
+      ],
+      [
+       "outside arm",
+       "part",
+       -0.375
+      ],
+      [
+       "chair",
+       "object",
+       -0.363
+      ],
+      [
+       "sofa",
+       "object",
+       -0.354
+      ]
+     ],
+     "decomposition": [
+      [
+       "leather",
+       "material",
+       -0.37
+      ],
+      [
+       "gymnasium-indoor-s",
+       "scene",
+       -0.267
+      ],
+      [
+       "zigzagged",
+       "texture",
+       0.27
+      ],
+      [
+       "frilly",
+       "texture",
+       0.214
+      ],
+      [
+       "cobwebbed",
+       "texture",
+       0.181
+      ]
+     ],
+     "leftover": 0.642,
+     "_top": 366
+    },
+    "share": 0.026547018474871363
+   },
+   "W-A_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "tank",
+       "object",
+       0.303
+      ],
+      [
+       "bottle",
+       "object",
+       0.284
+      ],
+      [
+       "body",
+       "part",
+       0.257
+      ],
+      [
+       "paper",
+       "material",
+       0.242
+      ],
+      [
+       "file cabinet",
+       "object",
+       0.235
+      ],
+      [
+       "ring",
+       "object",
+       0.233
+      ],
+      [
+       "windmill",
+       "object",
+       0.216
+      ],
+      [
+       "bedclothes",
+       "object",
+       0.215
+      ]
+     ],
+     "down": [
+      [
+       "matted",
+       "texture",
+       -0.231
+      ],
+      [
+       "park-s",
+       "scene",
+       -0.206
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.2
+      ],
+      [
+       "bush",
+       "object",
+       -0.189
+      ],
+      [
+       "grass",
+       "object",
+       -0.178
+      ],
+      [
+       "pasture-s",
+       "scene",
+       -0.176
+      ],
+      [
+       "fibrous",
+       "texture",
+       -0.172
+      ],
+      [
+       "field",
+       "object",
+       -0.164
+      ]
+     ],
+     "decomposition": [
+      [
+       "tank",
+       "object",
+       0.399
+      ],
+      [
+       "paper",
+       "material",
+       0.322
+      ],
+      [
+       "toilet",
+       "object",
+       -0.281
+      ],
+      [
+       "beam",
+       "object",
+       0.159
+      ],
+      [
+       "freckled",
+       "texture",
+       0.154
+      ]
+     ],
+     "leftover": 0.756,
+     "_top": 174
+    },
+    "share": 0.02214533690021812
+   },
+   "W-A_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.51
+     ],
+     [
+      "head",
+      "part",
+      0.454
+     ],
+     [
+      "dog",
+      "object",
+      0.452
+     ],
+     [
+      "spiralled",
+      "texture",
+      0.425
+     ],
+     [
+      "neck",
+      "part",
+      0.408
+     ],
+     [
+      "muzzle",
+      "part",
+      0.406
+     ],
+     [
+      "washer",
+      "object",
+      0.4
+     ],
+     [
+      "studded",
+      "texture",
+      0.379
+     ]
+    ],
+    "down": [
+     [
+      "flecked",
+      "texture",
+      -0.539
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.525
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      -0.518
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.492
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.485
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.471
+     ],
+     [
+      "forest-needleleaf-s",
+      "scene",
+      -0.451
+     ],
+     [
+      "forest_path-s",
+      "scene",
+      -0.441
+     ]
+    ],
+    "decomposition": [
+     [
+      "flecked",
+      "texture",
+      -0.375
+     ],
+     [
+      "studded",
+      "texture",
+      0.25
+     ],
+     [
+      "neck",
+      "part",
+      0.276
+     ],
+     [
+      "bag",
+      "object",
+      -0.217
+     ],
+     [
+      "poolroom-home-s",
+      "scene",
+      0.223
+     ]
+    ],
+    "leftover": 0.464,
+    "_top": 407
+   },
+   "W-A_shift": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "zigzagged",
+       "texture",
+       0.412
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       0.402
+      ],
+      [
+       "dotted",
+       "texture",
+       0.353
+      ],
+      [
+       "head",
+       "part",
+       0.301
+      ],
+      [
+       "studded",
+       "texture",
+       0.3
+      ],
+      [
+       "perforated",
+       "texture",
+       0.291
+      ],
+      [
+       "chequered",
+       "texture",
+       0.279
+      ],
+      [
+       "washer",
+       "object",
+       0.271
+      ]
+     ],
+     "down": [
+      [
+       "flecked",
+       "texture",
+       -0.391
+      ],
+      [
+       "marbled",
+       "texture",
+       -0.388
+      ],
+      [
+       "blotchy",
+       "texture",
+       -0.382
+      ],
+      [
+       "stained",
+       "texture",
+       -0.358
+      ],
+      [
+       "bag",
+       "object",
+       -0.352
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.336
+      ],
+      [
+       "plastic-clear",
+       "material",
+       -0.335
+      ],
+      [
+       "wrinkled",
+       "texture",
+       -0.33
+      ]
+     ],
+     "decomposition": [
+      [
+       "zigzagged",
+       "texture",
+       0.328
+      ],
+      [
+       "paper",
+       "material",
+       -0.297
+      ],
+      [
+       "polka-dotted",
+       "texture",
+       0.245
+      ],
+      [
+       "cage / bird cage",
+       "object",
+       -0.218
+      ],
+      [
+       "mountain-s",
+       "scene",
+       -0.18
+      ]
+     ],
+     "leftover": 0.627,
+     "_top": 407
+    },
+    "norm": 0.20941796250340874
+   },
+   "overlap_top10_WC-C_vs_C-A": 0.1207578227770689,
+   "cos_net_WC-C_vs_C-A": 0.19652836499459303,
+   "widening": [
+    {
+     "unit": 430,
+     "partner": 114,
+     "build": "C",
+     "a": 1.0626416624430202,
+     "b": 0.11425490857398143,
+     "cos_w": 0.34082292402856157,
+     "pct_w": 0.9947916666666666,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "zigzagged",
+       "texture",
+       0.351
+      ],
+      [
+       "chequered",
+       "texture",
+       0.26
+      ],
+      [
+       "interlaced",
+       "texture",
+       0.224
+      ],
+      [
+       "torso",
+       "part",
+       0.21
+      ],
+      [
+       "hair",
+       "part",
+       0.205
+      ]
+     ]
+    },
+    {
+     "unit": 430,
+     "partner": 114,
+     "build": "WC",
+     "a": 1.0581632792573026,
+     "b": 0.09764133737491794,
+     "cos_w": 0.21124391109855176,
+     "pct_w": 0.9895833333333334,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 6,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "zigzagged",
+       "texture",
+       0.324
+      ],
+      [
+       "chequered",
+       "texture",
+       0.277
+      ],
+      [
+       "torso",
+       "part",
+       0.221
+      ],
+      [
+       "hair",
+       "part",
+       0.205
+      ],
+      [
+       "person",
+       "object",
+       0.198
+      ]
+     ]
+    },
+    {
+     "unit": 430,
+     "partner": 114,
+     "build": "L",
+     "a": 1.00689445622978,
+     "b": 0.023149319651183928,
+     "cos_w": 0.07012426442873913,
+     "pct_w": 0.9270833333333334,
+     "cos_r": 0.4651174697002566,
+     "pct_r": 0.9947916666666666,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": false,
+      "read": true,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "zigzagged",
+       "texture",
+       0.332
+      ],
+      [
+       "chequered",
+       "texture",
+       0.277
+      ],
+      [
+       "torso",
+       "part",
+       0.215
+      ],
+      [
+       "interlaced",
+       "texture",
+       0.196
+      ],
+      [
+       "neck",
+       "part",
+       0.193
+      ]
+     ]
+    },
+    {
+     "unit": 430,
+     "partner": 114,
+     "build": "R4C",
+     "a": 1.0779431402091981,
+     "b": 0.09686578464712847,
+     "cos_w": 0.21843412919576535,
+     "pct_w": 0.9895833333333334,
+     "cos_r": 0.15304578039093092,
+     "pct_r": 0.8645833333333334,
+     "shared_own": 7,
+     "shared_partner": 0,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": false
+     },
+     "new_top": [
+      [
+       "zigzagged",
+       "texture",
+       0.351
+      ],
+      [
+       "chequered",
+       "texture",
+       0.3
+      ],
+      [
+       "torso",
+       "part",
+       0.225
+      ],
+      [
+       "interlaced",
+       "texture",
+       0.215
+      ],
+      [
+       "person",
+       "object",
+       0.197
+      ]
+     ]
+    }
+   ]
+  },
+  "384": {
+   "lost": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.546
+     ],
+     [
+      "spiralled",
+      "texture",
+      0.487
+     ],
+     [
+      "dog",
+      "object",
+      0.473
+     ],
+     [
+      "head",
+      "part",
+      0.473
+     ],
+     [
+      "washer",
+      "object",
+      0.446
+     ],
+     [
+      "neck",
+      "part",
+      0.432
+     ],
+     [
+      "muzzle",
+      "part",
+      0.406
+     ],
+     [
+      "chequered",
+      "texture",
+      0.401
+     ]
+    ],
+    "down": [
+     [
+      "flecked",
+      "texture",
+      -0.578
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.568
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      -0.537
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.518
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.516
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.501
+     ],
+     [
+      "porous",
+      "texture",
+      -0.461
+     ],
+     [
+      "ocean-s",
+      "scene",
+      -0.46
+     ]
+    ],
+    "decomposition": [
+     [
+      "flecked",
+      "texture",
+      -0.527
+     ],
+     [
+      "tank",
+      "object",
+      0.316
+     ],
+     [
+      "fireplace",
+      "object",
+      0.302
+     ],
+     [
+      "warehouse-indoor-s",
+      "scene",
+      -0.227
+     ],
+     [
+      "light",
+      "object",
+      -0.214
+     ]
+    ],
+    "leftover": 0.398,
+    "_top": 407
+   },
+   "C-A_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "zigzagged",
+       "texture",
+       0.543
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.461
+      ],
+      [
+       "dog",
+       "object",
+       0.46
+      ],
+      [
+       "head",
+       "part",
+       0.451
+      ],
+      [
+       "washer",
+       "object",
+       0.429
+      ],
+      [
+       "neck",
+       "part",
+       0.426
+      ],
+      [
+       "muzzle",
+       "part",
+       0.398
+      ],
+      [
+       "chequered",
+       "texture",
+       0.393
+      ]
+     ],
+     "down": [
+      [
+       "flecked",
+       "texture",
+       -0.55
+      ],
+      [
+       "marbled",
+       "texture",
+       -0.538
+      ],
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.502
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.486
+      ],
+      [
+       "creek-s",
+       "scene",
+       -0.486
+      ],
+      [
+       "blotchy",
+       "texture",
+       -0.478
+      ],
+      [
+       "porous",
+       "texture",
+       -0.436
+      ],
+      [
+       "forest-needleleaf-s",
+       "scene",
+       -0.422
+      ]
+     ],
+     "decomposition": [
+      [
+       "flecked",
+       "texture",
+       -0.489
+      ],
+      [
+       "tank",
+       "object",
+       0.269
+      ],
+      [
+       "foot",
+       "part",
+       -0.328
+      ],
+      [
+       "cage / bird cage",
+       "object",
+       -0.3
+      ],
+      [
+       "studded",
+       "texture",
+       0.23
+      ]
+     ],
+     "leftover": 0.398,
+     "_top": 407
+    },
+    "share": 0.31926771094942347
+   },
+   "C-A_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "bathtub",
+       "object",
+       0.453
+      ],
+      [
+       "dinette-vehicle-s",
+       "scene",
+       0.45
+      ],
+      [
+       "bathroom-s",
+       "scene",
+       0.426
+      ],
+      [
+       "jacuzzi-indoor-s",
+       "scene",
+       0.423
+      ],
+      [
+       "countertop",
+       "object",
+       0.391
+      ],
+      [
+       "work surface",
+       "object",
+       0.384
+      ],
+      [
+       "attic-s",
+       "scene",
+       0.379
+      ],
+      [
+       "table",
+       "object",
+       0.372
+      ]
+     ],
+     "down": [
+      [
+       "pasture-s",
+       "scene",
+       -0.434
+      ],
+      [
+       "castle-s",
+       "scene",
+       -0.387
+      ],
+      [
+       "golf_course-s",
+       "scene",
+       -0.367
+      ],
+      [
+       "bush",
+       "object",
+       -0.36
+      ],
+      [
+       "lighthouse-s",
+       "scene",
+       -0.36
+      ],
+      [
+       "park-s",
+       "scene",
+       -0.359
+      ],
+      [
+       "field-wild-s",
+       "scene",
+       -0.354
+      ],
+      [
+       "field-cultivated-s",
+       "scene",
+       -0.351
+      ]
+     ],
+     "decomposition": [
+      [
+       "bathtub",
+       "object",
+       0.215
+      ],
+      [
+       "pasture-s",
+       "scene",
+       -0.389
+      ],
+      [
+       "ear",
+       "part",
+       -0.213
+      ],
+      [
+       "bedclothes",
+       "object",
+       0.138
+      ],
+      [
+       "granite",
+       "material",
+       0.147
+      ]
+     ],
+     "leftover": 0.634,
+     "_top": 101
+    },
+    "share": 0.06953098109789971
+   },
+   "C-A_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "cat",
+       "object",
+       0.43
+      ],
+      [
+       "bottle",
+       "object",
+       0.425
+      ],
+      [
+       "vault",
+       "object",
+       0.413
+      ],
+      [
+       "barrel",
+       "object",
+       0.413
+      ],
+      [
+       "body",
+       "part",
+       0.409
+      ],
+      [
+       "head",
+       "part",
+       0.391
+      ],
+      [
+       "washer",
+       "object",
+       0.382
+      ],
+      [
+       "dog",
+       "object",
+       0.368
+      ]
+     ],
+     "down": [
+      [
+       "path",
+       "object",
+       -0.303
+      ],
+      [
+       "park-s",
+       "scene",
+       -0.301
+      ],
+      [
+       "cracked",
+       "texture",
+       -0.297
+      ],
+      [
+       "fence",
+       "object",
+       -0.288
+      ],
+      [
+       "grass",
+       "object",
+       -0.284
+      ],
+      [
+       "ground",
+       "object",
+       -0.284
+      ],
+      [
+       "sidewalk",
+       "object",
+       -0.283
+      ],
+      [
+       "earth",
+       "object",
+       -0.28
+      ]
+     ],
+     "decomposition": [
+      [
+       "cat",
+       "object",
+       0.356
+      ],
+      [
+       "bottle",
+       "object",
+       0.186
+      ],
+      [
+       "vault",
+       "object",
+       0.32
+      ],
+      [
+       "truck",
+       "object",
+       0.3
+      ],
+      [
+       "person",
+       "object",
+       -0.195
+      ]
+     ],
+     "leftover": 0.522,
+     "_top": 55
+    },
+    "share": 0.03935335358592716
+   },
+   "C-A_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.543
+     ],
+     [
+      "spiralled",
+      "texture",
+      0.475
+     ],
+     [
+      "dog",
+      "object",
+      0.458
+     ],
+     [
+      "head",
+      "part",
+      0.458
+     ],
+     [
+      "washer",
+      "object",
+      0.438
+     ],
+     [
+      "neck",
+      "part",
+      0.43
+     ],
+     [
+      "chequered",
+      "texture",
+      0.394
+     ],
+     [
+      "muzzle",
+      "part",
+      0.392
+     ]
+    ],
+    "down": [
+     [
+      "flecked",
+      "texture",
+      -0.561
+     ],
+     [
+      "marbled",
+      "texture",
+      -0.557
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      -0.537
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.518
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.511
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.494
+     ],
+     [
+      "porous",
+      "texture",
+      -0.458
+     ],
+     [
+      "forest-needleleaf-s",
+      "scene",
+      -0.457
+     ]
+    ],
+    "decomposition": [
+     [
+      "flecked",
+      "texture",
+      -0.51
+     ],
+     [
+      "tank",
+      "object",
+      0.325
+     ],
+     [
+      "fireplace",
+      "object",
+      0.297
+     ],
+     [
+      "warehouse-indoor-s",
+      "scene",
+      -0.237
+     ],
+     [
+      "light",
+      "object",
+      -0.204
+     ]
+    ],
+    "leftover": 0.414,
+    "_top": 407
+   },
+   "WC-C_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "pitted",
+       "texture",
+       0.472
+      ],
+      [
+       "forest-broadleaf-s",
+       "scene",
+       0.469
+      ],
+      [
+       "marbled",
+       "texture",
+       0.468
+      ],
+      [
+       "blotchy",
+       "texture",
+       0.446
+      ],
+      [
+       "creek-s",
+       "scene",
+       0.44
+      ],
+      [
+       "flecked",
+       "texture",
+       0.428
+      ],
+      [
+       "field-wild-s",
+       "scene",
+       0.421
+      ],
+      [
+       "ocean-s",
+       "scene",
+       0.402
+      ]
+     ],
+     "down": [
+      [
+       "zigzagged",
+       "texture",
+       -0.474
+      ],
+      [
+       "washer",
+       "object",
+       -0.399
+      ],
+      [
+       "chequered",
+       "texture",
+       -0.39
+      ],
+      [
+       "spiralled",
+       "texture",
+       -0.349
+      ],
+      [
+       "bus",
+       "object",
+       -0.329
+      ],
+      [
+       "interlaced",
+       "texture",
+       -0.323
+      ],
+      [
+       "studded",
+       "texture",
+       -0.313
+      ],
+      [
+       "oven",
+       "part",
+       -0.312
+      ]
+     ],
+     "decomposition": [
+      [
+       "zigzagged",
+       "texture",
+       -0.376
+      ],
+      [
+       "forest-broadleaf-s",
+       "scene",
+       0.38
+      ],
+      [
+       "light",
+       "object",
+       0.211
+      ],
+      [
+       "metal",
+       "material",
+       -0.198
+      ],
+      [
+       "lined",
+       "texture",
+       0.16
+      ]
+     ],
+     "leftover": 0.562,
+     "_top": 394
+    },
+    "share": 0.044730434723461464
+   },
+   "WC-C_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "towel",
+       "object",
+       0.321
+      ],
+      [
+       "jacuzzi-indoor-s",
+       "scene",
+       0.259
+      ],
+      [
+       "bathtub",
+       "object",
+       0.251
+      ],
+      [
+       "staircase-s",
+       "scene",
+       0.243
+      ],
+      [
+       "outside arm",
+       "part",
+       0.238
+      ],
+      [
+       "dinette-vehicle-s",
+       "scene",
+       0.238
+      ],
+      [
+       "stern",
+       "part",
+       0.237
+      ],
+      [
+       "baggage_claim-s",
+       "scene",
+       0.234
+      ]
+     ],
+     "down": [
+      [
+       "bush",
+       "object",
+       -0.237
+      ],
+      [
+       "pasture-s",
+       "scene",
+       -0.232
+      ],
+      [
+       "bumpy",
+       "texture",
+       -0.207
+      ],
+      [
+       "matted",
+       "texture",
+       -0.206
+      ],
+      [
+       "grass",
+       "object",
+       -0.205
+      ],
+      [
+       "tree",
+       "object",
+       -0.202
+      ],
+      [
+       "plant",
+       "object",
+       -0.2
+      ],
+      [
+       "park-s",
+       "scene",
+       -0.197
+      ]
+     ],
+     "decomposition": [
+      [
+       "towel",
+       "object",
+       0.342
+      ],
+      [
+       "bumpy",
+       "texture",
+       -0.299
+      ],
+      [
+       "studded",
+       "texture",
+       0.185
+      ],
+      [
+       "granite",
+       "material",
+       0.183
+      ],
+      [
+       "chandelier",
+       "object",
+       0.169
+      ]
+     ],
+     "leftover": 0.781,
+     "_top": 88
+    },
+    "share": 0.03276289680024896
+   },
+   "WC-C_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "marbled",
+       "texture",
+       0.207
+      ],
+      [
+       "banded",
+       "texture",
+       0.175
+      ],
+      [
+       "fence",
+       "object",
+       0.171
+      ],
+      [
+       "grooved",
+       "texture",
+       0.166
+      ],
+      [
+       "lined",
+       "texture",
+       0.156
+      ],
+      [
+       "shelves",
+       "object",
+       0.151
+      ],
+      [
+       "gauzy",
+       "texture",
+       0.149
+      ],
+      [
+       "poster",
+       "object",
+       0.145
+      ]
+     ],
+     "down": [
+      [
+       "bird",
+       "object",
+       -0.326
+      ],
+      [
+       "cat",
+       "object",
+       -0.316
+      ],
+      [
+       "animal",
+       "object",
+       -0.306
+      ],
+      [
+       "fur",
+       "material",
+       -0.299
+      ],
+      [
+       "dog",
+       "object",
+       -0.293
+      ],
+      [
+       "sculpture",
+       "object",
+       -0.292
+      ],
+      [
+       "horse",
+       "object",
+       -0.29
+      ],
+      [
+       "head",
+       "part",
+       -0.275
+      ]
+     ],
+     "decomposition": [
+      [
+       "bird",
+       "object",
+       -0.203
+      ],
+      [
+       "waterfall",
+       "object",
+       0.303
+      ],
+      [
+       "pottedplant",
+       "object",
+       -0.212
+      ],
+      [
+       "concrete",
+       "material",
+       -0.161
+      ],
+      [
+       "fur",
+       "material",
+       -0.244
+      ]
+     ],
+     "leftover": 0.792,
+     "_top": 403
+    },
+    "share": 0.026087085537461512
+   },
+   "WC-C_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "flecked",
+      "texture",
+      0.474
+     ],
+     [
+      "marbled",
+      "texture",
+      0.407
+     ],
+     [
+      "pitted",
+      "texture",
+      0.39
+     ],
+     [
+      "ocean-s",
+      "scene",
+      0.388
+     ],
+     [
+      "blotchy",
+      "texture",
+      0.384
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      0.375
+     ],
+     [
+      "porous",
+      "texture",
+      0.365
+     ],
+     [
+      "creek-s",
+      "scene",
+      0.345
+     ]
+    ],
+    "down": [
+     [
+      "zigzagged",
+      "texture",
+      -0.461
+     ],
+     [
+      "chequered",
+      "texture",
+      -0.334
+     ],
+     [
+      "spiralled",
+      "texture",
+      -0.334
+     ],
+     [
+      "washer",
+      "object",
+      -0.332
+     ],
+     [
+      "interlaced",
+      "texture",
+      -0.302
+     ],
+     [
+      "head",
+      "part",
+      -0.295
+     ],
+     [
+      "dog",
+      "object",
+      -0.285
+     ],
+     [
+      "fireplace",
+      "object",
+      -0.285
+     ]
+    ],
+    "decomposition": [
+     [
+      "flecked",
+      "texture",
+      0.369
+     ],
+     [
+      "bag",
+      "object",
+      0.301
+     ],
+     [
+      "cage / bird cage",
+      "object",
+      0.241
+     ],
+     [
+      "ocean-s",
+      "scene",
+      0.313
+     ],
+     [
+      "light",
+      "object",
+      0.204
+     ]
+    ],
+    "leftover": 0.548,
+    "_top": 414
+   },
+   "WC-C_shift": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "painted",
+       "material",
+       0.263
+      ],
+      [
+       "wallpaper",
+       "material",
+       0.248
+      ],
+      [
+       "pasture-s",
+       "scene",
+       0.225
+      ],
+      [
+       "green-c",
+       "color",
+       0.225
+      ],
+      [
+       "grass",
+       "object",
+       0.224
+      ],
+      [
+       "field",
+       "object",
+       0.212
+      ],
+      [
+       "golf_course-s",
+       "scene",
+       0.203
+      ],
+      [
+       "tree",
+       "object",
+       0.203
+      ]
+     ],
+     "down": [
+      [
+       "chair",
+       "object",
+       -0.332
+      ],
+      [
+       "bag",
+       "object",
+       -0.304
+      ],
+      [
+       "armchair",
+       "object",
+       -0.288
+      ],
+      [
+       "bus_interior-s",
+       "scene",
+       -0.279
+      ],
+      [
+       "motorbike",
+       "object",
+       -0.272
+      ],
+      [
+       "boat",
+       "object",
+       -0.271
+      ],
+      [
+       "seat",
+       "part",
+       -0.271
+      ],
+      [
+       "swivel chair",
+       "object",
+       -0.268
+      ]
+     ],
+     "decomposition": [
+      [
+       "chair",
+       "object",
+       -0.35
+      ],
+      [
+       "ball",
+       "object",
+       0.217
+      ],
+      [
+       "paw",
+       "part",
+       -0.187
+      ],
+      [
+       "warehouse-indoor-s",
+       "scene",
+       -0.179
+      ],
+      [
+       "freckled",
+       "texture",
+       -0.144
+      ]
+     ],
+     "leftover": 0.776,
+     "_top": 275
+    },
+    "norm": 0.3896269070892405
+   },
+   "W-A_sv0": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "zigzagged",
+       "texture",
+       0.517
+      ],
+      [
+       "head",
+       "part",
+       0.443
+      ],
+      [
+       "dog",
+       "object",
+       0.442
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.427
+      ],
+      [
+       "neck",
+       "part",
+       0.417
+      ],
+      [
+       "water tower",
+       "object",
+       0.391
+      ],
+      [
+       "washer",
+       "object",
+       0.39
+      ],
+      [
+       "muzzle",
+       "part",
+       0.387
+      ]
+     ],
+     "down": [
+      [
+       "marbled",
+       "texture",
+       -0.508
+      ],
+      [
+       "flecked",
+       "texture",
+       -0.49
+      ],
+      [
+       "creek-s",
+       "scene",
+       -0.474
+      ],
+      [
+       "forest-broadleaf-s",
+       "scene",
+       -0.47
+      ],
+      [
+       "pitted",
+       "texture",
+       -0.451
+      ],
+      [
+       "blotchy",
+       "texture",
+       -0.445
+      ],
+      [
+       "porous",
+       "texture",
+       -0.403
+      ],
+      [
+       "forest-needleleaf-s",
+       "scene",
+       -0.399
+      ]
+     ],
+     "decomposition": [
+      [
+       "zigzagged",
+       "texture",
+       0.365
+      ],
+      [
+       "spiralled",
+       "texture",
+       0.304
+      ],
+      [
+       "studded",
+       "texture",
+       0.264
+      ],
+      [
+       "sheep",
+       "object",
+       0.248
+      ],
+      [
+       "foot",
+       "part",
+       -0.236
+      ]
+     ],
+     "leftover": 0.446,
+     "_top": 407
+    },
+    "share": 0.09002481402401248
+   },
+   "W-A_sv1": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "body",
+       "part",
+       0.398
+      ],
+      [
+       "bottle",
+       "object",
+       0.368
+      ],
+      [
+       "motorbike",
+       "object",
+       0.366
+      ],
+      [
+       "table football",
+       "object",
+       0.341
+      ],
+      [
+       "cat",
+       "object",
+       0.339
+      ],
+      [
+       "plaything",
+       "object",
+       0.331
+      ],
+      [
+       "car",
+       "object",
+       0.33
+      ],
+      [
+       "sculpture",
+       "object",
+       0.327
+      ]
+     ],
+     "down": [
+      [
+       "tree",
+       "object",
+       -0.289
+      ],
+      [
+       "grass",
+       "object",
+       -0.288
+      ],
+      [
+       "park-s",
+       "scene",
+       -0.286
+      ],
+      [
+       "green-c",
+       "color",
+       -0.277
+      ],
+      [
+       "bush",
+       "object",
+       -0.26
+      ],
+      [
+       "pasture-s",
+       "scene",
+       -0.258
+      ],
+      [
+       "golf_course-s",
+       "scene",
+       -0.255
+      ],
+      [
+       "field",
+       "object",
+       -0.251
+      ]
+     ],
+     "decomposition": [
+      [
+       "body",
+       "part",
+       0.315
+      ],
+      [
+       "cat",
+       "object",
+       0.286
+      ],
+      [
+       "stairway",
+       "object",
+       0.309
+      ],
+      [
+       "paisley",
+       "texture",
+       0.26
+      ],
+      [
+       "flecked",
+       "texture",
+       0.221
+      ]
+     ],
+     "leftover": 0.651,
+     "_top": 242
+    },
+    "share": 0.04105278040979223
+   },
+   "W-A_sv2": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "sculpture",
+       "object",
+       0.324
+      ],
+      [
+       "person",
+       "object",
+       0.309
+      ],
+      [
+       "animal",
+       "object",
+       0.279
+      ],
+      [
+       "horse",
+       "object",
+       0.274
+      ],
+      [
+       "lamp",
+       "object",
+       0.267
+      ],
+      [
+       "fur",
+       "material",
+       0.258
+      ],
+      [
+       "shade",
+       "part",
+       0.258
+      ],
+      [
+       "hand",
+       "part",
+       0.249
+      ]
+     ],
+     "down": [
+      [
+       "grandstand",
+       "object",
+       -0.321
+      ],
+      [
+       "warehouse-indoor-s",
+       "scene",
+       -0.259
+      ],
+      [
+       "central reservation",
+       "object",
+       -0.256
+      ],
+      [
+       "track",
+       "object",
+       -0.244
+      ],
+      [
+       "concrete",
+       "material",
+       -0.242
+      ],
+      [
+       "brick",
+       "material",
+       -0.241
+      ],
+      [
+       "bridge",
+       "object",
+       -0.24
+      ],
+      [
+       "file cabinet",
+       "object",
+       -0.239
+      ]
+     ],
+     "decomposition": [
+      [
+       "sculpture",
+       "object",
+       0.401
+      ],
+      [
+       "grandstand",
+       "object",
+       -0.261
+      ],
+      [
+       "food",
+       "material",
+       -0.357
+      ],
+      [
+       "alley-s",
+       "scene",
+       -0.293
+      ],
+      [
+       "tvmonitor",
+       "object",
+       -0.225
+      ]
+     ],
+     "leftover": 0.685,
+     "_top": 114
+    },
+    "share": 0.03673754272384734
+   },
+   "W-A_net": {
+    "kind": "write",
+    "metric": "raw",
+    "score": "cosine",
+    "up": [
+     [
+      "zigzagged",
+      "texture",
+      0.494
+     ],
+     [
+      "dog",
+      "object",
+      0.456
+     ],
+     [
+      "head",
+      "part",
+      0.456
+     ],
+     [
+      "spiralled",
+      "texture",
+      0.437
+     ],
+     [
+      "neck",
+      "part",
+      0.425
+     ],
+     [
+      "water tower",
+      "object",
+      0.408
+     ],
+     [
+      "washer",
+      "object",
+      0.407
+     ],
+     [
+      "muzzle",
+      "part",
+      0.384
+     ]
+    ],
+    "down": [
+     [
+      "marbled",
+      "texture",
+      -0.524
+     ],
+     [
+      "forest-broadleaf-s",
+      "scene",
+      -0.512
+     ],
+     [
+      "creek-s",
+      "scene",
+      -0.508
+     ],
+     [
+      "flecked",
+      "texture",
+      -0.49
+     ],
+     [
+      "pitted",
+      "texture",
+      -0.467
+     ],
+     [
+      "blotchy",
+      "texture",
+      -0.458
+     ],
+     [
+      "forest-needleleaf-s",
+      "scene",
+      -0.444
+     ],
+     [
+      "forest_path-s",
+      "scene",
+      -0.427
+     ]
+    ],
+    "decomposition": [
+     [
+      "marbled",
+      "texture",
+      -0.441
+     ],
+     [
+      "cage / bird cage",
+      "object",
+      -0.373
+     ],
+     [
+      "foot",
+      "part",
+      -0.282
+     ],
+     [
+      "tank",
+      "object",
+      0.244
+     ],
+     [
+      "ocean-s",
+      "scene",
+      -0.241
+     ]
+    ],
+    "leftover": 0.449,
+    "_top": 407
+   },
+   "W-A_shift": {
+    "card": {
+     "kind": "write",
+     "metric": "raw",
+     "score": "cosine",
+     "up": [
+      [
+       "polka-dotted",
+       "texture",
+       0.26
+      ],
+      [
+       "wallpaper",
+       "material",
+       0.253
+      ],
+      [
+       "painted",
+       "material",
+       0.235
+      ],
+      [
+       "dotted",
+       "texture",
+       0.228
+      ],
+      [
+       "zigzagged",
+       "texture",
+       0.224
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.206
+      ],
+      [
+       "chequered",
+       "texture",
+       0.183
+      ],
+      [
+       "yellow-c",
+       "color",
+       0.181
+      ]
+     ],
+     "down": [
+      [
+       "bag",
+       "object",
+       -0.351
+      ],
+      [
+       "foot",
+       "part",
+       -0.315
+      ],
+      [
+       "chair",
+       "object",
+       -0.277
+      ],
+      [
+       "bus_interior-s",
+       "scene",
+       -0.272
+      ],
+      [
+       "plastic-clear",
+       "material",
+       -0.271
+      ],
+      [
+       "crystalline",
+       "texture",
+       -0.253
+      ],
+      [
+       "sculpture",
+       "object",
+       -0.251
+      ],
+      [
+       "armchair",
+       "object",
+       -0.239
+      ]
+     ],
+     "decomposition": [
+      [
+       "bag",
+       "object",
+       -0.37
+      ],
+      [
+       "ball",
+       "object",
+       0.208
+      ],
+      [
+       "scaly",
+       "texture",
+       -0.154
+      ],
+      [
+       "staircase-s",
+       "scene",
+       -0.256
+      ],
+      [
+       "museum-indoor-s",
+       "scene",
+       0.23
+      ]
+     ],
+     "leftover": 0.734,
+     "_top": 401
+    },
+    "norm": 0.43166930744029586
+   },
+   "overlap_top10_WC-C_vs_C-A": 0.17334464176879738,
+   "cos_net_WC-C_vs_C-A": -0.7873301124913438,
+   "widening": [
+    {
+     "unit": 430,
+     "partner": 501,
+     "build": "C",
+     "a": 1.1661453438294673,
+     "b": 0.22891586520300963,
+     "cos_w": 0.2660646325409139,
+     "pct_w": 0.9947916666666666,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "zigzagged",
+       "texture",
+       0.444
+      ],
+      [
+       "animal",
+       "object",
+       0.347
+      ],
+      [
+       "torso",
+       "part",
+       0.343
+      ],
+      [
+       "cow",
+       "object",
+       0.34
+      ],
+      [
+       "chequered",
+       "texture",
+       0.333
+      ]
+     ]
+    },
+    {
+     "unit": 430,
+     "partner": 501,
+     "build": "WC",
+     "a": 1.083443205651055,
+     "b": 0.16958468523906436,
+     "cos_w": 0.16442028964068317,
+     "pct_w": 0.9921875,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "zigzagged",
+       "texture",
+       0.354
+      ],
+      [
+       "chequered",
+       "texture",
+       0.32
+      ],
+      [
+       "torso",
+       "part",
+       0.289
+      ],
+      [
+       "animal",
+       "object",
+       0.276
+      ],
+      [
+       "cow",
+       "object",
+       0.269
+      ]
+     ]
+    },
+    {
+     "unit": 430,
+     "partner": 501,
+     "build": "L",
+     "a": 0.9316332813475899,
+     "b": 0.02379500140286026,
+     "cos_w": 0.04013692399120021,
+     "pct_w": 0.8020833333333334,
+     "cos_r": 0.3849794071254741,
+     "pct_r": 0.9765625,
+     "shared_own": 8,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": false,
+      "read": true,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "zigzagged",
+       "texture",
+       0.346
+      ],
+      [
+       "chequered",
+       "texture",
+       0.277
+      ],
+      [
+       "torso",
+       "part",
+       0.245
+      ],
+      [
+       "animal",
+       "object",
+       0.234
+      ],
+      [
+       "cow",
+       "object",
+       0.229
+      ]
+     ]
+    },
+    {
+     "unit": 430,
+     "partner": 501,
+     "build": "R4C",
+     "a": 1.1108459078772641,
+     "b": 0.18004823893645647,
+     "cos_w": 0.19226524500803283,
+     "pct_w": 0.9895833333333334,
+     "cos_r": 0.03521835977870283,
+     "pct_r": 0.4609375,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "zigzagged",
+       "texture",
+       0.39
+      ],
+      [
+       "chequered",
+       "texture",
+       0.311
+      ],
+      [
+       "torso",
+       "part",
+       0.277
+      ],
+      [
+       "animal",
+       "object",
+       0.269
+      ],
+      [
+       "cow",
+       "object",
+       0.264
+      ]
+     ]
+    },
+    {
+     "unit": 76,
+     "partner": 374,
+     "build": "C",
+     "a": 1.1429828035535814,
+     "b": 0.21637339803837324,
+     "cos_w": 0.2585888821535962,
+     "pct_w": 0.9947916666666666,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "freckled",
+       "texture",
+       0.413
+      ],
+      [
+       "hair",
+       "part",
+       0.403
+      ],
+      [
+       "neck",
+       "part",
+       0.326
+      ],
+      [
+       "skin",
+       "material",
+       0.324
+      ],
+      [
+       "person",
+       "object",
+       0.323
+      ]
+     ]
+    },
+    {
+     "unit": 76,
+     "partner": 374,
+     "build": "WC",
+     "a": 1.149630177492919,
+     "b": 0.19010715316471258,
+     "cos_w": 0.1873284622108855,
+     "pct_w": 0.9921875,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 8,
+     "shared_partner": 0,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": false
+     },
+     "new_top": [
+      [
+       "freckled",
+       "texture",
+       0.421
+      ],
+      [
+       "hair",
+       "part",
+       0.362
+      ],
+      [
+       "neck",
+       "part",
+       0.354
+      ],
+      [
+       "head",
+       "part",
+       0.351
+      ],
+      [
+       "muzzle",
+       "part",
+       0.338
+      ]
+     ]
+    },
+    {
+     "unit": 76,
+     "partner": 374,
+     "build": "L",
+     "a": 0.9878178160229062,
+     "b": 0.032932393668299725,
+     "cos_w": 0.05688031140134378,
+     "pct_w": 0.8776041666666666,
+     "cos_r": 0.23031842175699063,
+     "pct_r": 0.9114583333333334,
+     "shared_own": 7,
+     "shared_partner": 1,
+     "bars": {
+      "keeps": true,
+      "takes": false,
+      "read": false,
+      "rough": true
+     },
+     "new_top": [
+      [
+       "freckled",
+       "texture",
+       0.437
+      ],
+      [
+       "muzzle",
+       "part",
+       0.382
+      ],
+      [
+       "head",
+       "part",
+       0.361
+      ],
+      [
+       "neck",
+       "part",
+       0.34
+      ],
+      [
+       "hair",
+       "part",
+       0.319
+      ]
+     ]
+    },
+    {
+     "unit": 76,
+     "partner": 374,
+     "build": "R4C",
+     "a": 1.1404498006908352,
+     "b": 0.19300810752458383,
+     "cos_w": 0.21490337277198918,
+     "pct_w": 0.9947916666666666,
+     "cos_r": 0.08583523500448625,
+     "pct_r": 0.7317708333333334,
+     "shared_own": 8,
+     "shared_partner": 0,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": false
+     },
+     "new_top": [
+      [
+       "freckled",
+       "texture",
+       0.425
+      ],
+      [
+       "hair",
+       "part",
+       0.373
+      ],
+      [
+       "neck",
+       "part",
+       0.326
+      ],
+      [
+       "head",
+       "part",
+       0.325
+      ],
+      [
+       "muzzle",
+       "part",
+       0.321
+      ]
+     ]
+    },
+    {
+     "unit": 213,
+     "partner": 501,
+     "build": "C",
+     "a": 1.1646256943287128,
+     "b": 0.27023116314825396,
+     "cos_w": 0.339310319264287,
+     "pct_w": 0.9973958333333334,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 3,
+     "shared_partner": 0,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": false
+     },
+     "new_top": [
+      [
+       "freckled",
+       "texture",
+       0.269
+      ],
+      [
+       "head",
+       "part",
+       0.211
+      ],
+      [
+       "water tower",
+       "object",
+       0.201
+      ],
+      [
+       "skin",
+       "material",
+       0.196
+      ],
+      [
+       "hair",
+       "part",
+       0.184
+      ]
+     ]
+    },
+    {
+     "unit": 213,
+     "partner": 501,
+     "build": "WC",
+     "a": 1.1399967357746636,
+     "b": 0.21923383364140145,
+     "cos_w": 0.22662397125578415,
+     "pct_w": 0.9973958333333334,
+     "cos_r": null,
+     "pct_r": null,
+     "shared_own": 2,
+     "shared_partner": 0,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": false
+     },
+     "new_top": [
+      [
+       "freckled",
+       "texture",
+       0.269
+      ],
+      [
+       "water tower",
+       "object",
+       0.249
+      ],
+      [
+       "skin",
+       "material",
+       0.228
+      ],
+      [
+       "shade",
+       "part",
+       0.216
+      ],
+      [
+       "person",
+       "object",
+       0.208
+      ]
+     ]
+    },
+    {
+     "unit": 213,
+     "partner": 501,
+     "build": "L",
+     "a": 0.9598522627051382,
+     "b": 0.03773730960167094,
+     "cos_w": 0.07019704117705083,
+     "pct_w": 0.9401041666666666,
+     "cos_r": 0.42296200328245764,
+     "pct_r": 0.9817708333333334,
+     "shared_own": 2,
+     "shared_partner": 0,
+     "bars": {
+      "keeps": true,
+      "takes": false,
+      "read": true,
+      "rough": false
+     },
+     "new_top": [
+      [
+       "freckled",
+       "texture",
+       0.299
+      ],
+      [
+       "skin",
+       "material",
+       0.24
+      ],
+      [
+       "water tower",
+       "object",
+       0.223
+      ],
+      [
+       "person",
+       "object",
+       0.219
+      ],
+      [
+       "tank",
+       "object",
+       0.2
+      ]
+     ]
+    },
+    {
+     "unit": 213,
+     "partner": 501,
+     "build": "R4C",
+     "a": 1.1379650801233412,
+     "b": 0.2277148567207679,
+     "cos_w": 0.26095866271949897,
+     "pct_w": 0.9973958333333334,
+     "cos_r": 0.09964367962233384,
+     "pct_r": 0.7838541666666666,
+     "shared_own": 2,
+     "shared_partner": 0,
+     "bars": {
+      "keeps": true,
+      "takes": true,
+      "read": false,
+      "rough": false
+     },
+     "new_top": [
+      [
+       "freckled",
+       "texture",
+       0.278
+      ],
+      [
+       "skin",
+       "material",
+       0.217
+      ],
+      [
+       "water tower",
+       "object",
+       0.203
+      ],
+      [
+       "pink-c",
+       "color",
+       0.194
+      ],
+      [
+       "person",
+       "object",
+       0.187
+      ]
+     ]
+    }
+   ]
+  }
+ }
+}

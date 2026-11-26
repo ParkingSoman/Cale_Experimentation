@@ -1,0 +1,941 @@
+{
+ "243": {
+  "parent": 245,
+  "sum_check_rel": 1.3197238354191102e-06,
+  "silhouette": 0.15667345787516415,
+  "k": 2,
+  "subcircuits": [
+   {
+    "id": 0,
+    "n_fit": 287,
+    "n_test": 296,
+    "effect_share_test": 0.23757166521985632,
+    "parent_share": 0.015754739632106673,
+    "parent_rank": 4,
+    "top10": [
+     422,
+     377,
+     476,
+     245,
+     186,
+     144,
+     107,
+     241,
+     461,
+     141
+    ],
+    "top3": [
+     [
+      "s4b0:422",
+      0.142,
+      "unread"
+     ],
+     [
+      "s4b0:377",
+      0.123,
+      "unread"
+     ],
+     [
+      "s4b0:476",
+      0.083,
+      "unread"
+     ]
+    ],
+    "classes": [
+     [
+      "canoe",
+      14
+     ],
+     [
+      "speedboat",
+      12
+     ],
+     [
+      "paddle",
+      8
+     ],
+     [
+      "leafhopper",
+      8
+     ],
+     [
+      "snowmobile",
+      7
+     ],
+     [
+      "gondola",
+      5
+     ]
+    ],
+    "value_mean": 1.1778438413184695
+   },
+   {
+    "id": 1,
+    "n_fit": 213,
+    "n_test": 204,
+    "effect_share_test": 0.7624283347801437,
+    "parent_share": 0.09823093961173664,
+    "parent_rank": 1,
+    "top10": [
+     245,
+     67,
+     422,
+     377,
+     100,
+     410,
+     241,
+     141,
+     293,
+     476
+    ],
+    "top3": [
+     [
+      "s4b0:245",
+      0.457,
+      "A small perched bird in profile with a coloured breast patch and a thi"
+     ],
+     [
+      "s4b0:67",
+      0.321,
+      "unread"
+     ],
+     [
+      "s4b0:422",
+      0.177,
+      "unread"
+     ]
+    ],
+    "classes": [
+     [
+      "house finch",
+      16
+     ],
+     [
+      "brambling",
+      15
+     ],
+     [
+      "goldfinch",
+      15
+     ],
+     [
+      "chickadee",
+      14
+     ],
+     [
+      "junco",
+      13
+     ],
+     [
+      "robin",
+      12
+     ]
+    ],
+    "value_mean": 1.4415374585720295
+   }
+  ],
+  "overlap_median": 0.6,
+  "neg_inputs": [
+   [
+    "s4b0:237",
+    -0.149,
+    "A slim, glossy, boldly coloured body or limb (a thin animal or tool wi"
+   ],
+   [
+    "s4b0:233",
+    -0.114,
+    "unread"
+   ],
+   [
+    "s4b0:127",
+    -0.076,
+    "unread"
+   ],
+   [
+    "s4b0:157",
+    -0.075,
+    "unread"
+   ],
+   [
+    "s4b0:269",
+    -0.071,
+    "unread"
+   ]
+  ],
+  "neg_classes": [
+   "minivan",
+   "Rhodesian ridgeback",
+   "kuvasz",
+   "boxer",
+   "Great Pyrenees",
+   "ambulance"
+  ],
+  "parent_share_all": 0.0573055906099129
+ },
+ "73": {
+  "parent": 245,
+  "sum_check_rel": 1.1292804003440366e-06,
+  "silhouette": 0.14265486939982927,
+  "k": 2,
+  "subcircuits": [
+   {
+    "id": 0,
+    "n_fit": 87,
+    "n_test": 83,
+    "effect_share_test": 0.04963279560269981,
+    "parent_share": 0.09538538144708265,
+    "parent_rank": 1,
+    "top10": [
+     245,
+     55,
+     410,
+     293,
+     177,
+     200,
+     477,
+     227,
+     425,
+     409
+    ],
+    "top3": [
+     [
+      "s4b0:245",
+      0.364,
+      "A small perched bird in profile with a coloured breast patch and a thi"
+     ],
+     [
+      "s4b0:55",
+      0.145,
+      "unread"
+     ],
+     [
+      "s4b0:410",
+      0.135,
+      "unread"
+     ]
+    ],
+    "classes": [
+     [
+      "bulbul",
+      10
+     ],
+     [
+      "junco",
+      10
+     ],
+     [
+      "American coot",
+      6
+     ],
+     [
+      "chickadee",
+      6
+     ],
+     [
+      "quail",
+      6
+     ],
+     [
+      "little blue heron",
+      5
+     ]
+    ],
+    "value_mean": 1.2856757037941067
+   },
+   {
+    "id": 1,
+    "n_fit": 413,
+    "n_test": 417,
+    "effect_share_test": 0.9503672043973002,
+    "parent_share": 0.0013494563362239677,
+    "parent_rank": 102,
+    "top10": [
+     372,
+     450,
+     220,
+     155,
+     391,
+     287,
+     177,
+     227,
+     320,
+     412
+    ],
+    "top3": [
+     [
+      "s4b0:372",
+      0.077,
+      "unread"
+     ],
+     [
+      "s4b0:450",
+      0.047,
+      "unread"
+     ],
+     [
+      "s4b0:220",
+      0.046,
+      "unread"
+     ]
+    ],
+    "classes": [
+     [
+      "rule",
+      10
+     ],
+     [
+      "slide rule",
+      7
+     ],
+     [
+      "accordion",
+      7
+     ],
+     [
+      "picket fence",
+      7
+     ],
+     [
+      "barometer",
+      7
+     ],
+     [
+      "cabbage butterfly",
+      6
+     ]
+    ],
+    "value_mean": 1.1933718302059404
+   }
+  ],
+  "overlap_median": 0.2,
+  "neg_inputs": [
+   [
+    "s4b0:237",
+    -0.117,
+    "A slim, glossy, boldly coloured body or limb (a thin animal or tool wi"
+   ],
+   [
+    "s4b0:101",
+    -0.103,
+    "unread"
+   ],
+   [
+    "s4b0:172",
+    -0.085,
+    "unread"
+   ],
+   [
+    "s4b0:408",
+    -0.083,
+    "unread"
+   ],
+   [
+    "s4b0:407",
+    -0.079,
+    "unread"
+   ]
+  ],
+  "neg_classes": [
+   "ambulance",
+   "Brittany spaniel",
+   "Japanese spaniel",
+   "redbone",
+   "Pekinese",
+   "Blenheim spaniel"
+  ],
+  "parent_share_all": 0.022162602769774782
+ },
+ "377": {
+  "parent": 245,
+  "sum_check_rel": 7.124146499255157e-07,
+  "silhouette": 0.14811768126983313,
+  "k": 2,
+  "subcircuits": [
+   {
+    "id": 0,
+    "n_fit": 395,
+    "n_test": 416,
+    "effect_share_test": 0.9492144786944655,
+    "parent_share": 0.013842585039068706,
+    "parent_rank": 2,
+    "top10": [
+     81,
+     245,
+     31,
+     454,
+     21,
+     372,
+     383,
+     317,
+     67,
+     356
+    ],
+    "top3": [
+     [
+      "s4b0:81",
+      0.028,
+      "unread"
+     ],
+     [
+      "s4b0:245",
+      0.019,
+      "A small perched bird in profile with a coloured breast patch and a thi"
+     ],
+     [
+      "s4b0:31",
+      0.017,
+      "a white or pale soft coat, against warm reddish-brown fur"
+     ]
+    ],
+    "classes": [
+     [
+      "ptarmigan",
+      6
+     ],
+     [
+      "redshank",
+      6
+     ],
+     [
+      "junco",
+      6
+     ],
+     [
+      "tow truck",
+      5
+     ],
+     [
+      "snowplow",
+      5
+     ],
+     [
+      "ruddy turnstone",
+      5
+     ]
+    ],
+    "value_mean": 0.6679284035405026
+   },
+   {
+    "id": 1,
+    "n_fit": 105,
+    "n_test": 84,
+    "effect_share_test": 0.050785521305534535,
+    "parent_share": 0.0,
+    "parent_rank": 414,
+    "top10": [
+     418,
+     31,
+     220,
+     274,
+     417,
+     283,
+     13,
+     473,
+     340,
+     347
+    ],
+    "top3": [
+     [
+      "s4b0:418",
+      0.197,
+      "a long pointed muzzle seen in profile"
+     ],
+     [
+      "s4b0:31",
+      0.062,
+      "a white or pale soft coat, against warm reddish-brown fur"
+     ],
+     [
+      "s4b0:220",
+      0.043,
+      "unread"
+     ]
+    ],
+    "classes": [
+     [
+      "Eskimo dog",
+      5
+     ],
+     [
+      "dogsled",
+      5
+     ],
+     [
+      "borzoi",
+      4
+     ],
+     [
+      "Bernese mountain dog",
+      4
+     ],
+     [
+      "Samoyed",
+      4
+     ],
+     [
+      "kuvasz",
+      4
+     ]
+    ],
+    "value_mean": 0.7173963149388631
+   }
+  ],
+  "overlap_median": 0.1,
+  "neg_inputs": [
+   [
+    "s4b0:68",
+    -0.058,
+    "unread"
+   ],
+   [
+    "s4b0:113",
+    -0.025,
+    "unread"
+   ],
+   [
+    "s4b0:210",
+    -0.025,
+    "unread"
+   ],
+   [
+    "s4b0:93",
+    -0.024,
+    "unread"
+   ],
+   [
+    "s4b0:237",
+    -0.023,
+    "A slim, glossy, boldly coloured body or limb (a thin animal or tool wi"
+   ]
+  ],
+  "neg_classes": [
+   "police van",
+   "ambulance",
+   "American chameleon",
+   "tiger beetle",
+   "green mamba",
+   "daisy"
+  ],
+  "parent_share_all": 0.010654951200224808
+ },
+ "317": {
+  "parent": 418,
+  "sum_check_rel": 1.4505602655857672e-06,
+  "silhouette": 0.24600571291875856,
+  "k": 2,
+  "subcircuits": [
+   {
+    "id": 0,
+    "n_fit": 306,
+    "n_test": 318,
+    "effect_share_test": 0.6987995362987524,
+    "parent_share": 0.015689944539642,
+    "parent_rank": 2,
+    "top10": [
+     32,
+     418,
+     427,
+     143,
+     271,
+     240,
+     422,
+     473,
+     201,
+     67
+    ],
+    "top3": [
+     [
+      "s4b0:32",
+      0.055,
+      "unread"
+     ],
+     [
+      "s4b0:418",
+      0.047,
+      "a long pointed muzzle seen in profile"
+     ],
+     [
+      "s4b0:427",
+      0.044,
+      "unread"
+     ]
+    ],
+    "classes": [
+     [
+      "tank",
+      9
+     ],
+     [
+      "grille",
+      8
+     ],
+     [
+      "sports car",
+      7
+     ],
+     [
+      "convertible",
+      6
+     ],
+     [
+      "cab",
+      5
+     ],
+     [
+      "harvester",
+      4
+     ]
+    ],
+    "value_mean": 1.046160561586517
+   },
+   {
+    "id": 1,
+    "n_fit": 194,
+    "n_test": 182,
+    "effect_share_test": 0.3012004637012477,
+    "parent_share": 0.1648715981543341,
+    "parent_rank": 1,
+    "top10": [
+     418,
+     271,
+     399,
+     473,
+     289,
+     143,
+     240,
+     19,
+     219,
+     494
+    ],
+    "top3": [
+     [
+      "s4b0:418",
+      0.579,
+      "a long pointed muzzle seen in profile"
+     ],
+     [
+      "s4b0:271",
+      0.146,
+      "unread"
+     ],
+     [
+      "s4b0:399",
+      0.086,
+      "unread"
+     ]
+    ],
+    "classes": [
+     [
+      "borzoi",
+      9
+     ],
+     [
+      "red wolf",
+      9
+     ],
+     [
+      "Afghan hound",
+      7
+     ],
+     [
+      "Saluki",
+      7
+     ],
+     [
+      "flat-coated retriever",
+      7
+     ],
+     [
+      "groenendael",
+      7
+     ]
+    ],
+    "value_mean": 1.1279281672743178
+   }
+  ],
+  "overlap_median": 0.5,
+  "neg_inputs": [
+   [
+    "s4b0:497",
+    -0.062,
+    "unread"
+   ],
+   [
+    "s4b0:237",
+    -0.045,
+    "A slim, glossy, boldly coloured body or limb (a thin animal or tool wi"
+   ],
+   [
+    "s4b0:430",
+    -0.044,
+    "unread"
+   ],
+   [
+    "s4b0:373",
+    -0.039,
+    "unread"
+   ],
+   [
+    "s4b0:269",
+    -0.038,
+    "unread"
+   ]
+  ],
+  "neg_classes": [
+   "Boston bull",
+   "pug",
+   "kimono",
+   "balloon",
+   "racket",
+   "bell cote"
+  ],
+  "parent_share_all": 0.08110601057358867
+ },
+ "408": {
+  "parent": 418,
+  "sum_check_rel": 1.3114826556784248e-06,
+  "silhouette": 0.23808427664702198,
+  "k": 3,
+  "subcircuits": [
+   {
+    "id": 0,
+    "n_fit": 265,
+    "n_test": 263,
+    "effect_share_test": 0.4439787627291008,
+    "parent_share": 0.014194464135045909,
+    "parent_rank": 8,
+    "top10": [
+     266,
+     173,
+     180,
+     402,
+     432,
+     272,
+     110,
+     418,
+     474,
+     232
+    ],
+    "top3": [
+     [
+      "s4b0:266",
+      0.476,
+      "A dark coat with tan and white markings in a fixed pattern, against pa"
+     ],
+     [
+      "s4b0:173",
+      0.415,
+      "A dark coat with tan markings, as in s4b0:266 but a sharper version fo"
+     ],
+     [
+      "s4b0:180",
+      0.088,
+      "unread"
+     ]
+    ],
+    "classes": [
+     [
+      "EntleBucher",
+      17
+     ],
+     [
+      "Greater Swiss Mountain dog",
+      16
+     ],
+     [
+      "Bernese mountain dog",
+      16
+     ],
+     [
+      "Appenzeller",
+      15
+     ],
+     [
+      "Rottweiler",
+      14
+     ],
+     [
+      "Tibetan mastiff",
+      11
+     ]
+    ],
+    "value_mean": 1.388231612151524
+   },
+   {
+    "id": 1,
+    "n_fit": 159,
+    "n_test": 168,
+    "effect_share_test": 0.42523505774119247,
+    "parent_share": 0.0,
+    "parent_rank": 349,
+    "top10": [
+     412,
+     113,
+     450,
+     167,
+     423,
+     308,
+     173,
+     133,
+     307,
+     266
+    ],
+    "top3": [
+     [
+      "s4b0:412",
+      0.101,
+      "unread"
+     ],
+     [
+      "s4b0:113",
+      0.079,
+      "unread"
+     ],
+     [
+      "s4b0:450",
+      0.067,
+      "unread"
+     ]
+    ],
+    "classes": [
+     [
+      "crossword puzzle",
+      12
+     ],
+     [
+      "hard disc",
+      11
+     ],
+     [
+      "shoji",
+      8
+     ],
+     [
+      "black and gold garden spider",
+      7
+     ],
+     [
+      "cauliflower",
+      4
+     ],
+     [
+      "barometer",
+      4
+     ]
+    ],
+    "value_mean": 1.2014350879867122
+   },
+   {
+    "id": 2,
+    "n_fit": 76,
+    "n_test": 69,
+    "effect_share_test": 0.13078617952970678,
+    "parent_share": 0.00022662870842312595,
+    "parent_rank": 221,
+    "top10": [
+     400,
+     490,
+     434,
+     173,
+     181,
+     221,
+     396,
+     370,
+     359,
+     357
+    ],
+    "top3": [
+     [
+      "s4b0:400",
+      0.396,
+      "unread"
+     ],
+     [
+      "s4b0:490",
+      0.145,
+      "unread"
+     ],
+     [
+      "s4b0:434",
+      0.139,
+      "unread"
+     ]
+    ],
+    "classes": [
+     [
+      "broccoli",
+      11
+     ],
+     [
+      "coral reef",
+      3
+     ],
+     [
+      "jacamar",
+      2
+     ],
+     [
+      "rapeseed",
+      2
+     ],
+     [
+      "strawberry",
+      2
+     ],
+     [
+      "banana",
+      1
+     ]
+    ],
+    "value_mean": 1.1783581470188342
+   }
+  ],
+  "overlap_median": 0.1,
+  "neg_inputs": [
+   [
+    "s4b0:237",
+    -0.119,
+    "A slim, glossy, boldly coloured body or limb (a thin animal or tool wi"
+   ],
+   [
+    "s4b0:233",
+    -0.1,
+    "unread"
+   ],
+   [
+    "s4b0:152",
+    -0.092,
+    "unread"
+   ],
+   [
+    "s4b0:451",
+    -0.086,
+    "unread"
+   ],
+   [
+    "s4b0:28",
+    -0.085,
+    "unread"
+   ]
+  ],
+  "neg_classes": [
+   "dingo",
+   "collie",
+   "Leonberg",
+   "redbone",
+   "bull mastiff",
+   "cairn"
+  ],
+  "parent_share_all": 0.008516517048058985
+ },
+ "siblings": {
+  "243_on_73": 0.5842777777777778,
+  "243_on_377": 0.5121111111111111,
+  "73_on_243": 0.8315,
+  "73_on_377": 0.5367500000000001,
+  "377_on_243": 0.7189166666666666,
+  "377_on_73": 0.5875,
+  "317_on_408": 0.5929444444444445,
+  "408_on_317": 0.4343611111111111
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "s4b0": {
+  "K2": {
+   "raw": {
+    "share": 0.915,
+    "n": 387,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.91,
+     "part": 0.96,
+     "material": 1.0,
+     "scene": 0.84,
+     "texture": 0.96
+    }
+   },
+   "whitened": {
+    "share": 0.876,
+    "n": 387,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.88,
+     "part": 0.91,
+     "material": 0.95,
+     "scene": 0.79,
+     "texture": 0.94
+    }
+   },
+   "pass": true
+  },
+  "K4": {
+   "raw": {
+    "logistic": 0.645,
+    "lda": 0.86,
+    "n": 107,
+    "probe_cv_auc_median": NaN,
+    "C_median": 0.003,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.794,
+    "lda": 0.897,
+    "n": 107,
+    "probe_cv_auc_median": NaN,
+    "C_median": 0.003,
+    "pass": false
+   },
+   "pass": false
+  },
+  "K5_read": {
+   "raw": {
+    "top_abs_cos_median": 0.594,
+    "top_abs_cos_95th": 0.751,
+    "leftover_median": 0.31
+   },
+   "whitened": {
+    "top_abs_cos_median": 0.266,
+    "top_abs_cos_95th": 0.355,
+    "leftover_median": 0.784
+   }
+  }
+ }
+}

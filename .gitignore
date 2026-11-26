@@ -46,3 +46,8 @@ research/clean/map/tests/**/*.png
 # CrakBox is its own private repo since 2026-11-05: https://github.com/ParkingSoman/CrakBox
 # It stays at this path on disk, so its paths into research/ keep working.
 CrakBox/
+
+# CLIP-KD downloads and private open_clip install (2026-11-25)
+research/clean/distill/clipkd/weights/
+research/clean/distill/clipkd/pylib/
+research/clean/distill/clipkd/out/

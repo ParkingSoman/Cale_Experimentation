@@ -1,0 +1,53 @@
+Base top-1 on all 1,500: 0.804
+  block 0 config done
+  block 1 config done
+  block 2 config done
+  block 3 config done
+  block 4 config done
+  block 5 config done
+  block 6 config done
+  block 7 config done
+  block 8 config done
+  block 9 config done
+  block 10 config done
+  block 11 config done
+  block 12 config done
+  block 13 config done
+  block 14 config done
+  block 15 config done
+  block 16 config done
+  block 17 config done
+  block 18 config done
+  block 19 config done
+  block 20 config done
+  block 21 config done
+  block 22 config done
+  block 23 config done
+  block 24 config done
+  block 25 config done
+  block 26 config done
+  block 27 config done
+  block 28 config done
+  block 29 config done
+keep 0.5 meanfill: KL 0.5372 top-1 0.632
+keep 0.5 tree: KL 0.4248 top-1 0.655
+keep 0.5 randpar: KL 0.5333 top-1 0.633
+keep 0.5 dense: KL 0.3698 top-1 0.665
+  tree - meanfill: KL -0.1124 [-0.12483955174684525, -0.1006290465593338]  top-1 +0.0233 [0.012649999931454659, 0.03400000184774399]
+  tree - randpar: KL -0.1086 [-0.12056759744882584, -0.09713727235794067]  top-1 +0.0227 [0.012000000104308128, 0.03400000184774399]
+  dense - tree: KL -0.0549 [-0.06281673163175583, -0.047108013182878494]  top-1 +0.0093 [0.0020000000949949026, 0.01733333244919777]
+keep 0.4 meanfill: KL 0.9132 top-1 0.527
+keep 0.4 tree: KL 0.7118 top-1 0.574
+keep 0.4 randpar: KL 0.9057 top-1 0.529
+keep 0.4 dense: KL 0.6061 top-1 0.596
+  tree - meanfill: KL -0.2014 [-0.21809160709381104, -0.18662108480930328]  top-1 +0.0473 [0.03466666489839554, 0.06133333221077919]
+  tree - randpar: KL -0.1938 [-0.2097529172897339, -0.17949311435222626]  top-1 +0.0447 [0.03200000151991844, 0.057999998331069946]
+  dense - tree: KL -0.1057 [-0.11682232469320297, -0.09537086635828018]  top-1 +0.0220 [0.012000000104308128, 0.03266666829586029]
+keep 0.25 meanfill: KL 2.1722 top-1 0.263
+keep 0.25 tree: KL 1.6542 top-1 0.363
+keep 0.25 randpar: KL 2.1519 top-1 0.265
+keep 0.25 dense: KL 1.3961 top-1 0.403
+  tree - meanfill: KL -0.5180 [-0.5423927307128906, -0.4946470260620117]  top-1 +0.1000 [0.08266666531562805, 0.11800000071525574]
+  tree - randpar: KL -0.4977 [-0.5213890671730042, -0.47513347864151]  top-1 +0.0980 [0.0806666687130928, 0.11535000056028366]
+  dense - tree: KL -0.2581 [-0.27457883954048157, -0.24084317684173584]  top-1 +0.0400 [0.027316667139530182, 0.0533333346247673]
+after 100 cycles: max relative weight drift 2.76e-05; switch split (ms, with a sync after each step): {'mean': 1560.5355739593506, 'tiers': 65.72799682617188, 'bias': 11.842584609985352}

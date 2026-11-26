@@ -1,0 +1,19 @@
+{
+ "neuron": "p_negc2",
+ "targets": [
+  1,
+  6,
+  8,
+  9,
+  12,
+  13,
+  24,
+  25,
+  30,
+  31,
+  35,
+  36
+ ],
+ "control_words_from": "c101",
+ "photos": "held+test, unseen"
+}

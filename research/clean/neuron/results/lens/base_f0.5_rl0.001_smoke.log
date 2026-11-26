@@ -1,0 +1,7 @@
+14:24:26 base_f0.5_rl0.001_smoke on mps: {'mode': 'base', 'frac': 0.5, 'fit': 'train', 'per_class': 4, 'ridge_lens': 0.001, 'ridge_w': 1e-06, 'ds_lens': False, 'head_lens': False, 'head_ridge': 0.001, 'smoke': True, 'nblocks': 30, 'save': False, 'tag': ''}
+14:24:57 calibration done
+14:24:57 fit photos 100
+14:24:57 block 0: on-rate Base 0.10823 coarse 0.10823 (median ratio 1.00), |L-I|/sqrt(d) 0.000, 0s
+14:24:57 block 1: on-rate Base 0.13752 coarse 0.13752 (median ratio 1.00), |L-I|/sqrt(d) 0.000, 0s
+14:24:58 block 2: on-rate Base 0.10235 coarse 0.10235 (median ratio 1.00), |L-I|/sqrt(d) 0.000, 0s
+14:25:05 RESULT base_f0.5_rl0.001_smoke: test KL 0.0051 top-1 0.7967 | held KL 0.0043

@@ -1,0 +1,5 @@
+planted [261, 241, 386] phi of members [0.21, 0.71, 0.62] top3 [np.int64(241), np.int64(261), np.int64(386)] n>=.3 2
+planted [420, 485, 73] phi of members [0.6, 0.46, 0.59] top3 [np.int64(73), np.int64(420), np.int64(485)] n>=.3 4
+planted [216, 443, 139] phi of members [0.58, 0.52, 0.44] top3 [np.int64(139), np.int64(216), np.int64(443)] n>=.3 3
+members found in top 3: mean 3.0 of 3; all 3 found in 1.0
+member phi median [0.44, 0.51, 0.63] (weakest, middle, strongest)

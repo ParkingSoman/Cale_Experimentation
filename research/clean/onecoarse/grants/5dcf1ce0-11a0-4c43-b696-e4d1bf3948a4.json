@@ -1,0 +1,32 @@
+{
+ "session_id": "5dcf1ce0-11a0-4c43-b696-e4d1bf3948a4",
+ "grants": [
+  {
+   "time": "2026-11-24 13:41:21",
+   "plan_path": "/Users/shonusengupta/.claude/plans/ok-we-are-moving-jiggly-wilkinson-of-5dcf1ce0-11a0-4c43-b696-e4d1bf3948a4.md",
+   "allow": {
+    "neurons": [
+     "A:all-units",
+     "A:children",
+     "s3:69",
+     "s3:parents"
+    ],
+    "net": [
+     "A",
+     "R",
+     "R4"
+    ],
+    "photos": [
+     "held",
+     "saved",
+     "test",
+     "train"
+    ],
+    "where": [
+     "cluster",
+     "mac"
+    ]
+   }
+  }
+ ]
+}

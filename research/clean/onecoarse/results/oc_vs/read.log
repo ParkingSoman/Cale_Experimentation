@@ -1,0 +1,170 @@
+cut 11 done
+cut 64 done
+cut 192 done
+cut 384 done
+# Steps 2 and 3: vector reads of what training adds (oc_vs_read.py)
+
+Floors. Random mixes of A's writes (200): top cosine 5th/50th/95th 0.15 / 0.20 / 0.30; leftover 0.77 / 0.85 / 0.90. A's real writes (K5b): top cosine 5th/50th/95th 0.15 / 0.24 / 0.41; leftover 0.69 / 0.83 / 0.90.
+
+## Cut 11
+
+| Vector | Share | Reading (up 3, down 2, leftover) |
+|---|---|---|
+| lost: sum of D's writes | | zigzagged +0.41, chequered +0.35, studded +0.31 | down: matted -0.39, flecked -0.39 | left 0.68 |
+| C-A direction 1 | 0.28 | zigzagged +0.36, chequered +0.32, polka-dotted +0.30 | down: matted -0.37, fibrous -0.35 | left 0.73 |
+| C-A direction 2 | 0.13 | paisley +0.31, swirly +0.24, lacelike +0.18 | down: ice rink -0.15, grooved -0.15 | left 0.82 |
+| C-A direction 3 | 0.12 | paper +0.19, food +0.18, flower +0.17 | down: poolroom-home-s -0.18, artists_loft-s -0.16 | left 0.88 |
+| C-A net sum | | zigzagged +0.40, chequered +0.34, polka-dotted +0.30 | down: matted -0.38, flecked -0.37 | left 0.70 |
+| WC-C direction 1 | 0.04 | ashcan +0.17, black-c +0.17, loudspeaker +0.15 | down: paisley -0.27, lacelike -0.25 | left 0.85 |
+| WC-C direction 2 | 0.03 | sprinkled +0.13, paper +0.10, tapestry +0.09 | down: spiralled -0.13, cobwebbed -0.10 | left 0.93 |
+| WC-C direction 3 | 0.03 | pitted +0.22, blotchy +0.21, stained +0.21 | down: paisley -0.23, interlaced -0.21 | left 0.83 |
+| WC-C net sum | | cracked +0.24, creek-s +0.22, marbled +0.22 | down: studded -0.23, polka-dotted -0.21 | left 0.84 |
+| WC-C bn2 shift change (norm 0.009) | | polka-dotted +0.19, head +0.19, dotted +0.18 | down: warehouse-indoor-s -0.16, grandstand -0.15 | left 0.90 |
+| W-A direction 1 | 0.13 | paisley +0.32, zigzagged +0.24, dotted +0.23 | down: matted -0.25, fibrous -0.24 | left 0.76 |
+| W-A direction 2 | 0.07 | ice rink +0.19, pitted +0.18, porous +0.17 | down: paisley -0.29, swirly -0.23 | left 0.82 |
+| W-A direction 3 | 0.06 | spiralled +0.17, cobwebbed +0.16, fence +0.16 | down: flower -0.20, plant -0.17 | left 0.89 |
+| W-A net sum | | zigzagged +0.35, chequered +0.29, polka-dotted +0.25 | down: matted -0.35, fibrous -0.33 | left 0.77 |
+| W-A bn2 shift change (norm 0.013) | | paisley +0.21, polka-dotted +0.20, zigzagged +0.20 | down: bus_interior-s -0.16, crosshatched -0.15 | left 0.87 |
+Cosine of the net sums, WC-C against C-A: **-0.442** (negative = training pulls back C's rebuild)
+
+
+Overlap of the top-10 direction spaces, WC-C against C-A (mean squared cosine of principal angles; random 10-dim pair in 512: ~0.020): **0.369**
+
+| Unit -> partner | Build | a (own) | write change: partner cos, pct among D | read-pattern change: partner cos, pct | rough: shared own / partner | verdict |
+|---|---|---|---|---|---|---|
+| n5 -> n464 | C | 1.002 | +0.909, 0.91 | no read change | 7 / 1 | fails: takes, read |
+| n5 -> n464 | WC | 1.004 | +0.856, 0.91 | no read change | 7 / 1 | fails: takes, read |
+| n5 -> n464 | L | 0.997 | +0.446, 0.91 | +0.621, 0.91 | 8 / 1 | fails: takes, read |
+| n5 -> n464 | R4C | 1.001 | +0.869, 0.91 | +0.628, 0.91 | 7 / 1 | fails: takes, read |
+
+n5 own write: chequered +0.18, leg +0.15, window_seat-s +0.15 | down: forest-broadleaf-s -0.16, tree -0.15 | left 0.89
+
+n464 partner write: zigzagged +0.30, interlaced +0.28, spiralled +0.25 | down: creek-s -0.28, pitted -0.26 | left 0.81
+
+
+## Cut 64
+
+| Vector | Share | Reading (up 3, down 2, leftover) |
+|---|---|---|
+| lost: sum of D's writes | | zigzagged +0.45, washer +0.41, polka-dotted +0.39 | down: flecked -0.50, forest-broadleaf-s -0.47 | left 0.52 |
+| C-A direction 1 | 0.13 | zigzagged +0.44, studded +0.39, polka-dotted +0.39 | down: flecked -0.46, marbled -0.44 | left 0.56 |
+| C-A direction 2 | 0.05 | wheel +0.38, motorbike +0.36, bicycle +0.32 | down: stage -0.18, airport_terminal-s -0.16 | left 0.72 |
+| C-A direction 3 | 0.04 | pantry +0.17, file cabinet +0.16, supermarket-s +0.16 | down: poolroom-home-s -0.23, bicycle -0.23 | left 0.80 |
+| C-A net sum | | zigzagged +0.43, polka-dotted +0.39, washer +0.39 | down: flecked -0.49, forest-broadleaf-s -0.45 | left 0.55 |
+| WC-C direction 1 | 0.02 | kitchen island +0.30, back +0.28, galley-s +0.27 | down: field-wild-s -0.34, lacelike -0.33 | left 0.73 |
+| WC-C direction 2 | 0.02 | lined +0.27, grooved +0.25, banded +0.21 | down: plaything -0.14, granite -0.14 | left 0.86 |
+| WC-C direction 3 | 0.01 | court +0.14, airport_terminal-s +0.13, beam +0.12 | down: sheep -0.14, ruins -0.14 | left 0.92 |
+| WC-C net sum | | brick +0.15, warehouse-indoor-s +0.14, wrinkled +0.13 | down: laminate -0.14, sink -0.14 | left 0.92 |
+| WC-C bn2 shift change (norm 0.041) | | zigzagged +0.36, head +0.32, muzzle +0.30 | down: flecked -0.36, marbled -0.35 | left 0.72 |
+| W-A direction 1 | 0.04 | dotted +0.26, polka-dotted +0.26, studded +0.24 | down: matted -0.23, alley-s -0.21 | left 0.80 |
+| W-A direction 2 | 0.03 | wheel +0.47, bicycle +0.42, motorbike +0.41 | down: poster -0.18, lined -0.17 | left 0.67 |
+| W-A direction 3 | 0.03 | grooved +0.27, pleated +0.25, lined +0.25 | down: lacelike -0.27, ruins -0.20 | left 0.80 |
+| W-A net sum | | zigzagged +0.36, polka-dotted +0.36, dining_room-s +0.34 | down: flecked -0.41, forest-broadleaf-s -0.36 | left 0.64 |
+| W-A bn2 shift change (norm 0.042) | | polka-dotted +0.23, dotted +0.21, zigzagged +0.19 | down: warehouse-indoor-s -0.23, wrinkled -0.20 | left 0.85 |
+Cosine of the net sums, WC-C against C-A: **-0.241** (negative = training pulls back C's rebuild)
+
+
+Overlap of the top-10 direction spaces, WC-C against C-A (mean squared cosine of principal angles; random 10-dim pair in 512: ~0.020): **0.166**
+
+| Unit -> partner | Build | a (own) | write change: partner cos, pct among D | read-pattern change: partner cos, pct | rough: shared own / partner | verdict |
+|---|---|---|---|---|---|---|
+| n339 -> n476 | C | 1.022 | +0.716, 0.98 | no read change | 8 / 1 | fails: read |
+| n339 -> n476 | WC | 1.031 | +0.631, 0.98 | no read change | 7 / 1 | fails: read |
+| n339 -> n476 | L | 0.999 | +0.322, 0.98 | +0.486, 0.98 | 7 / 1 | coarse (all 4) |
+| n339 -> n476 | R4C | 1.023 | +0.648, 0.98 | +0.524, 0.98 | 7 / 1 | coarse (all 4) |
+
+n339 own write: seat +0.27, bus_interior-s +0.26, swivel chair +0.23 | down: pillar -0.12, painted -0.12 | left 0.86
+
+n476 partner write: autobus +0.36, van +0.36, car +0.33 | down: flecked -0.22, ocean-s -0.19 | left 0.76
+
+
+## Cut 192
+
+| Vector | Share | Reading (up 3, down 2, leftover) |
+|---|---|---|
+| lost: sum of D's writes | | zigzagged +0.52, head +0.46, dog +0.45 | down: flecked -0.56, marbled -0.53 | left 0.43 |
+| C-A direction 1 | 0.16 | zigzagged +0.53, dog +0.45, washer +0.45 | down: flecked -0.56, marbled -0.54 | left 0.39 |
+| C-A direction 2 | 0.04 | plaza-s +0.37, castle-s +0.27, house-s +0.27 | down: dinette-vehicle-s -0.42, metal -0.34 | left 0.61 |
+| C-A direction 3 | 0.03 | hair +0.25, freckled +0.25, head +0.23 | down: shoe_shop-s -0.27, paisley -0.23 | left 0.76 |
+| C-A net sum | | zigzagged +0.53, head +0.45, dog +0.45 | down: flecked -0.56, marbled -0.53 | left 0.43 |
+| WC-C direction 1 | 0.02 | hot tub +0.32, tank +0.31, bathtub +0.30 | down: forest-broadleaf-s -0.35, plant -0.34 | left 0.70 |
+| WC-C direction 2 | 0.01 | frilly +0.20, skyscraper-s +0.17, white-c +0.15 | down: swivel chair -0.21, dinette-vehicle-s -0.20 | left 0.85 |
+| WC-C direction 3 | 0.01 | matted +0.27, trench +0.26, rock +0.26 | down: stage -0.21, dotted -0.20 | left 0.82 |
+| WC-C net sum | | leg +0.26, neck +0.25, spiralled +0.25 | down: park-s -0.24, pitted -0.23 | left 0.79 |
+| WC-C bn2 shift change (norm 0.247) | | zigzagged +0.47, polka-dotted +0.41, head +0.37 | down: marbled -0.46, flecked -0.44 | left 0.56 |
+| W-A direction 1 | 0.04 | washer +0.46, dog +0.44, zigzagged +0.44 | down: forest-broadleaf-s -0.51, marbled -0.49 | left 0.47 |
+| W-A direction 2 | 0.03 | plaza-s +0.36, house-s +0.31, building +0.29 | down: leather -0.42, seat -0.39 | left 0.64 |
+| W-A direction 3 | 0.02 | tank +0.30, bottle +0.28, body +0.26 | down: matted -0.23, park-s -0.21 | left 0.76 |
+| W-A net sum | | zigzagged +0.51, head +0.45, dog +0.45 | down: flecked -0.54, marbled -0.53 | left 0.46 |
+| W-A bn2 shift change (norm 0.209) | | zigzagged +0.41, polka-dotted +0.40, dotted +0.35 | down: flecked -0.39, marbled -0.39 | left 0.63 |
+Cosine of the net sums, WC-C against C-A: **+0.197** (negative = training pulls back C's rebuild)
+
+
+Overlap of the top-10 direction spaces, WC-C against C-A (mean squared cosine of principal angles; random 10-dim pair in 512: ~0.020): **0.121**
+
+| Unit -> partner | Build | a (own) | write change: partner cos, pct among D | read-pattern change: partner cos, pct | rough: shared own / partner | verdict |
+|---|---|---|---|---|---|---|
+| n430 -> n114 | C | 1.063 | +0.341, 0.99 | no read change | 7 / 1 | fails: read |
+| n430 -> n114 | WC | 1.058 | +0.211, 0.99 | no read change | 6 / 1 | fails: read |
+| n430 -> n114 | L | 1.007 | +0.070, 0.93 | +0.465, 0.99 | 7 / 1 | fails: takes |
+| n430 -> n114 | R4C | 1.078 | +0.218, 0.99 | +0.153, 0.86 | 7 / 0 | fails: read, rough |
+
+n430 own write: zigzagged +0.32, chequered +0.24, interlaced +0.21 | down: flecked -0.21, gauzy -0.19 | left 0.83
+
+n114 partner write: house-s +0.38, apartment_building-outdoor-s +0.33, head +0.29 | down: metal -0.33, ice rink -0.30 | left 0.67
+
+
+## Cut 384
+
+| Vector | Share | Reading (up 3, down 2, leftover) |
+|---|---|---|
+| lost: sum of D's writes | | zigzagged +0.55, spiralled +0.49, dog +0.47 | down: flecked -0.58, marbled -0.57 | left 0.40 |
+| C-A direction 1 | 0.32 | zigzagged +0.54, spiralled +0.46, dog +0.46 | down: flecked -0.55, marbled -0.54 | left 0.40 |
+| C-A direction 2 | 0.07 | bathtub +0.45, dinette-vehicle-s +0.45, bathroom-s +0.43 | down: pasture-s -0.43, castle-s -0.39 | left 0.63 |
+| C-A direction 3 | 0.04 | cat +0.43, bottle +0.42, vault +0.41 | down: path -0.30, park-s -0.30 | left 0.52 |
+| C-A net sum | | zigzagged +0.54, spiralled +0.47, dog +0.46 | down: flecked -0.56, marbled -0.56 | left 0.41 |
+| WC-C direction 1 | 0.04 | pitted +0.47, forest-broadleaf-s +0.47, marbled +0.47 | down: zigzagged -0.47, washer -0.40 | left 0.56 |
+| WC-C direction 2 | 0.03 | towel +0.32, jacuzzi-indoor-s +0.26, bathtub +0.25 | down: bush -0.24, pasture-s -0.23 | left 0.78 |
+| WC-C direction 3 | 0.03 | marbled +0.21, banded +0.17, fence +0.17 | down: bird -0.33, cat -0.32 | left 0.79 |
+| WC-C net sum | | flecked +0.47, marbled +0.41, pitted +0.39 | down: zigzagged -0.46, chequered -0.33 | left 0.55 |
+| WC-C bn2 shift change (norm 0.390) | | painted +0.26, wallpaper +0.25, pasture-s +0.23 | down: chair -0.33, bag -0.30 | left 0.78 |
+| W-A direction 1 | 0.09 | zigzagged +0.52, head +0.44, dog +0.44 | down: marbled -0.51, flecked -0.49 | left 0.45 |
+| W-A direction 2 | 0.04 | body +0.40, bottle +0.37, motorbike +0.37 | down: tree -0.29, grass -0.29 | left 0.65 |
+| W-A direction 3 | 0.04 | sculpture +0.32, person +0.31, animal +0.28 | down: grandstand -0.32, warehouse-indoor-s -0.26 | left 0.69 |
+| W-A net sum | | zigzagged +0.49, dog +0.46, head +0.46 | down: marbled -0.52, forest-broadleaf-s -0.51 | left 0.45 |
+| W-A bn2 shift change (norm 0.432) | | polka-dotted +0.26, wallpaper +0.25, painted +0.23 | down: bag -0.35, foot -0.32 | left 0.73 |
+Cosine of the net sums, WC-C against C-A: **-0.787** (negative = training pulls back C's rebuild)
+
+
+Overlap of the top-10 direction spaces, WC-C against C-A (mean squared cosine of principal angles; random 10-dim pair in 512: ~0.020): **0.173**
+
+| Unit -> partner | Build | a (own) | write change: partner cos, pct among D | read-pattern change: partner cos, pct | rough: shared own / partner | verdict |
+|---|---|---|---|---|---|---|
+| n430 -> n501 | C | 1.166 | +0.266, 0.99 | no read change | 7 / 1 | fails: read |
+| n430 -> n501 | WC | 1.083 | +0.164, 0.99 | no read change | 7 / 1 | fails: read |
+| n430 -> n501 | L | 0.932 | +0.040, 0.80 | +0.385, 0.98 | 8 / 1 | fails: takes |
+| n430 -> n501 | R4C | 1.111 | +0.192, 0.99 | +0.035, 0.46 | 7 / 1 | fails: read |
+
+n430 own write: zigzagged +0.32, chequered +0.24, interlaced +0.21 | down: flecked -0.21, gauzy -0.19 | left 0.83
+
+n501 partner write: tail +0.29, fur +0.28, cat +0.25 | down: pole -0.23, dining_room-s -0.20 | left 0.79
+
+| n76 -> n374 | C | 1.143 | +0.259, 0.99 | no read change | 7 / 1 | fails: read |
+| n76 -> n374 | WC | 1.150 | +0.187, 0.99 | no read change | 8 / 0 | fails: read, rough |
+| n76 -> n374 | L | 0.988 | +0.057, 0.88 | +0.230, 0.91 | 7 / 1 | fails: takes, read |
+| n76 -> n374 | R4C | 1.140 | +0.215, 0.99 | +0.086, 0.73 | 8 / 0 | fails: read, rough |
+
+n76 own write: freckled +0.42, muzzle +0.35, head +0.28 | down: sofa -0.18, outside arm -0.15 | left 0.69
+
+n374 partner write: fur +0.41, sheep +0.40, trench +0.36 | down: pleated -0.25, conference_room-s -0.24 | left 0.70
+
+| n213 -> n501 | C | 1.165 | +0.339, 1.00 | no read change | 3 / 0 | fails: read, rough |
+| n213 -> n501 | WC | 1.140 | +0.227, 1.00 | no read change | 2 / 0 | fails: read, rough |
+| n213 -> n501 | L | 0.960 | +0.070, 0.94 | +0.423, 0.98 | 2 / 0 | fails: takes, rough |
+| n213 -> n501 | R4C | 1.138 | +0.261, 1.00 | +0.100, 0.78 | 2 / 0 | fails: read, rough |
+
+n213 own write: freckled +0.27, lid +0.21, polka-dotted +0.19 | down: stratified -0.20, grandstand -0.19 | left 0.83
+
+n501 partner write: tail +0.29, fur +0.28, cat +0.25 | down: pole -0.23, dining_room-s -0.20 | left 0.79
+
+

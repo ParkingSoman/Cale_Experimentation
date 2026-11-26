@@ -1,0 +1,19 @@
+{
+ "build_median_abs_corr": 0.0011423705192868876,
+ "build_q99_abs_corr": 0.044198778525681603,
+ "build_effective_dims": 820.3477140880278,
+ "trained_median_abs_corr": 0.0014378209349917683,
+ "trained_q99_abs_corr": 0.04567355294088304,
+ "trained_effective_dims": 823.4941649583532
+}
+{
+ "build_median_abs_corr": 0.0011423705192868876,
+ "build_q99_abs_corr": 0.044198778525681603,
+ "build_effective_dims": 820.3477140880278,
+ "trained_median_abs_corr": 0.0014378209349917683,
+ "trained_q99_abs_corr": 0.04567355294088304,
+ "trained_effective_dims": 823.4941649583532,
+ "value_ranked_resolved": 0.6747395396232605,
+ "greedy_all_resolved": 0.686866044998169,
+ "greedy_overlap_with_value_top1024": 0.8076171875
+}

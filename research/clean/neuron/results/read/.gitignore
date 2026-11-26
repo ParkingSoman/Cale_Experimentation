@@ -1,0 +1,5 @@
+# N10: keep large binaries out of git (logits, captures, survivors, attribution dumps, cache)
+*.npz
+*.npy
+*.pt
+cache/

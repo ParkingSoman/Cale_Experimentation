@@ -1,0 +1,62 @@
+calibration 34s
+block 0: value 0.0005  random 0.0010  [85s]
+block 1: value 0.0009  random 0.0011  [126s]
+block 2: value 0.0009  random 0.0011  [170s]
+block 3: value 0.0010  random 0.0012  [214s]
+block 4: value 0.0009  random 0.0014  [256s]
+block 5: value 0.0009  random 0.0008  [298s]
+block 6: value 0.0013  random 0.0013  [339s]
+block 7: value 0.0010  random 0.0012  [381s]
+block 8: value 0.0010  random 0.0016  [422s]
+block 9: value 0.0006  random 0.0006  [464s]
+block 10: value 0.0011  random 0.0016  [504s]
+block 11: value 0.0010  random 0.0013  [546s]
+block 12: value 0.0010  random 0.0016  [588s]
+block 13: value 0.0008  random 0.0007  [629s]
+block 14: value 0.0014  random 0.0020  [670s]
+block 15: value 0.0015  random 0.0017  [713s]
+block 16: value 0.0012  random 0.0019  [755s]
+block 17: value 0.0023  random 0.0024  [800s]
+block 18: value 0.0013  random 0.0018  [846s]
+block 19: value 0.0016  random 0.0022  [891s]
+block 20: value 0.0019  random 0.0021  [937s]
+block 21: value 0.0025  random 0.0042  [982s]
+block 22: value 0.0019  random 0.0027  [1031s]
+block 23: value 0.0013  random 0.0017  [1079s]
+block 24: value 0.0034  random 0.0064  [1127s]
+block 25: value 0.0022  random 0.0043  [1176s]
+block 26: value 0.0015  random 0.0046  [1225s]
+block 27: value 0.0017  random 0.0521  [1274s]
+block 28: value 0.0020  random 0.0038  [1323s]
+block 29: value 0.0021  random 0.0048  [1372s]
+cumulative 0..0: 0.0005
+cumulative 0..1: 0.0016
+cumulative 0..2: 0.0031
+cumulative 0..3: 0.0050
+cumulative 0..4: 0.0066
+cumulative 0..5: 0.0085
+cumulative 0..6: 0.0113
+cumulative 0..7: 0.0135
+cumulative 0..8: 0.0169
+cumulative 0..9: 0.0184
+cumulative 0..10: 0.0218
+cumulative 0..11: 0.0275
+cumulative 0..12: 0.0332
+cumulative 0..13: 0.0368
+cumulative 0..14: 0.0430
+cumulative 0..15: 0.0504
+cumulative 0..16: 0.0618
+cumulative 0..17: 0.0765
+cumulative 0..18: 0.0910
+cumulative 0..19: 0.0997
+cumulative 0..20: 0.1209
+cumulative 0..21: 0.1336
+cumulative 0..22: 0.1615
+cumulative 0..23: 0.1892
+cumulative 0..24: 0.2080
+cumulative 0..25: 0.2306
+cumulative 0..26: 0.2498
+cumulative 0..27: 0.2624
+cumulative 0..28: 0.2744
+cumulative 0..29: 0.2961
+{"sanity_restore_kl": 0.0, "sum_single_value": 0.04286932572722435, "sum_single_random": 0.11547258496284485}

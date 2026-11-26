@@ -68,3 +68,29 @@ F3. Every floor rung is at chance at 50% on both networks (KL 9.0-9.3). The trai
 ## Rounds
 
 (each round appends: proposals, the critic's verdicts, what was built, results, expected / happened / why)
+
+### Round 1 (2026-11-26)
+
+Full proposals and critic verdicts: `distill/fanout/round1/propose.json`.
+
+| Part | Proposal | Critic |
+|---|---|---|
+| P0 Input | self-made input: start at pink noise, a few gradient steps that lower the network's own loss on targets it draws itself (language model: its own samples) | build (CLIP n = 256 or compare with a K = 0 row; the CLIP loss is a self-InfoNCE proxy, name it so; photo-mix calibration mandatory) |
+| P1-P3 Tree/read/gate | OR-merge: a deleted unit joins its R1 branch's kept unit; merged gate fires as often as ANY member | revise (changes the write too; needs one-part ablation rows at whole-network KL; R1 weighted by noise RMS is an extension of R1, name it) |
+| P4 Write | reader-matched write: kept writes solved against the KEPT readers, one closed form (unit fold P + stream fold A) | build, with a switch A = 0 (A conflicts with P6's read maps) |
+| P5 Rank | written value x read gradient of the final output, per input, weakest removed first, re-measured each step | build (fix: mask ln_pre too; null = same formula with permuted pairing) |
+| P6 Stream | one stream subspace kept by what readers AND the norm divisor read; free per-site read maps | revise (planted test that can fail: an unread high-variance direction must be dropped; separate basis from read maps) |
+
+Critic's cross-cutting rules: report agree and top-1 next to every KL; a gain that lands near the flat level with no gain in agree is a calibration change, not a recovered job; never tune on check_bn; planted tests that pass by algebra are implementation checks, the nulls carry the evidence.
+
+Step 0 of round 1 (me, runner): one part cut at a time (floor ranking), KL on 1,000 test photos.
+
+| Cut only this set | CLIP 95% | CLIP 50% | CLIP 25% | CLIP 5% | ResNet 95% | ResNet 50% | ResNet 5% |
+|---|---|---|---|---|---|---|---|
+| stream | .280 | 11.104 | 11.431 | 8.903 | 1.076 | 18.051 | 6.134 |
+| heads | .175 | 5.807 | 9.704 | 9.573 | | | |
+| MLP (CLIP) / inner (ResNet) | .473 | 9.040 | 10.499 | 12.000 | .445 | 6.761 | 8.617 |
+
+Flat-output level (KL of a uniform output, 1,000 test photos): CLIP 6.281, ResNet 5.737.
+
+Reading: at 50%, ANY one part cut alone already puts the network at or past the flat level (best: CLIP heads 5.81, ResNet inner 6.76). So a fix to one part cannot move the 50% row alone. Every part needs a repair. Note: the noise ranking of CLIP MLP neurons is WORSE than the weight ranking at 95% (.473 vs .205, F1).

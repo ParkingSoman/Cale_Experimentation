@@ -1,0 +1,34 @@
+14:38:26 lens_r1e-3 on mps: {'mode': 'lens', 'frac': 0.5, 'fit': 'train', 'per_class': 4, 'ridge_lens': 0.001, 'ridge_w': 1e-06, 'ds_lens': False, 'head_lens': False, 'head_ridge': 0.001, 'smoke': False, 'nblocks': 30, 'save': False, 'tag': 'lens_r1e-3'}
+14:39:04 calibration done
+14:39:06 fit photos 4000
+14:39:15 block 0: on-rate Base 0.10853 coarse 0.10845 (median ratio 1.00), |L-I|/sqrt(d) 0.046, 8s
+14:39:23 block 1: on-rate Base 0.13301 coarse 0.13218 (median ratio 0.99), |L-I|/sqrt(d) 0.092, 8s
+14:39:32 block 2: on-rate Base 0.10052 coarse 0.09832 (median ratio 0.98), |L-I|/sqrt(d) 0.074, 8s
+14:39:41 block 3: on-rate Base 0.08573 coarse 0.08318 (median ratio 0.97), |L-I|/sqrt(d) 0.091, 9s
+14:39:51 block 4: on-rate Base 0.08768 coarse 0.08520 (median ratio 0.97), |L-I|/sqrt(d) 0.103, 10s
+14:39:59 block 5: on-rate Base 0.09493 coarse 0.09145 (median ratio 0.96), |L-I|/sqrt(d) 0.093, 9s
+14:40:09 block 6: on-rate Base 0.08469 coarse 0.08049 (median ratio 0.94), |L-I|/sqrt(d) 0.090, 9s
+14:40:18 block 7: on-rate Base 0.09069 coarse 0.08579 (median ratio 0.94), |L-I|/sqrt(d) 0.099, 9s
+14:40:28 block 8: on-rate Base 0.06093 coarse 0.05716 (median ratio 0.93), |L-I|/sqrt(d) 0.115, 10s
+14:40:42 block 9: on-rate Base 0.08304 coarse 0.07668 (median ratio 0.92), |L-I|/sqrt(d) 0.108, 14s
+14:41:00 block 10: on-rate Base 0.05744 coarse 0.05321 (median ratio 0.92), |L-I|/sqrt(d) 0.122, 19s
+14:41:09 block 11: on-rate Base 0.04430 coarse 0.03977 (median ratio 0.89), |L-I|/sqrt(d) 0.122, 9s
+14:41:24 block 12: on-rate Base 0.04361 coarse 0.03899 (median ratio 0.88), |L-I|/sqrt(d) 0.130, 15s
+14:41:43 block 13: on-rate Base 0.06555 coarse 0.05778 (median ratio 0.87), |L-I|/sqrt(d) 0.111, 19s
+14:41:54 block 14: on-rate Base 0.04687 coarse 0.04223 (median ratio 0.88), |L-I|/sqrt(d) 0.142, 11s
+14:42:04 block 15: on-rate Base 0.02745 coarse 0.02308 (median ratio 0.82), |L-I|/sqrt(d) 0.118, 11s
+14:42:15 block 16: on-rate Base 0.03455 coarse 0.02988 (median ratio 0.84), |L-I|/sqrt(d) 0.141, 10s
+14:42:25 block 17: on-rate Base 0.01868 coarse 0.01492 (median ratio 0.78), |L-I|/sqrt(d) 0.136, 10s
+14:42:35 block 18: on-rate Base 0.02446 coarse 0.02037 (median ratio 0.79), |L-I|/sqrt(d) 0.135, 10s
+14:42:45 block 19: on-rate Base 0.02065 coarse 0.01789 (median ratio 0.82), |L-I|/sqrt(d) 0.160, 10s
+14:42:55 block 20: on-rate Base 0.01343 coarse 0.01054 (median ratio 0.73), |L-I|/sqrt(d) 0.139, 10s
+14:43:05 block 21: on-rate Base 0.01114 coarse 0.00956 (median ratio 0.73), |L-I|/sqrt(d) 0.165, 10s
+14:43:16 block 22: on-rate Base 0.00881 coarse 0.00717 (median ratio 0.67), |L-I|/sqrt(d) 0.160, 10s
+14:43:28 block 23: on-rate Base 0.02130 coarse 0.01795 (median ratio 0.74), |L-I|/sqrt(d) 0.165, 12s
+14:43:39 block 24: on-rate Base 0.01337 coarse 0.01174 (median ratio 0.62), |L-I|/sqrt(d) 0.206, 11s
+14:43:50 block 25: on-rate Base 0.01605 coarse 0.01436 (median ratio 0.64), |L-I|/sqrt(d) 0.202, 11s
+14:44:00 block 26: on-rate Base 0.01810 coarse 0.01605 (median ratio 0.66), |L-I|/sqrt(d) 0.215, 10s
+14:44:09 block 27: on-rate Base 0.00818 coarse 0.00575 (median ratio 0.47), |L-I|/sqrt(d) 0.403, 9s
+14:44:17 block 28: on-rate Base 0.02161 coarse 0.01610 (median ratio 0.59), |L-I|/sqrt(d) 0.380, 8s
+14:44:25 block 29: on-rate Base 0.01519 coarse 0.01099 (median ratio 0.59), |L-I|/sqrt(d) 0.380, 8s
+14:44:52 RESULT lens_r1e-3: test KL 0.9829 top-1 0.6847 | held KL 1.0127

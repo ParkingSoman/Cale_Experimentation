@@ -1,0 +1,19 @@
+{
+ "neuron": "k163_c2",
+ "targets": [
+  4,
+  6,
+  9,
+  10,
+  15,
+  18,
+  20,
+  21,
+  26,
+  29,
+  31,
+  36
+ ],
+ "control_words_from": "c101",
+ "photos": "held+test, unseen"
+}

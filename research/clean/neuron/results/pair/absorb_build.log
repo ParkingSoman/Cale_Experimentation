@@ -1,0 +1,10 @@
+value done
+1024 0.0 {'writes_unchanged': 0.6518456935882568, 'writes_resolved_shift0.0': 0.6747395396232605}
+1024 0.25 {'writes_unchanged': 0.6518456935882568, 'writes_resolved_shift0.0': 0.6747395396232605, 'writes_resolved_shift0.25': 0.6664358973503113}
+1024 0.5 {'writes_unchanged': 0.6518456935882568, 'writes_resolved_shift0.0': 0.6747395396232605, 'writes_resolved_shift0.25': 0.6664358973503113, 'writes_resolved_shift0.5': 0.6421987414360046}
+512 0.0 {'writes_unchanged': 0.48077183961868286, 'writes_resolved_shift0.0': 0.5057450532913208}
+512 0.25 {'writes_unchanged': 0.48077183961868286, 'writes_resolved_shift0.0': 0.5057450532913208, 'writes_resolved_shift0.25': 0.4993296265602112}
+512 0.5 {'writes_unchanged': 0.48077183961868286, 'writes_resolved_shift0.0': 0.5057450532913208, 'writes_resolved_shift0.25': 0.4993296265602112, 'writes_resolved_shift0.5': 0.4807385206222534}
+2048 0.0 {'writes_unchanged': 0.8661595582962036, 'writes_resolved_shift0.0': 0.8721185326576233}
+2048 0.25 {'writes_unchanged': 0.8661595582962036, 'writes_resolved_shift0.0': 0.8721185326576233, 'writes_resolved_shift0.25': 0.8601335287094116}
+2048 0.5 {'writes_unchanged': 0.8661595582962036, 'writes_resolved_shift0.0': 0.8721185326576233, 'writes_resolved_shift0.25': 0.8601335287094116, 'writes_resolved_shift0.5': 0.8262678384780884}

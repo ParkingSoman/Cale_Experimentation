@@ -1,0 +1,29 @@
+{
+ "session_id": "8170828e-16ef-483a-aa0d-4dcf58e9e62f",
+ "grants": [
+  {
+   "time": "2026-11-24 16:53:02",
+   "plan_path": "/Users/shonusengupta/.claude/plans/ok-we-found-a-parsed-kahn-of-8170828e-16ef-483a-aa0d-4dcf58e9e62f.md",
+   "allow": {
+    "neurons": [
+     "A:block0-all",
+     "A:block1-weights",
+     "A:children",
+     "A:head-weights",
+     "s3:69",
+     "s3:all"
+    ],
+    "net": [
+     "A"
+    ],
+    "photos": [
+     "held",
+     "test"
+    ],
+    "where": [
+     "cluster"
+    ]
+   }
+  }
+ ]
+}

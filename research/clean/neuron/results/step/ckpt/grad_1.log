@@ -1,0 +1,16 @@
+setup 29s, device cuda, local build differs from saved survivors in 0 indices (saved used)
+  20/3000 photos, 0s, jvp mode jvp, Q1 cos median so far 0.792
+  420/3000 photos, 3s, jvp mode jvp, Q1 cos median so far 0.789
+  820/3000 photos, 5s, jvp mode jvp, Q1 cos median so far 0.804
+  1220/3000 photos, 7s, jvp mode jvp, Q1 cos median so far 0.804
+  1620/3000 photos, 9s, jvp mode jvp, Q1 cos median so far 0.803
+  2020/3000 photos, 11s, jvp mode jvp, Q1 cos median so far 0.805
+  2420/3000 photos, 14s, jvp mode jvp, Q1 cos median so far 0.805
+  2820/3000 photos, 16s, jvp mode jvp, Q1 cos median so far 0.806
+Q1: cos(sum_k J_k e_k, real logit error) median 0.807 (IQR 0.736-0.859), norm ratio 0.678, KL of Base+linear 0.145 vs real 0.344
+Q2 W2: real |73.2| cos +1.000 share +1.000, t1 |11.3| cos +0.290 share +0.045, t2 |35| cos +0.576 share +0.275, t3 |61.5| cos +0.810 share +0.680, ti |74.2| cos -0.017 share -0.017, tc |26| cos +0.127 share +0.045, tp |75| cos +0.637 share +0.652; gradient on even vs odd batches cos +0.429
+Q2 W1: real |173| cos +1.000 share +1.000, t1 |37.6| cos +0.547 share +0.119, t2 |117| cos +0.697 share +0.470, t3 |130| cos +0.549 share +0.411, ti |382| cos -0.351 share -0.775, tc |60.5| cos -0.029 share -0.010, tp |366| cos +0.566 share +1.196; gradient on even vs odd batches cos +0.572
+Q3: d* top 200 photos (0.067 of photos) carry 0.024 of |s read grad| (ratio 0.4), -0.020 of the push along the total; terms on those photos {'t1': -0.005290025379508734, 't2': 0.17281660437583923, 't3': 0.832473635673523, 'ti': 0.28929081559181213, 'tc': -0.1263754516839981, 'tp': 0.6695581674575806}
+Q4: owner-1581 survivors, percentile of score on d* photos: median 0.923; of ratio (d* photos / all) 0.636. Other E2 survivors of block 28: 0.939 / 0.830
+Q5/Q6 W1: s_cos_minus_grad +0.150, s_cos_minus_sign +0.181, s_rel_change +0.084, block_cos_minus_grad +0.089, block_cos_minus_sign +0.163, block_rel_change +0.057, s_cos_minus_t1 +0.132, s_cos_minus_t2 +0.032, s_cos_minus_t3 +0.105, s_cos_minus_ti +0.102, s_cos_minus_tc +0.042, s_cos_minus_tp +0.028
+Q5/Q6 W2: s_cos_minus_grad -0.098, s_cos_minus_sign -0.128, s_rel_change +0.046, block_cos_minus_grad +0.086, block_cos_minus_sign +0.099, block_rel_change +0.051, s_cos_minus_t1 +0.061, s_cos_minus_t2 -0.003, s_cos_minus_t3 -0.148, s_cos_minus_ti -0.099, s_cos_minus_tc -0.040, s_cos_minus_tp +0.011

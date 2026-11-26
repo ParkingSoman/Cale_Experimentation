@@ -1,0 +1,38 @@
+B_k32_s0: train 16000 (+flips), held 2000, test 17000, device mps. A on test: {'kl': 1.2636956370215557e-08, 'top1': 0.6773529648780823}
+B at init: held KL 5.4684, trained numbers 518272
+  step 300/300 loss 2.0966 held KL 2.3837 11s
+sweep lr 0.001: held KL 2.3837
+  step 300/300 loss 1.8394 held KL 2.0833 10s
+sweep lr 0.003: held KL 2.0833
+main run: lr 0.003, 7500 steps
+  step 250/7500 loss 2.0652 held KL 2.5619 9s
+  step 500/7500 loss 1.5827 held KL 2.0779 17s
+  step 750/7500 loss 1.5067 held KL 1.9027 26s
+  step 1000/7500 loss 1.3907 held KL 1.8827 37s
+  step 1250/7500 loss 1.1761 held KL 1.8313 53s
+  step 1500/7500 loss 1.1326 held KL 1.7591 68s
+  step 1750/7500 loss 1.0576 held KL 1.8044 84s
+  step 2000/7500 loss 0.9295 held KL 1.7578 101s
+  step 2250/7500 loss 1.0105 held KL 1.7079 116s
+  step 2500/7500 loss 0.9210 held KL 1.8281 132s
+  step 2750/7500 loss 0.7958 held KL 1.7197 149s
+  step 3000/7500 loss 0.7812 held KL 1.6555 167s
+  step 3250/7500 loss 0.7952 held KL 1.7388 185s
+  step 3500/7500 loss 0.7001 held KL 1.7271 205s
+  step 3750/7500 loss 0.6312 held KL 1.6467 224s
+  step 4000/7500 loss 0.5159 held KL 1.6415 244s
+  step 4250/7500 loss 0.5415 held KL 1.6576 263s
+  step 4500/7500 loss 0.5664 held KL 1.6474 274s
+  step 4750/7500 loss 0.6384 held KL 1.6790 282s
+  step 5000/7500 loss 0.4718 held KL 1.6084 290s
+  step 5250/7500 loss 0.5243 held KL 1.6030 299s
+  step 5500/7500 loss 0.5290 held KL 1.5842 308s
+  step 5750/7500 loss 0.4629 held KL 1.5614 322s
+  step 6000/7500 loss 0.4723 held KL 1.5641 340s
+  step 6250/7500 loss 0.4166 held KL 1.5559 358s
+  step 6500/7500 loss 0.4026 held KL 1.5407 375s
+  step 6750/7500 loss 0.4123 held KL 1.5456 394s
+  step 7000/7500 loss 0.4200 held KL 1.5420 412s
+  step 7250/7500 loss 0.4011 held KL 1.5420 430s
+  step 7500/7500 loss 0.4441 held KL 1.5410 448s
+B best: stop step 6500, held KL 1.5407, fit KL 0.4123, test {'kl': 1.5262130498886108, 'top1': 0.3861176371574402}

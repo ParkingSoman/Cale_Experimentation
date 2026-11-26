@@ -1,0 +1,39 @@
+photos: build 44404, held 8000; labels 1198; sources ['ade20k', 'dtd', 'opensurfaces', 'pascal']; device mps
+  build batch 0, 64 photos, 0s
+  build batch 20, 1344 photos, 6s
+  build batch 40, 2624 photos, 12s
+  build batch 60, 3904 photos, 18s
+  build batch 80, 5184 photos, 23s
+  build batch 100, 6464 photos, 29s
+  build batch 120, 7744 photos, 35s
+  build batch 140, 9024 photos, 40s
+  build batch 160, 10304 photos, 46s
+  build batch 180, 11584 photos, 52s
+  build batch 200, 12864 photos, 57s
+  build batch 220, 14144 photos, 63s
+  build batch 240, 15424 photos, 68s
+  build batch 260, 16704 photos, 74s
+  build batch 280, 17984 photos, 80s
+  build batch 300, 19264 photos, 86s
+  build batch 320, 20544 photos, 91s
+  build batch 340, 21824 photos, 97s
+  build batch 360, 23104 photos, 103s
+  build batch 380, 24384 photos, 108s
+  build batch 400, 25664 photos, 114s
+  build batch 420, 26944 photos, 120s
+  build batch 440, 28224 photos, 125s
+  build batch 460, 29504 photos, 131s
+  build batch 480, 30784 photos, 137s
+  build batch 500, 32064 photos, 143s
+  build batch 520, 33344 photos, 151s
+  build batch 540, 34624 photos, 157s
+  build batch 560, 35904 photos, 163s
+  build batch 580, 37184 photos, 168s
+  build batch 600, 38464 photos, 174s
+  build batch 620, 39744 photos, 180s
+  build batch 640, 41024 photos, 186s
+  build batch 660, 42304 photos, 191s
+  build batch 680, 43584 photos, 197s
+build done 201s
+held done 226s
+exit 0

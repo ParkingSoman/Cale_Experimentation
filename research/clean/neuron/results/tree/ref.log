@@ -1,0 +1,227 @@
+  dogs start parent lr 0.0001 epoch 1: val KL 0.00230 (start 0.00239) [11s]
+  dogs start parent lr 0.0001 epoch 2: val KL 0.00226 (start 0.00239) [21s]
+  dogs start parent lr 0.0001 epoch 3: val KL 0.00224 (start 0.00239) [31s]
+  dogs start parent lr 0.0001 epoch 4: val KL 0.00223 (start 0.00239) [41s]
+  dogs start parent lr 0.0001 epoch 5: val KL 0.00223 (start 0.00239) [52s]
+  dogs start parent lr 0.0001 epoch 6: val KL 0.00223 (start 0.00239) [62s]
+  dogs start parent lr 0.0001 epoch 7: val KL 0.00223 (start 0.00239) [72s]
+  dogs start parent lr 0.0001 epoch 8: val KL 0.00222 (start 0.00239) [83s]
+  dogs start parent lr 0.0001 epoch 9: val KL 0.00221 (start 0.00239) [93s]
+  dogs start parent lr 0.0001 epoch 10: val KL 0.00220 (start 0.00239) [104s]
+  dogs start parent lr 0.0001 epoch 11: val KL 0.00220 (start 0.00239) [115s]
+  dogs start parent lr 0.0001 epoch 12: val KL 0.00218 (start 0.00239) [125s]
+  dogs start parent lr 0.0001 epoch 13: val KL 0.00217 (start 0.00239) [136s]
+  dogs start parent lr 0.0001 epoch 14: val KL 0.00216 (start 0.00239) [146s]
+  dogs start parent lr 0.0001 epoch 15: val KL 0.00214 (start 0.00239) [157s]
+  -> parent lr 0.0001: {'lr': 0.0001, 'best_epoch': 15, 'val': 0.002142889890819788, 'val_start': 0.0023903048131614923, 'group': 0.003126297378912568, 'coarse': 0.0004211674095131457, 'other': 0.0001048454359988682}
+  dogs start parent lr 0.001 epoch 1: val KL 0.00282 (start 0.00239) [11s]
+  dogs start parent lr 0.001 epoch 2: val KL 0.00259 (start 0.00239) [21s]
+  dogs start parent lr 0.001 epoch 3: val KL 0.00233 (start 0.00239) [32s]
+  dogs start parent lr 0.001 epoch 4: val KL 0.00216 (start 0.00239) [43s]
+  dogs start parent lr 0.001 epoch 5: val KL 0.00207 (start 0.00239) [53s]
+  dogs start parent lr 0.001 epoch 6: val KL 0.00203 (start 0.00239) [64s]
+  dogs start parent lr 0.001 epoch 7: val KL 0.00199 (start 0.00239) [75s]
+  dogs start parent lr 0.001 epoch 8: val KL 0.00195 (start 0.00239) [85s]
+  dogs start parent lr 0.001 epoch 9: val KL 0.00197 (start 0.00239) [96s]
+  dogs start parent lr 0.001 epoch 10: val KL 0.00197 (start 0.00239) [107s]
+  dogs start parent lr 0.001 epoch 11: val KL 0.00207 (start 0.00239) [117s]
+  dogs start parent lr 0.001 epoch 12: val KL 0.00216 (start 0.00239) [128s]
+  dogs start parent lr 0.001 epoch 13: val KL 0.00197 (start 0.00239) [139s]
+  dogs start parent lr 0.001 epoch 14: val KL 0.00207 (start 0.00239) [149s]
+  dogs start parent lr 0.001 epoch 15: val KL 0.00213 (start 0.00239) [160s]
+  -> parent lr 0.001: {'lr': 0.001, 'best_epoch': 8, 'val': 0.0019488729303702712, 'val_start': 0.0023903048131614923, 'group': 0.0029062305111438036, 'coarse': 0.0003623586380854249, 'other': 0.00011047413863707334}
+  dogs start drop_goal lr 0.0001 epoch 1: val KL 0.00242 (start 0.00256) [11s]
+  dogs start drop_goal lr 0.0001 epoch 2: val KL 0.00236 (start 0.00256) [21s]
+  dogs start drop_goal lr 0.0001 epoch 3: val KL 0.00234 (start 0.00256) [32s]
+  dogs start drop_goal lr 0.0001 epoch 4: val KL 0.00233 (start 0.00256) [43s]
+  dogs start drop_goal lr 0.0001 epoch 5: val KL 0.00232 (start 0.00256) [53s]
+  dogs start drop_goal lr 0.0001 epoch 6: val KL 0.00233 (start 0.00256) [64s]
+  dogs start drop_goal lr 0.0001 epoch 7: val KL 0.00232 (start 0.00256) [75s]
+  dogs start drop_goal lr 0.0001 epoch 8: val KL 0.00232 (start 0.00256) [86s]
+  dogs start drop_goal lr 0.0001 epoch 9: val KL 0.00231 (start 0.00256) [97s]
+  dogs start drop_goal lr 0.0001 epoch 10: val KL 0.00231 (start 0.00256) [109s]
+  dogs start drop_goal lr 0.0001 epoch 11: val KL 0.00231 (start 0.00256) [121s]
+  dogs start drop_goal lr 0.0001 epoch 12: val KL 0.00229 (start 0.00256) [132s]
+  dogs start drop_goal lr 0.0001 epoch 13: val KL 0.00228 (start 0.00256) [143s]
+  dogs start drop_goal lr 0.0001 epoch 14: val KL 0.00228 (start 0.00256) [155s]
+  dogs start drop_goal lr 0.0001 epoch 15: val KL 0.00226 (start 0.00256) [166s]
+  -> drop_goal lr 0.0001: {'lr': 0.0001, 'best_epoch': 15, 'val': 0.0022631390020251274, 'val_start': 0.002562770154327154, 'group': 0.0033691113349050283, 'coarse': 0.00047398757305927575, 'other': 0.00013927715190220624}
+  dogs start drop_goal lr 0.001 epoch 1: val KL 0.00286 (start 0.00256) [12s]
+  dogs start drop_goal lr 0.001 epoch 2: val KL 0.00267 (start 0.00256) [23s]
+  dogs start drop_goal lr 0.001 epoch 3: val KL 0.00245 (start 0.00256) [34s]
+  dogs start drop_goal lr 0.001 epoch 4: val KL 0.00229 (start 0.00256) [46s]
+  dogs start drop_goal lr 0.001 epoch 5: val KL 0.00216 (start 0.00256) [58s]
+  dogs start drop_goal lr 0.001 epoch 6: val KL 0.00218 (start 0.00256) [69s]
+  dogs start drop_goal lr 0.001 epoch 7: val KL 0.00220 (start 0.00256) [81s]
+  dogs start drop_goal lr 0.001 epoch 8: val KL 0.00211 (start 0.00256) [92s]
+  dogs start drop_goal lr 0.001 epoch 9: val KL 0.00213 (start 0.00256) [104s]
+  dogs start drop_goal lr 0.001 epoch 10: val KL 0.00200 (start 0.00256) [115s]
+  dogs start drop_goal lr 0.001 epoch 11: val KL 0.00204 (start 0.00256) [126s]
+  dogs start drop_goal lr 0.001 epoch 12: val KL 0.00203 (start 0.00256) [137s]
+  dogs start drop_goal lr 0.001 epoch 13: val KL 0.00194 (start 0.00256) [148s]
+  dogs start drop_goal lr 0.001 epoch 14: val KL 0.00209 (start 0.00256) [158s]
+  dogs start drop_goal lr 0.001 epoch 15: val KL 0.00197 (start 0.00256) [168s]
+  -> drop_goal lr 0.001: {'lr': 0.001, 'best_epoch': 13, 'val': 0.0019384550396353006, 'val_start': 0.002562770154327154, 'group': 0.0029051369056105614, 'coarse': 0.00039536773692816496, 'other': 0.0001229949266416952}
+{
+ "parent": {
+  "lr": 0.001,
+  "best_epoch": 8,
+  "val": 0.0019488729303702712,
+  "val_start": 0.0023903048131614923,
+  "group": 0.0029062305111438036,
+  "coarse": 0.0003623586380854249,
+  "other": 0.00011047413863707334
+ },
+ "drop_goal": {
+  "lr": 0.001,
+  "best_epoch": 13,
+  "val": 0.0019384550396353006,
+  "val_start": 0.002562770154327154,
+  "group": 0.0029051369056105614,
+  "coarse": 0.00039536773692816496,
+  "other": 0.0001229949266416952
+ }
+}
+O pass 48s, rows/block [23520, 23520, 23520, 23520, 23520, 23520, 23520, 23520, 11760, 11760, 11760]
+  parent depth 1: KL group 0.00016 other 0.00000 coarse 0.00001 [12s]
+  parent depth 2: KL group 0.00028 other 0.00001 coarse 0.00004 [23s]
+  parent depth 4: KL group 0.00108 other 0.00001 coarse 0.00011 [39s]
+  parent depth 11: KL group 0.00265 other 0.00002 coarse 0.00122 [77s]
+  parent re-read: median relative change of kept reads per block {20: 0.0257, 21: 0.0473, 22: 0.0489, 23: 0.0587, 24: 0.1445, 27: 0.1014, 28: 0.1177, 29: 0.1289}
+  drop_goal depth 1: KL group 0.00004 other 0.00000 coarse 0.00000 [8s]
+  drop_goal depth 2: KL group 0.00020 other 0.00004 coarse 0.00006 [16s]
+  drop_goal depth 4: KL group 0.00126 other 0.00004 coarse 0.00012 [24s]
+  drop_goal depth 11: KL group 0.00298 other 0.00006 coarse 0.00127 [32s]
+  birds start parent lr 0.0001 epoch 1: val KL 0.00174 (start 0.00182) [10s]
+  birds start parent lr 0.0001 epoch 2: val KL 0.00169 (start 0.00182) [20s]
+  birds start parent lr 0.0001 epoch 3: val KL 0.00161 (start 0.00182) [31s]
+  birds start parent lr 0.0001 epoch 4: val KL 0.00155 (start 0.00182) [41s]
+  birds start parent lr 0.0001 epoch 5: val KL 0.00151 (start 0.00182) [51s]
+  birds start parent lr 0.0001 epoch 6: val KL 0.00146 (start 0.00182) [61s]
+  birds start parent lr 0.0001 epoch 7: val KL 0.00142 (start 0.00182) [71s]
+  birds start parent lr 0.0001 epoch 8: val KL 0.00136 (start 0.00182) [81s]
+  birds start parent lr 0.0001 epoch 9: val KL 0.00131 (start 0.00182) [91s]
+  birds start parent lr 0.0001 epoch 10: val KL 0.00131 (start 0.00182) [102s]
+  birds start parent lr 0.0001 epoch 11: val KL 0.00126 (start 0.00182) [112s]
+  birds start parent lr 0.0001 epoch 12: val KL 0.00124 (start 0.00182) [122s]
+  birds start parent lr 0.0001 epoch 13: val KL 0.00120 (start 0.00182) [132s]
+  birds start parent lr 0.0001 epoch 14: val KL 0.00116 (start 0.00182) [143s]
+  birds start parent lr 0.0001 epoch 15: val KL 0.00114 (start 0.00182) [153s]
+  -> parent lr 0.0001: {'lr': 0.0001, 'best_epoch': 15, 'val': 0.0011394283501431346, 'val_start': 0.0018234435701742768, 'group': 0.0015632347203791142, 'coarse': 0.000552193378098309, 'other': 0.00010191062756348401}
+  birds start parent lr 0.001 epoch 1: val KL 0.00189 (start 0.00182) [10s]
+  birds start parent lr 0.001 epoch 2: val KL 0.00132 (start 0.00182) [20s]
+  birds start parent lr 0.001 epoch 3: val KL 0.00093 (start 0.00182) [30s]
+  birds start parent lr 0.001 epoch 4: val KL 0.00089 (start 0.00182) [40s]
+  birds start parent lr 0.001 epoch 5: val KL 0.00097 (start 0.00182) [51s]
+  birds start parent lr 0.001 epoch 6: val KL 0.00085 (start 0.00182) [61s]
+  birds start parent lr 0.001 epoch 7: val KL 0.00087 (start 0.00182) [71s]
+  birds start parent lr 0.001 epoch 8: val KL 0.00095 (start 0.00182) [82s]
+  birds start parent lr 0.001 epoch 9: val KL 0.00081 (start 0.00182) [92s]
+  birds start parent lr 0.001 epoch 10: val KL 0.00085 (start 0.00182) [102s]
+  birds start parent lr 0.001 epoch 11: val KL 0.00084 (start 0.00182) [113s]
+  birds start parent lr 0.001 epoch 12: val KL 0.00083 (start 0.00182) [123s]
+  birds start parent lr 0.001 epoch 13: val KL 0.00074 (start 0.00182) [133s]
+  birds start parent lr 0.001 epoch 14: val KL 0.00090 (start 0.00182) [143s]
+  birds start parent lr 0.001 epoch 15: val KL 0.00086 (start 0.00182) [154s]
+  -> parent lr 0.001: {'lr': 0.001, 'best_epoch': 13, 'val': 0.0007405924261547625, 'val_start': 0.0018234435701742768, 'group': 0.0010536608751863241, 'coarse': 0.0002807518467307091, 'other': 8.233929838752374e-05}
+  birds start drop_goal lr 0.0001 epoch 1: val KL 0.00193 (start 0.00204) [11s]
+  birds start drop_goal lr 0.0001 epoch 2: val KL 0.00186 (start 0.00204) [21s]
+  birds start drop_goal lr 0.0001 epoch 3: val KL 0.00176 (start 0.00204) [31s]
+  birds start drop_goal lr 0.0001 epoch 4: val KL 0.00170 (start 0.00204) [41s]
+  birds start drop_goal lr 0.0001 epoch 5: val KL 0.00165 (start 0.00204) [51s]
+  birds start drop_goal lr 0.0001 epoch 6: val KL 0.00159 (start 0.00204) [61s]
+  birds start drop_goal lr 0.0001 epoch 7: val KL 0.00156 (start 0.00204) [71s]
+  birds start drop_goal lr 0.0001 epoch 8: val KL 0.00148 (start 0.00204) [81s]
+  birds start drop_goal lr 0.0001 epoch 9: val KL 0.00143 (start 0.00204) [92s]
+  birds start drop_goal lr 0.0001 epoch 10: val KL 0.00143 (start 0.00204) [102s]
+  birds start drop_goal lr 0.0001 epoch 11: val KL 0.00137 (start 0.00204) [112s]
+  birds start drop_goal lr 0.0001 epoch 12: val KL 0.00135 (start 0.00204) [122s]
+  birds start drop_goal lr 0.0001 epoch 13: val KL 0.00130 (start 0.00204) [132s]
+  birds start drop_goal lr 0.0001 epoch 14: val KL 0.00126 (start 0.00204) [142s]
+  birds start drop_goal lr 0.0001 epoch 15: val KL 0.00124 (start 0.00204) [152s]
+  -> drop_goal lr 0.0001: {'lr': 0.0001, 'best_epoch': 15, 'val': 0.001235108356922865, 'val_start': 0.0020377030596137047, 'group': 0.0019695982336997986, 'coarse': 0.0005949399201199412, 'other': 0.00013435111031867564}
+  birds start drop_goal lr 0.001 epoch 1: val KL 0.00206 (start 0.00204) [10s]
+  birds start drop_goal lr 0.001 epoch 2: val KL 0.00141 (start 0.00204) [20s]
+  birds start drop_goal lr 0.001 epoch 3: val KL 0.00097 (start 0.00204) [30s]
+  birds start drop_goal lr 0.001 epoch 4: val KL 0.00094 (start 0.00204) [40s]
+  birds start drop_goal lr 0.001 epoch 5: val KL 0.00100 (start 0.00204) [50s]
+  birds start drop_goal lr 0.001 epoch 6: val KL 0.00082 (start 0.00204) [60s]
+  birds start drop_goal lr 0.001 epoch 7: val KL 0.00097 (start 0.00204) [71s]
+  birds start drop_goal lr 0.001 epoch 8: val KL 0.00088 (start 0.00204) [81s]
+  birds start drop_goal lr 0.001 epoch 9: val KL 0.00084 (start 0.00204) [92s]
+  birds start drop_goal lr 0.001 epoch 10: val KL 0.00084 (start 0.00204) [103s]
+  birds start drop_goal lr 0.001 epoch 11: val KL 0.00079 (start 0.00204) [113s]
+  birds start drop_goal lr 0.001 epoch 12: val KL 0.00082 (start 0.00204) [125s]
+  birds start drop_goal lr 0.001 epoch 13: val KL 0.00074 (start 0.00204) [136s]
+  birds start drop_goal lr 0.001 epoch 14: val KL 0.00088 (start 0.00204) [148s]
+  birds start drop_goal lr 0.001 epoch 15: val KL 0.00079 (start 0.00204) [159s]
+  -> drop_goal lr 0.001: {'lr': 0.001, 'best_epoch': 13, 'val': 0.0007394041167572141, 'val_start': 0.0020377030596137047, 'group': 0.0013576167402788997, 'coarse': 0.0002848510630428791, 'other': 9.386974852532148e-05}
+{
+ "parent": {
+  "lr": 0.001,
+  "best_epoch": 13,
+  "val": 0.0007405924261547625,
+  "val_start": 0.0018234435701742768,
+  "group": 0.0010536608751863241,
+  "coarse": 0.0002807518467307091,
+  "other": 8.233929838752374e-05
+ },
+ "drop_goal": {
+  "lr": 0.001,
+  "best_epoch": 13,
+  "val": 0.0007394041167572141,
+  "val_start": 0.0020377030596137047,
+  "group": 0.0013576167402788997,
+  "coarse": 0.0002848510630428791,
+  "other": 9.386974852532148e-05
+ }
+}
+O pass 55s, rows/block [23520, 23520, 23520, 23520, 23520, 23520, 23520, 11760, 11760, 11760]
+  parent depth 1: KL group 0.00019 other 0.00000 coarse 0.00003 [16s]
+  parent depth 2: KL group 0.00033 other 0.00001 coarse 0.00005 [31s]
+  parent depth 4: KL group 0.00084 other 0.00001 coarse 0.00008 [51s]
+  parent depth 10: KL group 0.00434 other 0.00006 coarse 0.00102 [94s]
+  parent re-read: median relative change of kept reads per block {24: 0.0623, 25: 0.0783, 26: 0.0784, 27: 0.0923, 28: 0.1243, 29: 0.1644}
+  drop_goal depth 1: KL group 0.00013 other 0.00000 coarse 0.00001 [9s]
+  drop_goal depth 2: KL group 0.00027 other 0.00001 coarse 0.00003 [20s]
+  drop_goal depth 4: KL group 0.00083 other 0.00001 coarse 0.00007 [31s]
+  drop_goal depth 10: KL group 0.00467 other 0.00011 coarse 0.00101 [42s]
+  vehicles start parent lr 0.0001 epoch 1: val KL 0.00128 (start 0.00139) [11s]
+  vehicles start parent lr 0.0001 epoch 2: val KL 0.00124 (start 0.00139) [22s]
+  vehicles start parent lr 0.0001 epoch 3: val KL 0.00122 (start 0.00139) [34s]
+  vehicles start parent lr 0.0001 epoch 4: val KL 0.00121 (start 0.00139) [48s]
+  vehicles start parent lr 0.0001 epoch 5: val KL 0.00121 (start 0.00139) [60s]
+  vehicles start parent lr 0.0001 epoch 6: val KL 0.00123 (start 0.00139) [72s]
+  vehicles start parent lr 0.0001 epoch 7: val KL 0.00125 (start 0.00139) [84s]
+  vehicles start parent lr 0.0001 epoch 8: val KL 0.00126 (start 0.00139) [97s]
+  vehicles start parent lr 0.0001 epoch 9: val KL 0.00127 (start 0.00139) [109s]
+  vehicles start parent lr 0.0001 epoch 10: val KL 0.00131 (start 0.00139) [120s]
+  vehicles start parent lr 0.0001 epoch 11: val KL 0.00131 (start 0.00139) [131s]
+  vehicles start parent lr 0.0001 epoch 12: val KL 0.00132 (start 0.00139) [143s]
+  vehicles start parent lr 0.0001 epoch 13: val KL 0.00134 (start 0.00139) [155s]
+  vehicles start parent lr 0.0001 epoch 14: val KL 0.00134 (start 0.00139) [167s]
+  vehicles start parent lr 0.0001 epoch 15: val KL 0.00135 (start 0.00139) [180s]
+  -> parent lr 0.0001: {'lr': 0.0001, 'best_epoch': 4, 'val': 0.001205309061333537, 'val_start': 0.0013877094024792314, 'group': 0.0032779478933662176, 'coarse': 0.0008184316684491932, 'other': 6.410358764696866e-05}
+  vehicles start parent lr 0.001 epoch 1: val KL 0.00150 (start 0.00139) [12s]
+  vehicles start parent lr 0.001 epoch 2: val KL 0.00168 (start 0.00139) [24s]
+  vehicles start parent lr 0.001 epoch 3: val KL 0.00133 (start 0.00139) [36s]
+  vehicles start parent lr 0.001 epoch 4: val KL 0.00140 (start 0.00139) [48s]
+  vehicles start parent lr 0.001 epoch 5: val KL 0.00139 (start 0.00139) [61s]
+  vehicles start parent lr 0.001 epoch 6: val KL 0.00130 (start 0.00139) [73s]
+  vehicles start parent lr 0.001 epoch 7: val KL 0.00140 (start 0.00139) [86s]
+  vehicles start parent lr 0.001 epoch 8: val KL 0.00147 (start 0.00139) [99s]
+  vehicles start parent lr 0.001 epoch 9: val KL 0.00126 (start 0.00139) [112s]
+  vehicles start parent lr 0.001 epoch 10: val KL 0.00137 (start 0.00139) [124s]
+  vehicles start parent lr 0.001 epoch 11: val KL 0.00132 (start 0.00139) [137s]
+  vehicles start parent lr 0.001 epoch 12: val KL 0.00138 (start 0.00139) [150s]
+  vehicles start parent lr 0.001 epoch 13: val KL 0.00108 (start 0.00139) [163s]
+  vehicles start parent lr 0.001 epoch 14: val KL 0.00139 (start 0.00139) [176s]
+  vehicles start parent lr 0.001 epoch 15: val KL 0.00113 (start 0.00139) [188s]
+  -> parent lr 0.001: {'lr': 0.001, 'best_epoch': 13, 'val': 0.001080265617929399, 'val_start': 0.0013877094024792314, 'group': 0.0018766805296763778, 'coarse': 0.0005049233441241086, 'other': 8.739359327591956e-05}
+  vehicles start drop_goal lr 0.0001 epoch 1: val KL 0.00146 (start 0.00163) [12s]
+  vehicles start drop_goal lr 0.0001 epoch 2: val KL 0.00141 (start 0.00163) [23s]
+  vehicles start drop_goal lr 0.0001 epoch 3: val KL 0.00140 (start 0.00163) [35s]
+  vehicles start drop_goal lr 0.0001 epoch 4: val KL 0.00139 (start 0.00163) [46s]
+  vehicles start drop_goal lr 0.0001 epoch 5: val KL 0.00140 (start 0.00163) [58s]
+  vehicles start drop_goal lr 0.0001 epoch 6: val KL 0.00142 (start 0.00163) [69s]
+  vehicles start drop_goal lr 0.0001 epoch 7: val KL 0.00144 (start 0.00163) [81s]

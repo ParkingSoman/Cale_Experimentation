@@ -1,0 +1,25 @@
+T: train 16000 (+flips), held 2000, cal 1000, test 1500, device cuda
+calibration 32s
+build (value survivors) 4s
+build: test {'kl': 0.36980298161506653, 'top1': 0.6653333306312561}, held KL 0.3675, fit KL 0.3793
+sweep lr 0.0001
+  step 300/300 loss 0.1980 held KL 0.2117 69s
+sweep lr 0.0003
+  step 300/300 loss 0.1686 held KL 0.2336 31s
+sweep lr 0.001
+  step 300/300 loss 0.3709 held KL 0.4375 32s
+main run: lr 0.0001, 4000 steps (4 epochs over train + flips)
+  step 333/4000 loss 0.1891 held KL 0.2009 35s
+  step 666/4000 loss 0.0713 held KL 0.1884 72s
+  step 999/4000 loss 0.1457 held KL 0.1838 107s
+  step 1332/4000 loss 0.0801 held KL 0.1793 142s
+  step 1665/4000 loss 0.0919 held KL 0.1749 177s
+  step 1998/4000 loss 0.0431 held KL 0.1675 212s
+  step 2331/4000 loss 0.0556 held KL 0.1653 247s
+  step 2664/4000 loss 0.0299 held KL 0.1599 282s
+  step 2997/4000 loss 0.0433 held KL 0.1584 317s
+  step 3330/4000 loss 0.0348 held KL 0.1572 352s
+  step 3663/4000 loss 0.0298 held KL 0.1564 387s
+  step 3996/4000 loss 0.0251 held KL 0.1563 422s
+  step 4000/4000 loss 0.0453 held KL 0.1563 425s
+trained: test {'kl': 0.13064105808734894, 'top1': 0.7739999890327454}, held KL 0.1563, fit KL 0.0302, stop step 3996

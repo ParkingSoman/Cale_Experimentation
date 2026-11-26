@@ -1,0 +1,41 @@
+{
+ "session_id": "cac6f993-29ae-4bf0-8391-7ca0366ff21b",
+ "grants": [
+  {
+   "time": "2026-11-25 11:57:55",
+   "plan_path": "/Users/shonusengupta/.claude/plans/ok-we-did-some-snug-boole-of-cac6f993-29ae-4bf0-8391-7ca0366ff21b.md",
+   "allow": {
+    "neurons": [
+     "A:all-units",
+     "A:block0-all",
+     "A:block1-weights",
+     "A:children",
+     "A:head-weights",
+     "s3:69"
+    ],
+    "net": [
+     "A",
+     "C-ladder",
+     "L-ladder",
+     "R-ladder",
+     "R4-ladder",
+     "R4C-ladder",
+     "W-ladder",
+     "WC-ladder",
+     "Z-ladder"
+    ],
+    "photos": [
+     "broden-held",
+     "held",
+     "saved",
+     "test",
+     "train"
+    ],
+    "where": [
+     "cluster",
+     "mac"
+    ]
+   }
+  }
+ ]
+}

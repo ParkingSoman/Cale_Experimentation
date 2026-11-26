@@ -1,0 +1,41 @@
+{
+ "a_copy": {
+  "R2_pooled": -4.101968246793891,
+  "corr_per_channel_median": 0.4036761540518711,
+  "varB_over_varA": 5.954802978713024
+ },
+ "e_spectrum": {
+  "A_top1": 0.10568502644389409,
+  "A_top10": 0.3338423883980827,
+  "A_top32": 0.5221987221464598,
+  "B_top1": 0.05400951229370576,
+  "B_top10": 0.29106468501323857,
+  "B_top32": 0.5561146627249739,
+  "B_var_inside_A_top32": 0.2627110033150777,
+  "A_var_inside_A_top32": 0.5221987221464599,
+  "mean_shift_norm_over_A_std": 0.337621381748872
+ },
+ "b_ruler_R2_heldout": 0.7119334523672245,
+ "b_cos_B_write_vs_ruler": {
+  "median": 0.2420479655265808,
+  "n122": 0.2536086142063141,
+  "q10": 0.20484977960586548,
+  "q90": 0.2857334017753601
+ },
+ "b_norm_ratio_B_over_ruler_median": 2.6695966720581055,
+ "c_end": {
+  "B": {
+   "kl": 0.48148821348302506,
+   "top1": 0.5902352941176471
+  },
+  "B_ruler_writes": {
+   "kl": 3.5397018289005056,
+   "top1": 0.09458823529411765
+  }
+ },
+ "d_readers": {
+  "B_block1_from_A_stream_median_R2": 0.46923174312750865,
+  "B_block1_from_B_stream_median_R2": 0.9998791755186418,
+  "note": "block-1 pre-activation at the centre position, linear in the 3x3 x 512 stream patch; fit on half the test photos, scored on the other half"
+ }
+}

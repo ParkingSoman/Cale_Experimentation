@@ -1,0 +1,5 @@
+C    cut-neuron best match pct10/50/90/99 [0.14, 0.19, 0.27, 0.35]  #cut>=.4 0 of 384 | small-neuron best A match [1.0, 1.0, 1.0, 1.0]  #j covering >=2 A at .3: 11 of 128 | top cut: n446->j77 0.40, n36->j77 0.37, n352->j209 0.37
+L    cut-neuron best match pct10/50/90/99 [0.16, 0.21, 0.29, 0.36]  #cut>=.4 0 of 384 | small-neuron best A match [0.66, 0.75, 0.81, 0.87]  #j covering >=2 A at .3: 19 of 128 | top cut: n446->j77 0.39, n114->j185 0.38, n36->j77 0.37
+R4C  cut-neuron best match pct10/50/90/99 [0.16, 0.21, 0.28, 0.38]  #cut>=.4 2 of 384 | small-neuron best A match [0.76, 0.82, 0.87, 0.89]  #j covering >=2 A at .3: 20 of 128 | top cut: n446->j77 0.45, n194->j77 0.41, n374->j77 0.39
+B0   cut-neuron best match pct10/50/90/99 [0.15, 0.2, 0.28, 0.35]  #cut>=.4 0 of 384 | small-neuron best A match [0.2, 0.24, 0.31, 0.36]  #j covering >=2 A at .3: 4 of 128 | top cut: n495->j3 0.37, n257->j7 0.36, n194->j116 0.36
+B1   cut-neuron best match pct10/50/90/99 [0.14, 0.2, 0.27, 0.34]  #cut>=.4 0 of 384 | small-neuron best A match [0.2, 0.25, 0.31, 0.36]  #j covering >=2 A at .3: 4 of 128 | top cut: n324->j4 0.37, n250->j63 0.37, n442->j61 0.35

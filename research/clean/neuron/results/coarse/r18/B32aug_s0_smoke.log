@@ -1,0 +1,40 @@
+B32aug_s0_smoke: 517 train photos decoded in 9s, device cuda
+A on test (center crops): {'kl': 6.017157883064783e-09, 'top1': 0.6775293946266174}
+A top-1 on 512 augmented train crops (no mixup): 0.578
+B at init: held KL 5.4684, trained numbers 518272
+  step 20/20 loss 3.4203 held KL 4.6619 1s
+sweep lr 0.001: held KL 4.6619
+  step 20/20 loss 2.6440 held KL 4.0909 1s
+sweep lr 0.003: held KL 4.0909
+main run: lr 0.003, 60 steps of 256
+  step 2/60 loss 5.2765 held KL 5.4089 0s
+  step 4/60 loss 4.2258 held KL 5.1961 0s
+  step 6/60 loss 3.4678 held KL 4.9726 0s
+  step 8/60 loss 3.4215 held KL 4.9880 1s
+  step 10/60 loss 3.3080 held KL 4.8254 1s
+  step 12/60 loss 2.9596 held KL 4.4809 1s
+  step 14/60 loss 2.9287 held KL 4.3838 1s
+  step 16/60 loss 2.6222 held KL 4.3006 1s
+  step 18/60 loss 2.4580 held KL 4.1166 1s
+  step 20/60 loss 2.3051 held KL 4.0670 1s
+  step 22/60 loss 2.4150 held KL 4.0068 2s
+  step 24/60 loss 2.2208 held KL 4.0095 2s
+  step 26/60 loss 2.1859 held KL 4.0287 2s
+  step 28/60 loss 1.9621 held KL 4.0359 2s
+  step 30/60 loss 1.9490 held KL 3.9143 2s
+  step 32/60 loss 1.7873 held KL 3.7819 2s
+  step 34/60 loss 1.6653 held KL 3.7164 2s
+  step 36/60 loss 1.5460 held KL 3.6700 2s
+  step 38/60 loss 1.5358 held KL 3.6314 3s
+  step 40/60 loss 1.5616 held KL 3.6055 3s
+  step 42/60 loss 1.5196 held KL 3.5828 3s
+  step 44/60 loss 1.8009 held KL 3.5584 3s
+  step 46/60 loss 1.8115 held KL 3.5350 3s
+  step 48/60 loss 1.8103 held KL 3.5157 3s
+  step 50/60 loss 1.4493 held KL 3.4964 3s
+  step 52/60 loss 1.4655 held KL 3.4862 4s
+  step 54/60 loss 1.8552 held KL 3.4789 4s
+  step 56/60 loss 1.7672 held KL 3.4740 4s
+  step 58/60 loss 1.3746 held KL 3.4732 4s
+  step 60/60 loss 1.4141 held KL 3.4677 4s
+B best: stop step 60, held KL 3.4677, fit KL (center crops) 3.4029, test {'kl': 3.4722633361816406, 'top1': 0.08323529362678528}

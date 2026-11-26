@@ -1,0 +1,45 @@
+calibration 53s
+  block 0: parents done [0s]
+  block 1: parents done [0s]
+  block 2: parents done [1s]
+  block 3: parents done [1s]
+  block 4: parents done [1s]
+  block 5: parents done [1s]
+  block 6: parents done [1s]
+  block 7: parents done [1s]
+  block 8: parents done [1s]
+  block 9: parents done [1s]
+  block 10: parents done [1s]
+  block 11: parents done [2s]
+  block 12: parents done [2s]
+  block 13: parents done [2s]
+  block 14: parents done [2s]
+  block 15: parents done [2s]
+  block 16: parents done [2s]
+  block 17: parents done [2s]
+  block 18: parents done [2s]
+  block 19: parents done [2s]
+  block 20: parents done [2s]
+  block 21: parents done [2s]
+  block 22: parents done [3s]
+  block 23: parents done [3s]
+  block 24: parents done [3s]
+  block 25: parents done [3s]
+  block 26: parents done [3s]
+  block 27: parents done [4s]
+  block 28: parents done [4s]
+  block 29: parents done [4s]
+config size (8 parents, int16 + fp16): 2.43 MB
+keep 0.5 s=0: KL 0.4282 top-1 0.688 switch 31.5 ms
+keep 0.5 s=1: KL 0.3844 top-1 0.690 switch 272.3 ms
+keep 0.5 s=2: KL 0.3654 top-1 0.690 switch 287.2 ms
+keep 0.5 s=4: KL 0.3472 top-1 0.700 switch 325.3 ms
+keep 0.5 s=8: KL 0.3325 top-1 0.696 switch 259.7 ms
+keep 0.5 dense re-solve: KL 0.2961 top-1 0.704
+keep 0.25 s=0: KL 2.2171 top-1 0.252 switch 27.8 ms
+keep 0.25 s=1: KL 2.0331 top-1 0.290 switch 397.8 ms
+keep 0.25 s=2: KL 1.9231 top-1 0.310 switch 357.0 ms
+keep 0.25 s=4: KL 1.7913 top-1 0.340 switch 375.7 ms
+keep 0.25 s=8: KL 1.6761 top-1 0.362 switch 325.2 ms
+keep 0.25 dense re-solve: KL 1.3644 top-1 0.418
+{"kl": 0.0, "top1": 0.838}

@@ -1,0 +1,14 @@
+{
+ "corr_change_vs_target_all": 0.15301300585269928,
+ "corr_change_vs_target_all_shuffled": 0.0007011995767243207,
+ "corr_new_vs_target_all": 0.9443737864494324,
+ "corr_old_vs_target_all": 0.9673997759819031,
+ "corr_change_vs_target_top1": 0.11647120863199234,
+ "corr_change_vs_target_top1_shuffled": 0.0,
+ "corr_new_vs_target_top1": 0.962641179561615,
+ "corr_old_vs_target_top1": 0.9926664233207703,
+ "build": 0.6747395396232605,
+ "trained_reads": 0.7041739225387573,
+ "local_refit_all": 0.6792797446250916,
+ "local_refit_top1": 0.6831234693527222
+}

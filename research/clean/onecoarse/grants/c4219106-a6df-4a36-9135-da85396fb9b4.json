@@ -1,0 +1,30 @@
+{
+ "session_id": "c4219106-a6df-4a36-9135-da85396fb9b4",
+ "grants": [
+  {
+   "time": "2026-11-24 15:33:58",
+   "plan_path": "/Users/shonusengupta/.claude/plans/pasted-content-id-87d9-okay-i-mutable-cerf-of-c4219106-a6df-4a36-9135-da85396fb9b4.md",
+   "allow": {
+    "neurons": [
+     "A:block0-all",
+     "A:block1-weights",
+     "A:children",
+     "A:head-weights",
+     "s3:69",
+     "s3:all"
+    ],
+    "net": [
+     "A"
+    ],
+    "photos": [
+     "held",
+     "test"
+    ],
+    "where": [
+     "cluster",
+     "mac"
+    ]
+   }
+  }
+ ]
+}

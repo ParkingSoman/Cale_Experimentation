@@ -1,0 +1,212 @@
+{
+ "ALL": {
+  "B": {
+   "family": 0.4253315218174584,
+   "near": 0.2643008545409824,
+   "family_ci": [
+    0.39407782324867136,
+    0.4556834717246181
+   ],
+   "G": 0.19513489365716105
+  },
+  "T": {
+   "family": 0.3451764400967318,
+   "near": 0.21709834982854437,
+   "family_ci": [
+    0.32410797918804607,
+    0.3670017303478273
+   ],
+   "G": 0.12391179645197718
+  },
+  "base": {
+   "family": 0.22333301164456104,
+   "near": 0.14977922994559048
+  }
+ },
+ "birds": {
+  "B": {
+   "family": 0.5192352126119162,
+   "near": 0.3326883302068126,
+   "family_ci": [
+    0.3930121251781313,
+    0.6433906868301826
+   ],
+   "G": 0.19151308719920868
+  },
+  "T": {
+   "family": 0.3313781256540116,
+   "near": 0.17585777452356507,
+   "family_ci": [
+    0.2371815821341583,
+    0.42456755072904145
+   ],
+   "G": 0.08232570188561832
+  },
+  "base": {
+   "family": 0.1699057617165348,
+   "near": 0.10504904120446011
+  }
+ },
+ "sink": {
+  "birds": {
+   "B": {
+    "dogs": 0.20816424378249382,
+    "devices+instruments": 0.10900503352867787
+   },
+   "base": {
+    "dogs": 0.13951292421175968,
+    "devices+instruments": 0.12452102302182157
+   }
+  },
+  "clothing+covering": {
+   "B": {
+    "dogs": 0.24702592128541812,
+    "devices+instruments": 0.2024830635126416
+   },
+   "base": {
+    "dogs": 0.14403023584916502,
+    "devices+instruments": 0.17019593892473406
+   }
+  },
+  "containers": {
+   "B": {
+    "dogs": 0.08015107825262029,
+    "devices+instruments": 0.17810845150703689
+   },
+   "base": {
+    "dogs": 0.10871413698986189,
+    "devices+instruments": 0.137643331067955
+   }
+  },
+  "devices+instruments": {
+   "B": {
+    "dogs": 0.14599461563542843,
+    "devices+instruments": 0.590387068382518
+   },
+   "base": {
+    "dogs": 0.1216817534142483,
+    "devices+instruments": 0.265513861091847
+   }
+  },
+  "dogs": {
+   "B": {
+    "dogs": 3.561073964194445,
+    "devices+instruments": 0.2364817576983471
+   },
+   "base": {
+    "dogs": 0.6178399277600038,
+    "devices+instruments": 0.14829429390841273
+   }
+  },
+  "fish": {
+   "B": {
+    "dogs": 0.06687076014387887,
+    "devices+instruments": 0.022874593395709956
+   },
+   "base": {
+    "dogs": 0.10847345966265441,
+    "devices+instruments": 0.12475093088176117
+   }
+  },
+  "food+plants": {
+   "B": {
+    "dogs": 0.16440974567013744,
+    "devices+instruments": 0.10475106583768623
+   },
+   "base": {
+    "dogs": 0.13436757260145774,
+    "devices+instruments": 0.12423059301916711
+   }
+  },
+  "furniture+furnishing": {
+   "B": {
+    "dogs": 0.2274292696527925,
+    "devices+instruments": 0.11225512003671884
+   },
+   "base": {
+    "dogs": 0.13087343798004272,
+    "devices+instruments": 0.15512027848119575
+   }
+  },
+  "insects+spiders": {
+   "B": {
+    "dogs": 0.1361269831093437,
+    "devices+instruments": 0.1046432581046758
+   },
+   "base": {
+    "dogs": 0.12254547027518597,
+    "devices+instruments": 0.12224839616522343
+   }
+  },
+  "other artifact": {
+   "B": {
+    "dogs": 0.07518025878514385,
+    "devices+instruments": 0.2602856947999288
+   },
+   "base": {
+    "dogs": 0.1094639731154755,
+    "devices+instruments": 0.21549312753505068
+   }
+  },
+  "other mammals": {
+   "B": {
+    "dogs": 0.2886085132861808,
+    "devices+instruments": 0.038109830837777005
+   },
+   "base": {
+    "dogs": 0.13943723730534743,
+    "devices+instruments": 0.1248695355456019
+   }
+  },
+  "primates": {
+   "B": {
+    "dogs": 0.14688067975620842,
+    "devices+instruments": 0.04964185435877035
+   },
+   "base": {
+    "dogs": 0.13263100019951254,
+    "devices+instruments": 0.1170804701840384
+   }
+  },
+  "reptiles+amphibians": {
+   "B": {
+    "dogs": 0.22980639657249471,
+    "devices+instruments": 0.07245713329589737
+   },
+   "base": {
+    "dogs": 0.13052283699437472,
+    "devices+instruments": 0.12663781094408408
+   }
+  },
+  "structures": {
+   "B": {
+    "dogs": 0.11852251222882489,
+    "devices+instruments": 0.23168612204061592
+   },
+   "base": {
+    "dogs": 0.13646665199801633,
+    "devices+instruments": 0.13296931721524757
+   }
+  },
+  "tools+implements": {
+   "B": {
+    "dogs": 0.15785999962858138,
+    "devices+instruments": 0.26329990224768457
+   },
+   "base": {
+    "dogs": 0.10728060186149521,
+    "devices+instruments": 0.201210346755906
+   }
+  },
+  "vehicles+craft": {
+   "B": {
+    "dogs": 0.1024332728430183,
+    "devices+instruments": 0.1418455743961321
+   },
+   "base": {
+    "dogs": 0.12889951529354982,
+    "devices+instruments": 0.15018528342851312
+   }
+  }
+ }
+}

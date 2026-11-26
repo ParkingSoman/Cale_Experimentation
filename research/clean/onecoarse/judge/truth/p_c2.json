@@ -1,0 +1,19 @@
+{
+ "neuron": "p_c2",
+ "targets": [
+  2,
+  8,
+  10,
+  11,
+  12,
+  15,
+  16,
+  20,
+  25,
+  28,
+  30,
+  35
+ ],
+ "control_words_from": "k297",
+ "photos": "held+test, unseen"
+}

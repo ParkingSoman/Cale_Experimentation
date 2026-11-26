@@ -1,0 +1,587 @@
+  s4b0: K1/K6 64/432 entries, 14s
+  s4b0: K1/K6 128/432 entries, 25s
+  s4b0: K1/K6 192/432 entries, 35s
+  s4b0: K1/K6 256/432 entries, 43s
+  s4b0: K1/K6 320/432 entries, 54s
+  s4b0: K1/K6 384/432 entries, 66s
+  s4b0: K1/K6 432/432 entries, 71s
+  s4b0: K2 done 72s
+{
+ "s4b0": {
+  "labels": 436,
+  "entries": 432,
+  "merged_entries": 4,
+  "largest_group": 2,
+  "rule_of_cat": {
+   "color": "half",
+   "object": "half",
+   "part": "half",
+   "material": "half",
+   "scene": "half",
+   "texture": "half"
+  },
+  "tested": 391,
+  "kept": 387,
+  "kept_by_cat": {
+   "color": [
+    11,
+    11
+   ],
+   "object": [
+    174,
+    177
+   ],
+   "part": [
+    45,
+    45
+   ],
+   "material": [
+    21,
+    21
+   ],
+   "scene": [
+    89,
+    90
+   ],
+   "texture": [
+    47,
+    47
+   ]
+  },
+  "K1": {
+   "pass_share_of_tested": 0.99
+  },
+  "K6": {
+   "share": 0.977,
+   "pass": true
+  },
+  "K2": {
+   "raw": {
+    "share": 0.915,
+    "n": 387,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.91,
+     "part": 0.96,
+     "material": 1.0,
+     "scene": 0.84,
+     "texture": 0.96
+    }
+   },
+   "whitened": {
+    "share": 0.876,
+    "n": 387,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.88,
+     "part": 0.91,
+     "material": 0.95,
+     "scene": 0.79,
+     "texture": 0.94
+    }
+   },
+   "pass": true
+  },
+  "K3": {
+   "raw": {
+    "clean": 0.965,
+    "noise": 0.957,
+    "pass": true
+   },
+   "whitened": {
+    "clean": 0.999,
+    "noise": 0.999,
+    "pass": true
+   }
+  },
+  "K5_write": {
+   "raw": {
+    "leftover_median": 0.946,
+    "leftover_5th": 0.925,
+    "top_abs_cos_median": 0.125,
+    "top_abs_cos_95th": 0.163
+   },
+   "whitened": {
+    "leftover_median": 0.931,
+    "leftover_5th": 0.909,
+    "top_abs_cos_median": 0.135,
+    "top_abs_cos_95th": 0.168
+   }
+  },
+  "write_metric": "whitened",
+  "K7": {
+   "same_category": 0.633,
+   "shuffled_99th": 0.312,
+   "pass": true
+  },
+  "K4": {
+   "raw": {
+    "logistic": 0.45,
+    "lda": 0.838,
+    "n": 111,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.865,
+    "lda": 0.892,
+    "n": 111,
+    "pass": true
+   },
+   "pass": true
+  },
+  "K5_read": {
+   "raw": {
+    "top_abs_cos_median": 0.598,
+    "top_abs_cos_95th": 0.744,
+    "leftover_median": 0.307
+   },
+   "whitened": {
+    "top_abs_cos_median": 0.264,
+    "top_abs_cos_95th": 0.359,
+    "leftover_median": 0.791
+   }
+  }
+ }
+}
+  s3k: K1/K6 64/405 entries, 4s
+  s3k: K1/K6 128/405 entries, 6s
+  s3k: K1/K6 192/405 entries, 7s
+  s3k: K1/K6 256/405 entries, 9s
+  s3k: K1/K6 320/405 entries, 10s
+  s3k: K1/K6 384/405 entries, 12s
+  s3k: K1/K6 405/405 entries, 13s
+  s3k: K2 done 22s
+{
+ "s3k": {
+  "labels": 409,
+  "entries": 405,
+  "merged_entries": 4,
+  "largest_group": 2,
+  "rule_of_cat": {
+   "color": "half",
+   "object": "half",
+   "part": "half",
+   "material": "half",
+   "scene": "half",
+   "texture": "half"
+  },
+  "tested": 378,
+  "kept": 376,
+  "kept_by_cat": {
+   "color": [
+    11,
+    11
+   ],
+   "object": [
+    168,
+    168
+   ],
+   "part": [
+    52,
+    52
+   ],
+   "material": [
+    19,
+    19
+   ],
+   "scene": [
+    80,
+    82
+   ],
+   "texture": [
+    46,
+    46
+   ]
+  },
+  "K1": {
+   "pass_share_of_tested": 0.995
+  },
+  "K6": {
+   "share": 0.96,
+   "pass": true
+  },
+  "K2": {
+   "raw": {
+    "share": 0.894,
+    "n": 376,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.9,
+     "part": 0.92,
+     "material": 1.0,
+     "scene": 0.79,
+     "texture": 0.93
+    }
+   },
+   "whitened": {
+    "share": 0.84,
+    "n": 376,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.85,
+     "part": 0.85,
+     "material": 1.0,
+     "scene": 0.71,
+     "texture": 0.93
+    }
+   },
+   "pass": true
+  },
+  "K3": {
+   "raw": {
+    "clean": 0.984,
+    "noise": 0.982,
+    "pass": true
+   },
+   "whitened": {
+    "clean": 1.0,
+    "noise": 1.0,
+    "pass": true
+   }
+  },
+  "K5_write": {
+   "raw": {
+    "leftover_median": 0.987,
+    "leftover_5th": 0.982,
+    "top_abs_cos_median": 0.059,
+    "top_abs_cos_95th": 0.077
+   },
+   "whitened": {
+    "leftover_median": 0.984,
+    "leftover_5th": 0.98,
+    "top_abs_cos_median": 0.063,
+    "top_abs_cos_95th": 0.081
+   }
+  },
+  "write_metric": "whitened",
+  "K7": {
+   "same_category": 0.639,
+   "shuffled_99th": 0.311,
+   "pass": true
+  },
+  "K4": {
+   "raw": {
+    "logistic": 0.679,
+    "lda": 0.812,
+    "n": 112,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.757,
+    "lda": 0.865,
+    "n": 111,
+    "pass": false
+   },
+   "pass": false
+  },
+  "K5_read": {
+   "raw": {
+    "top_abs_cos_median": 0.522,
+    "top_abs_cos_95th": 0.703,
+    "leftover_median": 0.475
+   },
+   "whitened": {
+    "top_abs_cos_median": 0.187,
+    "top_abs_cos_95th": 0.265,
+    "leftover_median": 0.9
+   }
+  }
+ }
+}
+  s4b1: K1/K6 64/421 entries, 13s
+  s4b1: K1/K6 128/421 entries, 24s
+  s4b1: K1/K6 192/421 entries, 34s
+  s4b1: K1/K6 256/421 entries, 42s
+  s4b1: K1/K6 320/421 entries, 53s
+  s4b1: K1/K6 384/421 entries, 65s
+  s4b1: K1/K6 421/421 entries, 69s
+  s4b1: K2 done 70s
+{
+ "s4b1": {
+  "labels": 426,
+  "entries": 421,
+  "merged_entries": 5,
+  "largest_group": 2,
+  "rule_of_cat": {
+   "color": "half",
+   "object": "half",
+   "part": "half",
+   "material": "half",
+   "scene": "half",
+   "texture": "half"
+  },
+  "tested": 380,
+  "kept": 380,
+  "kept_by_cat": {
+   "color": [
+    11,
+    11
+   ],
+   "object": [
+    171,
+    171
+   ],
+   "part": [
+    43,
+    43
+   ],
+   "material": [
+    19,
+    19
+   ],
+   "scene": [
+    89,
+    89
+   ],
+   "texture": [
+    47,
+    47
+   ]
+  },
+  "K1": {
+   "pass_share_of_tested": 1.0
+  },
+  "K6": {
+   "share": 0.968,
+   "pass": true
+  },
+  "K2": {
+   "raw": {
+    "share": 0.863,
+    "n": 380,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.87,
+     "part": 0.86,
+     "material": 1.0,
+     "scene": 0.79,
+     "texture": 0.91
+    }
+   },
+   "whitened": {
+    "share": 0.855,
+    "n": 380,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.88,
+     "part": 0.84,
+     "material": 0.95,
+     "scene": 0.74,
+     "texture": 0.94
+    }
+   },
+   "pass": true
+  },
+  "K3": {
+   "raw": {
+    "clean": 0.978,
+    "noise": 0.976,
+    "pass": true
+   },
+   "whitened": {
+    "clean": 1.0,
+    "noise": 1.0,
+    "pass": true
+   }
+  },
+  "K5_write": {
+   "raw": {
+    "leftover_median": 0.939,
+    "leftover_5th": 0.92,
+    "top_abs_cos_median": 0.129,
+    "top_abs_cos_95th": 0.161
+   },
+   "whitened": {
+    "leftover_median": 0.931,
+    "leftover_5th": 0.91,
+    "top_abs_cos_median": 0.134,
+    "top_abs_cos_95th": 0.166
+   }
+  },
+  "write_metric": "whitened",
+  "K7": {
+   "same_category": 0.55,
+   "shuffled_99th": 0.315,
+   "pass": true
+  },
+  "K4": {
+   "raw": {
+    "logistic": 0.234,
+    "lda": 0.757,
+    "n": 111,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.725,
+    "lda": 0.853,
+    "n": 109,
+    "pass": false
+   },
+   "pass": false
+  },
+  "K5_read": {
+   "raw": {
+    "top_abs_cos_median": 0.584,
+    "top_abs_cos_95th": 0.76,
+    "leftover_median": 0.376
+   },
+   "whitened": {
+    "top_abs_cos_median": 0.247,
+    "top_abs_cos_95th": 0.341,
+    "leftover_median": 0.818
+   }
+  }
+ }
+}
+  s3: K1/K6 64/529 entries, 57s
+  s3: K1/K6 128/529 entries, 109s
+  s3: K1/K6 192/529 entries, 160s
+  s3: K1/K6 256/529 entries, 205s
+  s3: K1/K6 320/529 entries, 247s
+  s3: K1/K6 384/529 entries, 294s
+  s3: K1/K6 448/529 entries, 347s
+  s3: K1/K6 512/529 entries, 399s
+  s3: K1/K6 529/529 entries, 403s
+  s3: K2 done 405s
+{
+ "s3": {
+  "labels": 532,
+  "entries": 529,
+  "merged_entries": 3,
+  "largest_group": 2,
+  "rule_of_cat": {
+   "color": "half",
+   "object": "half",
+   "part": "half",
+   "material": "half",
+   "scene": "half",
+   "texture": "half"
+  },
+  "tested": 496,
+  "kept": 492,
+  "kept_by_cat": {
+   "color": [
+    11,
+    11
+   ],
+   "object": [
+    243,
+    245
+   ],
+   "part": [
+    80,
+    80
+   ],
+   "material": [
+    22,
+    22
+   ],
+   "scene": [
+    89,
+    91
+   ],
+   "texture": [
+    47,
+    47
+   ]
+  },
+  "K1": {
+   "pass_share_of_tested": 0.992
+  },
+  "K6": {
+   "share": 0.963,
+   "pass": true
+  },
+  "K2": {
+   "raw": {
+    "share": 0.858,
+    "n": 492,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.84,
+     "part": 0.89,
+     "material": 1.0,
+     "scene": 0.8,
+     "texture": 0.91
+    }
+   },
+   "whitened": {
+    "share": 0.854,
+    "n": 492,
+    "by_cat": {
+     "color": 1.0,
+     "object": 0.83,
+     "part": 0.88,
+     "material": 0.95,
+     "scene": 0.83,
+     "texture": 0.91
+    }
+   },
+   "pass": true
+  },
+  "K3": {
+   "raw": {
+    "clean": 0.974,
+    "noise": 0.95,
+    "pass": true
+   },
+   "whitened": {
+    "clean": 0.998,
+    "noise": 0.998,
+    "pass": true
+   }
+  },
+  "K5_write": {
+   "raw": {
+    "leftover_median": 0.883,
+    "leftover_5th": 0.842,
+    "top_abs_cos_median": 0.181,
+    "top_abs_cos_95th": 0.234
+   },
+   "whitened": {
+    "leftover_median": 0.863,
+    "leftover_5th": 0.824,
+    "top_abs_cos_median": 0.191,
+    "top_abs_cos_95th": 0.235
+   }
+  },
+  "write_metric": "whitened",
+  "K7": {
+   "same_category": 0.642,
+   "shuffled_99th": 0.34,
+   "pass": true
+  },
+  "K4": {
+   "raw": {
+    "logistic": 0.588,
+    "lda": 0.798,
+    "n": 114,
+    "pass": false
+   },
+   "whitened": {
+    "logistic": 0.765,
+    "lda": 0.852,
+    "n": 115,
+    "pass": false
+   },
+   "pass": false
+  },
+  "K5_read": {
+   "raw": {
+    "top_abs_cos_median": 0.481,
+    "top_abs_cos_95th": 0.628,
+    "leftover_median": 0.491
+   },
+   "whitened": {
+    "top_abs_cos_median": 0.259,
+    "top_abs_cos_95th": 0.35,
+    "leftover_median": 0.79
+   }
+  }
+ }
+}
+s4b0 {'K6': True, 'K2': True, 'K7': True, 'K4': True} write metric: whitened
+s3k {'K6': True, 'K2': True, 'K7': True, 'K4': False} write metric: whitened
+s4b1 {'K6': True, 'K2': True, 'K7': True, 'K4': False} write metric: whitened
+s3 {'K6': True, 'K2': True, 'K7': True, 'K4': False} write metric: whitened
+exit 0

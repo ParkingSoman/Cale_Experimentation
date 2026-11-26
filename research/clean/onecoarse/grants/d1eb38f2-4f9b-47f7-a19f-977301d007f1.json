@@ -1,0 +1,28 @@
+{
+ "session_id": "d1eb38f2-4f9b-47f7-a19f-977301d007f1",
+ "grants": [
+  {
+   "time": "2026-11-24 14:39:42",
+   "plan_path": "/Users/shonusengupta/.claude/plans/ok-while-the-other-humble-finch-of-d1eb38f2-4f9b-47f7-a19f-977301d007f1.md",
+   "allow": {
+    "neurons": [
+     "A:block1-weights",
+     "A:children",
+     "s3:69"
+    ],
+    "net": [
+     "A"
+    ],
+    "photos": [
+     "held",
+     "saved",
+     "test"
+    ],
+    "where": [
+     "cluster",
+     "mac"
+    ]
+   }
+  }
+ ]
+}

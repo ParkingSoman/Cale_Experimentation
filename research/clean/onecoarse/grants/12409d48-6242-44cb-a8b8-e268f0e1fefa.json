@@ -1,0 +1,28 @@
+{
+ "session_id": "12409d48-6242-44cb-a8b8-e268f0e1fefa",
+ "grants": [
+  {
+   "time": "2026-11-25 15:57:59",
+   "plan_path": "/Users/shonusengupta/.claude/plans/ok-i-asked-for-synthetic-wilkes-of-12409d48-6242-44cb-a8b8-e268f0e1fefa.md",
+   "allow": {
+    "neurons": [
+     "A:block0-all"
+    ],
+    "net": [
+     "A",
+     "C-ladder",
+     "L-ladder",
+     "R4C-ladder",
+     "WC-ladder",
+     "Z-ladder"
+    ],
+    "photos": [
+     "saved"
+    ],
+    "where": [
+     "mac"
+    ]
+   }
+  }
+ ]
+}

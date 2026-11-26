@@ -1,0 +1,38 @@
+{
+ "seed0": {
+  "corr_rule_median": 0.007426415104418993,
+  "corr_rule_q10_q90": [
+   -0.01011680532246828,
+   0.027705736458301544
+  ],
+  "corr_counterpart_median": 0.325725793838501,
+  "corr_shuffled_median": -0.00012179691111668944,
+  "rule_beats_counterpart": 0.3056640625,
+  "base_for_50pct_median": 835.0,
+  "base_for_90pct_median": 2458.0,
+  "top_contributor_is_counterpart": 0.0009765625
+ },
+ "seed1": {
+  "corr_rule_median": 0.02331501990556717,
+  "corr_rule_q10_q90": [
+   0.0021950851660221815,
+   0.05006672069430351
+  ],
+  "corr_counterpart_median": 0.3518575429916382,
+  "corr_shuffled_median": 0.0001459256309317425,
+  "rule_beats_counterpart": 0.333984375,
+  "base_for_50pct_median": 825.0,
+  "base_for_90pct_median": 2463.0,
+  "top_contributor_is_counterpart": 0.01171875
+ },
+ "build_k1024": {
+  "keep_top_value_unchanged": 0.6572559475898743,
+  "keep_random_unchanged": 0.2987818717956543,
+  "write_rule_linear_targets": 0.24592512845993042,
+  "write_rule_gelu_of_fitted_reads": -16.58656883239746,
+  "distilled_trained": [
+   0.6252941489219666,
+   0.6243612766265869
+  ]
+ }
+}

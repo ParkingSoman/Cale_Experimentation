@@ -1,0 +1,39 @@
+{
+ "session_id": "6ca39f2c-3242-4539-8b09-f47549f5d65f",
+ "grants": [
+  {
+   "time": "2026-11-24 17:53:34",
+   "plan_path": "/Users/shonusengupta/.claude/plans/pasted-content-id-b628-okay-i-mighty-barto-of-6ca39f2c-3242-4539-8b09-f47549f5d65f.md",
+   "allow": {
+    "neurons": [
+     "A:all-units",
+     "A:block0-all",
+     "A:children",
+     "s3:69",
+     "s3:parents"
+    ],
+    "net": [
+     "A",
+     "C-ladder",
+     "L-ladder",
+     "R",
+     "R-ladder",
+     "R4",
+     "R4-ladder",
+     "W-ladder",
+     "Z-ladder"
+    ],
+    "photos": [
+     "held",
+     "saved",
+     "test",
+     "train"
+    ],
+    "where": [
+     "cluster",
+     "mac"
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,4 @@
+B_k128_s0: train 16000 (+flips), held 2000, test 17000, device mps. A on test: {'kl': 1.2636956370215557e-08, 'top1': 0.6773529648780823}
+B at init: held KL 5.4829, trained numbers 2066944
+  step 300/300 loss 1.3612 held KL 1.6996 39s
+sweep lr 0.001: held KL 1.6996

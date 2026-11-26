@@ -1,0 +1,28 @@
+{
+ "session_id": "1d907f06-eaf9-42c2-a8bd-4970550a8ce8",
+ "grants": [
+  {
+   "time": "2026-11-25 15:13:39",
+   "plan_path": "/Users/shonusengupta/.claude/plans/last-session-we-were-silly-pascal-of-1d907f06-eaf9-42c2-a8bd-4970550a8ce8.md",
+   "allow": {
+    "neurons": [
+     "A:block0-all"
+    ],
+    "net": [
+     "A",
+     "C-ladder",
+     "L-ladder",
+     "R4C-ladder",
+     "WC-ladder",
+     "Z-ladder"
+    ],
+    "photos": [
+     "test"
+    ],
+    "where": [
+     "cluster"
+    ]
+   }
+  }
+ ]
+}

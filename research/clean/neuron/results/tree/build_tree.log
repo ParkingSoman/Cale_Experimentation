@@ -1,0 +1,29 @@
+[dogs] root block 19 neuron 224: concentration 0.87, breadth 1.00
+  level 1 (block 20): 417 above floor 0.002, kept 64, in-group majority 0.03125, median share 0.14272500574588776 [24s]
+  level 2 (block 21): 4 above floor 0.020, kept 4, in-group majority 0.5, median share 0.5102056860923767 [46s]
+  level 3 (block 22): 66 above floor 0.002, kept 64, in-group majority 0.171875, median share 0.17214886844158173 [68s]
+  level 4 (block 23): 3 above floor 0.023, kept 3, in-group majority 0.0, median share 0.034987229853868484 [89s]
+  level 5 (block 24): 414 above floor 0.002, kept 64, in-group majority 0.296875, median share 0.20635093748569489 [108s]
+  level 6 (block 25): 189 above floor 0.040, kept 64, in-group majority 0.390625, median share 0.46346136927604675 [126s]
+  level 7 (block 26): 22 above floor 0.108, kept 22, in-group majority 0.0, median share 0.10250546783208847 [150s]
+  level 8 (block 27): 193 above floor 0.013, kept 64, in-group majority 0.453125, median share 0.41666996479034424 [170s]
+  level 9 (block 28): 370 above floor 0.014, kept 64, in-group majority 0.0625, median share 0.11182457953691483 [192s]
+  level 10 (block 29): 254 above floor 0.020, kept 64, in-group majority 0.09375, median share 0.12752392888069153 [215s]
+  bar: {"group": {"tree_kl": 0.020045697689056396, "random_kl": 0.0025256529916077852, "tree_coarse_kl": 0.005026924889534712, "random_coarse_kl": 0.00040933454874902964, "diff_ci95": [0.013387505896389484, 0.021845059469342232]}, "other": {"tree_kl": 0.013519635424017906, "random_kl": 0.002583944471552968, "tree_coarse_kl": 0.0010762083111330867, "random_coarse_kl": 9.2018221039325e-05, "diff_ci95": [0.009559130296111107, 0.012418503873050213]}}
+[birds] root block 19 neuron 1378: concentration 0.98, breadth 0.98
+  level 1 (block 20): 880 above floor 0.001, kept 64, in-group majority 0.0, median share 0.05920221656560898 [25s]
+  level 2 (block 21): 0 above floor 0.038, kept 0, in-group majority None, median share None [44s]
+  bar: {"group": {"tree_kl": 8.794580207904801e-05, "random_kl": 8.101706771412864e-05, "tree_coarse_kl": 1.1652583452814724e-05, "random_coarse_kl": 8.588741366111208e-06, "diff_ci95": [-3.2769479730632156e-05, 4.677221295423806e-05]}, "other": {"tree_kl": 0.00022272650676313788, "random_kl": 0.00044237569090910256, "tree_coarse_kl": 9.224881978298072e-07, "random_coarse_kl": 9.370930342811334e-07, "diff_ci95": [-0.0006003516027703881, 2.802804738166742e-05]}}
+[vehicles] root block 18 neuron 178: concentration 0.75, breadth 0.85
+  level 1 (block 19): 239 above floor 0.003, kept 64, in-group majority 0.0, median share 0.07432664185762405 [23s]
+  level 2 (block 20): 18 above floor 0.016, kept 18, in-group majority 0.0, median share 0.032627880573272705 [43s]
+  level 3 (block 21): 15 above floor 0.012, kept 15, in-group majority 0.0, median share 0.04795262962579727 [63s]
+  level 4 (block 22): 5 above floor 0.038, kept 5, in-group majority 0.0, median share 0.03977277874946594 [84s]
+  level 5 (block 23): 1366 above floor 0.003, kept 64, in-group majority 0.0, median share 0.05223187431693077 [104s]
+  level 6 (block 24): 106 above floor 0.031, kept 64, in-group majority 0.0625, median share 0.23170199990272522 [125s]
+  level 7 (block 25): 23 above floor 0.077, kept 23, in-group majority 0.0, median share 0.032359085977077484 [146s]
+  level 8 (block 26): 139 above floor 0.031, kept 64, in-group majority 0.0, median share 0.042627692222595215 [167s]
+  level 9 (block 27): 421 above floor 0.018, kept 64, in-group majority 0.265625, median share 0.06565269082784653 [188s]
+  level 10 (block 28): 528 above floor 0.013, kept 64, in-group majority 0.015625, median share 0.027284152805805206 [208s]
+  level 11 (block 29): 714 above floor 0.014, kept 64, in-group majority 0.03125, median share 0.05491861701011658 [228s]
+  bar: {"group": {"tree_kl": 0.034579601138830185, "random_kl": 0.0016074695158749819, "tree_coarse_kl": 0.016323085874319077, "random_coarse_kl": 0.00067566690267995, "diff_ci95": [0.026903260499238968, 0.03930000588297844]}, "other": {"tree_kl": 0.032296955585479736, "random_kl": 0.0023752732668071985, "tree_coarse_kl": 0.0005630228552035987, "random_coarse_kl": 2.8862546969321556e-05, "diff_ci95": [0.027441898360848427, 0.03242577612400055]}}

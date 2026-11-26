@@ -1,0 +1,35 @@
+{
+ "b0": {
+  "argmax_same": 0.6565755208333334,
+  "fire_argmax_in_write_top5": 0.7877604166666666,
+  "chance": 0.000244140625,
+  "write_null_best_mean": 0.20530758798122406,
+  "fire_of_agreeing": 0.5350898504257202,
+  "write_of_agreeing": 0.5864370465278625,
+  "joint_hung_fire_median": 0.493408203125,
+  "joint_hung_write_median": 0.53173828125,
+  "joint_both_over_05": 0.3795572916666667
+ },
+ "b1": {
+  "argmax_same": 0.53125,
+  "fire_argmax_in_write_top5": 0.6907552083333334,
+  "chance": 0.000244140625,
+  "write_null_best_mean": 0.20037956535816193,
+  "fire_of_agreeing": 0.502956211566925,
+  "write_of_agreeing": 0.558233380317688,
+  "joint_hung_fire_median": 0.43798828125,
+  "joint_hung_write_median": 0.44091796875,
+  "joint_both_over_05": 0.2513020833333333
+ },
+ "b2": {
+  "argmax_same": 0.5367838541666666,
+  "fire_argmax_in_write_top5": 0.716796875,
+  "chance": 0.000244140625,
+  "write_null_best_mean": 0.19202227890491486,
+  "fire_of_agreeing": 0.5088131427764893,
+  "write_of_agreeing": 0.5399092435836792,
+  "joint_hung_fire_median": 0.4471435546875,
+  "joint_hung_write_median": 0.414306640625,
+  "joint_both_over_05": 0.2503255208333333
+ }
+}

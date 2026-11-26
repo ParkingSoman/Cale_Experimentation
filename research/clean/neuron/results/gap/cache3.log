@@ -1,0 +1,24 @@
+test 50/1500 2s
+test: 1500 photos, 33s, fp16 cache vs full logits max diff 0.0003
+cal 50/1000 3s
+cal: 1000 photos, 24s, fp16 cache vs full logits max diff 0.0007
+held 50/2000 3s
+held: 2000 photos, 46s, fp16 cache vs full logits max diff 0.0005
+train 50/16000 3s
+train 2050/16000 49s
+train 4050/16000 100s
+train 6050/16000 149s
+train 8050/16000 196s
+train 10050/16000 244s
+train 12050/16000 292s
+train 14050/16000 332s
+train: 16000 photos, 379s, fp16 cache vs full logits max diff 0.0004
+trainflip 50/16000 4s
+trainflip 2050/16000 55s
+trainflip 4050/16000 93s
+trainflip 6050/16000 141s
+trainflip 8050/16000 185s
+trainflip 10050/16000 230s
+trainflip 12050/16000 274s
+trainflip 14050/16000 319s
+trainflip: 16000 photos, 363s, fp16 cache vs full logits max diff 0.0005
