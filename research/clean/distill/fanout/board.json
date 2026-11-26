@@ -6058,5 +6058,117 @@
   "note": "r2 P6: NULL random Q same rank, same fold",
   "who": "P6",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_rand_rho",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.205084323883057,
+  "top1": 0.074,
+  "agree": 0.08100000023841858,
+  "n": 1000,
+  "params": 73295850,
+  "shape": {
+   "d": 653,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 1.0,
+  "total_seconds": 43.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:09:39",
+  "note": "r2 P6: NULL random Q same rank, same fold",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_rand_rho",
+  "f": 0.7,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 10.6882905960083,
+  "top1": 0.002,
+  "agree": 0.004000000189989805,
+  "n": 1000,
+  "params": 60399060,
+  "shape": {
+   "d": 538,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.4,
+  "total_seconds": 54.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:10:34",
+  "note": "r2 P6: NULL random Q same rank, same fold",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.1391056776046753,
+  "top1": 0.498,
+  "agree": 0.6039999723434448,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 22.2,
+  "total_seconds": 70.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:10:41",
+  "note": "r2 P0: floor on shared pink (85% baseline for the input test)",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_rand_rho",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 10.329124450683594,
+  "top1": 0.001,
+  "agree": 0.0010000000474974513,
+  "n": 1000,
+  "params": 43128576,
+  "shape": {
+   "d": 384,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.4,
+  "total_seconds": 42.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:11:16",
+  "note": "r2 P6: NULL random Q same rank, same fold",
+  "who": "P6",
+  "quick": false
  }
 ]

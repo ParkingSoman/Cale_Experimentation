@@ -43,3 +43,4 @@
 16:06:06	P1-P3	slot0	wait 1305s	run 934s	exit 0	/bin/sh distill/fanout/r2_p1p3/batch.sh --f 0.95,0.85 --quick r2_p1p3_d r2_p1p3_p r2_p1p3_g r2_p1p3_c r2_p1p3_e
 16:07:39	P0	slot0	wait 2082s	run 91s	exit 0	/bin/sh distill/fanout/r2_p0/heldR.sh
 16:09:07	P0	slot0	wait 1525s	run 86s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/r2_p0_ps.py --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+16:09:27	P4	slot1	wait 84s	run 279s	exit 0	/bin/bash -c /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/r2_p4_multi.py --net clip --rules p4write_off_heads,p4write_heads,r2_p4_meannull_heads,r2_p4_ovmerge,r2_p4_ovmerge_null --f 0.85 --quick --who P4 --input distill/fanout/cache/input_pink_n2
