@@ -2510,5 +2510,234 @@
   "photo_use": "test photos, scoring only",
   "when": "2026-11-26T14:25:13",
   "note": "P5 round1 MLP only"
+ },
+ {
+  "net": "clip",
+  "rule": "p5rank_heads",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.24624814093112946,
+  "top1": 0.642,
+  "agree": 0.8309999704360962,
+  "n": 1000,
+  "params": 83831040,
+  "shape": {
+   "d": 768,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 14.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:25:33",
+  "note": "P5 round1 heads only"
+ },
+ {
+  "net": "clip",
+  "rule": "p5rank_heads",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.840154647827148,
+  "top1": 0.048,
+  "agree": 0.04500000178813934,
+  "n": 1000,
+  "params": 72023040,
+  "shape": {
+   "d": 768,
+   "heads": [
+    6
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 11.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:25:44",
+  "note": "P5 round1 heads only"
+ },
+ {
+  "net": "clip",
+  "rule": "p5rank_stream",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.25635501742362976,
+  "top1": 0.644,
+  "agree": 0.8100000023841858,
+  "n": 1000,
+  "params": 81931092,
+  "shape": {
+   "d": 730,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 14.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:26:00",
+  "note": "P5 round1 stream only"
+ },
+ {
+  "net": "clip",
+  "rule": "p5rank_stream",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 11.606856346130371,
+  "top1": 0.002,
+  "agree": 0.0,
+  "n": 1000,
+  "params": 43128576,
+  "shape": {
+   "d": 384,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 8.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:26:08",
+  "note": "P5 round1 stream only"
+ },
+ {
+  "net": "r18",
+  "rule": "p5rank",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.56968355178833,
+  "top1": 0.406,
+  "agree": 0.46399998664855957,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 2.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:26:14",
+  "note": "P5 round1"
+ },
+ {
+  "net": "r18",
+  "rule": "p5rank",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 8.50977897644043,
+  "top1": 0.001,
+  "agree": 0.003000000026077032,
+  "n": 1000,
+  "params": 3055880,
+  "shape": {
+   "widths": [
+    32,
+    64,
+    128,
+    256
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 0.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:26:15",
+  "note": "P5 round1"
+ },
+ {
+  "net": "r18",
+  "rule": "p5rank",
+  "f": 0.05,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 8.760746955871582,
+  "top1": 0.001,
+  "agree": 0.0010000000474974513,
+  "n": 1000,
+  "params": 56372,
+  "shape": {
+   "widths": [
+    3,
+    6,
+    13,
+    26
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 0.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:26:15",
+  "note": "P5 round1"
+ },
+ {
+  "net": "r18",
+  "rule": "p5rank_inner",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.41977834701538086,
+  "top1": 0.608,
+  "agree": 0.718999981880188,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 2.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:26:23",
+  "note": "P5 round1 inner only"
+ },
+ {
+  "net": "r18",
+  "rule": "p5rank_inner",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.785192966461182,
+  "top1": 0.004,
+  "agree": 0.004000000189989805,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 1.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:26:25",
+  "note": "P5 round1 inner only"
  }
 ]
