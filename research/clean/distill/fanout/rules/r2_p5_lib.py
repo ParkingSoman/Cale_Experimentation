@@ -31,9 +31,19 @@ def mixs(w, act, a):
     return (w.clamp_min(1e-12).log() * (1 - a) + act.clamp_min(1e-12).log() * a)
 
 
-def build(T, f, X, a, which=("mlp",), a_set=None):
-    """which: sets that are cut. a_set: {set: a} overrides."""
+def _perm(v, seed):
+    g = torch.Generator().manual_seed(seed)
+    return v[torch.randperm(len(v), generator=g)]
+
+
+def build(T, f, X, a, which=("mlp",), a_set=None, null=False):
+    """which: sets that are cut. a_set: {set: a} overrides.
+    null=True: the SAME form with the activity vector permuted inside each set (fixed seed 7 + block): the
+    weight part and the activity values stay, only their pairing with units is broken."""
     W, A = scores(T, X)
+    if null:
+        A = dict(stream=_perm(A["stream"], 7), head=[_perm(v, 8 + i) for i, v in enumerate(A["head"])],
+                 mlp=[_perm(v, 100 + i) for i, v in enumerate(A["mlp"])])
     a_set = a_set or {}
     d, h, m = vitgen.sizes(f, T)
     D, H, M = vitgen.sizes(1.0, T)

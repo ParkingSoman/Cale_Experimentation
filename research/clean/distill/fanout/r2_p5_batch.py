@@ -20,6 +20,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("specs", nargs="+")
 ap.add_argument("--full", action="store_true")
 ap.add_argument("--note", default="")
+ap.add_argument("--split", default="test", choices=("test", "held"))
 ap.add_argument("--input", default="distill/fanout/cache/input_pink_n256_s1.pt")
 a = ap.parse_args()
 X = torch.load(a.input, weights_only=True).float()
@@ -42,16 +43,23 @@ for spec in a.specs:
             continue
         tc = time.time() - t0
         if net == "clip":
-            res, k = board.clip_score(small, 1000, "test", stride=1 if a.full else 5)
+            res, k = board.clip_score(small, 1000, a.split, stride=1 if a.full else 5)
         else:
-            res, k = board.r18_score(small, 1000, "test", stride=1 if a.full else 5)
+            res, k = board.r18_score(small, 1000, a.split, stride=1 if a.full else 5)
+        if net == "clip":
+            import vitgen
+            params, shp = vitgen.n_params(small), vitgen.shape(small)
+            shp = dict(d=shp["d"], heads=sorted(set(shp["heads"])), mlp=sorted(set(shp["mlp"])))
+        else:
+            params = sum(q.numel() for q in small.parameters())
+            shp = dict(widths=list(getattr(small, "w", (64, 128, 256, 512))))
         name = rule + ("" if attr in ("vit", "r18") else "." + attr)
-        row = dict(net=net, rule=name, f=f, split="test", input=inp if tx else "none", **res, calc_seconds=round(tc, 1),
-                   total_seconds=round(time.time() - t0, 1), photo_use="test photos, scoring only",
+        row = dict(net=net, rule=name, f=f, split=a.split, input=inp if tx else "none", **res, params=params, shape=shp, calc_seconds=round(tc, 1),
+                   total_seconds=round(time.time() - t0, 1), photo_use=f"{a.split} photos, scoring only",
                    when=datetime.datetime.now().isoformat(timespec="seconds"), note=a.note, who="P5", quick=not a.full)
         if a.full:
             import numpy as np
-            np.save(os.path.join(board.OUTD, f"{net}_{name}_f{f:g}_test{res['n']}_{inp}.npy"), k)
+            np.save(os.path.join(board.OUTD, f"{net}_{name}_f{f:g}_{a.split}{res['n']}_{inp}.npy"), k)
             board.add_row(row)
         else:
             with open(os.path.join(HERE, "scratch.jsonl"), "a") as fh:
