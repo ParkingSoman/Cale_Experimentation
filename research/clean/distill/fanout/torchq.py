@@ -19,9 +19,9 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 LOG = os.path.join(HERE, "torchq.log")
 GATE = os.path.join(HERE, ".torch.gate")
-N_SLOTS = 3
+N_SLOTS = 2                                    # 2 short + 1 long = 3 torch jobs at most (cut from 3 + 1 after swap fell to 437 MB, 15:2x)
 MIN_SWAP_MB = 1000
-MIN_FREE_PCT = 30
+MIN_FREE_PCT = 35
 
 
 def free_swap_mb():
