@@ -6534,5 +6534,89 @@
   "note": "r2 P6: reader basis with C^1/2 back-map (T+ fail)",
   "who": "P6",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_read_rho",
+  "f": 0.7,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 3.5333633422851562,
+  "top1": 0.201,
+  "agree": 0.21299999952316284,
+  "n": 1000,
+  "params": 60399060,
+  "shape": {
+   "d": 538,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 4.4,
+  "total_seconds": 50.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:17:56",
+  "note": "r2 P6: reader basis with C^1/2 back-map (T+ fail)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_read_rho",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 9.026467323303223,
+  "top1": 0.001,
+  "agree": 0.0010000000474974513,
+  "n": 1000,
+  "params": 43128576,
+  "shape": {
+   "d": 384,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 1.1,
+  "total_seconds": 35.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:18:32",
+  "note": "r2 P6: reader basis with C^1/2 back-map (T+ fail)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p1p3_d",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.9532757997512817,
+  "top1": 0.383,
+  "agree": 0.44699999690055847,
+  "n": 1000,
+  "params": 77689956,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 75.1,
+  "total_seconds": 111.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:18:35",
+  "note": "r2 P1-P3: CLIP MLP-only, P4 fold on merged firings; a = no merge, d = R1 (weighted by noise RMS) OR-merge, p = shape-kept null (R1 owners permuted over deleted units)",
+  "who": "P1-P3",
+  "quick": false
  }
 ]
