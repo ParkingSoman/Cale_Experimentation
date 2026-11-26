@@ -1101,5 +1101,106 @@
   "photo_use": "test photos, scoring only",
   "when": "2026-11-26T13:29:42",
   "note": "floor split"
+ },
+ {
+  "net": "clip",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.139105200767517,
+  "top1": 0.498,
+  "agree": 0.6039999723434448,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 5.9,
+  "total_seconds": 18.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T13:40:11",
+  "note": "harness check: must equal floor 1.139"
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.6650197505950928,
+  "top1": 0.371,
+  "agree": 0.4269999861717224,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 0.7,
+  "total_seconds": 2.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T13:40:21",
+  "note": "floor on the shared input"
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 9.386345863342285,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 3055880,
+  "shape": {
+   "widths": [
+    32,
+    64,
+    128,
+    256
+   ]
+  },
+  "calc_seconds": 0.6,
+  "total_seconds": 1.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T13:40:22",
+  "note": "floor on the shared input"
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.05,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 14.94869327545166,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 56372,
+  "shape": {
+   "widths": [
+    3,
+    6,
+    13,
+    26
+   ]
+  },
+  "calc_seconds": 0.6,
+  "total_seconds": 0.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T13:40:23",
+  "note": "floor on the shared input"
  }
 ]

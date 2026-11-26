@@ -61,3 +61,18 @@ Propose workflow (5 theorists + 1 critic, 806k agent tokens, 18 min): summary ta
 Step 0 of round 1 (critic's request, rules `fanout/rules/split_*.py`): one set cut at a time. At 50% any one set alone already reaches or passes the flat-output level (CLIP 6.281, ResNet 5.737): CLIP heads 5.807, MLP 9.040, stream 11.104; ResNet inner 6.761, stream 18.051. At 95%: CLIP stream .280, heads .175, MLP .473; ResNet stream 1.076, inner .445. The noise ranking of CLIP MLP neurons is worse than the weight ranking at 95% (.473 vs .205).
 
 Shonu, mid-round: "they should communicate with each other too". Added a talk step: two turns of addressed messages between the theorists before the build.
+
+Talk step (10 agents, 913k agent tokens, 9 min; `fanout/round1/talk.json`): 20 messages in turn 1, 20 replies in turn 2, then 5 revised proposals with interfaces. What the theorists agreed:
+
+| Agreement | Detail |
+|---|---|
+| One input object | 256 images, seed 1, a cached tensor path every part takes as a parameter. Every row runs on pink first, then on P0's self-made input with no code change |
+| One error | second-order KL to the teacher; one shared teacher statistics pass (firings, moments per site, one backward with an output probe) |
+| Write ownership | P4 owns every write. P1-P3 dropped its own write and uses P4's fold on its merged firings |
+| Stream fold | P4's stream fold A is OFF by default. P6 owns the stream. One head-to-head row later |
+| Closed loop | statistics from the teacher once; reads, quantiles and writes on the student's own stream, front to back, each size from the teacher weights |
+| Build order | harness; P6 stream diagnostics; P0 input; P5 rank; P4 write (A = 0); P6 full; P1-P3; joint front-to-back build per size; leave-one-out rows decide each part's share |
+
+Harness change (me): `board.py --input PATH` passes a cached input to the rule as X; rows record the input. Shared input `fanout/cache/input_pink_n256_s1.pt` (256 pink images, batched seeds). Check: CLIP floor at 95% on it = 1.139 (unchanged). ResNet floor on it (new reference, the old floor used a different draw): 95/50/5% = 1.665 / 9.386 / 14.949.
+
+Build step started: builders for P6 diagnostics, P0, P5, P4; one runner at a time; one reviewer.

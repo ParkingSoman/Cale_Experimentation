@@ -17,6 +17,7 @@ ONE torch job on the Mac at a time: only the runner calls this.
 import argparse
 import datetime
 import importlib
+import inspect
 import json
 import os
 import sys
@@ -145,15 +146,21 @@ def main():
     ap.add_argument("--n", type=int, default=1000)
     ap.add_argument("--split", default="test", choices=("test", "held"))
     ap.add_argument("--note", default="")
+    ap.add_argument("--input", default="", help="cached generic input tensor (.pt, normalized images) passed to the rule as X")
     a = ap.parse_args()
     rule = importlib.import_module(f"rules.{a.rule}")
     os.makedirs(OUTD, exist_ok=True)
     big = clip_teacher() if a.net == "clip" else r18_A()
     if a.net == "clip":
         import vitgen
+    X = torch.load(a.input, weights_only=True).float() if a.input else None
+    fn = getattr(rule, "vit" if a.net == "clip" else "r18")
+    takes_x = "X" in inspect.signature(fn).parameters
+    if X is not None and not takes_x:
+        raise SystemExit(f"rule {a.rule} does not take an input X")
     for f in [float(v) for v in a.f.split(",")]:
         t0 = time.time()
-        small = getattr(rule, "vit" if a.net == "clip" else "r18")(big, f)
+        small = fn(big, f, X=X) if takes_x else fn(big, f)
         t_calc = time.time() - t0
         if a.net == "clip":
             params, shp = vitgen.n_params(small), vitgen.shape(small)
@@ -163,9 +170,10 @@ def main():
             params = sum(p.numel() for p in small.parameters())
             shp = dict(widths=list(getattr(small, "w", (64, 128, 256, 512))))
             res, k = r18_score(small, a.n, a.split)
-        tag = f"{a.net}_{a.rule}_f{f:g}_{a.split}{res['n']}"
+        inp = os.path.basename(a.input)[:-3] if a.input else "pink-default"
+        tag = f"{a.net}_{a.rule}_f{f:g}_{a.split}{res['n']}" + (f"_{inp}" if a.input else "")
         np.save(os.path.join(OUTD, tag + ".npy"), k)
-        row = dict(net=a.net, rule=a.rule, f=f, split=a.split, **res, params=params, shape=shp,
+        row = dict(net=a.net, rule=a.rule, f=f, split=a.split, input=inp, **res, params=params, shape=shp,
                    calc_seconds=round(t_calc, 1), total_seconds=round(time.time() - t0, 1),
                    photo_use=f"{a.split} photos, scoring only", when=datetime.datetime.now().isoformat(timespec="seconds"),
                    note=a.note)

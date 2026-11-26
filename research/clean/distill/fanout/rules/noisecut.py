@@ -24,7 +24,8 @@ DEV = "mps" if torch.backends.mps.is_available() else "cpu"
 
 
 @torch.no_grad()
-def vit_scores(T, n=N_NOISE, seed=SEED):
+def vit_scores(T, n=N_NOISE, seed=SEED, X=None):
+    """X: optional cached generic input (N, 3, 224, 224). Default: pink(n, seed) in batches as before."""
     Td = vitgen.to(T, DEV)
     nb = len(T["blocks"])
     H = T["blocks"][0]["q_w"].shape[0] // vitgen.HEAD_DIM
@@ -33,8 +34,9 @@ def vit_scores(T, n=N_NOISE, seed=SEED):
     hd = torch.zeros(nb, H, device=DEV)
     ml = [0.0] * nb
     cnt = 0
+    n = len(X) if X is not None else n
     for a in range(0, n, BS):
-        x = generic.pink(BS, seed=seed * 100000 + a).to(DEV)
+        x = (X[a:a + BS] if X is not None else generic.pink(BS, seed=seed * 100000 + a)).to(DEV).float()
         s = vitgen.embed(Td, x)
         st += s.pow(2).mean((0, 1))
         for i, B in enumerate(Td["blocks"]):
@@ -61,17 +63,17 @@ def top(s, k):
     return torch.sort(torch.topk(s, k).indices).values
 
 
-def vit(T, f):
-    sc = vit_scores(T)
+def vit(T, f, X=None):
+    sc = vit_scores(T, X=X)
     d, h, m = vitgen.sizes(f, T)
     return vitgen.cut(T, top(sc["stream"], d), [top(s, h) for s in sc["head"]], [top(s, m) for s in sc["mlp"]])
 
 
 @torch.no_grad()
-def r18(A, f):
+def r18(A, f, X=None):
     import wide18
     A = A.to(DEV).eval()
-    x = generic.pink(N_NOISE, seed=SEED).to(DEV)
+    x = (X if X is not None else generic.pink(N_NOISE, seed=SEED)).to(DEV).float()
     sc = wide18.channel_scores(A, x, bs=BS)
     S, _ = wide18.cut_from_a(A, f, sc)
     A.cpu()
