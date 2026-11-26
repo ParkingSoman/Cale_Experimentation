@@ -2739,5 +2739,130 @@
   "photo_use": "test photos, scoring only",
   "when": "2026-11-26T14:26:25",
   "note": "P5 round1 inner only"
+ },
+ {
+  "net": "r18",
+  "rule": "p5rank_stream",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.0290722846984863,
+  "top1": 0.497,
+  "agree": 0.5820000171661377,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 2.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:26:28",
+  "note": "P5 round1 stream only"
+ },
+ {
+  "net": "r18",
+  "rule": "p5rank_stream",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 9.139892578125,
+  "top1": 0.002,
+  "agree": 0.0010000000474974513,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 1.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:26:30",
+  "note": "P5 round1 stream only"
+ },
+ {
+  "net": "r18",
+  "rule": "p5rank_null",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.8439348936080933,
+  "top1": 0.357,
+  "agree": 0.41200000047683716,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 28.1,
+  "total_seconds": 30.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:27:05",
+  "note": "P5 null read-permuted"
+ },
+ {
+  "net": "r18",
+  "rule": "p5rank_null",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 10.47394847869873,
+  "top1": 0.002,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 3055880,
+  "shape": {
+   "widths": [
+    32,
+    64,
+    128,
+    256
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 0.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:27:06",
+  "note": "P5 null read-permuted"
+ },
+ {
+  "net": "r18",
+  "rule": "p5rank_null",
+  "f": 0.05,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 17.650367736816406,
+  "top1": 0.001,
+  "agree": 0.0010000000474974513,
+  "n": 1000,
+  "params": 56372,
+  "shape": {
+   "widths": [
+    3,
+    6,
+    13,
+    26
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 0.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:27:06",
+  "note": "P5 null read-permuted"
  }
 ]
