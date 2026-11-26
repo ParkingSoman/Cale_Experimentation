@@ -6730,5 +6730,248 @@
   "note": "r2 P1-P3: CLIP MLP-only, P4 fold on merged firings; a = no merge, d = R1 (weighted by noise RMS) OR-merge, p = shape-kept null (R1 owners permuted over deleted units)",
   "who": "P1-P3",
   "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_p6_r18_map",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.7007300853729248,
+  "top1": 0.54,
+  "agree": 0.6570000052452087,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 7.5,
+  "total_seconds": 13.1,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:28:04",
+  "note": "r2 P6: ResNet stream-only, read maps (ridge LS of cut on kept channels at each reader point, on X) folded into readers + exact mean remainder",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_p6_r18_map",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 2.380336046218872,
+  "top1": 0.273,
+  "agree": 0.3230000138282776,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 4.3,
+  "total_seconds": 9.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:28:14",
+  "note": "r2 P6: ResNet stream-only, read maps (ridge LS of cut on kept channels at each reader point, on X) folded into readers + exact mean remainder",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_p6_r18_map",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 7.656508445739746,
+  "top1": 0.003,
+  "agree": 0.004000000189989805,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 2.9,
+  "total_seconds": 4.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:28:19",
+  "note": "r2 P6: ResNet stream-only, read maps (ridge LS of cut on kept channels at each reader point, on X) folded into readers + exact mean remainder",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_p6_r18_perm",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.7706942558288574,
+  "top1": 0.531,
+  "agree": 0.6539999842643738,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 2.5,
+  "total_seconds": 4.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:28:25",
+  "note": "r2 P6: NULL same form, read-map rows deranged among cut channels",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_p6_r18_perm",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 3.7392499446868896,
+  "top1": 0.145,
+  "agree": 0.17000000178813934,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 1.1,
+  "total_seconds": 3.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:28:28",
+  "note": "r2 P6: NULL same form, read-map rows deranged among cut channels",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_p6_r18_perm",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 8.84653091430664,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 1.1,
+  "total_seconds": 3.1,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:28:31",
+  "note": "r2 P6: NULL same form, read-map rows deranged among cut channels",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "p6diag_r18_meanfold",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.8973066210746765,
+  "top1": 0.503,
+  "agree": 0.6119999885559082,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 2.5,
+  "total_seconds": 4.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:28:37",
+  "note": "r2 P6: same-photo baseline, round-1 mean-only fold",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "p6diag_r18_meanfold",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 4.334136486053467,
+  "top1": 0.122,
+  "agree": 0.14300000667572021,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 2.0,
+  "total_seconds": 3.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:28:41",
+  "note": "r2 P6: same-photo baseline, round-1 mean-only fold",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "p6diag_r18_meanfold",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 9.660704612731934,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 2.0,
+  "total_seconds": 3.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:28:45",
+  "note": "r2 P6: same-photo baseline, round-1 mean-only fold",
+  "who": "P6",
+  "quick": false
  }
 ]

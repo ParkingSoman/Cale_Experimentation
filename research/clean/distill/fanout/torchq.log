@@ -51,3 +51,7 @@
 16:20:02	P0	slot1	wait 2s	run 50s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/r2_p0_ps.py --input distill/fanout/cache/clip_null_n256_k32_s1.pt --f 0.85,0.7
 16:23:29	P1-P3	slot0	wait 172s	run 859s	exit 0	/bin/sh distill/fanout/r2_p1p3/promote.sh
 16:24:57	P0	slot1	wait 2s	run 284s	exit 0	/bin/sh distill/fanout/r2_p0/psall.sh
+16:26:14	P0	slot1	wait 2s	run 67s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/r2_p0_ps.py --input distill/fanout/cache/clip_self_n256_k32_s1.pt --f 0.7 --stride 1
+16:27:36	P6	long	wait 2s	run 114s	exit 0	/bin/sh -c for r in r2_p6_r18_map r2_p6_r18_perm p6diag_r18_plain p6diag_r18_meanfold; do /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --f 0.95,0.85 --quick --who P6 --input distill/fanout/cache/input_pink_n256_s1.pt --rule $r;
+16:28:17	P1-P3	slot0	wait 2s	run 279s	exit 0	/bin/sh distill/fanout/r2_p1p3/batch.sh --f 0.95,0.85 --quick --note LABELLED_READING_CHECK_photo_stats r2_p1p3_checkphoto_d r2_p1p3_checkphoto_g
+16:28:45	P6	slot1	wait 2s	run 56s	exit 0	/bin/sh -c /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --f 0.95,0.85,0.5 --who P6 --input distill/fanout/cache/input_pink_n256_s1.pt --rule r2_p6_r18_map --note 'r2 P6: ResNet stream-only, read maps (ridge LS of cut on kept ch

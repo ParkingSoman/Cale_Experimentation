@@ -31,7 +31,7 @@ def _moments(A, X):
     S1, S2, N = {}, {}, {}
     for a in range(0, len(x), BS):
         for k, h in d6._points(Ad, x[a:a + BS].to(DEV).float()).items():
-            H = h.permute(0, 2, 3, 1).reshape(-1, h.shape[1]).double().cpu()
+            H = h.permute(0, 2, 3, 1).reshape(-1, h.shape[1]).cpu().double()
             S1[k] = S1.get(k, 0) + H.sum(0)
             S2[k] = S2.get(k, 0) + H.T @ H
             N[k] = N.get(k, 0) + H.shape[0]
