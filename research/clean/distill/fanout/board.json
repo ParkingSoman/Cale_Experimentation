@@ -3966,5 +3966,227 @@
   "note": "r2 P0: TUNING SIGNAL (held split), input input_pink_n256_s1",
   "who": "P0",
   "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "held",
+  "input": "r18_self_n256_k32_s1",
+  "kl": 1.6958773136138916,
+  "top1": 0.404,
+  "agree": 0.4429999887943268,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 1.7,
+  "total_seconds": 6.8,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T15:31:47",
+  "note": "r2 P0: TUNING SIGNAL (held split), input r18_self_n256_k32_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.85,
+  "split": "held",
+  "input": "r18_self_n256_k32_s1",
+  "kl": 8.3650541305542,
+  "top1": 0.019,
+  "agree": 0.024000000208616257,
+  "n": 1000,
+  "params": 8514864,
+  "shape": {
+   "widths": [
+    54,
+    109,
+    218,
+    435
+   ]
+  },
+  "calc_seconds": 1.7,
+  "total_seconds": 5.4,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T15:31:53",
+  "note": "r2 P0: TUNING SIGNAL (held split), input r18_self_n256_k32_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_w25",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.791485071182251,
+  "top1": 0.569,
+  "agree": 0.6919999718666077,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 13.1,
+  "total_seconds": 39.1,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:32:35",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_w25",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.871695518493652,
+  "top1": 0.052,
+  "agree": 0.06199999898672104,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 21.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:32:56",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_w25_null",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.771408200263977,
+  "top1": 0.554,
+  "agree": 0.6769999861717224,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 27.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:33:23",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_w25_null",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.468151569366455,
+  "top1": 0.064,
+  "agree": 0.07000000029802322,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 22.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:33:45",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_w0",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.8199354410171509,
+  "top1": 0.561,
+  "agree": 0.6819999814033508,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 25.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:34:11",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_w0",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 7.737441062927246,
+  "top1": 0.042,
+  "agree": 0.050999999046325684,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 21.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:34:32",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
  }
 ]
