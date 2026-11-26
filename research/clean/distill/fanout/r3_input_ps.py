@@ -6,6 +6,7 @@ Input spec (no photos in the calculation):
   --input A.pt[+B.pt...]   concat of generic inputs (pooled set)
   --blend w --base P.pt    X = base + w * (input - base)  (pixel blend; w > 1 extrapolates the generator's move)
   --sub N                  first N images only
+  --chroma s               shrink the colour part: x = mean over channels + s (x - mean), renormalized per channel
   --aug flip               add the horizontally flipped copy of every image
   --photos K               LABELLED READING CHECK: basis from K held photos ids[1000:2000][::4][:K] (scoring uses
                            held ids[:1000] or test, disjoint); rows carry input 'heldK-CHECK', never board.json.
@@ -73,6 +74,11 @@ def load_input(a):
     if a.sub:
         X = X[:a.sub]
         name += f"[:{a.sub}]"
+    if a.chroma is not None:
+        mu = X.mean(1, keepdim=True)
+        X = mu + a.chroma * (X - mu)
+        X = (X - X.mean((2, 3), keepdim=True)) / X.std((2, 3), keepdim=True)
+        name += f"+chroma{a.chroma:g}"
     if a.aug == "flip":
         X = torch.cat([X, X.flip(3)])
         name += "+flip"
@@ -86,6 +92,7 @@ def main():
     ap.add_argument("--base", default="distill/fanout/cache/input_pink_n256_s1.pt")
     ap.add_argument("--sub", type=int, default=0)
     ap.add_argument("--aug", default="")
+    ap.add_argument("--chroma", type=float, default=None, help="x = mean_c + s (x - mean_c), then per-image per-channel mean 0 std 1 (s 0 = grey)")
     ap.add_argument("--photos", type=int, default=0)
     ap.add_argument("--f", default="0.85,0.7")
     ap.add_argument("--kind", default="pca", help="pca | rand (ps per-site) | rG (P6 reader basis, rho divisor)")

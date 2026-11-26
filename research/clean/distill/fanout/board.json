@@ -7001,5 +7001,33 @@
   "note": "r3 JOINT: ONE CLIP calc = P6 rG stream (rho, C pink) + heads floor act + MLP weight + P4 MLP fold",
   "who": "JOINT",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_joint_c_on",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 4.576558589935303,
+  "top1": 0.159,
+  "agree": 0.178,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 66.1,
+  "total_seconds": 108.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:00:38",
+  "note": "r3 JOINT: ONE CLIP calc = P6 rG stream (rho, C pink) + heads floor act + MLP weight + P4 MLP fold",
+  "who": "JOINT",
+  "quick": false
  }
 ]

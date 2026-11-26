@@ -8,6 +8,8 @@ Copied from rules/r2_joint_vit.py (JOINT round 2), same fold (p4write.fold_map, 
          "open":   student firings from the TEACHER stream (kept stream coords, the student's own block weights).
   null   "roll": P4 shuffled pairing (image i takes image i+1's cut-unit firings); "mean": per-position mean.
   xfold  path of a cached input used ONLY for the fold moments (the kept sets still come from the board's X).
+  kslice True: the kept rows of G are reset to the slice (kept units keep their own write; only cut units fold).
+  lamx   ridge multiplier on lam = tr(Ss) / N.
   tokw   weight of the CLS token's samples in the moments (1 = plain; patch tokens keep weight 1).
 Kept sets: stream + heads by the floor activity on X, MLP by weight (P5 a = 0); = r2_joint_v_w.
 Object (picked by): every pr_w of the cut CLIP blocks (weight order picks the kept MLP neurons).
@@ -47,7 +49,7 @@ def _load(p):
 
 @torch.no_grad()
 def build(T, f, X=None, cut=("stream", "heads", "mlp"), fold=("mlp",), loop="closed", null=None, xfold=None,
-          tokw=1.0, tag=""):
+          tokw=1.0, tag="", kslice=False, lamx=1.0):
     X = P4._x_vit(X)
     sd, hk, mk = keep_sets(T, f, X, cut)
     Wc = vitgen.cut(T, sd, hk, mk)
@@ -92,14 +94,17 @@ def build(T, f, X=None, cut=("stream", "heads", "mlp"), fold=("mlp",), loop="clo
                         aT = aT * wv[None, :, None]
                         aS = aS * wv[None, :, None]
                     mom.add(aT.flatten(0, 1), aS.flatten(0, 1))
-                G, lam = P4.fold_map(mom.Sx / mom.N, mom.Ss / mom.N, kept, mom.N, "slice")
+                lam0 = float(torch.trace(mom.Ss / mom.N)) / mom.N
+                G, lam = P4.fold_map(mom.Sx / mom.N, mom.Ss / mom.N, kept, mom.N, "slice", lam=lam0 * lamx)
+                if kslice:               # kept units keep their own write; only the cut units' message is folded
+                    G[torch.as_tensor(kept).long()] = P4._ek(kept, n)[torch.as_tensor(kept).long()].to(G.dtype)
                 Bs[wk] = (BT[wk][sdd].cpu().double() @ G).float().to(DEV)
                 offs.append(float((G - P4._ek(kept, n)).norm() / max(G.norm(), 1e-30)))
             for sl in sls:
                 t[sl] = t[sl] + F.linear(fire(t[sl], BT), BT[wk], BT[bk])
                 s[sl] = s[sl] + F.linear(fire(s[sl], Bs), Bs[wk], Bs[bk])
     W = vitgen.to(Wd, "cpu")
-    print(f"[r3_write {tag} f={f:g}] cut={cut} fold={fold} loop={loop} null={null} xfold={bool(xfold)} tokw={tokw} "
+    print(f"[r3_write {tag} f={f:g}] cut={cut} fold={fold} loop={loop} null={null} xfold={bool(xfold)} tokw={tokw} kslice={kslice} lamx={lamx} "
           f"G_offslice mean {sum(offs) / max(len(offs), 1):.3f}", flush=True)
     del Td, Wd, t, s
     if DEV == "mps":
