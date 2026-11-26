@@ -19,15 +19,22 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 LOG = os.path.join(HERE, "torchq.log")
 GATE = os.path.join(HERE, ".torch.gate")
-N_SLOTS = 2                                    # 2 short + 1 long = 3 torch jobs at most (cut from 3 + 1 after swap fell to 437 MB, 15:2x)
+N_SLOTS = 1                                    # 1 short + 1 long = 2 torch jobs at most (15:25: swap in use reached 10.8 GB with 3 jobs)
 MIN_SWAP_MB = 1000
 MIN_FREE_PCT = 35
+MAX_SWAP_USED_MB = 8000                         # macOS grows the swap file, so 'free' stays small; 'used' is the real signal
 
 
 def free_swap_mb():
     out = subprocess.run(["sysctl", "vm.swapusage"], capture_output=True, text=True).stdout
     m = re.search(r"free = ([\d.]+)M", out)
     return float(m.group(1)) if m else 1e9
+
+
+def used_swap_mb():
+    out = subprocess.run(["sysctl", "vm.swapusage"], capture_output=True, text=True).stdout
+    m = re.search(r"used = ([\d.]+)M", out)
+    return float(m.group(1)) if m else 0.0
 
 
 def free_mem_pct():
@@ -61,8 +68,8 @@ def main():
     slot, fh = take_slot(a.long)
     with open(GATE, "w") as g:                      # one job passes the memory guard at a time
         fcntl.flock(g, fcntl.LOCK_EX)
-        while free_swap_mb() < MIN_SWAP_MB or free_mem_pct() < MIN_FREE_PCT:
-            if time.time() - t0 > 1800:
+        while free_swap_mb() < MIN_SWAP_MB or free_mem_pct() < MIN_FREE_PCT or used_swap_mb() > MAX_SWAP_USED_MB:
+            if time.time() - t0 > 3600:
                 print("torchq: memory guard held for 30 min, giving up", file=sys.stderr)
                 sys.exit(3)
             time.sleep(5)
