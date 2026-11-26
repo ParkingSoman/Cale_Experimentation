@@ -4188,5 +4188,89 @@
   "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
   "who": "P5",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_floorx",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.1391056776046753,
+  "top1": 0.498,
+  "agree": 0.6039999723434448,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 25.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:34:58",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_floorx",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 7.168432712554932,
+  "top1": 0.035,
+  "agree": 0.03099999949336052,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 21.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:35:19",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p5_m25",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.17542783915996552,
+  "top1": 0.655,
+  "agree": 0.8500000238418579,
+  "n": 1000,
+  "params": 83352264,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 26.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:35:45",
+  "note": "r2 P5: MLP by weight^.75 x activity^.25, stream+heads by floor activity; a picked on 200 quick test photos (fit); photo use none in calc",
+  "who": "P5",
+  "quick": false
  }
 ]

@@ -6,3 +6,4 @@ saved /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/ca
 saved /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_r2ent_n256_s1.pt
 {"tag": "r2k8", "net": "r18", "kind": "self", "K": 8, "lr": 0.05, "target": "ce", "div": 0.0, "color": false, "photo_use": "none", "minutes": 0.21, "loss1": 11.18264889717102, "lossK": 5.397046208381653, "rel_change": 0.25651007145643234}
 saved /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_r2k8_n256_s1.pt
+torchq: timeout after 600 s
