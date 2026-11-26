@@ -1202,5 +1202,31 @@
   "photo_use": "test photos, scoring only",
   "when": "2026-11-26T13:40:23",
   "note": "floor on the shared input"
+ },
+ {
+  "net": "clip",
+  "rule": "p6diag_clip_rho",
+  "f": 1.0,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 9.763588195710327e-07,
+  "top1": 0.671,
+  "agree": 1.0,
+  "n": 1000,
+  "params": 86192640,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 10.8,
+  "total_seconds": 25.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:01:14",
+  "note": "P6 diag implementation check (algebra): rms conversion at f=1"
  }
 ]
