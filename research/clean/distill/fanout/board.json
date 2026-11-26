@@ -7829,5 +7829,451 @@
   "note": "r3 WRITE: stream+MLP cut, heads full; kslice / roll null / off / plain fold",
   "who": "WRITE",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_sm_ksroll",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 3.1055707931518555,
+  "top1": 0.283,
+  "agree": 0.322,
+  "n": 1000,
+  "params": 66065526,
+  "shape": {
+   "d": 653,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 72.3,
+  "total_seconds": 112.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:30:03",
+  "note": "r3 WRITE: stream+MLP cut, heads full; kslice / roll null / off / plain fold",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_floor_sfon_on",
+  "f": 0.7,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 7.992748260498047,
+  "top1": 0.015,
+  "agree": 0.016,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 16.5,
+  "total_seconds": 24.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:30:14",
+  "note": "r3 JOINT: ResNet J at 70/50",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_floor_sfon_on",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 10.973960876464844,
+  "top1": 0.003,
+  "agree": 0.004,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 8.3,
+  "total_seconds": 12.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:30:27",
+  "note": "r3 JOINT: ResNet J at 70/50",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_sm_off",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.5186465978622437,
+  "top1": 0.608,
+  "agree": 0.747,
+  "n": 1000,
+  "params": 79231164,
+  "shape": {
+   "d": 730,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 19.0,
+  "total_seconds": 46.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:30:51",
+  "note": "r3 WRITE: stream+MLP cut, heads full; kslice / roll null / off / plain fold",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_sm_off",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 5.2179646492004395,
+  "top1": 0.155,
+  "agree": 0.185,
+  "n": 1000,
+  "params": 66065526,
+  "shape": {
+   "d": 653,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 23.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:31:14",
+  "note": "r3 WRITE: stream+MLP cut, heads full; kslice / roll null / off / plain fold",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_sm_fold",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.6956446766853333,
+  "top1": 0.558,
+  "agree": 0.682,
+  "n": 1000,
+  "params": 79231164,
+  "shape": {
+   "d": 730,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 59.7,
+  "total_seconds": 88.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:32:44",
+  "note": "r3 WRITE: stream+MLP cut, heads full; kslice / roll null / off / plain fold",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_joint_c_meannull",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.568750381469727,
+  "top1": 0.082,
+  "agree": 0.087,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 108.6,
+  "total_seconds": 146.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:32:52",
+  "note": "r3 JOINT: fold same-form mean null of r3_joint_c_on",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_sm_fold",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 5.026585102081299,
+  "top1": 0.107,
+  "agree": 0.124,
+  "n": 1000,
+  "params": 66065526,
+  "shape": {
+   "d": 653,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 26.4,
+  "total_seconds": 40.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:33:24",
+  "note": "r3 WRITE: stream+MLP cut, heads full; kslice / roll null / off / plain fold",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_tree_r10r",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.8995096683502197,
+  "top1": 0.536,
+  "agree": 0.649,
+  "n": 1000,
+  "params": 77689956,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 52.2,
+  "total_seconds": 68.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:34:37",
+  "note": "r3 TREE: tilt .1 toward top R1 partner (weights), renorm",
+  "who": "TREE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_w_kslice",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.6284188032150269,
+  "top1": 0.592,
+  "agree": 0.714,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 32.8,
+  "total_seconds": 50.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:35:29",
+  "note": "r3 WRITE: whole cut, MLP fold with kept rows on the slice (kslice) / its roll null / off",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_w_kslice",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 4.058141708374023,
+  "top1": 0.186,
+  "agree": 0.21,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 23.3,
+  "total_seconds": 36.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:36:06",
+  "note": "r3 WRITE: whole cut, MLP fold with kept rows on the slice (kslice) / its roll null / off",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_w_ksroll",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.6940447092056274,
+  "top1": 0.589,
+  "agree": 0.699,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 34.8,
+  "total_seconds": 50.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:36:58",
+  "note": "r3 WRITE: whole cut, MLP fold with kept rows on the slice (kslice) / its roll null / off",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_w_ksroll",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 4.78462028503418,
+  "top1": 0.152,
+  "agree": 0.174,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 24.7,
+  "total_seconds": 37.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:37:35",
+  "note": "r3 WRITE: whole cut, MLP fold with kept rows on the slice (kslice) / its roll null / off",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_w_off",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.8199354410171509,
+  "top1": 0.561,
+  "agree": 0.682,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 7.2,
+  "total_seconds": 23.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:38:00",
+  "note": "r3 WRITE: whole cut, MLP fold with kept rows on the slice (kslice) / its roll null / off",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_write_w_off",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 7.737441062927246,
+  "top1": 0.042,
+  "agree": 0.051,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 13.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:38:13",
+  "note": "r3 WRITE: whole cut, MLP fold with kept rows on the slice (kslice) / its roll null / off",
+  "who": "WRITE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_joint_c_nofold",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.075648784637451,
+  "top1": 0.108,
+  "agree": 0.118,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 24.4,
+  "total_seconds": 40.1,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:38:56",
+  "note": "r3 CRITIC: full OFF row (fold off) for the JOINT 85% milestone r3_joint_c_on",
+  "who": "CRITIC",
+  "quick": false
  }
 ]
