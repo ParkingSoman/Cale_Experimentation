@@ -1,2 +1,8 @@
 {"tag": "r2act", "net": "r18", "kind": "self", "K": 32, "lr": 0.05, "target": "act", "div": 0.0, "color": false, "photo_use": "none", "minutes": 2.85, "loss1": -1.0, "lossK": -3.436723977327347, "rel_change": 0.656625896692276}
 saved /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_r2act_n256_s1.pt
+{"tag": "r2color", "net": "r18", "kind": "self", "K": 32, "lr": 0.05, "target": "ce", "div": 0.0, "color": true, "photo_use": "none", "minutes": 1.46, "loss1": 11.655900478363037, "lossK": 0.20029946230351925, "rel_change": 0.6908652111887932}
+saved /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_r2color_n256_s1.pt
+{"tag": "r2ent", "net": "r18", "kind": "self", "K": 32, "lr": 0.05, "target": "ent", "div": 0.0, "color": false, "photo_use": "none", "minutes": 0.83, "loss1": 2.019271656870842, "lossK": 0.01948867685860023, "rel_change": 0.4385130777955055}
+saved /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_r2ent_n256_s1.pt
+{"tag": "r2k8", "net": "r18", "kind": "self", "K": 8, "lr": 0.05, "target": "ce", "div": 0.0, "color": false, "photo_use": "none", "minutes": 0.21, "loss1": 11.18264889717102, "lossK": 5.397046208381653, "rel_change": 0.25651007145643234}
+saved /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_r2k8_n256_s1.pt
