@@ -8,7 +8,17 @@ Parts and switches (each switch sets ONE part back to its floor):
          (rules/_p6diag_r18.py, teacher stream, open loop);  "perm" = its derangement null (same form).
   fold   "off" = floor;  "on" = P4 reader-matched unit fold of the INNER set into conv2 (rules/p4write.py, A = 0,
          slice anchor, closed loop on the student that already has the stream cut + mean fold);
-         "null" = P4's shuffled-pairing null (same form).
+         "null" = P4's shuffled-pairing null (same form); "aff" = the same fold with a constant unit (bias into bn2).
+  sfold  "off" = floor;  "on" = STREAM FOLD, closed loop, front to back: at every reader of a cut stream point
+         (block conv1, downsample, fc), regress the teacher's full stream (n ch) on [the student's kept channels, 1]
+         (p4write.fold_map, slice anchor, the constant unit added), W' = W G on the kept columns, the constant part
+         into the reader's BN running_mean (fc: bias). Excludes mean (it contains the mean fold as its constant).
+         "null" = the same with the cut channels' teacher values taken from the next image (shuffled pairing).
+         Derived from: P4's stream fold A (round-1 proposal), switched ON here against the round-1 critic's "A = 0"
+         verdict (A conflicted with P6 read maps on CLIP; this is ResNet, coordinate stream, no P6 basis).
+         Honest status: no prediction was written before its first run, and it has no planted test. Its evidence
+         is its same-form null only (full 1,000: beats the null by .070 +- .005 KL at 95%, .578 +- .025 at 85%,
+         paired on the 800 photos outside the quick set).
 Form: full-width masked network. A cut stream channel = every read of it set to 0 (block conv1 columns, downsample
 columns, fc column). A cut inner channel = its conv2 column set to 0 (the fold writes only kept columns). This is
 the same function as the narrow cut (checked: all switches at floor = the noisecut row).

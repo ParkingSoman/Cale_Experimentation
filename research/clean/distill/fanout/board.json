@@ -5682,5 +5682,381 @@
   "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
   "who": "JOINT",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_joint_v_w_foldmlp",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.0739848613739014,
+  "top1": 0.524,
+  "agree": 0.6169999837875366,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {},
+  "calc_seconds": 71.2,
+  "total_seconds": 115.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:04:45",
+  "note": "r2 JOINT: CLIP whole cut, MLP weight order (P5 a=0) + P4 MLP fold; quick showed the fold hurts here",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_rG_rho",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.22995413839817047,
+  "top1": 0.645,
+  "agree": 0.8209999799728394,
+  "n": 1000,
+  "params": 81931092,
+  "shape": {
+   "d": 730,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 56.2,
+  "total_seconds": 105.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:05:03",
+  "note": "r2 P6: stream-only, one subspace = top eigvecs of G^1/2 C G^1/2 (reader-weighted, T+ pass)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_rG_rho",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.9545043110847473,
+  "top1": 0.52,
+  "agree": 0.6269999742507935,
+  "n": 1000,
+  "params": 73295850,
+  "shape": {
+   "d": 653,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 3.7,
+  "total_seconds": 62.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:06:05",
+  "note": "r2 P6: stream-only, one subspace = top eigvecs of G^1/2 C G^1/2 (reader-weighted, T+ pass)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "held",
+  "input": "r18_r2act_n256_s1",
+  "kl": 2.271345853805542,
+  "top1": 0.334,
+  "agree": 0.3580000102519989,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 3.2,
+  "total_seconds": 11.2,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T16:06:22",
+  "note": "r2 P0: TUNING SIGNAL (held split), input r18_r2act_n256_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.85,
+  "split": "held",
+  "input": "r18_r2act_n256_s1",
+  "kl": 10.033143997192383,
+  "top1": 0.019,
+  "agree": 0.017000000923871994,
+  "n": 1000,
+  "params": 8514864,
+  "shape": {
+   "widths": [
+    54,
+    109,
+    218,
+    435
+   ]
+  },
+  "calc_seconds": 3.4,
+  "total_seconds": 9.1,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T16:06:31",
+  "note": "r2 P0: TUNING SIGNAL (held split), input r18_r2act_n256_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_rG_rho",
+  "f": 0.7,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 3.20627760887146,
+  "top1": 0.227,
+  "agree": 0.25600001215934753,
+  "n": 1000,
+  "params": 60399060,
+  "shape": {
+   "d": 538,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.9,
+  "total_seconds": 39.1,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:06:44",
+  "note": "r2 P6: stream-only, one subspace = top eigvecs of G^1/2 C G^1/2 (reader-weighted, T+ pass)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "held",
+  "input": "r18_r2color_n256_s1",
+  "kl": 1.745324969291687,
+  "top1": 0.389,
+  "agree": 0.4259999990463257,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 3.4,
+  "total_seconds": 10.7,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T16:06:45",
+  "note": "r2 P0: TUNING SIGNAL (held split), input r18_r2color_n256_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.85,
+  "split": "held",
+  "input": "r18_r2color_n256_s1",
+  "kl": 8.335982322692871,
+  "top1": 0.022,
+  "agree": 0.019999999552965164,
+  "n": 1000,
+  "params": 8514864,
+  "shape": {
+   "widths": [
+    54,
+    109,
+    218,
+    435
+   ]
+  },
+  "calc_seconds": 3.1,
+  "total_seconds": 9.0,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T16:06:54",
+  "note": "r2 P0: TUNING SIGNAL (held split), input r18_r2color_n256_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "held",
+  "input": "r18_r2ent_n256_s1",
+  "kl": 1.8093007802963257,
+  "top1": 0.383,
+  "agree": 0.42800000309944153,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 2.8,
+  "total_seconds": 10.4,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T16:07:07",
+  "note": "r2 P0: TUNING SIGNAL (held split), input r18_r2ent_n256_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_rG_rho",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 8.390804290771484,
+  "top1": 0.009,
+  "agree": 0.008999999612569809,
+  "n": 1000,
+  "params": 43128576,
+  "shape": {
+   "d": 384,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.7,
+  "total_seconds": 30.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:07:15",
+  "note": "r2 P6: stream-only, one subspace = top eigvecs of G^1/2 C G^1/2 (reader-weighted, T+ pass)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.85,
+  "split": "held",
+  "input": "r18_r2ent_n256_s1",
+  "kl": 9.783864974975586,
+  "top1": 0.015,
+  "agree": 0.014000000432133675,
+  "n": 1000,
+  "params": 8514864,
+  "shape": {
+   "widths": [
+    54,
+    109,
+    218,
+    435
+   ]
+  },
+  "calc_seconds": 3.2,
+  "total_seconds": 9.2,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T16:07:16",
+  "note": "r2 P0: TUNING SIGNAL (held split), input r18_r2ent_n256_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "held",
+  "input": "r18_r2k8_n256_s1",
+  "kl": 1.7418032884597778,
+  "top1": 0.391,
+  "agree": 0.4320000112056732,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 3.7,
+  "total_seconds": 11.4,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T16:07:30",
+  "note": "r2 P0: TUNING SIGNAL (held split), input r18_r2k8_n256_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.85,
+  "split": "held",
+  "input": "r18_r2k8_n256_s1",
+  "kl": 7.98991584777832,
+  "top1": 0.031,
+  "agree": 0.03099999949336052,
+  "n": 1000,
+  "params": 8514864,
+  "shape": {
+   "widths": [
+    54,
+    109,
+    218,
+    435
+   ]
+  },
+  "calc_seconds": 3.2,
+  "total_seconds": 8.9,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T16:07:39",
+  "note": "r2 P0: TUNING SIGNAL (held split), input r18_r2k8_n256_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_rand_rho",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.7127451300621033,
+  "top1": 0.571,
+  "agree": 0.6840000152587891,
+  "n": 1000,
+  "params": 81931092,
+  "shape": {
+   "d": 730,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 45.3,
+  "total_seconds": 99.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:08:55",
+  "note": "r2 P6: NULL random Q same rank, same fold",
+  "who": "P6",
+  "quick": false
  }
 ]
