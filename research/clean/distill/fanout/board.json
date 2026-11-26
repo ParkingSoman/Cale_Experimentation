@@ -2227,5 +2227,80 @@
   "photo_use": "test photos, scoring only",
   "when": "2026-11-26T14:17:01",
   "note": "P0 floor on self-made input"
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "test",
+  "input": "r18_null_n256_k32_s1",
+  "kl": 1.6701804399490356,
+  "top1": 0.386,
+  "agree": 0.4560000002384186,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 0.7,
+  "total_seconds": 2.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:18:09",
+  "note": "P0 null: shuffled-weights generator"
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.5,
+  "split": "test",
+  "input": "r18_null_n256_k32_s1",
+  "kl": 14.127838134765625,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 3055880,
+  "shape": {
+   "widths": [
+    32,
+    64,
+    128,
+    256
+   ]
+  },
+  "calc_seconds": 0.6,
+  "total_seconds": 1.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:18:10",
+  "note": "P0 null: shuffled-weights generator"
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.05,
+  "split": "test",
+  "input": "r18_null_n256_k32_s1",
+  "kl": 14.243758201599121,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 56372,
+  "shape": {
+   "widths": [
+    3,
+    6,
+    13,
+    26
+   ]
+  },
+  "calc_seconds": 0.6,
+  "total_seconds": 0.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:18:11",
+  "note": "P0 null: shuffled-weights generator"
  }
 ]
