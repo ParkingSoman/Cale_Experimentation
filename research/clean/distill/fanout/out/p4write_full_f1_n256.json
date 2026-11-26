@@ -1,0 +1,110 @@
+{
+ "rule": "p4write",
+ "tag": "full",
+ "f": 1.0,
+ "sets": [
+  "stream",
+  "inner"
+ ],
+ "fold": true,
+ "null": false,
+ "loop": "closed",
+ "anchor": "slice",
+ "input": {
+  "n": 256,
+  "sum": 1.248687744140625
+ },
+ "photo_use": "none (weights + generic input X)",
+ "resid_metric": "per tap, same position (the fold's own objective)",
+ "sites": [
+  {
+   "site": "layer1.0",
+   "n": 64,
+   "k": 64,
+   "lam": 4.9899346491550715e-06,
+   "n_samples": 802816,
+   "G_offslice": 1.635919075793822e-14,
+   "msg": 6430300.8447265625,
+   "err_floor": 0.0,
+   "err_rule": 0.0
+  },
+  {
+   "site": "layer1.1",
+   "n": 64,
+   "k": 64,
+   "lam": 4.5051568333735145e-06,
+   "n_samples": 802816,
+   "G_offslice": 5.400529459911017e-16,
+   "msg": 4178569.734375,
+   "err_floor": 0.0,
+   "err_rule": 0.0
+  },
+  {
+   "site": "layer2.0",
+   "n": 128,
+   "k": 128,
+   "lam": 3.166750066075996e-05,
+   "n_samples": 200704,
+   "G_offslice": 2.697408038532441e-16,
+   "msg": 2326364.2890625,
+   "err_floor": 0.0,
+   "err_rule": 0.0
+  },
+  {
+   "site": "layer2.1",
+   "n": 128,
+   "k": 128,
+   "lam": 9.572046179055945e-06,
+   "n_samples": 200704,
+   "G_offslice": 3.3577471313152496e-15,
+   "msg": 486143.15625,
+   "err_floor": 0.0,
+   "err_rule": 0.0
+  },
+  {
+   "site": "layer3.0",
+   "n": 256,
+   "k": 256,
+   "lam": 0.00011361338744195893,
+   "n_samples": 50176,
+   "G_offslice": 8.666657018051164e-16,
+   "msg": 740133.3203125,
+   "err_floor": 0.0,
+   "err_rule": 0.0
+  },
+  {
+   "site": "layer3.1",
+   "n": 256,
+   "k": 256,
+   "lam": 2.3998830371699453e-05,
+   "n_samples": 50176,
+   "G_offslice": 1.8111185701389827e-15,
+   "msg": 90323.3427734375,
+   "err_floor": 0.0,
+   "err_rule": 0.0
+  },
+  {
+   "site": "layer4.0",
+   "n": 512,
+   "k": 512,
+   "lam": 0.00010725839764321864,
+   "n_samples": 12544,
+   "G_offslice": 1.1026135062807476e-15,
+   "msg": 39398.1513671875,
+   "err_floor": 0.0,
+   "err_rule": 0.0
+  },
+  {
+   "site": "layer4.1",
+   "n": 512,
+   "k": 512,
+   "lam": 0.00019091649552667255,
+   "n_samples": 12544,
+   "G_offslice": 1.3295642184181592e-15,
+   "msg": 22346.44921875,
+   "err_floor": 0.0,
+   "err_rule": 0.0
+  }
+ ],
+ "seconds": 3.4
+}

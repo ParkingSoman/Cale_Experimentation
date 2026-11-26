@@ -60,12 +60,15 @@ def clip_teacher():
 
 
 @torch.no_grad()
-def clip_score(W, n, split, bs=100):
+def clip_score(W, n, split, bs=100, stride=1):
     sys.path.insert(0, os.path.join(DIST, "clipkd"))
     import eval_fast
     import vitgen
     ref = eval_fast.teacher_ref(split)
     n = min(n, len(ref["ids"]))
+    sel = np.arange(n)[::stride]
+    ref = dict(ref, ids=ref["ids"][sel], labels=ref["labels"][sel], logits=ref["logits"][sel])
+    n = len(sel)
     X = eval_fast.photos(ref["ids"][:n])
     Wd = vitgen.to(W, DEV)
     cls = ref["cls"].to(DEV)
@@ -103,11 +106,12 @@ def r18_logits(m, x, bs=250):
 _X = {}
 
 
-def r18_x(split, n):
-    if (split, n) not in _X:
+def r18_x(split, n, stride=1):
+    if (split, n, stride) not in _X:
         r18, ph, rows = r18_photos(split, n)
-        _X[(split, n)] = (torch.cat([ph.tensor(rows[a:a + 500]).half() for a in range(0, len(rows), 500)]), ph.lab[rows])
-    return _X[(split, n)]
+        rows = rows[::stride]
+        _X[(split, n, stride)] = (torch.cat([ph.tensor(rows[a:a + 500]).half() for a in range(0, len(rows), 500)]), ph.lab[rows])
+    return _X[(split, n, stride)]
 
 
 def r18_A():
@@ -116,9 +120,9 @@ def r18_A():
     return r18.load_a().cpu().eval()
 
 
-def r18_score(S, n, split):
-    x, lab = r18_x(split, n)
-    p = os.path.join(CACHE, f"r18_A_{split}{n}.pt")
+def r18_score(S, n, split, stride=1):
+    x, lab = r18_x(split, n, stride)
+    p = os.path.join(CACHE, f"r18_A_{split}{n}" + (f"s{stride}" if stride > 1 else "") + ".pt")
     if os.path.exists(p):
         zA = torch.load(p, weights_only=True)
     else:
@@ -146,6 +150,8 @@ def main():
     ap.add_argument("--n", type=int, default=1000)
     ap.add_argument("--split", default="test", choices=("test", "held"))
     ap.add_argument("--note", default="")
+    ap.add_argument("--quick", action="store_true", help="200 photos (every 5th class of the 1,000-photo set); row goes to scratch.jsonl, not board.json")
+    ap.add_argument("--who", default="lead")
     ap.add_argument("--input", default="", help="cached generic input tensor (.pt, normalized images) passed to the rule as X")
     a = ap.parse_args()
     rule = importlib.import_module(f"rules.{a.rule}")
@@ -153,6 +159,9 @@ def main():
     big = clip_teacher() if a.net == "clip" else r18_A()
     if a.net == "clip":
         import vitgen
+    stride = 5 if a.quick else 1
+    if a.quick:
+        a.n = 1000
     X = torch.load(a.input, weights_only=True).float() if a.input else None
     fn = getattr(rule, "vit" if a.net == "clip" else "r18")
     takes_x = "X" in inspect.signature(fn).parameters
@@ -165,19 +174,24 @@ def main():
         if a.net == "clip":
             params, shp = vitgen.n_params(small), vitgen.shape(small)
             shp = dict(d=shp["d"], heads=sorted(set(shp["heads"])), mlp=sorted(set(shp["mlp"])))
-            res, k = clip_score(small, a.n, a.split)
+            res, k = clip_score(small, a.n, a.split, stride=stride)
         else:
             params = sum(p.numel() for p in small.parameters())
             shp = dict(widths=list(getattr(small, "w", (64, 128, 256, 512))))
-            res, k = r18_score(small, a.n, a.split)
+            res, k = r18_score(small, a.n, a.split, stride=stride)
         inp = os.path.basename(a.input)[:-3] if a.input else "pink-default"
         tag = f"{a.net}_{a.rule}_f{f:g}_{a.split}{res['n']}" + (f"_{inp}" if a.input else "")
-        np.save(os.path.join(OUTD, tag + ".npy"), k)
+        if not a.quick:
+            np.save(os.path.join(OUTD, tag + ".npy"), k)
         row = dict(net=a.net, rule=a.rule, f=f, split=a.split, input=inp, **res, params=params, shape=shp,
                    calc_seconds=round(t_calc, 1), total_seconds=round(time.time() - t0, 1),
                    photo_use=f"{a.split} photos, scoring only", when=datetime.datetime.now().isoformat(timespec="seconds"),
-                   note=a.note)
-        add_row(row)
+                   note=a.note, who=a.who, quick=a.quick)
+        if a.quick:
+            with open(os.path.join(HERE, "scratch.jsonl"), "a") as fh:
+                fh.write(json.dumps(row) + "\n")
+        else:
+            add_row(row)
         print(json.dumps(row))
         del small
         if DEV == "mps":

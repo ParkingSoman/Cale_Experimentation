@@ -3119,5 +3119,770 @@
   "photo_use": "test photos, scoring only",
   "when": "2026-11-26T14:30:13",
   "note": "P5 one-shot (no re-measure)"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write",
+  "f": 1.0,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 9.80080699264363e-07,
+  "top1": 0.671,
+  "agree": 1.0,
+  "n": 1000,
+  "params": 86192640,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 37.4,
+  "total_seconds": 51.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:32:18",
+  "note": "P4 impl check f=1 (algebra)"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write",
+  "f": 1.0,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.0,
+  "top1": 0.697,
+  "agree": 1.0,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 3.4,
+  "total_seconds": 5.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:32:28",
+  "note": "P4 impl check f=1 (algebra)"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_off_mlp",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.473210871219635,
+  "top1": 0.591,
+  "agree": 0.7670000195503235,
+  "n": 1000,
+  "params": 83352264,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 6.1,
+  "total_seconds": 20.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:32:53",
+  "note": "P4 control: fold off, code-path check"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_off_mlp",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 9.039817810058594,
+  "top1": 0.003,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 57862656,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    1536
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 9.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:33:03",
+  "note": "P4 control: fold off, code-path check"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_off_heads",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.175064817070961,
+  "top1": 0.648,
+  "agree": 0.8600000143051147,
+  "n": 1000,
+  "params": 83831040,
+  "shape": {
+   "d": 768,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 6.3,
+  "total_seconds": 20.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:33:30",
+  "note": "P4 control: fold off, code-path check"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_off_heads",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 5.807308673858643,
+  "top1": 0.099,
+  "agree": 0.10700000077486038,
+  "n": 1000,
+  "params": 72023040,
+  "shape": {
+   "d": 768,
+   "heads": [
+    6
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 11.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:33:41",
+  "note": "P4 control: fold off, code-path check"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_off_inner",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.44096624851226807,
+  "top1": 0.611,
+  "agree": 0.722000002861023,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 0.6,
+  "total_seconds": 2.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:33:45",
+  "note": "P4 control: inner-only floor on the cached input"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_off_inner",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.807036399841309,
+  "top1": 0.007,
+  "agree": 0.007000000216066837,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 1.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:33:47",
+  "note": "P4 control: inner-only floor on the cached input"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_off_inner",
+  "f": 0.05,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 8.25158977508545,
+  "top1": 0.002,
+  "agree": 0.0010000000474974513,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 1.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:33:49",
+  "note": "P4 control: inner-only floor on the cached input"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_mlp",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.3212571442127228,
+  "top1": 0.611,
+  "agree": 0.8069999814033508,
+  "n": 1000,
+  "params": 83352264,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 36.1,
+  "total_seconds": 51.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:34:47",
+  "note": "P4 rule, MLP-only, A=0, closed loop"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_mlp",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.153630256652832,
+  "top1": 0.035,
+  "agree": 0.04100000113248825,
+  "n": 1000,
+  "params": 57862656,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    1536
+   ]
+  },
+  "calc_seconds": 19.1,
+  "total_seconds": 29.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:35:16",
+  "note": "P4 rule, MLP-only, A=0, closed loop"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_heads",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.1590317040681839,
+  "top1": 0.65,
+  "agree": 0.8690000176429749,
+  "n": 1000,
+  "params": 83831040,
+  "shape": {
+   "d": 768,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 22.8,
+  "total_seconds": 38.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:35:59",
+  "note": "P4 rule, heads-only, A=0, closed loop"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_heads",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 5.580280303955078,
+  "top1": 0.113,
+  "agree": 0.1080000028014183,
+  "n": 1000,
+  "params": 72023040,
+  "shape": {
+   "d": 768,
+   "heads": [
+    6
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 14.1,
+  "total_seconds": 26.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:36:26",
+  "note": "P4 rule, heads-only, A=0, closed loop"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_inner",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.3974780738353729,
+  "top1": 0.628,
+  "agree": 0.7400000095367432,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 3.9,
+  "total_seconds": 5.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:36:37",
+  "note": "P4 rule, inner-only, A=0, closed loop"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_inner",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 5.633418560028076,
+  "top1": 0.025,
+  "agree": 0.026000000536441803,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 2.7,
+  "total_seconds": 4.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:36:41",
+  "note": "P4 rule, inner-only, A=0, closed loop"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_inner",
+  "f": 0.05,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 9.883047103881836,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 2.9,
+  "total_seconds": 4.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:36:46",
+  "note": "P4 rule, inner-only, A=0, closed loop"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.1174386739730835,
+  "top1": 0.481,
+  "agree": 0.5929999947547913,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 40.9,
+  "total_seconds": 55.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:37:46",
+  "note": "P4 rule, whole network (floor sets + floor stream slice), A=0"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 12.395086288452148,
+  "top1": 0.002,
+  "agree": 0.0010000000474974513,
+  "n": 1000,
+  "params": 21862656,
+  "shape": {
+   "d": 384,
+   "heads": [
+    6
+   ],
+   "mlp": [
+    1536
+   ]
+  },
+  "calc_seconds": 16.4,
+  "total_seconds": 21.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:38:07",
+  "note": "P4 rule, whole network (floor sets + floor stream slice), A=0"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write",
+  "f": 0.25,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 11.549653053283691,
+  "top1": 0.001,
+  "agree": 0.0,
+  "n": 1000,
+  "params": 5622912,
+  "shape": {
+   "d": 192,
+   "heads": [
+    3
+   ],
+   "mlp": [
+    768
+   ]
+  },
+  "calc_seconds": 10.7,
+  "total_seconds": 12.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:38:19",
+  "note": "P4 rule, whole network (floor sets + floor stream slice), A=0"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write",
+  "f": 0.05,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 10.654732704162598,
+  "top1": 0.0,
+  "agree": 0.0010000000474974513,
+  "n": 1000,
+  "params": 320388,
+  "shape": {
+   "d": 38,
+   "heads": [
+    1
+   ],
+   "mlp": [
+    154
+   ]
+  },
+  "calc_seconds": 8.2,
+  "total_seconds": 8.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:38:28",
+  "note": "P4 rule, whole network (floor sets + floor stream slice), A=0"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.3887217044830322,
+  "top1": 0.434,
+  "agree": 0.5,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 4.3,
+  "total_seconds": 6.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:38:41",
+  "note": "P4 rule, whole network (floor sets + floor stream slice), A=0"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 13.21749210357666,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 3055880,
+  "shape": {
+   "widths": [
+    32,
+    64,
+    128,
+    256
+   ]
+  },
+  "calc_seconds": 1.8,
+  "total_seconds": 2.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:38:43",
+  "note": "P4 rule, whole network (floor sets + floor stream slice), A=0"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write",
+  "f": 0.05,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 9.181621551513672,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 56372,
+  "shape": {
+   "widths": [
+    3,
+    6,
+    13,
+    26
+   ]
+  },
+  "calc_seconds": 1.4,
+  "total_seconds": 1.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:38:45",
+  "note": "P4 rule, whole network (floor sets + floor stream slice), A=0"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_null_mlp",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 8.811538696289062,
+  "top1": 0.011,
+  "agree": 0.009999999776482582,
+  "n": 1000,
+  "params": 57862656,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    1536
+   ]
+  },
+  "calc_seconds": 27.6,
+  "total_seconds": 39.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:39:29",
+  "note": "P4 NULL shuffled pairing (mean-only fold), MLP-only"
+ },
+ {
+  "net": "clip",
+  "rule": "p4write_null_heads",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 7.402067184448242,
+  "top1": 0.027,
+  "agree": 0.029999999329447746,
+  "n": 1000,
+  "params": 72023040,
+  "shape": {
+   "d": 768,
+   "heads": [
+    6
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 22.3,
+  "total_seconds": 36.1,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:40:09",
+  "note": "P4 NULL shuffled pairing (mean-only fold), heads-only"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_null_inner",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.4184851050376892,
+  "top1": 0.622,
+  "agree": 0.7329999804496765,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 3.9,
+  "total_seconds": 6.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:40:21",
+  "note": "P4 NULL shuffled pairing (mean-only fold), inner-only"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_null_inner",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 5.762094020843506,
+  "top1": 0.015,
+  "agree": 0.017000000923871994,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 3.1,
+  "total_seconds": 5.1,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:40:26",
+  "note": "P4 NULL shuffled pairing (mean-only fold), inner-only"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_null_inner",
+  "f": 0.05,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 9.139037132263184,
+  "top1": 0.0,
+  "agree": 0.0010000000474974513,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 3.0,
+  "total_seconds": 4.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:40:31",
+  "note": "P4 NULL shuffled pairing (mean-only fold), inner-only"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_null",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.4140928983688354,
+  "top1": 0.428,
+  "agree": 0.49399998784065247,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 3.9,
+  "total_seconds": 6.1,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:40:42",
+  "note": "P4 NULL shuffled pairing, whole network"
+ },
+ {
+  "net": "r18",
+  "rule": "p4write_null",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 12.652188301086426,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 3055880,
+  "shape": {
+   "widths": [
+    32,
+    64,
+    128,
+    256
+   ]
+  },
+  "calc_seconds": 2.0,
+  "total_seconds": 2.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:40:45",
+  "note": "P4 NULL shuffled pairing, whole network"
  }
 ]
