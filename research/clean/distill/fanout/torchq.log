@@ -48,3 +48,6 @@
 16:18:45	P6	long	wait 1502s	run 929s	exit 1	/bin/sh -c /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --f 0.95,0.85,0.7,0.5 --who P6 --input distill/fanout/cache/input_pink_n256_s1.pt --rule r2_p6_rG_rho --note 'r2 P6: stream-only, one subspace = top eigvecs of G^1/2 C G^
 16:18:48	P0	slot1	wait 2s	run 173s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/check_input.py --net clip --inputs distill/fanout/cache/input_pink_n256_s1.pt,distill/fanout/cache/clip_self_n256_k32_s1.pt
 16:18:48	P0	long	wait 2221s	run 1s	exit 0	/bin/sh distill/fanout/r2_p0/genN.sh
+16:20:02	P0	slot1	wait 2s	run 50s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/r2_p0_ps.py --input distill/fanout/cache/clip_null_n256_k32_s1.pt --f 0.85,0.7
+16:23:29	P1-P3	slot0	wait 172s	run 859s	exit 0	/bin/sh distill/fanout/r2_p1p3/promote.sh
+16:24:57	P0	slot1	wait 2s	run 284s	exit 0	/bin/sh distill/fanout/r2_p0/psall.sh
