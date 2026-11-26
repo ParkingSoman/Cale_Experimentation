@@ -1,0 +1,48 @@
+W50P_s0_ph: photos per class train 28.0, held 2.0, test 5.0
+28000 train photos in 25s (16000 from JPEG at 256, 12000 from the 224 centre crop scaled to 256), device cuda
+extra photos (ImageNet-train, labels unused): 142907 from 52 files in 96s; per class min 82 median 145 max 146
+A on the new test set (centre crops): top-1 0.6864
+LOADER CHECK: A top-1 on 2013 extra photos (centre 224 crop) 0.7650 (A on val test 0.6864)
+student f=0.5 start P: widths (32, 64, 128, 256), neurons 2400, weights 3055880; held KL at start 8.4126
+  W50P_s0_ph lr 3e-05 step 300/300 loss 4.1576 held KL 4.4438 36s (2132 photos/s)
+  W50P_s0_ph lr 0.0001 step 300/300 loss 3.3925 held KL 3.5482 36s (2132 photos/s)
+  W50P_s0_ph lr 0.0003 step 300/300 loss 2.7408 held KL 2.8113 36s (2132 photos/s)
+  W50P_s0_ph lr 0.001 step 300/300 loss 2.4455 held KL 2.4658 36s (2132 photos/s)
+sweep W50P_s0_ph lr 3e-05: held KL 4.4438
+sweep W50P_s0_ph lr 0.0001: held KL 3.5482
+sweep W50P_s0_ph lr 0.0003: held KL 2.8113
+sweep W50P_s0_ph lr 0.001: held KL 2.4658
+main run: 32812 steps of 256 = 49.1 epochs of 170907 photos (wanted 32812 steps; 300.0 min at 0.122 s/step allows 147855)
+main run W50P_s0_ph: lr 0.001
+  W50P_s0_ph step 1093/32812 loss 1.9954 held KL 2.3228 ema 1.7054 46s (6087 photos/s)
+  W50P_s0_ph step 2186/32812 loss 1.7990 held KL 2.0533 ema 1.3437 90s (6235 photos/s)
+  W50P_s0_ph step 3279/32812 loss 1.3583 held KL 1.8435 ema 1.1848 134s (6281 photos/s)
+  W50P_s0_ph step 4372/32812 loss 1.3335 held KL 1.5593 ema 1.0999 177s (6309 photos/s)
+  W50P_s0_ph step 5465/32812 loss 1.3494 held KL 1.5770 ema 1.0363 221s (6325 photos/s)
+  W50P_s0_ph step 6558/32812 loss 1.3030 held KL 1.5375 ema 0.9952 265s (6336 photos/s)
+  W50P_s0_ph step 7651/32812 loss 1.1177 held KL 1.5174 ema 0.9635 309s (6344 photos/s)
+  W50P_s0_ph step 8744/32812 loss 1.2541 held KL 1.2825 ema 0.9330 353s (6350 photos/s)
+  W50P_s0_ph step 9837/32812 loss 1.3099 held KL 1.2806 ema 0.9040 396s (6355 photos/s)
+  W50P_s0_ph step 10930/32812 loss 1.0761 held KL 1.2122 ema 0.8849 440s (6356 photos/s)
+  W50P_s0_ph step 12023/32812 loss 0.9076 held KL 1.3062 ema 0.8732 484s (6360 photos/s)
+  W50P_s0_ph step 13116/32812 loss 0.8541 held KL 1.0551 ema 0.8556 528s (6362 photos/s)
+  W50P_s0_ph step 14209/32812 loss 1.0462 held KL 1.1089 ema 0.8371 571s (6365 photos/s)
+  W50P_s0_ph step 15302/32812 loss 0.9619 held KL 1.0387 ema 0.8228 615s (6367 photos/s)
+  W50P_s0_ph step 16395/32812 loss 0.8139 held KL 1.0813 ema 0.8086 659s (6369 photos/s)
+  W50P_s0_ph step 17488/32812 loss 0.8493 held KL 0.9568 ema 0.8010 703s (6370 photos/s)
+  W50P_s0_ph step 18581/32812 loss 0.9159 held KL 0.9452 ema 0.7923 747s (6371 photos/s)
+  W50P_s0_ph step 19674/32812 loss 0.7657 held KL 0.9215 ema 0.7825 790s (6373 photos/s)
+  W50P_s0_ph step 20767/32812 loss 0.8734 held KL 0.8795 ema 0.7707 834s (6374 photos/s)
+  W50P_s0_ph step 21860/32812 loss 0.7414 held KL 0.8558 ema 0.7618 878s (6375 photos/s)
+  W50P_s0_ph step 22953/32812 loss 0.8398 held KL 0.8412 ema 0.7537 922s (6376 photos/s)
+  W50P_s0_ph step 24046/32812 loss 0.6751 held KL 0.8050 ema 0.7452 965s (6377 photos/s)
+  W50P_s0_ph step 25139/32812 loss 0.8457 held KL 0.7995 ema 0.7381 1009s (6378 photos/s)
+  W50P_s0_ph step 26232/32812 loss 0.6223 held KL 0.7623 ema 0.7322 1053s (6378 photos/s)
+  W50P_s0_ph step 27325/32812 loss 0.5814 held KL 0.7433 ema 0.7276 1097s (6379 photos/s)
+  W50P_s0_ph step 28418/32812 loss 0.7865 held KL 0.7419 ema 0.7250 1140s (6379 photos/s)
+  W50P_s0_ph step 29511/32812 loss 0.7145 held KL 0.7299 ema 0.7229 1184s (6380 photos/s)
+  W50P_s0_ph step 30604/32812 loss 0.5185 held KL 0.7246 ema 0.7206 1228s (6381 photos/s)
+  W50P_s0_ph step 31697/32812 loss 0.7328 held KL 0.7220 ema 0.7189 1272s (6381 photos/s)
+  W50P_s0_ph step 32790/32812 loss 0.7928 held KL 0.7204 ema 0.7193 1315s (6382 photos/s)
+  W50P_s0_ph step 32812/32812 loss 0.6914 held KL 0.7215 ema 0.7195 1316s (6381 photos/s)
+best W50P_s0_ph: stop step 31697 (ema), held KL 0.7189, test {'kl': 0.7008209824562073, 'top1': 0.5595999956130981}

@@ -1,0 +1,46 @@
+W50P_s0_mix: photos per class train 28.0, held 2.0, test 5.0
+28000 train photos in 25s (16000 from JPEG at 256, 12000 from the 224 centre crop scaled to 256), device cuda
+A on the new test set (centre crops): top-1 0.6864
+student f=0.5 start P: widths (32, 64, 128, 256), neurons 2400, weights 3055880; held KL at start 8.4126
+  W50P_s0_mix lr 3e-05 step 300/300 loss 3.8359 held KL 4.6331 36s (2124 photos/s)
+  W50P_s0_mix lr 0.0001 step 300/300 loss 3.1165 held KL 3.7268 36s (2124 photos/s)
+  W50P_s0_mix lr 0.0003 step 300/300 loss 2.5568 held KL 3.0017 36s (2124 photos/s)
+  W50P_s0_mix lr 0.001 step 300/300 loss 2.2551 held KL 2.6440 36s (2124 photos/s)
+sweep W50P_s0_mix lr 3e-05: held KL 4.6331
+sweep W50P_s0_mix lr 0.0001: held KL 3.7268
+sweep W50P_s0_mix lr 0.0003: held KL 3.0017
+sweep W50P_s0_mix lr 0.001: held KL 2.6440
+main run: 32812 steps of 256 = 300.0 epochs of 28000 photos (wanted 32812 steps; 300.0 min at 0.122 s/step allows 147330)
+main run W50P_s0_mix: lr 0.001
+  W50P_s0_mix step 1093/32812 loss 1.7138 held KL 2.5637 ema 1.8767 45s (6205 photos/s)
+  W50P_s0_mix step 2186/32812 loss 1.4792 held KL 2.3448 ema 1.5144 89s (6268 photos/s)
+  W50P_s0_mix step 3279/32812 loss 1.1715 held KL 2.0947 ema 1.3792 134s (6269 photos/s)
+  W50P_s0_mix step 4372/32812 loss 1.2279 held KL 1.8608 ema 1.2929 178s (6285 photos/s)
+  W50P_s0_mix step 5465/32812 loss 1.1298 held KL 1.7762 ema 1.2446 222s (6294 photos/s)
+  W50P_s0_mix step 6558/32812 loss 1.1204 held KL 1.6595 ema 1.2063 266s (6300 photos/s)
+  W50P_s0_mix step 7651/32812 loss 1.1213 held KL 1.5595 ema 1.1773 311s (6305 photos/s)
+  W50P_s0_mix step 8744/32812 loss 1.0634 held KL 1.5266 ema 1.1451 355s (6308 photos/s)
+  W50P_s0_mix step 9837/32812 loss 0.9192 held KL 1.5700 ema 1.1267 399s (6310 photos/s)
+  W50P_s0_mix step 10930/32812 loss 0.9231 held KL 1.4605 ema 1.1003 443s (6310 photos/s)
+  W50P_s0_mix step 12023/32812 loss 0.9483 held KL 1.3808 ema 1.0832 488s (6312 photos/s)
+  W50P_s0_mix step 13116/32812 loss 0.8820 held KL 1.3820 ema 1.0639 532s (6313 photos/s)
+  W50P_s0_mix step 14209/32812 loss 0.9443 held KL 1.2494 ema 1.0434 576s (6315 photos/s)
+  W50P_s0_mix step 15302/32812 loss 0.8240 held KL 1.2752 ema 1.0283 620s (6316 photos/s)
+  W50P_s0_mix step 16395/32812 loss 0.7587 held KL 1.2618 ema 1.0194 664s (6317 photos/s)
+  W50P_s0_mix step 17488/32812 loss 0.8037 held KL 1.2182 ema 1.0088 709s (6318 photos/s)
+  W50P_s0_mix step 18581/32812 loss 0.7630 held KL 1.1914 ema 0.9947 753s (6319 photos/s)
+  W50P_s0_mix step 19674/32812 loss 0.7509 held KL 1.1261 ema 0.9829 797s (6319 photos/s)
+  W50P_s0_mix step 20767/32812 loss 0.7241 held KL 1.1003 ema 0.9685 841s (6320 photos/s)
+  W50P_s0_mix step 21860/32812 loss 0.7396 held KL 1.0549 ema 0.9591 885s (6321 photos/s)
+  W50P_s0_mix step 22953/32812 loss 0.6657 held KL 1.0398 ema 0.9514 930s (6321 photos/s)
+  W50P_s0_mix step 24046/32812 loss 0.6776 held KL 1.0042 ema 0.9436 974s (6322 photos/s)
+  W50P_s0_mix step 25139/32812 loss 0.6119 held KL 1.0083 ema 0.9367 1018s (6322 photos/s)
+  W50P_s0_mix step 26232/32812 loss 0.6836 held KL 0.9651 ema 0.9293 1062s (6322 photos/s)
+  W50P_s0_mix step 27325/32812 loss 0.6328 held KL 0.9580 ema 0.9235 1106s (6323 photos/s)
+  W50P_s0_mix step 28418/32812 loss 0.7008 held KL 0.9250 ema 0.9200 1151s (6323 photos/s)
+  W50P_s0_mix step 29511/32812 loss 0.5950 held KL 0.9172 ema 0.9165 1195s (6324 photos/s)
+  W50P_s0_mix step 30604/32812 loss 0.5683 held KL 0.9143 ema 0.9132 1239s (6324 photos/s)
+  W50P_s0_mix step 31697/32812 loss 0.5988 held KL 0.9098 ema 0.9119 1283s (6325 photos/s)
+  W50P_s0_mix step 32790/32812 loss 0.6570 held KL 0.9139 ema 0.9108 1327s (6325 photos/s)
+  W50P_s0_mix step 32812/32812 loss 0.6376 held KL 0.9098 ema 0.9108 1328s (6324 photos/s)
+best W50P_s0_mix: stop step 32812 (raw), held KL 0.9098, test {'kl': 0.8996866941452026, 'top1': 0.5166000127792358}

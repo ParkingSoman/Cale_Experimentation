@@ -7633,5 +7633,61 @@
   "note": "r3 JOINT: off row of r3_joint_c_on",
   "who": "JOINT",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_stream_rand1_rho",
+  "f": 0.7,
+  "split": "test",
+  "input": "clip_self_n256_k32_s1",
+  "kl": 10.756369590759277,
+  "top1": 0.002,
+  "agree": 0.0,
+  "n": 1000,
+  "params": 60399060,
+  "shape": {
+   "d": 538,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 2.4,
+  "total_seconds": 45.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:19:53",
+  "note": "r3 STREAM: CLIP stream-only, one reader-weighted basis rG (G^1/2 C G^1/2) with C + rho from input clip_self_n256_k32_s1; family rG self / rG null-input / coord self (off) / rand seed 1 (null); input picked on quick photos",
+  "who": "STREAM",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_tree_off",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.7763917446136475,
+  "top1": 0.55,
+  "agree": 0.668,
+  "n": 1000,
+  "params": 77689956,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 77.1,
+  "total_seconds": 114.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:21:51",
+  "note": "r3 TREE: off row (tilt 0 = r2_p4_wfold_mlp), anchor check",
+  "who": "TREE",
+  "quick": false
  }
 ]

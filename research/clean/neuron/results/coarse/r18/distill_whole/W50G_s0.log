@@ -1,0 +1,88 @@
+W50G_s0: photos per class train 28.0, held 2.0, test 5.0
+28000 train photos in 25s (16000 from JPEG at 256, 12000 from the 224 centre crop scaled to 256), device cuda
+A on the new test set (centre crops): top-1 0.6864
+two-step cut, step 1: A -> 0.75 (widths (48, 96, 192, 384)), held KL at start 7.5342, 12000 steps
+  W50G_s0_a lr 3e-05 step 300/300 loss 1.5972 held KL 1.8681 47s (1617 photos/s)
+  W50G_s0_a lr 0.0001 step 300/300 loss 1.0619 held KL 1.2769 47s (1617 photos/s)
+  W50G_s0_a lr 0.0003 step 300/300 loss 0.8348 held KL 0.9991 47s (1617 photos/s)
+  W50G_s0_a lr 0.001 step 300/300 loss 0.8729 held KL 1.0487 47s (1617 photos/s)
+sweep W50G_s0_a lr 3e-05: held KL 1.8681
+sweep W50G_s0_a lr 0.0001: held KL 1.2769
+sweep W50G_s0_a lr 0.0003: held KL 0.9991
+sweep W50G_s0_a lr 0.001: held KL 1.0487
+main run W50G_s0_a: 12000 steps (fixed by the two-step plan)
+main run W50G_s0_a: lr 0.0003
+  W50G_s0_a step 400/12000 loss 1.1175 held KL 1.1410 ema 1.0632 22s (4667 photos/s)
+  W50G_s0_a step 800/12000 loss 0.6371 held KL 1.0038 ema 0.7794 42s (4856 photos/s)
+  W50G_s0_a step 1200/12000 loss 0.5617 held KL 0.9766 ema 0.6925 63s (4897 photos/s)
+  W50G_s0_a step 1600/12000 loss 0.5304 held KL 0.8562 ema 0.6490 83s (4936 photos/s)
+  W50G_s0_a step 2000/12000 loss 0.6563 held KL 0.8203 ema 0.6176 103s (4959 photos/s)
+  W50G_s0_a step 2400/12000 loss 0.6880 held KL 0.8085 ema 0.5906 123s (4975 photos/s)
+  W50G_s0_a step 2800/12000 loss 0.6343 held KL 0.7596 ema 0.5779 144s (4987 photos/s)
+  W50G_s0_a step 3200/12000 loss 0.4570 held KL 0.7812 ema 0.5640 164s (4986 photos/s)
+  W50G_s0_a step 3600/12000 loss 0.5736 held KL 0.7132 ema 0.5557 185s (4994 photos/s)
+  W50G_s0_a step 4000/12000 loss 0.5955 held KL 0.6959 ema 0.5468 205s (5000 photos/s)
+  W50G_s0_a step 4400/12000 loss 0.5369 held KL 0.6904 ema 0.5389 225s (5005 photos/s)
+  W50G_s0_a step 4800/12000 loss 0.3491 held KL 0.6670 ema 0.5302 245s (5009 photos/s)
+  W50G_s0_a step 5200/12000 loss 0.5746 held KL 0.6475 ema 0.5223 266s (5013 photos/s)
+  W50G_s0_a step 5600/12000 loss 0.3806 held KL 0.6478 ema 0.5202 286s (5016 photos/s)
+  W50G_s0_a step 6000/12000 loss 0.4768 held KL 0.6133 ema 0.5149 306s (5018 photos/s)
+  W50G_s0_a step 6400/12000 loss 0.3097 held KL 0.5962 ema 0.5050 326s (5021 photos/s)
+  W50G_s0_a step 6800/12000 loss 0.5259 held KL 0.5706 ema 0.4984 347s (5023 photos/s)
+  W50G_s0_a step 7200/12000 loss 0.4438 held KL 0.5652 ema 0.4942 367s (5025 photos/s)
+  W50G_s0_a step 7600/12000 loss 0.2616 held KL 0.5308 ema 0.4884 387s (5026 photos/s)
+  W50G_s0_a step 8000/12000 loss 0.4447 held KL 0.5191 ema 0.4832 407s (5028 photos/s)
+  W50G_s0_a step 8400/12000 loss 0.4344 held KL 0.5106 ema 0.4791 428s (5029 photos/s)
+  W50G_s0_a step 8800/12000 loss 0.4581 held KL 0.4970 ema 0.4741 448s (5030 photos/s)
+  W50G_s0_a step 9200/12000 loss 0.4218 held KL 0.4913 ema 0.4714 468s (5031 photos/s)
+  W50G_s0_a step 9600/12000 loss 0.2436 held KL 0.4767 ema 0.4684 488s (5033 photos/s)
+  W50G_s0_a step 10000/12000 loss 0.3745 held KL 0.4759 ema 0.4660 509s (5027 photos/s)
+  W50G_s0_a step 10400/12000 loss 0.2414 held KL 0.4708 ema 0.4647 529s (5028 photos/s)
+  W50G_s0_a step 10800/12000 loss 0.4024 held KL 0.4619 ema 0.4631 550s (5029 photos/s)
+  W50G_s0_a step 11200/12000 loss 0.4037 held KL 0.4623 ema 0.4619 570s (5030 photos/s)
+  W50G_s0_a step 11600/12000 loss 0.4100 held KL 0.4598 ema 0.4601 590s (5031 photos/s)
+  W50G_s0_a step 12000/12000 loss 0.4356 held KL 0.4613 ema 0.4599 611s (5030 photos/s)
+two-step cut, step 2: best 0.75 student (held KL 0.4598) cut to 0.5
+student f=0.5 start G: widths (32, 64, 128, 256), neurons 2400, weights 3055880; held KL at start 7.6653
+  W50G_s0 lr 3e-05 step 300/300 loss 2.9248 held KL 3.1785 35s (2183 photos/s)
+  W50G_s0 lr 0.0001 step 300/300 loss 2.1580 held KL 2.3966 35s (2183 photos/s)
+  W50G_s0 lr 0.0003 step 300/300 loss 1.6340 held KL 1.9006 35s (2183 photos/s)
+  W50G_s0 lr 0.001 step 300/300 loss 1.4177 held KL 1.7121 35s (2183 photos/s)
+sweep W50G_s0 lr 3e-05: held KL 3.1785
+sweep W50G_s0 lr 0.0001: held KL 2.3966
+sweep W50G_s0 lr 0.0003: held KL 1.9006
+sweep W50G_s0 lr 0.001: held KL 1.7121
+main run W50G_s0: 20812 steps (fixed by the two-step plan)
+main run W50G_s0: lr 0.001
+  W50G_s0 step 693/20812 loss 1.4979 held KL 2.1214 ema 1.4531 29s (6147 photos/s)
+  W50G_s0 step 1386/20812 loss 1.3403 held KL 1.9450 ema 1.3119 57s (6249 photos/s)
+  W50G_s0 step 2079/20812 loss 1.1126 held KL 1.8268 ema 1.2532 85s (6294 photos/s)
+  W50G_s0 step 2772/20812 loss 0.9832 held KL 1.6846 ema 1.2015 112s (6318 photos/s)
+  W50G_s0 step 3465/20812 loss 0.8414 held KL 1.6231 ema 1.1824 140s (6324 photos/s)
+  W50G_s0 step 4158/20812 loss 0.8586 held KL 1.9006 ema 1.1500 168s (6334 photos/s)
+  W50G_s0 step 4851/20812 loss 1.0338 held KL 1.5538 ema 1.1223 196s (6341 photos/s)
+  W50G_s0 step 5544/20812 loss 0.9590 held KL 1.4963 ema 1.1072 224s (6347 photos/s)
+  W50G_s0 step 6237/20812 loss 0.7309 held KL 1.4860 ema 1.0970 251s (6351 photos/s)
+  W50G_s0 step 6930/20812 loss 0.6818 held KL 1.4597 ema 1.0835 279s (6355 photos/s)
+  W50G_s0 step 7623/20812 loss 0.6326 held KL 1.4234 ema 1.0735 307s (6358 photos/s)
+  W50G_s0 step 8316/20812 loss 0.5886 held KL 1.3684 ema 1.0575 335s (6360 photos/s)
+  W50G_s0 step 9009/20812 loss 0.6215 held KL 1.3478 ema 1.0412 363s (6362 photos/s)
+  W50G_s0 step 9702/20812 loss 0.5544 held KL 1.2795 ema 1.0316 390s (6364 photos/s)
+  W50G_s0 step 10395/20812 loss 0.5818 held KL 1.2350 ema 1.0236 419s (6358 photos/s)
+  W50G_s0 step 11088/20812 loss 0.8638 held KL 1.2206 ema 1.0187 446s (6360 photos/s)
+  W50G_s0 step 11781/20812 loss 0.8272 held KL 1.1696 ema 1.0110 474s (6361 photos/s)
+  W50G_s0 step 12474/20812 loss 0.7725 held KL 1.1321 ema 0.9986 502s (6363 photos/s)
+  W50G_s0 step 13167/20812 loss 0.7298 held KL 1.1015 ema 0.9875 530s (6364 photos/s)
+  W50G_s0 step 13860/20812 loss 0.4040 held KL 1.0636 ema 0.9791 557s (6365 photos/s)
+  W50G_s0 step 14553/20812 loss 0.5206 held KL 1.0580 ema 0.9707 585s (6366 photos/s)
+  W50G_s0 step 15246/20812 loss 0.7654 held KL 1.0125 ema 0.9618 613s (6367 photos/s)
+  W50G_s0 step 15939/20812 loss 0.6739 held KL 1.0064 ema 0.9546 641s (6368 photos/s)
+  W50G_s0 step 16632/20812 loss 0.3933 held KL 0.9874 ema 0.9506 669s (6369 photos/s)
+  W50G_s0 step 17325/20812 loss 0.3854 held KL 0.9841 ema 0.9486 696s (6370 photos/s)
+  W50G_s0 step 18018/20812 loss 0.3874 held KL 0.9585 ema 0.9455 724s (6370 photos/s)
+  W50G_s0 step 18711/20812 loss 0.3733 held KL 0.9548 ema 0.9446 752s (6371 photos/s)
+  W50G_s0 step 19404/20812 loss 0.3972 held KL 0.9513 ema 0.9426 780s (6372 photos/s)
+  W50G_s0 step 20097/20812 loss 0.3676 held KL 0.9431 ema 0.9428 807s (6372 photos/s)
+  W50G_s0 step 20790/20812 loss 0.6745 held KL 0.9413 ema 0.9416 835s (6373 photos/s)
+  W50G_s0 step 20812/20812 loss 0.6901 held KL 0.9426 ema 0.9415 837s (6368 photos/s)
+best W50G_s0: stop step 20790 (raw), held KL 0.9413, test {'kl': 0.9161148071289062, 'top1': 0.5077999830245972}

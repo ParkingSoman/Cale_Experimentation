@@ -205,3 +205,35 @@ A (torchvision ResNet-18) trained on ImageNet-train. These photos are photos A s
 | W5{R,Rwd0}_s0_m0 | one process, mix 0 | W5R_s0_m0 |
 
 Win rule: best RAW held KL lower than its baseline by more than 2%. Control before the screen: student R's held-KL path in the old trainer (twice), the new single path and the new `--multi` path must agree within max(2 x the old run-to-run gap, 0.5%).
+
+### Screen result (job 7006206, A100-SXM4 80 GB, 14:22-17:14; all 11 tgz on the Mac, md5 checked)
+
+Control: student R's held-KL path agreed to 4 decimals in the old trainer (twice), the new single path and `--multi` (gap 0.0000%, step 60 held KL 5.7806 in all). Loader check: A's top-1 on 2,860 extra photos 76.3% (A on val test 68.6%; A trained on these photos).
+
+| Tag | Change | Best raw held KL | vs baseline | Best EMA held KL | Test KL | Test top-1 |
+|---|---|---|---|---|---|---|
+| W50P_s0_ph | P + 142,907 extra photos | 0.7204 | **-22.4% WIN** (W50P_s0) | 0.7189 | 0.7008 | 56.0% |
+| W50W_s0_ph | W50P_s0_x2 trained on, extra photos, lr 1e-3 | 0.6774 | **-27.1% WIN** (W50P_s0) | 0.6750 | 0.6431 | 56.7% |
+| W50P_s0_mix | mixup on every batch | 0.9098 | -2.05% WIN, weak (bar -2%, photo-order gap 1.6%) | 0.9108 | 0.8997 | 51.7% |
+| W50G_s0 | two-step cut 75% -> 50% | 0.9413 | +1.4% | 0.9415 | 0.9161 | 50.8% |
+| W5R_s0_m | baseline, same batches | 3.5804 | | 3.5932 | 3.5984 | 11.7% |
+| W5Rclip_s0_m | grad clip 1.0 | 3.5811 | +0.0% | 3.5895 | 3.5652 | 11.8% |
+| W5C50_s0_m | W50P_s0_x2 cut to 5% | 3.5909 | +0.3% | 3.6079 | 3.5781 | 12.2% |
+| W5Rwd0_s0_m | no weight decay | 3.6241 | +1.2% | 3.6210 | 3.6334 | 11.4% |
+| W5P_s0_m | P from A, lr up to 1e-2 | 3.6753 | +2.7% | 3.6680 | 3.6572 | 11.4% |
+| W5R_s0_m0 | no mixup | 3.6108 | +0.9% vs W5R_s0_m | 3.7960 | 3.5684 | 12.0% |
+| W5Rwd0_s0_m0 | no mixup, no weight decay | 3.6267 | +0.4% vs W5R_s0_m0 | 3.6246 | 3.6007 | 12.1% |
+
+Readings:
+1. 50%: the extra photos are the big lever (-22% at 1x; test top-1 56.0% vs 52.4% for the old 2x best). Memorization was the limit, as Step 0 said.
+2. Start again or keep going (Shonu's question): keeping the memorized network and adding photos did better (0.677 vs 0.720 raw). It is NOT a fair test: the warm network had 98,437 steps in total, the fresh one 32,812. The 4x fresh run (131,248 steps) is the fair comparison. Ash & Adams' warm-start harm does not show at these lengths.
+3. 5%: no change wins. Less regularization, clipping and both cut starts do not help. Only length helped so far (wave 2: 2x = -2.2%).
+4. 5% lrs: W5R_s0_m0 and W5Rwd0_s0_m picked 3e-2, the top of their grid. Neither won, so not rerun.
+5. EMA: better than raw by at most .0073 (W5P_s0_m), and much worse once (W5R_s0_m0: 3.796 vs 3.611, lr 3e-2). It does not change any reading.
+
+### Long runs (job 7006930, submitted 17:20)
+
+| Tag | Recipe | Steps |
+|---|---|---|
+| W50P_s0_ph4 | P + extra photos + mixup on every batch (both 50% wins combined, by the rule) | 131,248 |
+| W5R_s0_x4 | old recipe (R, mix .5, wd .05) | 131,248 |
