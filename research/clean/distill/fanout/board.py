@@ -60,7 +60,7 @@ def clip_teacher():
 
 
 @torch.no_grad()
-def clip_score(W, n, split, bs=100, stride=1):
+def clip_score(W, n, split, bs=100, stride=1, with_match=False):
     sys.path.insert(0, os.path.join(DIST, "clipkd"))
     import eval_fast
     import vitgen
@@ -80,8 +80,9 @@ def clip_score(W, n, split, bs=100, stride=1):
     zt = ref["logits"][:n]
     k = kl_rows(zt, lg)
     lab = ref["labels"][:n]
+    m = (lg.argmax(1) == zt.argmax(1)).numpy()
     return dict(kl=float(k.mean()), top1=float((lg.argmax(1).numpy() == lab).mean()),
-                agree=float((lg.argmax(1) == zt.argmax(1)).float().mean()), n=n), k.numpy()
+                agree=float(m.mean()), n=n), k.numpy(), *((m,) if with_match else ())
 
 
 # ---------------------------------------------------------------- ResNet-18
@@ -120,7 +121,7 @@ def r18_A():
     return r18.load_a().cpu().eval()
 
 
-def r18_score(S, n, split, stride=1):
+def r18_score(S, n, split, stride=1, with_match=False):
     x, lab = r18_x(split, n, stride)
     p = os.path.join(CACHE, f"r18_A_{split}{n}" + (f"s{stride}" if stride > 1 else "") + ".pt")
     if os.path.exists(p):
@@ -131,8 +132,9 @@ def r18_score(S, n, split, stride=1):
         torch.save(zA, p)
     z = r18_logits(S, x)
     k = kl_rows(zA, z)
+    m = (z.argmax(1) == zA.argmax(1)).numpy()
     return dict(kl=float(k.mean()), top1=float((z.argmax(1).numpy() == lab).mean()),
-                agree=float((z.argmax(1) == zA.argmax(1)).float().mean()), n=len(lab)), k.numpy()
+                agree=float(m.mean()), n=len(lab)), k.numpy(), *((m,) if with_match else ())
 
 
 # ---------------------------------------------------------------- main
@@ -174,15 +176,16 @@ def main():
         if a.net == "clip":
             params, shp = vitgen.n_params(small), vitgen.shape(small)
             shp = dict(d=shp["d"], heads=sorted(set(shp["heads"])), mlp=sorted(set(shp["mlp"])))
-            res, k = clip_score(small, a.n, a.split, stride=stride)
+            res, k, match = clip_score(small, a.n, a.split, stride=stride, with_match=True)
         else:
             params = sum(p.numel() for p in small.parameters())
             shp = dict(widths=list(getattr(small, "w", (64, 128, 256, 512))))
-            res, k = r18_score(small, a.n, a.split, stride=stride)
+            res, k, match = r18_score(small, a.n, a.split, stride=stride, with_match=True)
         inp = os.path.basename(a.input)[:-3] if a.input else "pink-default"
         tag = f"{a.net}_{a.rule}_f{f:g}_{a.split}{res['n']}" + (f"_{inp}" if a.input else "")
         if not a.quick:
             np.save(os.path.join(OUTD, tag + ".npy"), k)
+            np.save(os.path.join(OUTD, tag + "_agree.npy"), match)   # per-photo agree (critic, round 2)
         row = dict(net=a.net, rule=a.rule, f=f, split=a.split, input=inp, **res, params=params, shape=shp,
                    calc_seconds=round(t_calc, 1), total_seconds=round(time.time() - t0, 1),
                    photo_use=f"{a.split} photos, scoring only", when=datetime.datetime.now().isoformat(timespec="seconds"),

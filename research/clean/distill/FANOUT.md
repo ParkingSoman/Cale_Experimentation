@@ -98,3 +98,25 @@ Shonu, after round 1: "we need to be going faster rather than just completely st
 Seven agents (P0, P1-P3, P4, P5, P6, JOINT, live CRITIC), each in its own loop: one change, one quick test through the lock, one note, about 25 tests or 45 minutes, then promote the best rows to the board.
 
 Mid-round change (15:07, Shonu: "3 slots, swap guard", and "any fixes you make i want to apply to the current round"). Round 2's first 17 minutes, 1 slot: 15 torch jobs, mean wait 245 s, mean run 66 s, so one test per agent every 5-6 min. `torchq.py` now runs up to 3 short jobs at once plus one `--long` lane (generators, big sweeps). A job starts only if free swap >= 1 GB and memory free >= 30%. Tested with sleep jobs before the switch. Old version kept as `torchq_v1_backup.py`. A monitor watches free swap and failed jobs. Agents told in NOTES.md.
+
+Round 2 result (7 agents, 152 quick tests, 1.18M agent tokens, 100 min; `fanout/round2/fastloop.json`, notes `fanout/NOTES.md`). Full rows, 1,000 test photos, KL / agree; every claim below has a same-form null and an off row, and the starred ones were read paired on the 800 photos outside the quick set by the critic.
+
+| Part | Best rule (file) | Row | Off row | Null |
+|---|---|---|---|---|
+| CLIP whole 95% | MLP by weight, heads + stream by floor activity (`r2_p5_w0`) | .820 / 68.2% (held .907 / 65.3%) | floor 1.139 / 60.4% | MLP activity permuted ties: activity carries no MLP information on pink |
+| CLIP MLP-only 85% * | weight order + P4 write fold (`r2_p4_wfold_mlp`) | .776 / 66.8% | weight order 1.240 / 59.2% | mean null 1.532 / 54.1% |
+| CLIP stream-only 85% / 70% | one reader-weighted subspace G^1/2 C G^1/2 (`r2_p6_rG_rho`) | .955 / 62.7%; 3.206 / 25.6% | coordinates 1.394 / 55.7%; 6.845 / 6.9% | random subspace 6.205 / 8.1%; 10.688 / .4% |
+| CLIP stream 85%, input | per-site PCA basis from the network's SELF-MADE input (P0) | 2.412 / 38.7% | pink 5.033 / 14.0% | shuffled-weights input 3.758 / 23.7% |
+| ResNet whole 95% / 85% * | floor order + closed-loop stream fold + inner fold (`r2_joint_floor_sfon_on`) | 1.193 / 53.4%; 3.995 / 14.5% | floor 1.665 / 42.7%; 2.6% | stream-fold null 1.285 / 52.7%; 4.560 / 11.5% |
+| ResNet stream-only 85% | per-reader read maps, open loop (`r2_p6_r18_map`) | 2.380 / 32.3% | mean fold 4.334 / 14.3% | same-form permuted 3.739 / 17.0% |
+
+What round 2 settled:
+1. The write fold works on both networks (CLIP MLP, ResNet stream and inner).
+2. Rank CLIP MLP neurons by weight size, heads by activity. Pink activity carries no MLP information.
+3. The stream needs the right FORM (a subspace or read map; photo coordinates stay at chance at 50%, a photo per-site subspace reaches 2.634 / 35.5%) AND the right INPUT (the self-made input beats its null by +15 agree at 85%; it closes about 35% of the pink-to-photo gap).
+4. The tree's summed-read merge is the wrong form even with photo statistics (85%: 47.5% vs 64.0% with no merge). R1 partners are real (+8.0 agree over a shape-kept null). The union fires barely above a unit's own rate at 95/85%.
+5. Dead ends: per-site PCA on pink (worse than one basis), head folds and head merges (OV merge breaks the network), self-made inputs on ResNet, P5's gradient-probe order (ResNet sign reversed on unseen photos).
+6. Open: the P4 fold HURTS the whole CLIP cut (weight order .820 / 68.2% -> 1.074 / 61.7%); 50% is still at chance on both networks.
+7. Selection: a knob picked on the 200 quick photos lost 31% of its gain on unseen photos. Pick knobs on the held split.
+
+Process: the 1-slot lock gave a mean wait of 245 s; 3 slots then overloaded swap (10.8 GB in use); settled at 2 short + 1 long with a memory guard (memory free >= 35%, swap in use <= 8 GB). The lead reviewed the notes every 10 min (7 reviews).
