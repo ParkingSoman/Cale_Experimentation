@@ -3819,6 +3819,46 @@ Why it matters: the old map read no inner channel, and two of them read at once.
 
 | | |
 |---|---|
+**Step 7. Stage 4 read again: the links hold, and the words do not yet.** Four agents read 126 stage 4 nodes, one convolution at a time. All numbers are on sealed photos. I fixed the lines and my predictions before any card existed.
+
+```
+s4b0i:496 -> s4b0:327 -> s4b1i:110 -> s4b1:175     (an agent's reading: a loop handle)
+s4b0i:507 -> s4b0:245 -> s4b1i:243 -> s4b1:461     (an agent's reading: a small coloured bird)
+```
+
+| Line | Pass | Result | Verdict |
+|---|---|---|---|
+| Tree cover | 90% | 88%. s4b1 100%, s4b1i 77% | Misses narrowly |
+| Parents act | 90% | 100% of 369 | Passes, and the line is too easy |
+| Parents carry | 80% | 67%. s4b1 93%, s4b1i 47% | Fails |
+| Specific enough to lose | 85% | 62% of 104. Chance about 11% | Fails |
+| Real parents | 70% | 79% of 82. 85% on a harder version. 85% of 34 when a fresh agent describes the parents without seeing any card | Passes |
+| Wrong cards lose | under .05 | -.11 | Holds |
+| Your read | yours | waiting | |
+
+Why it matters: this is your tree, written down for the first time at one layer per link, and its links mean something to a blind reader. Last round that line scored 57%. These links are one convolution apart, so they are easier than the old ones. That is not like for like. The map is not clean yet: three lines miss, and stages 1 to 3 are not read.
+
+**Step 8. What goes against me.**
+
+| Finding | Number |
+|---|---|
+| The new words are no better at the top layer | On the same 30 channels the old cards pass 77%, the new ones 70% |
+| Agents mostly named what the tool ranks first | Rank 1 on 80%. Their lists explain .36, code's top list .38 |
+| My guess of reviewer noise was mostly wrong | A careful retest agrees on 90% of verdicts |
+
+**Step 9. Where the shortfall sits.**
+
+```
+crop test, share of nodes passing, strong half against weak half by largest firing
+
+s4b1     76%   62%
+s4b0     90%   50%
+s4b0i    71%   50%
+s4b1i    74%   26%
+```
+
+Why it matters: strong channels pass near or above your line's region, and weak ones do not. So the weak channels are the next job for the map and the tools. This is a lead and it says nothing against the network. Agents also said so themselves: cards they rated .6 or higher pass 80%, the others 57%.
+
 | Word | Meaning |
 |---|---|
 | wave | one round of agents over part of the network |
@@ -3830,4 +3870,78 @@ Why it matters: the old map read no inner channel, and two of them read at once.
 | Whole-network build | no |
 | label | none. This section holds no theorem. Definition DC4 adds inner channels as nodes |
 | checks | `map_agents/resnet18/tests/test_ev2.py`: the exact sum holds on 12 kinds of node, and a fill by hand matches it. Results: `results/one_layer_check.json`, `one_layer_map.json`, `reference_convnext.json`, `review2/old/` |
-| next | agents read stage 4's four layers, then the sealed lines |
+| predictions | `map_agents/resnet18/results/PREDICTIONS.md`. Right: real parents at least 50%, crop test about 65%, parents carry about 60%, tree cover about 85%. Wrong: 30 inputs for half of the effect, position, reviewer noise. Real parents beat my 60% |
+| your calls | your read of the page: https://claude.ai/artifact/2hY9RmzjPtYKTdeuvmu8mD. Chrome was not connected, so I have not seen it rendered |
+| next | your read, and the weak channels |
+
+## 58. Mapping becomes its own project (2026-11-03; plan im-realizing-now-that-fluffy-swing.md; `research/mapping/`)
+
+**The map work moved to `research/mapping/`. Clean now means 100% of a chosen scope, on a progress bar. The population lines stop being gates. No network ran in this section.** You said: "for the scope which we care about within a network, we understand 100% of that scope."
+
+```
+code      proposes links, computes every error, builds and scores every test
+reader    follows a workflow, and makes the claim with judgment
+critic    tries to break the claim, with a test specific to that claim
+judge     blind. Only the judge's verdict moves the bar
+```
+
+Why it matters: a map is paid for once per model, so its cost and its reliability sit inside the Cale equation. The essay's name for this split is a "mechanistic constitution" (essay line 539). The process is fixed, and the reading is free.
+
+| | |
+|---|---|
+| Trunk check | used: "How M is found (by people, agents or a program) is outside the trunk", and "Each claim has an error ... computed from N, P and the claim alone": each understood node writes its claims with code-computed errors. No trunk text changes |
+| Cale line | nothing yet. This sets the route for the cost of a map per model |
+| Whole-network build | no |
+| label | none. This section holds no theorem |
+| checks | `research/mapping/tests/test_quotes.py`: 66 essay quotes sit on their named lines, and the constitution names no network |
+| your calls | your read of `research/mapping/PRINCIPLES.md` and `CONSTITUTION.md` |
+| next | Step 2, the core tool |
+
+## 59. The map tool reached real nodes: 2 of 184, and it stopped by its own rule (2026-11-04; plan im-realizing-now-that-fluffy-swing.md; `research/mapping/LOG.md` section 7)
+
+**Stage 4 of ResNet-18 is read and judged. The bar is 2 of 184, without the negative pole. A test fixed in advance missed its mark, so the work stopped for Shonu at 2.5M of the 17M tokens.** Under the same marks, first-read cards pass the positive pole at 21% on ResNet-18 and at 19% on ConvNeXt-Tiny. So this is no gap, and it is no claim about either network.
+
+```
+one channel's card: its words only
+        |
+        v
+blind judge ranks 36 pictures from sealed photos
+        |
+        +-- center: firing on the top picks       many pass
+        +-- far:    firing against random pictures many pass
+        +-- edge:   firing against similar nodes' pictures   this one decides
+```
+
+Why it matters: a map is paid for once per model, so the cost of a passing card sits inside the Cale equation. Today one first read costs about 46k tokens per channel, and few pass.
+
+| | |
+|---|---|
+| Trunk check | used: "How M is found (by people, agents or a program) is outside the trunk". Nothing here changes the trunk |
+| Cale line | nothing yet. The cost of a map per model now has a measured number |
+| Whole-network build | no |
+| label | none. This section holds no theorem |
+| checks | `research/mapping/tests/`: core, command, adapter, ConvNeXt and quote tests pass |
+| your calls | how to treat the edge mark, in `research/mapping/LOG.md` |
+| next | your call, then the rest of Step 7 |
+
+## 60. The map work becomes CrakBox, and it starts small (2026-11-04; plan im-realizing-this-neural-quirky-crystal.md; `CrakBox/ROADMAP.md`)
+
+**The map tool moved to `CrakBox/`. Its first target is now a small useful network, spaCy's word tagger. ResNet-18 is parked at 2 of 184. No network ran in this section.** You said: "we need to start small and get big".
+
+```
+before:  ResNet-18, a slice of 184 nodes   ->  then a language model
+now:     word tagger, whole network, about 500 nodes (my estimate)
+           -> a second small network, library frozen
+           -> ResNet-18
+           -> a small language model
+           -> Cale's own model
+```
+
+Why it matters: a whole small network can reach "mostly filled", and the essay says the unexplained remainder then points at the tools. A thin slice of a large network cannot show this.
+
+| | |
+|---|---|
+| Trunk check | The trunk does not change. How a map is found stays outside the trunk |
+| Cale line | nothing yet. Each milestone measures the cost of a map on a larger network, and the ladder ends at Cale's own model |
+| Whole-network build | no |
+| your calls | none open. The edge test on text uses the essay's form, lines 641 and 647 |

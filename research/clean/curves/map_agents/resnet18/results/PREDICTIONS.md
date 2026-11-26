@@ -218,3 +218,37 @@ Reading: the old cards FAIL the new test as well. So the old test was only part 
 | Shonu's read | his | Not mine to predict |
 
 I checked by eye 2 strong inner channels, which read at once, and 4 random ones, which fire weakly and did not read at a glance. So I expect the weak channels to set these numbers.
+
+## Round 2: results for the new cards (2026-11-03; `cards2/`, `cards2_scores.json`, `review2/`; sealed photos; validation crops, not N's training photos)
+
+Four agents read 135 distinct nodes (126 in stage 4, 9 named in s3b1). About 0.73M tokens for the reading. About 1.1M more for all blind tests. Stage 4 only, unless a row says otherwise.
+
+| Line | Pass | Prediction | Result | Verdict |
+|---|---|---|---|---|
+| Tree cover | 90% | 85% | 88%. s4b1 100%, s4b0 92%, s4b0i 83%, s4b1i 77%. 15 of 126 have no direct main parent | Misses narrowly |
+| Parents act | 90% | 90% | 100% of 369 links | Passes, and the line is too easy (below) |
+| Parents carry | 80% | 60% | 67%. s4b1 93%, s4b0i 67%, s4b0 60%, s4b1i 47% | FAILS |
+| Specific enough to lose: 24-crop test, gap .2 | 85% | 75% s4b1, 60% inner, 65% overall | 62% of 104. s4b1 70%, s4b0 70%, s4b0i 62%, s4b1i 50%. Chance about 11% | FAILS. Prediction about right |
+| Real parents, 1 of 5 from words | 70% | 60% | 79% of 82 | Passes, above the prediction |
+| Wrong cards lose | mean gap under .05 | holds | -.11 on 22 at stage 4. -.05 on all 25, with 3 in s3b1 at +.33 | Holds |
+| Shonu's read | his | | waiting | |
+
+Checks added after the first scoring, said plainly. None of them moves a line.
+
+| Check | Why | Result |
+|---|---|---|
+| Harder parents test: all candidates by one agent, node names removed | The first test could be won on writing style. 75 of 82 true parents shared the child's agent | 85% of 66 |
+| Independent parents test: a fresh agent describes 34 parents from sheets alone, seeing no card | An author could echo the child's words in its parent's card | 85% of 34, chance 20%. Parents in s4b0 14 of 14, parents in s4b1i 15 of 20 |
+| Main parent's rank by effect | "Parents act" passed everything | Rank 1 on 80%, top 5 on 100%. Named lists explain .36, code's top list of the same size .38 |
+| Careful retest of 30 crop items | I suspected reviewer noise after one bad item | Pass 70% against 67%. Correlation .83, same verdict on 90%. So my suspicion was mostly wrong. Both reviewers share a model, so they may share a bias |
+| Old stage 4 cards on the 24-crop test | A before and after | Old 76% of 37. On the same 30 channels at s4b1: old 77%, new 70%. New better on 9, same on 9, worse on 12 |
+| Crop test by strength, largest firing, split at the layer's median | | Strong half against weak half: s4b1 76 / 62, s4b0 90 / 50, s4b0i 71 / 50, s4b1i 74 / 26 |
+| Crop test by the agent's own confidence | | Sure at .6 or more: 80% of 20. Under .6: 57% of 84 |
+
+Reading, said plainly:
+
+1. The links got better. Real parents went from 57% to 79 to 85%, and they hold with independent words. These are links one convolution apart, so they are easier than the old links, which crossed four. This does not compare like with like.
+2. The words did not get better at the top layer. On the same channels the new cards are no better than the old ones.
+3. The numeric lines cannot show that judgment added anything: the agents mostly named what the tool ranks first. The independent test says that those links mean something. It does not say the agent found them.
+4. The shortfall sits in weak channels. That is the next lead in the map, the tools or the test. It is not a claim about the network.
+5. Selection: the independent test covers strong links with cards, so it may flatter the tree. The fire crops sit near half of the largest firing (median .57 of it), so the crop test scores the edge of what a channel does more than its centre. I fixed that before the run, and I leave it unchanged.

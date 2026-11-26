@@ -1,0 +1,30 @@
+Neuron n1: block 22 of 30 (stage 3, 14x14 positions). Values are PRE-activations (before GELU), pooled per photo: max over positions (positive pole) and min (negative pole).
+Kind: deleted. Deleted when Base was shrunk to B (B keeps half the neurons). Re-adding it to B lowers B's error.
+
+== base: 18000 photos. pooled max: median -2.64, p99 0.76, top 9.75; pooled min: median -7.55, p1 -9.42
+top classes by mean pooled max: indigo bunting 7.24; junco 2.49; house finch 0.75; jay 0.11; European gallinule 0.02; goldfinch -0.02; brambling -0.04; magpie -0.34; bee eater -0.35; lorikeet -0.52; macaw -0.64; peacock -0.66; bulbul -0.72; robin -0.75; police van -0.77
+bottom classes by mean pooled min: Welsh springer spaniel -8.78; white stork -8.76; limpkin -8.68; swab -8.47; American egret -8.45; drake -8.45; Sussex spaniel -8.36; cocker spaniel -8.35; ibex -8.35; cuirass -8.34; English springer -8.34; oystercatcher -8.34; wardrobe -8.34; black stork -8.33; chiffonier -8.29
+
+== B (VIRTUAL: Base's read row on this network's block input; the neuron itself is deleted): 11000 photos. pooled max: median -2.27, p99 0.98, top 7.18; pooled min: median -7.52, p1 -9.45
+top classes by mean pooled max: indigo bunting 4.97; junco 1.92; macaw 0.53; European gallinule 0.35; house finch 0.25; jay 0.21; magpie -0.14; chickadee -0.24; snorkel -0.25; bee eater -0.30; little blue heron -0.30; peacock -0.42; puffer -0.43; brambling -0.43; quail -0.52
+bottom classes by mean pooled min: Welsh springer spaniel -8.56; bassoon -8.50; puck -8.47; diaper -8.34; drumstick -8.32; Afghan hound -8.31; shoji -8.27; table lamp -8.25; sandal -8.23; Irish water spaniel -8.23; backpack -8.22; face powder -8.22; cello -8.21; studio couch -8.21; Chihuahua -8.21
+
+== T (VIRTUAL: Base's read row on this network's block input; the neuron itself is deleted): 11000 photos. pooled max: median -2.23, p99 1.16, top 7.95; pooled min: median -7.55, p1 -9.41
+top classes by mean pooled max: indigo bunting 5.50; junco 1.86; macaw 0.71; house finch 0.39; jay 0.37; European gallinule 0.30; magpie 0.03; bee eater -0.00; peacock -0.07; snorkel -0.11; chickadee -0.15; little blue heron -0.15; jacamar -0.23; puffer -0.25; brambling -0.35
+bottom classes by mean pooled min: Welsh springer spaniel -8.83; limpkin -8.56; puck -8.50; Sussex spaniel -8.47; Afghan hound -8.45; bassoon -8.41; cello -8.39; capuchin -8.34; sandal -8.31; snowplow -8.30; lifeboat -8.30; diaper -8.29; Irish water spaniel -8.27; English springer -8.25; macaque -8.25
+
+== does Base's information reach this block? per-photo correlation of pooled max, Base vs virtual: B 0.837, T 0.863
+
+== feeders (block before, approx direct edge):
+  neuron 695 (edge +0.091): top classes brambling, robin, junco, ruffed grouse, gyromitra, partridge | most negative komondor, maypole, green mamba, shield
+  neuron 167 (edge +0.081): top classes paintbrush, barrow, swing, knot, rain barrel, spindle | most negative photocopier, trolleybus, garter snake, desktop computer
+  neuron 8 (edge +0.079): top classes house finch, indigo bunting, bulbul, goldfinch, bee eater, brambling | most negative hare, gibbon, eft, lifeboat
+  neuron 1452 (edge +0.073): top classes house finch, indigo bunting, goldfinch, birdhouse, brambling, junco | most negative trolleybus, ski, electric locomotive, stupa
+  neuron 841 (edge +0.068): top classes barrow, birdhouse, umbrella, gar, pencil sharpener, buckle | most negative white stork, oystercatcher, goldfinch, ruddy turnstone
+
+== readers (block after, approx direct edge):
+  neuron 799 (edge +0.099): top classes indigo bunting, tick, brambling, goldfinch, house finch, junco | most negative oystercatcher, banjo, slot, forklift
+  neuron 125 (edge -0.068): top classes robin, brambling, house finch, junco, goldfinch, hen | most negative carbonara, macaque, white stork, colobus
+  neuron 1578 (edge +0.064): top classes indigo bunting, coucal, ringlet, cabbage butterfly, bulbul, cardoon | most negative West Highland white terrier, candle, shower cap, beagle
+  neuron 1170 (edge +0.056): top classes horse cart, snowplow, jinrikisha, unicycle, sorrel, dogsled | most negative nipple, can opener, perfume, digital clock
+  neuron 57 (edge +0.055): top classes junco, kimono, bikini, groom, diaper, feather boa | most negative limpkin, macaw, jackfruit, honeycomb

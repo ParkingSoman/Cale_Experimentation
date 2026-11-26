@@ -1,0 +1,51 @@
+cache check: dropped 1 of 546 firings
+pole neg: 545 firings; exact-sum err max 3.9e-07, top-20 err max 1.8e-07, h3 vs cache err max 6.5e-03
+A splits recomputed from patch vs A input at the best cell: max abs diff 3.81e-06; A neurons ON per firing, median 21
+split recomputed from patch: max abs diff 2.50e-07
+
+CHECK firings: 273.  Groups on DEV: 5 (DEV sizes [63, 59, 58, 54, 38]; CHECK firings in each [0, 0, 0, 1, 18])
+  (a) explained  [#.......................................]   9  0.03
+  (b) named gap  [#.......................................]   9  0.03
+  (c) unexplained[#####################################...] 255  0.93
+  subcircuits cover n101's read (bin c <= .05): no  | NOT covered by this method (bin c > .25)
+  read closed IN A's TERMS (bin a >= .95): no
+  bin (a) with counterpart match also >= 0.5: 0.03
+  bin (a) with counterpart match also >= 0.7: 0.02
+  counterpart ON at the firing: 0.38; its rank among the A neurons ON there, median 3 of median 21 ON
+  P1: median counterpart match on CHECK 0.00 (bar .7); median shuffled 99th pct 0.29
+  in a group (nearest-centroid cosine above own 99th pct): 0.07; real median 0.75, shuffled 99th median 0.83
+
+subcircuit 0: DEV 63, CHECK 73 (does not hold); CHECK bins a/b/c 0/0/73; mean n101 input -2.72
+  drivers     s3:98 +0.080, s3:158 +0.076, s3:71 +0.069, s3:89 +0.067, s3:97 +0.066, s3:239 +0.061
+  suppressors s3:155 -0.226, s3:254 -0.175, s3:109 -0.159, s3:171 -0.136
+  sources     shift n101.bn1 -0.624, shift ds.bn -0.264, shift s3b1.bn2 -0.127, s3b0:h170 -0.092, s3b0:h163 -0.087, s3b0:h81 -0.082, s3b0:h6 -0.070, s3b0:h28 -0.070
+  counterparts A n464 0.08, A n248 0.07, A n211 0.06; CHECK match median 0.00
+  children of s3:69 among its top-10 counterparts: none
+
+subcircuit 1: DEV 59, CHECK 57 (does not hold); CHECK bins a/b/c 0/0/57; mean n101 input -2.73
+  drivers     s3:63 +0.088, s3:28 +0.083, s3:71 +0.080, s3:89 +0.078, s3:98 +0.075, s3:69 +0.058
+  suppressors s3:171 -0.186, s3:222 -0.177, s3:134 -0.173, s3:255 -0.156
+  sources     shift n101.bn1 -0.624, shift s3b0.bn2 +0.261, shift ds.bn -0.248, s3b0:h6 -0.124, s3b0:h247 -0.118, s3b0:h28 -0.110, s3b1:h109 -0.100, s3b0:h170 -0.097
+  counterparts A n71 0.10, A n113 0.09, A n103 0.09; CHECK match median 0.00
+  children of s3:69 among its top-10 counterparts: [305]
+
+subcircuit 2: DEV 58, CHECK 50 (does not hold); CHECK bins a/b/c 0/0/50; mean n101 input -2.75
+  drivers     s3:98 +0.089, s3:97 +0.076, s3:71 +0.068, s3:89 +0.068, s3:28 +0.057, s3:239 +0.054
+  suppressors s3:27 -0.353, s3:188 -0.137, s3:117 -0.136, s3:109 -0.129
+  sources     shift n101.bn1 -0.624, shift s3b1.bn2 -0.328, shift ds.bn -0.165, s3b1:h101 -0.119, shift s3b0.bn2 +0.097, s3b0:h81 -0.090, s3b1:h76 -0.079, s3b1:h204 -0.076
+  counterparts A n462 0.18, A n299 0.15, A n387 0.10; CHECK match median 0.09
+  children of s3:69 among its top-10 counterparts: none
+
+subcircuit 3: DEV 54, CHECK 53 (does not hold); CHECK bins a/b/c 0/0/53; mean n101 input -2.74
+  drivers     s3:98 +0.089, s3:97 +0.073, s3:89 +0.067, s3:71 +0.066, s3:158 +0.063, s3:239 +0.059
+  suppressors s3:117 -0.404, s3:254 -0.173, s3:109 -0.164, s3:171 -0.128
+  sources     shift n101.bn1 -0.624, shift s3b1.bn2 -0.395, shift ds.bn -0.194, shift s3b0.bn2 +0.123, s3b0:h34 -0.093, s3b0:h141 -0.072, s3b1:h204 -0.067, s3b0:h28 -0.066
+  counterparts A n464 0.10, A n39 0.08, A n462 0.08; CHECK match median 0.00
+  children of s3:69 among its top-10 counterparts: [108]
+
+subcircuit 4: DEV 38, CHECK 40 (holds); CHECK bins a/b/c 9/9/22; mean n101 input -2.70
+  drivers     s3:98 +0.103, s3:89 +0.072, s3:71 +0.069, s3:28 +0.063, s3:95 +0.052, s3:133 +0.044
+  suppressors s3:117 -0.714, s3:109 -0.135, s3:254 -0.111, s3:15 -0.105
+  sources     shift n101.bn1 -0.624, shift s3b1.bn2 -0.371, shift ds.bn -0.157, s3b1:h65 -0.135, shift s3b0.bn2 +0.125, s3b1:h72 -0.110, s3b1:h51 -0.093, s3b1:h81 -0.091
+  counterparts A n340 0.30, A n462 0.25, A n293 0.24; CHECK match median 0.00
+  children of s3:69 among its top-10 counterparts: none

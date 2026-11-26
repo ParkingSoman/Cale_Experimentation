@@ -10802,6 +10802,25 @@ Sealed photos, validation crops, not N's training photos. A node at its own peak
 
 The reference is not like for like: that stream has no privileged basis, and it has more units and fewer photos (3000 per half). These numbers carry no claim about a tree. Blind crop test of the old cards, 12 crops per card, share of channels at gap at least .2: s1 .27, s2 .64, s3 .48 (chance .28; line .85). Wrong cards, 9 of them: mean gap -.11.
 
+Stage 4 read one layer at a time: four agents, 126 nodes of Definition DC4. The lines and predictions were fixed before any card. Sealed photos. Label: none, no theorem.
+
+| Line | Pass | Result |
+|---|---|---|
+| Tree cover: main parent's root mean square change at least 2 times matched controls | .90 | .88. s4b1 1.00, s4b0 .92, s4b0i .83, s4b1i .77 |
+| Parents act: the same on all named inputs | .90 | 1.00 of 369. The controls lie outside a node's top 30 inputs, so this line is easy |
+| Parents carry: named inputs explain at least .25 of the change from the mean, and 3 times a random list | .80 | .67. s4b1 .93, s4b0i .67, s4b0 .60, s4b1i .47 |
+| Crop test, 24 crops, gap at least .2 (chance about .11) | .85 | .62 of 104. s4b1 .70, s4b0 .70, s4b0i .62, s4b1i .50. Wrong cards, 22 of them: mean gap -.11 |
+| Real parents, 1 of 5 from words | .70 | .79 of 82. All candidates by one agent, node names removed: .85 of 66. Parent's words by a fresh agent who saw no card: .85 of 34 |
+
+| Further numbers | Result |
+|---|---|
+| Main parent's rank by effect | rank 1 on .80, top 5 on 1.00. Named lists explain .36, the top list by effect of the same size .38 |
+| Careful retest of 30 crop items | pass .70 against .67, correlation .83, same verdict on .90 |
+| Old cards on the same 30 channels at s4b1, crop test | old .77, new .70 |
+| Crop test by largest firing, strong half against weak half | s4b1 .76, .62; s4b0 .90, .50; s4b0i .71, .50; s4b1i .74, .26 |
+
+No claim in this table concerns a build. The independent parents test covers strong links with cards, so it may overstate the tree. Stages 1 to 3 were not read in this wave.
+
 # Part D: where the math leads
 
 This part extrapolates. Each item is a conjecture with a route, or a program. Nothing here is claimed as proved.

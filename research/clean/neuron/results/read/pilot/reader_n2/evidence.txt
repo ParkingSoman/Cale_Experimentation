@@ -1,0 +1,33 @@
+Neuron n2: block 19 of 30 (stage 3, 14x14 positions). Values are PRE-activations (before GELU), pooled per photo: max over positions (positive pole) and min (negative pole).
+Kind: survivor. Kept in B. T's trained numbers for it, put into B, lower B's error.
+
+== base: 18000 photos. pooled max: median 1.02, p99 1.97, top 2.79; pooled min: median -1.80, p1 -3.44
+top classes by mean pooled max: altar 1.56; mountain tent 1.54; ski 1.47; trimaran 1.46; hen-of-the-woods 1.45; bolete 1.45; four-poster 1.42; vault 1.41; harvester 1.39; lab coat 1.39; valley 1.39; stinkhorn 1.39; restaurant 1.39; Saint Bernard 1.39; half track 1.38
+bottom classes by mean pooled min: window screen -3.01; zebra -2.66; crossword puzzle -2.52; paddle -2.52; drake -2.47; black swan -2.46; green mamba -2.46; platypus -2.45; grille -2.44; nail -2.43; rule -2.39; nematode -2.38; barn spider -2.37; planetarium -2.34; orange -2.32
+
+== B: 11000 photos. pooled max: median 1.27, p99 2.18, top 3.10; pooled min: median -1.69, p1 -3.09
+top classes by mean pooled max: tench 1.80; mountain tent 1.74; trimaran 1.72; hen-of-the-woods 1.72; skunk 1.70; volcano 1.69; borzoi 1.68; Pomeranian 1.67; hamster 1.67; stinkhorn 1.66; bolete 1.66; lakeside 1.65; viaduct 1.64; four-poster 1.64; boxer 1.64
+bottom classes by mean pooled min: zebra -2.38; red-breasted merganser -2.32; window screen -2.29; goose -2.26; accordion -2.25; picket fence -2.22; sea lion -2.22; standard schnauzer -2.20; magpie -2.18; spotlight -2.17; bell cote -2.15; confectionery -2.15; ballplayer -2.14; spider web -2.13; jackfruit -2.12
+
+== T: 11000 photos. pooled max: median 0.84, p99 1.76, top 2.89; pooled min: median -1.65, p1 -3.35
+top classes by mean pooled max: four-poster 1.33; Great Dane 1.30; skunk 1.29; hen-of-the-woods 1.28; window shade 1.28; borzoi 1.27; bolete 1.27; tench 1.26; mountain tent 1.25; viaduct 1.24; stinkhorn 1.24; trimaran 1.24; parallel bars 1.24; sloth bear 1.24; Saluki 1.23
+bottom classes by mean pooled min: zebra -2.92; window screen -2.64; great grey owl -2.50; spider web -2.47; crossword puzzle -2.46; menu -2.45; picket fence -2.44; magpie -2.39; confectionery -2.38; brain coral -2.33; accordion -2.32; red-backed sandpiper -2.31; pelican -2.31; goose -2.31; water ouzel -2.29
+
+== change T minus B (pooled max, same photos): mean -0.440, sd 0.249; correlation B vs T 0.823
+classes that RISE most in T: monitor -0.15; nipple -0.16; school bus -0.16; redbone -0.16; entertainment center -0.17; swing -0.17; whistle -0.18; perfume -0.18; polecat -0.19; snowplow -0.20
+classes that FALL most in T: alligator lizard -0.83; brass -0.82; vulture -0.81; American alligator -0.78; sea snake -0.77; window screen -0.74; French loaf -0.73; zebra -0.72; tiger cat -0.71; piggy bank -0.71
+sheet_change.png: crops of the largest rises (at T's peak) and falls (at B's peak)
+
+== feeders (block before, approx direct edge):
+  neuron 92 (edge -0.167): top classes screw, whistle, swab, cellular telephone, lab coat, safe | most negative window screen, zebra, crossword puzzle, neck brace
+  neuron 771 (edge +0.081): top classes lakeside, gyromitra, geyser, echidna, grey whale, African crocodile | most negative espresso maker, corkscrew, knee pad, perfume
+  neuron 1780 (edge +0.048): top classes black and gold garden spider, lab coat, garden spider, cabbage butterfly, ringlet, bee | most negative joystick, can opener, bathtub, pay-phone
+  neuron 1450 (edge -0.040): top classes nipple, tick, garden spider, black and gold garden spider, wolf spider, polecat | most negative basketball, killer whale, crossword puzzle, seat belt
+  neuron 1645 (edge +0.038): top classes photocopier, web site, safe, hammerhead, shovel, studio couch | most negative jaguar, snow leopard, Model T, half track
+
+== readers (block after, approx direct edge):
+  neuron 842 (edge -0.045): top classes tractor, barracouta, water buffalo, grey whale, coho, tench | most negative can opener, screw, whistle, flatworm
+  neuron 1096 (edge -0.036): top classes chickadee, Madagascar cat, ringlet, squirrel monkey, bee eater, jacamar | most negative safe, can opener, punching bag, whistle
+  neuron 519 (edge +0.026): top classes Pomeranian, papillon, lesser panda, red fox, cheetah, kit fox | most negative Weimaraner, miniature schnauzer, Sealyham terrier, Bouvier des Flandres
+  neuron 1883 (edge -0.024): top classes necklace, whistle, bolo tie, letter opener, hair slide, screw | most negative cabbage butterfly, robin, potter's wheel, water ouzel
+  neuron 266 (edge +0.024): top classes pinwheel, flagpole, umbrella, goldfish, kimono, shoe shop | most negative manhole cover, tape player, odometer, cassette player

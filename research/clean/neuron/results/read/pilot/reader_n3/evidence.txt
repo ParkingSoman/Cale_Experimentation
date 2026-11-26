@@ -1,0 +1,33 @@
+Neuron n3: block 25 of 30 (stage 3, 14x14 positions). Values are PRE-activations (before GELU), pooled per photo: max over positions (positive pole) and min (negative pole).
+Kind: survivor. Kept in B. T's trained numbers for it, put into B, lower B's error.
+
+== base: 18000 photos. pooled max: median 1.10, p99 2.62, top 3.76; pooled min: median -2.23, p1 -3.59
+top classes by mean pooled max: titi 2.21; bulbul 2.08; fly 2.05; quail 2.03; guenon 1.99; goldfinch 1.98; wolf spider 1.97; squirrel monkey 1.96; monarch 1.94; sulphur butterfly 1.92; ringlet 1.91; Bouvier des Flandres 1.90; Norwegian elkhound 1.90; green snake 1.89; macaque 1.87
+bottom classes by mean pooled min: platypus -3.04; nematode -2.92; space shuttle -2.92; upright -2.80; nail -2.79; jigsaw puzzle -2.76; container ship -2.76; echidna -2.76; chambered nautilus -2.75; hard disc -2.73; digital clock -2.72; Polaroid camera -2.70; microphone -2.70; street sign -2.70; lighter -2.70
+
+== B: 11000 photos. pooled max: median 1.41, p99 2.85, top 3.98; pooled min: median -2.16, p1 -3.24
+top classes by mean pooled max: green snake 2.56; goldfinch 2.55; lynx 2.48; brambling 2.43; Madagascar cat 2.38; chickadee 2.35; squirrel monkey 2.33; common iguana 2.33; jay 2.33; king snake 2.31; tiger cat 2.27; bald eagle 2.26; rock python 2.24; colobus 2.23; titi 2.22
+bottom classes by mean pooled min: rule -2.68; matchstick -2.65; goose -2.64; hay -2.64; spotlight -2.61; lens cap -2.61; pill bottle -2.60; prison -2.58; airship -2.58; passenger car -2.55; warplane -2.55; water ouzel -2.55; accordion -2.53; safe -2.52; perfume -2.51
+
+== T: 11000 photos. pooled max: median 0.92, p99 2.22, top 3.20; pooled min: median -1.88, p1 -3.31
+top classes by mean pooled max: king snake 1.74; lynx 1.72; Tibetan mastiff 1.68; goldfinch 1.65; siamang 1.63; rock python 1.63; common iguana 1.60; green snake 1.60; colobus 1.57; Madagascar cat 1.56; gorilla 1.55; langur 1.54; horizontal bar 1.53; cardigan 1.53; quail 1.52
+bottom classes by mean pooled min: pill bottle -2.59; hay -2.59; picket fence -2.57; prison -2.55; traffic light -2.54; breakwater -2.52; hard disc -2.50; warplane -2.50; rule -2.49; Granny Smith -2.46; lens cap -2.45; baseball -2.45; Italian greyhound -2.45; web site -2.44; spotlight -2.43
+
+== change T minus B (pooled max, same photos): mean -0.504, sd 0.330; correlation B vs T 0.852
+classes that RISE most in T: stretcher -0.02; cuirass -0.10; black grouse -0.13; lumbermill -0.14; volleyball -0.14; entertainment center -0.15; prayer rug -0.15; jacamar -0.16; breastplate -0.16; basketball -0.16
+classes that FALL most in T: chickadee -1.39; brambling -1.26; redshank -1.25; junco -1.16; house finch -1.02; tree frog -1.02; tiger cat -0.97; weevil -0.96; puffer -0.96; green snake -0.96
+sheet_change.png: crops of the largest rises (at T's peak) and falls (at B's peak)
+
+== feeders (block before, approx direct edge):
+  neuron 919 (edge +0.191): top classes bulbul, Madagascar cat, house finch, common iguana, chickadee, green mamba | most negative can opener, letter opener, menu, matchstick
+  neuron 794 (edge -0.174): top classes lynx, jaguar, fly, tiger, leopard, siamang | most negative freight car, echidna, neck brace, container ship
+  neuron 897 (edge -0.094): top classes school bus, typewriter keyboard, cello, pug, sorrel, oscilloscope | most negative patio, toyshop, lakeside, park bench
+  neuron 265 (edge +0.089): top classes marmoset, chimpanzee, colobus, Japanese spaniel, cock, titi | most negative Leonberg, Samoyed, kuvasz, Great Pyrenees
+  neuron 1847 (edge +0.073): top classes squirrel monkey, titi, three-toed sloth, howler monkey, spider monkey, chainlink fence | most negative snow leopard, rock beauty, Irish terrier, Australian terrier
+
+== readers (block after, approx direct edge):
+  neuron 1469 (edge -0.167): top classes chimpanzee, green mamba, stingray, agaric, gorilla, tiger | most negative menu, book jacket, miniskirt, jersey
+  neuron 1884 (edge -0.162): top classes wolf spider, tarantula, leaf beetle, black widow, black and gold garden spider, bee | most negative espresso maker, microphone, waffle iron, pretzel
+  neuron 1092 (edge -0.140): top classes Madagascar cat, coffee mug, tarantula, spindle, cowboy hat, teapot | most negative book jacket, comic book, ashcan, toyshop
+  neuron 1195 (edge -0.123): top classes tailed frog, agama, eft, common newt, alligator lizard, bullfrog | most negative apron, daisy, freight car, drumstick
+  neuron 99 (edge -0.122): top classes hamster, teddy, black-footed ferret, Maltese dog, polecat, skunk | most negative clumber, Rhodesian ridgeback, otterhound, English setter

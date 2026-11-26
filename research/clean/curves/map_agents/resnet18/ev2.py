@@ -12,6 +12,7 @@ Photo numbers index the reading photos. These are ImageNet validation crops, not
  Look
   deep NODE               rings at 100, 75, 50, 25, 10% of the largest firing, the negative pole at 100 and 50%, 6 whole photos with heat maps. Prints a PNG path. Open it with Read
   edit NODE               firing kept after flip, rot90, rot180, gray, blur, tile shuffles, invert, zoom
+  photo NODE RANK         save the node's RANK-th strongest reading photo as a PNG (0 is the strongest), with its firing and the place of the peak. Edit it with PIL, then probe it
   probe NODE FILE...      firing on your own images, as a share of the largest firing on the reading photos. Draw tests with PIL in tests/
   fv NODE [--natural] [--through NODE]   feature visualization. --natural follows the routes real photos take for the first 64 steps
  Connections, each one convolution away
@@ -441,15 +442,30 @@ def cmd_edit(n):
     print("  ".join(f"{k} {np.median(peak(np.stack([f(i).copy() for i in raw])) / np.where(base == 0, 1, base)):.2f}" for k, f in edits.items()))
 
 
+def cmd_photo(n, rank, folder):
+    from PIL import Image
+    v, p = peaks(n)
+    i = int(np.argsort(-v)[rank])
+    os.makedirs(folder, exist_ok=True)
+    path = os.path.join(folder, f"photo_{i}.png")
+    Image.fromarray(Photos("read").raw([i])[0]).save(path)
+    g = grid(n["s"])
+    r, c = divmod(int(p[i]), g)
+    cats, y = class_names(), arr("y")
+    print(f"{path}: photo {i}, {name(n)} fires {v[i]:.2f} here, {v[i] / v.max():.2f} of the largest firing on the reading photos. The peak is in cell row {r} column {c} of a {g} by {g} grid, about pixel x {int((c + .5) * 224 / g)} y {int((r + .5) * 224 / g)} of 224. N's top class: {cats[int(np.argmax(y[i]))]}")
+
+
 def cmd_probe(n, files):
     from PIL import Image
     m = net()
     v, _ = peaks(n)
+    below_zero = float(np.abs(peaks(n, "neg")[0]).max())
     P = Photos("read")
     for f in files:
         im = np.asarray(Image.open(f).convert("RGB").resize((224, 224)))[None]
-        val = float(value_field(m, P.tensor(None, raw=im), n).flatten(1).max())
-        print(f"{f}: largest value {val:.2f}, {val / v.max():.2f} of the largest firing on the reading photos ({v.max():.2f})")
+        field = value_field(m, P.tensor(None, raw=im), n).flatten(1)
+        val, low = float(field.max()), float(field.min())
+        print(f"{f}: largest value {val:.2f}, {val / v.max():.2f} of the largest firing on the reading photos ({v.max():.2f}). Lowest value {low:.2f}, {abs(min(low, 0)) / max(below_zero, 1e-9):.2f} of the largest negative firing")
 
 
 if __name__ == "__main__":
@@ -462,6 +478,7 @@ if __name__ == "__main__":
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--natural", action="store_true")
     ap.add_argument("--through", default="")
+    ap.add_argument("--dir", default=os.path.join(HERE, "tests"))
     a = ap.parse_args()
     cmd = a.command
     if cmd == "deep":
@@ -478,6 +495,8 @@ if __name__ == "__main__":
         cmd_acts(parse(a.args[0]), parse(a.args[1]))
     elif cmd == "edit":
         cmd_edit(parse(a.args[0]))
+    elif cmd == "photo":
+        cmd_photo(parse(a.args[0]), int(a.args[1]), a.dir)
     elif cmd == "probe":
         cmd_probe(parse(a.args[0]), a.args[1:])
     elif cmd == "fv":

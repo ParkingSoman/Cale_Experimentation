@@ -1,0 +1,54 @@
+{
+ "R03": {
+  "kind": "child",
+  "neuron": 305
+ },
+ "R10": {
+  "kind": "child",
+  "neuron": 97
+ },
+ "R07": {
+  "kind": "child",
+  "neuron": 23
+ },
+ "R08": {
+  "kind": "child",
+  "neuron": 163
+ },
+ "R12": {
+  "kind": "child",
+  "neuron": 385
+ },
+ "R11": {
+  "kind": "child",
+  "neuron": 297
+ },
+ "R04": {
+  "kind": "child",
+  "neuron": 464
+ },
+ "R06": {
+  "kind": "child",
+  "neuron": 237
+ },
+ "R13": {
+  "kind": "child",
+  "neuron": 108
+ },
+ "R09": {
+  "kind": "child",
+  "neuron": 510
+ },
+ "R05": {
+  "kind": "child",
+  "neuron": 275
+ },
+ "R01": {
+  "kind": "parent",
+  "neuron": 69
+ },
+ "R02": {
+  "kind": "coarse",
+  "neuron": 101
+ }
+}

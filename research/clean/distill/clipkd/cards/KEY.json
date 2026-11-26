@@ -1,0 +1,322 @@
+{
+ "U31": {
+  "unit": 0,
+  "model": "kd",
+  "block": 12,
+  "neuron": 218,
+  "role": "student",
+  "group": 0
+ },
+ "U19": {
+  "unit": 1,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 116,
+  "role": "single",
+  "group": 0
+ },
+ "U07": {
+  "unit": 2,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 2437,
+  "role": "m2",
+  "group": 0
+ },
+ "U25": {
+  "unit": 3,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 463,
+  "role": "m3",
+  "group": 0
+ },
+ "U26": {
+  "unit": 4,
+  "model": "kd",
+  "block": 12,
+  "neuron": 229,
+  "role": "student",
+  "group": 1
+ },
+ "U39": {
+  "unit": 5,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 1917,
+  "role": "single",
+  "group": 1
+ },
+ "U10": {
+  "unit": 6,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 2767,
+  "role": "m2",
+  "group": 1
+ },
+ "U24": {
+  "unit": 7,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 1830,
+  "role": "m3",
+  "group": 1
+ },
+ "U03": {
+  "unit": 8,
+  "model": "kd",
+  "block": 12,
+  "neuron": 4,
+  "role": "student",
+  "group": 2
+ },
+ "U18": {
+  "unit": 9,
+  "model": "teacher",
+  "block": 12,
+  "neuron": 731,
+  "role": "single",
+  "group": 2
+ },
+ "U23": {
+  "unit": 10,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 748,
+  "role": "m2",
+  "group": 2
+ },
+ "U36": {
+  "unit": 11,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 86,
+  "role": "m3",
+  "group": 2
+ },
+ "U35": {
+  "unit": 12,
+  "model": "kd",
+  "block": 12,
+  "neuron": 669,
+  "role": "student",
+  "group": 3
+ },
+ "U28": {
+  "unit": 13,
+  "model": "teacher",
+  "block": 12,
+  "neuron": 452,
+  "role": "single",
+  "group": 3
+ },
+ "U21": {
+  "unit": 14,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 870,
+  "role": "m2",
+  "group": 3
+ },
+ "U13": {
+  "unit": 15,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 390,
+  "role": "m3",
+  "group": 3
+ },
+ "U08": {
+  "unit": 16,
+  "model": "kd",
+  "block": 12,
+  "neuron": 699,
+  "role": "student",
+  "group": 4
+ },
+ "U37": {
+  "unit": 17,
+  "model": "teacher",
+  "block": 12,
+  "neuron": 1945,
+  "role": "single",
+  "group": 4
+ },
+ "U40": {
+  "unit": 18,
+  "model": "teacher",
+  "block": 12,
+  "neuron": 391,
+  "role": "m2",
+  "group": 4
+ },
+ "U12": {
+  "unit": 19,
+  "model": "teacher",
+  "block": 11,
+  "neuron": 1977,
+  "role": "m3",
+  "group": 4
+ },
+ "U30": {
+  "unit": 20,
+  "model": "kd",
+  "block": 8,
+  "neuron": 444,
+  "role": "student",
+  "group": 5
+ },
+ "U20": {
+  "unit": 21,
+  "model": "teacher",
+  "block": 8,
+  "neuron": 1454,
+  "role": "single",
+  "group": 5
+ },
+ "U27": {
+  "unit": 22,
+  "model": "teacher",
+  "block": 7,
+  "neuron": 530,
+  "role": "m2",
+  "group": 5
+ },
+ "U29": {
+  "unit": 23,
+  "model": "teacher",
+  "block": 8,
+  "neuron": 1318,
+  "role": "m3",
+  "group": 5
+ },
+ "U32": {
+  "unit": 24,
+  "model": "kd",
+  "block": 8,
+  "neuron": 478,
+  "role": "student",
+  "group": 6
+ },
+ "U04": {
+  "unit": 25,
+  "model": "teacher",
+  "block": 8,
+  "neuron": 122,
+  "role": "single",
+  "group": 6
+ },
+ "U33": {
+  "unit": 26,
+  "model": "teacher",
+  "block": 7,
+  "neuron": 1,
+  "role": "m2",
+  "group": 6
+ },
+ "U09": {
+  "unit": 27,
+  "model": "teacher",
+  "block": 7,
+  "neuron": 2097,
+  "role": "m3",
+  "group": 6
+ },
+ "U34": {
+  "unit": 28,
+  "model": "kd",
+  "block": 8,
+  "neuron": 524,
+  "role": "student",
+  "group": 7
+ },
+ "U14": {
+  "unit": 29,
+  "model": "teacher",
+  "block": 7,
+  "neuron": 2580,
+  "role": "single",
+  "group": 7
+ },
+ "U22": {
+  "unit": 30,
+  "model": "teacher",
+  "block": 7,
+  "neuron": 1566,
+  "role": "m2",
+  "group": 7
+ },
+ "U02": {
+  "unit": 31,
+  "model": "teacher",
+  "block": 7,
+  "neuron": 729,
+  "role": "m3",
+  "group": 7
+ },
+ "U17": {
+  "unit": 32,
+  "model": "kd",
+  "block": 8,
+  "neuron": 688,
+  "role": "student",
+  "group": 8
+ },
+ "U15": {
+  "unit": 33,
+  "model": "teacher",
+  "block": 7,
+  "neuron": 2965,
+  "role": "single",
+  "group": 8
+ },
+ "U05": {
+  "unit": 34,
+  "model": "teacher",
+  "block": 7,
+  "neuron": 816,
+  "role": "m2",
+  "group": 8
+ },
+ "U06": {
+  "unit": 35,
+  "model": "teacher",
+  "block": 8,
+  "neuron": 732,
+  "role": "m3",
+  "group": 8
+ },
+ "U16": {
+  "unit": 36,
+  "model": "kd",
+  "block": 8,
+  "neuron": 721,
+  "role": "student",
+  "group": 9
+ },
+ "U11": {
+  "unit": 37,
+  "model": "teacher",
+  "block": 7,
+  "neuron": 1001,
+  "role": "single",
+  "group": 9
+ },
+ "U01": {
+  "unit": 38,
+  "model": "teacher",
+  "block": 8,
+  "neuron": 2008,
+  "role": "m2",
+  "group": 9
+ },
+ "U38": {
+  "unit": 39,
+  "model": "teacher",
+  "block": 8,
+  "neuron": 1049,
+  "role": "m3",
+  "group": 9
+ }
+}

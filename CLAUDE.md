@@ -33,3 +33,7 @@ Success = (app types that work well) x (consumer environments each one runs in).
 | Start state | The Cale installer and the Quick Notes installer are already downloaded. The install itself is a recorded time-lapse. |
 
 Run sheet and measured numbers: `demo/README.md`. Latest handoff: `docs/HANDOFF-2026-10-17.md`.
+
+Network mapping is its own project: `CrakBox/README.md`.
+
+Before reading any neuron, open `research/clean/NEURON-CHECKLIST.md`.

@@ -1,0 +1,40 @@
+C1  counterpart = on-rate?  (per subcircuit: top 3 by mean match | top 3 by on-rate alone)
+  k0: by match ['n303', 'n154', 'n238'] | by on-rate ['n238', 'n309', 'n303']; n303: on 0.15, cos when on 0.45; n154: on 0.14, cos when on 0.47; n238: on 0.19, cos when on 0.33
+  k1: by match ['n297', 'n81', 'n108'] | by on-rate ['n108', 'n297', 'n303']; n297: on 0.38, cos when on 0.56; n81: on 0.37, cos when on 0.49; n108: on 0.42, cos when on 0.42
+  k2: by match ['n97', 'n71', 'n23'] | by on-rate ['n97', 'n71', 'n350']; n97: on 0.46, cos when on 0.56; n71: on 0.37, cos when on 0.58; n23: on 0.29, cos when on 0.61
+  k3: by match ['n305', 'n57', 'n233'] | by on-rate ['n260', 'n488', 'n321']; n305: on 0.15, cos when on 0.55; n57: on 0.17, cos when on 0.47; n233: on 0.13, cos when on 0.57
+
+C2  shared second feeder?  (n101's top 4 feeders vs each counterpart's top 4, mean vote on the DEV firings where on)
+  k0: n101 s3:69, s3:78, s3:167, s3:189
+       n303 (on 13): s3:122 +0.17, s3:88 +0.11, s3:34 +0.09, s3:158 +0.09  | its vote on n101's 2nd feeder s3:78 = +0.04 (rank 14)
+       n154 (on 12): s3:82 +0.27, s3:167 +0.27, s3:122 +0.19, s3:49 +0.17  | its vote on n101's 2nd feeder s3:78 = +0.11 (rank 5)
+       n238 (on 16): s3:209 +0.09, s3:221 +0.08, s3:189 +0.08, s3:174 +0.08  | its vote on n101's 2nd feeder s3:78 = +0.03 (rank 20)
+  k1: n101 s3:69, s3:88, s3:78, s3:50
+       n297 (on 27): s3:69 +0.43, s3:174 +0.14, s3:65 +0.08, s3:71 +0.08  | its vote on n101's 2nd feeder s3:88 = +0.08 (rank 5)
+       n81 (on 26): s3:88 +0.47, s3:69 +0.21, s3:23 +0.20, s3:198 +0.09  | its vote on n101's 2nd feeder s3:88 = +0.47 (rank 1)
+       n108 (on 30): s3:69 +0.30, s3:150 +0.17, s3:88 +0.16, s3:23 +0.14  | its vote on n101's 2nd feeder s3:88 = +0.16 (rank 3)
+  k2: n101 s3:69, s3:78, s3:203, s3:86
+       n97 (on 30): s3:69 +0.59, s3:198 +0.32, s3:125 +0.17, s3:139 +0.13  | its vote on n101's 2nd feeder s3:78 = -0.06 (rank 253)
+       n71 (on 24): s3:198 +0.67, s3:69 +0.36, s3:141 +0.30, s3:86 +0.24  | its vote on n101's 2nd feeder s3:78 = +0.17 (rank 7)
+       n23 (on 19): s3:69 +0.67, s3:86 +0.20, s3:78 +0.18, s3:116 +0.17  | its vote on n101's 2nd feeder s3:78 = +0.18 (rank 3)
+  k3: n101 s3:69, s3:86, s3:203, s3:78
+       n305 (on 8): s3:86 +0.75, s3:69 +0.43, s3:149 +0.15, s3:35 +0.14  | its vote on n101's 2nd feeder s3:86 = +0.75 (rank 1)
+       n57 (on 9): s3:86 +0.53, s3:87 +0.28, s3:149 +0.25, s3:69 +0.20  | its vote on n101's 2nd feeder s3:86 = +0.53 (rank 1)
+       n233 (on 7): s3:86 +0.31, s3:16 +0.30, s3:149 +0.24, s3:203 +0.18  | its vote on n101's 2nd feeder s3:86 = +0.31 (rank 1)
+
+C3  groups of inputs or of the read?  adjusted Rand of DEV partitions
+  real vs shuffled read: ARI median 0.47 (range 0.35-0.61)
+  shuffled vs shuffled: ARI median 0.42;  real vs real with another Louvain seed: median 0.75
+
+C4  best A neuron on at each CHECK firing (not one picked neuron)
+  firings with any A neuron on: 1.00; best-on match median 0.50 (shuffled 99th median 0.49); best beats its own 99th: 0.52 of CHECK
+  best-on match >= 0.5 and beats chance: 0.42
+  best-on match >= 0.7 and beats chance: 0.08
+  distinct A neurons that are the best passing match: 38; 15 cover 80% of the passing firings; top: n71 16, n297 14, n464 10, n97 10, n233 9, n303 8, n113 8, n103 7, n108 6, n163 6
+
+C5  the s3:69 vote split by stream source (firings where s3:69 is among the 20 largest votes)
+  s3:69 (500 firings, mean vote +0.944): skip share 0.63 [block-0 hidden +0.48, stage-2 +0.06, shifts +0.07]; block-1 write +0.37; top block-0 hidden h100, h175, h112; top block-1 hidden h216, h198, h88
+  s3:88 (254 firings, mean vote +0.406): skip share 0.95 [block-0 hidden +0.96, stage-2 -0.01, shifts -0.01]; block-1 write +0.05; top block-0 hidden h112, h177, h82; top block-1 hidden h110, h225, h119
+  s3:203 (286 firings, mean vote +0.399): skip share 0.51 [block-0 hidden +0.25, stage-2 +0.13, shifts +0.13]; block-1 write +0.49; top block-0 hidden h175, h220, h234; top block-1 hidden h216, h68, h142
+  s3:86 (235 firings, mean vote +0.455): skip share 0.65 [block-0 hidden +0.52, stage-2 +0.04, shifts +0.11]; block-1 write +0.35; top block-0 hidden h131, h215, h187; top block-1 hidden h88, h224, h40
+  s3:78 (490 firings, mean vote +0.433): skip share 0.88 [block-0 hidden +0.97, stage-2 +0.09, shifts -0.18]; block-1 write +0.12; top block-0 hidden h102, h44, h151; top block-1 hidden h216, h161, h78
