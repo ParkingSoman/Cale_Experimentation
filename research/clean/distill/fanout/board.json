@@ -5304,5 +5304,275 @@
   "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
   "who": "JOINT",
   "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_p5_off_on",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.3148514032363892,
+  "top1": 0.459,
+  "agree": 0.5249999761581421,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 6.6,
+  "total_seconds": 10.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T15:59:57",
+  "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_p5_off_on",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 4.862342357635498,
+  "top1": 0.1,
+  "agree": 0.1080000028014183,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 4.8,
+  "total_seconds": 8.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:00:06",
+  "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_p5_sfon_off",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.2455031871795654,
+  "top1": 0.46,
+  "agree": 0.5339999794960022,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 5.2,
+  "total_seconds": 9.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:00:15",
+  "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_p5_sfon_off",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 4.5168561935424805,
+  "top1": 0.133,
+  "agree": 0.13600000739097595,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 5.7,
+  "total_seconds": 12.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:00:28",
+  "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_p5null_sfon_on",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.3627707958221436,
+  "top1": 0.447,
+  "agree": 0.5109999775886536,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 11.7,
+  "total_seconds": 20.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:00:53",
+  "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_p5null_sfon_on",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 4.21897554397583,
+  "top1": 0.123,
+  "agree": 0.12600000202655792,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 13.2,
+  "total_seconds": 20.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:01:14",
+  "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_p5_sfnull_on",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.2846275568008423,
+  "top1": 0.456,
+  "agree": 0.5270000100135803,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 8.4,
+  "total_seconds": 11.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:01:26",
+  "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_p5_sfnull_on",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 4.560161590576172,
+  "top1": 0.107,
+  "agree": 0.11500000208616257,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 4.8,
+  "total_seconds": 8.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:01:34",
+  "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_p5_sfon_null",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.2282973527908325,
+  "top1": 0.466,
+  "agree": 0.5440000295639038,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 5.4,
+  "total_seconds": 8.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:01:42",
+  "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
+  "who": "JOINT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r2_joint_p5_sfon_null",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 4.235114574432373,
+  "top1": 0.136,
+  "agree": 0.14300000667572021,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 6.9,
+  "total_seconds": 12.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:01:55",
+  "note": "r2 JOINT: ResNet joint J = P5 order + closed-loop stream fold (+const) + P4 inner fold; LOO/null rows; masked full width",
+  "who": "JOINT",
+  "quick": false
  }
 ]
