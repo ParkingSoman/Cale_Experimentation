@@ -1,0 +1,863 @@
+{
+ "builders": [
+  {
+   "part": "P6 diagnostics",
+   "files": [
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/_p6diag_clip.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p6diag_clip_plain.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p6diag_clip_k.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p6diag_clip_D.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p6diag_clip_rho.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p6diag_clip_grho.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/_p6diag_r18.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p6diag_r18_plain.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p6diag_r18_meanfold.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p6diag_r18_permmean.py"
+   ],
+   "what_it_does": "P6 Stream diagnostic rows (joint order step 1). The rows ask one question: is the stream-only damage at 50% (CLIP 11.104, ResNet 18.051) a scale or mean problem, or lost content? All rows are stream-only cuts. They use the floor's stream order, computed on the input X (noisecut scores). Heads, MLP and inner channels stay at full width. The calculation uses no photos. Photos are for scoring only.\n\nCLIP (one builder, _p6diag_clip.py; the modes differ only in the divisor of each norm):\n| Rule | Divisor D_l at each of 26 sites (ln_pre, ln1/ln2 x 12, ln_post) |\n|---|---|\n| p6diag_clip_plain | baseline on X: vitgen.cut, LayerNorm over the kept dims (= split_stream, order from X) |\n| p6diag_clip_k | rms form, D_l = k (the centring change alone) |\n| p6diag_clip_D | rms form, D_l = 768 |\n| p6diag_clip_rho | rms form, D_l = 768 * rho_l. rho_l = kept share of the centred stream energy at site l. Teacher on X, open loop. THE TEST ROW |\n| p6diag_clip_grho | NULL: one global rho (the mean of the 26 rho_l) at every site |\n\nHow the stream is centred (SliceGPT form). J = I - 11^T/768 is folded into every writer (patch_w, cls, pos, o_w, o_b, pr_w, pr_b). Each norm's gain and bias are folded into its readers (q/k/v/fc weights and biases, and ln_post into proj). Every norm then becomes rms with g = 1 and b = 0. The ln_pre output is not centred, because J diag(g_pre) J is a full matrix. So the student keeps the floor's coordinates E of the centred stream, in a basis rotated inside the kept subspace: z = U^T E^T J x, from the SVD E^T J diag(g_pre) J = U S V^T. The rotation does not change which dims are kept, and the rms norms are rotation invariant. The student's ln_pre reads V^T J t with gain S. This is exact at f = 1. The ln_post bias keeps the floor's kept-dims share (b_post[kept] @ proj[kept]), exactly. No best-fit bias is used. The fold algebra runs in float64 on the CPU.\nPrints for each f: rho_l at every site, and the realized divisor ratio at every site. The ratio is teacher divisor / student divisor, median over tokens, on the first 32 images of X, closed loop. A value of 1.00 means the student reads at the teacher's scale.\n\nResNet (one builder, _p6diag_r18.py). The cut is the same as _split.py: every read of a cut stream channel is set to 0.\n| Rule | Fold |\n|---|---|\n| p6diag_r18_plain | none (baseline on X, = split_stream with the order from X) |\n| p6diag_r18_meanfold | for each reader, c_r = the mean over images and positions of conv_r applied only to the cut channels, on the teacher stream on X. The zero-padded borders are included. Conv readers: bn.running_mean -= c_r (an edit of the inference map, never read as a statistic). fc: bias += c_r |\n| p6diag_r18_permmean | NULL: the same computation with the cut channels' activations permuted among the cut channels of the stage (a derangement, seed = stage) |\nReaders: stage s block-1 conv1, stage s+1 block-0 conv1 and downsample, stage-1 block-0 conv1 (stem), and fc. Each reader uses the mean of the stream point it reads. Prints: the mean of the cut channels against the kept channels per stage, and an in-rule CHECK. The CHECK passes by algebra: the max absolute difference between the folded reader's output mean and the teacher reader's output mean on X.\n\nImplementation checks: at f = 1 every CLIP rms mode must give the teacher, because the conversion is exact. The ResNet check at f = 1 is vacuous, because nothing is cut. The ResNet fold evidence is the CHECK line at f < 1. Syntax: py_compile passes on all 10 files. Torch was not run.",
+   "commands": [
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p6diag_clip_rho --f 1 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag implementation check (algebra): rms conversion at f=1\"",
+     "purpose": "Implementation check (passes by algebra): the centred rms conversion with per-site rho reproduces the teacher at f = 1.",
+     "expect": "KL < 1e-3 and agree >= 99%. Printed rho_l all 1.000. Realized divisor ratio 1.000 at all 26 sites. If this fails, stop: there is a fold bug, and no CLIP rms row is valid."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p6diag_clip_k --f 1 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag implementation check (algebra)\"",
+     "purpose": "Implementation check, k mode at f = 1 (k = 768, so the result must equal the teacher).",
+     "expect": "KL < 1e-3, agree >= 99%. Same number as the rho f=1 row to 4 decimals."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p6diag_clip_D --f 1 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag implementation check (algebra)\"",
+     "purpose": "Implementation check, D = 768 mode at f = 1.",
+     "expect": "KL < 1e-3, agree >= 99%."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p6diag_clip_grho --f 1 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag implementation check (algebra)\"",
+     "purpose": "Implementation check, global-rho null at f = 1.",
+     "expect": "KL < 1e-3, agree >= 99%."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p6diag_clip_plain --f 1 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag implementation check (algebra)\"",
+     "purpose": "Implementation check, plain baseline at f = 1 (vitgen.cut keeps all dims).",
+     "expect": "KL 0.000 (same as identity), agree 100%. Realized ratio 1.000 at all sites."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p6diag_r18_plain --f 1 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag implementation check (vacuous: nothing cut)\"",
+     "purpose": "Implementation check, ResNet baseline at f = 1. Vacuous: nothing is cut.",
+     "expect": "KL exactly 0.0, agree 100%."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p6diag_r18_meanfold --f 1 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag implementation check (vacuous: nothing cut, no fold)\"",
+     "purpose": "Implementation check, ResNet mean fold at f = 1. Vacuous: nothing is cut and no fold runs.",
+     "expect": "KL exactly 0.0, agree 100%. No CHECK line is printed (no cut channels)."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p6diag_r18_permmean --f 1 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag implementation check (vacuous: nothing cut, no fold)\"",
+     "purpose": "Implementation check, ResNet permuted-mean null at f = 1. Vacuous.",
+     "expect": "KL exactly 0.0, agree 100%."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p6diag_clip_plain --f 0.95,0.5,0.25,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag baseline: floor stream-only, order from X\"",
+     "purpose": "Baseline on X: the floor stream-only cut with the order from the cached input. All CLIP diagnostic rows are judged against this row.",
+     "expect": "Within +-.05 of step 0 (.280 / 11.104 / 11.431 / 8.903), agree about 80.7% / .1% / .3% / .3%, because the cached images are the same draws as the step-0 default. Printed realized ratio at the early sites (embed, block-0 ln1/ln2) is below 1 at f <= .5 when the loud dims are kept (about sqrt(k / (768 rho_l)))."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p6diag_r18_plain --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag baseline: floor stream-only, order from X\"",
+     "purpose": "Baseline on X: the ResNet stream-only cut with the order from the cached input. The order differs from step 0 (the full floor moved from 9.254 to 9.386 on this input).",
+     "expect": "Near step 0 (1.076 / 18.051 / 6.134), but not equal: 95% in .9-1.3, 50% in 16-20, 5% in 5.5-7. Agree near .2% at 50% and 5%."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p6diag_clip_k --f 0.95,0.5,0.25,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag: centred rms, D_l=k (centring change only)\"",
+     "purpose": "Centring change alone: teacher centring (J in writers) and rms norm with divisor k. Baseline for the rho row.",
+     "expect": "Theorist prediction: 10.0 at 50% (baseline plain-on-X about 11.1). No pass bar (it is the baseline for the rho row). Early-site realized ratio below 1 at f < 1, similar to plain."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p6diag_clip_D --f 0.95,0.5,0.25,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag: centred rms, D_l=768\"",
+     "purpose": "Divisor D = 768 at every site. The student reads louder than the teacher by 1/sqrt(rho_l).",
+     "expect": "No theorist number. Builder: close to the rho row where rho_l is near 1 (95%). At 5%, worse than the rho row if rho_l is well below 1. Early-site realized ratio about sqrt(rho_l) (slightly below 1)."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p6diag_clip_rho --f 0.95,0.5,0.25,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag TEST: centred rms, D_l=768*rho_l on X\"",
+     "purpose": "THE TEST ROW: the per-site divisor D_l = 768 * rho_l on X. It decides whether the shared norm mode changes for every builder.",
+     "expect": "Theorist prediction: 5.0 at 50%. PASS = KL below flat 6.281 AND agree at least 10 points above the plain-on-X 50% row (step 0 agree .1%, so about >= 10.1%). Builder expectation (written now): 6-10 at 50% with agree under 10%, because F1 says the quiet cut dims carry the reads. Implementation check at f < 1: the early-site realized ratio (embed, block-0 ln1/ln2) must be 1.00 +- .15 at every f. If it is far from 1, the cause is a fold bug, not a finding. A KL gain with no agree gain = calibration, and the lead is wrong."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p6diag_r18_meanfold --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag TEST: mean-only fold of cut stream channels on X\"",
+     "purpose": "THE ResNet TEST ROW: the mean-only fold of the cut channels' contribution into the readers' biases.",
+     "expect": "Theorist prediction: 95% .80, 50% 8.0, 5% 5.9. PASS at 50% = KL <= 9.03 (half of 18.051) AND agree at least 10 points above the plain-on-X 50% row. Each f prints a CHECK line with a max difference several orders below the printed scale (below 1e-3 of it). Printed cut-channel means are positive (the lost mean)."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p6diag_clip_grho --f 0.95,0.5,0.25,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag NULL: one global rho at every site\"",
+     "purpose": "NULL for the rho row: one global rho (the mean of the 26 rho_l) at every site. It tests whether the per-site statistic matters.",
+     "expect": "Theorist prediction: 7.0 at 50% (worse than the rho row). If the printed rho_l spread (max - min) is under about .05, this null ties the rho row by construction and carries no evidence. Read the spread first."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p6diag_r18_permmean --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P6 diag NULL: mean fold with cut activations permuted (derangement)\"",
+     "purpose": "NULL for the mean fold: the same fold with the cut channels' activations permuted among the cut channels.",
+     "expect": "Theorist prediction: >= 15 at 50%, so near the plain-on-X row and far above the meanfold row. If it ties the meanfold row, the gain is a channel-blind bias shift, not the per-channel mean."
+    }
+   ],
+   "open_risks": "1. Nothing ran. The CLIP f=1 rows are the only test of the rms conversion. If the rho f=1 row gives KL >= 1e-3, stop all CLIP rows. The early-site realized-ratio print is the only CLIP check at f < 1.\n2. The k row differs from plain in two things, not one. It centres over all 768 dims (teacher centring), and the ln_pre normalizer reads the subspace V^T J t, not the coordinates t[kept]. All rms rows share both changes.\n3. rho_l is open loop. It is measured on the teacher's stream on X, not on the student's own stream. The realized-ratio print is closed loop, so at late sites it mixes stream drift with scale. Read the early sites for scale.\n4. The ln_post bias keeps only the kept-dims share (as the floor does). It needs a nonzero ln_post gain on every kept dim, and an assert stops the build if one is zero.\n5. ResNet: the fold uses teacher-stream means on pink X. F2 shows pink is off the operating point (variance ratio .12 in stage 4), so these means may also be off. The photo-mean check row is NOT built, because rules may not import a photo loader. The runner must build it as a separate check script if it is wanted.\n6. ResNet f=1 rows are vacuous. The CHECK line at f < 1 passes by algebra (conv linearity plus the BN edit). It catches a sign or target error only. It is not evidence for the hypothesis.\n7. The ResNet params column reports the full network, as in split_stream (masked weights stay in the tensors).\n8. Memory: the CLIP helper keeps one teacher copy on MPS for each process (about 350 MB), and the r18 helper makes up to two model copies. Both are small, but the runner must check swap first.\n9. Run time estimate: about 10-11 minutes in total (CLIP about 35 s for each f=1 check and 60-90 s for each 4-f row, ResNet under 30 s for each command)."
+  },
+  {
+   "part": "P0 input",
+   "files": [
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/make_input.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/check_input.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/check_mix.py"
+   ],
+   "what_it_does": "I built three new scripts for P0 Input. I edited no harness file and no file of another builder. All three pass py_compile. I ran no torch.\n\n1. make_input.py makes the self-made input and the null input for one network.\n- It starts from the shared pink file, cache/input_pink_n256_s1.pt.\n- The image is set in Fourier space with a 1/f amplitude. g(z) = chan_norm(irfft2(A*z, ortho)).\n- x(z) = x0 + (g(z) - g(z0)). With K = 0, the output is the shared file bit for bit. This passes by algebra. The --k0-check flag also tests it with torch.equal and loads no network.\n- Fixed knobs: N 256, K 32, Adam lr .05, batch 32, seed 1. The random transform does a roll of up to 16 px, a flip per image with p .5, and a zoom of .9-1.1 with a crop or a zero pad.\n- ResNet loss: cross-entropy to a class y drawn from softmax(fc.bias), generator seed 1.\n- CLIP loss: a self-InfoNCE proxy at scale 100. It compares each image with the previous step's detached embeddings. The negatives are the other images in the batch. This is not CLIP's training loss.\n- The null uses the same recipe, with a shuffle inside every linear and conv weight tensor (shuffle seed 2). Norms, biases, cls and pos stay as they are. The images are made by the shuffled network.\n- Output: cache/{net}_{self|null}_n256_k32_s1.pt as float16, plus a .json sidecar file. The sidecar holds the losses at step 1 and step K, how far each batch moved, the drift of the channel std, and (ResNet only) how often the network picks the drawn class.\n- --smoke runs 1 batch for 2 steps and writes no file. It prints the time per step. With --kind null it also checks the shuffle (passes by algebra).\n- The Fourier transform and the image transforms run on the CPU. Only the network runs on MPS. --render-dev mps moves them to MPS.\n- Before it writes a file, the script stops if any value is not finite. It refuses to overwrite a file unless you give --force.\n\n2. check_input.py runs the checks on any list of input files and on 1,000 held photos (reading only).\n- ResNet: it imports check_bn.stats and check_bn.spearman. Per BN layer, it gives var rank, mean rank and var ratio against the stored running stats. It also gives medians for each stage (stem, layer1-4).\n- ResNet firing rate: one hook on each block's bn1 output, in the same forward pass. It measures P(out > 0) per inner channel. Per block, it gives the Spearman against the photo rates and the median rate ratio.\n- ResNet guards: the layer4 var ratio is above 2, or the fraction of channels with rate above .9 is more than 2x the photo fraction.\n- CLIP: a copy of the noisecut.vit_scores loop, with the same formulas. It gives the Spearman of the floor's unit scores against the same scores on 1,000 held photos: stream (768), heads per block (12) and MLP per block (3,072). score_rank_median = the median of three numbers: the stream Spearman, the median head Spearman and the median MLP Spearman.\n- CLIP extra readouts: the MLP firing rate of fc(ln2(x)), the RMS ratio of loud dims 163, 419, 171, 573 and 97 at each of 13 sites, and the top-10 eigenvalue share of the stream covariance at each site.\n- CLIP guards: the top-1% score share (MLP and stream) is more than 2x the photo share, or the fraction of MLP units with rate above .9 is more than 2x the photo fraction.\n- Implementation check (passes by algebra): on the first input, the copied loop must match noisecut.vit_scores with a relative error below 1e-4.\n- An assert checks that the stored logit scale is 100.\n- --extra MODULE:FUNC is a hook for P5's score(W, X).\n- Output: check_input.json, merged per input name.\n\n3. check_mix.py is the mandatory planted test. It is labelled as a reading check.\n- Inputs: 4 mixes of 256 images with 0, 25, 50 and 100% held photos. The photos are the second held photo of 256 classes spread over the 1,000, in a fixed shuffled order. They are different from the 1,000 reference photos. The rest of each mix is the shared pink images.\n- The pass rules were fixed before any run:\n  (1) Each gating score rises strictly with the mix. The gating scores are the three readouts the proposal names: ResNet var rank median, ResNet firing-rate Spearman median, and CLIP score-rank median. The other scores are printed only.\n  (2) The ResNet var rank at 100% minus the var rank at 0% is .40 or more.\n  (3) The floor built on the 50% mix, ResNet f = .05, gives a KL on 1,000 test photos that is more than 7.541 and less than 14.949.\n- Implementation check: mix000 is the pink file.\n- Rule 3 calls noisecut.r18 and board.r18_score directly. It writes nothing to board.json or cache/.\n- Output: check_mix.json.\n\nKnob choice I fixed myself: the scale of z. The proposal did not state it. z0 is scaled to RMS 1 per image and channel (a unit white seed in an orthonormal Fourier basis), so Adam's lr of .05 is a real step size. With torch's default FFT scale, the images would move by less than 1%. The docstring records this choice, and nothing may retune it.\n\nPredictions are copied from the proposal without change. Only the ResNet floor baselines changed, to the shared-file floor: 1.665 / 9.386 / 14.949.",
+   "commands": [
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/make_input.py --k0-check",
+     "purpose": "Implementation check (passes by algebra): K = 0 gives the shared pink file bit for bit, on both networks' code paths. Loads no network.",
+     "expect": "Prints r18 and clip equal_to_shared_file true. render_round_trip_max_abs is small (below about 1e-2, float16 rounding). The shared file's channel mean is about 0 and its std is about 1. Finishes in under 20 s. Any false = stop."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/make_input.py --net r18 --kind null --smoke",
+     "purpose": "Smoke run: tests that the backward pass through the CPU Fourier render, the transforms and the MPS network works. Shuffle check (algebra). Gives the time per step. Writes no file.",
+     "expect": "Shuffle check: same_values true, norms_kept true, frac_entries_moved near 1.0. The loss is a finite number. rel_change after 2 steps is about .05-.15. A value below .01 means the z scale is wrong: stop. About 0.1-0.4 s per step, which reads high because of MPS warm-up. The full-run estimate is about 1-2 min. No file is written."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/make_input.py --net clip --kind null --smoke",
+     "purpose": "The same smoke run for CLIP: the self-InfoNCE backward through vitgen.forward on MPS, the shuffle check, and the time estimate. This estimate decides whether the CLIP null fits in the budget.",
+     "expect": "The shuffle check passes. The loss is finite and below or near ln(32) = 3.47. rel_change is about .05-.15. Estimate: about 1.0-1.5 s per step for a batch of 32, so the full run takes about 4-6 min. If the estimate is above 8 min, report it to the lead before you run the CLIP generators."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/check_input.py --net r18 --inputs /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt",
+     "purpose": "PINK BASELINE of the ResNet known-answer check on the floor's own images (the old .38 used pink(500, seed 2)). Also gives the photo ceiling row.",
+     "expect": "Photo row: var rank median about .99 and rate rho 1 (compared with itself). Pink row: var rank median about .30-.45, close to the old .38. Var ratio median about .5. Layer4 stage var ratio about .12-.25. Mean rank median about .78. No guard trip. About 30 s."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/check_input.py --net clip --inputs /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt",
+     "purpose": "PINK BASELINE of the CLIP check. The critic requires it before the self run. Implementation check: the copied loop equals noisecut.vit_scores.",
+     "expect": "Implementation check passed, max_rel_err below 1e-4 (algebra). Pink score-rank median: the proposal guessed about .5, and this run is the first measurement. The loud-dim ratio against photos is below 1 in later blocks (F1/F2: noise is too quiet deep in the network). No guard trip. About 45-60 s."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/check_mix.py --net r18",
+     "purpose": "PLANTED TEST, reading check with held photos: can the ResNet check see photo content? Rule 3 is the whole-network part.",
+     "expect": "Pass rules fixed before the run. (1) var rank median and rate Spearman median rise strictly over mix000 < mix025 < mix050 < mix100. (2) var rank at 100% minus at 0% is .40 or more. (3) Floor KL on mix050 at f .05 is more than 7.541 and less than 14.949, printed with agree and top-1. The mix000 implementation check is true. mix000 matches the pink row of the previous command. Prediction: PASS. A fail of (1) or (2) makes the self/null check void. About 45 s."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/check_mix.py --net clip",
+     "purpose": "PLANTED TEST for the CLIP check (reading check, held photos).",
+     "expect": "Rule (1): the score-rank median rises strictly over the 4 mixes. Stream, heads, MLP and rate are printed only. mix000 equals the pink row. Prediction: PASS. A fail makes the CLIP self/null check void, but the board rows still stand. About 60 s."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/make_input.py --net r18 --kind self",
+     "purpose": "Make the ResNet self-made input (K = 32, n = 256). Photo use: none.",
+     "expect": "Writes cache/r18_self_n256_k32_s1.pt (about 77 MB) and its .json. The mean loss falls a lot from step 1 to step 32. frac_argmax_is_target_mean is above .5. rel_change_mean is about .1-.6. The saved channel std drift is below .01. About 1-2 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/make_input.py --net clip --kind self",
+     "purpose": "Make the CLIP self-made input (self-InfoNCE proxy, K = 32, n = 256). Photo use: none.",
+     "expect": "Writes cache/clip_self_n256_k32_s1.pt (about 77 MB) and its .json. The mean loss falls from step 1 to step 32. rel_change_mean is about .1-.6. About 4-6 min (proposal estimate 5.7 min)."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/check_input.py --net r18 --inputs /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt,/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_self_n256_k32_s1.pt",
+     "purpose": "ResNet known-answer check: pink against self.",
+     "expect": "Proposal prediction A. Var rank median: pink (about .38) to self about .60. Stages 3-4: about .40 to about .65. Var ratio median: .51 to .90. Layer4: .12-.25 to .5-1.5. Mean rank: .78 to .85. Rate Spearman: self is at least .15 above pink. PASS needs a self var rank median of .55 or more AND a ResNet 5% KL below 12 (next board row). FAIL if the var rank median is below .45, or if any guard trips."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/check_input.py --net clip --inputs /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt,/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/clip_self_n256_k32_s1.pt",
+     "purpose": "CLIP check: pink against self.",
+     "expect": "Proposal prediction A: score-rank median goes from the pink baseline (guessed about .5) to about .7 on self. The loud-dim ratio and the MLP rate Spearman on self are closer to photos than on pink. No guard trip on self."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule noisecut --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_self_n256_k32_s1.pt --note \"P0 floor on self-made input\"",
+     "purpose": "Floor, with only the input changed, on ResNet. Board rows with KL, agree and top-1.",
+     "expect": "Proposal prediction C, against the shared-file floor 1.665 / 9.386 / 14.949. 95%: the proposal said 1.760 to 1.35, so about a .4 drop is expected from 1.665. 5%: 14.949 to about 10.0, below 12 (pass condition). The photo row is 7.541. 50%: moves less than .5, agree within 2 points. Flat level 5.737. About 1 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule noisecut --f 0.95,0.5,0.25,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/clip_self_n256_k32_s1.pt --note \"P0 floor on self-made input\"",
+     "purpose": "Floor, with only the input changed, on CLIP.",
+     "expect": "Proposal prediction C. 95%: 1.139 to .90. 5%: 11.231 to 10.8. 50% (9.031) and 25% (10.404): move less than .5, agree within 2 points. These two are not decision rows. Flat level 6.281. About 1.5 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/make_input.py --net r18 --kind null",
+     "purpose": "NULL: a ResNet with shuffled weights makes the images. Same seeds, targets, transforms, K and lr.",
+     "expect": "Writes cache/r18_null_n256_k32_s1.pt and its .json. The loss may fall on the shuffled network. That is fine, because the checks and the board run on the real network. All values are finite. About 1-2 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/make_input.py --net clip --kind null",
+     "purpose": "NULL: a CLIP with shuffled weights makes the images.",
+     "expect": "Writes cache/clip_null_n256_k32_s1.pt and its .json. All values are finite. About 4-6 min. This is the largest single cost. If the lead must cut time, cut this command and the commands after it."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/check_input.py --net r18 --inputs /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt,/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_self_n256_k32_s1.pt,/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_null_n256_k32_s1.pt",
+     "purpose": "ResNet check on the null, side by side with pink and self.",
+     "expect": "Null prediction: var rank median .30-.45, about at the pink level. If the null gets as much as self, the gain comes from gradient energy and the image prior, not from the trained network."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/check_input.py --net clip --inputs /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt,/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/clip_self_n256_k32_s1.pt,/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/clip_null_n256_k32_s1.pt",
+     "purpose": "CLIP check on the null, side by side with pink and self.",
+     "expect": "The null score-rank median is near pink and well below self. If the null comes close to self, the CLIP self gain is void."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule noisecut --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_null_n256_k32_s1.pt --note \"P0 null: shuffled-weights generator\"",
+     "purpose": "Floor on the null input, ResNet.",
+     "expect": "Null prediction: KL within .3 of the shared-file floor (1.665 / 9.386 / 14.949) at every size. Agree is close to the floor."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule noisecut --f 0.95,0.5,0.25,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/clip_null_n256_k32_s1.pt --note \"P0 null: shuffled-weights generator\"",
+     "purpose": "Floor on the null input, CLIP.",
+     "expect": "Null prediction: KL within .3 of the floor (1.139 / 9.031 / 10.404 / 11.231) at every size."
+    }
+   ],
+   "open_risks": "1. Run time is over the limit. My estimate for all commands is about 23-26 min. The limit is about 15 min.\n- The commands up to the board rows on self take about 14 min.\n- The null block takes about 11 min. The CLIP null generator alone is about 5-6 min.\n- K and N are fixed knobs, so I did not cut them.\n- The two smoke runs give the real time per step. Use them to decide. If time must be cut, cut the null block, which comes last.\n\n2. I fixed the scale of z myself. The proposal did not state it.\n- z0 has RMS 1 per image and channel.\n- With torch's default FFT scale, the images would move by less than 1%, and self would equal pink.\n- The sidecar json records rel_change, so the runner can see how far the images moved. Never retune this scale on check_bn.\n\n3. I could not test these paths, because I ran no torch:\n- Autograd through the CPU irfft2 and view_as_complex into the MPS network.\n- The CLIP backward through vitgen.forward on MPS.\n- The two smoke commands come first to test these paths.\n\n4. The batch size is 32 on both networks, as the task says. The proposal said 64 for ResNet. The CLIP InfoNCE negatives are the other images in the same batch of 32.\n\n5. I did not build these items:\n- The photo-start guard. chan_norm would strip the photo statistics, so the guard would be confounded. The critic called it a guard only.\n- The language-model sampler.\n- generic.load(net, name). I did not edit generic.py. Use the paths with --input.\n- P5's score is not built. The --extra hook in check_input.py is for it, and it is untested.\n\n6. Data cautions:\n- check_bn.spearman does not handle ties. Firing rates that are 0 in many channels make the rate Spearman less exact.\n- The CLIP head Spearman uses 12 units per block, so it is noisy. For this reason, check_mix gates CLIP on score_rank_median only.\n\n7. Rule 3 of check_mix uses 14.949 as its upper bound. That is the floor on the shared file. The proposal's 15.245 came from a different pink draw.\n\n8. Disk: the four cache files add about 308 MB (77 MB each, float16). The lead must log them in DISK.md. I may not edit that file. There is about 33 GB free.\n\n9. If a file exists, make_input stops and does not overwrite it unless you give --force. A rerun after a crash needs --force or a manual delete."
+  },
+  {
+   "part": "P5 rank",
+   "files": [
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p5rank.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p5rank_null.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p5rank_mlp.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p5rank_heads.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p5rank_stream.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p5rank_inner.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p5rank_null_mlp.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p5rank_null_heads.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p5rank1.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p5rank_s2.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/_magsplit.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/magsplit_mlp.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/magsplit_heads.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/p5check.py"
+   ],
+   "what_it_does": "P5 Rank is built. No torch run happened. Only py_compile ran, and every file passed it.\n\nrules/p5rank.py gives vit(T, f, X=None) and r18(A, f, X=None).\n1. Every unit has a mask per input. The score of a unit is S_u = mean over inputs of (dJ_n/dm_u)^2. dJ/dm is the written value times the read gradient, summed over tokens.\n2. The probe is the one in the proposal. CLIP: J = r . 100e/||e||, r ~ N(0, I). ResNet: J = r . logits, r is a centred Gaussian. Each input has one seeded r, so every step uses the same r.\n3. Greedy schedule: 1, .95, .85, .75, .65, .5, .4, .3, .25, .18, .12, .08, .05. At each step the rule scores the kept units on the masked network. Then it removes the lowest units in each set (stream, head per block, MLP per block; ResNet stream per stage, inner per block). Sizes come from vitgen.sizes and wide18.widths.\n4. Each unit keeps its removal step and its score at removal. Keep(k) = the k units removed last. One nested order gives every size.\n5. The build is a plain cut: vitgen.cut or wide18.cut_from_a. No weight changes.\n6. The CLIP stream mask is masked at ln_pre, ln1, ln2 and ln_post (the critic's fix). The divisor is the kept count. Heads are masked before o_w. MLP neurons are masked at the GELU output.\n7. ResNet: inner channels are masked after relu(bn1). Stream channels are masked at every read. The forward is written by hand with non-inplace ReLU. The rule uses a private copy of A with no parameter gradients.\n8. Cache file: fanout/cache/p5rank_{net}_{input hash}_s{seed}[_null][_to.5]_v1.pt. Every size and every split rule uses the same cache.\n9. A per-step readout of the probe error (no photos) is saved for all parts cut and for each part alone. CLIP uses 32 inputs for it.\n10. API for other parts: order, keep, rank, score.\n\nOther rules:\n\n| File | What it does |\n|---|---|\n| p5rank_null | Same formula, with a fixed single-cycle permutation of the read pairing inside each set: G_null = sum_t a[u] g[pi(u)]. The CLIP null order stops at f = .5. |\n| p5rank_mlp, p5rank_heads, p5rank_stream (both nets), p5rank_inner (ResNet) | Cut one set by the P5 order. The other sets stay at full width. ResNet sets are zeroed as in _split. |\n| p5rank_null_mlp, p5rank_null_heads | The same one-set cuts, with the null order. |\n| magsplit_mlp, magsplit_heads | The weight-ranking fail line: magcut scores, one set cut, weights only. |\n| p5rank1 | One-shot cut from the step-1 scores. |\n| p5rank_s2 | Probe seed 2, for the seed spread. |\n\np5check.py runs these steps in this order:\n1. Smoke: a 2-step greedy on 32 inputs, not saved. It runs every builder, the null and the one-set cuts, and it checks nesting.\n2. I1: the masked forward equals the cut, in CPU float64 at f = 1, .95 and .5. The pass line is KL < 1e-5. CLIP uses a proxy KL with a random class matrix (no photos).\n3. I2: the null hooks with the identity pairing must equal dJ/dm.\n4. T1 (CLIP): a neuron with pr_w = 0 must score exactly 0. T2 (ResNet): the score must not change under a ReLU rescale.\n5. If any check fails, the script stops with exit 1 and builds no cache.\n6. If all checks pass, it builds the real order. Then it runs T3 (the planted test that can fail) on CLIP, T2 on ResNet, and prints the readout.\n\nI1, I2, T1 and T2 are implementation checks. They pass by algebra. T3 is the planted test.",
+   "commands": [
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/p5check.py --net r18 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt",
+     "purpose": "Implementation checks on ResNet. Exercises almost all shared code in about a minute. Then builds the ResNet p5rank order cache.",
+     "expect": "Implementation check, passes by algebra. smoke.pass true. I1 KL < 1e-5 at f = 1, .95 and .5. I2 max_rel < 1e-4. T2 rel_diff_max < 1e-3. implementation_checks_pass true. Order build about 30-90 s. Exit 1 with no cache on any failure: then STOP and run none of the commands below."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/p5check.py --net clip --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt",
+     "purpose": "CLIP implementation checks (smoke, I1, I2, T1). Then builds the CLIP p5rank order (13 greedy steps, N = 256). Then T3, the planted test that can fail, and the per-step readout.",
+     "expect": "Implementation checks pass (I1 proxy KL < 1e-5, I2 < 1e-4, T1 score_max exactly 0). Order about 3-5 min. T3 (pink only): the proposal predicts PASS, all 5 dims (163, 419, 171, 573, 97) in the top 38 of 768 step-1 stream scores. T3 can fail. Record the ranks either way. Run the commands below only if implementation_checks_pass is true."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule magsplit_mlp --f 0.95 --note \"weights only (no input), P5 fail line\"",
+     "purpose": "The weight-ranking MLP-only 95% fail line, measured through the split pattern. P5's MLP-only row is judged against it.",
+     "expect": "Proposal gives no number. Reference: F1's .205 from an older run. Pass rule for P5: p5rank_mlp 95% must land below this row. The row shows input pink-default because the rule uses weights only."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule magsplit_heads --f 0.95 --note \"weights only (no input), P5 heads twin\"",
+     "purpose": "Weight-ranking heads-only 95% (the twin row that P5 asked for).",
+     "expect": "Proposal gives no number. Reference: F1's .758 from an older run. The proposal infers this number comes from the weight ranking and has not measured it. The floor heads-only 95% is .175."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p5rank --f 0.95,0.5,0.25,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 round1\"",
+     "purpose": "CLIP whole-network p5rank rows on pink. Reuses the cache from the CLIP check.",
+     "expect": "Proposal: 95% .60, agree .604 -> .75. 50% 8.0. 25% 9.6. 5% 10.8. Floor: 1.139 / 9.031 / 10.404 / 11.231. Flat level 6.281: a drop near flat with no rise in agree is a calibration change. calc_seconds small (cache hit)."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p5rank_mlp --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 round1 MLP only\"",
+     "purpose": "Decision row: MLP-only cut with the P5 order.",
+     "expect": "Proposal: 95% .15 (floor .473). 50% 7.5 (floor 9.040). FAIL if 95% is at or above the magsplit_mlp row."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p5rank_heads --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 round1 heads only\"",
+     "purpose": "Decision row: heads-only 50% with agree, plus heads-only 95%.",
+     "expect": "Proposal: 95% .13 (floor .175). 50% 4.5 with agree .107 -> .25 (floor 5.807). Below flat 6.281 counts only if agree rises."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p5rank_stream --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 round1 stream only\"",
+     "purpose": "CLIP stream-only cut with the P5 order. Droppable if time runs short.",
+     "expect": "Proposal: 95% .22 (floor .280). 50% 9.5 (floor 11.104)."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p5rank --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 round1\"",
+     "purpose": "ResNet whole-network p5rank rows on pink.",
+     "expect": "Proposal: 95% .95 with agree -> .60. 50% 8.3. 5% 8.0. Floor on THIS input: 1.665 / 9.386 / 14.949, agree .427 at 95%. The proposal's brackets 1.760 / 9.254 / 15.245 came from the old pink draw. Flat level 5.737."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p5rank_inner --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 round1 inner only\"",
+     "purpose": "ResNet inner-only cut with the P5 order.",
+     "expect": "Proposal: 95% .25. 50% 6.0 with agree .009 -> .05. Split floors .445 / 6.761 came from the old pink draw."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p5rank_stream --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 round1 stream only\"",
+     "purpose": "ResNet stream-only cut with the P5 order.",
+     "expect": "Proposal: 95% .60. 50% 14. Split floors 1.076 / 18.051 came from the old pink draw."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p5rank_null --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 null read-permuted\"",
+     "purpose": "NULL on ResNet: same formula with the read pairing permuted inside each set. Builds its own order in the first row (about 30-90 s).",
+     "expect": "Proposal gives no number. Pass rule: p5rank must beat this null (lower KL, higher agree) by more than 2x the seed spread, from p5rank_s2 below. Otherwise the read factor does nothing."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p5rank_null --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 null read-permuted\"",
+     "purpose": "NULL on CLIP, whole network. The first row builds the null order to f = .5 inside this board call.",
+     "expect": "calc_seconds of the first row will be minutes (about 1.5-3 min), not seconds. Proposal gives no number. Pass rule: p5rank 95% and 50% beat these rows in KL and agree. The CLIP seed spread is not measured this round."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p5rank_null_mlp --f 0.95 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 null MLP only\"",
+     "purpose": "NULL for the MLP-only 95% decision row (reuses the CLIP null cache).",
+     "expect": "Pass rule: p5rank_mlp 95% is below this row. If they are equal, the read pairing does not carry the MLP gain."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p5rank_null_heads --f 0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 null heads only\"",
+     "purpose": "NULL for the heads-only 50% decision row.",
+     "expect": "Pass rule: p5rank_heads 50% has lower KL AND higher agree than this row."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p5rank_s2 --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 probe seed 2 (seed spread)\"",
+     "purpose": "Seed spread for the win rule (ResNet only, about 1 min). Droppable if time runs short.",
+     "expect": "Proposal gives no number. Spread = |p5rank seed 1 - seed 2| per size. It sets the 2x-spread bar for the null comparison."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p5rank1 --f 0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 one-shot (no re-measure)\" && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p5rank1 --f 0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note \"P5 one-shot (no re-measure)\"",
+     "purpose": "Free row p5rank1: the one-shot step-1 order, to show what re-measurement adds. 95% is left out because it equals p5rank 95% by construction. Droppable.",
+     "expect": "Proposal gives no number. Pass rule for re-measurement: p5rank at .5 and .05 beats p5rank1 in KL and agree. If not, the re-measurement adds nothing."
+    }
+   ],
+   "open_risks": "Nothing has run. The first p5check command is the real test. It stops with exit 1 and builds no cache if any implementation check fails.\n\nKnown limits:\n1. The CLIP null order stops at f = .5. A null row below .5 raises an error.\n2. The CLIP stream null permutes only the direct read term. The norm count and centring terms stay the rule's. For that set, I2 is true by construction.\n3. Below 95%, the one-set rows use an order measured with all sets cut together. That is not a per-set order.\n4. The readout is probe error on the generic input, not KL. CLIP uses 32 inputs for it.\n5. The seed spread is measured on ResNet only. So the 2x-spread win rule cannot be applied to CLIP this round.\n6. The norm divisor is the kept count only. The rho divisor is not built. If P6's divisor row passes, the order must be built again.\n7. Bump VERSION in p5rank.py on any scoring change. If you do not, an old cache is used again without a warning.\n8. Total time is an estimate (about 13-15 min), not a measurement. The CLIP order is about 3-5 min and the CLIP null about 1.5-3 min.\n\nNot built this round:\n\n| Item | Reason |\n|---|---|\n| P4 reader stats (Eg2, Gn) and P6 E[g g^T] | No part reads them this round. P4 and P6 compute their own. |\n| Selfmade input and shuffled-weights input | Not in this step |\n| p5rank-obs row | Not in this step |\n| Photo check row | Not in this step |\n| CLIP seed 2 | Not in this step |\n| Masked norm on the ln_post 2D path | The proposal names no such variant |\n\nAPI gap: P0 asked for score(W, x). The built function is score(net, model, X, seed). It reads the step-1 scores from the cache."
+  },
+  {
+   "part": "P4 write",
+   "files": [
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write_mlp.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write_heads.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write_inner.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write_null.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write_null_mlp.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write_null_heads.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write_null_inner.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write_off_mlp.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write_off_heads.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write_off_inner.py",
+    "/Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/p4write_check.py"
+   ],
+   "what_it_does": "P4 Write rule, round 1. The stream fold is off (A = 0). The stream is cut as in the floor.\n\nHow it works:\n1. The kept sets are the floor's sets: noisecut scores on the same input X.\n2. The student is built front to back, one writer site at a time. CLIP sites are o_w and pr_w in each block. ResNet sites are conv2 in each block.\n3. At each site, the code runs the teacher on its own stream. It runs the student on the student's own stream. Both use the generic input X.\n4. It collects two moments in float64 on the CPU. S_x = E[a a'^T] uses the teacher's firings (all units) and the student's firings (kept units). S_s = E[a' a'^T] uses the student's firings only.\n5. It solves one closed form: W' = W G, with G = (S_x + lam E_K)(S_s + lam I)^-1. Write biases stay the same.\n6. lam = tr(S_s) / N_samples. N_samples is read from the firing tensor. Nothing is tuned.\n7. The ResNet rule applies G to every 3x3 tap of conv2: einsum('onhw,nk->okhw').\n8. The reader metric M cancels from G. So the M = I check is NOT APPLICABLE with A = 0.\n\nWhy the ridge pulls toward the plain slice (E_K) and not toward 0:\n- With the slice anchor, the proposal's own stated identities hold. With a' = a_K it gives W_K + W_C P. At f = 1 it gives W. With no upstream change, closed loop equals open loop.\n- The proposal's literal form, W S_x (S_s + lam)^-1, also shrinks the kept writes. That makes the output less sure: the critic's calibration confound.\n- The literal form is kept as the switch anchor=\"zero\".\n\nVariants (all in rules/):\n- p4write: whole network. CLIP cuts stream + heads + MLP. ResNet cuts stream + inner.\n- p4write_mlp and p4write_heads (CLIP), p4write_inner (ResNet): one set cut and folded. The other sets keep full width and teacher weights.\n- p4write_null, p4write_null_mlp, p4write_null_heads, p4write_null_inner: the shuffled-pairing null. The cut units' teacher firings come from the next image, at the same positions. The kept-to-kept pairing stays true. In expectation this is the mean-only fold per position, so it is also the calibration control.\n- p4write_off_mlp, p4write_off_heads, p4write_off_inner: the plain slice (fold off) through the same code, on the same X. p4write_off_inner is the floor to compare p4write_inner against. The board's split_inner used a different pink draw.\n\nReadouts: each build saves out/p4write_<tag>_f<f>_n256.json and prints one line. Per site, they hold lam, k, n, and the message residual on X for the floor and for the rule. For CLIP, they also hold sigma'/sigma at every LN site, for the rule and for the floor.\n\nBuilt-in assert (passes by algebra): at every folded site, the rule's residual on X must be at or below the floor's residual. This catches a transposed G or a wrong index map.\n\np4write_check.py, run on the first 16 images of X:\n- K1: synthetic fold. An exact copy at lam = 0 gives P = 1. The kept rows of G stay I.\n- K2 and K5: every variant builds, the residual assert passes, and the output is finite.\n- K3 and K6: at f = 1, the rule equals the teacher.\n- K4 and K7: closed loop equals open loop at the first site, where nothing upstream changed.\nAll of these pass by algebra. They test the code only. The nulls carry the evidence.\n\nPhoto use: none in the calculation. Photos are for scoring only (board.py).",
+   "commands": [
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/p4write_check.py --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt",
+     "purpose": "Implementation checks and smoke test: every variant on both networks, on 16 images. All checks pass by algebra.",
+     "expect": "Prints ALL PASS and exits with code 0. K1a error < 1e-6; K1b max |G_KK - I| < 1e-8; K3 and K6 relative write difference < 1e-4; K4 and K7: block-0 G difference < 1e-3 and < 0.1 x the block-1 difference. If any line says FAIL or the exit code is not 0, STOP: every later row is void. About 2-4 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p4write --f 1 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 impl check f=1 (algebra)'",
+     "purpose": "Implementation check at f = 1 (passes by algebra): the rule must give back the teacher.",
+     "expect": "KL < 1e-3, agree 100.0%. The printed residual is ~0 at every site. sigma'/sigma = 1.000. About 1 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p4write --f 1 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 impl check f=1 (algebra)'",
+     "purpose": "Implementation check at f = 1 on ResNet (passes by algebra).",
+     "expect": "KL < 1e-3, agree 100.0%. Under 1 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p4write_off_mlp --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 control: fold off, code-path check'",
+     "purpose": "Fold-off control through p4write's code path. It checks the index plumbing against split_mlp. It is the same pink draw; the cache is float16.",
+     "expect": "KL within .03 of split_mlp: .473 at 95% and 9.040 at 50%. Agree near 76.7% and 0.2%. Under 1 min (no fold)."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p4write_off_heads --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 control: fold off, code-path check'",
+     "purpose": "Fold-off control for heads-only, same input as the rule.",
+     "expect": "KL within .03 of split_heads: .175 at 95% and 5.807 at 50%. Agree near 86.0% and 10.7%. Under 1 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p4write_off_inner --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 control: inner-only floor on the cached input'",
+     "purpose": "The inner-only floor on the SAME input as p4write_inner. split_inner used a different pink draw. Compare the rule and the null to this row.",
+     "expect": "Close to split_inner (.445 / 6.761 / 8.617), but not equal: different draw. My estimate: within about .2 at 95%. Under 1 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p4write_mlp --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 rule, MLP-only, A=0, closed loop'",
+     "purpose": "P4 single-set row: CLIP MLP-only with the fold.",
+     "expect": "Proposal: 95% .473 -> .30, agree +5 points (vs 76.7%). 50% 9.040 -> 7.2, agree +5 points (vs 0.2%). Critic's rule: a 50% KL near the flat level 6.281 with no gain in agree is calibration, not a recovered job. The printed residual falls at every site (by algebra). About 1-2 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p4write_heads --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 rule, heads-only, A=0, closed loop'",
+     "purpose": "P4 single-set row: CLIP heads-only with the fold.",
+     "expect": "Proposal: 95% .175 -> .12, agree +3 points (vs 86.0%). 50% 5.807 -> 5.0, agree +5 points (vs 10.7%). This 50% row is below flat, so agree is readable here. About 1-2 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p4write_inner --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 rule, inner-only, A=0, closed loop'",
+     "purpose": "P4 single-set row: ResNet inner-only with the fold into conv2. Compare to p4write_off_inner on the same input.",
+     "expect": "Proposal, against split_inner: 95% .445 -> .30 (+5 agree); 50% 6.761 -> 5.3 (+8 agree); 5% 8.617 -> 7.2 (+3 agree). Read the drop against the p4write_off_inner row. Critic's rule: a 50% or 5% KL near flat 5.737 with no gain in agree is calibration. Under 1 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p4write --f 0.95,0.5,0.25,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 rule, whole network (floor sets + floor stream slice), A=0'",
+     "purpose": "Whole-network row: the floor's sets and stream slice, with the fold on heads and MLP.",
+     "expect": "The proposal has no number for this row; this is my own estimate. 95%: below the floor 1.139, with agree above 60.4%. 50/25/5%: no gain in kind. KL stays near or above the flat level 6.281 with agree under 5%, because the stream cut alone is 11.104 at 50% and P4 does not touch the stream. Check the printed sigma'/sigma: the floor's stream cut moves it. About 3-4 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p4write --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 rule, whole network (floor sets + floor stream slice), A=0'",
+     "purpose": "Whole-network ResNet row: the floor's sets, with the fold into conv2.",
+     "expect": "My own estimate. 95%: below the floor 1.665, with agree above 42.7%. 50% and 5%: no gain in kind. The stream cut alone is 18.051 at 50%. Under 1 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p4write_null_mlp --f 0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 NULL shuffled pairing (mean-only fold), MLP-only'",
+     "purpose": "Null for CLIP MLP-only 50%: shuffled pairing. It is the calibration control and carries the evidence.",
+     "expect": "Bar (critic and proposal): p4write_mlp at 50% beats this null by at least .5 KL and has higher agree. If the null gets about the same KL as the rule, the rule's gain is calibration, not a recovered job. About 1-2 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule p4write_null_heads --f 0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 NULL shuffled pairing (mean-only fold), heads-only'",
+     "purpose": "Null for CLIP heads-only 50%.",
+     "expect": "Bar: p4write_heads at 50% beats this null by at least .5 KL and has higher agree (the floor's agree is 10.7%, so agree is readable). About 1 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p4write_null_inner --f 0.95,0.5,0.05 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 NULL shuffled pairing (mean-only fold), inner-only'",
+     "purpose": "Null for ResNet inner-only at every size.",
+     "expect": "Bar: p4write_inner at 50% beats this null by at least .5 KL and has higher agree. At 95% the null should land between p4write_off_inner and p4write_inner. Under 1 min."
+    },
+    {
+     "cmd": "cd /Users/shonusengupta/Cale_Experimentation/research/clean && /Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule p4write_null --f 0.95,0.5 --input /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/input_pink_n256_s1.pt --note 'P4 NULL shuffled pairing, whole network'",
+     "purpose": "Null inside the whole-network ResNet build. Optional; cheap.",
+     "expect": "p4write at 95% beats this null in KL and agree. At 50% both stay near or above the flat level 5.737. Under 1 min."
+    }
+   ],
+   "open_risks": "- Run time is an estimate, not a measurement. My guess is 30-90 s per full-size CLIP fold build. The whole list should take about 12-15 min. If time is short, cut 0.25 and 0.05 from the CLIP whole-network row first.\n- Nothing has run. Only py_compile passed. The first command gates every later row.\n- Token count: the proposal says 50 tokens per image. ViT-B/16 at 224 has 197. So lam uses N_samples = 256 x 197 = 50,432, read from the firing tensor. lam is about 4x smaller than the proposal's number.\n- Ridge anchor: I built the slice-anchored ridge, G = (S_x + lam E_K)(S_s + lam I)^-1. The proposal's literal general form does not shrink toward the slice. It is kept as the switch anchor=\"zero\", with no board row.\n- The null pairs each image with the next image (a deterministic roll) at the same positions. Only the cut units' rows of S_x are shuffled. So it is the mean-only fold per position.\n- Not built:\n  - the mixture planted test (the one test that can really fail)\n  - the A-on row and the permuted-A null\n  - the open-loop board row (open loop exists as a switch and is used in K4 and K7)\n  - the block-diagonal P row\n  - the 25% single-set rows\n- ResNet BatchNorm is not folded into conv2. The fold acts row by row, so the bn2 scale commutes with it.\n- The ResNet residual readout uses the fold's own per-tap, same-position objective. It is not the full conv message with borders.\n- sigma'/sigma is recorded for CLIP only.\n- The floor ranking comes from noisecut scores on the same X, cached per process. P5's ranking is not in yet.\n- F2 applies: pink noise is not the network's operating point. A gain on noise firings may not carry over to photos. Only the nulls and the photo KL decide."
+  }
+ ],
+ "runs": [
+  {
+   "part": "P6 diagnostics",
+   "results": [
+    {
+     "cmd": "board.py --net clip --rule p6diag_clip_rho --f 1",
+     "outcome": "KL 9.76e-7, top-1 67.1%, agree 100.0%. rho_l 1.000 at all 26 sites. Realized divisor ratio 1.000 at all 26 sites.",
+     "vs_expect": "PASS (implementation check, passes by algebra). KL < 1e-3, agree >= 99%, rho 1.000, ratio 1.000 everywhere. The CLIP rms rows are allowed to run."
+    },
+    {
+     "cmd": "board.py --net clip --rule p6diag_clip_k --f 1",
+     "outcome": "KL 9.76e-7, top-1 67.1%, agree 100.0%. rho and ratio 1.000 at all sites.",
+     "vs_expect": "PASS (algebra). Same KL as the rho f=1 row to 4 decimals (identical value)."
+    },
+    {
+     "cmd": "board.py --net clip --rule p6diag_clip_D --f 1",
+     "outcome": "KL 9.76e-7, top-1 67.1%, agree 100.0%. Ratio 1.000 at all sites.",
+     "vs_expect": "PASS (algebra)."
+    },
+    {
+     "cmd": "board.py --net clip --rule p6diag_clip_grho --f 1",
+     "outcome": "KL 9.76e-7, top-1 67.1%, agree 100.0%. Ratio 1.000 at all sites.",
+     "vs_expect": "PASS (algebra)."
+    },
+    {
+     "cmd": "board.py --net clip --rule p6diag_clip_plain --f 1",
+     "outcome": "KL 9.80e-7 (table shows 0.000), top-1 67.1%, agree 100.0%. Ratio 1.000 at all sites.",
+     "vs_expect": "PASS. KL is 0.000 to 3 decimals, not exactly 0 (float noise, about 1e-6)."
+    },
+    {
+     "cmd": "board.py --net r18 --rule p6diag_r18_plain --f 1",
+     "outcome": "KL 0.0, top-1 69.7%, agree 100.0%.",
+     "vs_expect": "PASS (vacuous: nothing cut)."
+    },
+    {
+     "cmd": "board.py --net r18 --rule p6diag_r18_meanfold --f 1",
+     "outcome": "KL 0.0, top-1 69.7%, agree 100.0%. No CHECK line printed.",
+     "vs_expect": "PASS (vacuous). No CHECK line, as expected."
+    },
+    {
+     "cmd": "board.py --net r18 --rule p6diag_r18_permmean --f 1",
+     "outcome": "KL 0.0, top-1 69.7%, agree 100.0%.",
+     "vs_expect": "PASS (vacuous)."
+    },
+    {
+     "cmd": "board.py --net clip --rule p6diag_clip_plain --f 0.95,0.5,0.25,0.05",
+     "outcome": "KL .280 / 11.104 / 11.431 / 8.903. Top-1 64.7 / .1 / .2 / .1%. Agree 80.7 / .1 / .3 / .3%. Early-site ratio (embed, b0 ln1, b0 ln2): f.95 1.026 .957 .949; f.5 1.165 .760 .631; f.25 1.106 .779 .618; f.05 .914 .791 .575.",
+     "vs_expect": "KL and agree PASS: exact match to step 0 at all 4 sizes. Ratio wording only partly met: block-0 ln1 and ln2 are below 1 at f <= .5. Embed is ABOVE 1 at .5 and .25 (1.165, 1.106). The written formula sqrt(k/(768 rho)) gives 1.167 at embed at 50%, so the formula holds and the 'below 1' wording does not."
+    },
+    {
+     "cmd": "board.py --net r18 --rule p6diag_r18_plain --f 0.95,0.5,0.05",
+     "outcome": "KL 1.032 / 17.738 / 6.134. Top-1 47.6 / .1 / .1%. Agree 56.6 / .2 / .1%.",
+     "vs_expect": "PASS. All in the written ranges (.9-1.3, 16-20, 5.5-7). Agree about .2% at 50% and 5%."
+    },
+    {
+     "cmd": "board.py --net clip --rule p6diag_clip_k --f 0.95,0.5,0.25,0.05",
+     "outcome": "KL .278 / 9.424 / 10.848 / 9.307. Top-1 64.0 / .2 / .2 / .2%. Agree 81.8 / .2 / .2 / .2%. rho_l at 50%: min .367 (embed), max .918, mean .772. Early-site ratio f.5: 1.166 .759 .617; f.25: 1.111 .776 .600; f.05: .921 .824 .575.",
+     "vs_expect": "Theorist predicted 10.0 at 50%; got 9.424 (better than predicted; 1.68 below plain 11.104). Agree .2% (no gain over plain .1%). No pass bar. Early-site ratio similar to plain, as expected. Embed again above 1 at .5 and .25, matching sqrt(k/(768 rho))."
+    },
+    {
+     "cmd": "board.py --net clip --rule p6diag_clip_D --f 0.95,0.5,0.25,0.05",
+     "outcome": "KL .244 / 9.634 / 11.015 / 11.060. Top-1 65.2 / .6 / .1 / .2%. Agree 82.3 / .7 / .4 / .1%. Early-site ratio f.5: 1.649 .777 .681; f.25: 2.222 .815 .666; f.05: 4.141 1.080 .913.",
+     "vs_expect": "Close to rho at 95% (.244 vs .245): met. At 5% the builder expected D worse than rho: NOT met, D 11.060 is better than rho 11.307. Early-site ratio expected 'about sqrt(rho_l), slightly below 1': NOT met, direction inverted. Embed ratio is above 1 and equals 1/sqrt(rho): 1.649 = 1/sqrt(.367) at 50%."
+    },
+    {
+     "cmd": "board.py --net clip --rule p6diag_clip_rho --f 0.95,0.5,0.25,0.05",
+     "outcome": "KL .245 / 9.718 / 11.452 / 11.307. Top-1 64.7 / .3 / .0 / .1%. Agree 82.2 / .2 / .1 / .0%. Early-site ratio (embed, b0 ln1, b0 ln2): f.95 .998 1.001 1.002; f.5 .999 1.002 .857; f.25 1.010 .994 .801; f.05 1.029 1.021 .828.",
+     "vs_expect": "TEST FAIL at 50%: KL 9.718 vs bar < 6.281; agree .2% vs bar >= about 10.1%. Worse than its own baseline, the k row (9.424). Against plain (11.104, agree .1%) it is a KL gain with no agree gain: calibration by the written rule. Theorist 5.0 missed; builder's 6-10 with agree < 10% held. Implementation check (early sites 1.00 +- .15): PASS at .95 and .5 (.5 passes by .007 at b0 ln2 .857); FAIL at .25 (b0 ln2 .801) and .05 (b0 ln2 .828). Embed and b0 ln1 are at 1.00 at every f; the miss is at the first site after block-0 attention. No run separates drift from a fold bug."
+    },
+    {
+     "cmd": "board.py --net r18 --rule p6diag_r18_meanfold --f 0.95,0.5,0.05",
+     "outcome": "KL .897 / 9.661 / 9.743. Top-1 50.3 / .1 / .1%. Agree 61.2 / .2 / .2%. CHECK max diff 1.43e-6 / 9.54e-7 / 1.91e-6 (scale 11.3). Cut-channel mean vs kept at 50%: s1 .395/.796, s2 .100/.282, s3 .031/.189, s4 .066/1.076.",
+     "vs_expect": "TEST FAIL at 50%: KL 9.661 vs bar <= 9.03; agree .2% vs bar >= about 10.2%. Theorist predicted .80 / 8.0 / 5.9. At 95% .897 (better than plain 1.032, agree +4.6 pts). At 5% 9.743, WORSE than plain 6.134. CHECK PASS (algebra, about 1e-7 of the scale). Cut means positive: met. Both 50% and 5% stay above flat 5.737, agree at chance."
+    },
+    {
+     "cmd": "board.py --net clip --rule p6diag_clip_grho --f 0.95,0.5,0.25,0.05",
+     "outcome": "KL .253 / 9.207 / 10.590 / 11.726. Top-1 64.9 / .2 / .3 / .2%. Agree 82.4 / .5 / .5 / .3%. rho spread (max - min) at 50%: .918 - .367 = .551.",
+     "vs_expect": "Spread .551 >> .05, so the null carries evidence. Theorist predicted 7.0 at 50% and worse than rho: NOT met. The null BEATS the rho test row at 50% (9.207 vs 9.718) and 25% (10.590 vs 11.452). At 5% the null is worse (11.726 vs 11.307). The per-site rho does not help."
+    },
+    {
+     "cmd": "board.py --net r18 --rule p6diag_r18_permmean --f 0.95,0.5,0.05",
+     "outcome": "KL .967 / 8.248 / 6.477. Top-1 49.6 / .2 / .1%. Agree 59.1 / .3 / .0%. No CHECK line printed.",
+     "vs_expect": "Theorist predicted >= 15 at 50%: NOT met. The null BEATS meanfold at 50% (8.248 vs 9.661) and 5% (6.477 vs 9.743). By the written rule the gain is a channel-blind bias shift, not the per-channel mean. At 95% the null is between plain and meanfold (.967)."
+    }
+   ],
+   "fixes_made": "None. No file was edited. All 16 commands ran on the first try.",
+   "not_run": "All 16 commands ran. Free swap was 1,134 to 1,142 MB before each one. Procedure note: the three ResNet f=1 commands (r18_plain, r18_meanfold, r18_permmean) were sent in one tool call, each with its own swap check. Their end times are 14:03:18, 14:03:22 and 14:03:26, and each takes about 4 s, so they did not overlap. Every other command ran by itself. Not built: the photo-mean check row from builder risk 5. It was not in the command list. Board rows were appended by board.py to /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/board.json. The table came from /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/table.py."
+  },
+  {
+   "part": "P0 input",
+   "results": [
+    {
+     "cmd": "make_input.py --k0-check",
+     "outcome": "Passed. r18 equal_to_shared_file true, clip equal_to_shared_file true, render_round_trip_max_abs 1.76e-5. Shared file: chan_mean_max 3.2e-6, chan_std_dev_max 6.0e-6. Took 1.6 s. Implementation check, passes by algebra.",
+     "vs_expect": "As expected."
+    },
+    {
+     "cmd": "make_input.py --net r18 --kind null --smoke",
+     "outcome": "Shuffle check (algebra): 21 tensors, same_values true, norms_kept true, frac_entries_moved 1.0. Loss 9.333 to 9.309, finite. rel_change .110. 0.303 s per step. Full-run estimate 1.3 min. No file written.",
+     "vs_expect": "As expected."
+    },
+    {
+     "cmd": "make_input.py --net clip --kind null --smoke",
+     "outcome": "Shuffle check (algebra): 74 tensors, same_values true, norms_kept true, frac_moved 1.0. Loss 3.398 to 3.394 (below ln32 = 3.47). rel_change .109. 17.38 s per step. FULL-RUN ESTIMATE 74.2 min. Diagnosis from 3 short scratch timing runs, one at a time: the steady state is the same, not warm-up (15.8-16.1 s at batch 32, 4.0 s at batch 8). Forward with no grad at batch 8 takes .096 s. The 12 blocks backward at batch 8 take .22 s. SDPA backward for one block takes .004 s. The patch conv backward to the input (F.conv2d with stride 16 in vitgen.embed) takes 3.72 s at batch 8. This one MPS op is about 95% of the step time. Memory is fine: swap free 1.15 GB, system memory 77% free.",
+     "vs_expect": "FAIL against the budget. Expected 1.0-1.5 s per step and 4-6 min. Got 17.4 s per step and 74 min, above the 8-min report threshold, so I report to the lead and did NOT run the CLIP generators. Suggested fix (UNTESTED): in vitgen.embed, which is a harness file and only the lead may edit it, replace the stride-16 conv with unfold or reshape followed by F.linear. The math is the same, and it should avoid the slow MPS conv-input backward. A workaround in make_input.py would need the lead's approval."
+    },
+    {
+     "cmd": "check_input.py --net r18 --inputs pink",
+     "outcome": "Photo row: var rank median .988, rate rho 1.000, guard ok. Pink: var rank median .379 (min .13), mean rank .778, var ratio median .510, stage var rank .65/.32/.42/.45/.30, stage var ratio .93/.76/.72/.28/.21 (layer4 .21), rate rho .603, rate ratio .73, fraction of rates above .9 is .0276 (photos .0031). GUARD TRIP (rate_gt_09_frac_over_2x_photo). Took 6 s.",
+     "vs_expect": "The numbers match (.379 is close to the old .38, var ratio .51, layer4 .21, mean rank .78). MISS: the expectation said no guard trip, but pink trips the rate>.9 guard (9x the photo fraction)."
+    },
+    {
+     "cmd": "check_input.py --net clip --inputs pink",
+     "outcome": "Implementation check (algebra): max_rel_err_vs_noisecut 0.0, passed. Photo row 1.000. Pink: score rank median .571 (stream .571, heads .276, MLP .590). MLP rate rho .626, rate ratio .35. Loud-dim RMS ratio against photos (dims 163/419/171/573/97, median over sites) .94/1.03/.96/.88/.77. Top-10 eigenvalue share median .769 (photos .573). GUARD TRIP: mlp_rate_gt_09_frac_over_2x_photo (.0028 against photos .00046). The top-1% share guards for MLP (.037 against .019) and for the stream (.082 against .076) did not trip. Took 40 s.",
+     "vs_expect": "Implementation check as expected. First measurement of the score rank: .571 (guess about .5). Loud-dim ratio below 1 for 4 of 5 dims, as expected (dim 419 is 1.03). MISS: the expectation said no guard trip, but the MLP rate>.9 guard trips (6x photos)."
+    },
+    {
+     "cmd": "check_mix.py --net r18",
+     "outcome": "PASS (reading check, held photos). Var rank median .379 < .655 < .769 < .986. Rate Spearman median .603 < .706 < .799 < .996. Rule 2 gap .607 >= .40. Rule 3: floor on mix050, ResNet 5%, KL 13.015, agree .2%, top-1 .1%, and 7.541 < 13.015 < 14.949 is true. Implementation check mix000 == pink file: true. mix000 equals the pink row. Guard trips at mix000 and mix025, ok at mix050 and mix100. Took 8 s.",
+     "vs_expect": "As predicted: PASS on all 3 rules. Note: the rule-3 KL lands in the window, but agree is .2%, the same chance level as every other 5% row."
+    },
+    {
+     "cmd": "check_mix.py --net clip",
+     "outcome": "PASS (reading check, held photos). Score rank median .571 < .677 < .800 < .993. Printed only: stream .571/.677/.800/.992, heads .276/.566/.769/.993, MLP .590/.737/.864/.997, rate rho .626/.816/.901/.997. mix000 == pink: true. Took 56 s.",
+     "vs_expect": "As predicted: PASS."
+    },
+    {
+     "cmd": "make_input.py --net r18 --kind self",
+     "outcome": "Wrote cache/r18_self_n256_k32_s1.pt (77 MB) and its .json in 0.76 min. Mean loss 11.656 to .350. frac_argmax_is_target per batch 1.0/1.0/1.0/1.0/.906/.938/1.0/1.0 (mean about .98). rel_change mean .477. Channel std drift at most 5.4e-6. .17 s per step.",
+     "vs_expect": "As expected on every point."
+    },
+    {
+     "cmd": "make_input.py --net clip --kind self",
+     "outcome": "NOT RUN: the smoke estimate was 74 min, over the 8-min threshold. Reported to the lead.",
+     "vs_expect": "n/a"
+    },
+    {
+     "cmd": "check_input.py --net r18 --inputs pink,self",
+     "outcome": "Self: var rank median .542 (min .19), mean rank .814, var ratio median .846, stage var rank .64/.39/.54/.68/.54, stage var ratio 1.06/1.03/1.01/.63/.61 (layer4 .61), rate rho .600 (pink .603), rate ratio .90, fraction of rates above .9 is .0078 (photos .0031, limit .0062). GUARD TRIP (rate_gt_09_frac_over_2x_photo).",
+     "vs_expect": "FAIL by the builder's own rule: a guard trips (rate>.9 at 2.5x photos), and the var rank median .542 is below the .55 PASS bar, although above the .45 fail bar. As predicted: var ratio .51 to .85, layer4 .21 to .61, stages 3-4 rise. MISS: rate Spearman .600 against pink .603; the prediction was at least +.15. Var rank median .54, not about .60. Mean rank .81, not .85."
+    },
+    {
+     "cmd": "check_input.py --net clip --inputs pink,clip_self",
+     "outcome": "NOT RUN: the input file does not exist (the CLIP generator was skipped).",
+     "vs_expect": "n/a"
+    },
+    {
+     "cmd": "board.py --net r18 --rule noisecut --f 0.95,0.5,0.05 --input r18_self ... --note 'P0 floor on self-made input'",
+     "outcome": "95%: KL 1.711, top-1 39.0%, agree 44.0%. 50%: KL 9.587, top-1 0.0%, agree 0.0%. 5%: KL 7.645, top-1 .1%, agree .2%. Shared-file floor for comparison: 1.665 (37.1%/42.7%), 9.386 (.1%/.2%), 14.949 (.1%/.2%). Flat level 5.737.",
+     "vs_expect": "95%: MISS. KL rose from 1.665 to 1.711; a drop to about 1.25 was predicted. Agree rose 1.3 points. 50%: within .5 (+.20), as predicted, and at chance. 5%: KL 7.645 meets the 'below 12' bar, but agree stays at .2% and top-1 at .1%, the same as the floor, and the KL is still above the flat level 5.737. By the critic's rule this is a calibration change, NOT a recovered job. Combined with the guard trip above, the P0 ResNet verdict is FAIL."
+    },
+    {
+     "cmd": "board.py --net clip --rule noisecut ... --input clip_self",
+     "outcome": "NOT RUN: the input file does not exist.",
+     "vs_expect": "n/a"
+    },
+    {
+     "cmd": "make_input.py --net r18 --kind null",
+     "outcome": "Wrote cache/r18_null_n256_k32_s1.pt (77 MB) and its .json in 0.75 min. Loss on the shuffled network 9.099 to 8.924. frac_argmax_is_target 0.0 (measured on the shuffled network). rel_change mean .644, larger than self (.477). Channel std drift at most 5.1e-6. All values finite.",
+     "vs_expect": "As expected."
+    },
+    {
+     "cmd": "make_input.py --net clip --kind null",
+     "outcome": "NOT RUN: the same 74-min estimate.",
+     "vs_expect": "n/a"
+    },
+    {
+     "cmd": "check_input.py --net r18 --inputs pink,self,null",
+     "outcome": "Null: var rank median .386 (min .16), mean rank .784, var ratio .486, stage var rank .65/.34/.41/.50/.31, stage var ratio .90/.67/.68/.28/.21, rate rho .626, rate ratio .74, fraction of rates above .9 is .0281. GUARD TRIP (rate>.9). Pink and self rows are the same as before.",
+     "vs_expect": "As predicted: the null is at the pink level (.386 against .379; self .542). The var rank gain of self comes from the trained network, not from the image prior or gradient energy. But the rate Spearman of the null (.626) is higher than self (.600)."
+    },
+    {
+     "cmd": "check_input.py --net clip --inputs pink,clip_self,clip_null",
+     "outcome": "NOT RUN: the input files do not exist.",
+     "vs_expect": "n/a"
+    },
+    {
+     "cmd": "board.py --net r18 --rule noisecut --f 0.95,0.5,0.05 --input r18_null ... --note 'P0 null: shuffled-weights generator'",
+     "outcome": "95%: KL 1.670, top-1 38.6%, agree 45.6%. 50%: KL 14.128, top-1 .1%, agree .2%. 5%: KL 14.244, top-1 .1%, agree .2%.",
+     "vs_expect": "95%: within .3 of the floor (1.670 against 1.665), as predicted. MISS at 50%: 14.128 against 9.386 (+4.74). MISS at 5%: 14.244 against 14.949 (a gap of .705). Both are at chance (agree .2%), so at 50% and 5% the KL changes only the calibration and is noisy across inputs. The null at 95% has a higher agree (45.6%) than self (44.0%), so self shows no 95% gain over the null. The 5% KL drop on self (7.645) does not appear on the null (14.244), but it also has no agree gain."
+    },
+    {
+     "cmd": "board.py --net clip --rule noisecut ... --input clip_null",
+     "outcome": "NOT RUN: the input file does not exist.",
+     "vs_expect": "n/a"
+    },
+    {
+     "cmd": "table.py (the 6 rows added, columns: rule | input | f | split | KL | top-1 | agree | params | note)",
+     "outcome": "| noisecut | r18_self_n256_k32_s1 | 0.95 | test 1000 | 1.711 | 39.0% | 44.0% | 10,564,386 | P0 floor on self-made input |\n| noisecut | r18_null_n256_k32_s1 | 0.95 | test 1000 | 1.670 | 38.6% | 45.6% | 10,564,386 | P0 null: shuffled-weights generator |\n| noisecut | r18_self_n256_k32_s1 | 0.5 | test 1000 | 9.587 | 0.0% | 0.0% | 3,055,880 | P0 floor on self-made input |\n| noisecut | r18_null_n256_k32_s1 | 0.5 | test 1000 | 14.128 | 0.1% | 0.2% | 3,055,880 | P0 null: shuffled-weights generator |\n| noisecut | r18_self_n256_k32_s1 | 0.05 | test 1000 | 7.645 | 0.1% | 0.2% | 56,372 | P0 floor on self-made input |\n| noisecut | r18_null_n256_k32_s1 | 0.05 | test 1000 | 14.244 | 0.1% | 0.2% | 56,372 | P0 null: shuffled-weights generator |\nReference rows (shared input): 1.665 37.1%/42.7%, 9.386 .1%/.2%, 14.949 .1%/.2%.",
+     "vs_expect": "Only ResNet rows were added. No CLIP P0 rows."
+    }
+   ],
+   "fixes_made": "I edited no builder file and no harness file. To find why CLIP was slow, I wrote 3 timing scripts in the scratchpad and ran them with torch, one at a time, never in parallel with another command. They wrote no project file: /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/0b446158-33d3-4082-a57e-d87104d7f73a/scratchpad/time_clip.py, time_clip2.py and time_clip3.py. They show that the stride-16 patch conv backward to the input in vitgen.embed (distill/fanout/vitgen.py) takes 3.7 s per 8 images on MPS, out of 4.0 s per step. New files to log in DISK.md (lead): /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_self_n256_k32_s1.pt and /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_null_n256_k32_s1.pt (77 MB each), plus their .json sidecar files. Outputs written: distill/fanout/check_input.json (the r18 entry has pink, self and null; the clip entry has pink only), distill/fanout/check_mix.json (r18 and clip), and 6 rows in board.json.",
+   "not_run": "I did NOT run these 6 CLIP commands. The CLIP smoke run measured 17.4 s per step, which gives 74 min per generator. That is above the 8-min threshold, where the task says to report to the lead first.\n(1) make_input.py --net clip --kind self\n(2) check_input.py --net clip --inputs pink,clip_self\n(3) board.py --net clip --rule noisecut --input clip_self (P0 floor)\n(4) make_input.py --net clip --kind null\n(5) check_input.py --net clip --inputs pink,clip_self,clip_null\n(6) board.py --net clip --rule noisecut --input clip_null\nCause: in vitgen.embed, the backward pass of F.conv2d(x, patch_w, stride=16) to the input on MPS takes 3.72 s for 8 images. The 12 transformer blocks take .22 s, and the forward pass with no grad takes .096 s. The time grows linearly with the batch (4.0 s at 8, 15.8 s at 32). It is not warm-up and not memory pressure.\nFix options for the lead, both UNTESTED: (a) in vitgen.embed (a harness file), patchify with reshape or unfold and then use F.linear; the math is the same. (b) With approval, put the same patch embedding inside make_input.py for the CLIP generator only.\nAll ResNet commands, the CLIP pink baseline and both planted tests ran."
+  },
+  {
+   "part": "P5 rank",
+   "results": [
+    {
+     "cmd": "1. p5check.py --net r18 --input input_pink_n256_s1.pt",
+     "outcome": "Exit 0. smoke pass true (all builders, null, one-set cuts; nested 95 contains 50 true). I1 KL 0.0 at f = 1, .95, .5 (max_abs 0.0). I2 max_rel 0.0 (worst set stream0). T2 rel_diff_max 0.0, logit_max_abs 0.0 (object: layer3[0] inner, top 32 by p5rank). implementation_checks_pass true. Checks 2.5 s, order build 23.5 s. Readout (probe error, no photos, all sets cut): f .95 66.9, .85 1336, .75 1446, .65 3511, .5 4825, .4 6390, .3 5727, .25 5331, .18 7478, .12 8656, .08 7841, .05 7294 (not monotone below .4). Saved out/p5check_r18_n256_432129dd21_s1.json",
+     "vs_expect": "As expected. Implementation checks, pass by algebra. Order build 23.5 s, under the 30-90 s estimate."
+    },
+    {
+     "cmd": "2. p5check.py --net clip --input input_pink_n256_s1.pt",
+     "outcome": "Exit 0. smoke pass true. I1 proxy_kl about 1e-16 at f = 1, .95, .5 (rel_err_e about 2e-15). I2 max_rel 0.0 (worst set stream). T1 score_max 0.0 (block-6 median .153). Checks 18.4 s, order build 157.8 s. T3 PASS: step-1 stream ranks from top: 573 -> 0, 419 -> 2, 97 -> 3, 171 -> 10, 163 -> 17 (all in top 38 of 768; stream score median 10.53, dim 573 score 24125). Greedy order: 573, 419, 97 kept at the last f (.05); 163 and 171 first absent at f = .08 (greedy ranks 86, 64). Readout all-cut probe error: .95 438, .85 2871, .75 7708, .65 9234, .5 10269, .25 12813, .05 12794 (flat from .3 down). Saved out/p5check_clip_n256_432129dd21_s1.json",
+     "vs_expect": "Implementation checks pass as expected. T3 (planted test, pink only) PASS, as the proposal predicted. Order build 2.6 min, at the low end of 3-5 min."
+    },
+    {
+     "cmd": "3. board.py --net clip --rule magsplit_mlp --f 0.95",
+     "outcome": "KL .205, top-1 64.5%, agree 83.7% (input pink-default, weights only)",
+     "vs_expect": "Matches F1's .205 exactly. This is the fail line for p5rank_mlp 95%."
+    },
+    {
+     "cmd": "4. board.py --net clip --rule magsplit_heads --f 0.95",
+     "outcome": "KL .758, top-1 54.5%, agree 67.1%",
+     "vs_expect": "Matches F1's .758. So F1's heads number IS the weight ranking (now measured). Worse than the floor heads-only .175."
+    },
+    {
+     "cmd": "5. board.py --net clip --rule p5rank --f 0.95,0.5,0.25,0.05",
+     "outcome": "95% KL 1.104, top-1 52.0%, agree 60.2%. 50% 8.808, 0.2%, 0.3%. 25% 10.331, 0.0%, 0.2%. 5% 11.062, 0.1%, 0.2%. calc_seconds 0.1 (cache hit)",
+     "vs_expect": "MISS vs proposal (95% .60 with agree .75; got 1.104 with agree .602, the same agree as the floor .604). Only slightly below the floor 1.139 / 9.031 / 10.404 / 11.231 at every size. 50% and below are past the flat level 6.281 with agree near 0."
+    },
+    {
+     "cmd": "6. board.py --net clip --rule p5rank_mlp --f 0.95,0.5",
+     "outcome": "95% KL .323, top-1 60.6%, agree 81.1%. 50% 8.335, 0.4%, 0.7%",
+     "vs_expect": "FAIL by the builder's pass rule: 95% .323 is ABOVE magsplit_mlp .205 (agree 81.1% vs 83.7%). Better than the floor .473. Proposal predicted .15. 50% 8.335 vs floor 9.040 (proposal 7.5), still past flat."
+    },
+    {
+     "cmd": "7. board.py --net clip --rule p5rank_heads --f 0.95,0.5",
+     "outcome": "95% KL .246, top-1 64.2%, agree 83.1%. 50% 6.840, top-1 4.8%, agree 4.5%",
+     "vs_expect": "MISS: 95% .246 is worse than the floor .175 (proposal .13). 50% 6.840 is worse than the floor 5.807 (proposal 4.5 with agree .25; got agree .045 vs floor .107)."
+    },
+    {
+     "cmd": "8. board.py --net clip --rule p5rank_stream --f 0.95,0.5",
+     "outcome": "95% KL .256, top-1 64.4%, agree 81.0%. 50% 11.607, 0.2%, 0.0%",
+     "vs_expect": "95% beats floor .280 (proposal .22) and beats F1's RMS-kept .263. 50% 11.607 is worse than floor 11.104 (proposal 9.5)."
+    },
+    {
+     "cmd": "9. board.py --net r18 --rule p5rank --f 0.95,0.5,0.05",
+     "outcome": "95% KL 1.570, top-1 40.6%, agree 46.4%. 50% 8.510, 0.1%, 0.3%. 5% 8.761, 0.1%, 0.1%",
+     "vs_expect": "Beats the floor on this input (1.665 / 9.386 / 14.949; agree 46.4% vs 42.7% at 95%) but far from the proposal (95% .95 with agree .60). 50% and 5% are past the flat level 5.737 with agree near 0, so the 5% gain (14.9 -> 8.8) is a calibration change, not a recovered job."
+    },
+    {
+     "cmd": "10. board.py --net r18 --rule p5rank_inner --f 0.95,0.5",
+     "outcome": "95% KL .420, top-1 60.8%, agree 71.9%. 50% 6.785, 0.4%, 0.4%",
+     "vs_expect": "MISS vs proposal (95% .25; 50% 6.0 with agree .05). About equal to the old-draw split floors .445 / 6.761."
+    },
+    {
+     "cmd": "11. board.py --net r18 --rule p5rank_stream --f 0.95,0.5",
+     "outcome": "95% KL 1.029, top-1 49.7%, agree 58.2%. 50% 9.140, 0.2%, 0.1%",
+     "vs_expect": "95% slightly below the old split floor 1.076 (proposal .60). 50% 9.140 better than the old split floor 18.051 (proposal 14), but past flat with agree 0.1%."
+    },
+    {
+     "cmd": "12. board.py --net r18 --rule p5rank_null --f 0.95,0.5,0.05",
+     "outcome": "95% KL 1.844, top-1 35.7%, agree 41.2%. 50% 10.474, 0.2%, 0.2%. 5% 17.650, 0.1%, 0.1%. Null order build 28.1 s",
+     "vs_expect": "p5rank beats the null at every size. ResNet seed spread (from cmd 16): 95% .002, 50% 1.882, 5% 4.480. Margin p5rank vs null: 95% .274 (> 2x spread .004: PASS, agree 46.4 vs 41.2). 50% 1.964 (< 2x spread 3.76: NOT beyond spread). 5% 8.889 (< 2x spread 8.96: NOT beyond spread, barely). So the read factor counts at 95% only on ResNet."
+    },
+    {
+     "cmd": "13. board.py --net clip --rule p5rank_null --f 0.95,0.5",
+     "outcome": "95% KL 1.460, top-1 45.4%, agree 53.8%. 50% 9.229, 0.3%, 0.4%. Null order build 83.1 s",
+     "vs_expect": "p5rank beats the null in KL and agree at 95% (1.104/60.2% vs 1.460/53.8%) and at 50% in KL (8.808 vs 9.229; agree .3% vs .4%, both chance). CLIP seed spread not measured, so the 2x-spread rule cannot be applied."
+    },
+    {
+     "cmd": "14. board.py --net clip --rule p5rank_null_mlp --f 0.95",
+     "outcome": "KL .444, top-1 58.5%, agree 77.1%",
+     "vs_expect": "PASS of this null rule: p5rank_mlp .323 is below the null .444 (agree 81.1 vs 77.1). But p5rank_mlp still fails the magsplit_mlp line (.205)."
+    },
+    {
+     "cmd": "15. board.py --net clip --rule p5rank_null_heads --f 0.5",
+     "outcome": "KL 5.908, top-1 8.8%, agree 9.5%",
+     "vs_expect": "FAIL: the null BEATS p5rank_heads 50% (null 5.908 / agree 9.5% vs p5rank 6.840 / agree 4.5%). The read pairing makes the heads order worse at 50%."
+    },
+    {
+     "cmd": "16. board.py --net r18 --rule p5rank_s2 --f 0.95,0.5,0.05",
+     "outcome": "95% KL 1.572, top-1 40.2%, agree 46.2%. 50% 10.392, 0.1%, 0.1%. 5% 13.241, 0.1%, 0.0%. Order build 26.5 s",
+     "vs_expect": "Seed spread |s1 - s2|: 95% .002, 50% 1.882, 5% 4.480. Stable at 95%; very unstable at 50% and 5% (all past flat)."
+    },
+    {
+     "cmd": "17. board.py p5rank1: clip --f 0.5; r18 --f 0.5,0.05",
+     "outcome": "CLIP 50% KL 10.198, top-1 0.2%, agree 0.2%. ResNet 50% 9.506, 0.1%, 0.1%. ResNet 5% 9.548, 0.1%, 0.1%",
+     "vs_expect": "Re-measurement helps in KL: CLIP 50% 8.808 vs 10.198; ResNet 50% 8.510 vs 9.506. ResNet 5%: p5rank 8.761 vs one-shot 9.548. Agree is at chance on both sides, and the ResNet 50% gap (1.0) is below the seed spread (1.882). So the gain is real only as KL near flat, not a recovered job."
+    }
+   ],
+   "fixes_made": "None. All commands ran on the first try. No builder or harness file was edited.",
+   "not_run": "Nothing was skipped. All 17 commands ran, one at a time. Free swap stayed at about 1150 MB. Each p5check run saved a file. ResNet: /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/out/p5check_r18_n256_432129dd21_s1.json. CLIP: /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/out/p5check_clip_n256_432129dd21_s1.json. Full CLIP check log: /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/0b446158-33d3-4082-a57e-d87104d7f73a/scratchpad/p5clip.log. Summary against the pass rules: implementation checks passed and T3 passed. P5 beats the read-permuted null at 95% on both nets. On ResNet that margin is larger than 2x the seed spread only at 95%. Decision rows that failed: p5rank_mlp 95% (.323) is worse than magsplit_mlp (.205). p5rank_heads 50% (6.840, agree 4.5%) is worse than its null (5.908, agree 9.5%) and the floor (5.807). p5rank_heads 95% (.246) is worse than the floor (.175). Whole-network CLIP 95% is 1.104 with agree 60.2%, almost the same as the floor (1.139, agree 60.4%). The proposal predicted .60. Every 50% and 5% row is past the flat level with agree near 0."
+  },
+  {
+   "part": "P4 write",
+   "results": [
+    {
+     "cmd": "1. p4write_check.py --input cache/input_pink_n256_s1.pt",
+     "outcome": "ALL PASS, exit 0, 28 s. K1a max |P - copy map| 1.01e-16. K1b max |G_KK - I| 1.14e-16 (lam 2.522e-03, P(copy) .9868). K1c info: the zero anchor shrinks kept writes, max |G_KK - I| 1.70e-02. K2 and K5: every variant builds, the residual assert passes, the output is finite. K3: CLIP f=1 rel write diff 0, output diff 0. K6: r18 f=1 rel conv2 diff 0, logit diff 0. K4: CLIP rel G diff block 0 = 0, block 1 = 5.30e-02. K7: r18 layer1.0 = 0, layer1.1 = 1.76e-02. K8: A unchanged. M = I check: NOT APPLICABLE (A = 0). Passes by algebra. Seen but not fixed: a requires_grad UserWarning at p4write_check.py:39.",
+     "vs_expect": "As expected. Every threshold is met. These are implementation checks only."
+    },
+    {
+     "cmd": "2. board.py --net clip --rule p4write --f 1",
+     "outcome": "KL 9.8e-07, top-1 67.1%, agree 100.0%. Residual 0.0000 -> 0.0000 over 24 sites. sigma'/sigma 1.000 for floor and rule. Calc 37 s.",
+     "vs_expect": "As expected (algebra)."
+    },
+    {
+     "cmd": "3. board.py --net r18 --rule p4write --f 1",
+     "outcome": "KL 0.0, top-1 69.7%, agree 100.0%. Residual 0 over 8 sites. Calc 3.4 s.",
+     "vs_expect": "As expected (algebra)."
+    },
+    {
+     "cmd": "4. board.py --net clip --rule p4write_off_mlp --f 0.95,0.5",
+     "outcome": "95%: KL .473, top-1 59.1%, agree 76.7%. 50%: KL 9.040, top-1 0.3%, agree 0.2%.",
+     "vs_expect": "Exact match with split_mlp (.473 / 9.040). The index plumbing is correct."
+    },
+    {
+     "cmd": "5. board.py --net clip --rule p4write_off_heads --f 0.95,0.5",
+     "outcome": "95%: KL .175, top-1 64.8%, agree 86.0%. 50%: KL 5.807, top-1 9.9%, agree 10.7%.",
+     "vs_expect": "Exact match with split_heads (.175 / 5.807). Procedure note: I sent cmds 5 and 6 in one tool block. The row timestamps show no overlap: CLIP ended 14:33:41 and ResNet started after."
+    },
+    {
+     "cmd": "6. board.py --net r18 --rule p4write_off_inner --f 0.95,0.5,0.05",
+     "outcome": "95%: KL .441, top-1 61.1%, agree 72.2%. 50%: KL 6.807, top-1 0.7%, agree 0.7%. 5%: KL 8.252, top-1 0.2%, agree 0.1%.",
+     "vs_expect": "As expected. It is close to split_inner (.445 / 6.761 / 8.617), with differences of .004 / .046 / .365. This row is the same-input floor for the inner rows. The Params column shows the full count (11,689,512) for all inner-only rows."
+    },
+    {
+     "cmd": "7. board.py --net clip --rule p4write_mlp --f 0.95,0.5",
+     "outcome": "95%: KL .321, top-1 61.1%, agree 80.7%. Residual .0105 -> .0051. sigma'/sigma floor .973, rule .998. Calc 36 s. 50%: KL 6.154, top-1 3.5%, agree 4.1%. Residual .3916 -> .1636. sigma'/sigma floor 1.004, rule .975. Calc 19 s.",
+     "vs_expect": "Partly met. 95%: KL .473 -> .321 (target .30, missed by .021). Agree +4.0 points (target +5). 50%: KL 9.040 -> 6.154 beats the target 7.2. Agree +3.9 points (target +5). The 50% KL is at the flat level 6.281, with a small agree gain (0.2% -> 4.1%). The lead applies the critic's calibration rule. The null bar passes (see cmd 12). Only the mean residual is printed. The per-site assert passed."
+    },
+    {
+     "cmd": "8. board.py --net clip --rule p4write_heads --f 0.95,0.5",
+     "outcome": "95%: KL .159, top-1 65.0%, agree 86.9%. Residual .0261 -> .0032. Calc 23 s. 50%: KL 5.580, top-1 11.3%, agree 10.8%. Residual .2944 -> .0447. sigma'/sigma floor 1.061, rule .991. Calc 14 s.",
+     "vs_expect": "Missed. 95%: .175 -> .159 (target .12). Agree +0.9 (target +3). 50%: 5.807 -> 5.580 (target 5.0). Agree +0.1 (target +5), so there is no agree gain against fold-off."
+    },
+    {
+     "cmd": "9. board.py --net r18 --rule p4write_inner --f 0.95,0.5,0.05",
+     "outcome": "95%: KL .397, top-1 62.8%, agree 74.0%. Residual .0013 -> .0012. 50%: KL 5.633, top-1 2.5%, agree 2.6%. Residual .1303 -> .0902. 5%: KL 9.883, top-1 0.1%, agree 0.2%. Residual .6612 -> .3590. Calc about 3 s each.",
+     "vs_expect": "Mostly missed. Against p4write_off_inner on the same input: 95% .441 -> .397 (target .30), agree +1.8 (target +5). 50%: 6.807 -> 5.633 (target 5.3). The value is at the flat level 5.737. Agree 0.7% -> 2.6% (target +8). 5% is WORSE: 8.252 -> 9.883 (target 7.2). The residual on X fell from .66 to .36, but photo KL rose. This is direct F2 evidence: a gain on noise does not carry over to photos."
+    },
+    {
+     "cmd": "10. board.py --net clip --rule p4write --f 0.95,0.5,0.25,0.05",
+     "outcome": "95%: KL 1.117, top-1 48.1%, agree 59.3%. Residual .0705 -> .0357. sigma'/sigma floor .972 -> rule 1.008. 50%: KL 12.395, top-1 0.2%, agree 0.1%. Residual .6099 -> .2016. sigma'/sigma 1.422 -> 1.217. 25%: KL 11.550, top-1 0.1%, agree 0.0%. Residual .8389 -> .2462. sigma'/sigma 2.329 -> 1.456. 5%: KL 10.655, top-1 0.0%, agree 0.1%. Residual .9953 -> .2420. sigma'/sigma 4.991 -> 2.245. Calc 41 / 16 / 11 / 8 s. Total 98 s.",
+     "vs_expect": "Mixed at 95%. KL 1.117 is below the floor 1.139, but agree is 59.3%, under the floor's 60.4%. Top-1 also fell, 49.8% -> 48.1%. At 50% and 25% the rule is WORSE than the floor (9.031 and 10.404). At 5% it is a little better (11.231 -> 10.655). Caveat: the board has the 50/25/5% floor on pink-default only. Those comparisons are across inputs. (At 95% both inputs give 1.139.) No gain in kind, as expected. The rule pulls sigma'/sigma toward 1 at every size, but KL still gets worse at 50% and 25%."
+    },
+    {
+     "cmd": "11. board.py --net r18 --rule p4write --f 0.95,0.5,0.05",
+     "outcome": "95%: KL 1.389, top-1 43.4%, agree 50.0%. Residual .0091 -> .0069. 50%: KL 13.217, top-1 0.1%, agree 0.2%. Residual .5901 -> .2095. 5%: KL 9.182, top-1 0.1%, agree 0.2%. Residual .8928 -> .3773.",
+     "vs_expect": "95% is as expected: below the floor 1.665, and agree 50.0% is above 42.7%. But the null repeats almost all of this gain (cmd 15). 50%: WORSE than the same-input floor (9.386 -> 13.217). 5%: better than the floor (14.949 -> 9.182), but still above the flat level 5.737, with agree 0.2%. No gain in kind."
+    },
+    {
+     "cmd": "12. board.py --net clip --rule p4write_null_mlp --f 0.5",
+     "outcome": "KL 8.812, top-1 1.1%, agree 1.0%. Residual .4911 -> .2320.",
+     "vs_expect": "Bar PASSES. The rule at 6.154 beats the null by 2.658 KL, and agree is 4.1% vs 1.0%. The null is also a little better than fold-off (9.040)."
+    },
+    {
+     "cmd": "13. board.py --net clip --rule p4write_null_heads --f 0.5",
+     "outcome": "KL 7.402, top-1 2.7%, agree 3.0%. Residual .3361 -> .0853.",
+     "vs_expect": "The bar passes only because the null does harm. The rule at 5.580 beats the null by 1.822, and agree is 10.8% vs 3.0%. But the null is WORSE than fold-off (5.807, agree 10.7%). Against fold-off, the rule gains only .227 KL and +0.1 agree."
+    },
+    {
+     "cmd": "14. board.py --net r18 --rule p4write_null_inner --f 0.95,0.5,0.05",
+     "outcome": "95%: KL .418, top-1 62.2%, agree 73.3%. 50%: KL 5.762, top-1 1.5%, agree 1.7%. 5%: KL 9.139, top-1 0.0%, agree 0.1%.",
+     "vs_expect": "Bar FAILS at 50%. The rule at 5.633 beats the null by only .129 KL (the bar is .5). Agree is 2.6% vs 1.7%. Both rows are at the flat level 5.737, so by the critic's rule this is calibration. 95% is as expected: the null at .418 lands between fold-off .441 and the rule .397. 5%: the null at 9.139 is better than the rule at 9.883, and both are worse than fold-off at 8.252."
+    },
+    {
+     "cmd": "15. board.py --net r18 --rule p4write_null --f 0.95,0.5",
+     "outcome": "95%: KL 1.414, top-1 42.8%, agree 49.4%. Residual .0092 -> .0071. 50%: KL 12.652, top-1 0.1%, agree 0.2%. Residual .5948 -> .2162.",
+     "vs_expect": "Barely met. At 95% the rule (1.389, agree 50.0%) beats the null by only .025 KL and 0.6 agree points. The mean-only null repeats most of the gain over the floor (1.665 -> 1.414). At 50% the null (12.652) is better than the rule (13.217). Both are far above the flat level 5.737."
+    }
+   ],
+   "fixes_made": "None. I made no edits to any builder file or harness file.",
+   "not_run": "I ran all 15 listed commands, one at a time. Free swap was 1,166-1,199 MB before each one. The builder listed these items as not built, so they were not run: the mixture planted test; the A-on row and the permuted-A null; the open-loop board row; the block-diagonal P row; the 25% single-set rows. The board also has no CLIP whole-network floor at 50/25/5% on the cached input (only pink-default). The cmd 10 comparisons at those sizes are therefore across inputs. Board rows were printed with table.py. Scores are in research/clean/distill/fanout/board.json. Per-build readouts are in research/clean/distill/fanout/out/p4write_*_n256.json."
+  }
+ ],
+ "review": {
+  "per_part": [
+   {
+    "part": "P6 Stream, CLIP diagnostics (stream-only, floor order on X)",
+    "expected": "Theorist: the 50% stream damage is a scale error. The per-site divisor D_l = 768*rho_l (THE TEST row) gives KL 5.0 at 50%. PASS bar: KL below flat 6.281 AND agree at least 10 points above plain (about >= 10.1%). The k row gives 10.0. The global-rho null gives 7.0. Builder: 6-10 at 50% with agree under 10%. Implementation check: early-site realized ratio 1.00 +- .15 at every f.",
+    "happened": "f = 1 checks: KL 9.76e-7 and agree 100% in all 5 modes (algebra). 50% KL / agree: plain 11.104 / .1%, k 9.424 / .2%, D 9.634 / .7%, rho 9.718 / .2%, grho 9.207 / .5%. 95% KL / agree: plain .280 / 80.7%, k .278 / 81.8%, D .244 / 82.3%, rho .245 / 82.2%, grho .253 / 82.4%. 5%: plain 8.903 is the lowest KL. All 50%, 25% and 5% rows have agree at or below .7%. The rho test FAILS both parts of its bar. The rho row's ratio check passes at .95 and .5 (b0 ln2 .857). It FAILS at .25 (.801) and .05 (.828). Embed and b0 ln1 are 1.00 at every f.",
+    "why": "The divisor is not the 50% damage. Four divisors move the embed ratio from 1.0 (rho) to 4.1 (D at 5%). All four land at 9.2-9.7 at 50% with agree at chance. The centring change (k row) gives the largest 50% KL drop (1.68), but with no agree gain, so it is calibration. The stream at 50% loses content: the kept coordinates do not carry what the readers read. At 95% the rms forms with D near 768 give a small real gain: KL -.035, agree +1.5 points. The rho-versus-grho order at 50% and 25% is inside the chance band, so it is not evidence either way. By the written rule, the shared norm mode stays 'kept'. P5 does not need to rebuild its order.",
+    "problems": "1. The rho ratio check fails at .25 and .05 at block-0 ln2. No run separates closed-loop drift from a fold bug. It is unresolved. It does not change the 50% verdict. 2. The builder's written expectation for the D row ratio had the wrong direction (sqrt(rho) written, 1/sqrt(rho) measured). The code is right. The expectation was wrong. 3. The global-rho null carries evidence (rho spread .551). But it only differs from the test inside the chance band. 4. Photo use: none in the calculation. No BatchNorm statistics (no BatchNorm in CLIP)."
+   },
+   {
+    "part": "P6 Stream, ResNet diagnostics (mean-only fold of cut stream channels)",
+    "expected": "Theorist: the 50% damage is the lost positive mean of the cut channels. Meanfold gives .80 / 8.0 / 5.9. PASS at 50%: KL <= 9.03 AND agree at least 10 points above plain. The permuted-mean null gives >= 15 at 50%.",
+    "happened": "Plain on X: 1.032 / 56.6%, 17.738 / .2%, 6.134 / .1%. Meanfold: .897 / 61.2%, 9.661 / .2%, 9.743 / .2%. Permmean null: .967 / 59.1%, 8.248 / .3%, 6.477 / .0%. CHECK line (algebra): max diff 1.4e-6 against scale 11.3. Cut-channel means are positive (stage 4 at 50%: cut .066, kept 1.076). The test FAILS at 50% (9.661 > 9.03, agree .2%).",
+    "why": "At 50% and 5% all three rows have agree at chance. So the KL order there (null below meanfold) is calibration noise and is not ranked. The mean is not the 50% damage. At 95% the mean fold is a small real first-moment repair: agree +4.6 points over plain. The permuted null gets +2.5, about half. So about half of the 95% gain is a channel-blind bias shift and about half needs the per-channel mean. The P4 whole-network null shows the same effect (see P4).",
+    "problems": "1. The f = 1 rows are vacuous. The CHECK passes by algebra. Both are labelled correctly. 2. The means come from pink X. F2 says pink stage 4 has variance ratio .21. The photo-mean check row was not built. 3. The edit writes bn.running_mean -= c_r. c_r comes from X through conv weights only. The stored running_mean is not read as data. This is an edit of the inference map, which is within the rules. 4. Photo use: none in the calculation."
+   },
+   {
+    "part": "P0 Input (self-made input)",
+    "expected": "ResNet: self var rank median about .60 (PASS >= .55), rate Spearman at least +.15 over pink, no guard trip, 5% floor KL below 12, 95% KL about 1.25. Null at the pink level. CLIP: score-rank median .5 on pink to .7 on self. Planted photo-mix test passes.",
+    "happened": "Planted test PASS on both nets (ResNet var rank .379 < .655 < .769 < .986, CLIP score rank .571 < .677 < .800 < .993). ResNet self: var rank .542 (null .386, pink .379). Rate Spearman .600 (pink .603, null .626). Layer4 var ratio .21 to .61. Guard trips on pink (rate > .9 at 9x photos), on self (2.5x) and on null. Board: self 1.711 / 44.0%, 9.587 / .0%, 7.645 / .2%. Null 1.670 / 45.6%, 14.128 / .2%, 14.244 / .2%. Shared floor 1.665 / 42.7%, 9.386 / .2%, 14.949 / .2%. CLIP: the generator was NOT RUN. The smoke run measured 17.4 s per step (74 min per generator). The cause is the stride-16 patch conv backward on MPS in vitgen.embed (3.72 s of 4.0 s at batch 8).",
+    "why": "ResNet FAILS its own bar: var rank .542 < .55, and the 95% KL rose (1.665 to 1.711). The self input moves the variance check (null stays at pink, so the gain comes from the trained network). But it does not move firing rates, and it does not move the one readable size. At 95% the null has a higher agree (45.6%) than self (44.0%). The 5% drop to 7.645 has agree .2%, so it is calibration. The input that matters at 95% is photos (Minitron on photos 1.113 / 54.0%, held split). Self recovers none of that .55 gap. CLIP is untested, not failed.",
+    "problems": "1. The guard trips on pink at 9x. So the guard as written cannot separate a good input from pink. Do not redefine the guard after seeing this result. Report it as a ratio to pink in round 2, and label the change. 2. check_mix rule 3 is a KL window at 5%, where every row is at chance. It passes with little power. 3. check_mix rule 3 builds a floor on a mix with 128 held photos. It is labelled as a reading check and writes nothing to board.json. That is within the rules. 4. check_input and check_mix read stored running_var and running_mean as the known answer only. That is within the rules. 5. No 'Object (picked by)' line in make_input.py."
+   },
+   {
+    "part": "P5 Rank (written value x read gradient, greedy)",
+    "expected": "CLIP whole 95% .60 with agree .75. MLP-only 95% .15 and below magsplit_mlp. Heads-only 50% 4.5 with agree .25. ResNet whole 95% .95 with agree .60. Beat the read-permuted null by more than 2x the seed spread. T3: the 5 loud dims in the top 38.",
+    "happened": "Implementation checks pass by algebra (I1 KL 0 or 1e-16, I2 0, T1 0, T2 0). T3 PASS: ranks 0, 2, 3, 10, 17. CLIP whole: 1.104 / 60.2% (floor 1.139 / 60.4%), null 1.460 / 53.8%. MLP 95%: .323 / 81.1% (floor .473, null .444, magsplit .205 / 83.7%): FAIL. Heads 95% .246 (floor .175). Heads 50% 6.840 / 4.5% (floor 5.807 / 10.7%, null 5.908 / 9.5%): FAIL. Stream 95% .256 / 81.0% (floor .280). ResNet whole: 1.570 / 46.4% (floor 1.665 / 42.7%, null 1.844 / 41.2%, seed 2 1.572 / 46.2%). Seed spread .002 / 1.882 / 4.480. ResNet inner 95% .420 / 71.9% against the same-input floor p4write_off_inner .441 / 72.2%. ResNet stream 95% 1.029 / 58.2% against p6diag_r18_plain 1.032 / 56.6%.",
+    "why": "P5 is a per-set result, not one verdict. ResNet whole 95% is a real gain: +3.7 agree over the floor, +5.2 over the null, margin .274 > 2x spread .004. On ResNet one-set rows it ties the same-input floors. On CLIP it beats its null at 95% but ties the floor (agree -.2). On CLIP MLP the weight ranking beats it (.205 against .323). On CLIP heads the floor and the null beat it, at 95% and at the readable 50% row. Two causes are open. First, the one-set rows use an order measured with all sets masked together (builder risk 3). Second, pink drives CLIP MLP firing to .35 of the photo rate (P0 CLIP check), so an activity score on pink sees a third of the firing. All 50% and 5% gains (ResNet 5% 14.949 to 8.761, one-shot comparisons) have agree at chance and are calibration.",
+    "problems": "1. The CLIP seed spread is not measured. So the 2x-spread rule cannot apply on CLIP. 2. Pass rules were applied honestly. None was bent. 3. No 'Object (picked by)' line in p5rank.py or p5check.py (board rule). 4. Photo use: none."
+   },
+   {
+    "part": "P4 Write (reader-matched fold, A = 0)",
+    "expected": "CLIP MLP .473 to .30 (95%) and 9.040 to 7.2 (50%), agree +5. Heads .175 to .12 and 5.807 to 5.0, agree +3 / +5. ResNet inner .30 / 5.3 / 7.2 against fold-off. Rule beats the shuffled-pairing null by >= .5 KL with higher agree. Whole network: 95% better, no gain in kind at 50% and below.",
+    "happened": "Checks K1-K8 pass by algebra. f = 1 gives the teacher. Fold-off reproduces split_mlp and split_heads exactly. CLIP MLP: 95% .321 / 80.7% (off .473 / 76.7%), 50% 6.154 / 4.1% (off 9.040 / .2%, null 8.812 / 1.0%). Heads: 95% .159 / 86.9% (off .175 / 86.0%), 50% 5.580 / 10.8% (off 5.807 / 10.7%, null 7.402 / 3.0%). ResNet inner: .397 / 74.0%, 5.633 / 2.6%, 9.883 / .2% (off .441 / 72.2%, 6.807 / .7%, 8.252 / .1%; null .418 / 73.3%, 5.762 / 1.7%, 9.139 / .1%). Whole CLIP: 1.117 / 59.3%, 12.395, 11.550, 10.655 (floor 1.139 / 60.4%, 9.031, 10.404, 11.231). Whole ResNet: 1.389 / 50.0%, 13.217, 9.182 (floor 1.665 / 42.7%; null 1.414 / 49.4%, 12.652).",
+    "why": "CLIP MLP 50% is the clearest real gain of round 1. Agree rises .2% to 4.1%. It beats the null by 2.66 KL and 3.1 agree points. The cut MLP units' message is partly predictable from the kept units' firings, even on pink. Heads: the null is worse than fold-off, so the bar passes only because the null harms. Against fold-off the gain is .227 KL and +.1 agree, which is calibration. ResNet inner: the mean-only null gets most of the 50% gain (rule beats null by .129 < .5), so it is mostly a first-moment repair. At 5% the residual on X falls (.66 to .36) while photo KL rises (8.252 to 9.883). That is direct F2 evidence. Whole ResNet 95%: the null repeats 91% of the gain, so it is a first-moment repair, which matches P6 meanfold. Whole network at 50% is worse than the floor on both nets. The fold targets a student stream that is already at chance, so the fold must come after a stream fix.",
+    "problems": "1. The built rule differs from the proposal: slice anchor (not the literal zero anchor), and lam uses 197 tokens, not 50. Both are disclosed and argued. It is a rule change, not a bent bar. 2. The mixture planted test (the one test that can fail) was not built. That is a board-rule gap. 3. The MLP 95% null was not run, so the 95% MLP gain has no null. 4. The CLIP whole-network floor at 50/25/5% on the cached input is missing. P6 plain on X reproduced the step-0 split_stream rows exactly at all 4 sizes, so the cached CLIP input equals the pink-default draws. The cross-input caveat is small. 5. Photo use: none. BatchNorm is not read."
+   },
+   {
+    "part": "P1-P3 Tree / read / gate (OR-merge)",
+    "expected": "Not built this round (joint order puts it after P6).",
+    "happened": "No files and no rows.",
+    "why": "The joint order scheduled P6 first. The critic verdict was 'revise'.",
+    "problems": "The five-row ablation ladder from the critic is still open. The torch.quantile size limit is still open."
+   }
+  ],
+  "messages": [
+   {
+    "to": "P0 Input",
+    "message": "Round 1 result. ResNet self-made input FAILS your bar. Var rank .542 < .55. The null stays at pink (.386 against .379), so the variance gain is real and comes from the trained network. But rate Spearman did not move (self .600, pink .603, null .626). The 95% KL got worse (1.665 to 1.711). The null has a higher 95% agree than self (45.6% against 44.0%). The 5% drop to 7.645 has agree .2%, so it is calibration. The planted photo-mix test passed on both nets. CLIP was not run. The patch conv backward on MPS takes 17.4 s per step (74 min per generator).\n\nFor round 2:\n1. Do not retune K, lr or the transforms on check_bn. A new recipe is a new prediction, written before the run.\n2. Tie the check to the readable size. Run the floor at 95% on mix000, mix025, mix050 and mix100 (labelled reading check, off the board). Then the check scores have a 95% KL curve. Predict where self lands on it before the run.\n3. Your strongest off-point number is CLIP MLP rate ratio .35 on pink. It may explain why every activity score on pink misranks CLIP MLP neurons (floor .473, P5 .323, weights .205). Make firing rate a gating readout, not only variance.\n4. The rate > .9 guard trips on pink at 9x. Report it as a ratio to pink and label the change as made after this run.\n5. Run the CLIP self and null generators after the lead fixes vitgen.embed.\n6. Rule 3 of check_mix is a 5% KL window, where every row is at chance. Replace it with a 95% rule."
+   },
+   {
+    "to": "P1-P3 Tree/read/gate",
+    "message": "Nothing was built for your part in round 1. The other parts give you these facts.\n1. At 50% almost every row is at chance (agree <= 1%). KL differences up to about 5 there come from the input or the seed alone. Example: the ResNet 50% floor is 9.386, 9.587 and 14.128 on three inputs. So decide on agree, and on the 95% row.\n2. P4's fold on CLIP MLP is the one real 50% gain: agree .2% to 4.1%, null 1.0%. So the cut MLP units' message can be predicted from kept units. Your merge acts on the same units.\n3. On ResNet inner, a mean-only repair gets most of every gain. So row (b), singleton re-standardization with no merge, may carry most of any ResNet gain. That is why row (b) is required.\n4. Pink drives CLIP MLP firing to .35 of the photo rate. A union-rate threshold measured on pink will be about 3x too low. Show the target rate against the photo rate in a labelled check.\n\nFor round 2:\n1. Scope to CLIP MLP-only first. Use the floor order, not P5's order (P5 lost to weights on MLP).\n2. Build the critic's five rows: (a) floor, (b) singleton re-standardization, (c) R1 groups with an AND gate, (d) random-partner groups with the OR gate, (e) R1 groups with the OR gate. Hold the write fixed in all five rows (P4 fold on in all, or off in all).\n3. Read at 95%, 85% and 50%, with agree.\n4. Name the vote 'R1 weighted by noise RMS'. Add the pure-weight vote row.\n5. Use a sort or kthvalue on the CPU, not torch.quantile.\n6. Add 'Object (picked by)' to each planted test."
+   },
+   {
+    "to": "P4 Write",
+    "message": "Round 1 result. CLIP MLP 50% is the clearest real gain of the round: 9.040 / .2% to 6.154 / 4.1%. The null is 8.812 / 1.0%. MLP 95% gains .152 KL and 4.0 agree points, but no null ran at 95%. Heads: your null (7.402) is worse than fold-off (5.807). So the heads bar passed only because the null harms. Against fold-off the heads gain is .227 KL and +.1 agree, which is calibration. ResNet inner: the mean-only null gets most of the 50% gain (margin .129 < .5). At 5% the residual on X fell .66 to .36 while photo KL rose 8.252 to 9.883. That is F2: noise firings misguide the fold. Whole network: the ResNet 95% gain (1.665 to 1.389) is 91% repeated by the null, so it is a first-moment repair. At 50% the whole network is worse than the floor on both nets, because the student stream is at chance.\n\nFor round 2:\n1. Build the mixture planted test. Without it P4 has no test that can fail.\n2. Run the MLP 95% null.\n3. Judge heads against fold-off. A null that is worse than fold-off is not a valid null. Add a second null that does no harm by design (for example, the per-position mean fold with no image shuffle).\n4. Keep A = 0. Run whole-network 50% only after P6's stream rule leaves chance.\n5. Your slice anchor and the 197-token lam are rule changes from the proposal. Write them into the proposal with 'Derived from:'.\n6. Add an 85% row for MLP and inner. Agree is still readable there."
+   },
+   {
+    "to": "P5 Rank",
+    "message": "Round 1 result. T3 passed (ranks 0, 2, 3, 10, 17). ResNet whole 95% is a real gain: 1.570 / 46.4% against floor 1.665 / 42.7% and null 1.844 / 41.2%. That margin is far above 2x the seed spread (.004). CLIP whole 95% ties the floor: 1.104 / 60.2% against 1.139 / 60.4%. CLIP MLP 95% fails the weight line: .323 against magsplit .205. CLIP heads fails at 95% (.246 against floor .175) and at the readable 50% row (6.840 / 4.5% against floor 5.807 / 10.7% and your null 5.908 / 9.5%). ResNet one-set rows tie the same-input floors (inner .420 against .441, stream 1.029 against 1.032). Every 50% and 5% gain has agree at chance. The seed spread there is 1.88 and 4.48, so those KL gains are calibration.\n\nFor round 2:\n1. Build a per-set greedy order for the one-set rows (mask only that set while you measure). The heads and MLP fails may come from the joint mask.\n2. Separate 'formula is wrong' from 'pink is wrong' on CLIP MLP. Run one labelled check row: the same score with the order computed on held photos. If the photo order beats .205, the input is the cause. If not, the formula is the cause.\n3. Measure the CLIP seed spread (seed 2).\n4. The P6 rho row failed, so the norm mode stays 'kept'. You do not need to rebuild the order.\n5. Add 'Object (picked by)' to T3."
+   },
+   {
+    "to": "P6 Stream",
+    "message": "Round 1 result. Your lead is refuted on both nets. The 50% stream damage is not a scale error and not a mean error. CLIP: four divisors move the embed ratio from 1.0 to 4.1. All four land at 9.2-9.7 at 50% with agree <= .7%. The rho test fails both parts of its bar (9.718 / .2%). ResNet: meanfold 50% is 9.661 / .2% (bar 9.03 and +10 agree). At 50% and 5% every diagnostic row is at chance, so the KL order there (grho below rho, permmean below meanfold) is not evidence. Two small real gains exist at 95%. CLIP rms with D near 768 gives KL -.035 and agree +1.5. ResNet meanfold gives agree +4.6, and about half of that survives the permuted null. The rho ratio check fails at 25% and 5% at block-0 ln2 (.801, .828). That is unresolved: drift or bug.\n\nFor round 2:\n1. The shared norm mode stays 'kept' by your written rule.\n2. Build the full stream rule: one kept subspace Q plus per-site read maps L_l. Include the planted unread-high-variance-direction test (T+), which can fail.\n3. Nulls: a random Q of the same rank, and L_l off (coordinate selection with the same Q).\n4. Read stream-only at 95%, 85%, 75% and 50%, with agree. The decision is: does stream-only 50% leave chance (agree above about 5%)?\n5. Print the open-loop realized ratio next to the closed-loop one. The open-loop ratio is 1.00 by algebra. The gap is then drift.\n6. Build the photo-mean check row for ResNet as a labelled check script.\n7. ResNet 95% repair is first-moment on both stream (yours) and inner (P4's null). Keep a mean-fold switch in the full rule."
+   }
+  ],
+  "round2": [
+   "0. Lead (harness): in vitgen.embed, replace the stride-16 patch conv with reshape or unfold plus F.linear. Check it with board.py --rule identity (KL < 1e-5) before any CLIP generator run.",
+   "0b. Lead (harness): add an 85% readout size to the decision rows. Mark every row with agree <= 1% as 'at chance' in table.py. Do not rank rows at chance by KL. Evidence: at chance, the input alone moves ResNet 50% from 9.386 to 14.128, and the P5 seed alone moves it by 1.88.",
+   "1. P6 full stream (joint order step 1): basis Q plus per-site read maps L_l, both nets, stream-only at .95 / .85 / .75 / .5. Planted test T+ (unread high-variance direction must be dropped). Nulls: random Q of the same rank, and L_l off. Print the open-loop and closed-loop realized ratios. Norm mode stays 'kept'. Gate: stream-only 50% agree above about 5%.",
+   "2. P1-P3 on CLIP MLP-only: the critic's five ablation rows (a)-(e), with the write held fixed and the floor order. Sizes .95 / .85 / .5. Sort or kthvalue, not torch.quantile. Labelled rate check against photos.",
+   "3. Missing nulls and planted tests from round 1: P4 MLP 95% null, P4 mixture planted test, a P4 heads null that cannot do harm, CLIP P5 seed 2, P5 per-set greedy order for one-set rows.",
+   "4. Labelled reading checks (photos, off the board): P5 CLIP MLP order computed on held photos, P6 ResNet photo-mean row, P0 floor at 95% on mix000 / 025 / 050 / 100.",
+   "5. P0 CLIP self and null generators, after fix 0. Then the CLIP check and the floor on self and null.",
+   "6. Joint front-to-back calculation and leave-one-out rows, at 95% and 85% now (readable: P5 ResNet order, ResNet mean fold, P4 MLP fold). Run the joint at 50% only after item 1 passes its gate. Before that, every 50% joint row is capped by a stream at chance."
+  ],
+  "summary": "Round 1 review. No rule recovers a job at 50%. Almost every 50% and 5% row has agree at or below 1%, so those KL numbers are calibration only. The readable 50% rows are CLIP heads-only (agree about 10%), P4 MLP (4.1%) and P4 inner (2.6%). The stream is the bottleneck. Stream-only 50% stays at chance under every variant tried: CLIP plain, k, D, rho, global rho and P5 order, and ResNet plain, mean fold, permuted mean and P5 order. So the P6 lead (scale or mean error) is refuted. The loss is content.\n\nReal gains, with agree up and the null beaten:\n1. P4 CLIP MLP 50%: 9.040 / .2% to 6.154 / 4.1%. Null 8.812 / 1.0%.\n2. P5 ResNet whole 95%: 1.665 / 42.7% to 1.570 / 46.4%. Null 1.844 / 41.2%. Margin above 2x the seed spread.\n3. ResNet 95% first-moment repair: P6 meanfold .897 / 61.2% against plain 1.032 / 56.6%. The permuted null gets about half. The P4 whole-network null repeats 91% of P4's gain.\n\nFails:\n- P6 CLIP rho test (9.718 / .2%) and the ResNet meanfold test (9.661 / .2%).\n- P5 CLIP MLP 95% (.323 against weights .205), and P5 CLIP heads at 95% and 50%.\n- P0 ResNet (var rank .542 < .55, and 95% KL rose from 1.665 to 1.711).\n\nP0 CLIP was not run. The cause is a 17.4 s-per-step MPS patch-conv backward in vitgen.embed.\n\nCalibration-only gains (KL down, no agree gain):\n- P5 ResNet 5% (14.949 to 8.761) and P0 self 5% (7.645).\n- P4 whole ResNet 5% and P4 heads 50% against fold-off.\n- All P6 CLIP 50% divisor rows.\n- P5 against one-shot at 50% and 5%.\n\nPhoto and BatchNorm use: no rule uses photos or stored BatchNorm statistics as data. check_input and check_mix read photos and running stats as labelled reading checks. check_mix builds one floor on a photo mix, labelled and off the board. P6 meanfold writes running_mean as a map edit and never reads it as data.\n\nNulls: all listed nulls ran except the P4 MLP 95% null and the CLIP null input. The CLIP global-rho null had a real rho spread (.551). The P4 heads null was worse than fold-off, so its pass is hollow.\n\nBent rules: none found. Open rule gaps:\n- The P4 mixture planted test was not built.\n- P5 and P0 have no 'Object (picked by)' line.\n- The P0 guard trips on pink at 9x.\n- check_mix rule 3 is a 5% window at chance.\n- P4 changed the ridge anchor and lam from the proposal. Both changes are disclosed.\n- The P6 rho ratio check failed at 25% and 5% at block-0 ln2. It is unresolved: drift or a fold bug.\n\nFiles reviewed: /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/_p6diag_r18.py, /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/_p6diag_clip.py, /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/rules/p4write.py. All builder files were checked by grep for photo and BatchNorm use."
+ }
+}

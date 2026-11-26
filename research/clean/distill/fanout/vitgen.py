@@ -62,7 +62,9 @@ def attn(x, B):
 
 
 def embed(W, x):
-    t = F.conv2d(x, W["patch_w"], stride=16).flatten(2).transpose(1, 2)
+    N, C, Hh, Ww = x.shape                                 # patch conv as reshape + matmul (fast backward on MPS)
+    p = x.reshape(N, C, Hh // 16, 16, Ww // 16, 16).permute(0, 2, 4, 1, 3, 5).reshape(N, (Hh // 16) * (Ww // 16), C * 256)
+    t = p @ W["patch_w"].reshape(W["patch_w"].shape[0], -1).t()
     t = torch.cat([W["cls"].expand(len(x), 1, -1), t], 1) + W["pos"]
     return norm(t, W["ln_pre"])
 

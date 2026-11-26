@@ -76,3 +76,23 @@ Talk step (10 agents, 913k agent tokens, 9 min; `fanout/round1/talk.json`): 20 m
 Harness change (me): `board.py --input PATH` passes a cached input to the rule as X; rows record the input. Shared input `fanout/cache/input_pink_n256_s1.pt` (256 pink images, batched seeds). Check: CLIP floor at 95% on it = 1.139 (unchanged). ResNet floor on it (new reference, the old floor used a different draw): 95/50/5% = 1.665 / 9.386 / 14.949.
 
 Build step started: builders for P6 diagnostics, P0, P5, P4; one runner at a time; one reviewer.
+
+Build step (9 agents, 1.16M agent tokens, 66 min; `fanout/round1/build.json`). Reviewer's verdict, KL / agree on 1,000 test photos:
+
+| Result | Numbers |
+|---|---|
+| REAL: P4 write fold, CLIP MLP-only 50% | 9.040 / .2% -> 6.154 / 4.1%; null 8.812 / 1.0% |
+| REAL: P5 rank, ResNet whole 95% | 1.665 / 42.7% -> 1.570 / 46.4%; null 1.844 / 41.2%; seed spread .002 |
+| REAL (half): ResNet mean fold of cut stream channels, stream-only 95% | 1.032 / 56.6% -> .897 / 61.2%; permuted-mean null .967 / 59.1% (about half) |
+| REFUTED: the 50% stream damage is a scale or mean error | every CLIP divisor variant (k, D, rho, global rho) and every ResNet fold stays at chance (agree <= .7%) |
+| FAIL: P5 on CLIP MLP and heads | MLP-only 95% .323 vs weight ranking .205; heads-only 50% 6.840 vs floor 5.807 |
+| FAIL: P0 self-made input on ResNet | variance rank .542 (bar .55), 95% KL 1.665 -> 1.711; firing rates unmoved |
+| NOT RUN: P0 on CLIP | 17.4 s per step from the patch-conv backward on MPS |
+
+Lesson: at 50% and 5% almost every row has agree <= 1%. There KL moves with calibration only (the input alone moved ResNet 50% from 9.386 to 14.128). Such rows are not ranked. `table.py` now marks them "at chance". 85% is added as a readable decision size.
+
+Shonu, after round 1: "we need to be going faster rather than just completely staying in theory land". Changes (me): `fanout/torchq.py` (a lock so many agents queue torch jobs one at a time, swap check, log `torchq.log`); `board.py --quick` (200 photos, every 5th class, ~10 s, rows to `scratch.jsonl`); `fanout/NOTES.md` (one line per experiment, @-addressed messages); `vitgen.embed` patch conv replaced by reshape + matmul (batch-8 forward + backward 4.0 s -> .22 s; identity check KL 1e-6).
+
+### Round 2 (2026-11-26): fast loops
+
+Seven agents (P0, P1-P3, P4, P5, P6, JOINT, live CRITIC), each in its own loop: one change, one quick test through the lock, one note, about 25 tests or 45 minutes, then promote the best rows to the board.

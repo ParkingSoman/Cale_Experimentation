@@ -1,0 +1,2 @@
+14:48:25	lead	wait 0s	run 14s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule identity --f 1 --note check after fast patch embed
+14:48:34	lead	wait 0s	run 10s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule noisecut --f 0.95 --quick --input distill/fanout/cache/input_pink_n256_s1.pt

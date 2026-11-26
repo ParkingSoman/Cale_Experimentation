@@ -3884,5 +3884,33 @@
   "photo_use": "test photos, scoring only",
   "when": "2026-11-26T14:40:45",
   "note": "P4 NULL shuffled pairing, whole network"
+ },
+ {
+  "net": "clip",
+  "rule": "identity",
+  "f": 1.0,
+  "split": "test",
+  "input": "pink-default",
+  "kl": 9.79502374320873e-07,
+  "top1": 0.671,
+  "agree": 1.0,
+  "n": 1000,
+  "params": 86192640,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 13.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:48:24",
+  "note": "check after fast patch embed",
+  "who": "lead",
+  "quick": false
  }
 ]

@@ -14,5 +14,6 @@ for net in ("clip", "r18"):
     print("|---|---|---|---|---|---|---|---|---|")
     for k, r in sorted(last.items(), key=lambda kv: (kv[0][1].startswith("check"), kv[0][1], -kv[0][2], kv[0][3], kv[0][4])):
         if k[0] == net:
+            chance = " (at chance: agree <= 1%, do not rank by KL)" if r["agree"] <= 0.01 else ""
             print(f"| {r['rule']} | {r.get('input', 'pink-default')} | {r['f']:g} | {r['split']} {r['n']} | {r['kl']:.3f} | {100 * r['top1']:.1f}% | "
-                  f"{100 * r['agree']:.1f}% | {r['params']:,} | {r.get('note', '')} |")
+                  f"{100 * r['agree']:.1f}% | {r['params']:,} | {r.get('note', '')}{chance} |")
