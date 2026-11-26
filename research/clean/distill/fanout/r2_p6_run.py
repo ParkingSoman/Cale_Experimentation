@@ -23,6 +23,34 @@ from rules import r2_p6_core as core  # noqa: E402
 dt = torch.float64
 
 
+@torch.no_grad()
+def score_fwd(W, fwd, n=1000, stride=5, bs=100):
+    """board.clip_score with a custom forward (same photos, same reference, same formulas)."""
+    import numpy as np
+    import torch.nn.functional as F
+    sys.path.insert(0, os.path.join(os.path.dirname(HERE), "clipkd"))
+    import eval_fast
+    import vitgen
+    ref = eval_fast.teacher_ref("test")
+    sel = np.arange(min(n, len(ref["ids"])))[::stride]
+    ref = dict(ref, ids=ref["ids"][sel], labels=ref["labels"][sel], logits=ref["logits"][sel])
+    n = len(sel)
+    X = eval_fast.photos(ref["ids"][:n])
+    Wd = vitgen.to(W, board.DEV)
+    Wd["skip"] = [(a.to(board.DEV), b.to(board.DEV)) for a, b in W["skip"]]
+    cls = ref["cls"].to(board.DEV)
+    lg = []
+    for i in range(0, n, bs):
+        e = fwd(Wd, X[i:i + bs].to(board.DEV).float()).float()
+        lg.append((ref["scale"] * F.normalize(e, dim=-1) @ cls).cpu())
+    lg = torch.cat(lg)
+    zt = ref["logits"][:n]
+    k = board.kl_rows(zt, lg)
+    lab = ref["labels"][:n]
+    return dict(kl=float(k.mean()), top1=float((lg.argmax(1).numpy() == lab).mean()),
+                agree=float((lg.argmax(1) == zt.argmax(1)).float().mean()), n=n), k.numpy()
+
+
 def read_err(T, X, Q):
     m = core.site_moments(T, X)
     Gs = core.readers(T)
@@ -71,13 +99,20 @@ def main():
         kind, dmode, fs = c.split(":")
         for f in [float(v) for v in fs.split("/")]:
             t0 = time.time()
-            W = core.build(T, f, X, kind, dmode)
-            if a.diag:
+            if kind.startswith("ps-"):
+                from rules import r2_p6_persite as ps
+                W = ps.build(T, f, X, kind[3:])
+                res, _ = score_fwd(W, ps.forward, a.n, a.stride)
+                res["params"] = ps.n_params(W)
+            else:
+                W = core.build(T, f, X, kind, dmode)
+            if a.diag and not kind.startswith("ps-"):
                 Q, _ = core.basis(T, X, round(f * D), kind)
                 e = read_err(T, X, Q)
                 print(f"[diag] {kind} f={f}: open-loop reader error per site mean {sum(e)/len(e):.3f} "
                       f"first4 {' '.join(f'{v:.2f}' for v in e[:4])} last4 {' '.join(f'{v:.2f}' for v in e[-4:])}", flush=True)
-            res, _ = board.clip_score(W, a.n, "test", stride=a.stride)
+            if not kind.startswith("ps-"):
+                res, _ = board.clip_score(W, a.n, "test", stride=a.stride)
             row = dict(net="clip", rule=f"r2_p6_{kind}_{dmode}", f=f, split="test", input=inp, **res,
                        calc_seconds=round(time.time() - t0, 1), photo_use="test photos scoring only" + (
                            "; HELD PHOTOS IN THE BASIS (labelled reading check)" if a.photo else ""),
