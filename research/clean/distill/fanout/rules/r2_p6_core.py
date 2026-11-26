@@ -124,6 +124,20 @@ def basis(T, X, k, kind, seed=0, plant=None):
         G = sum(Gl / Gl.trace() for Gl in readers(T))
         e, V = torch.linalg.eigh(G)
         return _orth_centred(V[:, e.argsort(descending=True)[:k]]), None
+    if kind in ("rG", "rsym"):                        # reader-weighted, no back-map (T+ fix)
+        Gs = readers(T)
+        if plant is not None:
+            u = plant[0]
+            Pu = torch.eye(D, dtype=dt) - torch.outer(u, u)
+            Gs = [Pu @ G @ Pu for G in Gs]
+        G = sum(Gl / Gl.trace() for Gl in Gs)
+        if kind == "rG":
+            Gh = _sym_sqrt(G)
+            A = Gh @ C @ Gh
+        else:
+            A = (G @ C + C @ G) / 2
+        e, V = torch.linalg.eigh(A)
+        return _orth_centred(V[:, e.argsort(descending=True)[:k]]), None
     if kind == "read":
         Gs = readers(T)
         if plant is not None:

@@ -68,6 +68,7 @@ def main():
     ap.add_argument("--photo", action="store_true")
     ap.add_argument("--diag", action="store_true")
     ap.add_argument("--plant", action="store_true")
+    ap.add_argument("--tplus", default="pca,pcan,read,readG,rand")
     ap.add_argument("--n", type=int, default=1000)
     ap.add_argument("--stride", type=int, default=5)
     a = ap.parse_args()
@@ -88,7 +89,7 @@ def main():
         C = core.site_moments(T, X)["M"].sum(0)
         lam = 10 * float(torch.linalg.eigvalsh(C)[-1]) / C.shape[0] * 1.0
         lam = 10 * float(torch.linalg.eigvalsh(C)[-1]) / 25
-        for kind in ("pca", "pcan", "read", "readG", "rand"):
+        for kind in a.tplus.split(","):
             for f in (0.85, 0.5):
                 k = round(f * D)
                 Q, _ = core.basis(T, X, k, kind, plant=(u, lam))
