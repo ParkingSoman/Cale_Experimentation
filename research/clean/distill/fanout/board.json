@@ -7029,5 +7029,115 @@
   "note": "r3 JOINT: ONE CLIP calc = P6 rG stream (rho, C pink) + heads floor act + MLP weight + P4 MLP fold",
   "who": "JOINT",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_tree_rand10",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.9310458302497864,
+  "top1": 0.523,
+  "agree": 0.643,
+  "n": 1000,
+  "params": 77689956,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 113.6,
+  "total_seconds": 160.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:03:23",
+  "note": "r3 TREE: tilt .1 toward rand10 partner (fold = top fold coefficient; rand = same-form null)",
+  "who": "TREE",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_tree_f10",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.9713132381439209,
+  "top1": 0.523,
+  "agree": 0.642,
+  "n": 1000,
+  "params": 77689956,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 130.3,
+  "total_seconds": 170.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:08:16",
+  "note": "r3 TREE: tilt .1 toward f10 partner (fold = top fold coefficient; rand = same-form null)",
+  "who": "TREE",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r3_input_r18sf",
+  "f": 0.85,
+  "split": "test",
+  "input": "r18_self_n256_k32_s1",
+  "kl": 2.2949631214141846,
+  "top1": 0.285,
+  "agree": 0.326,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 15.3,
+  "total_seconds": 21.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:08:42",
+  "note": "r3 INPUT: R18 floor_sfon_on, order on pink, fold stats from X",
+  "who": "INPUT",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "r3_input_r18sf",
+  "f": 0.7,
+  "split": "test",
+  "input": "r18_self_n256_k32_s1",
+  "kl": 5.4935102462768555,
+  "top1": 0.044,
+  "agree": 0.048,
+  "n": 1000,
+  "params": 11689512,
+  "shape": {
+   "widths": [
+    64,
+    128,
+    256,
+    512
+   ]
+  },
+  "calc_seconds": 13.4,
+  "total_seconds": 15.7,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T17:08:58",
+  "note": "r3 INPUT: R18 floor_sfon_on, order on pink, fold stats from X",
+  "who": "INPUT",
+  "quick": false
  }
 ]
