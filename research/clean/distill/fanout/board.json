@@ -3912,5 +3912,59 @@
   "note": "check after fast patch embed",
   "who": "lead",
   "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "held",
+  "input": "input_pink_n256_s1",
+  "kl": 1.6952978372573853,
+  "top1": 0.373,
+  "agree": 0.4189999997615814,
+  "n": 1000,
+  "params": 10564386,
+  "shape": {
+   "widths": [
+    61,
+    122,
+    243,
+    486
+   ]
+  },
+  "calc_seconds": 5.1,
+  "total_seconds": 23.5,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T15:23:38",
+  "note": "r2 P0: TUNING SIGNAL (held split), input input_pink_n256_s1",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "r18",
+  "rule": "noisecut",
+  "f": 0.85,
+  "split": "held",
+  "input": "input_pink_n256_s1",
+  "kl": 7.590005397796631,
+  "top1": 0.023,
+  "agree": 0.020999999716877937,
+  "n": 1000,
+  "params": 8514864,
+  "shape": {
+   "widths": [
+    54,
+    109,
+    218,
+    435
+   ]
+  },
+  "calc_seconds": 5.0,
+  "total_seconds": 14.2,
+  "photo_use": "held photos, scoring only",
+  "when": "2026-11-26T15:23:52",
+  "note": "r2 P0: TUNING SIGNAL (held split), input input_pink_n256_s1",
+  "who": "P0",
+  "quick": false
  }
 ]
