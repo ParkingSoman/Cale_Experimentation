@@ -19,7 +19,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 LOG = os.path.join(HERE, "torchq.log")
 GATE = os.path.join(HERE, ".torch.gate")
-N_SLOTS = 1                                    # 1 short + 1 long = 2 torch jobs at most (15:25: swap in use reached 10.8 GB with 3 jobs)
+N_SLOTS = 2                                    # 2 short + 1 long = 3 jobs (15:51: back up from 1; memory guard gates each start)
 MIN_SWAP_MB = 1000
 MIN_FREE_PCT = 35
 MAX_SWAP_USED_MB = 8000                         # macOS grows the swap file, so 'free' stays small; 'used' is the real signal
