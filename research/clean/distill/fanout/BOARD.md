@@ -136,3 +136,30 @@ What round 2 settled:
 7. Selection: a knob picked on the 200 quick photos lost 31% of its gain on unseen photos. Pick knobs on the held split.
 
 Process: the 1-slot lock gave a mean wait of 245 s; 3 slots then overloaded swap (10.8 GB in use); settled at 2 short + 1 long with a memory guard (memory free >= 35%, swap in use <= 8 GB). The lead reviewed the notes every 10 min (7 reviews).
+
+### Round 3 (2026-11-26): fast loops, 6 agents
+
+Agents INPUT, STREAM, WRITE, TREE, JOINT, CRITIC (86 quick tests, 1.0M agent tokens, 73 min; `fanout/round3/fastloop.json`). New this round: one prediction line before every run; the critic read every full claim paired on the 800 test photos outside the quick set (`fanout/r3_critic_holdout.py`, uses the new per-photo agree files).
+
+Survivors (full 1,000 test photos, KL / agree; each with an off row, a same-form null, and a paired read on the 800 unseen photos):
+
+| Part | Rule | Row | Off | Null |
+|---|---|---|---|---|
+| ResNet whole 85%: fold statistics from the network's SELF-MADE input | `r3_input_r18sf` (round-2 joint J, both folds on `r18_self`) | 2.295 / 32.6% (800 unseen: 33.5%, no shrink) | pink 4.001 / 14.7% | shuffled-weights input 3.892 / 15.1%; z +11.2 |
+| CLIP whole 85% / 95%: "kslice" fold (kept units keep their own write; only the cut units' message is folded) | `r3_write_w_kslice` | 4.058 / 21.0%; .628 / 71.4% | 7.737 / 5.1%; .820 / 68.2% | roll pairing 4.785 / 17.4%; z +10.4 vs off |
+| CLIP stream + MLP cut, heads full, 85% | `r3_write_sm_kslice` | 2.624 / 36.5% | 5.218 / 18.5% | 3.106 / 32.2% |
+| CLIP whole 85%: rG stream + heads activity + MLP fold (one calculation) | `r3_joint_c_on` | 4.577 / 17.8% (800 unseen 15.9%; quick 25.5%) | stream -> coords 7.776 / 2.5%; fold off 6.076 / 11.8% | fold mean null harms (lower tier) |
+| CLIP MLP-only 70% | `r2_p4_wfold_mlp` | 2.513 / 37.6% | 6.694 / 9.9% | 5.096 / 14.1% |
+| CLIP stream-only 85% | rG with C from the self input | .742 / 67.6% | coords 1.284 / 56.2% | null input .780 / 64.9% (tie) |
+
+What round 3 settled:
+1. Why the fold hurt the whole CLIP cut: the closed-loop fold also re-solved the KEPT units' writes, and they absorbed the pink stream-cut damage. kslice fixes it (stream + MLP 85%: 9.5% -> 40.0% quick).
+2. The network's self-made input moves SECOND-MOMENT statistics (fold fits, stream bases), not rankings. It took ResNet whole 85% from 14.7% to 32.6%. For the one-basis rG stream any optimised input ties the self input.
+3. Where the CLIP stream cut dies: blocks 0-2 cost only .14 KL; blocks 3-11 carry the loss. Block 3 is where the loud stream dims switch on (step-0 F1). The loud-dims test is the first round-4 stream row.
+4. 8 photos beat 256 self-made images for the stream basis at 85% (labelled check): the gap is the KIND of image. At 70% the number of images matters too.
+5. WITHDRAWN: "rank CLIP MLP neurons by weight" (a random order ties at 95%). What stands: pink activity misleads the MLP ranking. Heads must be ranked by activity (by weight: -20 agree in the joint).
+6. Dead ends: every fixed read tilt (fold partner, R1 partner, calculated descent, random) ties or loses to plain deletion + fold on pink. Raw fold partners are hubs (one unit is top partner of 18-22% of kept units). Per-site stream bases, a two-group basis, colour knobs, the fc fold.
+7. Still at chance: 50% whole on both networks, ResNet 70%.
+8. Selection: quick-picked knobs shrink about 30-38% on unseen photos.
+
+Round 4 candidates (agents' lists): stack kslice into the rG joint (CLIP); self-input fold statistics into the ResNet joint, split per fold; the loud-dims stream test; score the CLIP "act" self input (made, unscored); find what an 8-photo basis has that the self input lacks.

@@ -131,3 +131,4 @@
 17:34:37	TREE	long	wait 1648s	run 69s	exit 0	/Users/shonusengupta/Cale_Experimentation/research/clean/curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule r3_tree_r10r --f 0.85 --who TREE --note r3 TREE: tilt .1 toward top R1 partner (weights), renorm --input distill/fanout/cache/input_pink_n256_s1.pt
 17:38:14	WRITE	long	wait 1274s	run 215s	exit 0	/bin/sh distill/fanout/r3_write_promote_w.sh
 17:38:57	CRITIC	long	wait 1936s	run 41s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule r3_joint_c_nofold --f 0.85 --who CRITIC --input distill/fanout/cache/input_pink_n256_s1.pt --note r3 CRITIC: full OFF row (fold off) for the JOINT 85% milestone r3_joint_c_on
+17:42:37	WRITE	long	wait 2198s	run 218s	exit 0	/bin/sh distill/fanout/r3_write_promote_m.sh
