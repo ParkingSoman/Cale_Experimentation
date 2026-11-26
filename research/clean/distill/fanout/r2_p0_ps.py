@@ -30,6 +30,7 @@ def main():
     ap.add_argument("--photos", type=int, default=0)
     ap.add_argument("--f", default="0.85,0.7,0.5")
     ap.add_argument("--kind", default="pca")
+    ap.add_argument("--stride", type=int, default=5)
     a = ap.parse_args()
     T = board.clip_teacher()
     if a.photos:
@@ -44,11 +45,11 @@ def main():
     for f in [float(v) for v in a.f.split(",")]:
         t0 = time.time()
         W = ps.build(T, f, X, a.kind)
-        res, _ = p6.score_fwd(W, ps.forward, 1000, 5)
+        res, _ = p6.score_fwd(W, ps.forward, 1000, a.stride)
         row = dict(net="clip", rule=f"r2_p6_ps-{a.kind}", f=f, split="test", input=inp, **res,
                    calc_seconds=round(time.time() - t0, 1),
                    photo_use="test photos scoring only" + ("; HELD PHOTOS IN THE BASIS (labelled reading check)" if a.photos else ""),
-                   when=datetime.datetime.now().isoformat(timespec="seconds"), who="P0", quick=True, note="r2 P0 input test of P6 ps build")
+                   when=datetime.datetime.now().isoformat(timespec="seconds"), who="P0", quick=a.stride > 1, note="r2 P0 input test of P6 ps build" + (" (full 1,000)" if a.stride == 1 else ""))
         print(f"ROW ps-{a.kind} f={f} [{inp}] KL {res['kl']:.3f} agree {100 * res['agree']:.1f}% top1 {100 * res['top1']:.1f}%", flush=True)
         with open(os.path.join(HERE, "scratch.jsonl"), "a") as fh:
             fh.write(json.dumps(row) + "\n")

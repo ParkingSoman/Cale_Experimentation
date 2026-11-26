@@ -6170,5 +6170,369 @@
   "note": "r2 P6: NULL random Q same rank, same fold",
   "who": "P6",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p1p3_a",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.3212586045265198,
+  "top1": 0.611,
+  "agree": 0.8069999814033508,
+  "n": 1000,
+  "params": 83352264,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 97.6,
+  "total_seconds": 144.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:11:36",
+  "note": "r2 P1-P3: CLIP MLP-only, P4 fold on merged firings; a = no merge, d = R1 (weighted by noise RMS) OR-merge, p = shape-kept null (R1 owners permuted over deleted units)",
+  "who": "P1-P3",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "noisecut",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 7.168432712554932,
+  "top1": 0.035,
+  "agree": 0.03099999949336052,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 24.9,
+  "total_seconds": 61.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:11:43",
+  "note": "r2 P0: floor on shared pink (85% baseline for the input test)",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "noisecut",
+  "f": 0.95,
+  "split": "test",
+  "input": "clip_self_n256_k32_s1",
+  "kl": 1.1365270614624023,
+  "top1": 0.493,
+  "agree": 0.6069999933242798,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 21.7,
+  "total_seconds": 62.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:12:48",
+  "note": "r2 P0: floor on CLIP self-made input (make_input K32, self-InfoNCE proxy)",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_coord_rho",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.2319321632385254,
+  "top1": 0.647,
+  "agree": 0.8289999961853027,
+  "n": 1000,
+  "params": 81931092,
+  "shape": {
+   "d": 730,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 55.7,
+  "total_seconds": 124.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:13:24",
+  "note": "r2 P6: same fold, floor coordinates (same-form baseline)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p1p3_a",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.0223900079727173,
+  "top1": 0.524,
+  "agree": 0.6499999761581421,
+  "n": 1000,
+  "params": 77689956,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 81.7,
+  "total_seconds": 123.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:13:39",
+  "note": "r2 P1-P3: CLIP MLP-only, P4 fold on merged firings; a = no merge, d = R1 (weighted by noise RMS) OR-merge, p = shape-kept null (R1 owners permuted over deleted units)",
+  "who": "P1-P3",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "noisecut",
+  "f": 0.85,
+  "split": "test",
+  "input": "clip_self_n256_k32_s1",
+  "kl": 7.548147201538086,
+  "top1": 0.026,
+  "agree": 0.027000000700354576,
+  "n": 1000,
+  "params": 62048886,
+  "shape": {
+   "d": 653,
+   "heads": [
+    10
+   ],
+   "mlp": [
+    2611
+   ]
+  },
+  "calc_seconds": 22.8,
+  "total_seconds": 58.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:13:47",
+  "note": "r2 P0: floor on CLIP self-made input (make_input K32, self-InfoNCE proxy)",
+  "who": "P0",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_coord_rho",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.3935151100158691,
+  "top1": 0.463,
+  "agree": 0.5569999814033508,
+  "n": 1000,
+  "params": 73295850,
+  "shape": {
+   "d": 653,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.7,
+  "total_seconds": 49.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:14:14",
+  "note": "r2 P6: same fold, floor coordinates (same-form baseline)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p1p3_a",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.153693199157715,
+  "top1": 0.035,
+  "agree": 0.04100000113248825,
+  "n": 1000,
+  "params": 57862656,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    1536
+   ]
+  },
+  "calc_seconds": 29.4,
+  "total_seconds": 49.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:14:28",
+  "note": "r2 P1-P3: CLIP MLP-only, P4 fold on merged firings; a = no merge, d = R1 (weighted by noise RMS) OR-merge, p = shape-kept null (R1 owners permuted over deleted units)",
+  "who": "P1-P3",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_coord_rho",
+  "f": 0.7,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 6.844505310058594,
+  "top1": 0.063,
+  "agree": 0.0689999982714653,
+  "n": 1000,
+  "params": 60399060,
+  "shape": {
+   "d": 538,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.5,
+  "total_seconds": 30.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:14:44",
+  "note": "r2 P6: same fold, floor coordinates (same-form baseline)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_coord_rho",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 10.043834686279297,
+  "top1": 0.004,
+  "agree": 0.003000000026077032,
+  "n": 1000,
+  "params": 43128576,
+  "shape": {
+   "d": 384,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.4,
+  "total_seconds": 16.9,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:15:01",
+  "note": "r2 P6: same fold, floor coordinates (same-form baseline)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_read_rho",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.24716100096702576,
+  "top1": 0.634,
+  "agree": 0.8190000057220459,
+  "n": 1000,
+  "params": 81931092,
+  "shape": {
+   "d": 730,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 34.7,
+  "total_seconds": 83.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:16:26",
+  "note": "r2 P6: reader basis with C^1/2 back-map (T+ fail)",
+  "who": "P6",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p1p3_d",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.6477290987968445,
+  "top1": 0.565,
+  "agree": 0.7239999771118164,
+  "n": 1000,
+  "params": 83352264,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 88.7,
+  "total_seconds": 133.5,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:16:43",
+  "note": "r2 P1-P3: CLIP MLP-only, P4 fold on merged firings; a = no merge, d = R1 (weighted by noise RMS) OR-merge, p = shape-kept null (R1 owners permuted over deleted units)",
+  "who": "P1-P3",
+  "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r2_p6_read_rho",
+  "f": 0.85,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.048168659210205,
+  "top1": 0.512,
+  "agree": 0.6069999933242798,
+  "n": 1000,
+  "params": 73295850,
+  "shape": {
+   "d": 653,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 1.1,
+  "total_seconds": 40.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:17:06",
+  "note": "r2 P6: reader basis with C^1/2 back-map (T+ fail)",
+  "who": "P6",
+  "quick": false
  }
 ]

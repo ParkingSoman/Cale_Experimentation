@@ -149,9 +149,10 @@ def _qcol(Z, rate, fallback):
 
 
 @torch.no_grad()
-def merged_reads(T, f, X, tree="r1rms", gate="or", merge=True, info=None):
+def merged_reads(T, f, X, tree="r1rms", gate="or", merge=True, info=None, statX=None):
     """Returns per block (fc_w (m_k x d), fc_b (m_k,)) for the kept MLP neurons, and the kept index lists."""
     st = _teacher_stats(T, X)
+    sz = st if statX is None else _teacher_stats(T, statX)   # statX: LABELLED READING CHECK only (photos)
     sc = p4write._vit_scores(T, X)
     _, _, mk_n = vitgen.sizes(f, T)
     mk = [noisecut.top(s, mk_n) for s in sc["mlp"]]
@@ -183,7 +184,7 @@ def merged_reads(T, f, X, tree="r1rms", gate="or", merge=True, info=None):
             col = torch.full((m,), -1, dtype=torch.long)
             col[kept] = torch.arange(len(kept))
             A[torch.arange(m), col[own]] = 1.0                     # member i -> column of its owner
-        y = st["y"][bi].float()
+        y = sz["y"][bi].float()
         Z = y @ fw.T + fb                                          # (NS, m)
         mu, sd = Z.mean(0), Z.std(0).clamp_min(1e-6)
         if gate == "or":
@@ -216,10 +217,10 @@ def merged_reads(T, f, X, tree="r1rms", gate="or", merge=True, info=None):
 
 
 @torch.no_grad()
-def build(T, f, X=None, tree="r1rms", gate="or", merge=True, null=False, tag=""):
+def build(T, f, X=None, tree="r1rms", gate="or", merge=True, null=False, tag="", statX=None):
     X = p4write._x_vit(X)
     info = []
-    reads, mk = merged_reads(T, f, X, tree, gate, merge, info)
+    reads, mk = merged_reads(T, f, X, tree, gate, merge, info, statX)
     D, H, _ = vitgen.sizes(1.0, T)
     sd = torch.arange(D)
     hk = [torch.arange(H) for _ in T["blocks"]]
