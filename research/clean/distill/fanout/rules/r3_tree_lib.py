@@ -91,7 +91,7 @@ def _solve(t, s, BT, Bs, sls, kept):
 
 
 @torch.no_grad()
-def build(T, f, X=None, alpha=0.1, part="fold", r1=None, tag="r3tree", verbose=True):
+def build(T, f, X=None, alpha=0.1, part="fold", r1=None, tag="r3tree", verbose=True, renorm=False):
     t0 = time.time()
     X = P._x_vit(X)
     D, H, M = vitgen.sizes(1.0, T)
@@ -104,7 +104,7 @@ def build(T, f, X=None, alpha=0.1, part="fold", r1=None, tag="r3tree", verbose=T
     emb = lambda Wx: torch.cat([vitgen.embed(Wx, X[sl].to(DEV).float()) for sl in sls])  # noqa: E731
     t, s = emb(Td), emb(Wd)
     g = torch.Generator().manual_seed(5)
-    stats, stats_c, stats_r, stats_h = [], [], [], []
+    stats, stats_c, stats_r, stats_h, stats_g = [], [], [], [], []
     for bi in range(len(T["blocks"])):
         BT, Bs = Td["blocks"][bi], Wd["blocks"][bi]
         for sl in sls:   # heads: full width, teacher weights
@@ -190,6 +190,22 @@ def build(T, f, X=None, alpha=0.1, part="fold", r1=None, tag="r3tree", verbose=T
                     a = (alpha * sgn.double() * sdv[kept] / sdv[pc])
                     Bs["fc_w"] = (fcT[kept] + a[:, None] * fcT[pc]).float().to(DEV)
                     Bs["fc_b"] = (fbT[kept] + a * (fbT[pc] - mu[pc])).float().to(DEV)
+                if renorm:   # rotate, do not grow: tilted pre-activation back to the kept unit's own mean and sd
+                    q1 = torch.zeros(k, dtype=torch.float64)
+                    q2 = torch.zeros(k, dtype=torch.float64)
+                    Nq = 0
+                    for sl in sls:
+                        z = _pre(s[sl], Bs).flatten(0, 1)
+                        q1 += z.sum(0).cpu().double()
+                        q2 += z.pow(2).sum(0).cpu().double()
+                        Nq += z.shape[0]
+                    m2 = q1 / Nq
+                    sd2 = (q2 / Nq - m2.pow(2)).clamp_min(1e-12).sqrt()
+                    r = sdv[kept] / sd2
+                    stats_g.append(float((r - 1).abs().mean()))
+                    w2, b2 = Bs["fc_w"].cpu().double(), Bs["fc_b"].cpu().double()
+                    Bs["fc_w"] = (w2 * r[:, None]).float().to(DEV)
+                    Bs["fc_b"] = (mu[kept] + (b2 - m2) * r).float().to(DEV)
                 stats.append(float((Gc[ci, torch.arange(k)].abs()).mean()))
             G = _solve(t, s, BT, Bs, sls, kept)
             if RESID:
@@ -212,6 +228,8 @@ def build(T, f, X=None, alpha=0.1, part="fold", r1=None, tag="r3tree", verbose=T
             print("  |cos| grad vs (top fold partner read, random cut read, own read) per block:",
                   " ".join(f"({a:.2f},{b:.2f},{c:.2f})" for a, b, c, _ in stats_c), flush=True)
             print("  signed cos(grad, sgn x partner read) per block:", " ".join(f"{v[3]:+.3f}" for v in stats_c))
+        if stats_g:
+            print("  renorm |sd ratio - 1| per block:", " ".join(f"{v:.3f}" for v in stats_g))
         if stats_h:
             print("  partners: distinct/k, top share per block:", " ".join(f"{a}/{b},{c:.2f}" for a, b, c in stats_h),
                   flush=True)

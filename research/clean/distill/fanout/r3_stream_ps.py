@@ -61,6 +61,14 @@ def bases(T, X, k, mode, ridge=1e-3, seed=0):
     Cn = [M[j] / M[j].trace() for j in range(ns)]
     Cpool = sum(Cn)
     I = torch.eye(D, dtype=dt)
+    if mode.startswith("grp"):                     # grp6 / grp4-8: one basis per block group, switch at those blocks
+        cuts = [0] + [2 * int(c) for c in mode[3:].split("-")] + [ns]
+        Qs = []
+        for a, b in zip(cuts[:-1], cuts[1:]):
+            Gh = _sqrt(sum(Gn[a:]))
+            Qg = _top(Gh @ sum(Cn[a:b]) @ Gh, k)
+            Qs += [Qg] * (b - a)
+        return Qs
     Qs = []
     for j in range(ns):
         Gj = sum(Gn[j:])

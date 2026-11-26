@@ -11,6 +11,10 @@ Parts, front to back (each has a switch; the floor value of each switch is the l
                   front to back). The student write = (the stream part's full write, n columns) @ G.
           "mean"  P4's same-form mean null (cut firings replaced by their per-position mean over images).
           False   no fold.
+  post    True    READOUT fold (round 3, the ResNet fc analogue): closed loop, after the MLP fold. Regress the teacher's
+                  output ln_post(x_T) @ proj on [the student's rms-normed stream, 1], on EVERY token of X (256 x 197
+                  rows; tokens of one image are not independent rows), ridge 1e-3 * mean eigenvalue. proj <- the map,
+                  ln_post bias <- lstsq(map^T, constant). False = P6's readout (exact at f = 1).
 Heads and MLP are cut AFTER the stream part, so the stream basis is computed with full heads and MLP (P6 as promoted).
 Derived from: round 2 best rows (BOARD "What round 2 settled": P5 w0, P4 wfold_mlp, P6 rG_rho).
 Photo use: none. Weights + generic input(s) only. Photos: scoring only (board.py).
@@ -92,7 +96,7 @@ def cut_units(W, hk, mk):
 
 
 @torch.no_grad()
-def fold_mlp(T, Wfull, Wcut, X, mk, null=None):
+def fold_mlp(T, Wfull, Wcut, X, mk, null=None, mlp=True, post=False):
     """P4 fold on the MLP writes. Teacher T full; student Wcut (closed loop, front to back).
     Student write = Wfull pr_w (stream_k x n, the stream part's write of every teacher unit) @ G (n x k)."""
     X = P4._x_vit(X)
@@ -109,7 +113,7 @@ def fold_mlp(T, Wfull, Wcut, X, mk, null=None):
             s[sl] = s[sl] + F.linear(P4._heads_fire(s[sl], Bs), Bs["o_w"], Bs["o_b"])
         kept = mk[bi]
         n, k = BT["pr_w"].shape[1], len(kept)
-        if k < n:
+        if mlp and k < n:
             cutc = torch.ones(n, dtype=torch.bool)
             cutc[kept] = False
             cutc = cutc.nonzero().flatten().to(DEV)
@@ -135,6 +139,22 @@ def fold_mlp(T, Wfull, Wcut, X, mk, null=None):
         for sl in sls:
             t[sl] = t[sl] + F.linear(P4._mlp_fire(t[sl], BT), BT["pr_w"], BT["pr_b"])
             s[sl] = s[sl] + F.linear(P4._mlp_fire(s[sl], Bs), Bs["pr_w"], Bs["pr_b"])
+    if post:
+        kd = s.shape[-1]
+        Szz = torch.zeros(kd + 1, kd + 1, dtype=torch.float64)
+        Szy = torch.zeros(kd + 1, Td["proj"].shape[1], dtype=torch.float64)
+        for sl in sls:
+            y = (vitgen.norm(t[sl], Td["ln_post"]) @ Td["proj"]).flatten(0, 1)
+            z = s[sl] * torch.rsqrt((s[sl] * s[sl]).sum(-1, keepdim=True) / Wd["ln_post"]["D"] + vitgen.EPS)
+            z = torch.cat([z.flatten(0, 1), torch.ones_like(z.flatten(0, 1)[:, :1])], 1)
+            Szz += (z.T @ z).cpu().double()
+            Szy += (z.T @ y).cpu().double()
+        lam = 1e-3 * float(torch.trace(Szz)) / (kd + 1)
+        beta = torch.linalg.solve(Szz + lam * torch.eye(kd + 1, dtype=torch.float64), Szy)
+        Mo, c = beta[:kd], beta[kd]
+        b = torch.linalg.lstsq(Mo.T, c[:, None]).solution[:, 0]
+        Wd["proj"] = Mo.float().to(DEV)
+        Wd["ln_post"] = dict(g=torch.ones(kd, device=DEV), b=b.float().to(DEV), mode="rms", D=Wd["ln_post"]["D"])
     W = vitgen.to(Wd, "cpu")
     del Td, Wd, t, s
     if DEV == "mps":
@@ -143,15 +163,15 @@ def fold_mlp(T, Wfull, Wcut, X, mk, null=None):
 
 
 @torch.no_grad()
-def build(T, f, X=None, stream="rG", cx="x", heads="act", mlp="w", fold=True, seed=0):
+def build(T, f, X=None, stream="rG", cx="x", heads="act", mlp="w", fold=True, seed=0, post=False):
     X = P4._x_vit(X)
     _, hk, mk = keep_units(T, f, X, heads, mlp, seed)
     Wf = stream_part(T, f, X, stream, cx)
     W = cut_units(Wf, hk, mk)
     off = None
-    if fold:
-        W, off = fold_mlp(T, Wf, W, X, mk, null="mean" if fold == "mean" else None)
-    print(f"[r3_joint clip f={f:g}] stream={stream} cx={cx} heads={heads} mlp={mlp} fold={fold} "
+    if fold or post:
+        W, off = fold_mlp(T, Wf, W, X, mk, null="mean" if fold == "mean" else None, mlp=bool(fold), post=post)
+    print(f"[r3_joint clip f={f:g}] stream={stream} cx={cx} heads={heads} mlp={mlp} fold={fold} post={post} "
           f"G_offslice {off}", flush=True)
     return W
 

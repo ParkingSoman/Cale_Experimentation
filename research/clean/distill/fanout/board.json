@@ -6973,5 +6973,33 @@
   "note": "r2 P6: same-photo baseline, round-1 mean-only fold",
   "who": "P6",
   "quick": false
+ },
+ {
+  "net": "clip",
+  "rule": "r3_joint_c_on",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.8191599249839783,
+  "top1": 0.535,
+  "agree": 0.641,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 148.3,
+  "total_seconds": 186.2,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T16:58:50",
+  "note": "r3 JOINT: ONE CLIP calc = P6 rG stream (rho, C pink) + heads floor act + MLP weight + P4 MLP fold",
+  "who": "JOINT",
+  "quick": false
  }
 ]
