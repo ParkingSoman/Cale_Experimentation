@@ -1,0 +1,2 @@
+{"tag": "r2act", "net": "r18", "kind": "self", "K": 32, "lr": 0.05, "target": "act", "div": 0.0, "color": false, "photo_use": "none", "minutes": 2.85, "loss1": -1.0, "lossK": -3.436723977327347, "rel_change": 0.656625896692276}
+saved /Users/shonusengupta/Cale_Experimentation/research/clean/distill/fanout/cache/r18_r2act_n256_s1.pt
