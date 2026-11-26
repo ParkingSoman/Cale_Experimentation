@@ -104,7 +104,7 @@ def build(T, f, X=None, alpha=0.1, part="fold", r1=None, tag="r3tree", verbose=T
     emb = lambda Wx: torch.cat([vitgen.embed(Wx, X[sl].to(DEV).float()) for sl in sls])  # noqa: E731
     t, s = emb(Td), emb(Wd)
     g = torch.Generator().manual_seed(5)
-    stats, stats_c, stats_r, stats_h, stats_g = [], [], [], [], []
+    stats, stats_c, stats_r, stats_h, stats_g, stats_o = [], [], [], [], [], []
     for bi in range(len(T["blocks"])):
         BT, Bs = Td["blocks"][bi], Wd["blocks"][bi]
         for sl in sls:   # heads: full width, teacher weights
@@ -136,6 +136,19 @@ def build(T, f, X=None, alpha=0.1, part="fold", r1=None, tag="r3tree", verbose=T
                         nn_ += aT.shape[0]
                     rms = (rms / nn_).sqrt().clamp_min(1e-12)
                     ci = (Gc.abs() / rms[:, None]).argmax(0)
+                elif part in ("one", "oneperm"):   # LEAD 17:01: each cut unit tilts ONE kept unit (its top carrier)
+                    nrm = Gc.abs() / Gc.abs().sum(1, keepdim=True).clamp_min(1e-12)   # beta / partner's total mass
+                    jstar = nrm.argmax(1)                                              # top carrier of each cut c
+                    best = torch.full((k,), -1.0, dtype=nrm.dtype)
+                    ci = torch.zeros(k, dtype=torch.long)
+                    for c in range(len(cutc)):
+                        j = int(jstar[c])
+                        if nrm[c, j] > best[j]:
+                            best[j] = nrm[c, j]
+                            ci[j] = c
+                    one_mask = best >= 0
+                    if part == "oneperm":            # NULL: same tilted units, partners shuffled among the cut units
+                        ci[one_mask] = torch.randperm(len(cutc), generator=g)[:int(one_mask.sum())]
                 else:
                     raise ValueError(part)
                 sgn = torch.sign(Gc[ci, torch.arange(k)])
@@ -188,6 +201,9 @@ def build(T, f, X=None, alpha=0.1, part="fold", r1=None, tag="r3tree", verbose=T
                     Bs["fc_b"] = (fbT[kept] - a * (gw @ ym)).float().to(DEV)
                 else:
                     a = (alpha * sgn.double() * sdv[kept] / sdv[pc])
+                    if part in ("one", "oneperm"):
+                        a = a * one_mask.double()
+                        stats_o.append(int(one_mask.sum()))
                     Bs["fc_w"] = (fcT[kept] + a[:, None] * fcT[pc]).float().to(DEV)
                     Bs["fc_b"] = (fbT[kept] + a * (fbT[pc] - mu[pc])).float().to(DEV)
                 if renorm:   # rotate, do not grow: tilted pre-activation back to the kept unit's own mean and sd
@@ -228,6 +244,8 @@ def build(T, f, X=None, alpha=0.1, part="fold", r1=None, tag="r3tree", verbose=T
             print("  |cos| grad vs (top fold partner read, random cut read, own read) per block:",
                   " ".join(f"({a:.2f},{b:.2f},{c:.2f})" for a, b, c, _ in stats_c), flush=True)
             print("  signed cos(grad, sgn x partner read) per block:", " ".join(f"{v[3]:+.3f}" for v in stats_c))
+        if stats_o:
+            print("  tilted kept units per block:", stats_o)
         if stats_g:
             print("  renorm |sd ratio - 1| per block:", " ".join(f"{v:.3f}" for v in stats_g))
         if stats_h:
