@@ -2302,5 +2302,213 @@
   "photo_use": "test photos, scoring only",
   "when": "2026-11-26T14:18:11",
   "note": "P0 null: shuffled-weights generator"
+ },
+ {
+  "net": "clip",
+  "rule": "magsplit_mlp",
+  "f": 0.95,
+  "split": "test",
+  "input": "pink-default",
+  "kl": 0.20549584925174713,
+  "top1": 0.645,
+  "agree": 0.8370000123977661,
+  "n": 1000,
+  "params": 83352264,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 14.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:24:03",
+  "note": "weights only (no input), P5 fail line"
+ },
+ {
+  "net": "clip",
+  "rule": "magsplit_heads",
+  "f": 0.95,
+  "split": "test",
+  "input": "pink-default",
+  "kl": 0.7581634521484375,
+  "top1": 0.545,
+  "agree": 0.6710000038146973,
+  "n": 1000,
+  "params": 83831040,
+  "shape": {
+   "d": 768,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    3072
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 13.8,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:24:21",
+  "note": "weights only (no input), P5 heads twin"
+ },
+ {
+  "net": "clip",
+  "rule": "p5rank",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 1.104106068611145,
+  "top1": 0.52,
+  "agree": 0.6019999980926514,
+  "n": 1000,
+  "params": 76986300,
+  "shape": {
+   "d": 730,
+   "heads": [
+    11
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 13.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:24:39",
+  "note": "P5 round1"
+ },
+ {
+  "net": "clip",
+  "rule": "p5rank",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 8.808235168457031,
+  "top1": 0.002,
+  "agree": 0.003000000026077032,
+  "n": 1000,
+  "params": 21862656,
+  "shape": {
+   "d": 384,
+   "heads": [
+    6
+   ],
+   "mlp": [
+    1536
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 4.0,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:24:43",
+  "note": "P5 round1"
+ },
+ {
+  "net": "clip",
+  "rule": "p5rank",
+  "f": 0.25,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 10.330997467041016,
+  "top1": 0.0,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 5622912,
+  "shape": {
+   "d": 192,
+   "heads": [
+    3
+   ],
+   "mlp": [
+    768
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 1.4,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:24:44",
+  "note": "P5 round1"
+ },
+ {
+  "net": "clip",
+  "rule": "p5rank",
+  "f": 0.05,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 11.061720848083496,
+  "top1": 0.001,
+  "agree": 0.0020000000949949026,
+  "n": 1000,
+  "params": 320388,
+  "shape": {
+   "d": 38,
+   "heads": [
+    1
+   ],
+   "mlp": [
+    154
+   ]
+  },
+  "calc_seconds": 0.0,
+  "total_seconds": 0.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:24:45",
+  "note": "P5 round1"
+ },
+ {
+  "net": "clip",
+  "rule": "p5rank_mlp",
+  "f": 0.95,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 0.32334473729133606,
+  "top1": 0.606,
+  "agree": 0.8109999895095825,
+  "n": 1000,
+  "params": 83352264,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    2918
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 14.3,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:25:03",
+  "note": "P5 round1 MLP only"
+ },
+ {
+  "net": "clip",
+  "rule": "p5rank_mlp",
+  "f": 0.5,
+  "split": "test",
+  "input": "input_pink_n256_s1",
+  "kl": 8.335000991821289,
+  "top1": 0.004,
+  "agree": 0.007000000216066837,
+  "n": 1000,
+  "params": 57862656,
+  "shape": {
+   "d": 768,
+   "heads": [
+    12
+   ],
+   "mlp": [
+    1536
+   ]
+  },
+  "calc_seconds": 0.1,
+  "total_seconds": 9.6,
+  "photo_use": "test photos, scoring only",
+  "when": "2026-11-26T14:25:13",
+  "note": "P5 round1 MLP only"
  }
 ]
