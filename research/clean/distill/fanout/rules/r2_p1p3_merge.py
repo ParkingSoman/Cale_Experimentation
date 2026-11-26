@@ -170,11 +170,16 @@ def merged_reads(T, f, X, tree="r1rms", gate="or", merge=True, info=None):
         if tree == "single":                                       # row b: groups of one, deleted units dropped
             A[kept, torch.arange(len(kept))] = 1.0
         else:
-            key = ("forest", tree, bi, id(X))
+            ft = "r1rms" if tree == "perm" else tree
+            key = ("forest", ft, bi, id(X))
             if key not in _C:
-                _C[key] = _forest(T, st, bi, sc["mlp"][bi], tree)
+                _C[key] = _forest(T, st, bi, sc["mlp"][bi], ft)
             h, finfo = _C[key]
             own = _owner(h, kmask)
+            if tree == "perm":                                     # shape-kept null: same group sizes, members shuffled
+                dl = (~kmask).nonzero().flatten()
+                g = torch.Generator().manual_seed(11 + bi)
+                own[dl] = own[dl][torch.randperm(len(dl), generator=g)]
             col = torch.full((m,), -1, dtype=torch.long)
             col[kept] = torch.arange(len(kept))
             A[torch.arange(m), col[own]] = 1.0                     # member i -> column of its owner
@@ -195,9 +200,12 @@ def merged_reads(T, f, X, tree="r1rms", gate="or", merge=True, info=None):
             t, nedge = _qcol(Zh, rate, -mu[kept] / (sk * S))
             w = (sk / S)[:, None] * (A.T @ (fw / sd[:, None]))
             b = sk * ((A.T @ ((fb - mu) / sd)) / S - t)
+            one = A.sum(0) == 1                                    # groups of one: the teacher's row, exactly
+            w[one], b[one] = fw[kept][one], fb[kept][one]
         else:                                                      # gate-only: own read, threshold at the rate
             Zk = Z[:, kept]
             t, nedge = _qcol(Zk, rate, torch.zeros(len(kept)))
+            t = torch.where(A.sum(0) == 1, torch.zeros_like(t), t)
             w, b = fw[kept], fb[kept] - t
         out.append((w, b))
         if info is not None:

@@ -182,11 +182,18 @@ def build_r18(A, f, X=None, order="floor", mean="off", fold="off", sets=("stream
                         aT[:, cutc] = P4._rows(P4._inner(blT, hT[P4._roll(sl, nX).to(DEV)]))[:, cutc]
                     aS = P4._rows(P4._inner(blS, hS[sl]))[:, kd]
                     mom.add(aT, aS)
-                G, lam = P4.fold_map(mom.Sx / mom.N, mom.Ss / mom.N, kept, mom.N, "slice")
-                W2T = blT.conv2.weight                                    # (o, n, 3, 3), all rows
-                Wnew = torch.einsum("onhw,nk->okhw", W2T.cpu().double(), G).float().to(DEV)
-                blS.conv2.weight.zero_()
-                blS.conv2.weight[:, kd] = Wnew
+                if fold == "aff":                                         # affine inner fold: + a constant unit
+                    aTs = [P4._rows(P4._inner(blT, hT[sl])) for sl in sls]
+                    aSs = [P4._rows(P4._inner(blS, hS[sl]))[:, kd] for sl in sls]
+                    G, gc = _sfold_G(aTs, aSs, kept, nU)
+                    del aTs, aSs
+                    _sfold_conv(blT.conv2, blT.bn2, blS.conv2, blS.bn2, G, gc, kd)
+                else:
+                    G, lam = P4.fold_map(mom.Sx / mom.N, mom.Ss / mom.N, kept, mom.N, "slice")
+                    W2T = blT.conv2.weight                                # (o, n, 3, 3), all rows
+                    Wnew = torch.einsum("onhw,nk->okhw", W2T.cpu().double(), G).float().to(DEV)
+                    blS.conv2.weight.zero_()
+                    blS.conv2.weight[:, kd] = Wnew
                 resid.append(float((G - P4._ek(kept, nU)).norm() / max(G.norm(), 1e-30)))
                 nT, nS = [], []
                 for sl in sls:
