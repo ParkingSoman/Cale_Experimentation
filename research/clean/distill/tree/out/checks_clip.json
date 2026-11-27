@@ -1,0 +1,196 @@
+{
+ "identity": {
+  "kl": 9.398598876941833e-07,
+  "top1": 0.695,
+  "agree": 1.0,
+  "n": 200
+ },
+ "planted_copy_vs_big": {
+  "kl": 9.362835271531367e-07,
+  "top1": 0.695,
+  "agree": 1.0,
+  "n": 200
+ },
+ "planted_build": {
+  "kl": 9.417375395059935e-07,
+  "top1": 0.695,
+  "agree": 1.0,
+  "n": 200
+ },
+ "twins_per_block": {
+  "m0": 16,
+  "h0": 0,
+  "m1": 1,
+  "h1": 0,
+  "m2": 3,
+  "h2": 0,
+  "m3": 2,
+  "h3": 0,
+  "m4": 16,
+  "h4": 0,
+  "m5": 16,
+  "h5": 0,
+  "m6": 16,
+  "h6": 0,
+  "m7": 16,
+  "h7": 0,
+  "m8": 12,
+  "h8": 0,
+  "m9": 16,
+  "h9": 0,
+  "m10": 16,
+  "h10": 0,
+  "m11": 16,
+  "h11": 0
+ },
+ "groups": [
+  {
+   "block": 0,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 0,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 1,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 1,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 2,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 2,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 3,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 3,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 4,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 4,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 5,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 5,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 6,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 6,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 7,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 7,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 8,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 8,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 9,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 9,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 10,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 10,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  },
+  {
+   "block": 11,
+   "kind": "h",
+   "groups": null,
+   "max_group": 1
+  },
+  {
+   "block": 11,
+   "kind": "m",
+   "groups": 3072,
+   "max_group": 2
+  }
+ ],
+ "pass": {
+  "identity": true,
+  "planted": true
+ }
+}

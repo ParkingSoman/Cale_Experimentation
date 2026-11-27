@@ -1,0 +1,84 @@
+{
+ "identity": {
+  "kl": -3.6935350333777706e-09,
+  "top1": 0.715,
+  "agree": 1.0,
+  "n": 200
+ },
+ "planted_copy_vs_big": {
+  "kl": 3.329971853816005e-09,
+  "top1": 0.715,
+  "agree": 1.0,
+  "n": 200
+ },
+ "planted_build": {
+  "kl": -3.698953587871756e-09,
+  "top1": 0.715,
+  "agree": 1.0,
+  "n": 200
+ },
+ "twins_per_block": {
+  "m0": 3,
+  "m1": 1,
+  "m2": 2,
+  "m3": 5,
+  "m4": 2,
+  "m5": 2,
+  "m6": 6,
+  "m7": 10
+ },
+ "groups": [
+  {
+   "block": 0,
+   "kind": "m",
+   "groups": 64,
+   "max_group": 2
+  },
+  {
+   "block": 1,
+   "kind": "m",
+   "groups": 64,
+   "max_group": 2
+  },
+  {
+   "block": 2,
+   "kind": "m",
+   "groups": 128,
+   "max_group": 2
+  },
+  {
+   "block": 3,
+   "kind": "m",
+   "groups": 128,
+   "max_group": 2
+  },
+  {
+   "block": 4,
+   "kind": "m",
+   "groups": 256,
+   "max_group": 2
+  },
+  {
+   "block": 5,
+   "kind": "m",
+   "groups": 256,
+   "max_group": 2
+  },
+  {
+   "block": 6,
+   "kind": "m",
+   "groups": 512,
+   "max_group": 2
+  },
+  {
+   "block": 7,
+   "kind": "m",
+   "groups": 512,
+   "max_group": 2
+  }
+ ],
+ "pass": {
+  "identity": true,
+  "planted": true
+ }
+}

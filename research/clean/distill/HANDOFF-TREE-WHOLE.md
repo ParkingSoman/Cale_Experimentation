@@ -2,6 +2,8 @@
 
 Start here. Written 2026-11-26 late night at the end of a long session, at Shonu's request. Read this file, then `THEORY.md` section 1, then the essay passages named below. Analysis of what went wrong: `ANALYSIS-2026-11-26.md`.
 
+> **2026-11-26 late night, after Shonu approved the build plan:** the live page is `PAGE.md` and the loop ledger is `LOOPS.md`. Shonu's cut-level rule (binding): size = how high in the tree we cut. 95% coarsens near the leaves, 5% near the root. Merges go bottom up through the nearest common ancestor. Later, the capability dial = a cut line chosen per branch.
+
 ## 0. Shonu's words (unedited, 2026-11-26 night)
 
 Message 1 (start of the session):

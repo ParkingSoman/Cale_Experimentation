@@ -190,3 +190,20 @@
 22:46:07	L4	slot0	wait 2s	run 59s	exit 1	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l4_tilt_03 --f 0.85,0.7,0.5 --quick --who L4 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
 22:59:26	FIX	slot0	wait 2s	run 36s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_law --f 1 --quick --who FIX --input distill/fanout/cache/input_pink_n256_s1.pt
 23:00:32	FIX	slot0	wait 2s	run 64s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l4_tilt_015 --f 1 --quick --who FIX --input distill/fanout/cache/input_pink_n256_s1.pt
+23:21:47	TREE	slot0	wait 2s	run 3s	exit 0	curves/.venv/bin/python -I distill/tree/step0.py r18
+23:23:04	TREE	slot0	wait 2s	run 66s	exit 0	curves/.venv/bin/python -I distill/tree/step0.py clip
+23:23:49	TREE	slot0	wait 2s	run 2s	exit 0	curves/.venv/bin/python -I distill/tree/step0.py r18
+23:25:06	TREE	slot0	wait 2s	run 75s	exit 0	curves/.venv/bin/python -I distill/tree/step0.py clip
+23:26:27	TREE	slot0	wait 2s	run 5s	exit 1	curves/.venv/bin/python -I distill/tree/checks.py r18
+23:26:43	TREE	slot0	wait 2s	run 4s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py r18
+23:27:15	TREE	slot0	wait 2s	run 25s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py clip
+23:28:20	TREE	slot0	wait 2s	run 26s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py clip
+23:28:51	TREE	slot0	wait 2s	run 15s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/b898640f-c4f4-4857-9b92-579315f83214/scratchpad/dbg_plant.py
+23:29:44	TREE	slot0	wait 2s	run 26s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py clip
+23:29:50	TREE	slot0	wait 2s	run 4s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py r18
+23:30:30	TREE	slot0	wait 2s	run 26s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py clip
+23:30:36	TREE	slot0	wait 2s	run 4s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py r18
+23:31:48	TREE	long	wait 2s	run 9s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule tree_v1 --f 0.95,0.85,0.5,0.05 --input distill/fanout/cache/r18_self_n256_k32_s1.pt --who TREE --note loop1 page v1
+23:31:58	TREE	long	wait 2s	run 7s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule tree_v1_fire --f 0.95,0.85,0.5 --input distill/fanout/cache/r18_self_n256_k32_s1.pt --who TREE --note loop1 page v1 loo
+23:32:07	TREE	long	wait 2s	run 7s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule tree_v1_write --f 0.95,0.85,0.5 --input distill/fanout/cache/r18_self_n256_k32_s1.pt --who TREE --note loop1 page v1 loo
+23:32:17	TREE	long	wait 2s	run 8s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule tree_v1_rand --f 0.95,0.85,0.5 --input distill/fanout/cache/r18_self_n256_k32_s1.pt --who TREE --note loop1 page v1 loo
