@@ -33,9 +33,13 @@ Committed numbers (top-1 on 1,500 test photos; the full model gets 80.4%):
 
 Measured reruns:
 
-| Where | Device | `rescore.py` time | Result |
+| Date | Computer | `rescore.py` time | Result |
 |---|---|---|---|
-| RERUN_ROWS | | | |
+| 2026-11-27 | Mac, Apple M5 GPU (MPS), macOS 26.6, torch 2.14.0 | 6.8 min | All 12 cells and the full model match. Mean KL matches to 4 decimals |
+| 2026-11-27 | Linux, NVIDIA A16 (CUDA 13.0), torch 2.14.0+cu130, fresh clone from GitHub | 7.5 min | 11 of 12 cells match. Keep 25%, mean fill: 26.5% against 26.3% (2 photos of 1,500). Largest mean KL difference 0.0006 |
+
+The original run was on a Mac GPU. The Linux run, from clone to table, took 17 minutes: 6 for the install, 3 for the photos, 8 for the table.
+On both computers the photo hash matched the original.
 
 ## Result 2: ResNet-18 ladder (`research/clean/onecoarse/VECMATH.md`, section 7)
 
