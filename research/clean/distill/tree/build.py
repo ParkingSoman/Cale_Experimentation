@@ -155,10 +155,6 @@ def coarse_unit(Z, M, lvl, act, loo, rep):
         a = float(s.max() / strong(zh[:, None])[0])              # [L9] scale of the read itself (before the gate shift)
         c, b0 = a / s, -a * t
     zc = Zm @ c + b0
-    if loo == "write":                                         # PAGE row 'write': strongest member's own write
-        w = torch.zeros(len(M))
-        w[M.index(rep)] = 1.0
-        return c, b0, w
     fire = zc > 0
     kt = max(4, zc.numel() // 100)
     if int(fire.sum()) < kt:                                   # [L10] fires on < 1% of tokens: its top 1%
@@ -166,6 +162,10 @@ def coarse_unit(Z, M, lvl, act, loo, rep):
     den = act(zc[fire]).mean()                                 # [L10] GELU means can be negative: keep the sign
     den = den if abs(float(den)) > 1e-8 else torch.tensor(1e-8)
     w = act(Zm[fire]).mean(0) / den
+    if loo == "write":                                         # PAGE row 'write': line 10 with the strongest member's term only
+        keep = torch.zeros(len(M))
+        keep[M.index(rep)] = 1.0
+        w = w * keep
     return c, b0, w
 
 

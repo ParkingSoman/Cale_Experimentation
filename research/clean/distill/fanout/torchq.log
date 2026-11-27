@@ -207,3 +207,6 @@
 23:31:58	TREE	long	wait 2s	run 7s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule tree_v1_fire --f 0.95,0.85,0.5 --input distill/fanout/cache/r18_self_n256_k32_s1.pt --who TREE --note loop1 page v1 loo
 23:32:07	TREE	long	wait 2s	run 7s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule tree_v1_write --f 0.95,0.85,0.5 --input distill/fanout/cache/r18_self_n256_k32_s1.pt --who TREE --note loop1 page v1 loo
 23:32:17	TREE	long	wait 2s	run 8s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule tree_v1_rand --f 0.95,0.85,0.5 --input distill/fanout/cache/r18_self_n256_k32_s1.pt --who TREE --note loop1 page v1 loo
+23:34:59	TREE	slot0	wait 2s	run 18s	exit 0	curves/.venv/bin/python -I distill/tree/look.py r18 --f 0.95,0.85,0.5
+23:35:10	TREE	long	wait 2s	run 171s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule tree_v1 --f 0.95,0.85,0.5,0.25,0.05 --input distill/fanout/cache/clip_self_n256_k32_s1.pt --who TREE --note loop1 page v1
+23:35:56	TREE	slot0	wait 2s	run 12s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule tree_v1_write --f 0.95,0.85,0.5 --input distill/fanout/cache/r18_self_n256_k32_s1.pt --who TREE --note loop1 page v1 loo, write row fixed

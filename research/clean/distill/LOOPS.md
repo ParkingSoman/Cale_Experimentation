@@ -29,7 +29,7 @@ Readings:
 |---|---|---|
 | identity f = 1 (200 photos) | KL -4e-9, agree 100% PASS | KL 9.4e-7 (float floor), agree 100% PASS |
 | planted twins (3-16 per block, same read, write halved) | KL -4e-9 PASS | KL 9.4e-7 PASS |
-| critic (fresh agent, page vs code) | running | running |
+| critic (fresh agent, page vs code) | no result-changing bug. 3 unstated choices written onto the page (wording only) | same |
 
 Bugs found and fixed by the checks (page history in `PAGE.md`): RMS counted constant offsets as distinctions. Units that never fire got a threshold above every token. A GELU mean was clipped to +1e-8 (write x -1e6). The scale was measured after the gate shift. The threshold midpoint moved twins off their own zero. Each was a code bug. None changed the concept.
 
