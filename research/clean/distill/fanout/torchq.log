@@ -244,3 +244,4 @@
 00:13:22	TREE	slot0	wait 2s	run 74s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py clip v2_95:0.95 v2_85:0.85 v2_50:0.5 W85:0.85::hmW u85:0.85:union
 00:34:54	vrS	long	wait 2s	run 144s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/73d590fa-9777-4cc7-b8dc-52e482f5053c/scratchpad/vr_student_dict.py
 00:35:09	vrP	slot0	wait 2s	run 7s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/73d590fa-9777-4cc7-b8dc-52e482f5053c/scratchpad/vr_parent.py
+00:48:57	vrV	slot0	wait 2s	run 48s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/73d590fa-9777-4cc7-b8dc-52e482f5053c/scratchpad/vr_verbs.py
