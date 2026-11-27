@@ -37,7 +37,15 @@ theory page (whole network, every part coarse) -> simplest build, both networks
 - Calculation input: weights + generic input (`fanout/cache/input_pink_n256_s1.pt`, `fanout/cache/*_self_n256_k32_s1.pt`). Photos: scoring only.
 - Trained students (`../neuron/results/coarse/r18/distill_whole/`, `clipkd/weights/`): answer key only, never a build input.
 - Torch on the Mac only through `fanout/torchq.py`. GPU cluster jobs only with Shonu's yes.
-- A claim needs: a prediction written first, an off row, a same-form null, the 1,000 test row and the 800-unseen read (`fanout/r3_critic_holdout.py`).
+- A CLAIM row needs: a prediction written first, an off row, a same-form null, the 1,000 test row and the 800-unseen read (`fanout/r3_critic_holdout.py`). Iterate rows do not: ResNet full 1,000 and CLIP quick 200 are enough to decide the next loop.
+
+## Speed (Shonu, 2026-11-26: "we're just spending so much damn time focusing on the damn runs")
+
+| Do | Do not |
+|---|---|
+| All rows of a loop in ONE `tree/fast.py` call (stats once). ResNet about 2 s a row, CLIP 10-15 s a row after 70 s stats | A serial background batch of separate processes, each paying the stats again |
+| Read each row as it lands, then think about the tree | Wait on a batch, or watch a queue |
+| A loop in minutes. Most of the time on the look and the concept | A critic agent, a 20-row ledger or a heartbeat inside each loop |
 
 ## Files
 

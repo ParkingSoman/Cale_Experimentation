@@ -4,6 +4,8 @@ Start here. Written 2026-11-26 late night at the end of a long session, at Shonu
 
 > **2026-11-26 late night, after Shonu approved the build plan:** the live page is `PAGE.md` and the loop ledger is `LOOPS.md`. Shonu's cut-level rule (binding): size = how high in the tree we cut. 95% coarsens near the leaves, 5% near the root. Merges go bottom up through the nearest common ancestor. Later, the capability dial = a cut line chosen per branch.
 
+> **2026-11-27 (loops 1-5, `LOOPS.md`):** best build = page v2 (strongest member kept + branch write, partner by write as read downstream `W`). CLIP 95 / 85%: 79.0 / 47.5% agree (quick 200; full 1,000 v2: 77.4 / 41.6). ResNet 85%: 43.9%. 50% at chance on both. v2 is tree-chosen pruning, not yet a coarse node. Open fork for Shonu: the coarse node's read = the union of the children, or the parent's distinction (THEORY section 1 says both). Runner: `tree/fast.py` (stats cached in `tree/out/cache_*.pt`, git-ignored, about 1.3 GB for CLIP).
+
 ## 0. Shonu's words (unedited, 2026-11-26 night)
 
 Message 1 (start of the session):
@@ -42,7 +44,7 @@ Message 5 (on mixed-up tracks):
 | Whole, not parts | A part is never judged alone in a fine network. Parts are judged by leave-one-out rows INSIDE the whole build |
 | One page | No mechanism enters unless it is a line of the theory page |
 | Essay | Every loop starts with one essay passage, read in full (`../curves/map_agents/essay.md`) |
-| Speed | One loop = one build on both networks + one look, about 30-45 minutes. Keep going loop after loop. Report the page diff, not knobs |
+| Speed (2026-11-26, replaces "30-45 min") | A loop takes MINUTES. Iterate rows: ResNet on the full 1,000 (about 2 s a row) and CLIP on the quick 200, all rows in ONE `tree/fast.py` process (CLIP statistics 70 s once). Claim rows (CLIP 1,000 + 800 unseen) run once per loop, at the decision. No serial background batch, no critic agent per loop, never wait on runs. Most of the time goes to the look and the concept. Report the page diff, not knobs |
 | Track | Only THEORY.md section 1 and Shonu's words since 2026-11-25 bind. Older-track notes (onecoarse morph, VECMATH, N1-N11) are history. A conflict = one line to Shonu, never a silent merge |
 | Boundary | Weights + generic input only (pink, or `fanout/cache/*_self_n256_k32_s1.pt`). Trained students = answer key, never a build input. Photos = scoring only |
 

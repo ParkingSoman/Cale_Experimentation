@@ -1,0 +1,108 @@
+{
+ "net": "clip",
+ "rule": "tree_v1",
+ "photo_use": "reading only (test photos)",
+ "sizes": [
+  {
+   "f": 0.85,
+   "blocks": [
+    {
+     "block": 0,
+     "stream_err": 0.1245,
+     "mlp_rate_big": 0.076,
+     "mlp_rate_built": 0.079,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 1,
+     "stream_err": 0.3243,
+     "mlp_rate_big": 0.119,
+     "mlp_rate_built": 0.13,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 2,
+     "stream_err": 0.4764,
+     "mlp_rate_big": 0.127,
+     "mlp_rate_built": 0.125,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 3,
+     "stream_err": 0.6541,
+     "mlp_rate_big": 0.147,
+     "mlp_rate_built": 0.152,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 4,
+     "stream_err": 0.7418,
+     "mlp_rate_big": 0.163,
+     "mlp_rate_built": 0.172,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 5,
+     "stream_err": 0.762,
+     "mlp_rate_big": 0.133,
+     "mlp_rate_built": 0.141,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 6,
+     "stream_err": 0.7705,
+     "mlp_rate_big": 0.099,
+     "mlp_rate_built": 0.1,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 7,
+     "stream_err": 0.7835,
+     "mlp_rate_big": 0.078,
+     "mlp_rate_built": 0.078,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 8,
+     "stream_err": 0.7982,
+     "mlp_rate_big": 0.048,
+     "mlp_rate_built": 0.039,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 9,
+     "stream_err": 0.8144,
+     "mlp_rate_big": 0.046,
+     "mlp_rate_built": 0.036,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 10,
+     "stream_err": 0.8305,
+     "mlp_rate_big": 0.054,
+     "mlp_rate_built": 0.038,
+     "mlp_n": 2611,
+     "heads": 10
+    },
+    {
+     "block": 11,
+     "stream_err": 0.7363,
+     "mlp_rate_big": 0.094,
+     "mlp_rate_built": 0.087,
+     "mlp_n": 2611,
+     "heads": 10
+    }
+   ]
+  }
+ ]
+}

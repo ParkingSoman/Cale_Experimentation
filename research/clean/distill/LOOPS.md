@@ -49,3 +49,45 @@ Page diff: none (first build). Stream full width, so the rows are NOT true 95/50
 | 25% / 5% | chance | chance | chance |
 
 Leave-one-out at 85%: `rand` (random groups, same sizes) loses more than 5 agree points to the tree on both networks, if the tree matters. `write` (strongest member's write only) loses to the tree. `fire` (strongest member's own read and gate) is the closest rival; it may tie.
+
+### Loop 1 result (2026-11-27, after four code fixes; all on the current code)
+
+Code fixes before reading (page history in `PAGE.md`): read weight floor, write on the top 1%, all-firing union, write clipped to [0, 1]. The last one: a single nearly silent pair in CLIP block 1 (928+1524) had write weights 181 and 215 and alone sent CLIP to chance (found by bisection). Identity and planted checks pass on both networks after each fix.
+
+| Row (agree) | ResNet 95 / 85 / 50% (1,000) | CLIP 95 / 85% (1,000) |
+|---|---|---|
+| tree v1 (union firing) | 73.6 / 34.7 / 0.3 | 71.1 / 14.9 |
+| `fire` (strongest member's read and gate) | 74.7 / 41.6 / 0.2 | **77.4 / 41.6** |
+| `rand` (same-form null) | - / 8.7 / - | - / 0.9 |
+| old best calculated | 42.7 floor / 32.6 / chance | 71.4 / 21.0 |
+
+Look: the union read IS realized (overlap: coarse rate = union rate; 85-99% of members' strong firings caught, ResNet). It still loses. At 50%, the built network fires 2x as broadly as the trained student (s4b0 .49 vs .24), and the stream drift makes nodes fire more broadly than designed (.31 designed).
+800 unseen: CLIP fire vs union at 85%: 218 vs 6 photos, McNemar z +14.2. ResNet v2 vs union: z +3.0.
+Prediction check: 95% and 85% beat the predicted ranges on CLIP; 50% at chance (predicted 2-15%: missed).
+
+## Loop 2 (page v2): the coarse node fires as its strongest member
+
+Essay 251: a crushed layer stays interpretable and coarser, "one curves & loops neuron", not superposition.
+Page diff: line 7 = the branch's strongest member's own read and gate (v1 union is now row `union`).
+Tests rejected on the way: `zero` (union read, no gate shift): far too narrow, write blow-up, KL 5e5. Ancestor-rate law (fire at the common ancestor's rate): predicted rates barely move (.29 vs .31), not built.
+
+| Row (ResNet, 1,000) | 95% | 85% | 50% | 25% | 5% |
+|---|---|---|---|---|---|
+| v2 | 74.7 | **41.6** | 0.2 | 0.0 | 0.0 |
+| `union` / `write` / `rand` | | 34.7 / 35.8 / 22.2 | | | |
+
+Look at 50%: v2 fires too narrowly (s4b0 .14; trained .24; union .49). Each block alone at 50% costs a lot (agree .46-.74, KL .43-1.71); three coarse blocks reach 5% agree. Tree beats `rand` per block only in s2b0 and s3b1.
+Decision: keep v2 as the best build so far. v2 = strongest member kept + branch write, so it is tree-chosen pruning, not yet a coarse node. The union is not refuted on CLIP (read realized only in part). 50% fails for a reason that every block shares. Next: loop 3 tests Shonu's cut rule as stated (one level for every layer), which page line 5 did not follow (it cut every block to the same fraction).
+
+## Loops 3-5 (2026-11-27): three tree lines tested on ResNet, page v2 kept
+
+Essay 223-241, read in full after these runs: siblings sit on each other's negative poles (taxi vs ambulance); the small model "ends early", its last neuron at the parent's distinction (cars, trains, carts vs boats, planes).
+
+| Loop | Page line tested | Agree 95 / 85 / 50% (ResNet, 1,000) | Reading |
+|---|---|---|---|
+| v2 (reference) | | 74.7 / 41.6 / 0.2 | |
+| 3 `L` | line 5: ONE cut level for every block (Shonu's rule), the size budget over the whole network | 75.3 / 41.0 / 0.3 | neutral. At 50% the level is still 1 everywhere. At 5% it reaches the roots (level 9) |
+| 4 `P` | line 4: a node's parent = the coarse node that holds its main parent (tree read front to back on the coarse network) | 74.7 / 40.7 / 0.3 | neutral |
+| 5 `W` | line 6: merge into the sibling whose WRITE, as the next readers read it, is closest (was: closest read) | 74.4 / **43.9** / 0.1 | +2.3 at 85%. 50% unchanged |
+
+Reading: on v2, loops 3-5 only change WHICH node of each group is kept, so they test pruning choices, not the tree (habit H3). No prediction was written before these runs. All leave 50% at chance. One coarse block alone at 50% already costs KL .4-1.7. The loss lies in what a single coarse node can carry: one read and one write per branch. None of these lines changes that.

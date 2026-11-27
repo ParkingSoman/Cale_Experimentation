@@ -28,10 +28,11 @@ torch.set_grad_enabled(False)
 
 # ================================================================== generic: tree, cut, coarse node
 def strong(z):
-    """[L7] strong-firing level: mean of the top 1% (fallback: std when that is not positive). z: (N, m)."""
+    """[L7] strong-firing level: mean of the top 1%, never below the unit's spread (std). z: (N, m).
+    A member that almost never fires has a top-1% mean near 0; dividing by it gave read weights up to 1,820 (CLIP)."""
     k = max(1, z.shape[0] // 100)
     top = z.topk(k, dim=0).values.mean(0)
-    return torch.where(top > 1e-6, top, z.std(0).clamp_min(1e-6))
+    return torch.maximum(top, z.std(0).clamp_min(1e-6))
 
 
 def chains(parent, ids):
@@ -132,8 +133,10 @@ def _thresh(zh, rate):
     N = zh.numel()
     s = zh.sort(descending=True).values
     c = int(round(float(rate) * N))
-    if c <= 0 or c >= N:
+    if c <= 0:                                                 # never fires in the union: keep the sum's own zero
         return 0.0
+    if c >= N:                                                 # union fires everywhere: fire on every token (t=0 here left
+        return float(s[-1]) - 1e-3 * max(1.0, abs(float(s[-1])))  # big 5% groups silent, write weights up to 7e8)
     lo, hi = float(s[c]), float(s[c - 1])                     # any t in [lo, hi) gives the rate: take the one nearest 0
     return min(max(0.0, lo), hi - 1e-7 * max(1.0, abs(hi)))
 
@@ -143,7 +146,7 @@ def coarse_unit(Z, M, lvl, act, loo, rep):
     Returns (read coefficients c (|M|,), bias shift b0, write coefficients w (|M|,)):
       coarse pre-activation = sum_i c_i z_i + b0      coarse write = sum_i w_i write_i."""
     Zm = Z[:, M]
-    if loo == "fire":                                          # PAGE row 'fire': strongest member's own read and gate
+    if loo not in ("union", "zero"):                           # PAGE v2 line 7: the strongest member's own read and gate
         c = torch.zeros(len(M))
         c[M.index(rep)] = 1.0
         b0 = 0.0
@@ -151,22 +154,60 @@ def coarse_unit(Z, M, lvl, act, loo, rep):
         s = lvl[M]
         zh = Zm @ (1.0 / s)
         rate = (Zm > 0).any(1).float().mean()                    # [L8] union rate
-        t = _thresh(zh, rate)
+        t = 0.0 if loo == "zero" else _thresh(zh, rate)          # page test 'zero': no gate shift (the sum's own zero)
         a = float(s.max() / strong(zh[:, None])[0])              # [L9] scale of the read itself (before the gate shift)
         c, b0 = a / s, -a * t
     zc = Zm @ c + b0
-    fire = zc > 0
     kt = max(4, zc.numel() // 100)
-    if int(fire.sum()) < kt:                                   # [L10] fires on < 1% of tokens: its top 1%
-        fire = zc >= zc.topk(kt).values[-1]
-    den = act(zc[fire]).mean()                                 # [L10] GELU means can be negative: keep the sign
+    fire = zc >= zc.topk(kt).values[-1]                        # [L10] the coarse node's strong firings: its top 1% (as L7)
+    den = act(zc[fire]).mean()                                 # all tokens with zc > 0 let weak firings set den ~ 0 (w up to 1e4)
     den = den if abs(float(den)) > 1e-8 else torch.tensor(1e-8)
-    w = act(Zm[fire]).mean(0) / den
+    w = (act(Zm[fire]).mean(0) / den).clamp(0.0, 1.0)         # [L10] a member's term never exceeds its own message:
+    # when the read works, E[a_i | coarse fires] <= E[a_c | fires]. Nearly silent GELU pairs (CLIP 1:928+1524, rates .1-.2%)
+    # gave ratios of two tiny negative means = 181 and 215, which alone sent CLIP to chance.
     if loo == "write":                                         # PAGE row 'write': line 10 with the strongest member's term only
         keep = torch.zeros(len(M))
         keep[M.index(rep)] = 1.0
         w = w * keep
     return c, b0, w
+
+
+WRITE_PARTNER = False   # PAGE test 'W' (line 6): merge into the sibling whose write, as the next readers read it, is closest
+COARSE_PARENT = False   # PAGE test 'P' (line 4): a node's parent = the coarse node that holds its main parent (front to back)
+
+
+def _coarse_chains(ch, ids, gmap):
+    """chains with every ancestor replaced by the coarse node (group key) that holds it, if its block is already cut."""
+    return {g: [gmap.get(a, a) for a in ch[g]] for g in ids}
+
+
+def _record(gmap, ids, grp, key):
+    for gi, M in enumerate(grp):
+        for j in M:
+            gmap[ids[j]] = (key, gi)
+
+
+def level_ks(tr, units, f):
+    """[L5 test 'L', Shonu's cut rule] ONE cut level for every block. units: list of (kind, b). Returns ks {(kind, b): k}.
+    Smallest level L where the whole network fits f x (all nodes); the last level merges part of the way in every
+    block, in proportion to the merges that level offers there."""
+    ch = chains(tr["parent"], [g for g in range(len(tr["names"])) if tr["names"][g][0] != "e"])
+    ids = {u: [tr["gid"][(u[0], u[1], i)] for i in range(tr["strength"][u].numel())] for u in units}
+    N = sum(len(v) for v in ids.values()); K = max(len(units), round(f * N))
+    maxL = max(len(c) for c in ch.values()) + 1
+    cnt = lambda L: {u: (len(ids[u]) if L == 0 else len(_partition(ids[u], ch, L if L <= maxL else None))) for u in units}  # noqa: E731
+    prev, L = cnt(0), 1
+    while True:
+        cur = cnt(L)
+        if sum(cur.values()) <= K or L > maxL:
+            break
+        prev, L = cur, L + 1
+    need = sum(prev.values()) - K
+    room = {u: prev[u] - cur[u] for u in units}
+    tot = max(1, sum(room.values()))
+    ks = {u: prev[u] - int(round(need * room[u] / tot)) for u in units}
+    ks = {u: max(cur[u], min(prev[u], k)) for u, k in ks.items()}
+    return ks, L
 
 
 # ================================================================== CLIP adapter
@@ -296,7 +337,7 @@ def clip_tree(T, st):
             parent[gid[("m", b, i)]] = p[i]
             clarity[gid[("m", b, i)]] = float(cl[i])
     # [L6] strength = RMS x size of the write as the next readers read it
-    stren, reads = {}, {}
+    stren, reads, wreads = {}, {}, {}
     for b in range(nb):
         B = T["blocks"][b]
         Rm = B["fc_w"].float() * B["ln2"]["g"].float()[None]                # block b MLP reads (read the heads of b)
@@ -309,13 +350,18 @@ def clip_tree(T, st):
         stren[("m", b)] = (Rn @ Wmlp[b]).norm(dim=0)
         reads[("h", b)] = (B["v_w"].float() * B["ln1"]["g"].float()[None]).view(H, -1)
         reads[("m", b)] = Rm
-    return dict(gid=gid, names=names, parent=parent, clarity=clarity, strength=stren, reads=reads, H=H, nb=nb)
+        # [L6 test 'W'] each node's write AS THE NEXT READERS READ IT (random 256-dim view, cosines kept to ~.06)
+        Pm = torch.randn(256, Rn.shape[0], generator=torch.Generator().manual_seed(b)) / 16.0
+        Ph = torch.randn(256, Rm.shape[0], generator=torch.Generator().manual_seed(100 + b)) / 16.0
+        wreads[("m", b)] = (Pm @ (Rn @ Wmlp[b])).T.contiguous()
+        wreads[("h", b)] = torch.stack([(Ph @ (Rm @ O)).flatten() for O in Ohead[b]])
+    return dict(gid=gid, names=names, parent=parent, clarity=clarity, strength=stren, reads=reads, wreads=wreads, H=H, nb=nb)
 
 
 def clip_groups(T, tr, f, loo=None, seed=11, ks=None):
     _, Hk, Mk = vitgen.sizes(f, T)
     ch = chains(tr["parent"], [g for g in range(len(tr["names"])) if tr["names"][g][0] != "e"])
-    out, infos = [], []
+    out, infos, gmap = [], [], {}
     for b in range(tr["nb"]):
         res = {}
         for kind, k in (("h", Hk), ("m", Mk)):
@@ -324,7 +370,9 @@ def clip_groups(T, tr, f, loo=None, seed=11, ks=None):
                 k = ks[(kind, b)]
             ids = [tr["gid"][(kind, b, i)] for i in range(n)]
             rng = torch.Generator().manual_seed(seed + b) if loo == "rand" else None
-            grp, info = cut(ids, {g: ch[g] for g in ids}, k, tr["strength"][(kind, b)], tr["reads"][(kind, b)], rng)
+            chb = _coarse_chains(ch, ids, gmap) if COARSE_PARENT else {g: ch[g] for g in ids}
+            grp, info = cut(ids, chb, k, tr["strength"][(kind, b)], tr["wreads" if WRITE_PARTNER else "reads"][(kind, b)], rng)
+            _record(gmap, ids, grp, ("G", kind, b))
             res[kind] = grp
             infos.append(dict(block=b, kind=kind, **info))
         out.append(res)
@@ -462,7 +510,7 @@ def r18_tree(A, st):
         return Wc
 
     root = torch.diag(st["stem"])
-    stren, reads = {}, {}
+    stren, reads, wreads = {}, {}, {}
     for b, blk in enumerate(blks):
         sc1, _ = _bn_affine(blk.bn1)
         R = blk.conv1.weight.float().sum((2, 3)) * sc1[:, None]                                # (k, Cin)
@@ -484,19 +532,22 @@ def r18_tree(A, st):
             Rn = A.fc.weight.float()
         stren[("m", b)] = (Rn @ wr[b]).norm(dim=0)
         reads[("m", b)] = (blk.conv1.weight.float() * sc1[:, None, None, None]).flatten(1)
-    return dict(gid=gid, names=names, parent=parent, clarity=clarity, strength=stren, reads=reads, nb=len(blks))
+        wreads[("m", b)] = (Rn @ wr[b]).T.contiguous()                     # [L6 test 'W'] write as the next readers read it
+    return dict(gid=gid, names=names, parent=parent, clarity=clarity, strength=stren, reads=reads, wreads=wreads, nb=len(blks))
 
 
 def r18_groups(A, tr, f, loo=None, seed=11, ks=None):
     blks = r18_blocks(A)
     ch = chains(tr["parent"], [g for g in range(len(tr["names"])) if tr["names"][g][0] != "e"])
-    out, infos = [], []
+    out, infos, gmap = [], [], {}
     for b, blk in enumerate(blks):
         n = blk.conv1.out_channels
         k = max(1, round(f * n)) if ks is None else ks[("m", b)]
         ids = [tr["gid"][("m", b, i)] for i in range(n)]
         rng = torch.Generator().manual_seed(seed + b) if loo == "rand" else None
-        grp, info = cut(ids, {g: ch[g] for g in ids}, k, tr["strength"][("m", b)], tr["reads"][("m", b)], rng)
+        chb = _coarse_chains(ch, ids, gmap) if COARSE_PARENT else {g: ch[g] for g in ids}
+        grp, info = cut(ids, chb, k, tr["strength"][("m", b)], tr["wreads" if WRITE_PARTNER else "reads"][("m", b)], rng)
+        _record(gmap, ids, grp, ("G", "m", b))
         out.append(grp)
         infos.append(dict(block=b, kind="m", **info))
     return out, infos

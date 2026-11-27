@@ -1,0 +1,299 @@
+{
+ "net": "r18",
+ "rule": "tree_v1",
+ "photo_use": "reading only (test photos)",
+ "sizes": [
+  {
+   "f": 0.85,
+   "blocks": [
+    {
+     "block": "s1b0",
+     "stream_err": 0.1201,
+     "rate_A": 0.583,
+     "rate_built": 0.609,
+     "n_built": 54
+    },
+    {
+     "block": "s1b1",
+     "stream_err": 0.1857,
+     "rate_A": 0.459,
+     "rate_built": 0.491,
+     "n_built": 54
+    },
+    {
+     "block": "s2b0",
+     "stream_err": 0.3679,
+     "rate_A": 0.409,
+     "rate_built": 0.4,
+     "n_built": 109
+    },
+    {
+     "block": "s2b1",
+     "stream_err": 0.3977,
+     "rate_A": 0.25,
+     "rate_built": 0.239,
+     "n_built": 109
+    },
+    {
+     "block": "s3b0",
+     "stream_err": 0.4834,
+     "rate_A": 0.353,
+     "rate_built": 0.342,
+     "n_built": 218
+    },
+    {
+     "block": "s3b1",
+     "stream_err": 0.5517,
+     "rate_A": 0.2,
+     "rate_built": 0.209,
+     "n_built": 218
+    },
+    {
+     "block": "s4b0",
+     "stream_err": 0.7068,
+     "rate_A": 0.189,
+     "rate_built": 0.201,
+     "n_built": 435
+    },
+    {
+     "block": "s4b1",
+     "stream_err": 0.7235,
+     "rate_A": 0.197,
+     "rate_built": 0.201,
+     "n_built": 435
+    }
+   ],
+   "named_s3_69": [
+    {
+     "child": 305,
+     "main_parent": "m4:94",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 97,
+     "main_parent": "m4:100",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 23,
+     "main_parent": "m4:2",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 163,
+     "main_parent": "m4:69",
+     "group_size": 2,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": 1.0
+    },
+    {
+     "child": 385,
+     "main_parent": "m4:100",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 297,
+     "main_parent": "m4:175",
+     "group_size": 2,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": 1.0
+    },
+    {
+     "child": 464,
+     "main_parent": "m5:41",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 237,
+     "main_parent": "m4:181",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 108,
+     "main_parent": "m4:35",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 510,
+     "main_parent": "m4:219",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 275,
+     "main_parent": "m4:52",
+     "group_size": 2,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": 1.0
+    }
+   ]
+  },
+  {
+   "f": 0.5,
+   "blocks": [
+    {
+     "block": "s1b0",
+     "stream_err": 0.3008,
+     "rate_A": 0.583,
+     "rate_built": 0.653,
+     "n_built": 32,
+     "rate_R_student": 0.605
+    },
+    {
+     "block": "s1b1",
+     "stream_err": 0.4323,
+     "rate_A": 0.459,
+     "rate_built": 0.502,
+     "n_built": 32,
+     "rate_R_student": 0.518
+    },
+    {
+     "block": "s2b0",
+     "stream_err": 0.7429,
+     "rate_A": 0.409,
+     "rate_built": 0.405,
+     "n_built": 64,
+     "rate_R_student": 0.449
+    },
+    {
+     "block": "s2b1",
+     "stream_err": 0.7859,
+     "rate_A": 0.25,
+     "rate_built": 0.237,
+     "n_built": 64,
+     "rate_R_student": 0.37
+    },
+    {
+     "block": "s3b0",
+     "stream_err": 0.8431,
+     "rate_A": 0.353,
+     "rate_built": 0.253,
+     "n_built": 128,
+     "rate_R_student": 0.379
+    },
+    {
+     "block": "s3b1",
+     "stream_err": 0.9337,
+     "rate_A": 0.2,
+     "rate_built": 0.224,
+     "n_built": 128,
+     "rate_R_student": 0.305
+    },
+    {
+     "block": "s4b0",
+     "stream_err": 1.0626,
+     "rate_A": 0.189,
+     "rate_built": 0.138,
+     "n_built": 256,
+     "rate_R_student": 0.241
+    },
+    {
+     "block": "s4b1",
+     "stream_err": 0.9592,
+     "rate_A": 0.197,
+     "rate_built": 0.187,
+     "n_built": 256,
+     "rate_R_student": 0.271
+    }
+   ],
+   "named_s3_69": [
+    {
+     "child": 305,
+     "main_parent": "m4:94",
+     "group_size": 2,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": 0.3
+    },
+    {
+     "child": 97,
+     "main_parent": "m4:100",
+     "group_size": 2,
+     "siblings_in_group": [
+      385
+     ],
+     "coarse_fires_on_child_top1pct_photos": 1.0
+    },
+    {
+     "child": 23,
+     "main_parent": "m4:2",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 163,
+     "main_parent": "m4:69",
+     "group_size": 2,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": 0.9
+    },
+    {
+     "child": 385,
+     "main_parent": "m4:100",
+     "group_size": 2,
+     "siblings_in_group": [
+      97
+     ],
+     "coarse_fires_on_child_top1pct_photos": 1.0
+    },
+    {
+     "child": 297,
+     "main_parent": "m4:175",
+     "group_size": 2,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": 0.9
+    },
+    {
+     "child": 464,
+     "main_parent": "m5:41",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 237,
+     "main_parent": "m4:181",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 108,
+     "main_parent": "m4:35",
+     "group_size": 2,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": 0.1
+    },
+    {
+     "child": 510,
+     "main_parent": "m4:219",
+     "group_size": 1,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": null
+    },
+    {
+     "child": 275,
+     "main_parent": "m4:52",
+     "group_size": 3,
+     "siblings_in_group": [],
+     "coarse_fires_on_child_top1pct_photos": 0.8
+    }
+   ]
+  }
+ ]
+}

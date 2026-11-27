@@ -210,3 +210,35 @@
 23:34:59	TREE	slot0	wait 2s	run 18s	exit 0	curves/.venv/bin/python -I distill/tree/look.py r18 --f 0.95,0.85,0.5
 23:35:10	TREE	long	wait 2s	run 171s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule tree_v1 --f 0.95,0.85,0.5,0.25,0.05 --input distill/fanout/cache/clip_self_n256_k32_s1.pt --who TREE --note loop1 page v1
 23:35:56	TREE	slot0	wait 2s	run 12s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule tree_v1_write --f 0.95,0.85,0.5 --input distill/fanout/cache/r18_self_n256_k32_s1.pt --who TREE --note loop1 page v1 loo, write row fixed
+23:37:11	TREE	long	wait 2s	run 119s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule tree_v1_fire --f 0.95,0.85,0.5 --input distill/fanout/cache/clip_self_n256_k32_s1.pt --who TREE --note loop1 page v1 loo
+23:39:47	TREE	slot0	wait 2s	run 52s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py clip both:0.95 heads:0.95::h mlp:0.95::m mlpfire:0.95:fire:m
+23:40:16	TREE	slot0	wait 2s	run 12s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/b898640f-c4f4-4857-9b92-579315f83214/scratchpad/dbg_w.py
+23:47:01	TREE	slot0	wait 2s	run 24s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py r18 t95:0.95 t85:0.85 t50:0.5 t05:0.05 f95:0.95:fire f85:0.85:fire f50:0.5:fire w95:0.95:write w85:0.85:write w50:0.5:write r95:0.95:rand r85:0.85:rand r50:0.5:rand
+23:47:57	TREE	slot0	wait 2s	run 13s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/7098d9dc-81b7-41fe-b03c-3b1229565a9c/scratchpad/dbg_clip.py
+23:49:10	TREE	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py r18
+23:49:34	TREE	slot0	wait 2s	run 13s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py r18 t95:0.95 t85:0.85 t50:0.5 t05:0.05 f85:0.85:fire f50:0.5:fire r85:0.85:rand ov:0.85 ov:0.5
+23:50:02	TREE	slot1	wait 4s	run 2s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/7098d9dc-81b7-41fe-b03c-3b1229565a9c/scratchpad/dbg_r18.py
+23:50:24	TREE	slot0	wait 2s	run 25s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py clip
+23:50:32	TREE	slot1	wait 2s	run 7s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py r18
+23:50:44	TREE	slot1	wait 2s	run 11s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py r18 t95:0.95 t85:0.85 t50:0.5 t25:0.25 t05:0.05
+23:51:00	TREE	slot1	wait 2s	run 13s	exit 0	curves/.venv/bin/python -I distill/tree/look.py r18 --f 0.85,0.5,0.05
+23:51:52	TREE	slot1	wait 2s	run 10s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py r18 z95:0.95:zero z85:0.85:zero z50:0.5:zero z25:0.25:zero z05:0.05:zero ov:0.5:zero ov:0.05:zero
+23:53:03	TREE	slot1	wait 2s	run 2s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/7098d9dc-81b7-41fe-b03c-3b1229565a9c/scratchpad/anc_rate.py
+23:53:22	TREE	slot0	wait 4s	run 175s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py clip t95:0.95 t85:0.85 t50:0.5 t25:0.25 f85:0.85:fire r85:0.85:rand h95:0.95::h m95:0.95::m ov:0.85 ov:0.5
+23:55:26	TREE	slot0	wait 2s	run 105s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/7098d9dc-81b7-41fe-b03c-3b1229565a9c/scratchpad/clip_block.py
+23:55:50	TREE	slot0	wait 2s	run 3s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/7098d9dc-81b7-41fe-b03c-3b1229565a9c/scratchpad/clip_big.py
+23:57:24	TREE	slot0	wait 2s	run 68s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/7098d9dc-81b7-41fe-b03c-3b1229565a9c/scratchpad/clip_bisect.py 1
+23:58:02	TREE	slot0	wait 2s	run 4s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py r18
+23:58:16	TREE	slot0	wait 2s	run 12s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py r18 t95:0.95 t85:0.85 t50:0.5 t25:0.25 t05:0.05 f85:0.85:fire r85:0.85:rand
+23:58:49	TREE	slot0	wait 2s	run 25s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py clip
+00:00:25	TREE	slot0	wait 2s	run 94s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py clip t95:0.95 t85:0.85 t50:0.5 m95:0.95::m f85:0.85:fire w85:0.85:write r85:0.85:rand
+00:02:38	TREE	slot0	wait 2s	run 101s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py clip --full L1t85:0.85 L1f85:0.85:fire L1r85:0.85:rand L1t95:0.95 L1f95:0.95:fire
+00:03:18	TREE	slot0	wait 2s	run 4s	exit 0	curves/.venv/bin/python -I distill/tree/checks.py r18
+00:03:33	TREE	slot0	wait 2s	run 13s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py r18 v2_95:0.95 v2_85:0.85 v2_50:0.5 v2_25:0.25 v2_05:0.05 v2u85:0.85:union v2r85:0.85:rand v2w85:0.85:write
+00:03:52	TREE	slot0	wait 2s	run 10s	exit 0	curves/.venv/bin/python -I distill/tree/look.py r18 --f 0.85,0.5
+00:05:10	TREE	slot0	wait 2s	run 37s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/7098d9dc-81b7-41fe-b03c-3b1229565a9c/scratchpad/r18_local.py
+00:06:35	TREE	slot0	wait 2s	run 11s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py r18 L95:0.95::L L85:0.85::L L50:0.5::L L25:0.25::L L05:0.05::L Lr85:0.85:rand:L Lr50:0.5:rand:L
+00:07:27	TREE	slot0	wait 2s	run 11s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py r18 P95:0.95::P P85:0.85::P P50:0.5::P P25:0.25::P P05:0.05::P PL50:0.5::PL Pr85:0.85:rand:P
+00:08:26	TREE	slot0	wait 2s	run 10s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py r18 W95:0.95::W W85:0.85::W W50:0.5::W W25:0.25::W W05:0.05::W WP50:0.5::WP
+00:11:30	TREE	slot0	wait 2s	run 23s	exit 0	curves/.venv/bin/python -I distill/tree/look.py clip --f 0.85
+00:13:22	TREE	slot0	wait 2s	run 74s	exit 0	curves/.venv/bin/python -I distill/tree/fast.py clip v2_95:0.95 v2_85:0.85 v2_50:0.5 W85:0.85::hmW u85:0.85:union
