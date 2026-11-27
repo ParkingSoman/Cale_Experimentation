@@ -1,0 +1,44 @@
+W5R_s0_x4: photos per class train 28.0, held 2.0, test 5.0
+28000 train photos in 21s (16000 from JPEG at 256, 12000 from the 224 centre crop scaled to 256), device cuda
+A on the new test set (centre crops): top-1 0.6870
+student f=0.05 start R: widths (3, 6, 13, 26), neurons 240, weights 56372; held KL at start 23.6039
+  W5R_s0_x4 lr 0.003 step 300/300 loss 5.2738 held KL 5.5531 16s (4658 photos/s)
+  W5R_s0_x4 lr 0.01 step 300/300 loss 5.2322 held KL 5.5237 16s (4658 photos/s)
+  W5R_s0_x4 lr 0.03 step 300/300 loss 5.1744 held KL 5.4555 16s (4658 photos/s)
+sweep W5R_s0_x4 lr 0.003: held KL 5.5531
+sweep W5R_s0_x4 lr 0.01: held KL 5.5237
+sweep W5R_s0_x4 lr 0.03: held KL 5.4555
+main run: 131248 steps of 256 = 1200.0 epochs of 28000 photos (wanted 131248 steps; 420.0 min at 0.055 s/step allows 454358)
+main run W5R_s0_x4: lr 0.03
+  W5R_s0_x4 step 4374/131248 loss 3.9764 held KL 5.2213 ema 4.0114 79s (14228 photos/s)
+  W5R_s0_x4 step 8748/131248 loss 3.5657 held KL 4.8978 ema 3.9858 155s (14412 photos/s)
+  W5R_s0_x4 step 13122/131248 loss 3.5981 held KL 6.0357 ema 3.9505 232s (14471 photos/s)
+  W5R_s0_x4 step 17496/131248 loss 3.9374 held KL 5.0931 ema 3.9618 309s (14501 photos/s)
+  W5R_s0_x4 step 21870/131248 loss 3.4156 held KL 4.9743 ema 3.9194 386s (14518 photos/s)
+  W5R_s0_x4 step 26244/131248 loss 3.9202 held KL 4.8308 ema 3.8966 462s (14529 photos/s)
+  W5R_s0_x4 step 30618/131248 loss 3.7241 held KL 4.6796 ema 3.8776 539s (14535 photos/s)
+  W5R_s0_x4 step 34992/131248 loss 3.8711 held KL 5.1592 ema 3.8751 616s (14540 photos/s)
+  W5R_s0_x4 step 39366/131248 loss 3.5412 held KL 6.0282 ema 3.8677 693s (14544 photos/s)
+  W5R_s0_x4 step 43740/131248 loss 3.6069 held KL 6.1499 ema 3.8514 770s (14548 photos/s)
+  W5R_s0_x4 step 48114/131248 loss 3.6878 held KL 4.6517 ema 3.8415 847s (14551 photos/s)
+  W5R_s0_x4 step 52488/131248 loss 3.4257 held KL 4.6319 ema 3.8251 923s (14553 photos/s)
+  W5R_s0_x4 step 56862/131248 loss 3.6289 held KL 5.1236 ema 3.8358 1000s (14555 photos/s)
+  W5R_s0_x4 step 61236/131248 loss 3.3382 held KL 4.4972 ema 3.8299 1077s (14557 photos/s)
+  W5R_s0_x4 step 65610/131248 loss 3.8174 held KL 4.5528 ema 3.7927 1154s (14558 photos/s)
+  W5R_s0_x4 step 69984/131248 loss 3.5592 held KL 4.5877 ema 3.7681 1231s (14559 photos/s)
+  W5R_s0_x4 step 74358/131248 loss 3.1969 held KL 4.7454 ema 3.7415 1307s (14561 photos/s)
+  W5R_s0_x4 step 78732/131248 loss 3.2500 held KL 4.4283 ema 3.7225 1384s (14562 photos/s)
+  W5R_s0_x4 step 83106/131248 loss 3.5368 held KL 4.2719 ema 3.7080 1461s (14563 photos/s)
+  W5R_s0_x4 step 87480/131248 loss 3.4885 held KL 4.6110 ema 3.7009 1538s (14563 photos/s)
+  W5R_s0_x4 step 91854/131248 loss 3.5118 held KL 4.1010 ema 3.6846 1615s (14564 photos/s)
+  W5R_s0_x4 step 96228/131248 loss 3.3882 held KL 4.5660 ema 3.6858 1691s (14564 photos/s)
+  W5R_s0_x4 step 100602/131248 loss 3.2263 held KL 3.9856 ema 3.7214 1768s (14565 photos/s)
+  W5R_s0_x4 step 104976/131248 loss 3.0533 held KL 3.8773 ema 3.7543 1845s (14565 photos/s)
+  W5R_s0_x4 step 109350/131248 loss 3.0743 held KL 3.9905 ema 3.8245 1922s (14566 photos/s)
+  W5R_s0_x4 step 113724/131248 loss 2.9995 held KL 3.7756 ema 3.9126 1999s (14566 photos/s)
+  W5R_s0_x4 step 118098/131248 loss 3.3596 held KL 3.6707 ema 4.0007 2076s (14566 photos/s)
+  W5R_s0_x4 step 122472/131248 loss 2.9441 held KL 3.5745 ema 3.9567 2152s (14566 photos/s)
+  W5R_s0_x4 step 126846/131248 loss 2.8460 held KL 3.5318 ema 3.7614 2229s (14567 photos/s)
+  W5R_s0_x4 step 131220/131248 loss 2.9143 held KL 3.5199 ema 3.5744 2306s (14567 photos/s)
+  W5R_s0_x4 step 131248/131248 loss 3.1071 held KL 3.5015 ema 3.5713 2307s (14567 photos/s)
+best W5R_s0_x4: stop step 131248 (raw), held KL 3.5015, test {'kl': 3.5039491653442383, 'top1': 0.12520000338554382}

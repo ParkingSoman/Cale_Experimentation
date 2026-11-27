@@ -137,6 +137,17 @@ Readings:
 
 ## 8. Best network made at each size (not converged at 50% and 5%)
 
+**Updated 2026-11-26 (wave 3, section 10). These replace the 50% and 5% rows below:**
+
+| Neurons kept | Weights | Best run made | Test KL to A | Test top-1 | File |
+|---|---|---|---|---|---|
+| 50% | 3.1 M | P, seed 0, 4x, + 142,907 ImageNet-train photos, mixup every batch | 0.5814 | 58.6% | `distill_whole/W50P_s0_ph4.pt` |
+| 5% | 56 K | R, seed 0, 4x | 3.5039 | 12.5% | `distill_whole/W5R_s0_x4.pt` |
+
+Note for users of W50P_s0_ph4: it trained on ImageNet-TRAIN photos too (photos A trained on). The test set is unchanged (section 9, note 2).
+
+Wave 1-2 table (kept for the record):
+
 | Neurons kept | Weights | Best run made | Held KL of the plain cut (no training) | Test KL to A | Test top-1 | File |
 |---|---|---|---|---|---|---|
 | 100% | 11.7 M | (A itself) | 0 | 0 | 68.7% | torchvision IMAGENET1K_V1 |
@@ -237,3 +248,17 @@ Readings:
 |---|---|---|
 | W50P_s0_ph4 | P + extra photos + mixup on every batch (both 50% wins combined, by the rule) | 131,248 |
 | W5R_s0_x4 | old recipe (R, mix .5, wd .05) | 131,248 |
+
+### Long-run result (job 7006930, H100 NVL, 18:28-20:09; both tgz on the Mac, md5 checked)
+
+| Tag | Recipe | Steps | lr (sweep) | Held KL | Test KL | Test top-1 | Minutes |
+|---|---|---|---|---|---|---|---|
+| W50P_s0_ph4 | P + 142,907 extra photos + mixup every batch | 131,248 | 1e-3 (3e-4 and 3e-3 worse) | 0.5916 | **0.5814** | **58.6%** | 55 |
+| W5R_s0_x4 | R, old recipe | 131,248 | 3e-2 (grid TOP) | 3.5015 | **3.5039** | **12.5%** | 39 |
+
+Readings:
+1. 50%: test KL .855 -> .581 (-32%), top-1 52.4% -> 58.6% (A 68.7%). Best step = last step; the curve flattens only as the lr reaches 0. Longer may help again.
+2. Start again vs keep going (Shonu): OPEN. The fresh 4x run (.592) had 131,248 steps on the extra photos and mixup on every batch. The kept network (.675) had 32,812 steps on them and mixup on half. At the only equal comparison (1x, same mixup) the kept network led: .677 vs .720 raw. Clean test: W50W from W50P_s0_x2, 131,248 steps, same mixup as W50P_s0_ph4. It may also give a better 50% network.
+3. 5%: 4x vs 2x held 3.502 vs 3.520 (-0.5%). Confounded: the 2x run used lr 1e-2, the 4x run 3e-2. NOT shown that the size limits it: no 5% run used the extra photos, and Step 0 gives a 5% train-to-held gap of .39 nats (50%: .63, of which the photos closed a third at 1x). Next targets: 5% R + extra photos at 1x vs W5R_s0_m (3.580); length at a fixed lr.
+4. 5% lr: the sweep picked 3e-2, the grid top. Wave 2's sweep found 3e-2 worse than 1e-2. The 300-step sweep is noisy at 5%. Open.
+5. The mixup part of the 50% recipe is from a weak win (-2.05%). Its effect WITH the extra photos is not tested alone.

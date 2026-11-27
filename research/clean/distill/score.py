@@ -43,6 +43,7 @@ for p in sorted({k[0] for k in runs}, reverse=True):
     if s1:
         line += f"; seed gap in test KL {abs(s1['test']['kl'] - r1['test']['kl']):.4f}"
     print(line)
+print("\nNOTE: the 'use 2x' lines above are wave 1-2 only. Wave 3 best (LOG section 8): 50% W50P_s0_ph4, 5% W5R_s0_x4.")
 
 # Wave 3 (plan 2026-11-26). Win rule: best RAW held KL lower than the baseline's by more than 2% (the photo-order gap
 # at 50% P is 1.6%, the two-seed gap at 5% R is 0.8%). Wave 1-2 runs had raw weights only, so the EMA copy is its own
