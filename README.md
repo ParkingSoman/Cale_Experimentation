@@ -1,7 +1,7 @@
 # Cale
 
 Cale is a local AI runtime for Mac, Windows and Linux.
-It keeps one AI model on the computer, and every app on that computer shares it.
+It keeps one AI model on the computer, and the apps that call Cale's local interface share it.
 An app says what it needs, for example a speed. Cale picks the model size that fits this computer.
 The model is Gemma 3n, where the smaller sizes live inside the large one, so there is only one download.
 
@@ -22,7 +22,7 @@ without training them again.
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ParkingSoman/Cale_Experimentation/blob/phase5-cross-platform/repro/Cale_rerun.ipynb)
 
 Open the notebook, pick a GPU runtime, and use Runtime → Run all.
-It downloads the public ImageNet validation photos, checks that they are the same bytes as in the original run,
+It downloads the public ImageNet validation photos, checks that the 2,500 photos Result 1 uses are the same bytes as in the original run,
 and prints both result tables next to the committed numbers.
 
 To run the same steps on your own computer, read [`repro/README.md`](repro/README.md).

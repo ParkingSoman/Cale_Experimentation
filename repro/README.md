@@ -19,7 +19,7 @@ Run these from the repository root.
 
 ## Result 1: ConvNeXt-Base tree (`research/clean/NEURON-LOG.md`, section N5)
 
-One set of base weights plus a small config gives ConvNeXt-Base stages 3 and 4 at any size, with no training.
+One set of base weights plus a small config gives ConvNeXt-Base stages 3 and 4 smaller sizes (tested at 50%, 40% and 25%), with no training.
 The script is `research/clean/neuron/tree/rescore.py`. It is not changed for the rerun.
 `tree_table.py` only makes it write to `repro/out/rescore.json`, so the committed `research/clean/neuron/results/tree/rescore.json` stays as the reference.
 
