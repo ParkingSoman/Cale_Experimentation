@@ -1,0 +1,8 @@
+# Versions used for the checked reruns (macOS 26, Python 3.12; Linux, Python 3.12).
+# The photo hash check in fetch_imagenet.py depends on the JPEG decoder inside Pillow: keep pillow at this version.
+numpy==2.5.3
+torch==2.14.0
+torchvision==0.29.1
+pyarrow==25.0.1
+pillow==12.3.0
+huggingface_hub==1.33.0
