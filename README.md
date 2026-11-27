@@ -12,9 +12,9 @@ without training them again.
 
 | Read | What it is |
 |---|---|
-| [`demo/README.md`](demo/README.md) | The demo, as measured on 2026-10-17: a chat, a desktop app and a website, all on one local model |
+| [`demo/README.md`](demo/README.md) | The demo: a chat and a desktop app on one local model, measured on 2026-10-17; a website using the same model was tested later |
 | [`llama/README.md`](llama/README.md) | The Windows and Linux engine (a small llama.cpp patch), and the check that its small size matches Google's own E2B file |
-| [`research/clean/NEURON-LOG.md`](research/clean/NEURON-LOG.md), section N5 | The tree: one weight set plus a small config gives ConvNeXt-Base (stages 3 and 4) at any size, with no training |
+| [`research/clean/NEURON-LOG.md`](research/clean/NEURON-LOG.md), section N5 | The tree: one weight set plus a 2.4 MB config gives ConvNeXt-Base (stages 3 and 4) smaller sizes, tested at 50%, 40% and 25%, with no training |
 | [`research/clean/onecoarse/VECMATH.md`](research/clean/onecoarse/VECMATH.md), section 7 | A formula against training, for cuts of four sizes in ResNet-18 |
 
 ## Rerun the results
