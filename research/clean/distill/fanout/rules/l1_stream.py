@@ -104,7 +104,7 @@ def law_basis(T, X, k, hk, mk):
 
 
 @torch.no_grad()
-def fold_kslice(T, Wfull, Wcut, X, mk):
+def fold_kslice(T, Wfull, Wcut, X, mk, hk=None, hfold=False, mfold=True, drift=()):
     """r3_joint fold_mlp with kslice: G's kept rows reset to the slice."""
     X = P4._x_vit(X)
     Td, Wd = vitgen.to(T, DEV), vitgen.to(Wcut, DEV)
@@ -113,12 +113,34 @@ def fold_kslice(T, Wfull, Wcut, X, mk):
     t, s = emb(Td), emb(Wd)
     for bi in range(len(T["blocks"])):
         BT, Bs = Td["blocks"][bi], Wd["blocks"][bi]
+        nh = BT["o_w"].shape[1]
+        if hfold and hk is not None and len(_rows(hk[bi])) < nh:     # head fold, kslice form, on head output dims
+            hr = _rows(hk[bi])
+            Sx = torch.zeros(nh, len(hr), dtype=dt)
+            Ss = torch.zeros(len(hr), len(hr), dtype=dt)
+            N = 0
+            for sl in sls:
+                aT = P4._heads_fire(t[sl], BT).flatten(0, 1)
+                aS = P4._heads_fire(s[sl], Bs).flatten(0, 1)
+                Sx += (aT.T @ aS).cpu().double()
+                Ss += (aS.T @ aS).cpu().double()
+                N += aS.shape[0]
+            Gh, lamh = P4L.fold_aff(Sx / N, Ss / N, hr.tolist(), N, False)
+            Gh[hr] = P4._ek(hr.tolist(), nh)[hr].to(Gh.dtype)
+            Wn = Wfull["blocks"][bi]["o_w"].double() @ Gh
+            if "heads" in drift:
+                Dx = torch.zeros(Wn.shape[0], len(hr), dtype=dt)
+                for sl in sls:
+                    aS = P4._heads_fire(s[sl], Bs).flatten(0, 1)
+                    Dx += ((t[sl] - s[sl]).flatten(0, 1).T @ aS).cpu().double()
+                Wn = Wn + torch.linalg.solve(Ss / N + lamh * torch.eye(len(hr), dtype=dt), (Dx / N).T).T
+            Bs["o_w"] = Wn.float().to(DEV)
         for sl in sls:
             t[sl] = t[sl] + F.linear(P4._heads_fire(t[sl], BT), BT["o_w"], BT["o_b"])
             s[sl] = s[sl] + F.linear(P4._heads_fire(s[sl], Bs), Bs["o_w"], Bs["o_b"])
         kept = mk[bi]
         n, kk = BT["pr_w"].shape[1], len(kept)
-        if kk < n:
+        if mfold and kk < n:
             Sx = torch.zeros(n, kk, dtype=dt)
             Ss = torch.zeros(kk, kk, dtype=dt)
             N = 0
@@ -128,10 +150,17 @@ def fold_kslice(T, Wfull, Wcut, X, mk):
                 Sx += (aT.T @ aS).cpu().double()
                 Ss += (aS.T @ aS).cpu().double()
                 N += aS.shape[0]
-            G, _ = P4L.fold_aff(Sx / N, Ss / N, kept, N, False)
+            G, lamm = P4L.fold_aff(Sx / N, Ss / N, kept, N, False)
             kt = torch.as_tensor(kept).long()
             G[kt] = P4._ek(kept, n)[kt].to(G.dtype)          # kslice
-            Bs["pr_w"] = (Wfull["blocks"][bi]["pr_w"].double() @ G).float().to(DEV)
+            Wn = Wfull["blocks"][bi]["pr_w"].double() @ G
+            if "mlp" in drift:                               # kept writes also repair the stream error so far
+                Dx = torch.zeros(Wn.shape[0], kk, dtype=dt)
+                for sl in sls:
+                    aS = P4._mlp_fire(s[sl], Bs).flatten(0, 1)
+                    Dx += ((t[sl] - s[sl]).flatten(0, 1).T @ aS).cpu().double()
+                Wn = Wn + torch.linalg.solve(Ss / N + lamm * torch.eye(kk, dtype=dt), (Dx / N).T).T
+            Bs["pr_w"] = Wn.float().to(DEV)
         for sl in sls:
             t[sl] = t[sl] + F.linear(P4._mlp_fire(t[sl], BT), BT["pr_w"], BT["pr_b"])
             s[sl] = s[sl] + F.linear(P4._mlp_fire(s[sl], Bs), Bs["pr_w"], Bs["pr_b"])
@@ -143,9 +172,54 @@ def fold_kslice(T, Wfull, Wcut, X, mk):
 
 
 @torch.no_grad()
-def build(T, f, X=None, mode="law", fold=True, kfix=None):
+def root_order(T, X, f, heads_too=False, want_M=False):
+    """Law 'keep the roots, delete the leaves': per block, keep the MLP neurons from which the others can be rebuilt.
+    Greedy column selection (QR with column pivoting, LAPACK geqp3) on the write-weighted firing second moment
+    M = D E[a a^T] D, a = teacher MLP firings on X (open loop), D = diag(|pr_w column|). Weights + X only."""
+    import numpy as np
+    import scipy.linalg as sla
+    Td = vitgen.to(T, DEV)
+    _, _, m = vitgen.sizes(f, T)
+    nb = len(T["blocks"])
+    M = [torch.zeros(T["blocks"][0]["pr_w"].shape[1], T["blocks"][0]["pr_w"].shape[1], dtype=dt) for _ in range(nb)]
+    for a0 in range(0, len(X), P6.BS):
+        x = X[a0:a0 + P6.BS].to(DEV).float()
+        s = vitgen.embed(Td, x)
+        for i, B in enumerate(Td["blocks"]):
+            s = s + F.linear(P4._heads_fire(s, B), B["o_w"], B["o_b"])
+            a = P4._mlp_fire(s, B).flatten(0, 1)
+            M[i] += (a.T @ a).cpu().double()
+            s = s + F.linear(P4._mlp_fire(s, B), B["pr_w"], B["pr_b"])
+    out = []
+    for i, B in enumerate(T["blocks"]):
+        d = B["pr_w"].double().norm(dim=0)
+        Mw = d[:, None] * M[i] * d[None]
+        e, V = torch.linalg.eigh(Mw)
+        Ft = (V * e.clamp_min(0).sqrt()).T.numpy()          # Mw = Ft^T Ft, columns = units
+        _, _, piv = sla.qr(Ft, pivoting=True, mode="economic")
+        out.append(torch.as_tensor(np.sort(piv[:m])).long())
+    del Td
+    if DEV == "mps":
+        torch.mps.empty_cache()
+    return (out, M) if want_M else out
+
+
+@torch.no_grad()
+def build(T, f, X=None, mode="law", fold=True, kfix=None, cut=("heads", "mlp"), hfold=False, morder="w", drift=(), blocks=None, tilt=0.0):
     X = P4._x_vit(X)
     _, hk, mk = J.keep_units(T, f, X, "act", "w", 0)
+    Mmom = None
+    if morder == "root":
+        mk, Mmom = root_order(T, X, f, want_M=True)
+    H0, M0 = T["blocks"][0]["o_w"].shape[1] // HD, T["blocks"][0]["pr_w"].shape[1]
+    H, M = H0, M0
+    if blocks is not None:                                    # cut only these blocks; the others stay full
+        hk = [h if i in blocks else torch.arange(H) for i, h in enumerate(hk)]
+        mk = [m if i in blocks else torch.arange(M) for i, m in enumerate(mk)]
+    if "heads" not in cut:
+        hk = [torch.arange(H)] * len(T["blocks"])
+    if "mlp" not in cut:
+        mk = [torch.arange(M)] * len(T["blocks"])
     if mode == "full":
         Wf = T
     else:
@@ -157,10 +231,32 @@ def build(T, f, X=None, mode="law", fold=True, kfix=None):
             Wf = P6.build(T, f, X, kind, "rho")
         finally:
             P6.basis = old
+    if tilt:                                                  # identity law: a kept node's read tilts toward
+        assert Mmom is not None and mode == "full"            # the reads of the deleted nodes it carries
+        Wf = dict(Wf)
+        Wf["blocks"] = [dict(B) for B in Wf["blocks"]]
+        for i, B in enumerate(Wf["blocks"]):
+            kept = torch.as_tensor(mk[i]).long()
+            n = B["fc_w"].shape[0]
+            if len(kept) == n:
+                continue
+            cutm = torch.ones(n, dtype=torch.bool)
+            cutm[kept] = False
+            cutc = cutm.nonzero().flatten()
+            dg = Mmom[i].diagonal().clamp_min(1e-30).sqrt()
+            Cs = Mmom[i] / dg[:, None] / dg[None]               # uncentred firing cosine on X
+            car = kept[Cs[kept][:, cutc].argmax(0)]             # carrier of each deleted node
+            fw, fb = B["fc_w"].clone(), B["fc_b"].clone()
+            for d, j in zip(cutc.tolist(), car.tolist()):
+                sc = float(B["fc_w"][j].norm() / B["fc_w"][d].norm().clamp_min(1e-12))
+                fw[j] += tilt * sc * B["fc_w"][d]
+                fb[j] += tilt * sc * B["fc_b"][d]
+            B["fc_w"], B["fc_b"] = fw, fb
     W = J.cut_units(Wf, hk, mk)
     if fold:
-        W = fold_kslice(T, Wf, W, X, mk)
-    print(f"[l1_stream clip f={f:g}] mode={mode} fold={fold} kfix={kfix}", flush=True)
+        assert not drift or mode == "full"
+        W = fold_kslice(T, Wf, W, X, mk, hk=hk, hfold=hfold, drift=drift)
+    print(f"[l1_stream clip f={f:g}] mode={mode} fold={fold} kfix={kfix} cut={cut} hfold={hfold} morder={morder} drift={drift} tilt={tilt}", flush=True)
     return W
 
 

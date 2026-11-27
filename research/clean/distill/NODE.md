@@ -3,6 +3,7 @@
 Opened 2026-11-26 night. Plan: `~/.claude/plans/pasted-content-id-352f-okay-i-humming-quiche-of-069b918e-cca3-4972-9957-c9421d316ff9.md`.
 Rounds change ONE row of this card per test. A change that moves a number but changes no law is not a result.
 History: `THEORY.md` section 1 is law v1 (2026-11-25). `FANOUT.md` holds rounds 1-3 (technical rounds).
+**Next work starts at `HANDOFF-TREE-WHOLE.md`** (build the tree whole; judge laws inside the whole build, never one part in a fine network).
 
 ## Concept line
 
@@ -139,6 +140,10 @@ Next laws (round L2), by predicted effect:
 5. Weak firing; which nodes stay (from the card).
 
 Essay pass for L2: essay 435-461 (attention: "where it looks", "what it looks for", heads "broad and recursively generalized").
+
+### Rounds L2-L4 (2026-11-26 late night): parts tested alone, NOT results
+
+Stopped by Shonu: each test added one coarse part (gate, head fold, root order, self input, drift repair, read tilt) to a pruned, fitted network. Rows: ResNet gate law ties on the full 1,000 (85%: 2.310 / 32.4% vs off 2.295 / 32.6%). CLIP rows are quick-200 only, no null. See `HANDOFF-TREE-WHOLE.md` section 4 for the facts that stand. Next: the whole tree build (`HANDOFF-TREE-WHOLE.md`).
 
 ## Drift check (per round)
 

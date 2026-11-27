@@ -37,3 +37,5 @@ Run sheet and measured numbers: `demo/README.md`. Latest handoff: `docs/HANDOFF-
 Network mapping is its own project: `CrakBox/README.md`.
 
 Before reading any neuron, open `research/clean/NEURON-CHECKLIST.md`.
+
+Research on calculating small networks (the tree track) starts at `research/clean/distill/HANDOFF-TREE-WHOLE.md`. Its rules: `research/clean/distill/CLAUDE.md`.

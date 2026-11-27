@@ -154,3 +154,5 @@ Round 4 candidates (agents' lists): stack kslice into the rG joint (CLIP); self-
 Shonu, 2026-11-26 night: rounds 1-3 were technical tuning, and the concept of the tree never changed. From now on each round changes ONE law of a node. The node card, the concept line and each round's law results are in `NODE.md`. This file keeps the technical record. Plan: `~/.claude/plans/pasted-content-id-352f-okay-i-humming-quiche-of-069b918e-cca3-4972-9957-c9421d316ff9.md`.
 
 Round L1 (lead only, no agents, about 25 Mac torch jobs): answer keys from the saved students (`fanout/anskey.py`) and one CLIP stream build (`fanout/rules/l1_stream*.py`). Results: `NODE.md` round L1. Board targets updated with the wave-3 trained students (.5814 at 50%, 3.5039 at 5%).
+
+Rounds L2-L4 (2026-11-26 late night): parts tested alone, stopped by Shonu, not results (`NODE.md`). Analysis: `ANALYSIS-2026-11-26.md`. Next: `HANDOFF-TREE-WHOLE.md`.

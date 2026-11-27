@@ -163,3 +163,30 @@
 21:50:26	L1	slot0	wait 2s	run 4s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py rate W5R_s0_x4 --n 1000
 21:50:32	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate W50P_s0 --n 1000
 21:50:39	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate W50P_s0_ph4 --n 1000
+22:11:52	L2	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule l2_gate_r18_union --f 1 --quick --who L2 --input distill/fanout/cache/r18_self_n256_k32_s1.pt
+22:12:04	L2	slot0	wait 2s	run 10s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule l2_gate_r18_off --f 0.85,0.7,0.5 --quick --who L2 --input distill/fanout/cache/r18_self_n256_k32_s1.pt
+22:12:21	L2	slot0	wait 2s	run 15s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule l2_gate_r18_union --f 0.85,0.7,0.5 --quick --who L2 --input distill/fanout/cache/r18_self_n256_k32_s1.pt
+22:12:36	L2	slot0	wait 2s	run 13s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule l2_gate_r18_perm --f 0.85,0.7,0.5 --quick --who L2 --input distill/fanout/cache/r18_self_n256_k32_s1.pt
+22:13:01	L2	slot0	wait 2s	run 10s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule l2_gate_r18_off --f 0.85,0.7 --who L2 --input distill/fanout/cache/r18_self_n256_k32_s1.pt
+22:13:15	L2	slot0	wait 2s	run 13s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule l2_gate_r18_union --f 0.85,0.7 --who L2 --input distill/fanout/cache/r18_self_n256_k32_s1.pt
+22:13:30	L2	slot0	wait 2s	run 13s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net r18 --rule l2_gate_r18_perm --f 0.85,0.7 --who L2 --input distill/fanout/cache/r18_self_n256_k32_s1.pt
+22:14:18	L3	slot0	wait 2s	run 16s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_both_hfold --f 1 --quick --who L3 --input distill/fanout/cache/input_pink_n256_s1.pt
+22:14:44	L3	slot0	wait 2s	run 23s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_heads_only --f 0.7,0.5 --quick --who L3 --input distill/fanout/cache/input_pink_n256_s1.pt
+22:15:22	L3	slot0	wait 2s	run 37s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_mlp_only --f 0.7,0.5 --quick --who L3 --input distill/fanout/cache/input_pink_n256_s1.pt
+22:16:00	L3	slot0	wait 2s	run 36s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_both --f 0.7,0.5 --quick --who L3 --input distill/fanout/cache/input_pink_n256_s1.pt
+22:16:30	L3	slot0	wait 2s	run 28s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_heads_only_hfold --f 0.7,0.5 --quick --who L3 --input distill/fanout/cache/input_pink_n256_s1.pt
+22:17:12	L3	slot0	wait 2s	run 40s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_both_hfold --f 0.7,0.5 --quick --who L3 --input distill/fanout/cache/input_pink_n256_s1.pt
+22:21:32	L3	slot0	wait 2s	run 202s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_mlp_only_root --f 0.85,0.7,0.5 --quick --who L3 --input distill/fanout/cache/input_pink_n256_s1.pt
+22:25:01	L3	slot0	wait 2s	run 207s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_both_hfold_root --f 0.85,0.7,0.5 --quick --who L3 --input distill/fanout/cache/input_pink_n256_s1.pt
+22:26:31	L3	slot0	wait 2s	run 62s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_both_hfold --f 0.85,0.7,0.5 --quick --who L3 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+22:30:04	L3	slot0	wait 2s	run 211s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_both_hfold_root --f 0.85,0.7,0.5 --quick --who L3 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+22:30:49	L3	slot0	wait 2s	run 43s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_heads_only_hfold --f 0.85,0.7,0.5 --quick --who L3 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+22:35:12	L3	slot0	wait 2s	run 224s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_both_root_drift_m --f 0.85,0.7,0.5 --quick --who L3 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+22:39:36	L3	slot0	wait 2s	run 262s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_both_root_drift_hm --f 0.85,0.7,0.5 --quick --who L3 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+22:41:12	L3	slot0	wait 2s	run 69s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_depth_a --f 0.5 --quick --who L3 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+22:42:23	L3	slot0	wait 2s	run 70s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_depth_b --f 0.5 --quick --who L3 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+22:43:36	L3	slot0	wait 2s	run 71s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l3_depth_c --f 0.5 --quick --who L3 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+22:45:07	L4	slot0	wait 2s	run 56s	exit 1	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l4_tilt_015 --f 0.85,0.7,0.5 --quick --who L4 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+22:46:07	L4	slot0	wait 2s	run 59s	exit 1	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l4_tilt_03 --f 0.85,0.7,0.5 --quick --who L4 --input distill/fanout/cache/clip_self_n256_k32_s1.pt
+22:59:26	FIX	slot0	wait 2s	run 36s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_law --f 1 --quick --who FIX --input distill/fanout/cache/input_pink_n256_s1.pt
+23:00:32	FIX	slot0	wait 2s	run 64s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l4_tilt_015 --f 1 --quick --who FIX --input distill/fanout/cache/input_pink_n256_s1.pt
