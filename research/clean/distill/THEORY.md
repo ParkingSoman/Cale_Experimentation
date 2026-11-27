@@ -5,6 +5,8 @@ Results of the checks: `CALC.md` section 3. Shonu on the idea: "i LOOOOVE your t
 
 ## 1. The concept
 
+> 2026-11-26 night: this section is law v1. The live node card (law v2 tests, status per law) is `NODE.md`. This section is replaced only after the identity law (NODE test 1) is decided.
+
 **A smaller network is the parent's tree of distinctions, cut higher, in every layer at once.**
 
 ```

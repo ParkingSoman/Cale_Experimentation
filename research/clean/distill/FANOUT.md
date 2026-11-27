@@ -41,6 +41,7 @@ Board, KL to the big network, 1,000 test photos (one per class). Photo use: scor
 | (check) Minitron on photos, held 2,000 | | | | | 1.113 | 8.408 | 7.541 |
 | our calculation | | | | | | | |
 | trained target | | | 1.801 (KD student) | | .097 | .856 | 3.564 |
+| trained target, wave 3 (LOG.md, 5,000 test photos; added 2026-11-26 night) | | | 1.719 (KD student, 5,000) | | .0978 (W95P_s0) | .5814 (W50P_s0_ph4) | 3.5039 (W5R_s0_x4) |
 
 Uniform cut: every set (stream, heads, MLP neurons; ResNet stream and inner channels) keeps fraction f. Head dim stays 64.
 
@@ -147,3 +148,9 @@ What round 3 settled:
 8. Selection: quick-picked knobs shrink about 30-38% on unseen photos.
 
 Round 4 candidates (agents' lists): stack kslice into the rG joint (CLIP); self-input fold statistics into the ResNet joint, split per fold; the loud-dims stream test; score the CLIP "act" self input (made, unscored); find what an 8-photo basis has that the self input lacks.
+
+## 5. Law rounds (from 2026-11-26 night)
+
+Shonu, 2026-11-26 night: rounds 1-3 were technical tuning, and the concept of the tree never changed. From now on each round changes ONE law of a node. The node card, the concept line and each round's law results are in `NODE.md`. This file keeps the technical record. Plan: `~/.claude/plans/pasted-content-id-352f-okay-i-humming-quiche-of-069b918e-cca3-4972-9957-c9421d316ff9.md`.
+
+Round L1 (lead only, no agents, about 25 Mac torch jobs): answer keys from the saved students (`fanout/anskey.py`) and one CLIP stream build (`fanout/rules/l1_stream*.py`). Results: `NODE.md` round L1. Board targets updated with the wave-3 trained students (.5814 at 50%, 3.5039 at 5%).

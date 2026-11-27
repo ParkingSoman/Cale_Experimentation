@@ -132,3 +132,34 @@
 17:38:14	WRITE	long	wait 1274s	run 215s	exit 0	/bin/sh distill/fanout/r3_write_promote_w.sh
 17:38:57	CRITIC	long	wait 1936s	run 41s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule r3_joint_c_nofold --f 0.85 --who CRITIC --input distill/fanout/cache/input_pink_n256_s1.pt --note r3 CRITIC: full OFF row (fold off) for the JOINT 85% milestone r3_joint_c_on
 17:42:37	WRITE	long	wait 2198s	run 218s	exit 0	/bin/sh distill/fanout/r3_write_promote_m.sh
+21:29:00	L1	slot0	wait 2s	run 7s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate A --n 1000
+21:29:14	L1	slot0	wait 2s	run 6s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate W95P_s0 --n 1000
+21:29:21	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate W50P_s0 --n 1000
+21:29:27	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate W50P_s0_ph4 --n 1000
+21:30:06	L1	slot0	wait 2s	run 6s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate W95P_s0 --n 1000
+21:30:12	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate W50P_s0_ph4 --n 1000
+21:30:37	L1	slot0	wait 2s	run 6s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate A --kept_from W50P_s0_ph4 --n 1000
+21:31:09	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py carrier W50P_s0_ph4 --n 1000
+21:31:17	L1	slot0	wait 2s	run 6s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py carrier W95P_s0 --n 1000
+21:31:38	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py carrier W50P_s0_ph4 --n 1000
+21:34:36	L1	slot0	wait 2s	run 37s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_law --f 1 --quick --who L1 --input distill/fanout/cache/input_pink_n256_s1.pt
+21:35:34	L1	slot0	wait 2s	run 47s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_full --f 0.95,0.85 --quick --who L1 --input distill/fanout/cache/input_pink_n256_s1.pt
+21:36:40	L1	slot0	wait 2s	run 65s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_all --f 0.95,0.85 --quick --who L1 --input distill/fanout/cache/input_pink_n256_s1.pt
+21:37:59	L1	slot0	wait 2s	run 77s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_law --f 0.95,0.85 --quick --who L1 --input distill/fanout/cache/input_pink_n256_s1.pt
+21:39:07	L1	slot0	wait 2s	run 66s	exit -11	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_rand --f 0.95,0.85 --quick --who L1 --input distill/fanout/cache/input_pink_n256_s1.pt
+21:40:11	L1	slot0	wait 2s	run 30s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/069b918e-cca3-4972-9957-c9421d316ff9/scratchpad/span.py
+21:41:26	L1	slot0	wait 2s	run 46s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_law_k700 --f 0.85 --quick --who L1 --input distill/fanout/cache/input_pink_n256_s1.pt
+21:42:15	L1	slot0	wait 2s	run 48s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_law_k737 --f 0.85 --quick --who L1 --input distill/fanout/cache/input_pink_n256_s1.pt
+21:43:08	L1	slot0	wait 2s	run 51s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_law_k767 --f 0.85 --quick --who L1 --input distill/fanout/cache/input_pink_n256_s1.pt
+21:44:10	L1	slot0	wait 2s	run 36s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_full --f 0.7,0.5 --quick --who L1 --input distill/fanout/cache/input_pink_n256_s1.pt
+21:45:13	L1	slot0	wait 2s	run 60s	exit 0	curves/.venv/bin/python -I distill/fanout/board.py --net clip --rule l1_stream_law --f 0.7,0.5 --quick --who L1 --input distill/fanout/cache/input_pink_n256_s1.pt
+21:45:52	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py identity W50R_s0 --n 1000
+21:46:01	L1	slot0	wait 2s	run 6s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py identity W95R_s0 --n 1000
+21:46:07	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py identity W50P_s0_ph4 --n 1000
+21:46:29	L1	slot0	wait 2s	run 4s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py identity W5R_s0_x4 --n 1000
+21:47:35	L1	slot0	wait 2s	run 11s	exit 0	curves/.venv/bin/python -I /private/tmp/claude-501/-Users-shonusengupta-Cale-Experimentation/069b918e-cca3-4972-9957-c9421d316ff9/scratchpad/rank.py
+21:50:13	L1	slot0	wait 2s	run 6s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py rate W95R_s0 --n 1000
+21:50:20	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py rate W50R_s0 --n 1000
+21:50:26	L1	slot0	wait 2s	run 4s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py rate W5R_s0_x4 --n 1000
+21:50:32	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate W50P_s0 --n 1000
+21:50:39	L1	slot0	wait 2s	run 5s	exit 0	curves/.venv/bin/python -I distill/fanout/anskey.py gate W50P_s0_ph4 --n 1000

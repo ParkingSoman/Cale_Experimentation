@@ -1,0 +1,104 @@
+{
+ "tag": "W50P_s0_ph4",
+ "law": "carrier",
+ "photos": 1000,
+ "photo_use": "reading only (test photos)",
+ "blocks": [
+  {
+   "block": "s1b0",
+   "cut": 32,
+   "clear": 0.90625,
+   "null_top1_median": 0.10927104949951172,
+   "null_n_gain_05": 2.0,
+   "n_gain_05": 5.0,
+   "top1_median": 0.22593650221824646,
+   "top2_median": 0.12448489665985107,
+   "top_is_nearest_in_A": 0.0,
+   "hub_share": 0.375
+  },
+  {
+   "block": "s1b1",
+   "cut": 32,
+   "clear": 0.90625,
+   "null_top1_median": 0.14351841807365417,
+   "null_n_gain_05": 6.0,
+   "n_gain_05": 5.0,
+   "top1_median": 0.15937814116477966,
+   "top2_median": 0.107744961977005,
+   "top_is_nearest_in_A": 0.0,
+   "hub_share": 0.28125
+  },
+  {
+   "block": "s2b0",
+   "cut": 64,
+   "clear": 1.0,
+   "null_top1_median": 0.18165966868400574,
+   "null_n_gain_05": 19.0,
+   "n_gain_05": 23.0,
+   "top1_median": 0.221846342086792,
+   "top2_median": 0.1848335713148117,
+   "top_is_nearest_in_A": 0.0,
+   "hub_share": 0.203125
+  },
+  {
+   "block": "s2b1",
+   "cut": 64,
+   "clear": 0.953125,
+   "null_top1_median": 0.14957430958747864,
+   "null_n_gain_05": 15.0,
+   "n_gain_05": 17.0,
+   "top1_median": 0.19059395790100098,
+   "top2_median": 0.14278732240200043,
+   "top_is_nearest_in_A": 0.0625,
+   "hub_share": 0.109375
+  },
+  {
+   "block": "s3b0",
+   "cut": 128,
+   "clear": 0.9921875,
+   "null_top1_median": 0.18747688829898834,
+   "null_n_gain_05": 32.0,
+   "n_gain_05": 37.0,
+   "top1_median": 0.22236210107803345,
+   "top2_median": 0.18267996609210968,
+   "top_is_nearest_in_A": 0.0234375,
+   "hub_share": 0.1015625
+  },
+  {
+   "block": "s3b1",
+   "cut": 128,
+   "clear": 0.9921875,
+   "null_top1_median": 0.1877042055130005,
+   "null_n_gain_05": 25.0,
+   "n_gain_05": 33.0,
+   "top1_median": 0.24949920177459717,
+   "top2_median": 0.1978653520345688,
+   "top_is_nearest_in_A": 0.0078125,
+   "hub_share": 0.1171875
+  },
+  {
+   "block": "s4b0",
+   "cut": 256,
+   "clear": 1.0,
+   "null_top1_median": 0.21520787477493286,
+   "null_n_gain_05": 54.0,
+   "n_gain_05": 58.0,
+   "top1_median": 0.24253831803798676,
+   "top2_median": 0.19804224371910095,
+   "top_is_nearest_in_A": 0.01171875,
+   "hub_share": 0.08203125
+  },
+  {
+   "block": "s4b1",
+   "cut": 256,
+   "clear": 0.984375,
+   "null_top1_median": 0.15850166976451874,
+   "null_n_gain_05": 35.0,
+   "n_gain_05": 41.0,
+   "top1_median": 0.17290128767490387,
+   "top2_median": 0.14527861773967743,
+   "top_is_nearest_in_A": 0.00390625,
+   "hub_share": 0.21484375
+  }
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "tag": "W95P_s0",
+ "law": "carrier",
+ "photos": 1000,
+ "photo_use": "reading only (test photos)",
+ "blocks": [
+  {
+   "block": "s1b0",
+   "cut": 3,
+   "clear": 0.0,
+   "n_gain_05": 3.0,
+   "top1_median": 0.0673515796661377,
+   "top2_median": 0.05579160153865814,
+   "top_is_nearest_in_A": 0.3333333432674408,
+   "hub_share": 0.3333333432674408
+  },
+  {
+   "block": "s1b1",
+   "cut": 3,
+   "clear": 1.0,
+   "n_gain_05": 1.0,
+   "top1_median": 0.1672724187374115,
+   "top2_median": 0.04589951038360596,
+   "top_is_nearest_in_A": 0.0,
+   "hub_share": 1.0
+  },
+  {
+   "block": "s2b0",
+   "cut": 6,
+   "clear": 0.0,
+   "n_gain_05": 0.0,
+   "top1_median": 0.02624332904815674,
+   "top2_median": 0.023210525512695312,
+   "top_is_nearest_in_A": 0.0,
+   "hub_share": 0.1666666716337204
+  },
+  {
+   "block": "s2b1",
+   "cut": 6,
+   "clear": 0.5,
+   "n_gain_05": 3.0,
+   "top1_median": 0.09671266376972198,
+   "top2_median": 0.06982111930847168,
+   "top_is_nearest_in_A": 0.1666666716337204,
+   "hub_share": 0.3333333432674408
+  },
+  {
+   "block": "s3b0",
+   "cut": 13,
+   "clear": 0.3076923191547394,
+   "n_gain_05": 2.0,
+   "top1_median": 0.07874727249145508,
+   "top2_median": 0.06040051579475403,
+   "top_is_nearest_in_A": 0.07692307978868484,
+   "hub_share": 0.1538461595773697
+  },
+  {
+   "block": "s3b1",
+   "cut": 13,
+   "clear": 0.7692307829856873,
+   "n_gain_05": 6.0,
+   "top1_median": 0.1272699236869812,
+   "top2_median": 0.0967186987400055,
+   "top_is_nearest_in_A": 0.1538461595773697,
+   "hub_share": 0.23076923191547394
+  },
+  {
+   "block": "s4b0",
+   "cut": 26,
+   "clear": 0.11538461595773697,
+   "n_gain_05": 2.0,
+   "top1_median": 0.07102499902248383,
+   "top2_median": 0.05593286082148552,
+   "top_is_nearest_in_A": 0.03846153989434242,
+   "hub_share": 0.3076923191547394
+  },
+  {
+   "block": "s4b1",
+   "cut": 26,
+   "clear": 0.3461538553237915,
+   "n_gain_05": 3.0,
+   "top1_median": 0.07387697696685791,
+   "top2_median": 0.06364259868860245,
+   "top_is_nearest_in_A": 0.11538461595773697,
+   "hub_share": 0.07692307978868484
+  }
+ ]
+}

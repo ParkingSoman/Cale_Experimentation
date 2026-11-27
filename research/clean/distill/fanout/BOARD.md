@@ -42,6 +42,7 @@ From a big network, CALCULATE a smaller network (95%, 50%, 5% of each width; for
 | noisecut: Minitron ranking on pink noise (THE FLOOR) | 1.139 | 9.031 | 10.404 | 11.231 | 1.760 | 9.254 | 15.245 |
 | (check) Minitron on photos | | | | | 1.113 | 8.408 | 7.541 |
 | trained target | | | 1.801 (KD student) | | .097 | .856 | 3.564 |
+| trained target, wave 3 (LOG.md, 5,000 test photos; added 2026-11-26 night) | | | 1.719 (KD student, 5,000) | | .0978 (W95P_s0) | .5814 (W50P_s0_ph4) | 3.5039 (W5R_s0_x4) |
 
 ## Findings so far
 
