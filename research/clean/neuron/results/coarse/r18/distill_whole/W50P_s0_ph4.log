@@ -1,0 +1,46 @@
+W50P_s0_ph4: photos per class train 28.0, held 2.0, test 5.0
+28000 train photos in 157s (16000 from JPEG at 256, 12000 from the 224 centre crop scaled to 256), device cuda
+extra photos (ImageNet-train, labels unused): 142907 from 52 files in 84s; per class min 82 median 145 max 146
+A on the new test set (centre crops): top-1 0.6870
+LOADER CHECK: A top-1 on 2013 extra photos (centre 224 crop) 0.7645 (A on val test 0.6870)
+student f=0.5 start P: widths (32, 64, 128, 256), neurons 2400, weights 3055880; held KL at start 8.4135
+  W50P_s0_ph4 lr 0.0003 step 300/300 loss 2.3987 held KL 2.9930 21s (3686 photos/s)
+  W50P_s0_ph4 lr 0.001 step 300/300 loss 2.1746 held KL 2.5943 21s (3686 photos/s)
+  W50P_s0_ph4 lr 0.003 step 300/300 loss 2.4492 held KL 3.0383 21s (3686 photos/s)
+sweep W50P_s0_ph4 lr 0.0003: held KL 2.9930
+sweep W50P_s0_ph4 lr 0.001: held KL 2.5943
+sweep W50P_s0_ph4 lr 0.003: held KL 3.0383
+main run: 131248 steps of 256 = 196.6 epochs of 170907 photos (wanted 131248 steps; 420.0 min at 0.070 s/step allows 358804)
+main run W50P_s0_ph4: lr 0.001
+  W50P_s0_ph4 step 4374/131248 loss 1.4266 held KL 1.7695 ema 1.2263 110s (10209 photos/s)
+  W50P_s0_ph4 step 8748/131248 loss 1.3836 held KL 1.5372 ema 1.0578 219s (10229 photos/s)
+  W50P_s0_ph4 step 13122/131248 loss 1.0284 held KL 1.5051 ema 0.9503 329s (10214 photos/s)
+  W50P_s0_ph4 step 17496/131248 loss 0.9669 held KL 1.3766 ema 0.8948 439s (10205 photos/s)
+  W50P_s0_ph4 step 21870/131248 loss 1.1668 held KL 1.2430 ema 0.8507 549s (10198 photos/s)
+  W50P_s0_ph4 step 26244/131248 loss 1.0832 held KL 1.2895 ema 0.8249 659s (10193 photos/s)
+  W50P_s0_ph4 step 30618/131248 loss 1.0510 held KL 1.1796 ema 0.8040 769s (10190 photos/s)
+  W50P_s0_ph4 step 34992/131248 loss 1.0020 held KL 1.1784 ema 0.7840 879s (10189 photos/s)
+  W50P_s0_ph4 step 39366/131248 loss 0.9836 held KL 1.0954 ema 0.7648 989s (10188 photos/s)
+  W50P_s0_ph4 step 43740/131248 loss 0.9658 held KL 1.0637 ema 0.7516 1099s (10187 photos/s)
+  W50P_s0_ph4 step 48114/131248 loss 0.9917 held KL 1.0122 ema 0.7395 1209s (10186 photos/s)
+  W50P_s0_ph4 step 52488/131248 loss 0.9373 held KL 1.0765 ema 0.7308 1319s (10185 photos/s)
+  W50P_s0_ph4 step 56862/131248 loss 0.9412 held KL 1.0096 ema 0.7174 1429s (10184 photos/s)
+  W50P_s0_ph4 step 61236/131248 loss 0.9373 held KL 0.9606 ema 0.7067 1539s (10183 photos/s)
+  W50P_s0_ph4 step 65610/131248 loss 0.9294 held KL 0.9092 ema 0.6934 1649s (10183 photos/s)
+  W50P_s0_ph4 step 69984/131248 loss 0.8147 held KL 0.9306 ema 0.6794 1760s (10182 photos/s)
+  W50P_s0_ph4 step 74358/131248 loss 0.7858 held KL 0.8483 ema 0.6682 1870s (10182 photos/s)
+  W50P_s0_ph4 step 78732/131248 loss 0.7328 held KL 0.8205 ema 0.6588 1980s (10181 photos/s)
+  W50P_s0_ph4 step 83106/131248 loss 0.7554 held KL 0.7924 ema 0.6489 2090s (10181 photos/s)
+  W50P_s0_ph4 step 87480/131248 loss 0.7482 held KL 0.7690 ema 0.6389 2200s (10181 photos/s)
+  W50P_s0_ph4 step 91854/131248 loss 0.7496 held KL 0.7537 ema 0.6287 2310s (10180 photos/s)
+  W50P_s0_ph4 step 96228/131248 loss 0.7038 held KL 0.7165 ema 0.6209 2420s (10180 photos/s)
+  W50P_s0_ph4 step 100602/131248 loss 0.6750 held KL 0.6931 ema 0.6147 2530s (10180 photos/s)
+  W50P_s0_ph4 step 104976/131248 loss 0.6947 held KL 0.6525 ema 0.6081 2640s (10180 photos/s)
+  W50P_s0_ph4 step 109350/131248 loss 0.7334 held KL 0.6361 ema 0.6045 2750s (10180 photos/s)
+  W50P_s0_ph4 step 113724/131248 loss 0.5943 held KL 0.6195 ema 0.5996 2860s (10180 photos/s)
+  W50P_s0_ph4 step 118098/131248 loss 0.5886 held KL 0.6106 ema 0.5971 2970s (10180 photos/s)
+  W50P_s0_ph4 step 122472/131248 loss 0.6061 held KL 0.5960 ema 0.5946 3080s (10180 photos/s)
+  W50P_s0_ph4 step 126846/131248 loss 0.5795 held KL 0.5953 ema 0.5932 3190s (10180 photos/s)
+  W50P_s0_ph4 step 131220/131248 loss 0.6209 held KL 0.5936 ema 0.5931 3300s (10180 photos/s)
+  W50P_s0_ph4 step 131248/131248 loss 0.5512 held KL 0.5916 ema 0.5930 3301s (10179 photos/s)
+best W50P_s0_ph4: stop step 131248 (raw), held KL 0.5916, test {'kl': 0.5814386010169983, 'top1': 0.5861999988555908}
